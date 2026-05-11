@@ -1,0 +1,35 @@
+{
+  "name": "Hashbox Studio V2 WordPress Theme",
+  "version": "2.0.0",
+  "description": "Hashbox Studio V2 — A/B variant theme deployed alongside main hashbox-studio theme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tumthaweewat/hashbox-landing-v2.git"
+  },
+  "deployment": {
+    "target": "hashbox.co.th",
+    "path": "/httpdocs/wp-content/themes/hashbox-studio-v2/",
+    "branch": "main",
+    "auto_deploy": true,
+    "exclude": [
+      ".git",
+      ".gitignore",
+      "deploy/",
+      "*.zip",
+      "deploy.sh",
+      "DEPLOYMENT-GUIDE.md",
+      "deploy-config.json"
+    ]
+  },
+  "wordpress": {
+    "theme_name": "Hashbox Studio V2",
+    "theme_uri": "https://hashbox.co.th",
+    "version": "2.0.0",
+    "requires_wp": "6.0",
+    "requires_php": "7.4"
+  },
+  "scripts": {
+    "deploy": "./deploy.sh",
+    "build": "echo 'No build process required for this theme'"
+  }
+}
