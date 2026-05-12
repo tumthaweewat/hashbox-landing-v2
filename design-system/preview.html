@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./primitives.css">
   <link rel="stylesheet" href="./surface.css">
   <link rel="stylesheet" href="./navigation.css">
+  <link rel="stylesheet" href="./interactive.css">
   <style>
     body { padding: 6rem var(--hb-space-6) var(--hb-space-12); }
     .container { max-width: var(--hb-container-lg); margin: 0 auto; }
@@ -761,9 +762,185 @@
     </div>
   </section>
 
+  <!-- ============================================================
+       PHASE 4 — INTERACTIVE
+       ============================================================ -->
+
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">Phase 4 · Interactive · 5 components</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">
+        <span class="hb-gradient-text">Interactive</span> Components
+      </h2>
+      <p class="hb-lead" style="margin-top: var(--hb-space-3);">
+        Accordion (native &lt;details&gt;), Tabs, Tooltip, Modal/Dialog (native &lt;dialog&gt;), Toast.
+      </p>
+    </div>
+  </section>
+
+  <!-- ACCORDION -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">19 / 23</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Accordion / FAQ</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">Native &lt;details&gt; for a11y. No JS. Plus icon → minus icon on open. Smooth rotate animation.</p>
+    </div>
+
+    <div class="hb-accordion">
+      <details class="hb-accordion__item" open>
+        <summary class="hb-accordion__trigger">เว็บที่คุณทำพร้อม SEO จริงไหม?</summary>
+        <div class="hb-accordion__content">
+          <p>ใช่ครับ ทุกเว็บที่ออกจากทีมเราต้องผ่าน Build Gate ก่อน Deploy — Lighthouse 100, Core Web Vitals เขียว, Schema Validator ผ่านทุกหน้า ลูกค้าเริ่มเห็น Impressions เพิ่มภายใน 30-60 วัน</p>
+        </div>
+      </details>
+      <details class="hb-accordion__item">
+        <summary class="hb-accordion__trigger">Tech Stack ที่ใช้คืออะไร?</summary>
+        <div class="hb-accordion__content">
+          <p>เลือกตามโจทย์ — Next.js + Headless CMS สำหรับเว็บที่ต้องการ Performance สูงสุด, WordPress + Custom Theme สำหรับทีมที่ต้องแก้เนื้อหาเองคล่อง</p>
+        </div>
+      </details>
+      <details class="hb-accordion__item">
+        <summary class="hb-accordion__trigger">AI Consulting ครอบคลุมอะไรบ้าง?</summary>
+        <div class="hb-accordion__content">
+          <p>เริ่มจาก AI ROI Discovery → Design Workflow → Implement → Train ทีม ตัวอย่างงาน: LINE Bot 24/7, Sales GPT + RAG, Workflow Automation ผ่าน n8n</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- TABS -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">20 / 23</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Tabs</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">Pill-style segmented control. Use for comparison views (Pricing tiers, Service comparison).</p>
+    </div>
+
+    <div class="hb-tabs" id="demoTabs">
+      <div class="hb-tabs__list" role="tablist">
+        <button class="hb-tabs__trigger" role="tab" aria-selected="true" data-tab="landing">Landing Page</button>
+        <button class="hb-tabs__trigger" role="tab" aria-selected="false" data-tab="corporate">Corporate</button>
+        <button class="hb-tabs__trigger" role="tab" aria-selected="false" data-tab="ecom">E-commerce</button>
+        <button class="hb-tabs__trigger" role="tab" aria-selected="false" data-tab="ai">AI Bot</button>
+      </div>
+      <div class="hb-tabs__panel" data-tab-panel="landing" data-active="true">
+        <div class="hb-card hb-card--elevated">
+          <h3 class="hb-card__title">Landing Page Package</h3>
+          <p class="hb-card__body">เริ่มต้น 80,000 บาท · ใช้เวลา 2-3 สัปดาห์ · ส่งมอบ Next.js + Lighthouse 100 + GA4 + GSC</p>
+        </div>
+      </div>
+      <div class="hb-tabs__panel" data-tab-panel="corporate">
+        <div class="hb-card hb-card--elevated">
+          <h3 class="hb-card__title">Corporate Site Package</h3>
+          <p class="hb-card__body">เริ่มต้น 200,000 บาท · ใช้เวลา 4-6 สัปดาห์ · Headless WP + Next.js + Multilingual + Schema เต็มชุด</p>
+        </div>
+      </div>
+      <div class="hb-tabs__panel" data-tab-panel="ecom">
+        <div class="hb-card hb-card--elevated">
+          <h3 class="hb-card__title">E-commerce Package</h3>
+          <p class="hb-card__body">เริ่มต้น 350,000 บาท · ใช้เวลา 6-10 สัปดาห์ · เชื่อม Payment Gateway ไทย + Stock + CRO Sprint 3 เดือนแรกฟรี</p>
+        </div>
+      </div>
+      <div class="hb-tabs__panel" data-tab-panel="ai">
+        <div class="hb-card hb-card--elevated">
+          <h3 class="hb-card__title">AI Bot Package</h3>
+          <p class="hb-card__body">เริ่มต้น 150,000 บาท · ใช้เวลา 3-5 สัปดาห์ · OpenAI/Claude + RAG + LINE Messaging API + Knowledge Transfer</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLTIPS -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">21 / 23</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Tooltip</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">Pure CSS via <code style="background: var(--hb-surface-2); padding: 2px 6px; border-radius: 4px; font-family: var(--hb-font-mono); font-size: 0.9em;">data-tooltip</code> attr. No JS. Works on hover + focus.</p>
+    </div>
+
+    <div class="demo-row" style="padding: var(--hb-space-12) var(--hb-space-4);">
+      <button class="hb-btn hb-btn--outline" data-tooltip="Lighthouse 100 ทั้ง 4 หมวด">Build Gate</button>
+      <button class="hb-btn hb-btn--outline" data-tooltip="Conversion Rate Optimization">CRO</button>
+      <button class="hb-btn hb-btn--outline" data-tooltip="Retrieval-Augmented Generation">RAG</button>
+      <button class="hb-btn hb-btn--outline" data-tooltip="ไม่ใช่ Slide. ลงมือ Implement จริงใน Production">AI Workforce</button>
+      <button class="hb-btn hb-btn--outline" data-tooltip="LINE Bot + OpenAI + Schema-ready" data-tooltip-placement="bottom">Hover bottom</button>
+    </div>
+  </section>
+
+  <!-- MODAL -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">22 / 23</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Modal / Dialog</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">Native &lt;dialog&gt; element. ESC closes. Backdrop blur built-in.</p>
+    </div>
+
+    <div class="demo-row">
+      <button class="hb-btn hb-btn--gradient" id="openDialogBtn">Open Audit form</button>
+      <button class="hb-btn hb-btn--outline" id="openInfoDialogBtn">Show info</button>
+    </div>
+
+    <dialog class="hb-dialog" id="demoDialog">
+      <div class="hb-dialog__head">
+        <h3 class="hb-dialog__title">รับ SEO Audit ฟรี</h3>
+        <button class="hb-dialog__close" data-dialog-close="demoDialog" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="hb-dialog__body">
+        <p class="hb-body" style="margin-bottom: var(--hb-space-4);">กรอกชื่อและ URL เว็บไซต์ปัจจุบัน ทีมเราจะวัด Baseline แล้วส่งรายงาน 15-20 หน้าให้ภายใน 3 วันทำการ</p>
+        <div class="hb-field">
+          <label class="hb-label" for="dlg-name">ชื่อ <span class="hb-label__required">*</span></label>
+          <input id="dlg-name" class="hb-input" type="text" placeholder="ชื่อ-นามสกุล">
+        </div>
+        <div class="hb-field" style="margin-top: var(--hb-space-4);">
+          <label class="hb-label" for="dlg-url">URL เว็บไซต์</label>
+          <input id="dlg-url" class="hb-input" type="url" placeholder="https://yoursite.com">
+        </div>
+      </div>
+      <div class="hb-dialog__footer">
+        <button class="hb-btn hb-btn--ghost" data-dialog-close="demoDialog">ยกเลิก</button>
+        <button class="hb-btn hb-btn--primary">ส่งรับ Audit</button>
+      </div>
+    </dialog>
+
+    <dialog class="hb-dialog" id="infoDialog">
+      <div class="hb-dialog__head">
+        <h3 class="hb-dialog__title">เกี่ยวกับ Build Gate</h3>
+        <button class="hb-dialog__close" data-dialog-close="infoDialog" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="hb-dialog__body">
+        <p class="hb-body">Build Gate คือมาตรฐานที่บังคับใน CI Pipeline ของเรา ทุก Pull Request ต้องผ่าน Lighthouse 100 ทั้ง 4 หมวด, CWV เขียว, และ Schema Validator ก่อนจะ Merge เข้า Production ได้</p>
+      </div>
+      <div class="hb-dialog__footer">
+        <button class="hb-btn hb-btn--outline" data-dialog-close="infoDialog">เข้าใจแล้ว</button>
+      </div>
+    </dialog>
+  </section>
+
+  <!-- TOAST -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">23 / 23</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Toast</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">Stack at bottom-right. 4 variants: info / success / warning / danger.</p>
+    </div>
+
+    <div class="demo-row">
+      <button class="hb-btn hb-btn--outline" data-toast="info">Show info toast</button>
+      <button class="hb-btn hb-btn--success" data-toast="success">Show success</button>
+      <button class="hb-btn hb-btn--outline" data-toast="warning">Show warning</button>
+      <button class="hb-btn hb-btn--danger" data-toast="danger">Show danger</button>
+    </div>
+
+    <div class="hb-toast-stack" id="toastStack"></div>
+  </section>
+
   <footer class="section">
     <p class="hb-caption">
-      Hashbox Studio V2 · Design System · <strong style="color: var(--hb-text-strong);">Phase 1 + 2 + 3 complete · 18 components</strong> · Footer below ↓
+      Hashbox Studio V2 · Design System · <strong style="color: var(--hb-text-strong);">Phase 1 + 2 + 3 + 4 complete · 23 components</strong> · Footer below ↓
     </p>
   </footer>
 
@@ -857,6 +1034,76 @@
   backdrop.addEventListener('click', () => setOpen(false));
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && sheet.dataset.open === 'true') setOpen(false);
+  });
+
+  // Tabs toggle
+  document.querySelectorAll('#demoTabs .hb-tabs__trigger').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      document.querySelectorAll('#demoTabs .hb-tabs__trigger').forEach((b) => b.setAttribute('aria-selected', String(b === btn)));
+      document.querySelectorAll('#demoTabs .hb-tabs__panel').forEach((p) => p.dataset.active = String(p.dataset.tabPanel === tab));
+    });
+  });
+
+  // Dialog open/close
+  document.getElementById('openDialogBtn')?.addEventListener('click', () => document.getElementById('demoDialog').showModal());
+  document.getElementById('openInfoDialogBtn')?.addEventListener('click', () => document.getElementById('infoDialog').showModal());
+  document.querySelectorAll('[data-dialog-close]').forEach((b) => b.addEventListener('click', () => document.getElementById(b.dataset.dialogClose).close()));
+
+  // Toast spawner — builds DOM via createElement (no innerHTML for XSS safety)
+  const toastStack = document.getElementById('toastStack');
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const svgEl = (paths, w, h) => {
+    const svg = document.createElementNS(SVG_NS, 'svg');
+    svg.setAttribute('width', w || 20);
+    svg.setAttribute('height', h || 20);
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '1.75');
+    paths.forEach((p) => {
+      const el = document.createElementNS(SVG_NS, p.tag);
+      Object.entries(p.attrs).forEach(([k, v]) => el.setAttribute(k, v));
+      svg.appendChild(el);
+    });
+    return svg;
+  };
+  const toastMeta = {
+    info:    { title: 'หมายเหตุ',     desc: 'ระบบจะส่งรายงาน Audit ภายใน 3 วันทำการ', icon: () => svgEl([{ tag: 'circle', attrs: { cx: 12, cy: 12, r: 10 } }, { tag: 'line', attrs: { x1: 12, y1: 16, x2: 12, y2: 12 } }, { tag: 'line', attrs: { x1: 12, y1: 8, x2: 12.01, y2: 8 } }]) },
+    success: { title: 'ส่งสำเร็จ',     desc: 'ทีมเราจะตอบกลับใน 24 ชั่วโมง',          icon: () => svgEl([{ tag: 'polyline', attrs: { points: '20 6 9 17 4 12' } }]) },
+    warning: { title: 'ตรวจสอบข้อมูล', desc: 'กรุณายืนยันยินยอม PDPA ก่อนส่ง',        icon: () => svgEl([{ tag: 'path', attrs: { d: 'M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z' } }, { tag: 'line', attrs: { x1: 12, y1: 9, x2: 12, y2: 13 } }, { tag: 'line', attrs: { x1: 12, y1: 17, x2: 12.01, y2: 17 } }]) },
+    danger:  { title: 'ส่งไม่สำเร็จ',  desc: 'ตรวจสอบการเชื่อมต่อแล้วลองใหม่อีกครั้ง', icon: () => svgEl([{ tag: 'circle', attrs: { cx: 12, cy: 12, r: 10 } }, { tag: 'line', attrs: { x1: 15, y1: 9, x2: 9, y2: 15 } }, { tag: 'line', attrs: { x1: 9, y1: 9, x2: 15, y2: 15 } }]) },
+  };
+  const buildToast = (variant) => {
+    const m = toastMeta[variant];
+    const root = document.createElement('div');
+    root.className = 'hb-toast hb-toast--' + variant;
+    const iconWrap = document.createElement('div');
+    iconWrap.className = 'hb-toast__icon';
+    iconWrap.appendChild(m.icon());
+    const body = document.createElement('div');
+    body.className = 'hb-toast__body';
+    const title = document.createElement('span');
+    title.className = 'hb-toast__title';
+    title.textContent = m.title;
+    const desc = document.createElement('p');
+    desc.className = 'hb-toast__desc';
+    desc.textContent = m.desc;
+    body.append(title, desc);
+    const close = document.createElement('button');
+    close.className = 'hb-toast__close';
+    close.setAttribute('aria-label', 'Close');
+    close.appendChild(svgEl([{ tag: 'line', attrs: { x1: 18, y1: 6, x2: 6, y2: 18 } }, { tag: 'line', attrs: { x1: 6, y1: 6, x2: 18, y2: 18 } }], 14, 14));
+    close.addEventListener('click', () => root.remove());
+    root.append(iconWrap, body, close);
+    return root;
+  };
+  document.querySelectorAll('[data-toast]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const t = buildToast(btn.dataset.toast);
+      toastStack.appendChild(t);
+      setTimeout(() => t.remove(), 4500);
+    });
   });
 </script>
 

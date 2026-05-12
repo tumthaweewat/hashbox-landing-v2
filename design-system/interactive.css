@@ -1,0 +1,382 @@
+/* =========================================================================
+ * Hashbox V2 — Phase 4 Interactive Components
+ * Depends on: tokens.css
+ *
+ * Components:
+ *   19. Accordion / FAQ (.hb-accordion + .hb-accordion__item)
+ *   20. Tabs (.hb-tabs + .hb-tabs__list + .hb-tabs__panel)
+ *   21. Tooltip (.hb-tooltip)
+ *   22. Modal / Dialog (.hb-dialog)
+ *   23. Toast (.hb-toast + .hb-toast-stack)
+ * ========================================================================= */
+
+/* -------------------------------------------------------------------------
+ * 19. ACCORDION / FAQ
+ * Uses native <details>/<summary> for a11y + no JS needed
+ * ----------------------------------------------------------------------- */
+
+.hb-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hb-space-3);
+}
+
+.hb-accordion__item {
+  background: var(--hb-surface-1);
+  border: 1px solid var(--hb-border);
+  border-radius: var(--hb-radius-md);
+  overflow: hidden;
+  transition: border-color var(--hb-duration-fast) var(--hb-ease-out);
+}
+
+.hb-accordion__item[open] {
+  border-color: var(--hb-border-strong);
+  background: var(--hb-surface-2);
+}
+
+.hb-accordion__item:hover {
+  border-color: var(--hb-border-strong);
+}
+
+.hb-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--hb-space-4);
+  padding: var(--hb-space-4) var(--hb-space-5);
+  font-family: var(--hb-font-display);
+  font-size: var(--hb-text-base);
+  font-weight: var(--hb-weight-medium);
+  color: var(--hb-text-strong);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.hb-accordion__trigger::-webkit-details-marker { display: none; }
+.hb-accordion__trigger::marker { content: ''; }
+
+.hb-accordion__trigger::after {
+  content: '';
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='12' y1='5' x2='12' y2='19' stroke='%23A1A1AA' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='5' y1='12' x2='19' y2='12' stroke='%23A1A1AA' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transition: transform var(--hb-duration-normal) var(--hb-ease-out-expo);
+}
+
+.hb-accordion__item[open] .hb-accordion__trigger::after {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='5' y1='12' x2='19' y2='12' stroke='%233B82F6' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  transform: rotate(180deg);
+}
+
+.hb-accordion__content {
+  padding: 0 var(--hb-space-5) var(--hb-space-5);
+  color: var(--hb-text);
+  font-size: var(--hb-text-base);
+  line-height: var(--hb-leading-relaxed);
+}
+
+.hb-accordion__content p {
+  margin: 0;
+}
+
+.hb-accordion__content p + p {
+  margin-top: var(--hb-space-3);
+}
+
+/* -------------------------------------------------------------------------
+ * 20. TABS
+ * ----------------------------------------------------------------------- */
+
+.hb-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hb-space-6);
+}
+
+.hb-tabs__list {
+  display: inline-flex;
+  gap: var(--hb-space-1);
+  padding: var(--hb-space-1);
+  background: var(--hb-surface-1);
+  border: 1px solid var(--hb-border);
+  border-radius: var(--hb-radius-md);
+  width: fit-content;
+  flex-wrap: wrap;
+}
+
+.hb-tabs__trigger {
+  font-family: var(--hb-font-body);
+  font-size: var(--hb-text-sm);
+  font-weight: var(--hb-weight-medium);
+  color: var(--hb-text-muted);
+  background: transparent;
+  border: none;
+  padding: var(--hb-space-2) var(--hb-space-4);
+  border-radius: var(--hb-radius-sm);
+  cursor: pointer;
+  transition: color var(--hb-duration-fast) var(--hb-ease-out),
+              background var(--hb-duration-fast) var(--hb-ease-out);
+}
+
+.hb-tabs__trigger:hover {
+  color: var(--hb-text-strong);
+}
+
+.hb-tabs__trigger[aria-selected="true"] {
+  color: var(--hb-text-strong);
+  background: var(--hb-surface-3);
+  box-shadow: var(--hb-shadow-xs);
+}
+
+.hb-tabs__panel {
+  display: none;
+}
+
+.hb-tabs__panel[data-active="true"] {
+  display: block;
+  animation: hb-fade-in var(--hb-duration-normal) var(--hb-ease-out);
+}
+
+@keyframes hb-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* -------------------------------------------------------------------------
+ * 21. TOOLTIP
+ * Uses [data-tooltip] attribute on any element. No JS.
+ * ----------------------------------------------------------------------- */
+
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::before,
+[data-tooltip]::after {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--hb-duration-fast) var(--hb-ease-out),
+              transform var(--hb-duration-fast) var(--hb-ease-out);
+  z-index: var(--hb-z-tooltip);
+}
+
+[data-tooltip]::before {
+  content: attr(data-tooltip);
+  white-space: nowrap;
+  background: var(--hb-surface-3);
+  color: var(--hb-text-strong);
+  font-family: var(--hb-font-body);
+  font-size: var(--hb-text-xs);
+  font-weight: var(--hb-weight-medium);
+  line-height: 1.4;
+  padding: var(--hb-space-2) var(--hb-space-3);
+  border-radius: var(--hb-radius-sm);
+  border: 1px solid var(--hb-border-strong);
+  box-shadow: var(--hb-shadow-md);
+  transform: translateX(-50%) translateY(4px);
+}
+
+[data-tooltip]::after {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--hb-surface-3);
+  border-right: 1px solid var(--hb-border-strong);
+  border-bottom: 1px solid var(--hb-border-strong);
+  transform: translateX(-50%) translateY(4px) rotate(45deg);
+  bottom: calc(100% + 4px);
+}
+
+[data-tooltip]:hover::before,
+[data-tooltip]:hover::after,
+[data-tooltip]:focus-visible::before,
+[data-tooltip]:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+[data-tooltip]:hover::after,
+[data-tooltip]:focus-visible::after {
+  transform: translateX(-50%) translateY(0) rotate(45deg);
+}
+
+/* Tooltip placement variants */
+[data-tooltip-placement="bottom"]::before,
+[data-tooltip-placement="bottom"]::after {
+  bottom: auto;
+  top: calc(100% + 8px);
+}
+[data-tooltip-placement="bottom"]::after {
+  top: calc(100% + 4px);
+  border: none;
+  border-left: 1px solid var(--hb-border-strong);
+  border-top: 1px solid var(--hb-border-strong);
+}
+
+/* -------------------------------------------------------------------------
+ * 22. MODAL / DIALOG
+ * Uses native <dialog> element for a11y. Polyfill not required for modern.
+ * ----------------------------------------------------------------------- */
+
+.hb-dialog {
+  width: min(32rem, 90vw);
+  max-height: 85vh;
+  margin: auto;
+  padding: 0;
+  background: var(--hb-surface-1);
+  color: var(--hb-text);
+  border: 1px solid var(--hb-border);
+  border-radius: var(--hb-radius-xl);
+  box-shadow: var(--hb-shadow-xl);
+  overflow: hidden;
+}
+
+.hb-dialog::backdrop {
+  background: oklch(0% 0 0 / 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.hb-dialog[open] {
+  animation: hb-dialog-in var(--hb-duration-normal) var(--hb-ease-out-expo);
+}
+
+@keyframes hb-dialog-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.hb-dialog__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--hb-space-5) var(--hb-space-6);
+  border-bottom: 1px solid var(--hb-border);
+}
+
+.hb-dialog__title {
+  font-family: var(--hb-font-display);
+  font-size: var(--hb-text-lg);
+  font-weight: var(--hb-weight-semibold);
+  color: var(--hb-text-strong);
+  margin: 0;
+}
+
+.hb-dialog__close {
+  width: 2rem; height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--hb-border);
+  border-radius: var(--hb-radius-sm);
+  cursor: pointer;
+  color: var(--hb-text);
+}
+.hb-dialog__close:hover { background: var(--hb-surface-2); color: var(--hb-text-strong); }
+
+.hb-dialog__body {
+  padding: var(--hb-space-6);
+  overflow-y: auto;
+}
+
+.hb-dialog__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--hb-space-3);
+  padding: var(--hb-space-4) var(--hb-space-6);
+  border-top: 1px solid var(--hb-border);
+  background: var(--hb-surface-2);
+}
+
+/* -------------------------------------------------------------------------
+ * 23. TOAST
+ * Use .hb-toast-stack as the container at fixed corner.
+ * ----------------------------------------------------------------------- */
+
+.hb-toast-stack {
+  position: fixed;
+  bottom: var(--hb-space-5);
+  right: var(--hb-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--hb-space-3);
+  z-index: var(--hb-z-toast);
+  pointer-events: none;
+}
+
+.hb-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--hb-space-3);
+  min-width: 18rem;
+  max-width: 26rem;
+  padding: var(--hb-space-3) var(--hb-space-4);
+  background: var(--hb-surface-2);
+  color: var(--hb-text-strong);
+  border: 1px solid var(--hb-border-strong);
+  border-radius: var(--hb-radius-md);
+  box-shadow: var(--hb-shadow-lg);
+  animation: hb-toast-in var(--hb-duration-normal) var(--hb-ease-out-expo);
+}
+
+@keyframes hb-toast-in {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.hb-toast__icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--hb-accent-blue);
+}
+
+.hb-toast--success .hb-toast__icon { color: var(--hb-accent-emerald); }
+.hb-toast--warning .hb-toast__icon { color: var(--hb-accent-amber); }
+.hb-toast--danger  .hb-toast__icon { color: var(--hb-accent-rose); }
+
+.hb-toast__body {
+  flex: 1;
+  font-size: var(--hb-text-sm);
+  line-height: var(--hb-leading-snug);
+}
+
+.hb-toast__title {
+  font-weight: var(--hb-weight-semibold);
+  color: var(--hb-text-strong);
+  margin: 0 0 2px;
+  display: block;
+}
+
+.hb-toast__desc {
+  color: var(--hb-text-muted);
+  font-size: var(--hb-text-xs);
+  margin: 0;
+}
+
+.hb-toast__close {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--hb-text-faint);
+  padding: 0;
+}
+.hb-toast__close:hover { color: var(--hb-text-strong); }
