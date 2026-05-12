@@ -610,8 +610,47 @@ function hashbox_inject_home_schema() {
 add_action( 'wp_head', 'hashbox_inject_home_schema', 20 );
 
 /**
+ * Source-of-truth FAQ data. Used both for visible accordion AND FAQPage
+ * schema. Defined here (not in faq.php) so it loads before wp_head fires.
+ */
+if ( ! function_exists( 'hashbox_get_home_faqs' ) ) {
+    function hashbox_get_home_faqs() {
+        return array(
+            array(
+                'q' => 'เว็บที่คุณทำพร้อม SEO จริงไหม ใช้เวลานานแค่ไหนถึงเห็นผล?',
+                'a' => 'ใช่ครับ ทุกเว็บที่ออกจากทีมเราต้องผ่าน Build Gate ซึ่งบังคับให้ Lighthouse 100, Core Web Vitals เขียว และ Schema Validator ผ่านทุกหน้า ก่อนจะ Deploy ขึ้น Production ลูกค้าส่วนใหญ่จะเริ่มเห็น Impressions เพิ่มภายใน 30-60 วัน และ Ranking ขยับใน 60-90 วัน ทั้งนี้ก็ขึ้นกับ Niche และ Domain Authority เดิมของแต่ละเว็บด้วย',
+            ),
+            array(
+                'q' => 'Tech Stack ที่ใช้คืออะไร?',
+                'a' => 'ขึ้นอยู่กับโจทย์ของแต่ละโปรเจกต์ ถ้าต้องการ Performance สูงสุด เราใช้ Next.js เชื่อมกับ Headless CMS แต่ถ้าทีมลูกค้าต้องการแก้เนื้อหาเองคล่อง ๆ เราเลือก WordPress พร้อม Custom Theme ส่วนระบบ Hosting จะวางบน Cloudflare หรือ Vercel ส่วน Analytics ใช้ GA4 ผูกกับ Search Console และ Looker Studio ทุกครั้งครับ',
+            ),
+            array(
+                'q' => 'Digital Marketing Tools และ CRO ทำอะไรบ้าง?',
+                'a' => 'นอกจากจะติดตั้งและ Config เครื่องมือ Tracking ครบวงจรให้แล้ว ทีมเรายังรัน CRO Sprint รายเดือนต่อเนื่อง เริ่มจากการตั้งสมมติฐานจาก Data จริง รัน A/B Test แล้ววัดผล ส่ง Report พร้อมคำแนะนำที่นำไป Ship ได้ทันที ลูกค้าจึงได้ทั้งเครื่องมือและ Insight ไม่ใช่แค่ติดตั้งทิ้งไว้แล้วจบครับ',
+            ),
+            array(
+                'q' => 'AI Consulting ครอบคลุมอะไรบ้าง?',
+                'a' => 'เราเริ่มจากการประเมิน AI ROI ของแต่ละ Use Case ก่อนเสมอ ถ้าผ่านเกณฑ์จึงค่อยออกแบบ Workflow และลงมือ Implement ตัวอย่างงานที่ทีมเราเคยส่งมอบ มีตั้งแต่ LINE Bot ที่ตอบลูกค้า 24/7, Sales GPT ที่เชื่อมกับ CRM ของลูกค้า, RAG Knowledge Base ภายในองค์กร ไปจนถึง Workflow Automation ผ่าน n8n ที่ลดงาน Manual ของทีมได้ 40% ขึ้นไปครับ',
+            ),
+            array(
+                'q' => 'โปรเจกต์ใช้เวลานานเท่าไหร่?',
+                'a' => 'Timeline จะแตกต่างกันตามขนาดและ Scope ของโปรเจกต์ Landing Page ปกติใช้เวลา 2-3 สัปดาห์ ส่วน Corporate Site อยู่ที่ 4-6 สัปดาห์ E-commerce ที่ต้องเชื่อม Payment + Stock จะใช้เวลา 6-10 สัปดาห์ และ AI Bot อยู่ที่ 3-5 สัปดาห์ ขึ้นกับจำนวน Integration ที่ต้องเชื่อมต่อกับระบบเดิมของลูกค้าครับ',
+            ),
+            array(
+                'q' => 'ราคาเริ่มต้นเท่าไหร่?',
+                'a' => 'Landing Page เริ่มที่ 80,000 บาท Corporate Site เริ่มที่ 200,000 บาท E-commerce เริ่มที่ 350,000 บาท ส่วน AI Consulting Retainer เริ่มที่ 50,000 บาทต่อเดือน ทุกใบเสนอราคาจะออกหลังการ Audit ฟรีเสมอ เพื่อให้ลูกค้าเห็นภาพชัดก่อนตัดสินใจครับ',
+            ),
+            array(
+                'q' => 'มี Support หลังส่งมอบไหม?',
+                'a' => 'มีครับ ลูกค้าเลือกได้ระหว่างแพ็กเกจ One-time Maintenance สำหรับงานปรับปรุงรายครั้ง Monthly Retainer ที่ดูแล Performance, CRO และ Content ต่อเนื่อง หรือ AI Workforce Retainer ที่ทีมเราดูแล AI Bot และ Optimize ให้ตลอด ทุกแพ็กเกจมี SLA ตอบกลับชัดเจน และมี Dashboard ที่ลูกค้าดูผลได้แบบ Real-time',
+            ),
+        );
+    }
+}
+
+/**
  * Inject FAQPage schema on the homepage using the same FAQ source as the
- * visible markup in template-parts/faq.php. Keeps content + schema in sync.
+ * visible accordion. Keeps content + schema in sync.
  */
 function hashbox_inject_home_faq_schema() {
     if ( ! is_front_page() ) {
