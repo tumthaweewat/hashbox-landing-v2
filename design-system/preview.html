@@ -6,6 +6,7 @@
   <title>Hashbox V2 — Phase 1 Primitives Preview</title>
   <link rel="stylesheet" href="./tokens.css">
   <link rel="stylesheet" href="./primitives.css">
+  <link rel="stylesheet" href="./surface.css">
   <style>
     body { padding: var(--hb-space-12) var(--hb-space-6); }
     .container { max-width: var(--hb-container-lg); margin: 0 auto; }
@@ -342,9 +343,300 @@
     </div>
   </section>
 
+  <!-- ============================================================
+       PHASE 2 — SURFACE COMPONENTS
+       ============================================================ -->
+
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">Phase 2 · Surface · 7 components</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">
+        <span class="hb-gradient-text">Surface</span> Components
+      </h2>
+      <p class="hb-lead" style="margin-top: var(--hb-space-3);">
+        Containers, sections, cards, the signature Bento Grid, and Stat Block.
+      </p>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">08 / 14</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Card variants</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">Base · Glass · Elevated · Gradient border · Interactive (clickable)</p>
+    </div>
+
+    <div class="grid grid--3">
+
+      <div class="hb-card">
+        <div class="hb-card__header">
+          <div class="hb-card__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3 class="hb-card__title">Base Card</h3>
+        </div>
+        <p class="hb-card__body">Surface-1 background, 1px subtle border, inset highlight shadow. Default container for content blocks.</p>
+        <div class="hb-card__footer">
+          <span class="hb-badge hb-badge--blue">Default</span>
+        </div>
+      </div>
+
+      <div class="hb-card hb-card--glass">
+        <div class="hb-card__header">
+          <div class="hb-card__icon" style="color: var(--hb-accent-violet);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8"/></svg>
+          </div>
+          <h3 class="hb-card__title">Glass Card</h3>
+        </div>
+        <p class="hb-card__body">Backdrop-filter blur 24px. Use as overlay on top of gradient or image backgrounds.</p>
+        <div class="hb-card__footer">
+          <span class="hb-badge hb-badge--violet">Translucent</span>
+        </div>
+      </div>
+
+      <div class="hb-card hb-card--elevated">
+        <div class="hb-card__header">
+          <div class="hb-card__icon" style="color: var(--hb-accent-cyan);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3 17 9 11 13 15 21 7"/></svg>
+          </div>
+          <h3 class="hb-card__title">Elevated Card</h3>
+        </div>
+        <p class="hb-card__body">Surface-2 background + md shadow. Use for cards that need to pop in a busy section.</p>
+        <div class="hb-card__footer">
+          <span class="hb-badge hb-badge--cyan">Raised</span>
+        </div>
+      </div>
+
+      <div class="hb-card hb-card--gradient-border">
+        <div class="hb-card__accent"></div>
+        <div class="hb-card__header">
+          <div class="hb-card__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 8.5 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 9 8.5"/></svg></div>
+          <h3 class="hb-card__title">Gradient Border</h3>
+        </div>
+        <p class="hb-card__body">Hover this card — gradient ring sweeps the border via mask-image. Top accent bar always visible.</p>
+        <div class="hb-card__footer"><span class="hb-badge hb-badge--cyan">Hover me</span></div>
+      </div>
+
+      <a href="#" class="hb-card hb-card--interactive" style="text-decoration: none; color: inherit;">
+        <div class="hb-card__header">
+          <div class="hb-card__icon" style="color: var(--hb-accent-emerald);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <h3 class="hb-card__title">Interactive Card</h3>
+        </div>
+        <p class="hb-card__body">Wrap an &lt;a&gt; tag. Hover lifts 2px, shadow grows. Used for Case Study Card / Service Card.</p>
+        <div class="hb-card__footer">
+          <span class="hb-caption">Click anywhere &rarr;</span>
+        </div>
+      </a>
+
+      <div class="hb-card hb-card--elevated">
+        <div class="hb-card__accent hb-card__accent--amber"></div>
+        <div class="hb-card__header">
+          <div class="hb-card__icon" style="color: var(--hb-accent-amber);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v6m0 8v6m10-10h-6M8 12H2"/></svg>
+          </div>
+          <h3 class="hb-card__title">Custom Accent</h3>
+        </div>
+        <p class="hb-card__body">Top accent bar in 5 brand colors. Use to categorize content (Web / Marketing / AI etc.).</p>
+        <div class="hb-card__footer"><span class="hb-badge hb-badge--amber">Accent variant</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BENTO GRID -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">11 / 14 · Signature</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Bento Grid</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">CSS Grid 4-col responsive. Span utilities: --c2, --c3, --c4, --r2, --r3. Used on home + work hub.</p>
+    </div>
+
+    <div class="hb-bento">
+
+      <div class="hb-bento__cell hb-bento__cell--c2 hb-bento__cell--feature">
+        <span class="hb-bento__label">FEATURE · SPAN 2</span>
+        <h3 class="hb-h3" style="margin-top: auto;">SEO-Ready Website</h3>
+        <p class="hb-body">เว็บที่พร้อมติด Google ตั้งแต่วันแรก ผ่านมาตรฐาน Lighthouse 100 และ Core Web Vitals เขียว</p>
+        <div class="hb-rail" style="margin-top: var(--hb-space-3);">
+          <span class="hb-badge hb-badge--blue">Next.js</span>
+          <span class="hb-badge hb-badge--cyan">WordPress Headless</span>
+        </div>
+      </div>
+
+      <div class="hb-bento__cell">
+        <span class="hb-bento__label">CELL</span>
+        <div class="hb-stat" style="margin-top: auto;">
+          <span class="hb-stat__value hb-stat__value--gradient">17<span class="hb-stat__unit">yr</span></span>
+          <span class="hb-stat__label">ประสบการณ์ทีม</span>
+        </div>
+      </div>
+
+      <div class="hb-bento__cell">
+        <span class="hb-bento__label">CELL</span>
+        <div class="hb-stat" style="margin-top: auto;">
+          <span class="hb-stat__value">300<span class="hb-stat__unit">+</span></span>
+          <span class="hb-stat__label">แบรนด์ที่ผ่านมือ</span>
+        </div>
+      </div>
+
+      <div class="hb-bento__cell hb-bento__cell--c2">
+        <span class="hb-bento__label">SPAN 2</span>
+        <h3 class="hb-h4" style="margin-top: auto;">Digital Marketing + CRO</h3>
+        <p class="hb-caption">GA4 + Heatmap + A/B Testing + CRO Sprint รายเดือน</p>
+        <div class="hb-rail">
+          <span class="hb-badge hb-badge--cyan">GA4</span>
+          <span class="hb-badge hb-badge--cyan">GrowthBook</span>
+          <span class="hb-badge hb-badge--cyan">Clarity</span>
+        </div>
+      </div>
+
+      <div class="hb-bento__cell">
+        <span class="hb-bento__label">CELL</span>
+        <div class="hb-stat" style="margin-top: auto;">
+          <span class="hb-stat__value">100</span>
+          <span class="hb-stat__label">Lighthouse Score</span>
+          <span class="hb-stat__delta hb-stat__delta--up">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 15 12 9 18 15"/></svg>
+            target met
+          </span>
+        </div>
+      </div>
+
+      <div class="hb-bento__cell hb-bento__cell--c4 hb-bento__cell--feature">
+        <span class="hb-bento__label">FULL WIDTH</span>
+        <h3 class="hb-h3">AI Expert Consulting</h3>
+        <p class="hb-lead">ที่ปรึกษา AI ที่ลงมือเขียนโค้ดและส่งมอบของจริงให้ลูกค้าใช้งานใน Production — ไม่ใช่จบที่ Slide</p>
+        <div class="hb-rail" style="margin-top: var(--hb-space-3);">
+          <span class="hb-badge hb-badge--violet">OpenAI</span>
+          <span class="hb-badge hb-badge--violet">Claude</span>
+          <span class="hb-badge hb-badge--violet">LangChain</span>
+          <span class="hb-badge hb-badge--violet">RAG</span>
+          <span class="hb-badge hb-badge--violet">LINE Messaging API</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STAT BLOCKS -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">12 / 14</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Stat Block</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">JetBrains Mono numerals · tabular-nums · gradient text variant · delta indicators</p>
+    </div>
+
+    <div class="hb-stats__grid hb-stats__grid--divided">
+      <div class="hb-stat">
+        <span class="hb-stat__value">17<span class="hb-stat__unit">yr</span></span>
+        <p class="hb-stat__label">ประสบการณ์รวม</p>
+        <p class="hb-stat__caption">Agency 7 + Corporate 10</p>
+      </div>
+      <div class="hb-stat">
+        <span class="hb-stat__value">300<span class="hb-stat__unit">+</span></span>
+        <p class="hb-stat__label">แบรนด์ที่ดูแล</p>
+        <span class="hb-stat__delta hb-stat__delta--up">cumulative</span>
+      </div>
+      <div class="hb-stat">
+        <span class="hb-stat__value">100</span>
+        <p class="hb-stat__label">Lighthouse Score</p>
+        <p class="hb-stat__caption">ทุกหมวด, ทุก URL</p>
+      </div>
+      <div class="hb-stat">
+        <span class="hb-stat__value hb-stat__value--gradient">90<span class="hb-stat__unit">วัน</span></span>
+        <p class="hb-stat__label">เห็นผล SEO</p>
+        <p class="hb-stat__caption">เฉลี่ยจากลูกค้าจริง</p>
+      </div>
+    </div>
+
+    <div class="hb-stats__grid" style="margin-top: var(--hb-space-12);">
+      <div class="hb-card hb-card--elevated">
+        <div class="hb-stat">
+          <span class="hb-stat__value" style="font-size: var(--hb-text-4xl);">+2,200<span class="hb-stat__unit">%</span></span>
+          <p class="hb-stat__label">Search Impressions</p>
+          <p class="hb-stat__caption">12 เดือน · HR-Tech Platform</p>
+          <span class="hb-stat__delta hb-stat__delta--up">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 15 12 9 18 15"/></svg>
+            YoY
+          </span>
+        </div>
+      </div>
+      <div class="hb-card hb-card--elevated">
+        <div class="hb-stat">
+          <span class="hb-stat__value" style="font-size: var(--hb-text-4xl);">−60<span class="hb-stat__unit">%</span></span>
+          <p class="hb-stat__label">Support Cost</p>
+          <p class="hb-stat__caption">8 weeks · AutoBot LINE</p>
+          <span class="hb-stat__delta hb-stat__delta--down">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"/></svg>
+            cost down = good
+          </span>
+        </div>
+      </div>
+      <div class="hb-card hb-card--elevated">
+        <div class="hb-stat">
+          <span class="hb-stat__value hb-stat__value--gradient" style="font-size: var(--hb-text-4xl);">3<span class="hb-stat__unit">×</span></span>
+          <p class="hb-stat__label">Conversion Rate</p>
+          <p class="hb-stat__caption">6 เดือน · Flow Store</p>
+          <span class="hb-stat__delta hb-stat__delta--up">CRO Sprint</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDERS + RAIL -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">13-14 / 14</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Divider + Rail</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">Small utilities used between sections + for tag rails</p>
+    </div>
+
+    <div>
+      <span class="demo-label">Standard divider</span>
+      <hr class="hb-divider">
+    </div>
+
+    <div>
+      <span class="demo-label">Gradient divider</span>
+      <hr class="hb-divider hb-divider--gradient">
+    </div>
+
+    <div style="margin-top: var(--hb-space-8);">
+      <span class="demo-label">Tag rail (wraps)</span>
+      <div class="hb-rail" style="margin-top: var(--hb-space-3);">
+        <span class="hb-badge hb-badge--blue">Next.js 15</span>
+        <span class="hb-badge hb-badge--blue">React 19</span>
+        <span class="hb-badge hb-badge--cyan">Tailwind v4</span>
+        <span class="hb-badge hb-badge--cyan">WordPress Headless</span>
+        <span class="hb-badge hb-badge--violet">OpenAI GPT-4.1</span>
+        <span class="hb-badge hb-badge--violet">Claude Sonnet</span>
+        <span class="hb-badge hb-badge--emerald">Cloudflare Workers</span>
+        <span class="hb-badge hb-badge--amber">Vercel</span>
+      </div>
+    </div>
+
+    <div style="margin-top: var(--hb-space-6);">
+      <span class="demo-label">Scrolling rail (horizontal overflow)</span>
+      <div class="hb-rail hb-rail--scroll" style="margin-top: var(--hb-space-3);">
+        <span class="hb-badge hb-badge--blue">Banking</span>
+        <span class="hb-badge hb-badge--blue">E-commerce</span>
+        <span class="hb-badge hb-badge--blue">Real Estate</span>
+        <span class="hb-badge hb-badge--blue">HR-Tech</span>
+        <span class="hb-badge hb-badge--blue">SaaS B2B</span>
+        <span class="hb-badge hb-badge--blue">On-demand Service</span>
+        <span class="hb-badge hb-badge--blue">Healthcare</span>
+        <span class="hb-badge hb-badge--blue">Luxury Retail</span>
+        <span class="hb-badge hb-badge--blue">FMCG</span>
+      </div>
+    </div>
+  </section>
+
   <footer class="section">
     <p class="hb-caption">
-      Hashbox Studio V2 · Design System · Phase 1 of 7 complete · Next: Phase 2 — Surface (Card variants, Bento Grid, Stat Block)
+      Hashbox Studio V2 · Design System · <strong style="color: var(--hb-text-strong);">Phase 1 + 2 complete · 14 components</strong> · Next: Phase 3 — Navigation (Nav, Mobile Sheet, Breadcrumb, Footer)
     </p>
   </footer>
 
