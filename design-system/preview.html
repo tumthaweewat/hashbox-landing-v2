@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="./surface.css">
   <link rel="stylesheet" href="./navigation.css">
   <link rel="stylesheet" href="./interactive.css">
+  <link rel="stylesheet" href="./composed.css">
   <style>
     body { padding: 6rem var(--hb-space-6) var(--hb-space-12); }
     .container { max-width: var(--hb-container-lg); margin: 0 auto; }
@@ -938,9 +939,325 @@
     <div class="hb-toast-stack" id="toastStack"></div>
   </section>
 
+  <!-- ============================================================
+       PHASE 5 — COMPOSED (Application-level patterns)
+       ============================================================ -->
+
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">Phase 5 · Composed · 8 components</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">
+        <span class="hb-gradient-text">Composed</span> Patterns
+      </h2>
+      <p class="hb-lead" style="margin-top: var(--hb-space-3);">
+        Application-level building blocks that compose primitives + surface + interactive into shippable page sections.
+      </p>
+    </div>
+  </section>
+
+  <!-- HERO -->
+  <section class="hb-hero">
+    <div class="hb-hero__bg"></div>
+    <div class="hb-hero__grid"></div>
+    <div class="hb-container">
+      <div class="hb-hero__inner">
+        <span class="hb-hero__pill">
+          <span class="hb-hero__pill-mark">H</span>
+          SEO-Ready Website · Marketing Tools · AI Workforce
+        </span>
+        <h1 class="hb-hero__title">
+          เว็บไซต์ที่ <em>พร้อม SEO</em><br>
+          เครื่องมือที่ <em>เพิ่ม Conversion</em><br>
+          AI ที่ <em>ทำงานแทนทีม</em><span class="hb-hero__cursor"></span>
+        </h1>
+        <p class="hb-hero__sub">
+          ที่ Hashbox เรารวม Web Development, Digital Marketing + CRO และ AI Consulting ไว้ในทีมเดียว ส่งมอบเว็บที่ผ่านมาตรฐาน Lighthouse 100 และ AI Workforce ที่ลด Manual Work ของทีมจริง — เห็นผลภายใน 90 วันแรก
+        </p>
+        <div class="hb-hero__actions">
+          <a href="#" class="hb-btn hb-btn--gradient hb-btn--lg">รับ Audit ฟรี
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a href="#" class="hb-btn hb-btn--outline hb-btn--lg">ดูเคสที่เราทำให้ลูกค้า</a>
+        </div>
+        <div class="hb-hero__trust">
+          <div class="hb-hero__trust-item"><span class="hb-hero__trust-value">17</span><span>ปี ประสบการณ์ทีม</span></div>
+          <div class="hb-hero__trust-item"><span class="hb-hero__trust-value">300+</span><span>แบรนด์ที่ผ่านมือ</span></div>
+          <div class="hb-hero__trust-item"><span class="hb-hero__trust-value">100</span><span>Lighthouse Score</span></div>
+          <div class="hb-hero__trust-item"><span class="hb-hero__trust-value">90</span><span>วัน เห็นผล</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE CARDS -->
+  <section class="hb-section hb-section--surface">
+    <div class="hb-container">
+      <div class="section__head">
+        <span class="hb-eyebrow">25 / 31 · Service Card</span>
+        <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">3 บริการหลัก</h2>
+      </div>
+      <div class="grid grid--3">
+        <a href="#" class="hb-service" data-accent="blue">
+          <span class="hb-service__num">01</span>
+          <span class="hb-service__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="7 8 10 11 7 14"/><line x1="13" y1="14" x2="17" y2="14"/></svg>
+          </span>
+          <h3 class="hb-service__title">SEO-Ready Website</h3>
+          <p class="hb-service__desc">เว็บไซต์ที่พร้อมติด Google ตั้งแต่วันเปิดตัว ผ่านมาตรฐาน Lighthouse 100 และ Core Web Vitals เขียวทุก URL</p>
+          <div class="hb-service__stack">Next.js · WordPress Headless · Cloudflare</div>
+          <span class="hb-service__link">รายละเอียดเพิ่มเติม &rarr;</span>
+        </a>
+
+        <a href="#" class="hb-service" data-accent="cyan">
+          <span class="hb-service__num">02</span>
+          <span class="hb-service__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
+          </span>
+          <h3 class="hb-service__title">Digital Marketing + CRO</h3>
+          <p class="hb-service__desc">ติดตั้งและดูแลเครื่องมือ Marketing ครบวงจร พร้อมรัน CRO Sprint รายเดือน ลูกค้าเห็น Conversion เพิ่มต่อเนื่อง</p>
+          <div class="hb-service__stack">GA4 · GSC · GrowthBook · Clarity</div>
+          <span class="hb-service__link">รายละเอียดเพิ่มเติม &rarr;</span>
+        </a>
+
+        <a href="#" class="hb-service" data-accent="violet">
+          <span class="hb-service__num">03</span>
+          <span class="hb-service__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/></svg>
+          </span>
+          <h3 class="hb-service__title">AI Expert Consulting</h3>
+          <p class="hb-service__desc">ที่ปรึกษา AI ที่ลงมือเขียนโค้ดและส่งมอบของจริงให้ลูกค้าใช้งานใน Production ไม่ใช่จบที่ Slide</p>
+          <div class="hb-service__stack">OpenAI · Claude · LangChain · RAG</div>
+          <span class="hb-service__link">รายละเอียดเพิ่มเติม &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE CARDS -->
+  <section class="hb-section">
+    <div class="hb-container">
+      <div class="section__head">
+        <span class="hb-eyebrow">26 / 31 · Case Study Card</span>
+        <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Selected Work</h2>
+      </div>
+      <div class="grid grid--3">
+        <a href="#" class="hb-case" style="--case-bg: linear-gradient(135deg, #1D4ED8, #2563EB);">
+          <div class="hb-case__head">
+            <span class="hb-case__industry">Enterprise · 2025</span>
+            <span class="hb-badge hb-badge--blue">Corporate</span>
+          </div>
+          <h3 class="hb-case__name">Nexus Corp</h3>
+          <p class="hb-case__metric">+540% Users</p>
+          <p class="hb-case__desc">Headless WordPress + Next.js corporate site with full SEO recovery in 12 months</p>
+          <div class="hb-case__cta">
+            <span>อ่าน Case Study</span>
+            <span class="hb-case__cta-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="#" class="hb-case" style="--case-bg: linear-gradient(135deg, #064E3B, #059669);">
+          <div class="hb-case__head">
+            <span class="hb-case__industry">On-demand · 2025</span>
+            <span class="hb-badge hb-badge--emerald">AI Workforce</span>
+          </div>
+          <h3 class="hb-case__name">AutoBot LINE</h3>
+          <p class="hb-case__metric">−60% Support Cost</p>
+          <p class="hb-case__desc">LINE OA bot + OpenAI ตอบลูกค้าไทย 24/7 ลด Manual Work ของทีม Support 84%</p>
+          <div class="hb-case__cta">
+            <span>อ่าน Case Study</span>
+            <span class="hb-case__cta-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="#" class="hb-case" style="--case-bg: linear-gradient(135deg, #312E81, #7C3AED);">
+          <div class="hb-case__head">
+            <span class="hb-case__industry">HR-Tech · 2024</span>
+            <span class="hb-badge hb-badge--violet">SEO Recovery</span>
+          </div>
+          <h3 class="hb-case__name">Rank Project</h3>
+          <p class="hb-case__metric">+2,200%</p>
+          <p class="hb-case__desc">Technical SEO + Content programme: Search Impressions เพิ่ม 22 เท่าใน 12 เดือน</p>
+          <div class="hb-case__cta">
+            <span>อ่าน Case Study</span>
+            <span class="hb-case__cta-arrow">→</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS STEPS -->
+  <section class="hb-section hb-section--surface">
+    <div class="hb-container">
+      <div class="section__head">
+        <span class="hb-eyebrow">27 / 31 · Process Step List</span>
+        <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">From Audit to AI — 5 ขั้นตอน</h2>
+      </div>
+      <ol class="hb-steps">
+        <li class="hb-step">
+          <span class="hb-step__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+          <h3 class="hb-step__title">Discovery + Free Audit</h3>
+          <p class="hb-step__desc">วัด Baseline ของเว็บปัจจุบัน รายงาน 15-20 หน้า ฟรีก่อนเริ่ม</p>
+        </li>
+        <li class="hb-step">
+          <span class="hb-step__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg></span>
+          <h3 class="hb-step__title">Strategy + KPI Sign-off</h3>
+          <p class="hb-step__desc">วาง Target KW, Conversion Goal, Roadmap 90/180/365 วัน</p>
+        </li>
+        <li class="hb-step">
+          <span class="hb-step__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+          <h3 class="hb-step__title">SEO-Ready Build</h3>
+          <p class="hb-step__desc">Code + Schema + Performance ผ่าน Build Gate ก่อน Deploy</p>
+        </li>
+        <li class="hb-step">
+          <span class="hb-step__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></span>
+          <h3 class="hb-step__title">Marketing + CRO Setup</h3>
+          <p class="hb-step__desc">GA4, Heatmap, A/B Framework พร้อม CRO Sprint รายเดือน</p>
+        </li>
+        <li class="hb-step">
+          <span class="hb-step__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/></svg></span>
+          <h3 class="hb-step__title">AI Workforce + Handover</h3>
+          <p class="hb-step__desc">Implement AI Bot/Tool ฝึกทีม ส่ง Runbook + Retainer</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="hb-section">
+    <div class="hb-container hb-container--md">
+      <div class="section__head">
+        <span class="hb-eyebrow">28 / 31 · Testimonial</span>
+        <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">ลูกค้าพูดถึงเรา</h2>
+      </div>
+      <div class="hb-quote">
+        <span class="hb-quote__mark">"</span>
+        <p class="hb-quote__body">เราเคยจ้าง 2 เอเจนซีและไม่เคยขยับ Performance ได้ Hashbox เป็นทีมแรกที่เข้าใจทั้ง WordPress, Next.js และ SEO ผลลัพธ์เห็นภายใน 60 วันแรกเลย</p>
+        <div class="hb-quote__attrib">
+          <span class="hb-quote__avatar">N</span>
+          <div>
+            <p class="hb-quote__name">Head of Digital</p>
+            <p class="hb-quote__role">Nexus Corp · Enterprise Software</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="hb-section hb-section--surface">
+    <div class="hb-container">
+      <div class="section__head">
+        <span class="hb-eyebrow">29 / 31 · Insights Card</span>
+        <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">บทความล่าสุด</h2>
+      </div>
+      <div class="grid grid--3">
+        <a href="#" class="hb-insight">
+          <div class="hb-insight__meta"><span class="hb-insight__cat">Web Dev</span><span>· 5 min</span></div>
+          <h3 class="hb-insight__title">ทำไมเราเลือก Next.js สำหรับโปรเจกต์ปี 2026</h3>
+          <p class="hb-insight__excerpt">Speed, SEO และ Developer Experience — เหตุผลที่ Next.js ยังเป็น Framework หลักของเราในงานลูกค้าทุกราย</p>
+          <div class="hb-insight__foot">
+            <span class="hb-insight__author">Hashbox Studio</span>
+            <span>· 12 พ.ค. 2026</span>
+          </div>
+        </a>
+        <a href="#" class="hb-insight">
+          <div class="hb-insight__meta"><span class="hb-insight__cat">AI Workforce</span><span>· 4 min</span></div>
+          <h3 class="hb-insight__title">5 วิธี AI ช่วยทีมประหยัด 20 ชั่วโมง/สัปดาห์</h3>
+          <p class="hb-insight__excerpt">Use Case AI ที่ส่งผล ROI จริงสำหรับ SME ไทย ตั้งแต่ Automated Report ถึง Smart Customer Routing</p>
+          <div class="hb-insight__foot">
+            <span class="hb-insight__author">Hashbox Studio</span>
+            <span>· 10 พ.ค. 2026</span>
+          </div>
+        </a>
+        <a href="#" class="hb-insight">
+          <div class="hb-insight__meta"><span class="hb-insight__cat">Case Study</span><span>· 6 min</span></div>
+          <h3 class="hb-insight__title">From Spreadsheets to Systems: Digital Workforce Story</h3>
+          <p class="hb-insight__excerpt">เคสจริงที่ทีมเราช่วยลูกค้าเปลี่ยน Manual Process เป็น AI Workflow ลดเวลาทำงาน 40%</p>
+          <div class="hb-insight__foot">
+            <span class="hb-insight__author">Hashbox Studio</span>
+            <span>· 8 พ.ค. 2026</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO WALL -->
+  <section class="hb-section">
+    <div class="hb-container">
+      <div class="section__head section__head--center">
+        <span class="hb-eyebrow">30 / 31 · Logo Wall</span>
+        <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">แบรนด์ที่ทีมเคยร่วมงาน</h2>
+        <p class="hb-section__sub">รวมงานสะสมของสมาชิกทีมจาก Agency 7 ปี + Corporate 10 ปี</p>
+      </div>
+      <div class="hb-logos">
+        <span class="hb-logo">◆ NEXUS</span>
+        <span class="hb-logo">▲ FLOW.STORE</span>
+        <span class="hb-logo">● RANK</span>
+        <span class="hb-logo">◇ AUTOBOT</span>
+        <span class="hb-logo">▣ GOLD</span>
+        <span class="hb-logo">★ PITCH</span>
+        <span class="hb-logo">◐ HORIZON</span>
+        <span class="hb-logo">∞ INFINITY</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING TIER -->
+  <section class="hb-section hb-section--surface">
+    <div class="hb-container">
+      <div class="section__head">
+        <span class="hb-eyebrow">31 / 31 · Pricing Tier</span>
+        <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">แพ็กเกจที่ทีมเราส่งมอบ</h2>
+      </div>
+      <div class="grid grid--3">
+        <div class="hb-tier">
+          <span class="hb-tier__name">Landing Page</span>
+          <div class="hb-tier__price">80,000<span class="hb-tier__price-unit">บาท+</span></div>
+          <p class="hb-caption">2-3 สัปดาห์</p>
+          <ul class="hb-tier__features">
+            <li>Next.js + Lighthouse 100</li>
+            <li>Schema markup ครบ</li>
+            <li>GA4 + GSC setup</li>
+            <li>30 วัน support</li>
+          </ul>
+          <a href="#" class="hb-btn hb-btn--outline" style="margin-top: auto;">ขอใบเสนอราคา</a>
+        </div>
+        <div class="hb-tier hb-tier--featured">
+          <span class="hb-tier__ribbon">Most Popular</span>
+          <span class="hb-tier__name">Corporate Site</span>
+          <div class="hb-tier__price">200,000<span class="hb-tier__price-unit">บาท+</span></div>
+          <p class="hb-caption">4-6 สัปดาห์</p>
+          <ul class="hb-tier__features">
+            <li>Headless WP + Next.js</li>
+            <li>Multilingual TH/EN</li>
+            <li>Schema เต็มชุด + CWV เขียว</li>
+            <li>CRO setup 3 เดือนแรก</li>
+            <li>60 วัน support</li>
+          </ul>
+          <a href="#" class="hb-btn hb-btn--gradient" style="margin-top: auto;">ขอใบเสนอราคา</a>
+        </div>
+        <div class="hb-tier">
+          <span class="hb-tier__name">E-commerce</span>
+          <div class="hb-tier__price">350,000<span class="hb-tier__price-unit">บาท+</span></div>
+          <p class="hb-caption">6-10 สัปดาห์</p>
+          <ul class="hb-tier__features">
+            <li>Next.js + Shopify Headless</li>
+            <li>Payment gateway ไทย</li>
+            <li>Stock + Order management</li>
+            <li>CRO Sprint รายเดือน</li>
+            <li>90 วัน support</li>
+          </ul>
+          <a href="#" class="hb-btn hb-btn--outline" style="margin-top: auto;">ขอใบเสนอราคา</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="section">
     <p class="hb-caption">
-      Hashbox Studio V2 · Design System · <strong style="color: var(--hb-text-strong);">Phase 1 + 2 + 3 + 4 complete · 23 components</strong> · Footer below ↓
+      Hashbox Studio V2 · Design System · <strong style="color: var(--hb-text-strong);">All 5 phases complete · 31 components</strong> · Ready for page assembly
     </p>
   </footer>
 
