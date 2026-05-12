@@ -69,31 +69,44 @@ add_action('init', 'hashbox_add_favicon');
  * Enqueue styles and scripts
  */
 function hashbox_enqueue_assets() {
-    // Google Fonts: Space Grotesk + DM Sans
+    $theme_uri = get_template_directory_uri();
+    $version   = wp_get_theme()->get( 'Version' );
+
+    // V2 stack — Inter + JetBrains Mono + Noto Sans Thai
     wp_enqueue_style(
         'hashbox-google-fonts',
-        'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap',
+        'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap',
         array(),
         null
     );
 
-    // Preconnect hints for Google Fonts
     add_filter( 'wp_resource_hints', 'hashbox_resource_hints', 10, 2 );
 
-    // Theme stylesheet
-    wp_enqueue_style(
-        'hashbox-style',
-        get_stylesheet_uri(),
-        array( 'hashbox-google-fonts' ),
-        wp_get_theme()->get( 'Version' )
+    // V2 design system — load in dependency order (tokens first)
+    $layers = array(
+        'tokens'      => 'tokens.css',
+        'primitives'  => 'primitives.css',
+        'surface'     => 'surface.css',
+        'navigation'  => 'navigation.css',
+        'interactive' => 'interactive.css',
+        'composed'    => 'composed.css',
     );
+    $prev = 'hashbox-google-fonts';
+    foreach ( $layers as $key => $file ) {
+        $handle = 'hashbox-ds-' . $key;
+        wp_enqueue_style( $handle, $theme_uri . '/design-system/' . $file, array( $prev ), $version );
+        $prev = $handle;
+    }
 
-    // Theme script
+    // Legacy theme stylesheet (loads last — kept so WP recognizes theme)
+    wp_enqueue_style( 'hashbox-style', get_stylesheet_uri(), array( $prev ), $version );
+
+    // V2 script
     wp_enqueue_script(
-        'hashbox-script',
-        get_template_directory_uri() . '/js/script.js',
+        'hashbox-v2-script',
+        $theme_uri . '/js/v2.js',
         array(),
-        wp_get_theme()->get( 'Version' ),
+        $version,
         true
     );
 }

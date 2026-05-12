@@ -1,63 +1,69 @@
     </main>
 
-    <!-- ============ FOOTER ============ -->
-    <footer class="site-footer" id="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col footer-brand">
-                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logo footer-logo">
-                        <span class="logo-icon"></span>
-                        <span class="logo-text">HASHBOX<span class="logo-accent">.STUDIO</span></span>
+    <footer class="hb-footer">
+        <div class="hb-container">
+            <div class="hb-footer__grid">
+                <div class="hb-footer__brand">
+                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="hb-footer__brand-mark">
+                        <span class="hb-nav__brand-mark">H</span>
+                        HASHBOX<span class="hb-nav__brand-accent">.STUDIO</span>
                     </a>
-                    <p class="footer-desc">A creative agency combining Web Craft and AI Workforce Consulting under one roof.</p>
-                    <div class="social-links footer-socials">
-                        <a href="#" class="social-pill" aria-label="Instagram">IG</a>
-                        <a href="#" class="social-pill" aria-label="Facebook">FB</a>
-                        <a href="#" class="social-pill" aria-label="LinkedIn">LI</a>
-                        <a href="https://lin.ee/Xagx6i4" class="social-pill" aria-label="LINE" target="_blank" rel="noopener noreferrer">LINE</a>
+                    <p class="hb-footer__desc">
+                        เอเจนซีที่รวม Web Development, Digital Marketing + CRO และ AI Consulting ไว้ในทีมเดียว ส่งมอบเว็บที่ผ่าน Lighthouse 100 และ AI Workforce ที่ใช้ได้จริง
+                    </p>
+                    <div class="hb-footer__socials">
+                        <a href="https://www.linkedin.com/company/hashbox-studio" class="hb-footer__social" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">LI</a>
+                        <a href="https://www.facebook.com/hashboxstudio" class="hb-footer__social" aria-label="Facebook" target="_blank" rel="noopener noreferrer">FB</a>
+                        <a href="https://www.instagram.com/hashboxstudio" class="hb-footer__social" aria-label="Instagram" target="_blank" rel="noopener noreferrer">IG</a>
+                        <a href="https://lin.ee/Xagx6i4" class="hb-footer__social" aria-label="LINE" target="_blank" rel="noopener noreferrer">LINE</a>
                     </div>
                 </div>
-                <div class="footer-col">
-                    <h4 class="footer-heading">Services</h4>
+
+                <div class="hb-footer__col">
+                    <h4>Services</h4>
                     <ul>
-                        <li><a href="#services">Website Development</a></li>
-                        <li><a href="#services">E-commerce</a></li>
-                        <li><a href="#services">Performance & SEO</a></li>
-                        <li><a href="#digital-workforce">Digital Workforce</a></li>
-                        <li><a href="#pricing">Retainer Plans</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>">SEO-Ready Website</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>">Marketing Tools + CRO</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>">AI Expert Consulting</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">All Services</a></li>
                     </ul>
                 </div>
-                <div class="footer-col">
-                    <h4 class="footer-heading">Company</h4>
+
+                <div class="hb-footer__col">
+                    <h4>Company</h4>
                     <ul>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#portfolio">Our Work</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#">Careers</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>">About</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>">Case Studies</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/#insights' ) ); ?>">Insights</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">Contact</a></li>
                     </ul>
                 </div>
-                <div class="footer-col">
-                    <h4 class="footer-heading">Contact</h4>
+
+                <div class="hb-footer__col">
+                    <h4>Contact</h4>
                     <ul>
-                        <li>hello@hashbox.studio</li>
-                        <li><a href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer">LINE OA: @hashboxstudio</a></li>
-                        <li>Mon-Fri 9:00-18:00</li>
-                        <li>Bangkok, Thailand</li>
+                        <li><a href="mailto:hello@hashbox.co.th">hello@hashbox.co.th</a></li>
+                        <li><a href="tel:+6622666222">02 266 6222</a></li>
+                        <li><a href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer">LINE: @hashboxstudio</a></li>
+                        <li style="color: var(--hb-text-faint); font-size: var(--hb-text-sm);">จันทร์-ศุกร์ 9:00-18:00</li>
+                        <li style="color: var(--hb-text-faint); font-size: var(--hb-text-sm);">139 Pan Rd, Si Lom, Bang Rak, Bangkok 10500</li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; <?php echo esc_html( date( 'Y' ) ); ?> HASHBOX.STUDIO All rights reserved.</p>
-                <div class="footer-legal">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms</a>
+
+            <div class="hb-footer__bottom">
+                <p>&copy; <?php echo esc_html( date( 'Y' ) ); ?> Hashbox Studio. All rights reserved.</p>
+                <div class="hb-footer__legal">
+                    <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Privacy Policy</a>
+                    <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Terms</a>
+                    <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">PDPA</a>
                 </div>
             </div>
         </div>
     </footer>
 
+    <div class="hb-toast-stack"></div>
+
     <?php wp_footer(); ?>
 </body>
-
 </html>
