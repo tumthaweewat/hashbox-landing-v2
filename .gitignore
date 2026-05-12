@@ -35,3 +35,8 @@ node_modules/
 # Claude / Superpowers session artifacts
 .superpowers/
 .claude/
+# Graphify outputs (rebuilt locally)
+graphify-out/
+
+# Scratch refs + screenshots
+.tmp-ref/

@@ -411,3 +411,157 @@
   padding-bottom: var(--hb-space-2);
 }
 .hb-rail--scroll::-webkit-scrollbar { display: none; }
+
+/* =========================================================================
+ * .hb-section--light — White chapter (Services, Portfolio, About, FAQ)
+ * Scoped color reassignment, no global overrides. Adjacent dark sections
+ * keep their look. Soft 64px transition band fades dark→light→dark.
+ * ========================================================================= */
+.hb-section--light {
+  background: var(--hb-light-bg);
+  color: var(--hb-light-text);
+
+  /* Re-bind surface tokens inside light section */
+  --hb-surface-1:     var(--hb-light-surface-1);
+  --hb-surface-2:     var(--hb-light-surface-2);
+  --hb-surface-3:     var(--hb-light-surface-3);
+  --hb-border:        var(--hb-light-border);
+  --hb-border-strong: var(--hb-light-border-strong);
+  --hb-text-strong:   var(--hb-light-text-strong);
+  --hb-text:          var(--hb-light-text);
+  --hb-text-muted:    var(--hb-light-text-muted);
+  --hb-text-faint:    var(--hb-light-text-faint);
+}
+
+.hb-section--light h1,
+.hb-section--light h2,
+.hb-section--light h3,
+.hb-section--light h4,
+.hb-section--light h5,
+.hb-section--light h6 {
+  color: var(--hb-light-text-strong);
+}
+
+.hb-section--light p,
+.hb-section--light li,
+.hb-section--light span {
+  color: var(--hb-light-text);
+}
+
+/* Card on light bg — soft elevation, no border */
+.hb-section--light .hb-card {
+  --card-bg: var(--hb-light-surface-1);
+  border-color: var(--hb-light-border);
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+.hb-section--light .hb-card--elevated {
+  --card-bg: var(--hb-light-bg);
+  box-shadow:
+    0 2px 4px rgba(15, 23, 42, 0.05),
+    0 12px 32px rgba(15, 23, 42, 0.08);
+}
+
+.hb-section--light .hb-card--glass {
+  background: color-mix(in oklch, var(--hb-light-bg) 80%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+/* Icon tiles flip to subtle gray fill instead of dark surface */
+.hb-section--light .hb-card__icon {
+  background: var(--hb-light-surface-2);
+  color: var(--hb-light-text-strong);
+}
+
+/* Amber needs darker shade on white for AA contrast */
+.hb-section--light .hb-card__accent--amber {
+  background: #B45309;  /* amber 700 */
+}
+
+/* Transition bands — soft 80px gradient at top/bottom edges */
+.hb-section--light::before,
+.hb-section--light::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 80px;
+  pointer-events: none;
+  z-index: 1;
+}
+.hb-section--light::before {
+  top: -1px;
+  background: linear-gradient(to bottom, var(--hb-bg) 0%, transparent 100%);
+}
+.hb-section--light::after {
+  bottom: -1px;
+  background: linear-gradient(to top, var(--hb-bg) 0%, transparent 100%);
+}
+
+/* Light section followed by light section — no band between */
+.hb-section--light + .hb-section--light::before { display: none; }
+.hb-section--light:has(+ .hb-section--light)::after { display: none; }
+
+/* Subtle dot pattern overlay (optional atmosphere on white) */
+.hb-section--light--dotted {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(15, 23, 42, 0.06) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* V1 token namespace override inside light section
+   (some templates still use .section-title / .section-sub / --color-text) */
+.hb-section--light,
+.section--light {
+  --color-bg:            var(--hb-light-bg);
+  --color-surface:       var(--hb-light-surface-1);
+  --color-surface-light: var(--hb-light-surface-2);
+  --color-border:        var(--hb-light-border);
+  --color-text:          var(--hb-light-text-strong);
+  --color-text-muted:    var(--hb-light-text-muted);
+  --color-text-dim:      var(--hb-light-text-faint);
+}
+
+/* .section--light alias (templates not yet on .hb-section--*) */
+.section--light {
+  background: var(--hb-light-bg);
+  color: var(--hb-light-text);
+  position: relative;
+}
+
+.section--light h1,
+.section--light h2,
+.section--light h3,
+.section--light h4 { color: var(--hb-light-text-strong); }
+.section--light p,
+.section--light li,
+.section--light .section-sub { color: var(--hb-light-text-muted); }
+
+/* Light-mode section-label: blue stays, but darker shade for contrast */
+.section--light .section-label {
+  color: #1D4ED8;  /* blue 700 */
+}
+
+/* Soft transition bands for .section--light too */
+.section--light::before,
+.section--light::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 64px;
+  pointer-events: none;
+  z-index: 1;
+}
+.section--light::before {
+  top: -1px;
+  background: linear-gradient(to bottom, var(--hb-bg, #09090B) 0%, transparent 100%);
+}
+.section--light::after {
+  bottom: -1px;
+  background: linear-gradient(to top, var(--hb-bg, #09090B) 0%, transparent 100%);
+}
+.section--light + .section--light::before { display: none; }
+.section--light:has(+ .section--light)::after { display: none; }

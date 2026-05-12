@@ -34,9 +34,10 @@ Tags: one-page, dark, agency, custom-menu, translation-ready
     --color-text-muted:    #A1A1AA;
     --color-text-dim:      #71717A;
 
-    /* Typography */
-    --font-display: 'Space Grotesk', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
+    /* Typography — IBM Plex Sans Thai (Aktiv Grotesk Thai alternative) */
+    --font-display: 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, sans-serif;
+    --font-body:    'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, sans-serif;
+    --font-mono:    'IBM Plex Mono', ui-monospace, monospace;
 
     /* Spacing */
     --container-width: 1200px;

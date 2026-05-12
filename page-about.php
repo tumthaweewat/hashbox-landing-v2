@@ -34,7 +34,7 @@ $page_url = get_permalink();
     </div>
 </section>
 
-<section class="hb-section hb-section--surface">
+<section class="hb-section hb-section--light">
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">Team Background</span>
@@ -110,7 +110,7 @@ $page_url = get_permalink();
     </div>
 </section>
 
-<section class="hb-section hb-section--surface">
+<section class="hb-section hb-section--light">
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">By the numbers</span>

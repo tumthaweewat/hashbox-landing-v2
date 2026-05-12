@@ -5,7 +5,7 @@
  * Date: 2026-05-12
  * ========================================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
 
 :root {
   /* -----------------------------------------------------------------------
@@ -32,6 +32,18 @@
   --hb-text-muted:      oklch(64% 0.011 285);   /* #A1A1AA - secondary */
   --hb-text-faint:      oklch(60% 0.013 285);   /* #909094 - tertiary, WCAG AA on dark bg */
 
+  /* Light surfaces (for .section--light — info-dense, scan-friendly chapters) */
+  --hb-light-bg:           #FFFFFF;
+  --hb-light-surface-1:    #F8FAFC;   /* subtle card bg */
+  --hb-light-surface-2:    #F1F5F9;   /* elevated card */
+  --hb-light-surface-3:    #E2E8F0;   /* hover */
+  --hb-light-border:       #E4E4E7;
+  --hb-light-border-strong:#CBD5E1;
+  --hb-light-text-strong:  #09090B;   /* headings */
+  --hb-light-text:         #18181B;   /* body */
+  --hb-light-text-muted:   #52525B;   /* secondary */
+  --hb-light-text-faint:   #71717A;   /* tertiary */
+
   /* Brand accents */
   --hb-accent-blue:     oklch(64% 0.20 255);    /* #3B82F6 - blue 500 */
   --hb-accent-violet:   oklch(64% 0.23 295);    /* #8B5CF6 - violet 500 */
@@ -54,14 +66,14 @@
 
   /* -----------------------------------------------------------------------
    * TYPOGRAPHY
-   * Display: Inter (with Geist Sans available via CDN if preferred later)
-   * Body:    Inter + Noto Sans Thai (auto-fallback for Thai)
-   * Mono:    JetBrains Mono (stats, code, badges)
+   * Display: IBM Plex Sans Thai (Aktiv Grotesk Thai alternative, geometric)
+   * Body:    IBM Plex Sans Thai + IBM Plex Sans (Latin fallback)
+   * Mono:    IBM Plex Mono (stats, code, badges)
    * --------------------------------------------------------------------- */
 
-  --hb-font-display: 'Inter', 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
-  --hb-font-body:    'Inter', 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
-  --hb-font-mono:    'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, monospace;
+  --hb-font-display: 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --hb-font-body:    'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --hb-font-mono:    'IBM Plex Mono', 'SF Mono', ui-monospace, Menlo, monospace;
 
   /* Type scale (fluid clamp for responsive) */
   --hb-text-xs:    clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);

@@ -6,7 +6,7 @@
  */
 ?>
 <!-- ============ SECTION 6 — ABOUT ============ -->
-<section id="about" class="section-padding section-surface about-section" aria-labelledby="about-h2">
+<section id="about" class="section-padding section--light about-section" aria-labelledby="about-h2">
     <!-- Ambient glow -->
     <div class="about-glow about-glow-blue"></div>
     <div class="about-glow about-glow-cyan"></div>

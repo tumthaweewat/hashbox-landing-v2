@@ -47,7 +47,7 @@ get_header();
 </section>
 
 <!-- ============ SERVICES ============ -->
-<section id="services" class="hb-section hb-section--surface">
+<section id="services" class="hb-section hb-section--light">
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">What we do</span>
@@ -170,7 +170,7 @@ get_header();
 </section>
 
 <!-- ============ PORTFOLIO ============ -->
-<section id="portfolio" class="hb-section">
+<section id="portfolio" class="hb-section hb-section--light">
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">Selected work</span>
@@ -314,7 +314,7 @@ get_header();
 </section>
 
 <!-- ============ FAQ ============ -->
-<section id="faq" class="hb-section hb-section--surface">
+<section id="faq" class="hb-section hb-section--light">
     <div class="hb-container hb-container--md">
         <div class="hb-section__head">
             <span class="hb-eyebrow">FAQ</span>

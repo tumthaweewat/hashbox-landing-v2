@@ -68,10 +68,10 @@ function hashbox_enqueue_assets() {
     $theme_uri = get_template_directory_uri();
     $version   = wp_get_theme()->get( 'Version' );
 
-    // V2 stack — Inter + JetBrains Mono + Noto Sans Thai
+    // V2 stack — IBM Plex Sans Thai (Aktiv Grotesk Thai alternative)
     wp_enqueue_style(
         'hashbox-google-fonts',
-        'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap',
         array(),
         null
     );

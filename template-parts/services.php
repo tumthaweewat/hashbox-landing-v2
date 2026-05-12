@@ -6,7 +6,7 @@
  */
 ?>
 <!-- ============ SECTION 2 — SERVICES ============ -->
-<section id="services" class="section-padding" aria-labelledby="services-h2">
+<section id="services" class="section-padding section--light" aria-labelledby="services-h2">
     <div class="container">
         <div class="section-header">
             <span class="section-label">WHAT WE DO</span>

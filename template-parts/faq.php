@@ -47,7 +47,7 @@ if ( ! function_exists( 'hashbox_get_home_faqs' ) ) {
 $hashbox_faqs = hashbox_get_home_faqs();
 ?>
 <!-- ============ SECTION 7 — FAQ ============ -->
-<section id="faq" class="section-padding" aria-labelledby="faq-h2">
+<section id="faq" class="section-padding section--light" aria-labelledby="faq-h2">
     <div class="container">
         <div class="section-header">
             <span class="section-label">FAQ</span>

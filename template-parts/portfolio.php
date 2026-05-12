@@ -69,7 +69,7 @@ $hashbox_cases = [
 ];
 ?>
 <!-- ============ SECTION 5 — SELECTED WORK ============ -->
-<section id="portfolio" class="section-padding" aria-labelledby="portfolio-h2">
+<section id="portfolio" class="section-padding section--light" aria-labelledby="portfolio-h2">
     <div class="container">
         <div class="section-header">
             <span class="section-label">PORTFOLIO</span>
