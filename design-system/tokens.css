@@ -30,7 +30,7 @@
   --hb-text-strong:     oklch(98% 0 0);         /* #FAFAFA - headings */
   --hb-text:            oklch(89% 0.005 285);   /* #E4E4E7 - body */
   --hb-text-muted:      oklch(64% 0.011 285);   /* #A1A1AA - secondary */
-  --hb-text-faint:      oklch(47% 0.013 285);   /* #71717A - tertiary */
+  --hb-text-faint:      oklch(60% 0.013 285);   /* #909094 - tertiary, WCAG AA on dark bg */
 
   /* Brand accents */
   --hb-accent-blue:     oklch(64% 0.20 255);    /* #3B82F6 - blue 500 */
@@ -221,7 +221,7 @@
   --hb-text-strong:     oklch(12% 0.005 285);    /* #0F0F11 */
   --hb-text:            oklch(28% 0.005 285);    /* #3F3F46 */
   --hb-text-muted:      oklch(45% 0.008 285);    /* #71717A */
-  --hb-text-faint:      oklch(60% 0.010 285);    /* #A1A1AA */
+  --hb-text-faint:      oklch(50% 0.010 285);    /* #6B6B70 - tertiary on light bg */
 
   --hb-shadow-xs: inset 0 1px 0 0 oklch(100% 0 0 / 1);
   --hb-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05), inset 0 1px 0 0 oklch(100% 0 0 / 1);

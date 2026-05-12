@@ -183,7 +183,7 @@
   right: var(--hb-space-5);
   font-family: var(--hb-font-mono);
   font-size: var(--hb-text-sm);
-  color: var(--hb-text-faint);
+  color: var(--hb-text-muted);
   letter-spacing: var(--hb-tracking-wider);
 }
 
@@ -227,7 +227,7 @@
   border-top: 1px solid var(--hb-border);
   font-family: var(--hb-font-mono);
   font-size: var(--hb-text-xs);
-  color: var(--hb-text-faint);
+  color: var(--hb-text-muted);
 }
 
 .hb-service__link {

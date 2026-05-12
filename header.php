@@ -24,7 +24,7 @@
                 <span>HASHBOX<span class="hb-nav__brand-accent">.STUDIO</span></span>
             </a>
 
-            <ul class="hb-nav__menu" role="menubar">
+            <ul class="hb-nav__menu">
                 <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-nav__link">Services</a></li>
                 <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-nav__link">Work</a></li>
                 <li><a href="<?php echo esc_url( home_url( '/#insights' ) ); ?>" class="hb-nav__link">Insights</a></li>

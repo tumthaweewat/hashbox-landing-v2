@@ -473,22 +473,51 @@ add_filter( 'language_attributes', 'hashbox_force_thai_lang_attribute' );
  * if Rank Math is empty. Skip if Rank Math has already injected a description.
  */
 function hashbox_homepage_meta_description() {
-    if ( ! is_front_page() ) {
-        return;
+    $desc = '';
+
+    if ( is_front_page() ) {
+        $desc = 'Hashbox Studio — รับทำเว็บไซต์ที่พร้อม SEO ตั้งแต่วันแรก ติดตั้งเครื่องมือ Digital Marketing + CRO และเป็นที่ปรึกษา AI ผู้เชี่ยวชาญ ส่งมอบ Lighthouse 100, Core Web Vitals เขียว, ผลลัพธ์ใน 90 วัน';
+    } elseif ( is_singular() ) {
+        // Use post excerpt if available, otherwise trimmed content
+        $post_obj = get_queried_object();
+        if ( $post_obj && ! empty( $post_obj->post_excerpt ) ) {
+            $desc = wp_strip_all_tags( $post_obj->post_excerpt );
+        } elseif ( $post_obj && ! empty( $post_obj->post_content ) ) {
+            $desc = wp_trim_words( wp_strip_all_tags( $post_obj->post_content ), 30, '…' );
+        }
+        if ( empty( $desc ) ) {
+            $desc = 'Hashbox Studio — Website Craft, Performance Marketing และ AI Consulting ภายใต้ทีมเดียวกัน';
+        }
+    } else {
+        $desc = 'Hashbox Studio — Website Craft, Performance Marketing และ AI Consulting ภายใต้ทีมเดียวกัน';
     }
 
-    // Avoid double-emit if Rank Math (or another SEO plugin) is active.
-    if ( defined( 'RANK_MATH_VERSION' ) ) {
+    if ( empty( $desc ) ) {
         return;
     }
-
-    $desc = 'Hashbox Studio — รับทำเว็บไซต์ที่พร้อม SEO ตั้งแต่วันแรก ติดตั้งเครื่องมือ Digital Marketing + CRO และเป็นที่ปรึกษา AI ผู้เชี่ยวชาญ ส่งมอบ Lighthouse 100, Core Web Vitals เขียว, ผลลัพธ์ใน 90 วัน';
 
     echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
-    echo '<meta property="og:locale" content="th_TH">' . "\n";
-    echo '<meta property="og:locale:alternate" content="en_US">' . "\n";
+
+    if ( is_front_page() ) {
+        echo '<meta property="og:locale" content="th_TH">' . "\n";
+        echo '<meta property="og:locale:alternate" content="en_US">' . "\n";
+    }
 }
 add_action( 'wp_head', 'hashbox_homepage_meta_description', 1 );
+
+/**
+ * Provide default description to Rank Math when homepage description is empty.
+ */
+function hashbox_rankmath_default_description( $description ) {
+    if ( ! empty( $description ) ) {
+        return $description;
+    }
+    if ( is_front_page() ) {
+        return 'Hashbox Studio รับทำเว็บไซต์ที่พร้อม SEO ตั้งแต่วันแรก + เครื่องมือ Digital Marketing + CRO + ที่ปรึกษา AI ส่งมอบ Lighthouse 100 และผลลัพธ์ภายใน 90 วัน';
+    }
+    return $description;
+}
+add_filter( 'rank_math/frontend/description', 'hashbox_rankmath_default_description' );
 
 /**
  * Output a JSON-LD <script> tag for structured data.

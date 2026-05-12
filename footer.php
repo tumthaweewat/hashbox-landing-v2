@@ -12,15 +12,15 @@
                         เอเจนซีที่รวม Web Development, Digital Marketing + CRO และ AI Consulting ไว้ในทีมเดียว ส่งมอบเว็บที่ผ่าน Lighthouse 100 และ AI Workforce ที่ใช้ได้จริง
                     </p>
                     <div class="hb-footer__socials">
-                        <a href="https://www.linkedin.com/company/hashbox-studio" class="hb-footer__social" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">LI</a>
-                        <a href="https://www.facebook.com/hashboxstudio" class="hb-footer__social" aria-label="Facebook" target="_blank" rel="noopener noreferrer">FB</a>
-                        <a href="https://www.instagram.com/hashboxstudio" class="hb-footer__social" aria-label="Instagram" target="_blank" rel="noopener noreferrer">IG</a>
-                        <a href="https://lin.ee/Xagx6i4" class="hb-footer__social" aria-label="LINE" target="_blank" rel="noopener noreferrer">LINE</a>
+                        <a href="https://www.linkedin.com/company/hashbox-studio" class="hb-footer__social" aria-label="LinkedIn LI" target="_blank" rel="noopener noreferrer">LI</a>
+                        <a href="https://www.facebook.com/hashboxstudio" class="hb-footer__social" aria-label="Facebook FB" target="_blank" rel="noopener noreferrer">FB</a>
+                        <a href="https://www.instagram.com/hashboxstudio" class="hb-footer__social" aria-label="Instagram IG" target="_blank" rel="noopener noreferrer">IG</a>
+                        <a href="https://lin.ee/Xagx6i4" class="hb-footer__social" aria-label="LINE @hashboxstudio" target="_blank" rel="noopener noreferrer">LINE</a>
                     </div>
                 </div>
 
                 <div class="hb-footer__col">
-                    <h4>Services</h4>
+                    <h3>Services</h3>
                     <ul>
                         <li><a href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>">SEO-Ready Website</a></li>
                         <li><a href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>">Marketing Tools + CRO</a></li>
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="hb-footer__col">
-                    <h4>Company</h4>
+                    <h3>Company</h3>
                     <ul>
                         <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>">About</a></li>
                         <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>">Case Studies</a></li>
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="hb-footer__col">
-                    <h4>Contact</h4>
+                    <h3>Contact</h3>
                     <ul>
                         <li><a href="mailto:hello@hashbox.co.th">hello@hashbox.co.th</a></li>
                         <li><a href="tel:+6622666222">02 266 6222</a></li>
