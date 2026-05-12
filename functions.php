@@ -685,3 +685,190 @@ function hashbox_inject_home_faq_schema() {
     ) );
 }
 add_action( 'wp_head', 'hashbox_inject_home_faq_schema', 21 );
+
+/**
+ * Contact form submission handler (admin-post.php endpoint).
+ */
+function hashbox_handle_contact_submit() {
+    if ( ! isset( $_POST['hashbox_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['hashbox_nonce'] ), 'hashbox_contact' ) ) {
+        wp_die( 'Invalid request token.', 'Forbidden', array( 'response' => 403 ) );
+    }
+    $name    = isset( $_POST['name'] )    ? sanitize_text_field( wp_unslash( $_POST['name'] ) )    : '';
+    $email   = isset( $_POST['email'] )   ? sanitize_email( wp_unslash( $_POST['email'] ) )       : '';
+    $phone   = isset( $_POST['phone'] )   ? sanitize_text_field( wp_unslash( $_POST['phone'] ) )   : '';
+    $website = isset( $_POST['website'] ) ? esc_url_raw( wp_unslash( $_POST['website'] ) )         : '';
+    $service = isset( $_POST['service'] ) ? sanitize_text_field( wp_unslash( $_POST['service'] ) ) : '';
+    $message = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
+    $pdpa    = isset( $_POST['pdpa'] );
+
+    if ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) {
+        wp_safe_redirect( add_query_arg( 'contact', 'invalid', home_url( '/#contact' ) ) );
+        exit;
+    }
+
+    $to      = get_option( 'admin_email' );
+    $subject = sprintf( '[Hashbox V2] New enquiry from %s — %s', $name, $service ?: 'unspecified' );
+    $body    = sprintf( "Name: %s\nEmail: %s\nPhone: %s\nWebsite: %s\nService: %s\n\nMessage:\n%s", $name, $email, $phone, $website, $service, $message );
+    $headers = array( 'Content-Type: text/plain; charset=UTF-8', sprintf( 'Reply-To: %s <%s>', $name, $email ) );
+
+    $sent = wp_mail( $to, $subject, $body, $headers );
+    wp_safe_redirect( add_query_arg( 'contact', $sent ? 'sent' : 'error', home_url( '/#contact' ) ) );
+    exit;
+}
+add_action( 'admin_post_nopriv_hashbox_contact', 'hashbox_handle_contact_submit' );
+add_action( 'admin_post_hashbox_contact',        'hashbox_handle_contact_submit' );
+
+/**
+ * V2 case-study renderer. Each /work/<slug>/ page template builds a $case
+ * array and calls this helper. Outputs V2 design-system markup (hb-* classes).
+ */
+function hashbox_render_case_study( array $case ) {
+    $page_url = get_permalink();
+    $work_url = home_url( '/work/' . $case['slug'] . '/' );
+    ?>
+
+    <article class="hb-case-page">
+
+        <nav class="hb-container hb-breadcrumb" aria-label="Breadcrumb">
+            <ol class="hb-breadcrumb__list">
+                <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
+                <li><span class="hb-breadcrumb__sep">/</span></li>
+                <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>">Work</a></li>
+                <li><span class="hb-breadcrumb__sep">/</span></li>
+                <li aria-current="page"><?php echo esc_html( $case['name'] ); ?></li>
+            </ol>
+        </nav>
+
+        <header class="hb-section" style="padding-top: var(--hb-space-12);">
+            <div class="hb-container hb-container--md">
+                <span class="hb-eyebrow"><?php echo esc_html( $case['tag'] . ' · ' . $case['industry'] . ' · ' . $case['year'] ); ?></span>
+                <h1 class="hb-h1" style="margin-top: var(--hb-space-4);"><?php echo esc_html( $case['name'] ); ?></h1>
+                <p class="hb-lead" style="margin-top: var(--hb-space-4);"><?php echo esc_html( $case['headline'] ); ?></p>
+                <p class="hb-body" style="margin-top: var(--hb-space-4); color: var(--hb-text-muted);"><?php echo esc_html( $case['lede'] ); ?></p>
+            </div>
+        </header>
+
+        <section class="hb-section hb-section--surface" style="padding-block: var(--hb-space-12);">
+            <div class="hb-container">
+                <span class="hb-eyebrow">Snapshot</span>
+                <div class="hb-stats__grid hb-stats__grid--divided" style="margin-top: var(--hb-space-6);">
+                    <?php foreach ( $case['snapshot'] as $stat ) : ?>
+                        <div class="hb-stat">
+                            <span class="hb-stat__value"><?php echo esc_html( $stat['value'] ); ?></span>
+                            <p class="hb-stat__label"><?php echo esc_html( $stat['label'] ); ?></p>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <p class="hb-caption" style="margin-top: var(--hb-space-5);">
+                    Industry: <?php echo esc_html( $case['industry'] ); ?> · Project duration: <?php echo esc_html( $case['timeline'] ); ?>
+                </p>
+            </div>
+        </section>
+
+        <section class="hb-section">
+            <div class="hb-container hb-container--md">
+                <h2 class="hb-h2">โจทย์ที่ลูกค้าเข้ามา</h2>
+                <p class="hb-lead" style="margin-top: var(--hb-space-5);"><?php echo esc_html( $case['challenge'] ); ?></p>
+            </div>
+        </section>
+
+        <section class="hb-section hb-section--surface">
+            <div class="hb-container">
+                <h2 class="hb-h2" style="margin-bottom: var(--hb-space-8);">วิธีที่เราแก้</h2>
+                <ol class="hb-steps">
+                    <?php foreach ( $case['approach'] as $step ) : ?>
+                        <li class="hb-step">
+                            <h3 class="hb-step__title"><?php echo esc_html( $step['h'] ); ?></h3>
+                            <p class="hb-step__desc"><?php echo esc_html( $step['p'] ); ?></p>
+                        </li>
+                    <?php endforeach; ?>
+                </ol>
+            </div>
+        </section>
+
+        <section class="hb-section">
+            <div class="hb-container">
+                <h2 class="hb-h2" style="margin-bottom: var(--hb-space-8);">ผลลัพธ์</h2>
+                <div class="hb-bento">
+                    <?php foreach ( $case['results'] as $r ) : ?>
+                        <div class="hb-bento__cell">
+                            <span class="hb-stat__value hb-stat__value--gradient" style="font-size: var(--hb-text-4xl);"><?php echo esc_html( $r['value'] ); ?></span>
+                            <p class="hb-stat__label" style="margin-top: var(--hb-space-3);"><?php echo esc_html( $r['label'] ); ?></p>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+
+        <section class="hb-section hb-section--surface">
+            <div class="hb-container">
+                <h2 class="hb-h2" style="margin-bottom: var(--hb-space-5);">Tech Stack ที่ใช้</h2>
+                <div class="hb-rail">
+                    <?php foreach ( $case['stack'] as $tech ) : ?>
+                        <span class="hb-badge hb-badge--blue"><?php echo esc_html( $tech ); ?></span>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+
+        <?php if ( ! empty( $case['testimonial']['quote'] ) ) : ?>
+        <section class="hb-section">
+            <div class="hb-container hb-container--md">
+                <div class="hb-quote">
+                    <span class="hb-quote__mark">"</span>
+                    <p class="hb-quote__body"><?php echo esc_html( $case['testimonial']['quote'] ); ?></p>
+                    <div class="hb-quote__attrib">
+                        <span class="hb-quote__avatar"><?php echo esc_html( mb_substr( $case['name'], 0, 1 ) ); ?></span>
+                        <div>
+                            <p class="hb-quote__name"><?php echo esc_html( $case['testimonial']['attribution'] ); ?></p>
+                            <p class="hb-quote__role"><?php echo esc_html( $case['name'] ); ?> · <?php echo esc_html( $case['industry'] ); ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <?php endif; ?>
+
+        <section class="hb-section hb-section--surface">
+            <div class="hb-container hb-container--md" style="text-align:center;">
+                <h2 class="hb-h2">เคสของคุณคือเคสถัดไป</h2>
+                <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">รับ Audit ฟรี · เห็น Friction Point ของเว็บคุณก่อนตัดสินใจ</p>
+                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ Audit ฟรี &rarr;</a>
+            </div>
+        </section>
+
+    </article>
+
+    <?php
+    // Schemas
+    $results_strings = array();
+    foreach ( $case['results'] as $r ) {
+        $results_strings[] = $r['value'] . ' — ' . $r['label'];
+    }
+    hashbox_jsonld( array(
+        '@context'       => 'https://schema.org',
+        '@type'          => 'Article',
+        '@id'            => $work_url . '#article',
+        'headline'       => $case['name'] . ' — ' . $case['headline'],
+        'description'    => $case['lede'],
+        'url'            => $work_url,
+        'datePublished'  => $case['year'] . '-01-01',
+        'inLanguage'     => 'th-TH',
+        'author'         => array( '@id' => home_url( '/#organization' ) ),
+        'publisher'      => array( '@id' => home_url( '/#organization' ) ),
+        'about'          => $case['industry'],
+        'keywords'       => implode( ', ', $case['stack'] ),
+        'articleSection' => 'Case Studies',
+        'articleBody'    => $case['challenge'] . ' ' . implode( ' ', array_map( function( $a ) { return $a['h'] . ': ' . $a['p']; }, $case['approach'] ) ) . ' Results: ' . implode( '; ', $results_strings ) . '.',
+    ) );
+
+    hashbox_jsonld( array(
+        '@context'        => 'https://schema.org',
+        '@type'           => 'BreadcrumbList',
+        'itemListElement' => array(
+            array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
+            array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Work', 'item' => home_url( '/work/' ) ),
+            array( '@type' => 'ListItem', 'position' => 3, 'name' => $case['name'], 'item' => $work_url ),
+        ),
+    ) );
+}

@@ -2,169 +2,118 @@
 /**
  * Template Name: Portfolio Page
  *
- * Custom page template rendering portfolio projects server-side.
- * Replaces prior AJAX loader (which produced broken "Oops" error state).
+ * Renders Benjanard portfolio projects server-side using V2 design system.
  *
- * @package Hashbox_Studio
+ * @package Hashbox_Studio_V2
  */
 
-// Enqueue portfolio-specific styles
-function hashbox_portfolio_styles() {
-    wp_enqueue_style( 'portfolio-page-css', get_template_directory_uri() . '/css/portfolio-page.css', array(), '1.0.1' );
-}
-add_action( 'wp_enqueue_scripts', 'hashbox_portfolio_styles' );
-
 get_header();
-
-$portfolio = function_exists( 'fetch_benjanard_portfolio' ) ? fetch_benjanard_portfolio() : array( 'projects' => array() );
-$projects  = isset( $portfolio['projects'] ) && is_array( $portfolio['projects'] ) ? $portfolio['projects'] : array();
+$page_url   = get_permalink();
+$portfolio  = function_exists( 'fetch_benjanard_portfolio' ) ? fetch_benjanard_portfolio() : array( 'projects' => array() );
+$projects   = isset( $portfolio['projects'] ) ? $portfolio['projects'] : array();
 ?>
 
-<div id="portfolioApp" class="portfolio-page-wrapper">
-
-    <section class="portfolio-hero">
-        <div class="portfolio-hero-content">
-            <h1 class="portfolio-hero-title">
-                Selected Work<span class="title-accent">.</span>
-            </h1>
-            <p class="portfolio-hero-desc">
-                ผลงานที่วัดผลได้ ทุกเคสคัดมาจากงานจริงในอุตสาหกรรม Banking, Real Estate, Mobile App, E-commerce และ AI
-                แต่ละโปรเจกต์มี Tech Stack, Responsibility และ Outcome ที่ชัดเจน
+<section class="hb-hero">
+    <div class="hb-hero__bg"></div>
+    <div class="hb-hero__grid"></div>
+    <div class="hb-container">
+        <div class="hb-hero__inner">
+            <nav class="hb-breadcrumb">
+                <ol class="hb-breadcrumb__list">
+                    <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
+                    <li><span class="hb-breadcrumb__sep">/</span></li>
+                    <li aria-current="page">Portfolio</li>
+                </ol>
+            </nav>
+            <span class="hb-eyebrow">Portfolio</span>
+            <h1 class="hb-hero__title">Selected Work<br><em>จากทีม Hashbox</em></h1>
+            <p class="hb-hero__sub">
+                ผลงานที่วัดผลได้ ทุกเคสคัดมาจากงานจริงในอุตสาหกรรม Banking, Real Estate, Mobile App, E-commerce และ AI แต่ละโปรเจกต์มี Tech Stack, Responsibility และ Outcome ที่ชัดเจน
             </p>
+            <div class="hb-rail">
+                <button class="hb-badge hb-badge--blue" data-filter="all" type="button">All Projects</button>
+                <button class="hb-badge" data-filter="web" type="button">Web Development</button>
+                <button class="hb-badge" data-filter="ecommerce" type="button">E-commerce</button>
+                <button class="hb-badge" data-filter="mobile" type="button">Mobile Apps</button>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <main id="content" class="portfolio-content">
-        <section class="projects-section">
-            <div class="section-header-portfolio">
-                <div class="section-intro">
-                    <span class="section-label">OUR WORK</span>
-                    <h2 class="section-title">Featured Projects</h2>
-                    <p class="section-description">
-                        งานที่เราภูมิใจและพร้อมให้ Reference ได้
-                    </p>
-                </div>
-                <div class="section-filters" role="tablist" aria-label="Filter projects by category">
-                    <button class="filter-btn active" data-filter="all" type="button">All Projects</button>
-                    <button class="filter-btn" data-filter="web" type="button">Web Development</button>
-                    <button class="filter-btn" data-filter="ecommerce" type="button">E-commerce</button>
-                    <button class="filter-btn" data-filter="mobile" type="button">Mobile Apps</button>
-                </div>
-            </div>
-
-            <?php if ( empty( $projects ) ) : ?>
-                <p class="portfolio-empty">ยังไม่มีโปรเจกต์ในระบบ กรุณาติดต่อเราเพื่อขอดู Case Study เพิ่มเติม</p>
-            <?php else : ?>
-                <div id="projectsContainer" class="projects-grid">
-                    <?php foreach ( $projects as $project ) :
-                        $title       = isset( $project['title'] ) ? $project['title'] : '';
-                        $subtitle    = isset( $project['subtitle'] ) ? $project['subtitle'] : '';
-                        $description = isset( $project['description'] ) ? $project['description'] : '';
-                        $category    = isset( $project['category'] ) ? $project['category'] : '';
-                        $image       = isset( $project['image'] ) ? $project['image'] : '';
-                        $image_alt   = isset( $project['imageAlt'] ) ? $project['imageAlt'] : $title;
-                        $year        = isset( $project['year'] ) ? $project['year'] : '';
-                        $client      = isset( $project['client'] ) ? $project['client'] : '';
-                        $website_url = isset( $project['websiteUrl'] ) ? $project['websiteUrl'] : '';
-                        $tags        = isset( $project['tags'] ) && is_array( $project['tags'] ) ? $project['tags'] : array();
-                        $features    = isset( $project['features'] ) && is_array( $project['features'] ) ? $project['features'] : array();
-                    ?>
-                        <article class="project-card" data-category="<?php echo esc_attr( $category ); ?>">
-                            <?php if ( $image ) : ?>
-                                <div class="project-image">
-                                    <img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" loading="lazy" width="640" height="400" />
-                                </div>
-                            <?php endif; ?>
-                            <div class="project-body">
-                                <header class="project-header">
-                                    <h3 class="project-title"><?php echo esc_html( $title ); ?></h3>
-                                    <?php if ( $subtitle ) : ?>
-                                        <p class="project-subtitle"><?php echo esc_html( $subtitle ); ?></p>
-                                    <?php endif; ?>
-                                </header>
-                                <?php if ( $description ) : ?>
-                                    <p class="project-desc"><?php echo esc_html( $description ); ?></p>
-                                <?php endif; ?>
-                                <dl class="project-meta">
-                                    <?php if ( $client ) : ?>
-                                        <dt>Client</dt><dd><?php echo esc_html( $client ); ?></dd>
-                                    <?php endif; ?>
-                                    <?php if ( $year ) : ?>
-                                        <dt>Year</dt><dd><?php echo esc_html( $year ); ?></dd>
-                                    <?php endif; ?>
-                                    <?php if ( ! empty( $features ) ) : ?>
-                                        <dt>Highlights</dt>
-                                        <dd>
-                                            <ul class="project-features">
-                                                <?php foreach ( $features as $feat ) : ?>
-                                                    <li><?php echo esc_html( $feat ); ?></li>
-                                                <?php endforeach; ?>
-                                            </ul>
-                                        </dd>
-                                    <?php endif; ?>
-                                </dl>
-                                <?php if ( ! empty( $tags ) ) : ?>
-                                    <ul class="project-tags" aria-label="Project tags">
-                                        <?php foreach ( $tags as $tag ) : ?>
-                                            <li><?php echo esc_html( $tag ); ?></li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                <?php endif; ?>
-                                <?php if ( $website_url ) : ?>
-                                    <a class="project-link" href="<?php echo esc_url( $website_url ); ?>" target="_blank" rel="noopener noreferrer">
-                                        Visit live site →
-                                    </a>
-                                <?php endif; ?>
+<section class="hb-section hb-section--surface">
+    <div class="hb-container">
+        <?php if ( empty( $projects ) ) : ?>
+            <p class="hb-lead" style="text-align:center;">ยังไม่มีโปรเจกต์ในระบบ กรุณาติดต่อเราเพื่อขอดู Case Study เพิ่มเติม</p>
+        <?php else : ?>
+            <div id="projectsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:var(--hb-space-5);">
+                <?php foreach ( $projects as $p ) :
+                    $title   = $p['title']       ?? '';
+                    $sub     = $p['subtitle']    ?? '';
+                    $desc    = $p['description'] ?? '';
+                    $cat     = $p['category']    ?? '';
+                    $img     = $p['image']       ?? '';
+                    $alt     = $p['imageAlt']    ?? $title;
+                    $year    = $p['year']        ?? '';
+                    $client  = $p['client']      ?? '';
+                    $url     = $p['websiteUrl']  ?? '';
+                    $tags    = $p['tags']        ?? array();
+                ?>
+                    <article class="hb-card" data-category="<?php echo esc_attr( $cat ); ?>">
+                        <?php if ( $img ) : ?>
+                            <div style="margin: calc(var(--hb-space-6) * -1) calc(var(--hb-space-6) * -1) var(--hb-space-4); border-radius: var(--hb-radius-lg) var(--hb-radius-lg) 0 0; overflow:hidden;aspect-ratio:16/10;background:var(--hb-surface-2);">
+                                <img src="<?php echo esc_url( $img ); ?>" alt="<?php echo esc_attr( $alt ); ?>" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
                             </div>
-                        </article>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
-        </section>
+                        <?php endif; ?>
+                        <header>
+                            <div class="hb-rail" style="margin-bottom:var(--hb-space-2);">
+                                <?php if ( $client ) : ?><span class="hb-badge"><?php echo esc_html( $client ); ?></span><?php endif; ?>
+                                <?php if ( $year ) : ?><span class="hb-caption"><?php echo esc_html( $year ); ?></span><?php endif; ?>
+                            </div>
+                            <h2 class="hb-card__title"><?php echo esc_html( $title ); ?></h2>
+                            <?php if ( $sub ) : ?><p class="hb-caption" style="margin-top:var(--hb-space-1);"><?php echo esc_html( $sub ); ?></p><?php endif; ?>
+                        </header>
+                        <?php if ( $desc ) : ?><p class="hb-card__body"><?php echo esc_html( $desc ); ?></p><?php endif; ?>
+                        <?php if ( ! empty( $tags ) ) : ?>
+                            <div class="hb-rail">
+                                <?php foreach ( array_slice( $tags, 0, 4 ) as $tag ) : ?>
+                                    <span class="hb-badge hb-badge--sm"><?php echo esc_html( $tag ); ?></span>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ( $url ) : ?>
+                            <a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer" class="hb-btn hb-btn--ghost hb-btn--sm" style="margin-top:auto;align-self:flex-start;">
+                                Visit site →
+                            </a>
+                        <?php endif; ?>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</section>
 
-        <section class="portfolio-cta">
-            <div class="cta-content">
-                <h2 class="cta-title">พร้อมเริ่มโปรเจกต์ของคุณแล้วหรือยัง?</h2>
-                <p class="cta-description">
-                    คุยกับเราเพื่อรับ SEO + Performance Audit ฟรี ก่อนตัดสินใจเริ่มงาน
-                </p>
-                <div class="cta-actions">
-                    <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="btn btn-cta">
-                        Start Your Project
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M5 12h14"></path>
-                            <path d="m12 5 7 7-7 7"></path>
-                        </svg>
-                    </a>
-                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="btn btn-outline">
-                        Back to Home
-                    </a>
-                </div>
-            </div>
-            <div class="cta-visual">
-                <div class="cta-orb orb-1"></div>
-                <div class="cta-orb orb-2"></div>
-                <div class="cta-orb orb-3"></div>
-            </div>
-        </section>
-    </main>
-</div>
+<section class="hb-section">
+    <div class="hb-container hb-container--md" style="text-align:center;">
+        <h2 class="hb-h2">พร้อมเริ่มโปรเจกต์ของคุณ?</h2>
+        <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">รับ Audit ฟรีก่อนตัดสินใจเริ่มงาน</p>
+        <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">Start Your Project &rarr;</a>
+    </div>
+</section>
 
 <script>
-// Progressive enhancement: client-side filter only.
-// Page already fully rendered server-side; this just hides/shows cards.
+// Filter buttons
 (function () {
-    const filterBtns = document.querySelectorAll('.filter-btn[data-filter]');
-    const cards      = document.querySelectorAll('.project-card[data-category]');
-    if (!filterBtns.length || !cards.length) return;
-
-    filterBtns.forEach((btn) => {
+    const buttons = document.querySelectorAll('[data-filter]');
+    const cards = document.querySelectorAll('#projectsGrid article[data-category]');
+    if (!buttons.length || !cards.length) return;
+    buttons.forEach((btn) => {
         btn.addEventListener('click', () => {
             const filter = btn.dataset.filter;
-            filterBtns.forEach((b) => b.classList.toggle('active', b === btn));
-            cards.forEach((card) => {
-                const matches = filter === 'all' || card.dataset.category === filter;
-                card.style.display = matches ? '' : 'none';
+            buttons.forEach((b) => {
+                b.classList.toggle('hb-badge--blue', b === btn);
+            });
+            cards.forEach((c) => {
+                c.style.display = (filter === 'all' || c.dataset.category === filter) ? '' : 'none';
             });
         });
     });
@@ -173,4 +122,3 @@ $projects  = isset( $portfolio['projects'] ) && is_array( $portfolio['projects']
 
 <?php
 get_footer();
-?>
