@@ -7,8 +7,9 @@
   <link rel="stylesheet" href="./tokens.css">
   <link rel="stylesheet" href="./primitives.css">
   <link rel="stylesheet" href="./surface.css">
+  <link rel="stylesheet" href="./navigation.css">
   <style>
-    body { padding: var(--hb-space-12) var(--hb-space-6); }
+    body { padding: 6rem var(--hb-space-6) var(--hb-space-12); }
     .container { max-width: var(--hb-container-lg); margin: 0 auto; }
     .section { padding: var(--hb-space-12) 0; border-bottom: 1px solid var(--hb-border); }
     .section:last-child { border-bottom: none; }
@@ -27,6 +28,54 @@
   </style>
 </head>
 <body>
+
+<!-- ============ STICKY NAV ============ -->
+<header class="hb-nav" id="demoNav">
+  <div class="hb-nav__inner">
+    <a href="#" class="hb-nav__brand">
+      <span class="hb-nav__brand-mark">H</span>
+      <span>HASHBOX<span class="hb-nav__brand-accent">.STUDIO</span></span>
+    </a>
+    <ul class="hb-nav__menu">
+      <li><a href="#" class="hb-nav__link">Services</a></li>
+      <li><a href="#" class="hb-nav__link">Work</a></li>
+      <li><a href="#" class="hb-nav__link" aria-current="page">Design System</a></li>
+      <li><a href="#" class="hb-nav__link">Insights</a></li>
+      <li><a href="#" class="hb-nav__link">About</a></li>
+    </ul>
+    <div class="hb-nav__actions">
+      <span class="hb-nav__status">All systems live</span>
+      <a href="#" class="hb-btn hb-btn--gradient hb-btn--sm">รับ Audit ฟรี</a>
+      <button class="hb-nav__burger" id="demoBurger" aria-label="Open menu" aria-controls="demoSheet" aria-expanded="false">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile sheet -->
+<div class="hb-sheet-backdrop" id="demoSheetBackdrop"></div>
+<aside class="hb-sheet" id="demoSheet" role="dialog" aria-modal="true" aria-labelledby="demoSheetTitle">
+  <div class="hb-sheet__head">
+    <span id="demoSheetTitle" class="hb-eyebrow">Menu</span>
+    <button class="hb-sheet__close" id="demoSheetClose" aria-label="Close menu">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav>
+    <ul class="hb-sheet__menu">
+      <li><a href="#" class="hb-sheet__link">Services</a></li>
+      <li><a href="#" class="hb-sheet__link">Work</a></li>
+      <li><a href="#" class="hb-sheet__link">Insights</a></li>
+      <li><a href="#" class="hb-sheet__link">About</a></li>
+      <li><a href="#" class="hb-sheet__link">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="hb-sheet__footer">
+    <a href="#" class="hb-btn hb-btn--gradient hb-btn--lg">รับ Audit ฟรี</a>
+    <a href="#" class="hb-btn hb-btn--outline">คุยทาง LINE</a>
+  </div>
+</aside>
 
 <div class="container">
 
@@ -634,13 +683,182 @@
     </div>
   </section>
 
+  <!-- ============================================================
+       PHASE 3 — NAVIGATION
+       ============================================================ -->
+
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">Phase 3 · Navigation · 4 components</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">
+        <span class="hb-gradient-text">Navigation</span> Components
+      </h2>
+      <p class="hb-lead" style="margin-top: var(--hb-space-3);">
+        Sticky glass nav (at top of page · scroll to see morph), mobile sheet drawer (tap hamburger on narrow screen), breadcrumb, footer (at bottom of page).
+      </p>
+    </div>
+  </section>
+
+  <!-- BREADCRUMB -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">17 / 18</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Breadcrumb</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">Schema-ready (paired with BreadcrumbList JSON-LD). Subtle muted color, last item bold.</p>
+    </div>
+
+    <div class="demo-stack" style="gap: var(--hb-space-6);">
+      <nav class="hb-breadcrumb" aria-label="Breadcrumb">
+        <ol class="hb-breadcrumb__list">
+          <li><a href="#">Home</a></li>
+          <li><span class="hb-breadcrumb__sep">/</span></li>
+          <li><a href="#">Services</a></li>
+          <li><span class="hb-breadcrumb__sep">/</span></li>
+          <li aria-current="page">SEO-Ready Website</li>
+        </ol>
+      </nav>
+
+      <nav class="hb-breadcrumb" aria-label="Breadcrumb">
+        <ol class="hb-breadcrumb__list">
+          <li><a href="#">Home</a></li>
+          <li><span class="hb-breadcrumb__sep">›</span></li>
+          <li><a href="#">Work</a></li>
+          <li><span class="hb-breadcrumb__sep">›</span></li>
+          <li aria-current="page">Nexus Corp</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- NAV NOTE -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">15-16 / 18 — Already mounted</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Sticky Nav + Mobile Sheet</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">Scroll up to see — the nav is at the top of this page. Pill at &gt;3px scroll, full-width strip when fully scrolled. On mobile (&lt;768px), tap hamburger to open sheet.</p>
+    </div>
+
+    <div class="grid grid--2">
+      <div class="hb-card">
+        <h3 class="hb-card__title">What to look for</h3>
+        <ul class="hb-prose" style="margin-top: var(--hb-space-3); padding-left: var(--hb-space-5);">
+          <li>Floating pill at top with 12px gap from edges (default)</li>
+          <li>Glass blur background — visible when scrolling over content</li>
+          <li>Active "Design System" link has dot + blue glow</li>
+          <li>Live status indicator pulses (Linear-style)</li>
+          <li>Brand mark = mini gradient tile + .studio in cyan</li>
+        </ul>
+      </div>
+      <div class="hb-card hb-card--elevated">
+        <h3 class="hb-card__title">Try on mobile</h3>
+        <p class="hb-card__body">Resize browser to under 768px. Menu links collapse, hamburger appears. Tap to open a slide-in sheet drawer with focus trap, ESC to close.</p>
+        <div class="hb-rail" style="margin-top: var(--hb-space-2);">
+          <span class="hb-badge hb-badge--cyan">Backdrop blur</span>
+          <span class="hb-badge hb-badge--cyan">Focus trap</span>
+          <span class="hb-badge hb-badge--cyan">ESC close</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="section">
     <p class="hb-caption">
-      Hashbox Studio V2 · Design System · <strong style="color: var(--hb-text-strong);">Phase 1 + 2 complete · 14 components</strong> · Next: Phase 3 — Navigation (Nav, Mobile Sheet, Breadcrumb, Footer)
+      Hashbox Studio V2 · Design System · <strong style="color: var(--hb-text-strong);">Phase 1 + 2 + 3 complete · 18 components</strong> · Footer below ↓
     </p>
   </footer>
 
 </div>
+
+<!-- ============ FOOTER (Phase 3 component 18) ============ -->
+<footer class="hb-footer">
+  <div class="hb-container">
+    <div class="hb-footer__grid">
+      <div class="hb-footer__brand">
+        <a href="#" class="hb-footer__brand-mark">
+          <span class="hb-nav__brand-mark">H</span>
+          HASHBOX<span class="hb-nav__brand-accent">.STUDIO</span>
+        </a>
+        <p class="hb-footer__desc">
+          เอเจนซีที่รวม Web Development, Digital Marketing + CRO และ AI Consulting ไว้ในทีมเดียว ส่งมอบเว็บที่ผ่าน Lighthouse 100 และ AI Workforce ที่ใช้ได้จริง
+        </p>
+        <div class="hb-footer__socials">
+          <a href="#" class="hb-footer__social" aria-label="LinkedIn">LI</a>
+          <a href="#" class="hb-footer__social" aria-label="Facebook">FB</a>
+          <a href="#" class="hb-footer__social" aria-label="Instagram">IG</a>
+          <a href="#" class="hb-footer__social" aria-label="LINE">LINE</a>
+        </div>
+      </div>
+
+      <div class="hb-footer__col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">SEO-Ready Website</a></li>
+          <li><a href="#">Marketing Tools + CRO</a></li>
+          <li><a href="#">AI Expert Consulting</a></li>
+          <li><a href="#">All Services</a></li>
+        </ul>
+      </div>
+
+      <div class="hb-footer__col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Insights</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="hb-footer__col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@hashbox.co.th">hello@hashbox.co.th</a></li>
+          <li><a href="tel:+6622666222">02 266 6222</a></li>
+          <li><a href="https://lin.ee/Xagx6i4">LINE: @hashboxstudio</a></li>
+          <li style="color: var(--hb-text-faint); font-size: var(--hb-text-sm);">จันทร์-ศุกร์ 9:00-18:00</li>
+          <li style="color: var(--hb-text-faint); font-size: var(--hb-text-sm);">139 Pan Rd, Si Lom, Bang Rak, Bangkok 10500</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hb-footer__bottom">
+      <p>&copy; 2026 Hashbox Studio. All rights reserved.</p>
+      <div class="hb-footer__legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">PDPA</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav scroll morph
+  const nav = document.getElementById('demoNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('hb-nav--scrolled', window.scrollY > 80);
+  }, { passive: true });
+
+  // Mobile sheet toggle
+  const burger = document.getElementById('demoBurger');
+  const sheet = document.getElementById('demoSheet');
+  const backdrop = document.getElementById('demoSheetBackdrop');
+  const closeBtn = document.getElementById('demoSheetClose');
+
+  const setOpen = (open) => {
+    sheet.dataset.open = String(open);
+    backdrop.dataset.open = String(open);
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+
+  burger.addEventListener('click', () => setOpen(true));
+  closeBtn.addEventListener('click', () => setOpen(false));
+  backdrop.addEventListener('click', () => setOpen(false));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sheet.dataset.open === 'true') setOpen(false);
+  });
+</script>
 
 </body>
 </html>
