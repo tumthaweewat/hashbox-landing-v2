@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hashbox V2 — Phase 1 Primitives Preview</title>
+  <link rel="stylesheet" href="./tokens.css">
+  <link rel="stylesheet" href="./primitives.css">
+  <style>
+    body { padding: var(--hb-space-12) var(--hb-space-6); }
+    .container { max-width: var(--hb-container-lg); margin: 0 auto; }
+    .section { padding: var(--hb-space-12) 0; border-bottom: 1px solid var(--hb-border); }
+    .section:last-child { border-bottom: none; }
+    .section__head { margin-bottom: var(--hb-space-8); }
+    .grid { display: grid; gap: var(--hb-space-4); }
+    .grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .grid--2 { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 768px) {
+      .grid--3, .grid--2 { grid-template-columns: 1fr; }
+    }
+    .demo-row { display: flex; flex-wrap: wrap; gap: var(--hb-space-3); align-items: center; }
+    .demo-stack { display: flex; flex-direction: column; gap: var(--hb-space-4); }
+    .demo-label { font-family: var(--hb-font-mono); font-size: var(--hb-text-xs); color: var(--hb-text-faint); margin-bottom: var(--hb-space-2); text-transform: uppercase; letter-spacing: var(--hb-tracking-wider); }
+    .swatch { width: 100%; height: 80px; border-radius: var(--hb-radius-md); border: 1px solid var(--hb-border); display: flex; align-items: end; padding: var(--hb-space-3); }
+    .swatch__name { font-family: var(--hb-font-mono); font-size: var(--hb-text-xs); color: var(--hb-text-strong); background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: var(--hb-radius-xs); }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="section">
+    <span class="hb-eyebrow">Hashbox V2 · Design System · Phase 1</span>
+    <h1 class="hb-h1" style="margin-top: var(--hb-space-4);">
+      <span class="hb-gradient-text">Primitives</span> Preview
+    </h1>
+    <p class="hb-lead" style="margin-top: var(--hb-space-4);">
+      7 atomic primitives. Drop-in CSS, no JS dependency. Used to compose every page in V2.
+    </p>
+    <div class="demo-row" style="margin-top: var(--hb-space-6);">
+      <span class="hb-badge hb-badge--emerald hb-badge--dot">Phase 1 — Complete</span>
+      <span class="hb-badge hb-badge--blue">17 components</span>
+      <span class="hb-badge">tokens.css + primitives.css</span>
+    </div>
+  </header>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">01 / 07</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Typography</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">Inter + JetBrains Mono + Noto Sans Thai. Fluid clamp scale 12 → 96px.</p>
+    </div>
+    <div class="demo-stack">
+      <div><span class="demo-label">.hb-h1</span><h1 class="hb-h1">เว็บไซต์ที่พร้อม SEO</h1></div>
+      <div><span class="demo-label">.hb-h2</span><h2 class="hb-h2">ทีมเดียวรับผิดชอบผลรวม</h2></div>
+      <div><span class="demo-label">.hb-h3</span><h3 class="hb-h3">SEO-Ready Website Build</h3></div>
+      <div><span class="demo-label">.hb-h4</span><h4 class="hb-h4">From Audit to AI</h4></div>
+      <div><span class="demo-label">.hb-h5</span><h5 class="hb-h5">Build Gate ที่บังคับใน CI</h5></div>
+      <div><span class="demo-label">.hb-h6</span><h6 class="hb-h6">Section heading</h6></div>
+      <div><span class="demo-label">.hb-lead</span><p class="hb-lead">Hashbox Studio รวม Web, Marketing และ AI ไว้ในทีมเดียวที่รับผิดชอบผลรวม ทีมงานมีรากฐานจากทั้ง Agency 7 ปี และ Corporate 10 ปี</p></div>
+      <div><span class="demo-label">.hb-body</span><p class="hb-body">ทุกโปรเจกต์ที่ออกจากทีมเราต้องผ่าน Build Gate ก่อน Deploy ขึ้น Production — Lighthouse 100, Core Web Vitals เขียว, Schema ครบ</p></div>
+      <div><span class="demo-label">.hb-caption</span><p class="hb-caption">ข้อความขนาดเล็กสำหรับ caption หรือ helper text</p></div>
+      <div><span class="demo-label">.hb-gradient-text</span><p class="hb-h3"><span class="hb-gradient-text">Gradient highlight ใช้กับคำสำคัญ</span></p></div>
+    </div>
+  </section>
+
+  <!-- BUTTONS -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">02 / 07</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Buttons</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">Primary, Gradient, Outline, Ghost, Success, Danger × 4 sizes × loading + disabled states</p>
+    </div>
+
+    <div class="demo-stack" style="gap: var(--hb-space-8);">
+      <div>
+        <span class="demo-label">Variants</span>
+        <div class="demo-row">
+          <button class="hb-btn hb-btn--primary">รับ Audit ฟรี</button>
+          <button class="hb-btn hb-btn--gradient">Start Project</button>
+          <button class="hb-btn hb-btn--outline">View Portfolio</button>
+          <button class="hb-btn hb-btn--ghost">Learn more</button>
+          <button class="hb-btn hb-btn--success">Approve</button>
+          <button class="hb-btn hb-btn--danger">Delete</button>
+          <button class="hb-btn">Default</button>
+        </div>
+      </div>
+
+      <div>
+        <span class="demo-label">Sizes</span>
+        <div class="demo-row">
+          <button class="hb-btn hb-btn--primary hb-btn--sm">Small</button>
+          <button class="hb-btn hb-btn--primary">Medium</button>
+          <button class="hb-btn hb-btn--primary hb-btn--lg">Large</button>
+          <button class="hb-btn hb-btn--primary hb-btn--xl">Extra Large CTA</button>
+        </div>
+      </div>
+
+      <div>
+        <span class="demo-label">States</span>
+        <div class="demo-row">
+          <button class="hb-btn hb-btn--primary">Default</button>
+          <button class="hb-btn hb-btn--primary" data-loading="true">Loading state</button>
+          <button class="hb-btn hb-btn--primary" disabled>Disabled</button>
+        </div>
+      </div>
+
+      <div>
+        <span class="demo-label">With icon</span>
+        <div class="demo-row">
+          <button class="hb-btn hb-btn--primary hb-btn--lg">
+            รับ Audit ฟรี
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+          <button class="hb-btn hb-btn--outline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Chat via LINE
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BADGES -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">03 / 07</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Badges &amp; Pills</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">Status tags, tech stack pills, version markers — mono font with tabular nums</p>
+    </div>
+
+    <div class="demo-stack" style="gap: var(--hb-space-6);">
+      <div>
+        <span class="demo-label">Tinted (default)</span>
+        <div class="demo-row">
+          <span class="hb-badge hb-badge--blue">Next.js</span>
+          <span class="hb-badge hb-badge--violet">React 18</span>
+          <span class="hb-badge hb-badge--cyan">Tailwind v4</span>
+          <span class="hb-badge hb-badge--emerald">Production-ready</span>
+          <span class="hb-badge hb-badge--amber">Beta</span>
+          <span class="hb-badge hb-badge--rose">Deprecated</span>
+          <span class="hb-badge">Default</span>
+        </div>
+      </div>
+
+      <div>
+        <span class="demo-label">With status dot</span>
+        <div class="demo-row">
+          <span class="hb-badge hb-badge--emerald hb-badge--dot">Live</span>
+          <span class="hb-badge hb-badge--amber hb-badge--dot">Maintenance</span>
+          <span class="hb-badge hb-badge--rose hb-badge--dot">Offline</span>
+          <span class="hb-badge hb-badge--blue hb-badge--dot">Building</span>
+        </div>
+      </div>
+
+      <div>
+        <span class="demo-label">Sizes</span>
+        <div class="demo-row">
+          <span class="hb-badge hb-badge--blue hb-badge--sm">sm</span>
+          <span class="hb-badge hb-badge--blue">md</span>
+          <span class="hb-badge hb-badge--blue hb-badge--lg">large</span>
+        </div>
+      </div>
+
+      <div>
+        <span class="demo-label">Solid variant</span>
+        <div class="demo-row">
+          <span class="hb-badge hb-badge--solid hb-badge--blue">PRIMARY</span>
+          <span class="hb-badge hb-badge--solid hb-badge--emerald">SUCCESS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INPUTS -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">04 / 07</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Input &amp; Textarea</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">44px touch height. Focus ring, error state, disabled, placeholder.</p>
+    </div>
+
+    <div class="grid grid--2">
+      <div class="hb-field">
+        <label class="hb-label" for="demo-name">
+          ชื่อ <span class="hb-label__required">*</span>
+        </label>
+        <input id="demo-name" class="hb-input" placeholder="ชื่อ-นามสกุล" type="text">
+        <p class="hb-field__hint">ใช้ชื่อจริงเพื่อให้ทีมเรียกถูก</p>
+      </div>
+
+      <div class="hb-field">
+        <label class="hb-label" for="demo-email">
+          อีเมล <span class="hb-label__required">*</span>
+        </label>
+        <input id="demo-email" class="hb-input" type="email" value="invalid-email" aria-invalid="true">
+        <p class="hb-field__error">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          รูปแบบอีเมลไม่ถูกต้อง
+        </p>
+      </div>
+
+      <div class="hb-field">
+        <label class="hb-label" for="demo-website">
+          เว็บไซต์ <span class="hb-label__optional">(ถ้ามี)</span>
+        </label>
+        <input id="demo-website" class="hb-input" type="url" placeholder="https://">
+      </div>
+
+      <div class="hb-field">
+        <label class="hb-label" for="demo-disabled">Disabled field</label>
+        <input id="demo-disabled" class="hb-input" type="text" value="ไม่สามารถแก้ไขได้" disabled>
+      </div>
+
+      <div class="hb-field" style="grid-column: 1 / -1;">
+        <label class="hb-label" for="demo-msg">โจทย์ของโปรเจกต์</label>
+        <textarea id="demo-msg" class="hb-textarea" rows="4" placeholder="เล่าให้เราฟังว่าอยากแก้ปัญหาอะไร และผลลัพธ์ที่คาดหวัง..."></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKBOX + RADIO -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">05 / 07 + 06 / 07</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Checkbox &amp; Radio</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">Custom-styled native elements. Focus ring built-in. WCAG compliant.</p>
+    </div>
+
+    <div class="grid grid--2">
+      <div class="demo-stack">
+        <span class="demo-label">Checkboxes</span>
+        <label class="hb-checkbox-wrap">
+          <input type="checkbox" class="hb-checkbox" checked>
+          <span class="hb-checkbox-wrap__label">ยินยอมให้ Hashbox เก็บข้อมูลตาม <a href="#" style="color: var(--hb-accent-blue);">นโยบายความเป็นส่วนตัว</a> (PDPA)</span>
+        </label>
+        <label class="hb-checkbox-wrap">
+          <input type="checkbox" class="hb-checkbox">
+          <span class="hb-checkbox-wrap__label">รับ Newsletter รายเดือน (ยกเลิกได้ทุกเมื่อ)</span>
+        </label>
+        <label class="hb-checkbox-wrap" style="opacity: 0.5;">
+          <input type="checkbox" class="hb-checkbox" disabled>
+          <span class="hb-checkbox-wrap__label">Disabled option</span>
+        </label>
+      </div>
+
+      <div>
+        <span class="demo-label">Radio group — สนใจบริการ</span>
+        <div class="hb-radio-group">
+          <label class="hb-checkbox-wrap">
+            <input type="radio" name="demo-service" class="hb-radio" checked>
+            <span class="hb-checkbox-wrap__label">SEO-Ready Website Build</span>
+          </label>
+          <label class="hb-checkbox-wrap">
+            <input type="radio" name="demo-service" class="hb-radio">
+            <span class="hb-checkbox-wrap__label">Digital Marketing Tools + CRO</span>
+          </label>
+          <label class="hb-checkbox-wrap">
+            <input type="radio" name="demo-service" class="hb-radio">
+            <span class="hb-checkbox-wrap__label">AI Expert Consulting</span>
+          </label>
+          <label class="hb-checkbox-wrap">
+            <input type="radio" name="demo-service" class="hb-radio">
+            <span class="hb-checkbox-wrap__label">ทั้ง 3 บริการ Bundle</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELECT -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">07 / 07</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Select</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">Native select styled to match design system. Custom dropdown arrow.</p>
+    </div>
+
+    <div class="grid grid--2">
+      <div class="hb-field">
+        <label class="hb-label" for="demo-budget">งบประมาณโปรเจกต์</label>
+        <select id="demo-budget" class="hb-select">
+          <option value="">เลือกช่วงงบ</option>
+          <option value="80-200k">80,000 - 200,000 บาท</option>
+          <option value="200-500k">200,000 - 500,000 บาท</option>
+          <option value="500k-1m">500,000 - 1,000,000 บาท</option>
+          <option value="1m+">1,000,000 บาท ขึ้นไป</option>
+        </select>
+      </div>
+
+      <div class="hb-field">
+        <label class="hb-label" for="demo-when">เริ่มงานเมื่อไหร่</label>
+        <select id="demo-when" class="hb-select">
+          <option value="">เลือกระยะเวลา</option>
+          <option value="asap">ภายในเดือนนี้</option>
+          <option value="month">1-2 เดือนข้างหน้า</option>
+          <option value="quarter">ภายในไตรมาส</option>
+          <option value="explore">แค่สำรวจก่อน</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOR SWATCHES (bonus) -->
+  <section class="section">
+    <div class="section__head">
+      <span class="hb-eyebrow">REFERENCE</span>
+      <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">Color Tokens</h2>
+      <p class="hb-caption" style="margin-top: var(--hb-space-3);">All surfaces + accents from tokens.css. Hover swatch to see token name.</p>
+    </div>
+
+    <div>
+      <span class="demo-label">Surfaces</span>
+      <div class="grid grid--3" style="margin-top: var(--hb-space-3);">
+        <div class="swatch" style="background: var(--hb-bg);"><span class="swatch__name">--hb-bg</span></div>
+        <div class="swatch" style="background: var(--hb-surface-1);"><span class="swatch__name">--hb-surface-1</span></div>
+        <div class="swatch" style="background: var(--hb-surface-2);"><span class="swatch__name">--hb-surface-2</span></div>
+        <div class="swatch" style="background: var(--hb-surface-3);"><span class="swatch__name">--hb-surface-3</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top: var(--hb-space-8);">
+      <span class="demo-label">Accents</span>
+      <div class="grid grid--3" style="margin-top: var(--hb-space-3);">
+        <div class="swatch" style="background: var(--hb-accent-blue);"><span class="swatch__name">--hb-accent-blue</span></div>
+        <div class="swatch" style="background: var(--hb-accent-violet);"><span class="swatch__name">--hb-accent-violet</span></div>
+        <div class="swatch" style="background: var(--hb-accent-cyan);"><span class="swatch__name">--hb-accent-cyan</span></div>
+        <div class="swatch" style="background: var(--hb-accent-emerald);"><span class="swatch__name">--hb-accent-emerald</span></div>
+        <div class="swatch" style="background: var(--hb-accent-amber);"><span class="swatch__name">--hb-accent-amber</span></div>
+        <div class="swatch" style="background: var(--hb-accent-rose);"><span class="swatch__name">--hb-accent-rose</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top: var(--hb-space-8);">
+      <span class="demo-label">Gradients</span>
+      <div class="grid grid--3" style="margin-top: var(--hb-space-3);">
+        <div class="swatch" style="background: var(--hb-grad-primary);"><span class="swatch__name">--hb-grad-primary</span></div>
+        <div class="swatch" style="background: var(--hb-grad-cool);"><span class="swatch__name">--hb-grad-cool</span></div>
+        <div class="swatch" style="background: var(--hb-grad-success);"><span class="swatch__name">--hb-grad-success</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="section">
+    <p class="hb-caption">
+      Hashbox Studio V2 · Design System · Phase 1 of 7 complete · Next: Phase 2 — Surface (Card variants, Bento Grid, Stat Block)
+    </p>
+  </footer>
+
+</div>
+
+</body>
+</html>

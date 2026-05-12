@@ -1,0 +1,287 @@
+/* =========================================================================
+ * Hashbox V2 — Design Tokens
+ * Direction: Modern Dev-Tools (Linear + Vercel + Resend reference)
+ * Style: Bento Box Grid × Minimalism & Swiss × Developer Mono typography
+ * Date: 2026-05-12
+ * ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* -----------------------------------------------------------------------
+   * COLORS — OKLCH base with HEX fallbacks for legacy browsers
+   * Dark-first system. All values calibrated for WCAG AA on dark surfaces.
+   * --------------------------------------------------------------------- */
+
+  /* Surfaces (dark base) */
+  --hb-bg:              oklch(14% 0.005 285);   /* #09090B - page bg */
+  --hb-surface-1:       oklch(17% 0.005 285);   /* #111114 - card bg */
+  --hb-surface-2:       oklch(21% 0.006 285);   /* #18181B - elevated card */
+  --hb-surface-3:       oklch(25% 0.007 285);   /* #1F1F23 - hover surface */
+  --hb-border:          oklch(28% 0.008 285);   /* #27272A - subtle border */
+  --hb-border-strong:   oklch(34% 0.010 285);   /* #3F3F46 - emphasis border */
+
+  /* Glass surfaces (translucent overlays for stacking) */
+  --hb-glass-1:         oklch(20% 0.005 285 / 0.6);
+  --hb-glass-2:         oklch(25% 0.006 285 / 0.4);
+  --hb-glass-blur:      24px;
+
+  /* Text */
+  --hb-text-strong:     oklch(98% 0 0);         /* #FAFAFA - headings */
+  --hb-text:            oklch(89% 0.005 285);   /* #E4E4E7 - body */
+  --hb-text-muted:      oklch(64% 0.011 285);   /* #A1A1AA - secondary */
+  --hb-text-faint:      oklch(47% 0.013 285);   /* #71717A - tertiary */
+
+  /* Brand accents */
+  --hb-accent-blue:     oklch(64% 0.20 255);    /* #3B82F6 - blue 500 */
+  --hb-accent-violet:   oklch(64% 0.23 295);    /* #8B5CF6 - violet 500 */
+  --hb-accent-cyan:     oklch(76% 0.16 220);    /* #06B6D4 - cyan 500 */
+  --hb-accent-emerald:  oklch(73% 0.18 155);    /* #10B981 - success / metric */
+  --hb-accent-amber:    oklch(80% 0.18 75);     /* #F59E0B - warning */
+  --hb-accent-rose:     oklch(64% 0.24 25);     /* #F43F5E - destructive */
+
+  /* Gradient meshes (signature element) */
+  --hb-grad-primary:    linear-gradient(135deg, var(--hb-accent-blue) 0%, var(--hb-accent-violet) 50%, var(--hb-accent-cyan) 100%);
+  --hb-grad-cool:       linear-gradient(135deg, var(--hb-accent-cyan) 0%, var(--hb-accent-blue) 100%);
+  --hb-grad-warm:       linear-gradient(135deg, var(--hb-accent-amber) 0%, var(--hb-accent-rose) 100%);
+  --hb-grad-success:    linear-gradient(135deg, var(--hb-accent-emerald) 0%, var(--hb-accent-cyan) 100%);
+
+  /* Status colors */
+  --hb-success:         var(--hb-accent-emerald);
+  --hb-warning:         var(--hb-accent-amber);
+  --hb-danger:          var(--hb-accent-rose);
+  --hb-info:            var(--hb-accent-blue);
+
+  /* -----------------------------------------------------------------------
+   * TYPOGRAPHY
+   * Display: Inter (with Geist Sans available via CDN if preferred later)
+   * Body:    Inter + Noto Sans Thai (auto-fallback for Thai)
+   * Mono:    JetBrains Mono (stats, code, badges)
+   * --------------------------------------------------------------------- */
+
+  --hb-font-display: 'Inter', 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
+  --hb-font-body:    'Inter', 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
+  --hb-font-mono:    'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, monospace;
+
+  /* Type scale (fluid clamp for responsive) */
+  --hb-text-xs:    clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
+  --hb-text-sm:    clamp(0.875rem, 0.84rem + 0.18vw, 0.9375rem);
+  --hb-text-base:  clamp(1rem, 0.95rem + 0.2vw, 1.0625rem);
+  --hb-text-lg:    clamp(1.125rem, 1.05rem + 0.4vw, 1.25rem);
+  --hb-text-xl:    clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  --hb-text-2xl:   clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  --hb-text-3xl:   clamp(1.875rem, 1.5rem + 1.5vw, 2.5rem);
+  --hb-text-4xl:   clamp(2.25rem, 1.8rem + 2vw, 3.25rem);
+  --hb-text-5xl:   clamp(2.75rem, 2.1rem + 3vw, 4.5rem);
+  --hb-text-6xl:   clamp(3.5rem, 2.5rem + 4.5vw, 6rem);
+
+  /* Weight scale */
+  --hb-weight-light:    300;
+  --hb-weight-regular:  400;
+  --hb-weight-medium:   500;
+  --hb-weight-semibold: 600;
+  --hb-weight-bold:     700;
+  --hb-weight-black:    800;
+
+  /* Line heights */
+  --hb-leading-none:    1;
+  --hb-leading-tight:   1.15;
+  --hb-leading-snug:    1.35;
+  --hb-leading-normal:  1.55;
+  --hb-leading-relaxed: 1.7;
+  --hb-leading-loose:   1.85;
+
+  /* Letter spacing */
+  --hb-tracking-tighter: -0.04em;
+  --hb-tracking-tight:   -0.02em;
+  --hb-tracking-normal:  0;
+  --hb-tracking-wide:    0.02em;
+  --hb-tracking-wider:   0.05em;
+  --hb-tracking-widest:  0.1em;
+
+  /* Mono numerals (lining for stats, tabular for tables) */
+  --hb-numerals-tabular: tabular-nums;
+  --hb-numerals-lining:  lining-nums;
+
+  /* -----------------------------------------------------------------------
+   * SPACING — 4px baseline, exponential scale
+   * --------------------------------------------------------------------- */
+
+  --hb-space-0:  0;
+  --hb-space-1:  0.25rem;   /* 4px */
+  --hb-space-2:  0.5rem;    /* 8px */
+  --hb-space-3:  0.75rem;   /* 12px */
+  --hb-space-4:  1rem;      /* 16px */
+  --hb-space-5:  1.25rem;   /* 20px */
+  --hb-space-6:  1.5rem;    /* 24px */
+  --hb-space-8:  2rem;      /* 32px */
+  --hb-space-10: 2.5rem;    /* 40px */
+  --hb-space-12: 3rem;      /* 48px */
+  --hb-space-16: 4rem;      /* 64px */
+  --hb-space-20: 5rem;      /* 80px */
+  --hb-space-24: 6rem;      /* 96px */
+  --hb-space-32: 8rem;      /* 128px */
+
+  /* Section spacing (responsive) */
+  --hb-section-y: clamp(4rem, 3rem + 5vw, 8rem);
+  --hb-section-x: clamp(1rem, 0.5rem + 2vw, 2rem);
+
+  /* Container widths */
+  --hb-container-xs: 32rem;   /* 512px */
+  --hb-container-sm: 40rem;   /* 640px - prose */
+  --hb-container-md: 56rem;   /* 896px */
+  --hb-container-lg: 72rem;   /* 1152px - default */
+  --hb-container-xl: 80rem;   /* 1280px */
+
+  /* -----------------------------------------------------------------------
+   * BORDERS + RADIUS
+   * --------------------------------------------------------------------- */
+
+  --hb-radius-xs:    0.25rem;  /* 4px - badges */
+  --hb-radius-sm:    0.5rem;   /* 8px - inputs, buttons */
+  --hb-radius-md:    0.75rem;  /* 12px - cards small */
+  --hb-radius-lg:    1rem;     /* 16px - cards default */
+  --hb-radius-xl:    1.5rem;   /* 24px - bento cards */
+  --hb-radius-2xl:   2rem;     /* 32px - feature panels */
+  --hb-radius-full:  9999px;
+
+  --hb-border-thin:    1px;
+  --hb-border-default: 1px;
+  --hb-border-thick:   2px;
+
+  /* -----------------------------------------------------------------------
+   * SHADOWS — Linear-inspired: inset top highlight + ambient depth
+   * --------------------------------------------------------------------- */
+
+  --hb-shadow-xs: inset 0 1px 0 0 oklch(100% 0 0 / 0.06);
+  --hb-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.2), inset 0 1px 0 0 oklch(100% 0 0 / 0.06);
+  --hb-shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.3), inset 0 1px 0 0 oklch(100% 0 0 / 0.08);
+  --hb-shadow-lg: 0 12px 32px -4px rgb(0 0 0 / 0.4), 0 2px 6px 0 rgb(0 0 0 / 0.2), inset 0 1px 0 0 oklch(100% 0 0 / 0.1);
+  --hb-shadow-xl: 0 24px 56px -8px rgb(0 0 0 / 0.5), 0 4px 12px 0 rgb(0 0 0 / 0.25), inset 0 1px 0 0 oklch(100% 0 0 / 0.12);
+
+  /* Glow effects (gradient-based) */
+  --hb-glow-blue:    0 0 64px -16px var(--hb-accent-blue);
+  --hb-glow-violet:  0 0 64px -16px var(--hb-accent-violet);
+  --hb-glow-cyan:    0 0 64px -16px var(--hb-accent-cyan);
+  --hb-glow-success: 0 0 64px -16px var(--hb-accent-emerald);
+
+  /* Focus ring (a11y) */
+  --hb-focus-ring: 0 0 0 2px var(--hb-bg), 0 0 0 4px var(--hb-accent-blue);
+
+  /* -----------------------------------------------------------------------
+   * MOTION — Linear-style easing
+   * --------------------------------------------------------------------- */
+
+  /* Duration */
+  --hb-duration-instant: 0ms;
+  --hb-duration-fast:    150ms;   /* hover, focus */
+  --hb-duration-normal:  250ms;   /* state change */
+  --hb-duration-slow:    400ms;   /* page transition */
+  --hb-duration-slower:  700ms;   /* hero reveal, big motion */
+
+  /* Easing */
+  --hb-ease-linear:    linear;
+  --hb-ease-in:        cubic-bezier(0.4, 0, 1, 1);
+  --hb-ease-out:       cubic-bezier(0, 0, 0.2, 1);
+  --hb-ease-in-out:    cubic-bezier(0.4, 0, 0.2, 1);
+  --hb-ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);  /* Linear signature */
+  --hb-ease-out-back:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --hb-ease-spring:    cubic-bezier(0.5, 1.5, 0.5, 1);
+
+  /* -----------------------------------------------------------------------
+   * Z-INDEX SCALE
+   * --------------------------------------------------------------------- */
+
+  --hb-z-base:     0;
+  --hb-z-raised:   10;
+  --hb-z-overlay:  20;
+  --hb-z-dropdown: 30;
+  --hb-z-sticky:   40;
+  --hb-z-modal:    50;
+  --hb-z-toast:    60;
+  --hb-z-tooltip:  70;
+}
+
+/* =========================================================================
+ * LIGHT MODE (optional alt-theme — invoked via [data-theme="light"])
+ * Hashbox V2 ships dark-first; light mode is a system fallback.
+ * ========================================================================= */
+
+[data-theme="light"] {
+  --hb-bg:              oklch(99% 0 0);          /* #FCFCFC */
+  --hb-surface-1:       oklch(97% 0.002 285);    /* #F5F5F7 */
+  --hb-surface-2:       oklch(95% 0.003 285);    /* #EEEEF1 */
+  --hb-surface-3:       oklch(92% 0.005 285);    /* #E4E4E7 */
+  --hb-border:          oklch(89% 0.005 285);    /* #DDDDE0 */
+  --hb-border-strong:   oklch(81% 0.008 285);    /* #B8B8BD */
+
+  --hb-glass-1:         oklch(100% 0 0 / 0.7);
+  --hb-glass-2:         oklch(100% 0 0 / 0.5);
+
+  --hb-text-strong:     oklch(12% 0.005 285);    /* #0F0F11 */
+  --hb-text:            oklch(28% 0.005 285);    /* #3F3F46 */
+  --hb-text-muted:      oklch(45% 0.008 285);    /* #71717A */
+  --hb-text-faint:      oklch(60% 0.010 285);    /* #A1A1AA */
+
+  --hb-shadow-xs: inset 0 1px 0 0 oklch(100% 0 0 / 1);
+  --hb-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05), inset 0 1px 0 0 oklch(100% 0 0 / 1);
+  --hb-shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.08), inset 0 1px 0 0 oklch(100% 0 0 / 1);
+  --hb-shadow-lg: 0 12px 32px -4px rgb(0 0 0 / 0.1), 0 2px 6px 0 rgb(0 0 0 / 0.05), inset 0 1px 0 0 oklch(100% 0 0 / 1);
+}
+
+/* =========================================================================
+ * REDUCED MOTION (a11y)
+ * ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================================================
+ * GLOBAL BASE
+ * ========================================================================= */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background: var(--hb-bg);
+  color: var(--hb-text);
+  font-family: var(--hb-font-body);
+  font-size: var(--hb-text-base);
+  line-height: var(--hb-leading-normal);
+  font-feature-settings: 'ss01', 'cv11';
+}
+
+::selection {
+  background: var(--hb-accent-blue);
+  color: var(--hb-text-strong);
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--hb-focus-ring);
+  border-radius: var(--hb-radius-sm);
+}
+
+/* Numerals utility — opt-in for stats blocks */
+.hb-numeric,
+.hb-stat {
+  font-family: var(--hb-font-mono);
+  font-feature-settings: 'tnum', 'lnum';
+  font-variant-numeric: tabular-nums lining-nums;
+}

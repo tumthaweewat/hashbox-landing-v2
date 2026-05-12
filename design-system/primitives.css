@@ -1,0 +1,566 @@
+/* =========================================================================
+ * Hashbox V2 — Phase 1 Primitives
+ * Depends on: tokens.css
+ *
+ * Components (all prefixed .hb-*):
+ *   1. Typography (.hb-h1 ... .hb-caption, .hb-prose)
+ *   2. Button     (.hb-btn, variants + sizes + states)
+ *   3. Badge      (.hb-badge, status variants)
+ *   4. Input      (.hb-input, .hb-textarea, states)
+ *   5. Checkbox   (.hb-checkbox)
+ *   6. Radio      (.hb-radio)
+ *   7. Select     (.hb-select)
+ * ========================================================================= */
+
+/* -------------------------------------------------------------------------
+ * 1. TYPOGRAPHY
+ * ----------------------------------------------------------------------- */
+
+.hb-eyebrow {
+  font-family: var(--hb-font-mono);
+  font-size: var(--hb-text-xs);
+  font-weight: var(--hb-weight-medium);
+  letter-spacing: var(--hb-tracking-widest);
+  text-transform: uppercase;
+  color: var(--hb-text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hb-space-2);
+}
+
+.hb-h1 {
+  font-family: var(--hb-font-display);
+  font-size: var(--hb-text-6xl);
+  font-weight: var(--hb-weight-bold);
+  line-height: var(--hb-leading-tight);
+  letter-spacing: var(--hb-tracking-tight);
+  color: var(--hb-text-strong);
+  margin: 0;
+}
+
+.hb-h2 {
+  font-family: var(--hb-font-display);
+  font-size: var(--hb-text-4xl);
+  font-weight: var(--hb-weight-bold);
+  line-height: var(--hb-leading-tight);
+  letter-spacing: var(--hb-tracking-tight);
+  color: var(--hb-text-strong);
+  margin: 0;
+}
+
+.hb-h3 {
+  font-family: var(--hb-font-display);
+  font-size: var(--hb-text-3xl);
+  font-weight: var(--hb-weight-semibold);
+  line-height: var(--hb-leading-snug);
+  color: var(--hb-text-strong);
+  margin: 0;
+}
+
+.hb-h4 {
+  font-family: var(--hb-font-display);
+  font-size: var(--hb-text-2xl);
+  font-weight: var(--hb-weight-semibold);
+  line-height: var(--hb-leading-snug);
+  color: var(--hb-text-strong);
+  margin: 0;
+}
+
+.hb-h5 {
+  font-family: var(--hb-font-display);
+  font-size: var(--hb-text-xl);
+  font-weight: var(--hb-weight-semibold);
+  line-height: var(--hb-leading-snug);
+  color: var(--hb-text-strong);
+  margin: 0;
+}
+
+.hb-h6 {
+  font-family: var(--hb-font-display);
+  font-size: var(--hb-text-lg);
+  font-weight: var(--hb-weight-semibold);
+  line-height: var(--hb-leading-snug);
+  color: var(--hb-text-strong);
+  margin: 0;
+}
+
+.hb-lead {
+  font-size: var(--hb-text-lg);
+  line-height: var(--hb-leading-relaxed);
+  color: var(--hb-text);
+  margin: 0;
+  max-width: 65ch;
+}
+
+.hb-body {
+  font-size: var(--hb-text-base);
+  line-height: var(--hb-leading-normal);
+  color: var(--hb-text);
+  margin: 0;
+}
+
+.hb-caption {
+  font-size: var(--hb-text-sm);
+  line-height: var(--hb-leading-normal);
+  color: var(--hb-text-muted);
+  margin: 0;
+}
+
+.hb-gradient-text {
+  background: var(--hb-grad-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Prose block (article body) */
+.hb-prose {
+  color: var(--hb-text);
+  font-size: var(--hb-text-base);
+  line-height: var(--hb-leading-relaxed);
+  max-width: 65ch;
+}
+.hb-prose > * + * { margin-top: var(--hb-space-4); }
+.hb-prose h2 { font-size: var(--hb-text-3xl); margin-top: var(--hb-space-12); color: var(--hb-text-strong); }
+.hb-prose h3 { font-size: var(--hb-text-2xl); margin-top: var(--hb-space-8); color: var(--hb-text-strong); }
+.hb-prose a  { color: var(--hb-accent-blue); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.hb-prose a:hover { color: var(--hb-accent-violet); }
+.hb-prose code { font-family: var(--hb-font-mono); font-size: 0.9em; padding: 0.15em 0.4em; background: var(--hb-surface-2); border-radius: var(--hb-radius-xs); border: 1px solid var(--hb-border); }
+.hb-prose strong { color: var(--hb-text-strong); font-weight: var(--hb-weight-semibold); }
+.hb-prose ul, .hb-prose ol { padding-left: var(--hb-space-6); }
+.hb-prose li + li { margin-top: var(--hb-space-2); }
+
+/* -------------------------------------------------------------------------
+ * 2. BUTTON
+ * ----------------------------------------------------------------------- */
+
+.hb-btn {
+  --btn-bg: var(--hb-surface-2);
+  --btn-fg: var(--hb-text-strong);
+  --btn-border: var(--hb-border);
+  --btn-bg-hover: var(--hb-surface-3);
+  --btn-border-hover: var(--hb-border-strong);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hb-space-2);
+  font-family: var(--hb-font-body);
+  font-size: var(--hb-text-sm);
+  font-weight: var(--hb-weight-medium);
+  line-height: 1;
+  letter-spacing: var(--hb-tracking-tight);
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  border-radius: var(--hb-radius-sm);
+  padding: var(--hb-space-3) var(--hb-space-5);
+  height: 2.5rem; /* 40px - touch friendly */
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: var(--hb-shadow-xs);
+  transition: background var(--hb-duration-fast) var(--hb-ease-out),
+              border-color var(--hb-duration-fast) var(--hb-ease-out),
+              transform var(--hb-duration-fast) var(--hb-ease-out-back),
+              box-shadow var(--hb-duration-fast) var(--hb-ease-out);
+}
+
+.hb-btn:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--btn-bg-hover);
+  border-color: var(--btn-border-hover);
+  box-shadow: var(--hb-shadow-sm);
+}
+
+.hb-btn:active:not(:disabled):not([aria-disabled="true"]) {
+  transform: translateY(1px);
+}
+
+.hb-btn:disabled,
+.hb-btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Sizes */
+.hb-btn--sm {
+  height: 2rem;
+  padding: var(--hb-space-2) var(--hb-space-4);
+  font-size: var(--hb-text-xs);
+  border-radius: var(--hb-radius-sm);
+}
+
+.hb-btn--lg {
+  height: 3rem;
+  padding: var(--hb-space-4) var(--hb-space-6);
+  font-size: var(--hb-text-base);
+  border-radius: var(--hb-radius-md);
+}
+
+.hb-btn--xl {
+  height: 3.5rem;
+  padding: var(--hb-space-4) var(--hb-space-8);
+  font-size: var(--hb-text-lg);
+  border-radius: var(--hb-radius-md);
+}
+
+/* Variants */
+.hb-btn--primary {
+  --btn-bg: var(--hb-accent-blue);
+  --btn-fg: var(--hb-text-strong);
+  --btn-border: transparent;
+  --btn-bg-hover: oklch(58% 0.20 255);
+  --btn-border-hover: transparent;
+  box-shadow: var(--hb-shadow-sm), var(--hb-glow-blue);
+}
+.hb-btn--primary:hover:not(:disabled) { box-shadow: var(--hb-shadow-md), var(--hb-glow-blue); }
+
+.hb-btn--gradient {
+  --btn-fg: var(--hb-text-strong);
+  --btn-border: transparent;
+  background: var(--hb-grad-primary);
+  border: 1px solid transparent;
+  position: relative;
+}
+.hb-btn--gradient::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--hb-grad-primary);
+  border-radius: inherit;
+  filter: blur(16px);
+  opacity: 0.5;
+  z-index: -1;
+  transition: opacity var(--hb-duration-normal) var(--hb-ease-out);
+}
+.hb-btn--gradient:hover:not(:disabled)::before { opacity: 0.8; }
+
+.hb-btn--outline {
+  --btn-bg: transparent;
+  --btn-fg: var(--hb-text-strong);
+  --btn-border: var(--hb-border-strong);
+  --btn-bg-hover: var(--hb-surface-1);
+  --btn-border-hover: var(--hb-text-faint);
+}
+
+.hb-btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--hb-text);
+  --btn-border: transparent;
+  --btn-bg-hover: var(--hb-surface-1);
+  --btn-border-hover: transparent;
+  box-shadow: none;
+}
+
+.hb-btn--success {
+  --btn-bg: var(--hb-accent-emerald);
+  --btn-fg: var(--hb-text-strong);
+  --btn-border: transparent;
+  --btn-bg-hover: oklch(67% 0.18 155);
+  --btn-border-hover: transparent;
+}
+
+.hb-btn--danger {
+  --btn-bg: var(--hb-accent-rose);
+  --btn-fg: var(--hb-text-strong);
+  --btn-border: transparent;
+  --btn-bg-hover: oklch(58% 0.24 25);
+  --btn-border-hover: transparent;
+}
+
+/* Loading state */
+.hb-btn[data-loading="true"] {
+  color: transparent;
+  pointer-events: none;
+  position: relative;
+}
+.hb-btn[data-loading="true"]::after {
+  content: '';
+  position: absolute;
+  width: 1.125rem; height: 1.125rem;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  color: var(--btn-fg);
+  animation: hb-spin 700ms linear infinite;
+}
+@keyframes hb-spin { to { transform: rotate(360deg); } }
+
+/* Button group */
+.hb-btn-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hb-space-2);
+  flex-wrap: wrap;
+}
+
+/* -------------------------------------------------------------------------
+ * 3. BADGE / PILL
+ * ----------------------------------------------------------------------- */
+
+.hb-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hb-space-1);
+  font-family: var(--hb-font-mono);
+  font-size: var(--hb-text-xs);
+  font-weight: var(--hb-weight-medium);
+  line-height: 1;
+  letter-spacing: var(--hb-tracking-wide);
+  color: var(--hb-text);
+  background: var(--hb-surface-2);
+  border: 1px solid var(--hb-border);
+  padding: var(--hb-space-1) var(--hb-space-3);
+  border-radius: var(--hb-radius-full);
+  white-space: nowrap;
+}
+
+.hb-badge--sm { padding: 2px var(--hb-space-2); font-size: 10px; }
+.hb-badge--lg { padding: var(--hb-space-2) var(--hb-space-4); font-size: var(--hb-text-sm); }
+
+.hb-badge--blue    { color: var(--hb-accent-blue);    border-color: color-mix(in oklch, var(--hb-accent-blue) 30%, transparent); background: color-mix(in oklch, var(--hb-accent-blue) 12%, transparent); }
+.hb-badge--violet  { color: var(--hb-accent-violet);  border-color: color-mix(in oklch, var(--hb-accent-violet) 30%, transparent); background: color-mix(in oklch, var(--hb-accent-violet) 12%, transparent); }
+.hb-badge--cyan    { color: var(--hb-accent-cyan);    border-color: color-mix(in oklch, var(--hb-accent-cyan) 30%, transparent); background: color-mix(in oklch, var(--hb-accent-cyan) 12%, transparent); }
+.hb-badge--emerald { color: var(--hb-accent-emerald); border-color: color-mix(in oklch, var(--hb-accent-emerald) 30%, transparent); background: color-mix(in oklch, var(--hb-accent-emerald) 12%, transparent); }
+.hb-badge--amber   { color: var(--hb-accent-amber);   border-color: color-mix(in oklch, var(--hb-accent-amber) 30%, transparent); background: color-mix(in oklch, var(--hb-accent-amber) 12%, transparent); }
+.hb-badge--rose    { color: var(--hb-accent-rose);    border-color: color-mix(in oklch, var(--hb-accent-rose) 30%, transparent); background: color-mix(in oklch, var(--hb-accent-rose) 12%, transparent); }
+
+.hb-badge--solid {
+  border-color: transparent;
+}
+.hb-badge--solid.hb-badge--blue    { background: var(--hb-accent-blue);    color: var(--hb-text-strong); }
+.hb-badge--solid.hb-badge--emerald { background: var(--hb-accent-emerald); color: var(--hb-text-strong); }
+
+.hb-badge--dot::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: currentColor;
+  border-radius: 50%;
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* -------------------------------------------------------------------------
+ * 4. INPUT + TEXTAREA
+ * ----------------------------------------------------------------------- */
+
+.hb-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hb-space-2);
+}
+
+.hb-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hb-space-2);
+  font-size: var(--hb-text-sm);
+  font-weight: var(--hb-weight-medium);
+  color: var(--hb-text);
+}
+
+.hb-label__required {
+  color: var(--hb-accent-rose);
+}
+
+.hb-label__optional {
+  font-size: var(--hb-text-xs);
+  color: var(--hb-text-faint);
+  font-weight: var(--hb-weight-regular);
+}
+
+.hb-input,
+.hb-textarea,
+.hb-select {
+  font-family: var(--hb-font-body);
+  font-size: var(--hb-text-base);
+  color: var(--hb-text-strong);
+  background: var(--hb-surface-1);
+  border: 1px solid var(--hb-border);
+  border-radius: var(--hb-radius-sm);
+  padding: var(--hb-space-3) var(--hb-space-4);
+  height: 2.75rem; /* 44px - WCAG touch */
+  width: 100%;
+  transition: border-color var(--hb-duration-fast) var(--hb-ease-out),
+              background var(--hb-duration-fast) var(--hb-ease-out);
+}
+
+.hb-input::placeholder,
+.hb-textarea::placeholder {
+  color: var(--hb-text-faint);
+}
+
+.hb-input:hover,
+.hb-textarea:hover,
+.hb-select:hover {
+  border-color: var(--hb-border-strong);
+}
+
+.hb-input:focus-visible,
+.hb-textarea:focus-visible,
+.hb-select:focus-visible {
+  outline: none;
+  border-color: var(--hb-accent-blue);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--hb-accent-blue) 25%, transparent);
+}
+
+.hb-input[aria-invalid="true"],
+.hb-textarea[aria-invalid="true"] {
+  border-color: var(--hb-accent-rose);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--hb-accent-rose) 20%, transparent);
+}
+
+.hb-input:disabled,
+.hb-textarea:disabled,
+.hb-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hb-textarea {
+  height: auto;
+  min-height: 6rem;
+  resize: vertical;
+  padding: var(--hb-space-3) var(--hb-space-4);
+  line-height: var(--hb-leading-normal);
+}
+
+.hb-field__hint {
+  font-size: var(--hb-text-xs);
+  color: var(--hb-text-faint);
+  margin: 0;
+}
+
+.hb-field__error {
+  font-size: var(--hb-text-xs);
+  color: var(--hb-accent-rose);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--hb-space-1);
+}
+
+/* -------------------------------------------------------------------------
+ * 5. CHECKBOX
+ * ----------------------------------------------------------------------- */
+
+.hb-checkbox-wrap {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--hb-space-3);
+  cursor: pointer;
+  user-select: none;
+}
+
+.hb-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-top: 2px;
+  background: var(--hb-surface-1);
+  border: 1px solid var(--hb-border-strong);
+  border-radius: var(--hb-radius-xs);
+  cursor: pointer;
+  position: relative;
+  transition: background var(--hb-duration-fast) var(--hb-ease-out),
+              border-color var(--hb-duration-fast) var(--hb-ease-out);
+}
+
+.hb-checkbox:hover {
+  border-color: var(--hb-text-faint);
+}
+
+.hb-checkbox:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--hb-accent-blue) 30%, transparent);
+}
+
+.hb-checkbox:checked {
+  background: var(--hb-accent-blue);
+  border-color: var(--hb-accent-blue);
+}
+
+.hb-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 12.5 10 17.5 19 7.5' stroke='%23FAFAFA' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80%;
+}
+
+.hb-checkbox-wrap__label {
+  font-size: var(--hb-text-sm);
+  line-height: var(--hb-leading-normal);
+  color: var(--hb-text);
+}
+
+/* -------------------------------------------------------------------------
+ * 6. RADIO
+ * ----------------------------------------------------------------------- */
+
+.hb-radio {
+  appearance: none;
+  -webkit-appearance: none;
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-top: 2px;
+  background: var(--hb-surface-1);
+  border: 1px solid var(--hb-border-strong);
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  transition: background var(--hb-duration-fast) var(--hb-ease-out),
+              border-color var(--hb-duration-fast) var(--hb-ease-out);
+}
+
+.hb-radio:hover {
+  border-color: var(--hb-text-faint);
+}
+
+.hb-radio:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--hb-accent-blue) 30%, transparent);
+}
+
+.hb-radio:checked {
+  border-color: var(--hb-accent-blue);
+}
+
+.hb-radio:checked::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  background: var(--hb-accent-blue);
+  border-radius: 50%;
+}
+
+.hb-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hb-space-3);
+}
+
+/* -------------------------------------------------------------------------
+ * 7. SELECT
+ * ----------------------------------------------------------------------- */
+
+.hb-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%23A1A1AA' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.125rem;
+  padding-right: var(--hb-space-10);
+  cursor: pointer;
+}
+
+.hb-select option {
+  background: var(--hb-surface-2);
+  color: var(--hb-text-strong);
+}
