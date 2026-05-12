@@ -36,14 +36,10 @@ function hashbox_theme_setup() {
 add_action( 'after_setup_theme', 'hashbox_theme_setup' );
 
 /**
- * Add meta description for About page
+ * About-page meta description handled by hashbox_homepage_meta_description()
+ * (singular handling). Legacy hashbox_about_meta_description() removed in V2
+ * to avoid double <meta name="description"> emission.
  */
-function hashbox_about_meta_description() {
-    if ( is_page_template( 'page-about.php' ) ) {
-        echo '<meta name="description" content="Hashbox Studio is a Website Craft Agency + Digital Workforce Studio combining technical web development with AI workflow consulting. Led by a Fullstack Developer with 19 years of experience and 300+ brands managed.">' . "\n";
-    }
-}
-add_action( 'wp_head', 'hashbox_about_meta_description', 1 );
 
 /**
  * Custom title tag for About page

@@ -121,4 +121,22 @@ $projects   = isset( $portfolio['projects'] ) ? $portfolio['projects'] : array()
 </script>
 
 <?php
+hashbox_jsonld( array(
+    '@context' => 'https://schema.org',
+    '@type'    => 'CollectionPage',
+    '@id'      => $page_url . '#collection',
+    'url'      => $page_url,
+    'name'     => 'Hashbox Studio — Portfolio',
+    'description' => 'งานออกแบบและพัฒนาที่ทีม Hashbox ได้ทำผ่าน Agency / Corporate / In-house ครอบคลุม Banking, E-commerce, Mobile App, Real Estate และ AI',
+    'isPartOf' => array( '@id' => home_url( '/#website' ) ),
+) );
+hashbox_jsonld( array(
+    '@context' => 'https://schema.org',
+    '@type'    => 'BreadcrumbList',
+    'itemListElement' => array(
+        array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
+        array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Portfolio', 'item' => $page_url ),
+    ),
+) );
+
 get_footer();
