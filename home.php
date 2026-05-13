@@ -7,12 +7,14 @@
 
 get_header();
 
-$featured_query = new WP_Query( array(
+$total_posts    = (int) wp_count_posts( 'post' )->publish;
+$show_featured  = $total_posts > 1; // Only carve out featured when at least 2 posts.
+$featured_query = $show_featured ? new WP_Query( array(
     'post_type'      => 'post',
     'posts_per_page' => 1,
     'orderby'        => 'date',
     'order'          => 'DESC',
-) );
+) ) : null;
 
 $categories = get_categories( array(
     'orderby'    => 'count',
@@ -43,7 +45,7 @@ $categories = get_categories( array(
     </div>
 </section>
 
-<?php if ( $featured_query->have_posts() ) : ?>
+<?php if ( $show_featured && $featured_query && $featured_query->have_posts() ) : ?>
 <section class="hb-blog-featured" aria-label="Featured post">
     <div class="hb-container hb-container--md">
         <?php while ( $featured_query->have_posts() ) : $featured_query->the_post();
@@ -86,13 +88,13 @@ $categories = get_categories( array(
         </header>
 
         <?php
-        $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-        $offset = 1 === $paged ? 1 : 0; // Skip featured on page 1.
-        $list_query = new WP_Query( array(
+        $paged       = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+        $skip_first  = $show_featured && 1 === $paged ? 1 : 0;
+        $list_query  = new WP_Query( array(
             'post_type'      => 'post',
             'posts_per_page' => 9,
             'paged'          => $paged,
-            'offset'         => $offset + ( ( $paged - 1 ) * 9 ),
+            'offset'         => $skip_first + ( ( $paged - 1 ) * 9 ),
         ) );
 
         if ( $list_query->have_posts() ) : ?>
