@@ -843,3 +843,129 @@
   line-height: 1.7;
 }
 .hb-section--light .hb-accordion__content p { margin: 0; }
+
+/* =========================================================================
+ * Portfolio section padding/margin fixes
+ * - Kill inline --case-bg gradient bleed on white
+ * - Increase head→cards breathing room
+ * - Larger card padding for hierarchy
+ * ========================================================================= */
+.hb-section--light#portfolio {
+  padding-block: clamp(5rem, 4rem + 4vw, 8rem);
+}
+.hb-section--light#portfolio .hb-section__head {
+  margin-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+}
+
+/* Override base .hb-case::before that bleeds inline gradient */
+.hb-section--light .hb-case::before {
+  background: none !important;
+  opacity: 0 !important;
+}
+.hb-section--light .hb-case:hover::before {
+  opacity: 0 !important;
+}
+
+/* Larger card padding + min-height for breathing room */
+.hb-section--light .hb-case {
+  padding: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem);
+  gap: var(--hb-space-4);
+  min-height: 280px;
+  border-radius: 20px;
+}
+
+/* Grid gap larger on white */
+.hb-section--light#portfolio > .hb-container > div[style*="grid-template-columns"] {
+  gap: var(--hb-space-6) !important;
+}
+
+/* Pull metric closer to name, push desc down for clearer hierarchy */
+.hb-section--light .hb-case__name { margin-top: 0; }
+.hb-section--light .hb-case__metric {
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+.hb-section--light .hb-case__desc {
+  margin-top: auto;
+  padding-top: var(--hb-space-2);
+}
+
+/* "ดูผลงานทั้งหมด" margin-top bigger after cards */
+.hb-section--light#portfolio > .hb-container > div[style*="text-align:center"] {
+  margin-top: clamp(3rem, 2rem + 3vw, 5rem) !important;
+}
+
+/* =========================================================================
+ * Services section (What we do) — padding/margin/grid polish
+ * Match portfolio breathing room. Equalize 3 service cards (3-col grid).
+ * ========================================================================= */
+.hb-section--light#services {
+  padding-block: clamp(5rem, 4rem + 4vw, 8rem);
+}
+
+.hb-section--light#services .hb-section__head {
+  margin-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+}
+
+/* Override bento c2+c2+c4 → 3 equal columns inside services on white
+   (clearer service hierarchy when 3 cards have equal weight) */
+.hb-section--light#services .hb-bento {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: auto;
+  gap: clamp(1rem, 0.75rem + 1vw, 1.75rem);
+}
+.hb-section--light#services .hb-bento__cell--c2,
+.hb-section--light#services .hb-bento__cell--c4 {
+  grid-column: span 1;
+}
+
+@media (max-width: 1024px) {
+  .hb-section--light#services .hb-bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .hb-section--light#services .hb-bento__cell--c4 {
+    grid-column: span 2;  /* third card full-width on tablet */
+  }
+}
+
+@media (max-width: 640px) {
+  .hb-section--light#services .hb-bento {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hb-section--light#services .hb-bento__cell--c2,
+  .hb-section--light#services .hb-bento__cell--c4 {
+    grid-column: span 1;
+  }
+}
+
+/* Service card breathing room: bigger padding, consistent min-height */
+.hb-section--light .hb-service {
+  padding: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem);
+  gap: var(--hb-space-3);
+  min-height: 360px;
+  border-radius: 20px;
+}
+
+/* Tighter rhythm inside card: num→icon→title→desc→stack→link */
+.hb-section--light .hb-service__num {
+  margin-bottom: var(--hb-space-1);
+}
+.hb-section--light .hb-service__icon {
+  margin-bottom: var(--hb-space-2);
+}
+.hb-section--light .hb-service__title {
+  margin-bottom: var(--hb-space-1);
+}
+.hb-section--light .hb-service__desc {
+  margin-bottom: var(--hb-space-3);
+  line-height: 1.65;
+}
+.hb-section--light .hb-service__stack {
+  margin-top: auto;
+  padding-top: var(--hb-space-4);
+}
+.hb-section--light .hb-service__link {
+  margin-top: var(--hb-space-3);
+  padding-top: var(--hb-space-3);
+  border-top: 1px solid var(--hb-light-border);
+}
