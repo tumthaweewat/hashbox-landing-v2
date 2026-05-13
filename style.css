@@ -24,11 +24,11 @@ Tags: one-page, dark, agency, custom-menu, translation-ready
     --color-bg:            #09090B;
     --color-surface:       #18181B;
     --color-surface-light: #27272A;
-    --color-accent:        #2563EB;
-    --color-accent-light:  #3B82F6;
-    --color-accent-dark:   #1D4ED8;
-    --color-secondary:     #06B6D4;
-    --color-highlight:     #F59E0B;
+    --color-accent:        #4F46E5;  /* indigo 600 — primary brand */
+    --color-accent-light:  #6366F1;  /* indigo 500 — hover on dark */
+    --color-accent-dark:   #4338CA;  /* indigo 700 — on light bg */
+    --color-secondary:     #4F46E5;  /* alias to primary (cyan deprecated) */
+    --color-highlight:     #C2410C;  /* burnt orange — single warm accent */
     --color-border:        #3F3F46;
     --color-text:          #FAFAFA;
     --color-text-muted:    #A1A1AA;
@@ -147,12 +147,12 @@ img {
 .btn-cta {
     background: var(--color-highlight);
     color: #09090B;
-    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.25);
+    box-shadow: 0 4px 16px rgba(194, 65, 12, 0.25);
 }
 
 .btn-cta:hover {
     transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.35);
+    box-shadow: 0 8px 24px rgba(194, 65, 12, 0.35);
 }
 
 .btn-outline {
@@ -168,13 +168,13 @@ img {
 
 .btn-outline-cyan {
     background: transparent;
-    border: 1px solid rgba(6, 182, 212, 0.4);
+    border: 1px solid rgba(79, 70, 229, 0.4);
     color: var(--color-secondary);
 }
 
 .btn-outline-cyan:hover {
     border-color: var(--color-secondary);
-    background: rgba(6, 182, 212, 0.08);
+    background: rgba(79, 70, 229, 0.08);
 }
 
 .btn-line-oa {
@@ -187,7 +187,7 @@ img {
 
 .btn-line-oa:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(6, 182, 212, 0.3);
+    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.3);
 }
 
 /* =============================================
@@ -434,7 +434,7 @@ img {
 .hero-orb-blue {
     width: 600px;
     height: 600px;
-    background: #2563EB;
+    background: var(--color-accent);
     opacity: 0.12;
     top: -10%;
     left: -10%;
@@ -444,7 +444,7 @@ img {
 .hero-orb-cyan {
     width: 400px;
     height: 400px;
-    background: #06B6D4;
+    background: var(--color-accent-light);
     opacity: 0.10;
     bottom: 10%;
     right: -5%;
@@ -485,7 +485,7 @@ img {
 }
 
 .hero-line-gradient {
-    background: linear-gradient(90deg, #2563EB, #06B6D4);
+    background: linear-gradient(90deg, var(--color-accent-dark), var(--color-accent));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -591,17 +591,17 @@ img {
 
 .service-card[data-accent="blue"]:hover {
     border-color: var(--color-accent);
-    box-shadow: 0 20px 60px rgba(37, 99, 235, 0.15);
+    box-shadow: 0 20px 60px rgba(79, 70, 229, 0.15);
 }
 
 .service-card[data-accent="cyan"]:hover {
     border-color: var(--color-secondary);
-    box-shadow: 0 20px 60px rgba(6, 182, 212, 0.15);
+    box-shadow: 0 20px 60px rgba(79, 70, 229, 0.15);
 }
 
 .service-card[data-accent="gradient"]:hover {
     border-color: var(--color-accent);
-    box-shadow: 0 20px 60px rgba(37, 99, 235, 0.12);
+    box-shadow: 0 20px 60px rgba(79, 70, 229, 0.12);
 }
 
 /* Accent bars */
@@ -637,12 +637,12 @@ img {
 }
 
 .icon-blue {
-    background: rgba(37, 99, 235, 0.12);
+    background: rgba(79, 70, 229, 0.12);
     color: var(--color-accent-light);
 }
 
 .icon-cyan {
-    background: rgba(6, 182, 212, 0.12);
+    background: rgba(79, 70, 229, 0.12);
     color: var(--color-secondary);
 }
 
@@ -900,17 +900,17 @@ img {
 }
 
 .tag-blue {
-    background: rgba(37, 99, 235, 0.85);
+    background: rgba(79, 70, 229, 0.85);
     color: var(--color-text);
 }
 
 .tag-cyan {
-    background: rgba(6, 182, 212, 0.85);
+    background: rgba(79, 70, 229, 0.85);
     color: #09090B;
 }
 
 .tag-amber {
-    background: rgba(245, 158, 11, 0.85);
+    background: rgba(194, 65, 12, 0.85);
     color: #09090B;
 }
 
@@ -1057,8 +1057,8 @@ img {
     width: 48px;
     height: 48px;
     border-radius: 12px;
-    background: rgba(37, 99, 235, 0.12);
-    border: 1px solid rgba(37, 99, 235, 0.2);
+    background: rgba(79, 70, 229, 0.12);
+    border: 1px solid rgba(79, 70, 229, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1097,18 +1097,18 @@ img {
 }
 
 .about-feature-icon-blue {
-    background: rgba(37, 99, 235, 0.12);
-    border: 1px solid rgba(37, 99, 235, 0.2);
+    background: rgba(79, 70, 229, 0.12);
+    border: 1px solid rgba(79, 70, 229, 0.2);
     color: var(--color-accent-light);
 }
 .about-feature-icon-cyan {
-    background: rgba(6, 182, 212, 0.12);
-    border: 1px solid rgba(6, 182, 212, 0.2);
+    background: rgba(79, 70, 229, 0.12);
+    border: 1px solid rgba(79, 70, 229, 0.2);
     color: var(--color-secondary);
 }
 .about-feature-icon-amber {
-    background: rgba(245, 158, 11, 0.12);
-    border: 1px solid rgba(245, 158, 11, 0.2);
+    background: rgba(194, 65, 12, 0.12);
+    border: 1px solid rgba(194, 65, 12, 0.2);
     color: var(--color-highlight);
 }
 
@@ -1129,11 +1129,11 @@ img {
 /* Stats card — full width */
 .about-bento-stats {
     grid-column: span 3;
-    background: linear-gradient(135deg, rgba(37, 99, 235, 0.06), rgba(6, 182, 212, 0.04));
-    border-color: rgba(37, 99, 235, 0.15);
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.06), rgba(79, 70, 229, 0.04));
+    border-color: rgba(79, 70, 229, 0.15);
 }
 .about-bento-stats:hover {
-    border-color: rgba(37, 99, 235, 0.3);
+    border-color: rgba(79, 70, 229, 0.3);
 }
 
 .about-stats {
@@ -1218,8 +1218,8 @@ img {
 }
 
 .pricing-featured {
-    border-color: rgba(245, 158, 11, 0.6);
-    box-shadow: 0 10px 40px rgba(245, 158, 11, 0.1);
+    border-color: rgba(194, 65, 12, 0.6);
+    box-shadow: 0 10px 40px rgba(194, 65, 12, 0.1);
     transform: scale(1.02);
 }
 
@@ -1228,7 +1228,7 @@ img {
 }
 
 .pricing-enterprise {
-    border-color: rgba(6, 182, 212, 0.4);
+    border-color: rgba(79, 70, 229, 0.4);
 }
 
 /* Pricing badges */
@@ -1258,9 +1258,9 @@ img {
 }
 
 .pricing-badge-enterprise {
-    background: rgba(6, 182, 212, 0.15);
+    background: rgba(79, 70, 229, 0.15);
     color: var(--color-secondary);
-    border: 1px solid rgba(6, 182, 212, 0.3);
+    border: 1px solid rgba(79, 70, 229, 0.3);
 }
 
 .pricing-name {
@@ -1947,15 +1947,15 @@ img {
 }
 
 .insight-card[data-accent="blue"]:hover .insight-card-number {
-    color: rgba(37, 99, 235, 0.08);
+    color: rgba(79, 70, 229, 0.08);
 }
 
 .insight-card[data-accent="cyan"]:hover .insight-card-number {
-    color: rgba(6, 182, 212, 0.08);
+    color: rgba(79, 70, 229, 0.08);
 }
 
 .insight-card[data-accent="amber"]:hover .insight-card-number {
-    color: rgba(245, 158, 11, 0.08);
+    color: rgba(194, 65, 12, 0.08);
 }
 
 /* Card content */
@@ -1985,18 +1985,18 @@ img {
 }
 
 .insight-card[data-accent="blue"]:hover {
-    border-color: rgba(37, 99, 235, 0.4);
-    box-shadow: 0 24px 48px rgba(37, 99, 235, 0.1);
+    border-color: rgba(79, 70, 229, 0.4);
+    box-shadow: 0 24px 48px rgba(79, 70, 229, 0.1);
 }
 
 .insight-card[data-accent="cyan"]:hover {
-    border-color: rgba(6, 182, 212, 0.4);
-    box-shadow: 0 24px 48px rgba(6, 182, 212, 0.1);
+    border-color: rgba(79, 70, 229, 0.4);
+    box-shadow: 0 24px 48px rgba(79, 70, 229, 0.1);
 }
 
 .insight-card[data-accent="amber"]:hover {
-    border-color: rgba(245, 158, 11, 0.4);
-    box-shadow: 0 24px 48px rgba(245, 158, 11, 0.1);
+    border-color: rgba(194, 65, 12, 0.4);
+    box-shadow: 0 24px 48px rgba(194, 65, 12, 0.1);
 }
 
 /* Tags */
@@ -2013,17 +2013,17 @@ img {
 }
 
 .insight-tag-blue {
-    background: rgba(37, 99, 235, 0.12);
+    background: rgba(79, 70, 229, 0.12);
     color: var(--color-accent-light);
 }
 
 .insight-tag-cyan {
-    background: rgba(6, 182, 212, 0.12);
+    background: rgba(79, 70, 229, 0.12);
     color: var(--color-secondary);
 }
 
 .insight-tag-amber {
-    background: rgba(245, 158, 11, 0.12);
+    background: rgba(194, 65, 12, 0.12);
     color: var(--color-highlight);
 }
 

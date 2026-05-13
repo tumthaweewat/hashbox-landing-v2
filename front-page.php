@@ -448,7 +448,7 @@ get_header();
                 </div>
                 <label class="hb-checkbox-wrap">
                     <input type="checkbox" class="hb-checkbox" name="pdpa" required>
-                    <span class="hb-checkbox-wrap__label">ยินยอมให้ Hashbox เก็บข้อมูลตาม <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>" style="color: var(--hb-accent-blue);">นโยบาย PDPA</a></span>
+                    <span class="hb-checkbox-wrap__label">ยินยอมให้ Hashbox เก็บข้อมูลตาม <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>" style="color: var(--hb-accent-blue-soft); text-decoration: underline;">นโยบาย PDPA</a></span>
                 </label>
                 <button type="submit" class="hb-btn hb-btn--gradient hb-btn--lg">ส่งและรับ Audit ฟรี &rarr;</button>
             </form>

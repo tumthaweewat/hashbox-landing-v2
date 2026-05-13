@@ -510,13 +510,19 @@
   gap: var(--hb-space-2);
   font-family: var(--hb-font-mono);
   font-size: var(--hb-text-xs);
-  color: var(--hb-text-faint);
+  color: var(--hb-text-muted);
   text-transform: uppercase;
   letter-spacing: var(--hb-tracking-wider);
 }
 
 .hb-insight__cat {
-  color: var(--hb-accent-blue);
+  /* Use soft indigo on dark for AA contrast (primary too dark on #15151E) */
+  color: var(--hb-accent-blue-soft);
+}
+
+.hb-section--light .hb-insight__cat {
+  /* On white, primary indigo has enough contrast */
+  color: var(--hb-accent-blue-strong);
 }
 
 .hb-insight__title {

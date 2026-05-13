@@ -13,44 +13,51 @@
    * Dark-first system. All values calibrated for WCAG AA on dark surfaces.
    * --------------------------------------------------------------------- */
 
-  /* Surfaces (dark base) */
-  --hb-bg:              oklch(14% 0.005 285);   /* #09090B - page bg */
-  --hb-surface-1:       oklch(17% 0.005 285);   /* #111114 - card bg */
-  --hb-surface-2:       oklch(21% 0.006 285);   /* #18181B - elevated card */
-  --hb-surface-3:       oklch(25% 0.007 285);   /* #1F1F23 - hover surface */
-  --hb-border:          oklch(28% 0.008 285);   /* #27272A - subtle border */
-  --hb-border-strong:   oklch(34% 0.010 285);   /* #3F3F46 - emphasis border */
+  /* Surfaces (dark base — warmer slate, deeper near-black) */
+  --hb-bg:              #0B0B12;   /* page bg */
+  --hb-surface-1:       #15151E;   /* card bg */
+  --hb-surface-2:       #1E1E2A;   /* elevated card */
+  --hb-surface-3:       #2A2A38;   /* hover surface */
+  --hb-border:          #2A2A38;   /* subtle border */
+  --hb-border-strong:   #3F3F52;   /* emphasis border */
 
   /* Glass surfaces (translucent overlays for stacking) */
-  --hb-glass-1:         oklch(20% 0.005 285 / 0.6);
-  --hb-glass-2:         oklch(25% 0.006 285 / 0.4);
+  --hb-glass-1:         rgba(30, 30, 42, 0.6);
+  --hb-glass-2:         rgba(42, 42, 56, 0.4);
   --hb-glass-blur:      24px;
 
-  /* Text */
-  --hb-text-strong:     oklch(98% 0 0);         /* #FAFAFA - headings */
-  --hb-text:            oklch(89% 0.005 285);   /* #E4E4E7 - body */
-  --hb-text-muted:      oklch(64% 0.011 285);   /* #A1A1AA - secondary */
-  --hb-text-faint:      oklch(60% 0.013 285);   /* #909094 - tertiary, WCAG AA on dark bg */
+  /* Text (warm-neutral scale, AA on #0B0B12) */
+  --hb-text-strong:     #F5F5F4;   /* headings */
+  --hb-text:            #D6D6D4;   /* body */
+  --hb-text-muted:      #9A9A98;   /* secondary */
+  --hb-text-faint:      #7A7A78;   /* tertiary, WCAG AA on dark bg */
 
-  /* Light surfaces (for .section--light — info-dense, scan-friendly chapters) */
-  --hb-light-bg:           #FFFFFF;
-  --hb-light-surface-1:    #F8FAFC;   /* subtle card bg */
-  --hb-light-surface-2:    #F1F5F9;   /* elevated card */
-  --hb-light-surface-3:    #E2E8F0;   /* hover */
-  --hb-light-border:       #E4E4E7;
-  --hb-light-border-strong:#CBD5E1;
-  --hb-light-text-strong:  #09090B;   /* headings */
-  --hb-light-text:         #18181B;   /* body */
-  --hb-light-text-muted:   #52525B;   /* secondary */
-  --hb-light-text-faint:   #71717A;   /* tertiary */
+  /* Light surfaces — warm off-white (pro brands avoid stark #FFF) */
+  --hb-light-bg:           #FAFAF9;   /* warm off-white */
+  --hb-light-surface-1:    #F2F2F0;   /* subtle card bg */
+  --hb-light-surface-2:    #E8E8E6;   /* elevated card */
+  --hb-light-surface-3:    #DCDCDA;   /* hover */
+  --hb-light-border:       #E0E0DE;
+  --hb-light-border-strong:#C7C7C4;
+  --hb-light-text-strong:  #0B0B12;   /* headings */
+  --hb-light-text:         #1F1F26;   /* body */
+  --hb-light-text-muted:   #44444A;   /* secondary */
+  --hb-light-text-faint:   #6E6E72;   /* tertiary */
 
-  /* Brand accents */
-  --hb-accent-blue:     oklch(64% 0.20 255);    /* #3B82F6 - blue 500 */
-  --hb-accent-violet:   oklch(64% 0.23 295);    /* #8B5CF6 - violet 500 */
-  --hb-accent-cyan:     oklch(76% 0.16 220);    /* #06B6D4 - cyan 500 */
-  --hb-accent-emerald:  oklch(73% 0.18 155);    /* #10B981 - success / metric */
-  --hb-accent-amber:    oklch(80% 0.18 75);     /* #F59E0B - warning */
-  --hb-accent-rose:     oklch(64% 0.24 25);     /* #F43F5E - destructive */
+  /* Brand accents — restrained pro palette
+   * Primary: indigo (AI/tech mature, works both bgs)
+   * Accent: burnt orange (single warm complement for highlights/badges)
+   * Status: emerald (success), rose (destructive) — only when semantically needed
+   */
+  --hb-accent-blue:     #4F46E5;   /* indigo 600 — PRIMARY brand */
+  --hb-accent-blue-strong: #4338CA; /* indigo 700 — on white */
+  --hb-accent-blue-soft:   #818CF8; /* indigo 400 — on dark hover */
+  --hb-accent-violet:   #6366F1;   /* indigo 500 — soft brand alias */
+  --hb-accent-cyan:     #4F46E5;   /* alias to primary (deprecated cyan) */
+  --hb-accent-emerald:  #059669;   /* emerald 600 — success only */
+  --hb-accent-amber:    #C2410C;   /* orange 700 — burnt warm accent */
+  --hb-accent-amber-soft: #EA580C; /* orange 600 — on dark */
+  --hb-accent-rose:     #BE123C;   /* rose 700 — destructive only */
 
   /* Gradient meshes (signature element) */
   --hb-grad-primary:    linear-gradient(135deg, var(--hb-accent-blue) 0%, var(--hb-accent-violet) 50%, var(--hb-accent-cyan) 100%);
