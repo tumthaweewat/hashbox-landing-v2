@@ -14,7 +14,7 @@ $hashbox_cases = [
         'metric'      => '+540% Users',
         'desc'        => 'Enterprise corporate website on Headless WordPress + Next.js with full SEO and analytics',
         'card_class'  => 'work-large',
-        'card_bg'     => 'linear-gradient(135deg, #1D4ED8, #2563EB)',
+        'card_bg'     => 'linear-gradient(135deg, #4338CA, #4F46E5)',
     ],
     [
         'slug'        => 'flow-store',
@@ -24,7 +24,7 @@ $hashbox_cases = [
         'metric'      => '3× Conversion',
         'desc'        => 'Full e-commerce build on Next.js + Stripe with TH payment gateway and CRO sprint',
         'card_class'  => '',
-        'card_bg'     => 'linear-gradient(135deg, #0369A1, #06B6D4)',
+        'card_bg'     => 'linear-gradient(135deg, #3730A3, #6366F1)',
     ],
     [
         'slug'        => 'rank-project',
@@ -34,7 +34,7 @@ $hashbox_cases = [
         'metric'      => '+2,200% Impressions',
         'desc'        => 'HR-Tech platform technical SEO audit + 12-month content programme. Real GSC data.',
         'card_class'  => '',
-        'card_bg'     => 'linear-gradient(135deg, #1E3A5F, #2563EB)',
+        'card_bg'     => 'linear-gradient(135deg, #312E81, #4F46E5)',
     ],
     [
         'slug'        => 'autobot-line',
@@ -54,7 +54,7 @@ $hashbox_cases = [
         'metric'      => '+180% Branded Search',
         'desc'        => 'Brand identity refresh paired with high-performance corporate site launch',
         'card_class'  => '',
-        'card_bg'     => 'linear-gradient(135deg, #78350F, #F59E0B)',
+        'card_bg'     => 'linear-gradient(135deg, #7C2D12, #C2410C)',
     ],
     [
         'slug'        => 'pitch-deck',

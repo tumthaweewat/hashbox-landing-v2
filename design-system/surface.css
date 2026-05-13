@@ -520,7 +520,7 @@
 
 /* Light-mode section-label: blue stays, but darker shade for contrast */
 .section--light .section-label {
-  color: #1D4ED8;  /* blue 700 */
+  color: #4338CA;  /* blue 700 */
 }
 /* Flat white V1 alias - no gradient bands */
 .section--light::before,
@@ -968,4 +968,67 @@
   margin-top: var(--hb-space-3);
   padding-top: var(--hb-space-3);
   border-top: 1px solid var(--hb-light-border);
+}
+
+/* =========================================================================
+ * FAQ section — match white-section breathing room
+ * ========================================================================= */
+.hb-section--light#faq {
+  padding-block: clamp(5rem, 4rem + 4vw, 8rem);
+}
+.hb-section--light#faq .hb-section__head {
+  margin-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+}
+.hb-section--light#faq .hb-accordion {
+  border-top: 1px solid var(--hb-light-border);
+  border-radius: 0;
+}
+.hb-section--light#faq .hb-accordion__trigger {
+  padding: clamp(1.25rem, 1rem + 0.5vw, 1.75rem) clamp(1.25rem, 1rem + 1vw, 2rem);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  font-weight: 500;
+}
+.hb-section--light#faq .hb-accordion__content {
+  padding: 0 clamp(1.25rem, 1rem + 1vw, 2rem) clamp(1.25rem, 1rem + 0.5vw, 1.75rem);
+  font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1rem);
+}
+
+/* =========================================================================
+ * Pricing section — match section rhythm + tier polish
+ * (Dark section, but apply consistent padding/margin treatment)
+ * ========================================================================= */
+#pricing.hb-section {
+  padding-block: clamp(5rem, 4rem + 4vw, 8rem);
+}
+#pricing .hb-section__head {
+  margin-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+}
+#pricing .hb-tier {
+  padding: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem);
+  gap: var(--hb-space-4);
+  border-radius: 20px;
+  min-height: 480px;
+}
+#pricing .hb-tier__price {
+  font-size: clamp(2rem, 1.5rem + 1.5vw, 2.75rem);
+  margin: var(--hb-space-2) 0;
+}
+#pricing .hb-tier__features {
+  gap: var(--hb-space-3);
+  padding: var(--hb-space-4) 0;
+  border-top: 1px solid var(--hb-border);
+  border-bottom: 1px solid var(--hb-border);
+  margin: var(--hb-space-2) 0;
+}
+#pricing > .hb-container > div[style*="grid-template-columns"] {
+  gap: clamp(1rem, 0.75rem + 1vw, 1.75rem) !important;
+}
+
+/* Featured tier ribbon: ensure AA contrast (already via indigo token swap) */
+.hb-tier__ribbon {
+  padding: 6px 14px;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  border-radius: 0 0 8px 8px;
+  font-weight: 600;
 }

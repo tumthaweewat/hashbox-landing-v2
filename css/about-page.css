@@ -201,10 +201,10 @@
 }
 
 .about-why-solution {
-    border-color: rgba(6, 182, 212, 0.15);
+    border-color: rgba(79, 70, 229, 0.15);
 }
 .about-why-solution:hover {
-    border-color: rgba(6, 182, 212, 0.3);
+    border-color: rgba(79, 70, 229, 0.3);
 }
 
 .about-why-card-title {
@@ -258,7 +258,7 @@
 
 .about-why-icon-good {
     color: var(--color-secondary);
-    background: rgba(6, 182, 212, 0.1);
+    background: rgba(79, 70, 229, 0.1);
 }
 
 .about-why-footer {
@@ -291,7 +291,7 @@
 }
 
 .about-service-card:hover {
-    border-color: rgba(59, 130, 246, 0.25);
+    border-color: rgba(129, 140, 248, 0.25);
     transform: translateY(-3px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 }
@@ -313,20 +313,20 @@
 }
 
 .about-service-icon-blue {
-    background: rgba(37, 99, 235, 0.12);
-    border: 1px solid rgba(37, 99, 235, 0.2);
+    background: rgba(79, 70, 229, 0.12);
+    border: 1px solid rgba(79, 70, 229, 0.2);
     color: var(--color-accent-light);
 }
 
 .about-service-icon-cyan {
-    background: rgba(6, 182, 212, 0.12);
-    border: 1px solid rgba(6, 182, 212, 0.2);
+    background: rgba(79, 70, 229, 0.12);
+    border: 1px solid rgba(79, 70, 229, 0.2);
     color: var(--color-secondary);
 }
 
 .about-service-icon-amber {
-    background: rgba(245, 158, 11, 0.12);
-    border: 1px solid rgba(245, 158, 11, 0.2);
+    background: rgba(194, 65, 12, 0.12);
+    border: 1px solid rgba(194, 65, 12, 0.2);
     color: var(--color-highlight);
 }
 
@@ -401,27 +401,27 @@
 }
 
 .about-tech-tag-blue {
-    border: 1px solid rgba(37, 99, 235, 0.3);
+    border: 1px solid rgba(79, 70, 229, 0.3);
     color: var(--color-accent-light);
 }
 .about-tech-tag-blue:hover {
-    background: rgba(37, 99, 235, 0.08);
+    background: rgba(79, 70, 229, 0.08);
 }
 
 .about-tech-tag-cyan {
-    border: 1px solid rgba(6, 182, 212, 0.3);
+    border: 1px solid rgba(79, 70, 229, 0.3);
     color: var(--color-secondary);
 }
 .about-tech-tag-cyan:hover {
-    background: rgba(6, 182, 212, 0.08);
+    background: rgba(79, 70, 229, 0.08);
 }
 
 .about-tech-tag-amber {
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    border: 1px solid rgba(194, 65, 12, 0.3);
     color: var(--color-highlight);
 }
 .about-tech-tag-amber:hover {
-    background: rgba(245, 158, 11, 0.08);
+    background: rgba(194, 65, 12, 0.08);
 }
 
 .about-tools-list {
@@ -496,26 +496,26 @@
 }
 
 .about-value-blue .about-value-icon {
-    background: rgba(37, 99, 235, 0.12);
-    border: 1px solid rgba(37, 99, 235, 0.2);
+    background: rgba(79, 70, 229, 0.12);
+    border: 1px solid rgba(79, 70, 229, 0.2);
     color: var(--color-accent-light);
 }
 
 .about-value-cyan .about-value-icon {
-    background: rgba(6, 182, 212, 0.12);
-    border: 1px solid rgba(6, 182, 212, 0.2);
+    background: rgba(79, 70, 229, 0.12);
+    border: 1px solid rgba(79, 70, 229, 0.2);
     color: var(--color-secondary);
 }
 
 .about-value-amber .about-value-icon {
-    background: rgba(245, 158, 11, 0.12);
-    border: 1px solid rgba(245, 158, 11, 0.2);
+    background: rgba(194, 65, 12, 0.12);
+    border: 1px solid rgba(194, 65, 12, 0.2);
     color: var(--color-highlight);
 }
 
-.about-value-blue:hover  { border-color: rgba(37, 99, 235, 0.3); }
-.about-value-cyan:hover  { border-color: rgba(6, 182, 212, 0.3); }
-.about-value-amber:hover { border-color: rgba(245, 158, 11, 0.3); }
+.about-value-blue:hover  { border-color: rgba(79, 70, 229, 0.3); }
+.about-value-cyan:hover  { border-color: rgba(79, 70, 229, 0.3); }
+.about-value-amber:hover { border-color: rgba(194, 65, 12, 0.3); }
 
 .about-value-title {
     font-size: 1.15rem;
@@ -604,7 +604,7 @@
 }
 
 .about-case-card:hover {
-    border-color: rgba(59, 130, 246, 0.25);
+    border-color: rgba(129, 140, 248, 0.25);
     transform: translateY(-3px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 }
@@ -647,17 +647,17 @@
 }
 
 .about-metric-blue {
-    background: rgba(37, 99, 235, 0.12);
+    background: rgba(79, 70, 229, 0.12);
     color: var(--color-accent-light);
 }
 
 .about-metric-cyan {
-    background: rgba(6, 182, 212, 0.12);
+    background: rgba(79, 70, 229, 0.12);
     color: var(--color-secondary);
 }
 
 .about-metric-amber {
-    background: rgba(245, 158, 11, 0.12);
+    background: rgba(194, 65, 12, 0.12);
     color: var(--color-highlight);
 }
 
@@ -677,7 +677,7 @@
     position: absolute;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(37, 99, 235, 0.08), transparent 70%);
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.08), transparent 70%);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -748,12 +748,12 @@
 .about-cta-actions .btn-cta {
     background: var(--color-highlight);
     color: var(--color-bg);
-    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.25);
+    box-shadow: 0 4px 16px rgba(194, 65, 12, 0.25);
 }
 
 .about-cta-actions .btn-cta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.35);
+    box-shadow: 0 8px 24px rgba(194, 65, 12, 0.35);
 }
 
 .about-cta-actions .btn-outline-cyan {

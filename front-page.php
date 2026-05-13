@@ -179,7 +179,7 @@ get_header();
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--hb-space-4);">
-            <a href="<?php echo esc_url( home_url( '/work/nexus-corp/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #1D4ED8, #2563EB);">
+            <a href="<?php echo esc_url( home_url( '/work/nexus-corp/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #4338CA, #4F46E5);">
                 <div class="hb-case__head"><span class="hb-case__industry">Enterprise · 2025</span><span class="hb-badge hb-badge--blue">Corporate</span></div>
                 <h3 class="hb-case__name">Nexus Corp</h3>
                 <p class="hb-case__metric">+540%</p>
@@ -187,7 +187,7 @@ get_header();
                 <div class="hb-case__cta"><span>อ่าน Case Study</span><span class="hb-case__cta-arrow">→</span></div>
             </a>
 
-            <a href="<?php echo esc_url( home_url( '/work/flow-store/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #0369A1, #06B6D4);">
+            <a href="<?php echo esc_url( home_url( '/work/flow-store/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #3730A3, #6366F1);">
                 <div class="hb-case__head"><span class="hb-case__industry">E-commerce · 2025</span><span class="hb-badge hb-badge--cyan">CRO</span></div>
                 <h3 class="hb-case__name">Flow Store</h3>
                 <p class="hb-case__metric">3×</p>
@@ -195,7 +195,7 @@ get_header();
                 <div class="hb-case__cta"><span>อ่าน Case Study</span><span class="hb-case__cta-arrow">→</span></div>
             </a>
 
-            <a href="<?php echo esc_url( home_url( '/work/rank-project/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #1E3A5F, #2563EB);">
+            <a href="<?php echo esc_url( home_url( '/work/rank-project/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #312E81, #4F46E5);">
                 <div class="hb-case__head"><span class="hb-case__industry">HR-Tech · 2024</span><span class="hb-badge hb-badge--blue">SEO Recovery</span></div>
                 <h3 class="hb-case__name">Rank Project</h3>
                 <p class="hb-case__metric">+2,200%</p>
@@ -211,7 +211,7 @@ get_header();
                 <div class="hb-case__cta"><span>อ่าน Case Study</span><span class="hb-case__cta-arrow">→</span></div>
             </a>
 
-            <a href="<?php echo esc_url( home_url( '/work/gold-brand/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #78350F, #F59E0B);">
+            <a href="<?php echo esc_url( home_url( '/work/gold-brand/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #7C2D12, #C2410C);">
                 <div class="hb-case__head"><span class="hb-case__industry">Luxury · 2024</span><span class="hb-badge hb-badge--amber">Brand + Web</span></div>
                 <h3 class="hb-case__name">Gold Brand</h3>
                 <p class="hb-case__metric">+180%</p>
