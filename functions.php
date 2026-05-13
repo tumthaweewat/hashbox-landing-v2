@@ -897,3 +897,287 @@ function hashbox_render_case_study( array $case ) {
         ),
     ) );
 }
+
+/* ============================================================
+ * BLOG / INSIGHTS — helpers
+ * ============================================================ */
+
+/**
+ * Reading time in minutes (200 wpm).
+ */
+function hashbox_reading_time( $post_id = null ) {
+    $post = get_post( $post_id );
+    if ( ! $post ) {
+        return 1;
+    }
+    $word_count = str_word_count( wp_strip_all_tags( $post->post_content ) );
+    return max( 1, (int) ceil( $word_count / 200 ) );
+}
+
+/**
+ * Add IDs to H2/H3 headings in content and return modified content + TOC array.
+ *
+ * @param string $content Raw post content.
+ * @return array{content:string,toc:array<int,array{level:int,text:string,id:string}>}
+ */
+function hashbox_process_content_toc( $content ) {
+    $toc = array();
+    $content = preg_replace_callback(
+        '/<(h[23])([^>]*)>(.*?)<\/\1>/i',
+        function ( $matches ) use ( &$toc ) {
+            $level   = (int) substr( $matches[1], 1 );
+            $attrs   = $matches[2];
+            $text    = trim( wp_strip_all_tags( $matches[3] ) );
+            $slug    = sanitize_title( $text );
+            if ( '' === $slug ) {
+                return $matches[0];
+            }
+            $id_attr = 'id="' . esc_attr( $slug ) . '"';
+            if ( false === stripos( $attrs, 'id=' ) ) {
+                $attrs = ' ' . $id_attr . $attrs;
+            }
+            $toc[] = array(
+                'level' => $level,
+                'text'  => $text,
+                'id'    => $slug,
+            );
+            return '<' . $matches[1] . $attrs . '>' . $matches[3] . '</' . $matches[1] . '>';
+        },
+        $content
+    );
+    return array( 'content' => $content, 'toc' => $toc );
+}
+
+/**
+ * Get TOC array for current post (cached per request).
+ */
+function hashbox_get_toc( $post_id = null ) {
+    static $cache = array();
+    $post_id = $post_id ?: get_the_ID();
+    if ( isset( $cache[ $post_id ] ) ) {
+        return $cache[ $post_id ];
+    }
+    $post = get_post( $post_id );
+    if ( ! $post ) {
+        return array();
+    }
+    $processed = hashbox_process_content_toc( apply_filters( 'the_content', $post->post_content ) );
+    $cache[ $post_id ] = $processed['toc'];
+    return $processed['toc'];
+}
+
+/**
+ * Filter the_content to inject heading IDs for in-page anchors.
+ */
+function hashbox_inject_heading_ids( $content ) {
+    if ( ! is_singular( 'post' ) || ! in_the_loop() || ! is_main_query() ) {
+        return $content;
+    }
+    $processed = hashbox_process_content_toc( $content );
+    return $processed['content'];
+}
+add_filter( 'the_content', 'hashbox_inject_heading_ids', 20 );
+
+/**
+ * Related posts — same primary category, exclude current.
+ */
+function hashbox_related_posts( $post_id = null, $count = 3 ) {
+    $post_id = $post_id ?: get_the_ID();
+    $cats = wp_get_post_categories( $post_id );
+    if ( empty( $cats ) ) {
+        return new WP_Query( array(
+            'post_type'           => 'post',
+            'posts_per_page'      => $count,
+            'post__not_in'        => array( $post_id ),
+            'orderby'             => 'date',
+            'order'               => 'DESC',
+            'ignore_sticky_posts' => true,
+        ) );
+    }
+    return new WP_Query( array(
+        'post_type'           => 'post',
+        'posts_per_page'      => $count,
+        'post__not_in'        => array( $post_id ),
+        'category__in'        => $cats,
+        'orderby'             => 'date',
+        'order'               => 'DESC',
+        'ignore_sticky_posts' => true,
+    ) );
+}
+
+/**
+ * OG image URL with fallback chain: featured → site default.
+ */
+function hashbox_og_image_url( $post_id = null ) {
+    $post_id = $post_id ?: get_the_ID();
+    if ( $post_id && has_post_thumbnail( $post_id ) ) {
+        $src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'full' );
+        if ( $src ) {
+            return $src[0];
+        }
+    }
+    return home_url( '/wp-content/themes/hashbox-studio-v2/assets/og-default.jpg' );
+}
+
+/**
+ * Blog excerpt length and read-more replacement.
+ */
+function hashbox_blog_excerpt_length( $length ) {
+    return is_admin() ? $length : 28;
+}
+add_filter( 'excerpt_length', 'hashbox_blog_excerpt_length', 999 );
+
+function hashbox_blog_excerpt_more( $more ) {
+    return is_admin() ? $more : '…';
+}
+add_filter( 'excerpt_more', 'hashbox_blog_excerpt_more' );
+
+/**
+ * Numbered pagination output.
+ */
+function hashbox_pagination() {
+    $links = paginate_links( array(
+        'type'      => 'array',
+        'mid_size'  => 2,
+        'prev_text' => '&larr; Prev',
+        'next_text' => 'Next &rarr;',
+    ) );
+    if ( empty( $links ) ) {
+        return;
+    }
+    echo '<nav class="hb-pagination" aria-label="Pagination"><ul class="hb-pagination__list">';
+    foreach ( $links as $link ) {
+        echo '<li>' . $link . '</li>';
+    }
+    echo '</ul></nav>';
+}
+
+/**
+ * Inject Article + BreadcrumbList JSON-LD on single posts.
+ * Lets Rank Math win if active (skip when Rank Math schema present).
+ */
+function hashbox_inject_post_schema() {
+    if ( ! is_singular( 'post' ) ) {
+        return;
+    }
+    // Defer to Rank Math if its schema module is active.
+    if ( class_exists( 'RankMath\\Schema\\JsonLD' ) ) {
+        return;
+    }
+    $post_id  = get_the_ID();
+    $cats     = get_the_category( $post_id );
+    $cat_name = ! empty( $cats ) ? $cats[0]->name : 'Insights';
+    $cat_url  = ! empty( $cats ) ? get_category_link( $cats[0]->term_id ) : home_url( '/blog/' );
+
+    hashbox_jsonld( array(
+        '@context'      => 'https://schema.org',
+        '@type'         => 'Article',
+        '@id'           => get_permalink( $post_id ) . '#article',
+        'headline'      => get_the_title( $post_id ),
+        'description'   => wp_strip_all_tags( get_the_excerpt( $post_id ) ),
+        'image'         => hashbox_og_image_url( $post_id ),
+        'datePublished' => get_the_date( 'c', $post_id ),
+        'dateModified'  => get_the_modified_date( 'c', $post_id ),
+        'inLanguage'    => 'th-TH',
+        'author'        => array( '@id' => home_url( '/#organization' ) ),
+        'publisher'     => array( '@id' => home_url( '/#organization' ) ),
+        'mainEntityOfPage' => array(
+            '@type' => 'WebPage',
+            '@id'   => get_permalink( $post_id ),
+        ),
+        'articleSection' => $cat_name,
+        'wordCount'      => str_word_count( wp_strip_all_tags( get_post_field( 'post_content', $post_id ) ) ),
+    ) );
+
+    hashbox_jsonld( array(
+        '@context'        => 'https://schema.org',
+        '@type'           => 'BreadcrumbList',
+        'itemListElement' => array(
+            array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
+            array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Blog', 'item' => home_url( '/blog/' ) ),
+            array( '@type' => 'ListItem', 'position' => 3, 'name' => $cat_name, 'item' => $cat_url ),
+            array( '@type' => 'ListItem', 'position' => 4, 'name' => get_the_title( $post_id ), 'item' => get_permalink( $post_id ) ),
+        ),
+    ) );
+}
+add_action( 'wp_head', 'hashbox_inject_post_schema', 22 );
+
+/**
+ * CollectionPage + BreadcrumbList for category/tag/blog index.
+ */
+function hashbox_inject_archive_schema() {
+    if ( class_exists( 'RankMath\\Schema\\JsonLD' ) ) {
+        return;
+    }
+    if ( ! ( is_home() || is_category() || is_tag() ) ) {
+        return;
+    }
+    if ( is_home() ) {
+        $name = 'Blog';
+        $url  = home_url( '/blog/' );
+    } elseif ( is_category() ) {
+        $name = single_cat_title( '', false );
+        $url  = get_category_link( get_queried_object_id() );
+    } else {
+        $name = single_tag_title( '', false );
+        $url  = get_tag_link( get_queried_object_id() );
+    }
+
+    hashbox_jsonld( array(
+        '@context' => 'https://schema.org',
+        '@type'    => 'CollectionPage',
+        '@id'      => $url . '#collection',
+        'name'     => $name,
+        'url'      => $url,
+        'inLanguage' => 'th-TH',
+        'isPartOf' => array( '@id' => home_url( '/#website' ) ),
+    ) );
+
+    $crumbs = array(
+        array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
+        array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Blog', 'item' => home_url( '/blog/' ) ),
+    );
+    if ( ! is_home() ) {
+        $crumbs[] = array( '@type' => 'ListItem', 'position' => 3, 'name' => $name, 'item' => $url );
+    }
+    hashbox_jsonld( array(
+        '@context'        => 'https://schema.org',
+        '@type'           => 'BreadcrumbList',
+        'itemListElement' => $crumbs,
+    ) );
+}
+add_action( 'wp_head', 'hashbox_inject_archive_schema', 23 );
+
+/**
+ * Enqueue blog CSS conditionally.
+ */
+function hashbox_enqueue_blog_assets() {
+    if ( is_home() || is_singular( 'post' ) || is_category() || is_tag() || is_archive() || is_search() ) {
+        $blog_css = get_template_directory() . '/css/blog.css';
+        if ( file_exists( $blog_css ) ) {
+            wp_enqueue_style(
+                'hashbox-blog',
+                get_template_directory_uri() . '/css/blog.css',
+                array( 'hashbox-style' ),
+                filemtime( $blog_css )
+            );
+        }
+    }
+}
+add_action( 'wp_enqueue_scripts', 'hashbox_enqueue_blog_assets', 20 );
+
+/**
+ * Allow "blog" as a reserved page slug pointing to the posts index.
+ * No-op if user already configured Settings → Reading.
+ */
+function hashbox_blog_body_class( $classes ) {
+    if ( is_home() ) {
+        $classes[] = 'hb-blog-index';
+    } elseif ( is_singular( 'post' ) ) {
+        $classes[] = 'hb-blog-single';
+    } elseif ( is_category() || is_tag() || is_archive() ) {
+        $classes[] = 'hb-blog-archive';
+    }
+    return $classes;
+}
+add_filter( 'body_class', 'hashbox_blog_body_class' );
