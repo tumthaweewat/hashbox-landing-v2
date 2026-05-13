@@ -1032,3 +1032,20 @@
   border-radius: 0 0 8px 8px;
   font-weight: 600;
 }
+
+/* =========================================================================
+ * Override inline 3-col grids on tablet + mobile (portfolio, pricing, etc)
+ * Inline styles need !important to defeat in CSS — using attribute selector
+ * ========================================================================= */
+@media (max-width: 1024px) {
+  div[style*="grid-template-columns:repeat(3,1fr)"],
+  div[style*="grid-template-columns: repeat(3, 1fr)"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+@media (max-width: 640px) {
+  div[style*="grid-template-columns:repeat(3,1fr)"],
+  div[style*="grid-template-columns: repeat(3, 1fr)"] {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
