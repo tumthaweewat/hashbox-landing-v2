@@ -949,6 +949,47 @@ function hashbox_case_study_page_link( $link, $post_id, $sample ) {
 }
 add_filter( 'page_link', 'hashbox_case_study_page_link', 10, 3 );
 
+function hashbox_migrate_case_study_parent_pages() {
+    $migration_key = '20260522_work_parent_v1';
+    if ( $migration_key === get_option( 'hashbox_case_study_parent_migration' ) ) {
+        return;
+    }
+
+    $work_page = get_page_by_path( 'work', OBJECT, 'page' );
+    if ( ! $work_page ) {
+        return;
+    }
+
+    $updated = false;
+    foreach ( hashbox_case_study_slugs() as $slug ) {
+        $page = get_page_by_path( 'work/' . $slug, OBJECT, 'page' );
+        if ( ! $page ) {
+            $page = get_page_by_path( 'services/' . $slug, OBJECT, 'page' );
+        }
+        if ( ! $page ) {
+            $page = get_page_by_path( $slug, OBJECT, 'page' );
+        }
+        if ( ! $page || (int) $page->post_parent === (int) $work_page->ID ) {
+            continue;
+        }
+
+        $result = wp_update_post( array(
+            'ID'          => $page->ID,
+            'post_parent' => $work_page->ID,
+        ), true );
+
+        if ( ! is_wp_error( $result ) ) {
+            $updated = true;
+        }
+    }
+
+    if ( $updated ) {
+        flush_rewrite_rules( false );
+    }
+    update_option( 'hashbox_case_study_parent_migration', $migration_key, false );
+}
+add_action( 'init', 'hashbox_migrate_case_study_parent_pages', 30 );
+
 /**
  * Security headers as a WordPress fallback when Apache/Nginx headers are not
  * applied by the host or Cloudflare origin configuration.
