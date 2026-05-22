@@ -846,6 +846,58 @@ function hashbox_route_work_case_studies( $query_vars ) {
 }
 add_filter( 'request', 'hashbox_route_work_case_studies' );
 
+function hashbox_parse_work_case_studies( $wp ) {
+    $path = hashbox_current_request_path();
+    if ( 0 !== strpos( $path, 'work/' ) ) {
+        return;
+    }
+
+    $slug = hashbox_case_study_slug_from_path( $path );
+    if ( ! $slug ) {
+        return;
+    }
+
+    $legacy_page = get_page_by_path( 'services/' . $slug, OBJECT, 'page' );
+    if ( ! $legacy_page ) {
+        return;
+    }
+
+    $wp->query_vars['page_id']  = $legacy_page->ID;
+    $wp->query_vars['pagename'] = 'services/' . $slug;
+    unset( $wp->query_vars['error'], $wp->query_vars['name'], $wp->query_vars['attachment'] );
+}
+add_action( 'parse_request', 'hashbox_parse_work_case_studies', 1 );
+
+function hashbox_work_case_study_template_fallback( $template ) {
+    if ( ! is_404() ) {
+        return $template;
+    }
+
+    $path = hashbox_current_request_path();
+    if ( 0 !== strpos( $path, 'work/' ) ) {
+        return $template;
+    }
+
+    $slug = hashbox_case_study_slug_from_path( $path );
+    if ( ! $slug ) {
+        return $template;
+    }
+
+    $case_template = get_template_directory() . '/page-work-' . $slug . '.php';
+    if ( ! file_exists( $case_template ) ) {
+        return $template;
+    }
+
+    global $wp_query;
+    status_header( 200 );
+    $wp_query->is_404      = false;
+    $wp_query->is_page     = true;
+    $wp_query->is_singular = true;
+
+    return $case_template;
+}
+add_filter( 'template_include', 'hashbox_work_case_study_template_fallback', 99 );
+
 function hashbox_redirect_legacy_services_case_studies() {
     if ( is_admin() || wp_doing_ajax() || is_preview() ) {
         return;
@@ -1092,7 +1144,7 @@ add_filter( 'rank_math/opengraph/facebook/og_locale', 'hashbox_rankmath_og_local
 add_filter( 'rank_math/opengraph/facebook/locale', 'hashbox_rankmath_og_locale' );
 
 function hashbox_rankmath_case_study_sitemap_entry( $url, $type, $object ) {
-    if ( 'post' === $type && $object instanceof WP_Post && hashbox_is_case_study_page( $object->ID ) ) {
+    if ( in_array( $type, array( 'page', 'post' ), true ) && $object instanceof WP_Post && hashbox_is_case_study_page( $object->ID ) ) {
         $url['loc'] = hashbox_case_study_canonical_url( $object->post_name );
     }
     return $url;
