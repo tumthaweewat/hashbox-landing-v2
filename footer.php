@@ -42,7 +42,7 @@
                 <div class="hb-footer__col">
                     <h3>Contact</h3>
                     <ul>
-                        <li><a href="mailto:hello@hashbox.co.th">hello@hashbox.co.th</a></li>
+                        <li><a href="mailto:business@hashbox.co.th">business@hashbox.co.th</a></li>
                         <li><a href="tel:+6622666222">02 266 6222</a></li>
                         <li><a href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer">LINE: @hashboxstudio</a></li>
                         <li style="color: var(--hb-text-faint); font-size: var(--hb-text-sm);">จันทร์-ศุกร์ 9:00-18:00</li>

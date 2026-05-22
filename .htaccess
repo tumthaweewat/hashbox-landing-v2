@@ -2,9 +2,16 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-# Force HTTPS
+# Canonical production host + HTTPS in one hop
+RewriteCond %{HTTP_HOST} ^www\.hashbox\.co\.th$ [NC,OR]
 RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{HTTP_HOST} ^(www\.)?hashbox\.co\.th$ [NC]
+RewriteRule ^ https://hashbox.co.th%{REQUEST_URI} [L,R=301]
+
+# Force HTTPS on non-production hosts
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} !^(www\.)?hashbox\.co\.th$ [NC]
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # WordPress Permalink Structure
 RewriteBase /
@@ -21,6 +28,7 @@ Header always set X-Frame-Options DENY
 Header always set X-XSS-Protection "1; mode=block"
 Header always set Referrer-Policy "strict-origin-when-cross-origin"
 Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 </IfModule>
 
 # Disable file browsing

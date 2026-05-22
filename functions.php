@@ -42,15 +42,12 @@ add_action( 'after_setup_theme', 'hashbox_theme_setup' );
  */
 
 /**
- * Custom title tag for About page
+ * SEO-optimized document titles.
  */
-function hashbox_about_title( $title ) {
-    if ( is_page_template( 'page-about.php' ) ) {
-        return 'About Us — Hashbox Studio | Website Craft + Digital Workforce';
-    }
-    return $title;
+function hashbox_document_title( $title ) {
+    return hashbox_get_seo_title( $title );
 }
-add_filter( 'pre_get_document_title', 'hashbox_about_title' );
+add_filter( 'pre_get_document_title', 'hashbox_document_title', 20 );
 
 /**
  * Add favicon and app icons
@@ -131,12 +128,12 @@ function hashbox_resource_hints( $urls, $relation_type ) {
 function hashbox_fallback_menu() {
     ?>
     <ul>
-        <li><a href="#services" class="nav-link">Services</a></li>
-        <li><a href="#digital-workforce" class="nav-link">Digital Workforce</a></li>
-        <li><a href="#portfolio" class="nav-link">Work</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/#services' ) ); ?>" class="nav-link">Services</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/#why' ) ); ?>" class="nav-link">Digital Workforce</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/#portfolio' ) ); ?>" class="nav-link">Work</a></li>
         <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="nav-link">Blog</a></li>
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="nav-link">About</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="nav-link">Contact</a></li>
     </ul>
     <?php
 }
@@ -147,12 +144,12 @@ function hashbox_fallback_menu() {
 function hashbox_fallback_mobile_menu() {
     ?>
     <ul>
-        <li><a href="#services" class="mobile-link">Services</a></li>
-        <li><a href="#digital-workforce" class="mobile-link">Digital Workforce</a></li>
-        <li><a href="#portfolio" class="mobile-link">Work</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/#services' ) ); ?>" class="mobile-link">Services</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/#why' ) ); ?>" class="mobile-link">Digital Workforce</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/#portfolio' ) ); ?>" class="mobile-link">Work</a></li>
         <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="mobile-link">Blog</a></li>
-        <li><a href="#about" class="mobile-link">About</a></li>
-        <li><a href="#contact" class="mobile-link">Contact</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="mobile-link">About</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="mobile-link">Contact</a></li>
     </ul>
     <?php
 }
@@ -460,62 +457,647 @@ function portfolio_settings_page() {
  * level so this works regardless of WP Settings → General locale.
  */
 function hashbox_force_thai_lang_attribute( $output ) {
-    return 'lang="th"';
+    if ( function_exists( 'pll_current_language' ) || defined( 'ICL_SITEPRESS_VERSION' ) ) {
+        return $output;
+    }
+    return 'lang="th-TH"';
 }
 add_filter( 'language_attributes', 'hashbox_force_thai_lang_attribute' );
 
 /**
- * Default homepage meta description + og:locale.
- *
- * Rank Math handles per-page meta when set; this fills gaps for the homepage
- * if Rank Math is empty. Skip if Rank Math has already injected a description.
+ * Detect Rank Math so the theme can stay a fallback instead of duplicating SEO output.
  */
-function hashbox_homepage_meta_description() {
-    $desc = '';
+function hashbox_rank_math_is_active() {
+    return defined( 'RANK_MATH_VERSION' )
+        || class_exists( 'RankMath' )
+        || class_exists( 'RankMath\\Frontend\\Frontend' )
+        || class_exists( 'RankMath\\Schema\\JsonLD' );
+}
+
+/**
+ * SEO metadata source of truth for title tags, descriptions, OG/Twitter, and schema fallbacks.
+ */
+function hashbox_get_seo_metadata() {
+    $fallback = array(
+        'title'       => 'Hashbox Studio | Website, Marketing และ AI Consulting',
+        'description' => 'Hashbox Studio ช่วยธุรกิจไทยสร้างเว็บไซต์ SEO-Ready, วาง Digital Marketing + CRO และพัฒนา AI Workforce ที่ใช้งานจริง วัดผลผ่าน KPI เดียวกัน',
+    );
 
     if ( is_front_page() ) {
-        $desc = 'Hashbox Studio — รับทำเว็บไซต์ที่พร้อม SEO ตั้งแต่วันแรก ติดตั้งเครื่องมือ Digital Marketing + CRO และเป็นที่ปรึกษา AI ผู้เชี่ยวชาญ ส่งมอบ Lighthouse 100, Core Web Vitals เขียว, ผลลัพธ์ใน 90 วัน';
-    } elseif ( is_singular() ) {
-        // Use post excerpt if available, otherwise trimmed content
-        $post_obj = get_queried_object();
-        if ( $post_obj && ! empty( $post_obj->post_excerpt ) ) {
-            $desc = wp_strip_all_tags( $post_obj->post_excerpt );
-        } elseif ( $post_obj && ! empty( $post_obj->post_content ) ) {
-            $desc = wp_trim_words( wp_strip_all_tags( $post_obj->post_content ), 30, '…' );
-        }
-        if ( empty( $desc ) ) {
-            $desc = 'Hashbox Studio — Website Craft, Performance Marketing และ AI Consulting ภายใต้ทีมเดียวกัน';
-        }
-    } else {
-        $desc = 'Hashbox Studio — Website Craft, Performance Marketing และ AI Consulting ภายใต้ทีมเดียวกัน';
+        return array(
+            'title'       => 'รับทำเว็บไซต์ SEO + AI Consulting | Hashbox Studio',
+            'description' => 'Hashbox Studio รับทำเว็บไซต์ SEO-Ready ติดตั้ง Digital Marketing + CRO และที่ปรึกษา AI สำหรับ SME ไทย พร้อม Lighthouse 100, Core Web Vitals เขียว และผลลัพธ์ใน 60-90 วัน',
+        );
     }
 
+    if ( is_home() ) {
+        return array(
+            'title'       => 'Blog SEO, Web Performance และ AI | Hashbox Studio',
+            'description' => 'บทความ SEO, web performance, digital marketing, CRO และ AI automation จากทีม Hashbox Studio พร้อมแนวทางลงมือทำจริงสำหรับธุรกิจไทย',
+        );
+    }
+
+    $case_slug = hashbox_current_case_study_slug();
+    if ( $case_slug ) {
+        $case_meta = array(
+            'nexus-corp' => array(
+                'title'       => 'Nexus Corp Case Study: Headless WordPress SEO | Hashbox',
+                'description' => 'Case study การเปลี่ยน corporate site เป็น Headless WordPress + Next.js ทำ Lighthouse 100, Core Web Vitals เขียว และเพิ่ม users +540% ใน 12 เดือน',
+            ),
+            'flow-store' => array(
+                'title'       => 'Flow Store Case Study: CRO เพิ่ม Conversion 3x | Hashbox',
+                'description' => 'Case study e-commerce storefront บน Next.js พร้อม CRO Sprint ต่อเนื่อง ช่วย Flow Store เพิ่ม conversion จาก 1.2% เป็น 3.8% ภายใน 6 เดือน',
+            ),
+            'rank-project' => array(
+                'title'       => 'Rank Project Case Study: Technical SEO +2,200% | Hashbox',
+                'description' => 'Case study HR-Tech platform ที่ทำ Technical SEO, Core Web Vitals และ content programme 12 เดือน จน search impressions เพิ่ม +2,200% และ organic traffic +700%',
+            ),
+            'autobot-line' => array(
+                'title'       => 'AutoBot LINE Case Study: AI ลด Support Cost 60% | Hashbox',
+                'description' => 'Case study LINE Bot + OpenAI + RAG สำหรับบริการ on-demand ตอบลูกค้า 24/7 ลด response time และลด support cost 60% พร้อม route งานซับซ้อนไปหา human',
+            ),
+            'gold-brand' => array(
+                'title'       => 'Gold Brand Case Study: Brand Refresh +180% | Hashbox',
+                'description' => 'Case study luxury retail ที่ทำ brand refresh และ performance website ใหม่บน Next.js ช่วยเพิ่ม branded search +180% และยกระดับ premium perception',
+            ),
+            'pitch-deck' => array(
+                'title'       => 'Pitch Deck Case Study: Investor Microsite | Hashbox',
+                'description' => 'Case study investor microsite สำหรับ SaaS startup ใช้ live metrics dashboard และ data visualization ช่วยปิด Series A ด้วย valuation เพิ่มขึ้น 1.4x',
+            ),
+        );
+        return isset( $case_meta[ $case_slug ] ) ? $case_meta[ $case_slug ] : $fallback;
+    }
+
+    if ( is_page() ) {
+        $post = get_queried_object();
+        $slug = $post instanceof WP_Post ? $post->post_name : '';
+        $page_meta = array(
+            'services' => array(
+                'title'       => 'บริการทำเว็บไซต์ SEO, CRO และ AI | Hashbox Studio',
+                'description' => 'รวมบริการทำเว็บไซต์ SEO-Ready, Digital Marketing + CRO และ AI Consulting ในทีมเดียว วาง KPI เดียวกัน ตั้งแต่เว็บพร้อมติด Google ไปจนถึงระบบ AI ลดงาน Manual',
+            ),
+            'seo-ready-website' => array(
+                'title'       => 'รับทำเว็บไซต์ SEO-Ready Lighthouse 100 | Hashbox',
+                'description' => 'บริการรับทำเว็บไซต์ SEO-Ready สำหรับธุรกิจไทย วางโครงสร้าง technical SEO, schema, sitemap, Core Web Vitals และ Lighthouse 100 ก่อน deploy ขึ้น production',
+            ),
+            'digital-marketing-tools' => array(
+                'title'       => 'Digital Marketing Tools + CRO เพิ่ม Conversion | Hashbox',
+                'description' => 'ติดตั้ง GA4, GSC, Server-side GTM, Looker Studio, heatmap และ A/B testing พร้อมรัน CRO Sprint รายเดือนเพื่อเพิ่ม conversion จาก traffic เดิม',
+            ),
+            'ai-consulting' => array(
+                'title'       => 'ที่ปรึกษา AI และ AI Workforce | Hashbox Studio',
+                'description' => 'ที่ปรึกษา AI ที่ออกแบบและพัฒนา AI Workforce ใช้งานจริงใน production เช่น LINE Bot, Sales GPT, RAG และ workflow automation พร้อมคำนวณ ROI ก่อนเริ่ม',
+            ),
+            'work' => array(
+                'title'       => 'Case Studies SEO, CRO, AI ที่วัดผลได้ | Hashbox',
+                'description' => 'รวม case study งาน SEO, CRO, เว็บไซต์และ AI ของ Hashbox Studio พร้อมตัวเลขจาก GA4 และ Search Console เช่น +2,200% impressions, 3x conversion และลด cost 60%',
+            ),
+            'about' => array(
+                'title'       => 'เกี่ยวกับ Hashbox Studio | Web, Marketing และ AI',
+                'description' => 'รู้จัก Hashbox Studio ทีมที่รวม web development, digital marketing, CRO และ AI consulting ไว้ด้วยกัน เพื่อช่วย SME ไทยสร้างระบบที่วัดผลได้จริง',
+            ),
+            'portfolio' => array(
+                'title'       => 'Portfolio งาน Web, Mobile และ Digital | Hashbox Studio',
+                'description' => 'รวมผลงาน web design, mobile app, e-commerce และ digital product จากทีม Hashbox Studio ครอบคลุม Banking, Real Estate, E-commerce และ AI',
+            ),
+        );
+
+        if ( isset( $page_meta[ $slug ] ) ) {
+            return $page_meta[ $slug ];
+        }
+    }
+
+    if ( is_singular() ) {
+        $post_obj = get_queried_object();
+        $title    = $post_obj instanceof WP_Post ? get_the_title( $post_obj ) . ' | Hashbox Studio' : $fallback['title'];
+        if ( $post_obj && ! empty( $post_obj->post_excerpt ) ) {
+            return array(
+                'title'       => $title,
+                'description' => wp_trim_words( wp_strip_all_tags( $post_obj->post_excerpt ), 28, '…' ),
+            );
+        }
+        if ( $post_obj && ! empty( $post_obj->post_content ) ) {
+            return array(
+                'title'       => $title,
+                'description' => wp_trim_words( wp_strip_all_tags( $post_obj->post_content ), 28, '…' ),
+            );
+        }
+    }
+
+    if ( is_category() ) {
+        $name      = single_cat_title( '', false );
+        $term_desc = term_description();
+        return array(
+            'title'       => $name . ' | Blog Hashbox Studio',
+            'description' => ! empty( $term_desc )
+                ? wp_trim_words( wp_strip_all_tags( $term_desc ), 28, '…' )
+                : 'รวมบทความหมวด ' . $name . ' จาก Hashbox Studio ครอบคลุม SEO, web performance, digital marketing, CRO และ AI automation สำหรับธุรกิจไทย',
+        );
+    }
+
+    if ( is_tag() ) {
+        $name      = single_tag_title( '', false );
+        $term_desc = term_description();
+        return array(
+            'title'       => '#' . $name . ' | Blog Hashbox Studio',
+            'description' => ! empty( $term_desc )
+                ? wp_trim_words( wp_strip_all_tags( $term_desc ), 28, '…' )
+                : 'รวมบทความเกี่ยวกับ ' . $name . ' จากทีม Hashbox Studio พร้อมแนวทางลงมือทำจริงสำหรับ SEO, marketing, web และ AI',
+        );
+    }
+
+    if ( is_tax() ) {
+        $name      = single_term_title( '', false );
+        $term_desc = term_description();
+        return array(
+            'title'       => $name . ' | Hashbox Studio',
+            'description' => ! empty( $term_desc ) ? wp_trim_words( wp_strip_all_tags( $term_desc ), 28, '…' ) : $fallback['description'],
+        );
+    }
+
+    if ( is_search() ) {
+        $query = get_search_query();
+        return array(
+            'title'       => 'ผลการค้นหา "' . $query . '" | Hashbox Studio',
+            'description' => 'ผลการค้นหา "' . $query . '" จาก Hashbox Studio รวมบทความและบริการด้าน SEO, web performance, digital marketing, CRO และ AI consulting',
+        );
+    }
+
+    if ( is_404() ) {
+        return array(
+            'title'       => 'ไม่พบหน้าที่ต้องการ | Hashbox Studio',
+            'description' => 'หน้าที่คุณเปิดอาจถูกย้ายหรือลบแล้ว กลับไปที่ Hashbox Studio เพื่อดูบริการรับทำเว็บไซต์ SEO, Digital Marketing + CRO และ AI Consulting',
+        );
+    }
+
+    return $fallback;
+}
+
+function hashbox_get_seo_title( $fallback = '' ) {
+    $meta = hashbox_get_seo_metadata();
+    if ( ! empty( $meta['title'] ) ) {
+        return $meta['title'];
+    }
+    return $fallback;
+}
+
+/**
+ * Return a context-aware meta description used by both theme fallback and Rank Math.
+ */
+function hashbox_get_meta_description() {
+    $meta = hashbox_get_seo_metadata();
+    return ! empty( $meta['description'] ) ? $meta['description'] : '';
+}
+
+/**
+ * Default Open Graph image with an existing asset fallback.
+ */
+function hashbox_default_og_image_url() {
+    if ( file_exists( get_template_directory() . '/assets/og-default.jpg' ) ) {
+        return get_template_directory_uri() . '/assets/og-default.jpg';
+    }
+    if ( file_exists( get_template_directory() . '/screenshot.jpg' ) ) {
+        return get_template_directory_uri() . '/screenshot.jpg';
+    }
+    return get_template_directory_uri() . '/assets/favicons/apple-touch-icon.png';
+}
+
+/**
+ * Canonical-like URL for social metadata.
+ */
+function hashbox_current_public_url() {
+    if ( is_front_page() ) {
+        return home_url( '/' );
+    }
+    if ( is_home() ) {
+        return home_url( '/blog/' );
+    }
+    $case_slug = hashbox_current_case_study_slug();
+    if ( $case_slug ) {
+        return hashbox_case_study_canonical_url( $case_slug );
+    }
+    if ( is_singular() ) {
+        return get_permalink();
+    }
+    if ( is_category() ) {
+        return get_category_link( get_queried_object_id() );
+    }
+    if ( is_tag() ) {
+        return get_tag_link( get_queried_object_id() );
+    }
+    if ( is_search() ) {
+        return get_search_link();
+    }
+    return get_pagenum_link();
+}
+
+/**
+ * Fallback meta description + Open Graph/Twitter tags.
+ *
+ * Rank Math owns these tags when active. The theme emits them only as a
+ * no-plugin fallback to avoid duplicate metadata.
+ */
+function hashbox_homepage_meta_description() {
+    if ( hashbox_rank_math_is_active() ) {
+        return;
+    }
+
+    $desc = hashbox_get_meta_description();
     if ( empty( $desc ) ) {
         return;
     }
 
-    echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
+    $title = wp_get_document_title();
+    $url   = hashbox_current_public_url();
+    $image = is_singular() ? hashbox_og_image_url( get_queried_object_id() ) : hashbox_default_og_image_url();
+    $type  = is_singular( 'post' ) ? 'article' : 'website';
 
-    if ( is_front_page() ) {
-        echo '<meta property="og:locale" content="th_TH">' . "\n";
-        echo '<meta property="og:locale:alternate" content="en_US">' . "\n";
-    }
+    echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
+    echo '<meta property="og:locale" content="th_TH">' . "\n";
+    echo '<meta property="og:locale:alternate" content="en_US">' . "\n";
+    echo '<meta property="og:type" content="' . esc_attr( $type ) . '">' . "\n";
+    echo '<meta property="og:site_name" content="' . esc_attr( get_bloginfo( 'name' ) ) . '">' . "\n";
+    echo '<meta property="og:title" content="' . esc_attr( $title ) . '">' . "\n";
+    echo '<meta property="og:description" content="' . esc_attr( $desc ) . '">' . "\n";
+    echo '<meta property="og:url" content="' . esc_url( $url ) . '">' . "\n";
+    echo '<meta property="og:image" content="' . esc_url( $image ) . '">' . "\n";
+    echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
+    echo '<meta name="twitter:title" content="' . esc_attr( $title ) . '">' . "\n";
+    echo '<meta name="twitter:description" content="' . esc_attr( $desc ) . '">' . "\n";
+    echo '<meta name="twitter:image" content="' . esc_url( $image ) . '">' . "\n";
 }
 add_action( 'wp_head', 'hashbox_homepage_meta_description', 1 );
 
 /**
- * Provide default description to Rank Math when homepage description is empty.
+ * Feed optimized SEO metadata into Rank Math.
  */
-function hashbox_rankmath_default_description( $description ) {
-    if ( ! empty( $description ) ) {
-        return $description;
-    }
-    if ( is_front_page() ) {
-        return 'Hashbox Studio รับทำเว็บไซต์ที่พร้อม SEO ตั้งแต่วันแรก + เครื่องมือ Digital Marketing + CRO + ที่ปรึกษา AI ส่งมอบ Lighthouse 100 และผลลัพธ์ภายใน 90 วัน';
-    }
-    return $description;
+function hashbox_rankmath_title( $title ) {
+    return hashbox_get_seo_title( $title );
 }
-add_filter( 'rank_math/frontend/description', 'hashbox_rankmath_default_description' );
+add_filter( 'rank_math/frontend/title', 'hashbox_rankmath_title', 20 );
+
+function hashbox_rankmath_description( $description ) {
+    $seo_description = hashbox_get_meta_description();
+    return ! empty( $seo_description ) ? $seo_description : $description;
+}
+add_filter( 'rank_math/frontend/description', 'hashbox_rankmath_description', 20 );
+
+function hashbox_rankmath_social_title( $content ) {
+    return hashbox_get_seo_title( $content );
+}
+add_filter( 'rank_math/opengraph/facebook/og_title', 'hashbox_rankmath_social_title', 20 );
+add_filter( 'rank_math/opengraph/twitter/twitter_title', 'hashbox_rankmath_social_title', 20 );
+
+function hashbox_rankmath_social_description( $content ) {
+    $seo_description = hashbox_get_meta_description();
+    return ! empty( $seo_description ) ? $seo_description : $content;
+}
+add_filter( 'rank_math/opengraph/facebook/og_description', 'hashbox_rankmath_social_description', 20 );
+add_filter( 'rank_math/opengraph/twitter/twitter_description', 'hashbox_rankmath_social_description', 20 );
+
+/**
+ * Case-study pages live in WP under /services/* on production, but the public
+ * SEO URL should be /work/* to match the IA and internal links.
+ */
+function hashbox_case_study_slugs() {
+    return array(
+        'nexus-corp',
+        'flow-store',
+        'rank-project',
+        'autobot-line',
+        'gold-brand',
+        'pitch-deck',
+    );
+}
+
+function hashbox_is_case_study_slug( $slug ) {
+    return in_array( sanitize_title( $slug ), hashbox_case_study_slugs(), true );
+}
+
+function hashbox_case_study_canonical_url( $slug ) {
+    return home_url( '/work/' . sanitize_title( $slug ) . '/' );
+}
+
+function hashbox_current_request_path() {
+    $uri  = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+    $path = $uri ? wp_parse_url( $uri, PHP_URL_PATH ) : '';
+    return trim( (string) $path, '/' );
+}
+
+function hashbox_case_study_slug_from_path( $path = null ) {
+    $path = null === $path ? hashbox_current_request_path() : trim( (string) $path, '/' );
+    if ( ! preg_match( '#^(?:work|services)/([^/]+)/?$#', $path, $matches ) ) {
+        return '';
+    }
+
+    $slug = sanitize_title( $matches[1] );
+    return hashbox_is_case_study_slug( $slug ) ? $slug : '';
+}
+
+function hashbox_is_case_study_page( $post_id ) {
+    $post = get_post( $post_id );
+    if ( ! $post || 'page' !== $post->post_type || ! hashbox_is_case_study_slug( $post->post_name ) ) {
+        return false;
+    }
+
+    $template = (string) get_page_template_slug( $post_id );
+    return 0 === strpos( $template, 'page-work-' );
+}
+
+function hashbox_current_case_study_slug() {
+    $slug = hashbox_case_study_slug_from_path();
+    if ( $slug ) {
+        return $slug;
+    }
+
+    if ( ! is_page() ) {
+        return '';
+    }
+
+    $post = get_queried_object();
+    if ( $post instanceof WP_Post && hashbox_is_case_study_page( $post->ID ) ) {
+        return $post->post_name;
+    }
+
+    return '';
+}
+
+function hashbox_route_work_case_studies( $query_vars ) {
+    if ( empty( $query_vars['pagename'] ) ) {
+        return $query_vars;
+    }
+
+    $path = trim( (string) $query_vars['pagename'], '/' );
+    if ( 0 !== strpos( $path, 'work/' ) ) {
+        return $query_vars;
+    }
+
+    $slug = hashbox_case_study_slug_from_path( $path );
+    if ( ! $slug || get_page_by_path( $path, OBJECT, 'page' ) ) {
+        return $query_vars;
+    }
+
+    $legacy_page = get_page_by_path( 'services/' . $slug, OBJECT, 'page' );
+    if ( $legacy_page ) {
+        $query_vars['pagename'] = 'services/' . $slug;
+    }
+
+    return $query_vars;
+}
+add_filter( 'request', 'hashbox_route_work_case_studies' );
+
+function hashbox_redirect_legacy_services_case_studies() {
+    if ( is_admin() || wp_doing_ajax() || is_preview() ) {
+        return;
+    }
+
+    $path = hashbox_current_request_path();
+    if ( 0 !== strpos( $path, 'services/' ) ) {
+        return;
+    }
+
+    $slug = hashbox_case_study_slug_from_path( $path );
+    if ( ! $slug ) {
+        return;
+    }
+
+    wp_safe_redirect( hashbox_case_study_canonical_url( $slug ), 301 );
+    exit;
+}
+add_action( 'template_redirect', 'hashbox_redirect_legacy_services_case_studies', 1 );
+
+function hashbox_case_study_redirect_canonical( $redirect_url, $requested_url ) {
+    $requested_path = trim( (string) wp_parse_url( $requested_url, PHP_URL_PATH ), '/' );
+    $slug           = hashbox_case_study_slug_from_path( $requested_path );
+    if ( ! $slug ) {
+        return $redirect_url;
+    }
+
+    if ( 0 === strpos( $requested_path, 'work/' ) ) {
+        $redirect_path = trim( (string) wp_parse_url( $redirect_url, PHP_URL_PATH ), '/' );
+        if ( 'services/' . $slug === $redirect_path ) {
+            return false;
+        }
+    }
+
+    if ( 0 === strpos( $requested_path, 'services/' ) ) {
+        return hashbox_case_study_canonical_url( $slug );
+    }
+
+    return $redirect_url;
+}
+add_filter( 'redirect_canonical', 'hashbox_case_study_redirect_canonical', 10, 2 );
+
+function hashbox_case_study_page_link( $link, $post_id, $sample ) {
+    if ( hashbox_is_case_study_page( $post_id ) ) {
+        $post = get_post( $post_id );
+        return hashbox_case_study_canonical_url( $post->post_name );
+    }
+    return $link;
+}
+add_filter( 'page_link', 'hashbox_case_study_page_link', 10, 3 );
+
+/**
+ * Security headers as a WordPress fallback when Apache/Nginx headers are not
+ * applied by the host or Cloudflare origin configuration.
+ */
+function hashbox_send_security_headers() {
+    if ( headers_sent() ) {
+        return;
+    }
+
+    header( 'X-Content-Type-Options: nosniff' );
+    header( 'X-Frame-Options: DENY' );
+    header( 'Referrer-Policy: strict-origin-when-cross-origin' );
+    header( 'Permissions-Policy: geolocation=(), microphone=(), camera=()' );
+    if ( is_ssl() ) {
+        header( 'Strict-Transport-Security: max-age=31536000; includeSubDomains; preload' );
+    }
+}
+add_action( 'send_headers', 'hashbox_send_security_headers' );
+
+function hashbox_schema_entity_has_type( $entity, $needle_types ) {
+    if ( ! is_array( $entity ) || empty( $entity['@type'] ) ) {
+        return false;
+    }
+
+    $entity_types = is_array( $entity['@type'] ) ? $entity['@type'] : array( $entity['@type'] );
+    $entity_types = array_map( 'strtolower', array_map( 'strval', $entity_types ) );
+    foreach ( (array) $needle_types as $needle_type ) {
+        if ( in_array( strtolower( (string) $needle_type ), $entity_types, true ) ) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function hashbox_rankmath_schema_organization() {
+    $home = home_url( '/' );
+    return array(
+        '@type' => 'Organization',
+        '@id'   => $home . '#organization',
+        'name'  => 'Hashbox Studio',
+        'url'   => $home,
+        'logo'  => hashbox_default_og_image_url(),
+        'sameAs' => array(
+            'https://www.linkedin.com/company/hashbox-studio',
+            'https://www.facebook.com/hashboxstudio',
+            'https://www.instagram.com/hashboxstudio',
+        ),
+        'contactPoint' => array(
+            '@type'             => 'ContactPoint',
+            'telephone'         => '+66-2-266-6222',
+            'email'             => 'business@hashbox.co.th',
+            'contactType'       => 'sales',
+            'areaServed'        => 'TH',
+            'availableLanguage' => array( 'th', 'en' ),
+        ),
+    );
+}
+
+function hashbox_rankmath_schema_website() {
+    $home = home_url( '/' );
+    return array(
+        '@type'      => 'WebSite',
+        '@id'        => $home . '#website',
+        'url'        => $home,
+        'name'       => 'Hashbox Studio',
+        'inLanguage' => 'th-TH',
+        'publisher'  => array( '@id' => $home . '#organization' ),
+        'potentialAction' => array(
+            '@type'       => 'SearchAction',
+            'target'      => array(
+                '@type'       => 'EntryPoint',
+                'urlTemplate' => $home . '?s={search_term_string}',
+            ),
+            'query-input' => 'required name=search_term_string',
+        ),
+    );
+}
+
+function hashbox_rankmath_schema_service() {
+    $home = home_url( '/' );
+    return array(
+        '@type'              => 'ProfessionalService',
+        '@id'                => $home . '#service',
+        'name'               => 'Hashbox Studio',
+        'description'        => 'SEO-ready website builds, digital marketing tools, CRO, and AI consulting for Thai SMEs.',
+        'url'                => $home,
+        'priceRange'         => '฿฿฿',
+        'areaServed'         => 'Thailand',
+        'parentOrganization' => array( '@id' => $home . '#organization' ),
+    );
+}
+
+function hashbox_rankmath_json_ld( $data, $jsonld = null ) {
+    if ( ! is_array( $data ) ) {
+        return $data;
+    }
+
+    $home        = home_url( '/' );
+    $current_url = hashbox_current_public_url();
+    $description = hashbox_get_meta_description();
+    $has_org     = false;
+    $has_website = false;
+    $has_service = false;
+
+    foreach ( $data as $key => $entity ) {
+        if ( ! is_array( $entity ) ) {
+            continue;
+        }
+
+        if ( ! is_singular( 'post' ) && hashbox_schema_entity_has_type( $entity, array( 'Article', 'BlogPosting', 'NewsArticle' ) ) ) {
+            unset( $data[ $key ] );
+            continue;
+        }
+
+        if ( hashbox_schema_entity_has_type( $entity, 'Organization' ) ) {
+            $data[ $key ] = array_merge( $entity, hashbox_rankmath_schema_organization() );
+            $has_org      = true;
+            continue;
+        }
+
+        if ( hashbox_schema_entity_has_type( $entity, 'WebSite' ) ) {
+            $data[ $key ] = array_merge( $entity, hashbox_rankmath_schema_website() );
+            $has_website  = true;
+            continue;
+        }
+
+        if ( hashbox_schema_entity_has_type( $entity, 'ProfessionalService' ) || hashbox_schema_entity_has_type( $entity, 'LocalBusiness' ) ) {
+            $data[ $key ] = array_merge( $entity, hashbox_rankmath_schema_service() );
+            $has_service  = true;
+            continue;
+        }
+
+        if ( hashbox_schema_entity_has_type( $entity, array( 'WebPage', 'CollectionPage', 'SearchResultsPage' ) ) ) {
+            $data[ $key ]['url']         = $current_url;
+            $data[ $key ]['inLanguage']  = 'th-TH';
+            $data[ $key ]['description'] = $description;
+            $data[ $key ]['isPartOf']    = array( '@id' => $home . '#website' );
+            $data[ $key ]['publisher']   = array( '@id' => $home . '#organization' );
+        }
+
+        if ( is_singular( 'post' ) && hashbox_schema_entity_has_type( $entity, array( 'Article', 'BlogPosting', 'NewsArticle' ) ) ) {
+            $data[ $key ]['inLanguage'] = 'th-TH';
+            $data[ $key ]['publisher']  = array( '@id' => $home . '#organization' );
+        }
+    }
+
+    if ( ! $has_org ) {
+        $data['HashboxOrganization'] = hashbox_rankmath_schema_organization();
+    }
+    if ( ! $has_website ) {
+        $data['HashboxWebSite'] = hashbox_rankmath_schema_website();
+    }
+    if ( ! $has_service ) {
+        $data['HashboxProfessionalService'] = hashbox_rankmath_schema_service();
+    }
+
+    return $data;
+}
+add_filter( 'rank_math/json_ld', 'hashbox_rankmath_json_ld', 99, 2 );
+
+function hashbox_rankmath_canonical( $canonical ) {
+    $case_slug = hashbox_current_case_study_slug();
+    if ( $case_slug ) {
+        return hashbox_case_study_canonical_url( $case_slug );
+    }
+    return $canonical;
+}
+add_filter( 'rank_math/frontend/canonical', 'hashbox_rankmath_canonical' );
+
+function hashbox_rankmath_og_type( $type ) {
+    return is_singular( 'post' ) ? 'article' : 'website';
+}
+add_filter( 'rank_math/opengraph/type', 'hashbox_rankmath_og_type' );
+
+function hashbox_rankmath_og_url( $url ) {
+    return hashbox_current_public_url();
+}
+add_filter( 'rank_math/opengraph/url', 'hashbox_rankmath_og_url' );
+
+function hashbox_rankmath_og_image( $image ) {
+    if ( ! empty( $image ) ) {
+        return $image;
+    }
+    return is_singular() ? hashbox_og_image_url( get_queried_object_id() ) : hashbox_default_og_image_url();
+}
+add_filter( 'rank_math/opengraph/facebook/image', 'hashbox_rankmath_og_image' );
+add_filter( 'rank_math/opengraph/twitter/image', 'hashbox_rankmath_og_image' );
+
+function hashbox_rankmath_og_locale( $locale ) {
+    return 'th_TH';
+}
+add_filter( 'rank_math/opengraph/facebook/og_locale', 'hashbox_rankmath_og_locale' );
+add_filter( 'rank_math/opengraph/facebook/locale', 'hashbox_rankmath_og_locale' );
+
+function hashbox_rankmath_case_study_sitemap_entry( $url, $type, $object ) {
+    if ( 'post' === $type && $object instanceof WP_Post && hashbox_is_case_study_page( $object->ID ) ) {
+        $url['loc'] = hashbox_case_study_canonical_url( $object->post_name );
+    }
+    return $url;
+}
+add_filter( 'rank_math/sitemap/entry', 'hashbox_rankmath_case_study_sitemap_entry', 10, 3 );
 
 /**
  * Output a JSON-LD <script> tag for structured data.
@@ -531,13 +1113,13 @@ function hashbox_jsonld( array $data ) {
 }
 
 /**
- * Inject Organization + ProfessionalService + WebSite schema on the homepage.
+ * Inject fallback Organization + ProfessionalService + WebSite schema.
  *
- * Tied together via @id refs so AI engines can resolve the entity graph.
- * Replaces stale Article schema previously emitted on the home page.
+ * Tied together via @id refs so AI engines can resolve the entity graph from
+ * any landing page when Rank Math is not handling schema output.
  */
 function hashbox_inject_home_schema() {
-    if ( ! is_front_page() ) {
+    if ( hashbox_rank_math_is_active() ) {
         return;
     }
 
@@ -561,7 +1143,7 @@ function hashbox_inject_home_schema() {
                 'contactPoint' => array(
                     '@type'             => 'ContactPoint',
                     'telephone'         => '+66-2-266-6222',
-                    'email'             => 'hello@hashbox.co.th',
+                    'email'             => 'business@hashbox.co.th',
                     'contactType'       => 'sales',
                     'areaServed'        => 'TH',
                     'availableLanguage' => array( 'th', 'en' ),
@@ -635,6 +1217,22 @@ function hashbox_inject_home_schema() {
     ) );
 }
 add_action( 'wp_head', 'hashbox_inject_home_schema', 20 );
+
+/**
+ * Add sitemap hints to the runtime robots.txt output.
+ */
+function hashbox_robots_txt( $output, $public ) {
+    if ( '0' === (string) $public ) {
+        return $output;
+    }
+
+    $sitemap = hashbox_rank_math_is_active() ? home_url( '/sitemap_index.xml' ) : home_url( '/wp-sitemap.xml' );
+    if ( false === strpos( $output, 'Sitemap:' ) ) {
+        $output = rtrim( $output ) . "\n\nSitemap: " . $sitemap . "\n";
+    }
+    return $output;
+}
+add_filter( 'robots_txt', 'hashbox_robots_txt', 10, 2 );
 
 /**
  * Source-of-truth FAQ data. Used both for visible accordion AND FAQPage
@@ -1018,7 +1616,7 @@ function hashbox_og_image_url( $post_id = null ) {
             return $src[0];
         }
     }
-    return home_url( '/wp-content/themes/hashbox-studio-v2/assets/og-default.jpg' );
+    return hashbox_default_og_image_url();
 }
 
 /**
@@ -1063,7 +1661,7 @@ function hashbox_inject_post_schema() {
         return;
     }
     // Defer to Rank Math if its schema module is active.
-    if ( class_exists( 'RankMath\\Schema\\JsonLD' ) ) {
+    if ( hashbox_rank_math_is_active() ) {
         return;
     }
     $post_id  = get_the_ID();
@@ -1108,7 +1706,7 @@ add_action( 'wp_head', 'hashbox_inject_post_schema', 22 );
  * CollectionPage + BreadcrumbList for category/tag/blog index.
  */
 function hashbox_inject_archive_schema() {
-    if ( class_exists( 'RankMath\\Schema\\JsonLD' ) ) {
+    if ( hashbox_rank_math_is_active() ) {
         return;
     }
     if ( ! ( is_home() || is_category() || is_tag() ) ) {

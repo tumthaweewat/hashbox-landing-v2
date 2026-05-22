@@ -8,7 +8,8 @@
 get_header();
 
 $total_posts    = (int) wp_count_posts( 'post' )->publish;
-$show_featured  = $total_posts > 1; // Only carve out featured when at least 2 posts.
+$paged          = ( get_query_var( 'paged' ) ) ? (int) get_query_var( 'paged' ) : 1;
+$show_featured  = $total_posts > 1 && 1 === $paged; // Only carve out featured on the first archive page.
 $featured_query = $show_featured ? new WP_Query( array(
     'post_type'      => 'post',
     'posts_per_page' => 1,
@@ -58,7 +59,13 @@ $categories = get_categories( array(
             <a class="hb-blog-featured__link" href="<?php the_permalink(); ?>">
                 <?php if ( $thumb ) : ?>
                     <div class="hb-blog-featured__media">
-                        <img src="<?php echo esc_url( $thumb ); ?>" alt="" loading="eager" fetchpriority="high" width="1200" height="675">
+                        <?php
+                        $thumb_alt = trim( (string) get_post_meta( get_post_thumbnail_id(), '_wp_attachment_image_alt', true ) );
+                        if ( '' === $thumb_alt ) {
+                            $thumb_alt = get_the_title();
+                        }
+                        ?>
+                        <img src="<?php echo esc_url( $thumb ); ?>" alt="<?php echo esc_attr( $thumb_alt ); ?>" loading="eager" fetchpriority="high" width="1200" height="675">
                     </div>
                 <?php endif; ?>
                 <div class="hb-blog-featured__body">
@@ -88,26 +95,30 @@ $categories = get_categories( array(
         </header>
 
         <?php
-        $paged       = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-        $skip_first  = $show_featured && 1 === $paged ? 1 : 0;
-        $list_query  = new WP_Query( array(
-            'post_type'      => 'post',
-            'posts_per_page' => 9,
-            'paged'          => $paged,
-            'offset'         => $skip_first + ( ( $paged - 1 ) * 9 ),
-        ) );
+        $skip_first = $show_featured && 1 === $paged;
+        $rendered   = 0;
 
-        if ( $list_query->have_posts() ) : ?>
+        if ( have_posts() ) : ?>
             <div class="hb-blog-grid">
-                <?php while ( $list_query->have_posts() ) : $list_query->the_post(); ?>
+                <?php
+                while ( have_posts() ) :
+                    the_post();
+                    if ( $skip_first ) {
+                        $skip_first = false;
+                        continue;
+                    }
+                    $rendered++;
+                ?>
                     <?php get_template_part( 'template-parts/post-card', null, array( 'variant' => 'standard' ) ); ?>
                 <?php endwhile; ?>
             </div>
 
             <?php
-            $GLOBALS['wp_query'] = $list_query;
-            hashbox_pagination();
-            wp_reset_postdata();
+            if ( $rendered > 0 ) {
+                hashbox_pagination();
+            } else {
+                echo '<p class="hb-empty">ยังไม่มีบทความ — กลับมาเร็ว ๆ นี้</p>';
+            }
             ?>
         <?php else : ?>
             <p class="hb-empty">ยังไม่มีบทความ — กลับมาเร็ว ๆ นี้</p>

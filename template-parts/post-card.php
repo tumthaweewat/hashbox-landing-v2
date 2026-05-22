@@ -9,13 +9,20 @@ $variant = isset( $args['variant'] ) ? $args['variant'] : 'standard';
 $cats    = get_the_category();
 $cat     = ! empty( $cats ) ? $cats[0] : null;
 $thumb   = get_the_post_thumbnail_url( get_the_ID(), 'large' );
+$thumb_alt = '';
+if ( $thumb ) {
+    $thumb_alt = trim( (string) get_post_meta( get_post_thumbnail_id(), '_wp_attachment_image_alt', true ) );
+    if ( '' === $thumb_alt ) {
+        $thumb_alt = get_the_title();
+    }
+}
 $read    = hashbox_reading_time();
 ?>
 <article class="hb-card hb-card--<?php echo esc_attr( $variant ); ?>">
     <a class="hb-card__link" href="<?php the_permalink(); ?>" aria-label="<?php the_title_attribute(); ?>">
         <?php if ( $thumb ) : ?>
             <div class="hb-card__media">
-                <img src="<?php echo esc_url( $thumb ); ?>" alt="" loading="lazy" decoding="async" width="800" height="450">
+                <img src="<?php echo esc_url( $thumb ); ?>" alt="<?php echo esc_attr( $thumb_alt ); ?>" loading="lazy" decoding="async" width="800" height="450">
             </div>
         <?php endif; ?>
         <div class="hb-card__body">
