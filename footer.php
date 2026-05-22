@@ -34,7 +34,6 @@
                     <ul>
                         <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>">About</a></li>
                         <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>">Case Studies</a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/#insights' ) ); ?>">Insights</a></li>
                         <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>">Blog</a></li>
                         <li><a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">Contact</a></li>
                     </ul>

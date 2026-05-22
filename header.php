@@ -27,7 +27,6 @@
             <ul class="hb-nav__menu">
                 <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-nav__link">Services</a></li>
                 <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-nav__link">Work</a></li>
-                <li><a href="<?php echo esc_url( home_url( '/#insights' ) ); ?>" class="hb-nav__link">Insights</a></li>
                 <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="hb-nav__link">Blog</a></li>
                 <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="hb-nav__link">About</a></li>
             </ul>
@@ -54,7 +53,6 @@
             <ul class="hb-sheet__menu">
                 <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-sheet__link">Services</a></li>
                 <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-sheet__link">Work</a></li>
-                <li><a href="<?php echo esc_url( home_url( '/#insights' ) ); ?>" class="hb-sheet__link">Insights</a></li>
                 <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="hb-sheet__link">Blog</a></li>
                 <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="hb-sheet__link">About</a></li>
                 <li><a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-sheet__link">Contact</a></li>

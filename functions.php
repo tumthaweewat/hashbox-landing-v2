@@ -733,7 +733,7 @@ function hashbox_handle_contact_submit() {
         exit;
     }
 
-    $to      = get_option( 'admin_email' );
+    $to      = 'business@hashbox.co.th';
     $subject = sprintf( '[Hashbox V2] New enquiry from %s — %s', $name, $service ?: 'unspecified' );
     $body    = sprintf( "Name: %s\nEmail: %s\nPhone: %s\nWebsite: %s\nService: %s\n\nMessage:\n%s", $name, $email, $phone, $website, $service, $message );
     $headers = array( 'Content-Type: text/plain; charset=UTF-8', sprintf( 'Reply-To: %s <%s>', $name, $email ) );
