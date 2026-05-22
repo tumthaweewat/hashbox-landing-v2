@@ -7,7 +7,7 @@
 
 get_header();
 $page_url = get_permalink();
-$desc = 'การมี Traffic เยอะแต่ Conversion ต่ำคือเสียโอกาส ทีมเราติดตั้งและดูแลเครื่องมือ Marketing ครบวงจร พร้อมรัน CRO Sprint รายเดือนเพื่อเพิ่ม Conversion ต่อเนื่อง วัดผลผ่าน Looker Studio Real-time';
+$desc = 'บริการ Digital Marketing Tools + CRO สำหรับธุรกิจที่มี Traffic แต่ Conversion ยังต่ำ ทีมเราติดตั้ง GA4, GSC, Server-side GTM, Looker Studio, heatmap และ A/B testing พร้อมรัน CRO Sprint รายเดือนเพื่อเพิ่ม Conversion ต่อเนื่อง';
 
 $faqs = array(
     array( 'q' => 'CRO คืออะไร แตกต่างจาก SEO ยังไง?', 'a' => 'SEO ทำให้คนเข้าเว็บ · CRO ทำให้คนที่เข้ามาแปลงเป็นลูกค้า การมี Traffic เยอะแต่ Conversion ต่ำ = เสียโอกาส CRO เพิ่ม Output ต่อ Traffic เท่าเดิม' ),
@@ -34,7 +34,7 @@ $faqs = array(
                 </ol>
             </nav>
             <span class="hb-eyebrow">Service 02 / 03</span>
-            <h1 class="hb-hero__title">Digital Marketing + CRO<br><em>เครื่องมือที่</em><br>เปลี่ยน Traffic เป็นลูกค้า</h1>
+            <h1 class="hb-hero__title">Digital Marketing + CRO<br><em>เพิ่ม Conversion</em><br>จาก Traffic เดิม</h1>
             <p class="hb-hero__sub"><?php echo esc_html( $desc ); ?></p>
             <div class="hb-hero__actions">
                 <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ Audit ฟรี</a>
@@ -45,6 +45,38 @@ $faqs = array(
 </section>
 
 <section class="hb-section hb-section--surface">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">When to start CRO</span>
+            <h2 class="hb-h2">ควรเริ่มทำ CRO เมื่อไหร่</h2>
+            <p class="hb-section__sub">ถ้าเว็บมี traffic แต่ lead, sales หรือ inquiry ยังไม่โตตาม การทำ CRO จะช่วยเพิ่มผลลัพธ์โดยไม่ต้องเพิ่มงบโฆษณาเท่าเดิม</p>
+        </div>
+        <div class="hb-bento">
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/work/flow-store/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">E-commerce CRO</span>
+                <h3 class="hb-card__title">Conversion Rate ต่ำ แม้มีคนเข้าเว็บต่อเนื่อง</h3>
+                <p class="hb-card__body">ดู Flow Store case study ที่ storefront ใหม่ + CRO Sprint เพิ่ม conversion เป็น 3.8% ภายใน 6 เดือน.</p>
+            </a>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Foundation</span>
+                <h3 class="hb-card__title">เว็บยังช้า หรือ tracking ยังไม่ครบ</h3>
+                <p class="hb-card__body">เริ่มจาก SEO-Ready Website เพื่อให้ performance, event tracking และ technical SEO พร้อมก่อนรัน experiment.</p>
+            </a>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/work/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Proof</span>
+                <h3 class="hb-card__title">ต้องการ benchmark จากงานจริง</h3>
+                <p class="hb-card__body">ดู case studies ที่วัดผลด้วย GA4, Search Console, conversion events และ operation metrics.</p>
+            </a>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Audit</span>
+                <h3 class="hb-card__title">ยังไม่แน่ใจว่าควรแก้ funnel จุดไหนก่อน</h3>
+                <p class="hb-card__body">ส่งเว็บให้ทีมเราทำ SEO + CRO audit ฟรี เพื่อจัดลำดับ friction point ตาม impact.</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="hb-section">
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">Stack</span>

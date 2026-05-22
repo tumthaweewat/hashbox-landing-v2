@@ -22,16 +22,16 @@ get_header();
                 Website Craft · Performance Marketing · AI Workforce
             </span>
             <h1 class="hb-hero__title">
-                ที่ Hashbox เรารวม<br>
-                <em>Web + Marketing + AI</em><br>
+                รับทำเว็บไซต์ SEO-Ready<br>
+                <em>พร้อม Marketing + AI</em><br>
                 ไว้ในทีมเดียว<br>
                 <em>เพื่อผลลัพธ์ที่วัดได้จริง</em><span class="hb-hero__cursor"></span>
             </h1>
             <p class="hb-hero__sub">
-                SME ไทยส่วนใหญ่ต้องจ้างเอเจนซีคนละบริษัทมาทำเว็บ ทำ SEO และวาง AI ในขณะที่ทุกทีมก็มี KPI ของตัวเอง เราจึงรวม 3 ศาสตร์นี้ไว้ใต้ทีมเดียวกัน ส่งมอบเว็บที่ผ่านมาตรฐาน <strong>Lighthouse 100</strong> ติดตั้งระบบ Marketing ที่เพิ่ม Conversion ต่อเนื่อง และวาง AI Workforce ที่ลด Manual Work — โดยลูกค้าจะเริ่มเห็นผลภายใน <strong>90 วันแรก</strong>
+                Hashbox Studio รับทำเว็บไซต์ SEO-Ready สำหรับธุรกิจไทยที่ต้องการมากกว่าเว็บสวย เราวางโครงสร้าง Technical SEO, Core Web Vitals, Schema, Digital Marketing + CRO และ AI Workforce ไว้ในระบบเดียวกัน เพื่อเพิ่ม Traffic, Conversion และลดงาน Manual — โดยลูกค้าจะเริ่มเห็นสัญญาณผลลัพธ์ภายใน <strong>60-90 วันแรก</strong>
             </p>
             <div class="hb-hero__actions">
-                <a href="#contact" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี
+                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </a>
                 <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูเคสที่เราทำให้ลูกค้า</a>
@@ -64,7 +64,7 @@ get_header();
                 <h3 class="hb-service__title">SEO-Ready Website</h3>
                 <p class="hb-service__desc">เว็บไซต์ที่พร้อมติด Google ตั้งแต่วันเปิดตัว ผ่าน Build Gate: Lighthouse 100 ทั้ง 4 หมวด, CWV เขียวทุก URL, Schema ครบ ลูกค้าเห็นผล Ranking ขยับใน 60-90 วัน</p>
                 <div class="hb-service__stack">Next.js · Headless WordPress · Cloudflare · Vercel</div>
-                <span class="hb-service__link">รายละเอียดเพิ่มเติม &rarr;</span>
+                <span class="hb-service__link">ดูบริการรับทำเว็บไซต์ SEO-Ready &rarr;</span>
             </a>
 
             <a href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="cyan" style="text-decoration:none;">
@@ -75,7 +75,7 @@ get_header();
                 <h3 class="hb-service__title">Digital Marketing + CRO</h3>
                 <p class="hb-service__desc">การมี Traffic เยอะแต่ Conversion ต่ำคือเสียโอกาส ติดตั้งและดูแลเครื่องมือ Marketing ครบวงจร พร้อม CRO Sprint รายเดือนเพิ่ม Conversion ต่อเนื่อง ดูผลผ่าน Looker Studio Real-time</p>
                 <div class="hb-service__stack">GA4 · GSC · GrowthBook · Microsoft Clarity</div>
-                <span class="hb-service__link">รายละเอียดเพิ่มเติม &rarr;</span>
+                <span class="hb-service__link">ดูบริการ Digital Marketing + CRO &rarr;</span>
             </a>
 
             <a href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c4" data-accent="violet" style="text-decoration:none;">
@@ -86,7 +86,40 @@ get_header();
                 <h3 class="hb-service__title">AI Expert Consulting</h3>
                 <p class="hb-service__desc">ที่ปรึกษา AI ที่ลงมือเขียนโค้ดและ Deploy เอง ไม่ใช่จบที่ Slide ทุกโปรเจกต์เริ่มจากการคำนวณ AI ROI ถ้าผลตอบแทนคุ้มค่าจึงจะลงมือ Implement พร้อม Knowledge Transfer ให้ทีมลูกค้าดูแลต่อเองได้</p>
                 <div class="hb-service__stack">OpenAI · Claude · LangChain · LINE Messaging API · n8n · RAG</div>
-                <span class="hb-service__link">รายละเอียดเพิ่มเติม &rarr;</span>
+                <span class="hb-service__link">ดูบริการที่ปรึกษา AI + AI Workforce &rarr;</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ SEO ENTRY POINTS ============ -->
+<section class="hb-section">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">Start by goal</span>
+            <h2 class="hb-h2">เลือกเส้นทางที่ตรงกับเป้าหมาย SEO และ Growth ของคุณ</h2>
+            <p class="hb-section__sub">เราเพิ่ม internal links ตาม intent หลักของลูกค้า เพื่อให้ทั้งผู้ใช้และ Google เข้าใจว่าแต่ละบริการเชื่อมกันอย่างไรใน funnel เดียวกัน</p>
+        </div>
+        <div class="hb-bento">
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Technical SEO</span>
+                <h3 class="hb-card__title">ต้องการเว็บใหม่ที่พร้อมติด Google ตั้งแต่วันแรก</h3>
+                <p class="hb-card__body">เริ่มจากบริการรับทำเว็บไซต์ SEO-Ready พร้อม schema, sitemap, canonical, Core Web Vitals และ Lighthouse build gate.</p>
+            </a>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Conversion</span>
+                <h3 class="hb-card__title">มี Traffic แล้ว แต่อัตราแปลงเป็นลูกค้ายังต่ำ</h3>
+                <p class="hb-card__body">ต่อยอดด้วย Digital Marketing + CRO เพื่อวัด funnel, heatmap, A/B test และเพิ่ม conversion จาก traffic เดิม.</p>
+            </a>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">AI Automation</span>
+                <h3 class="hb-card__title">ต้องการลดงานซ้ำและตอบลูกค้าได้เร็วขึ้น</h3>
+                <p class="hb-card__body">ใช้ AI Consulting เพื่อออกแบบ LINE Bot, Sales GPT, RAG และ workflow automation ที่วัด ROI ได้จริง.</p>
+            </a>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/work/rank-project/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Proof</span>
+                <h3 class="hb-card__title">อยากดูตัวอย่าง SEO Recovery ก่อนตัดสินใจ</h3>
+                <p class="hb-card__body">อ่าน Rank Project case study ที่ Technical SEO + content programme เพิ่ม search impressions +2,200%.</p>
             </a>
         </div>
     </div>
@@ -164,7 +197,7 @@ get_header();
         </ol>
 
         <div style="text-align:center;margin-top:var(--hb-space-12);">
-            <a href="#contact" class="hb-btn hb-btn--gradient hb-btn--lg">เริ่มต้นด้วย Audit ฟรี &rarr;</a>
+            <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">เริ่มต้นด้วย Audit ฟรี &rarr;</a>
         </div>
     </div>
 </section>
@@ -184,7 +217,7 @@ get_header();
                 <h3 class="hb-case__name">Nexus Corp</h3>
                 <p class="hb-case__metric">+540%</p>
                 <p class="hb-case__desc">Headless WordPress + Next.js corporate site กับ SEO recovery ครบใน 12 เดือน Users เพิ่ม 540%</p>
-                <div class="hb-case__cta"><span>อ่าน Case Study</span><span class="hb-case__cta-arrow">→</span></div>
+                <div class="hb-case__cta"><span>อ่าน SEO case study</span><span class="hb-case__cta-arrow">→</span></div>
             </a>
 
             <a href="<?php echo esc_url( home_url( '/work/flow-store/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #3730A3, #6366F1);">
@@ -192,7 +225,7 @@ get_header();
                 <h3 class="hb-case__name">Flow Store</h3>
                 <p class="hb-case__metric">3×</p>
                 <p class="hb-case__desc">Storefront ใหม่บน Next.js + CRO Sprint 4 เดือน Conversion Rate 3 เท่า ใน 6 เดือน</p>
-                <div class="hb-case__cta"><span>อ่าน Case Study</span><span class="hb-case__cta-arrow">→</span></div>
+                <div class="hb-case__cta"><span>อ่าน CRO case study</span><span class="hb-case__cta-arrow">→</span></div>
             </a>
 
             <a href="<?php echo esc_url( home_url( '/work/rank-project/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #312E81, #4F46E5);">
@@ -200,7 +233,7 @@ get_header();
                 <h3 class="hb-case__name">Rank Project</h3>
                 <p class="hb-case__metric">+2,200%</p>
                 <p class="hb-case__desc">Technical SEO overhaul + 12-month content programme — Impressions เพิ่ม 22 เท่า, Traffic +700%</p>
-                <div class="hb-case__cta"><span>อ่าน Case Study</span><span class="hb-case__cta-arrow">→</span></div>
+                <div class="hb-case__cta"><span>อ่าน Technical SEO case study</span><span class="hb-case__cta-arrow">→</span></div>
             </a>
 
             <a href="<?php echo esc_url( home_url( '/work/autobot-line/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #064E3B, #059669);">
@@ -208,7 +241,7 @@ get_header();
                 <h3 class="hb-case__name">AutoBot LINE</h3>
                 <p class="hb-case__metric">−60%</p>
                 <p class="hb-case__desc">LINE Bot + OpenAI + RAG ตอบลูกค้าไทย 24/7 ลด Support Cost 60% ใน 8 สัปดาห์</p>
-                <div class="hb-case__cta"><span>อ่าน Case Study</span><span class="hb-case__cta-arrow">→</span></div>
+                <div class="hb-case__cta"><span>อ่าน AI Workforce case study</span><span class="hb-case__cta-arrow">→</span></div>
             </a>
 
             <a href="<?php echo esc_url( home_url( '/work/gold-brand/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #7C2D12, #C2410C);">
@@ -216,7 +249,7 @@ get_header();
                 <h3 class="hb-case__name">Gold Brand</h3>
                 <p class="hb-case__metric">+180%</p>
                 <p class="hb-case__desc">Brand refresh + Performance site บน Next.js Branded Search เพิ่ม 180% ใน 5 เดือน</p>
-                <div class="hb-case__cta"><span>อ่าน Case Study</span><span class="hb-case__cta-arrow">→</span></div>
+                <div class="hb-case__cta"><span>อ่าน Brand + Web case study</span><span class="hb-case__cta-arrow">→</span></div>
             </a>
 
             <a href="<?php echo esc_url( home_url( '/work/pitch-deck/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #312E81, #7C3AED);">
@@ -224,7 +257,7 @@ get_header();
                 <h3 class="hb-case__name">Pitch Deck Microsite</h3>
                 <p class="hb-case__metric">Series A</p>
                 <p class="hb-case__desc">Investor Microsite + Live Metrics Dashboard ใน 3 สัปดาห์ ปิด Series A ที่ Valuation 1.4×</p>
-                <div class="hb-case__cta"><span>อ่าน Case Study</span><span class="hb-case__cta-arrow">→</span></div>
+                <div class="hb-case__cta"><span>อ่าน Investor Microsite case study</span><span class="hb-case__cta-arrow">→</span></div>
             </a>
         </div>
 
@@ -357,7 +390,7 @@ get_header();
                     <li>GA4 + GSC setup</li>
                     <li>30 วัน support</li>
                 </ul>
-                <a href="#contact" class="hb-btn hb-btn--outline" style="margin-top:auto;">ขอใบเสนอราคา</a>
+                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--outline" style="margin-top:auto;">ขอใบเสนอราคา Landing Page</a>
             </div>
             <div class="hb-tier hb-tier--featured">
                 <span class="hb-tier__ribbon">Most Popular</span>
@@ -371,7 +404,7 @@ get_header();
                     <li>CRO setup 3 เดือนแรก</li>
                     <li>60 วัน support</li>
                 </ul>
-                <a href="#contact" class="hb-btn hb-btn--gradient" style="margin-top:auto;">ขอใบเสนอราคา</a>
+                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient" style="margin-top:auto;">ขอใบเสนอราคา Corporate Site</a>
             </div>
             <div class="hb-tier">
                 <span class="hb-tier__name">E-commerce</span>
@@ -384,7 +417,7 @@ get_header();
                     <li>CRO Sprint รายเดือน</li>
                     <li>90 วัน support</li>
                 </ul>
-                <a href="#contact" class="hb-btn hb-btn--outline" style="margin-top:auto;">ขอใบเสนอราคา</a>
+                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--outline" style="margin-top:auto;">ขอใบเสนอราคา E-commerce</a>
             </div>
         </div>
     </div>

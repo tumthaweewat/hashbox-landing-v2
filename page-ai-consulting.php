@@ -7,7 +7,7 @@
 
 get_header();
 $page_url = get_permalink();
-$desc = 'ทีมเราเป็นที่ปรึกษา AI ที่ลงมือเขียนโค้ดและส่งมอบของจริงให้ลูกค้าใช้งานใน Production ไม่ใช่จบที่ Slide ทุกโปรเจกต์เริ่มต้นด้วยการคำนวณ AI ROI ก่อน';
+$desc = 'บริการที่ปรึกษา AI สำหรับธุรกิจไทยที่ต้องการใช้งานจริงใน Production ทีมเราออกแบบและพัฒนา LINE Bot, Sales GPT, RAG Knowledge Base และ workflow automation พร้อมคำนวณ AI ROI ก่อนเริ่มทุกโปรเจกต์';
 
 $faqs = array(
     array( 'q' => 'AI Consulting ต่างจาก AI Consultancy ทั่วไปยังไง?', 'a' => 'AI Consultancy ทั่วไปจบที่ Slide ลูกค้าต้องไปจ้าง Dev อีกบริษัทมา Implement เราทำทั้ง 2 = ออกแบบ + ลงมือเขียน Code + Deploy + Train ทีม' ),
@@ -34,7 +34,7 @@ $faqs = array(
                 </ol>
             </nav>
             <span class="hb-eyebrow">Service 03 / 03</span>
-            <h1 class="hb-hero__title">AI Expert Consulting<br><em>AI Workforce ที่</em><br>ทำงานได้จริงใน Production</h1>
+            <h1 class="hb-hero__title">ที่ปรึกษา AI<br><em>และ AI Workforce</em><br>ที่ใช้งานได้จริง</h1>
             <p class="hb-hero__sub"><?php echo esc_html( $desc ); ?></p>
             <div class="hb-hero__actions">
                 <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ AI ROI Discovery</a>
@@ -45,6 +45,38 @@ $faqs = array(
 </section>
 
 <section class="hb-section hb-section--surface">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">Use case fit</span>
+            <h2 class="hb-h2">AI Consulting เหมาะกับ use case แบบไหน</h2>
+            <p class="hb-section__sub">เราเริ่มจาก use case ที่มี ROI ชัด เช่น ลดเวลาตอบลูกค้า ลดงานเอกสาร หรือช่วยทีมขาย qualify lead ก่อนลงทุน build ระบบเต็ม</p>
+        </div>
+        <div class="hb-bento">
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/work/autobot-line/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">LINE Bot + RAG</span>
+                <h3 class="hb-card__title">ลูกค้าทักเยอะ ทีมตอบไม่ทัน</h3>
+                <p class="hb-card__body">ดู AutoBot LINE case study ที่ใช้ LINE Bot + OpenAI ตอบ FAQ 80% และลด support cost 60%.</p>
+            </a>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Sales automation</span>
+                <h3 class="hb-card__title">มี lead เข้าเว็บ แต่ทีมขายคัดกรองช้า</h3>
+                <p class="hb-card__body">เชื่อม AI กับ marketing funnel เพื่อ qualify lead, summarize conversation และส่งข้อมูลเข้า CRM.</p>
+            </a>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Content operations</span>
+                <h3 class="hb-card__title">ต้องการทำ content SEO ต่อเนื่อง แต่ทีมมีเวลาจำกัด</h3>
+                <p class="hb-card__body">ใช้ AI ช่วย research, outline, internal linking และ schema draft บนเว็บไซต์ที่พร้อม SEO อยู่แล้ว.</p>
+            </a>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Discovery</span>
+                <h3 class="hb-card__title">ยังไม่แน่ใจว่า AI use case ไหนคุ้มที่สุด</h3>
+                <p class="hb-card__body">เริ่มด้วย AI ROI Discovery เพื่อคำนวณ hours saved, implementation cost และ payback period ก่อน build.</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="hb-section">
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">AI Workforce</span>

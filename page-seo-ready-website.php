@@ -7,7 +7,7 @@
 
 get_header();
 $page_url = get_permalink();
-$desc = 'เราเชื่อว่าเว็บไซต์ที่ดีต้องพร้อมติด Google ตั้งแต่วันเปิดตัว ทุกโปรเจกต์ของทีมเราจึงผ่านมาตรฐาน Lighthouse 100, CWV เขียว, Schema ครบ พร้อม hreflang และ Sitemap auto-submit';
+$desc = 'บริการรับทำเว็บไซต์ SEO-Ready สำหรับธุรกิจที่ต้องการเว็บใหม่พร้อมติด Google ตั้งแต่วันเปิดตัว ทุกโปรเจกต์ผ่าน Lighthouse 100, Core Web Vitals เขียว, Schema ครบ พร้อม canonical, robots และ sitemap auto-submit';
 
 $faqs = array(
     array( 'q' => 'ทำไมต้องเลือก SEO-Ready Website แทนเว็บทั่วไป?', 'a' => 'เว็บทั่วไปต้องทำ Technical SEO Audit หลังเปิดตัว 2-3 รอบกว่าจะติด Google ของเราผ่าน Build Gate ตั้งแต่ก่อน Deploy: Lighthouse 100, CWV เขียว, Schema ครบ Googlebot Index ได้ตั้งแต่ Crawl แรก' ),
@@ -34,7 +34,7 @@ $faqs = array(
                 </ol>
             </nav>
             <span class="hb-eyebrow">Service 01 / 03</span>
-            <h1 class="hb-hero__title">รับทำเว็บไซต์<br><em>SEO-Ready</em><br>Lighthouse 100, CWV เขียว</h1>
+            <h1 class="hb-hero__title">รับทำเว็บไซต์<br><em>SEO-Ready</em><br>สำหรับธุรกิจไทย</h1>
             <p class="hb-hero__sub"><?php echo esc_html( $desc ); ?></p>
             <div class="hb-hero__actions">
                 <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
@@ -113,8 +113,40 @@ $faqs = array(
     </div>
 </section>
 
-<!-- FAQ -->
 <section class="hb-section hb-section--surface">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">Best fit</span>
+            <h2 class="hb-h2">บริการทำเว็บไซต์ SEO-Ready เหมาะกับใคร</h2>
+            <p class="hb-lead" style="margin-top:var(--hb-space-4);">เหมาะกับทีมที่ไม่อยากเสียเวลาแก้ technical SEO หลังเว็บเปิดตัว และต้องการให้เว็บเป็นฐานสำหรับ SEO, Ads, CRO และ AI ในอนาคต</p>
+        </div>
+        <div class="hb-bento">
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/work/nexus-corp/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Corporate SEO</span>
+                <h3 class="hb-card__title">Corporate site ที่ช้าและ index ไม่ครบ</h3>
+                <p class="hb-card__body">ดู Nexus Corp case study ที่ย้ายจาก legacy WordPress เป็น Headless WordPress + Next.js จน users เพิ่ม +540%.</p>
+            </a>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/work/rank-project/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">SEO Recovery</span>
+                <h3 class="hb-card__title">เว็บมีสินค้า/บริการดี แต่ organic search ไม่โต</h3>
+                <p class="hb-card__body">ดู Rank Project case study ที่ technical SEO + content programme เพิ่ม impressions +2,200%.</p>
+            </a>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Next step</span>
+                <h3 class="hb-card__title">หลังเว็บพร้อม SEO แล้ว ควรวัด Conversion ต่อ</h3>
+                <p class="hb-card__body">ต่อยอดด้วย Digital Marketing + CRO เพื่อติดตาม funnel, heatmap และทดสอบ landing page รายเดือน.</p>
+            </a>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Full funnel</span>
+                <h3 class="hb-card__title">ต้องการทีมเดียวดูทั้ง Web, Marketing และ AI</h3>
+                <p class="hb-card__body">ดูภาพรวมบริการทั้งหมดของ Hashbox Studio เพื่อวาง roadmap 90/180/365 วัน.</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="hb-section">
     <div class="hb-container hb-container--md">
         <div class="hb-section__head">
             <span class="hb-eyebrow">FAQ</span>

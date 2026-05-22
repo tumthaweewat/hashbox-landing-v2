@@ -9,12 +9,12 @@ get_header();
 $page_url = get_permalink();
 
 $cases = array(
-    array( 'slug' => 'nexus-corp',   'name' => 'Nexus Corp',           'industry' => 'Enterprise', 'metric' => '+540% Users',   'tag' => 'Corporate',   'tag_color' => 'blue',    'bg' => 'linear-gradient(135deg, #4338CA, #4F46E5)',  'desc' => 'Headless WordPress + Next.js corporate site SEO recovery 12 เดือน' ),
-    array( 'slug' => 'flow-store',   'name' => 'Flow Store',           'industry' => 'E-commerce', 'metric' => '3× Conversion', 'tag' => 'CRO',         'tag_color' => 'cyan',    'bg' => 'linear-gradient(135deg, #3730A3, #6366F1)',  'desc' => 'Next.js storefront + CRO Sprint 4 เดือน Conversion 3 เท่า' ),
-    array( 'slug' => 'rank-project', 'name' => 'Rank Project',         'industry' => 'HR-Tech',    'metric' => '+2,200%',       'tag' => 'SEO Recovery','tag_color' => 'blue',    'bg' => 'linear-gradient(135deg, #312E81, #4F46E5)',  'desc' => 'Technical SEO + 12-month content programme Impressions +22×' ),
-    array( 'slug' => 'autobot-line', 'name' => 'AutoBot LINE',         'industry' => 'On-demand',  'metric' => '−60% Cost',     'tag' => 'AI Workforce','tag_color' => 'emerald', 'bg' => 'linear-gradient(135deg, #064E3B, #059669)',  'desc' => 'LINE Bot + OpenAI ตอบลูกค้าไทย 24/7 ลด Support Cost 60%' ),
-    array( 'slug' => 'gold-brand',   'name' => 'Gold Brand',           'industry' => 'Luxury',     'metric' => '+180% Search',  'tag' => 'Brand + Web', 'tag_color' => 'amber',   'bg' => 'linear-gradient(135deg, #7C2D12, #C2410C)',  'desc' => 'Brand refresh + Performance site บน Next.js' ),
-    array( 'slug' => 'pitch-deck',   'name' => 'Pitch Deck Microsite', 'industry' => 'SaaS',       'metric' => 'Series A',      'tag' => 'Investor Web','tag_color' => 'violet',  'bg' => 'linear-gradient(135deg, #312E81, #7C3AED)',  'desc' => 'Investor Microsite + Live Metrics Dashboard ปิด Series A' ),
+    array( 'slug' => 'nexus-corp',   'name' => 'Nexus Corp',           'industry' => 'Enterprise', 'metric' => '+540% Users',   'tag' => 'Corporate',   'tag_color' => 'blue',    'bg' => 'linear-gradient(135deg, #4338CA, #4F46E5)',  'desc' => 'Headless WordPress + Next.js corporate site SEO recovery 12 เดือน', 'cta' => 'อ่าน SEO case study' ),
+    array( 'slug' => 'flow-store',   'name' => 'Flow Store',           'industry' => 'E-commerce', 'metric' => '3× Conversion', 'tag' => 'CRO',         'tag_color' => 'cyan',    'bg' => 'linear-gradient(135deg, #3730A3, #6366F1)',  'desc' => 'Next.js storefront + CRO Sprint 4 เดือน Conversion 3 เท่า', 'cta' => 'อ่าน CRO case study' ),
+    array( 'slug' => 'rank-project', 'name' => 'Rank Project',         'industry' => 'HR-Tech',    'metric' => '+2,200%',       'tag' => 'SEO Recovery','tag_color' => 'blue',    'bg' => 'linear-gradient(135deg, #312E81, #4F46E5)',  'desc' => 'Technical SEO + 12-month content programme Impressions +22×', 'cta' => 'อ่าน Technical SEO case study' ),
+    array( 'slug' => 'autobot-line', 'name' => 'AutoBot LINE',         'industry' => 'On-demand',  'metric' => '−60% Cost',     'tag' => 'AI Workforce','tag_color' => 'emerald', 'bg' => 'linear-gradient(135deg, #064E3B, #059669)',  'desc' => 'LINE Bot + OpenAI ตอบลูกค้าไทย 24/7 ลด Support Cost 60%', 'cta' => 'อ่าน AI Workforce case study' ),
+    array( 'slug' => 'gold-brand',   'name' => 'Gold Brand',           'industry' => 'Luxury',     'metric' => '+180% Search',  'tag' => 'Brand + Web', 'tag_color' => 'amber',   'bg' => 'linear-gradient(135deg, #7C2D12, #C2410C)',  'desc' => 'Brand refresh + Performance site บน Next.js', 'cta' => 'อ่าน Brand + Web case study' ),
+    array( 'slug' => 'pitch-deck',   'name' => 'Pitch Deck Microsite', 'industry' => 'SaaS',       'metric' => 'Series A',      'tag' => 'Investor Web','tag_color' => 'violet',  'bg' => 'linear-gradient(135deg, #312E81, #7C3AED)',  'desc' => 'Investor Microsite + Live Metrics Dashboard ปิด Series A', 'cta' => 'อ่าน Investor Microsite case study' ),
 );
 ?>
 
@@ -31,9 +31,9 @@ $cases = array(
                 </ol>
             </nav>
             <span class="hb-eyebrow">Selected Work</span>
-            <h1 class="hb-hero__title">งานจริงที่<br><em>ผลลัพธ์วัดได้ทุกตัวเลข</em></h1>
+            <h1 class="hb-hero__title">Case Studies SEO,<br><em>CRO และ AI</em><br>ที่วัดผลได้จริง</h1>
             <p class="hb-hero__sub">
-                6 เคสคัดจากงานจริงใน 4 อุตสาหกรรมหลัก HR-Tech, E-commerce, On-demand Service และ SaaS ผลลัพธ์ทั้งหมดมาจาก Google Analytics 4 และ Search Console จริง ไม่ใช่ตัวเลขประมาณ ทีม Lead ทุกเคสคือ Senior Engineer และ Designer โดยตรง
+                รวม case study จากงานจริงใน HR-Tech, E-commerce, On-demand Service, Enterprise และ SaaS ครอบคลุม Technical SEO, Core Web Vitals, CRO, AI Workforce และ investor microsite ผลลัพธ์มาจาก Google Analytics 4, Search Console และ operation metrics ไม่ใช่ตัวเลขประมาณ
             </p>
         </div>
     </div>
@@ -52,7 +52,7 @@ $cases = array(
                     <p class="hb-case__metric"><?php echo esc_html( $c['metric'] ); ?></p>
                     <p class="hb-case__desc"><?php echo esc_html( $c['desc'] ); ?></p>
                     <div class="hb-case__cta">
-                        <span>อ่าน Case Study</span>
+                        <span><?php echo esc_html( $c['cta'] ); ?></span>
                         <span class="hb-case__cta-arrow">→</span>
                     </div>
                 </a>

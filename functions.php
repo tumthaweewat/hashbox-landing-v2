@@ -1367,7 +1367,7 @@ function hashbox_render_case_study( array $case ) {
         <header class="hb-section" style="padding-top: var(--hb-space-12);">
             <div class="hb-container hb-container--md">
                 <span class="hb-eyebrow"><?php echo esc_html( $case['tag'] . ' · ' . $case['industry'] . ' · ' . $case['year'] ); ?></span>
-                <h1 class="hb-h1" style="margin-top: var(--hb-space-4);"><?php echo esc_html( $case['name'] ); ?></h1>
+                <h1 class="hb-h1" style="margin-top: var(--hb-space-4);"><?php echo esc_html( $case['name'] ); ?> Case Study</h1>
                 <p class="hb-lead" style="margin-top: var(--hb-space-4);"><?php echo esc_html( $case['headline'] ); ?></p>
                 <p class="hb-body" style="margin-top: var(--hb-space-4); color: var(--hb-text-muted);"><?php echo esc_html( $case['lede'] ); ?></p>
             </div>
@@ -1436,8 +1436,40 @@ function hashbox_render_case_study( array $case ) {
             </div>
         </section>
 
-        <?php if ( ! empty( $case['testimonial']['quote'] ) ) : ?>
         <section class="hb-section">
+            <div class="hb-container">
+                <div class="hb-section__head">
+                    <span class="hb-eyebrow">Related services</span>
+                    <h2 class="hb-h2">ถ้าโจทย์ของคุณใกล้เคียงกับ <?php echo esc_html( $case['name'] ); ?></h2>
+                    <p class="hb-section__sub">เลือกบริการที่ตรงกับ pain point หลัก หรือเริ่มจาก audit ฟรีเพื่อให้ทีมเราจัดลำดับ technical SEO, CRO และ AI automation ตามผลกระทบจริง</p>
+                </div>
+                <div class="hb-bento">
+                    <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" style="text-decoration:none;">
+                        <span class="hb-eyebrow">Technical SEO</span>
+                        <h3 class="hb-card__title">รับทำเว็บไซต์ SEO-Ready</h3>
+                        <p class="hb-card__body">เหมาะกับเว็บที่ต้องการ Core Web Vitals เขียว, schema ครบ, sitemap ถูกต้อง และพร้อม index ตั้งแต่วันเปิดตัว.</p>
+                    </a>
+                    <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" style="text-decoration:none;">
+                        <span class="hb-eyebrow">Conversion</span>
+                        <h3 class="hb-card__title">Digital Marketing + CRO</h3>
+                        <p class="hb-card__body">เหมาะกับเว็บที่มี traffic แล้ว แต่ต้องการเพิ่ม lead, sales หรือ conversion rate จาก funnel เดิม.</p>
+                    </a>
+                    <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>" style="text-decoration:none;">
+                        <span class="hb-eyebrow">Automation</span>
+                        <h3 class="hb-card__title">AI Consulting + AI Workforce</h3>
+                        <p class="hb-card__body">เหมาะกับทีมที่ต้องการลดงานซ้ำ ตอบลูกค้าเร็วขึ้น หรือสร้าง RAG/LINE Bot ที่ใช้งานจริงใน production.</p>
+                    </a>
+                    <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" style="text-decoration:none;">
+                        <span class="hb-eyebrow">Free audit</span>
+                        <h3 class="hb-card__title">รับ SEO + Performance Audit ฟรี</h3>
+                        <p class="hb-card__body">ส่งเว็บไซต์ปัจจุบันให้ทีมเราวัด baseline และแนะนำ roadmap 90 วันก่อนเริ่มโปรเจกต์.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <?php if ( ! empty( $case['testimonial']['quote'] ) ) : ?>
+        <section class="hb-section hb-section--surface">
             <div class="hb-container hb-container--md">
                 <div class="hb-quote">
                     <span class="hb-quote__mark">"</span>
@@ -1454,7 +1486,7 @@ function hashbox_render_case_study( array $case ) {
         </section>
         <?php endif; ?>
 
-        <section class="hb-section hb-section--surface">
+        <section class="hb-section">
             <div class="hb-container hb-container--md" style="text-align:center;">
                 <h2 class="hb-h2">เคสของคุณคือเคสถัดไป</h2>
                 <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">รับ Audit ฟรี · เห็น Friction Point ของเว็บคุณก่อนตัดสินใจ</p>

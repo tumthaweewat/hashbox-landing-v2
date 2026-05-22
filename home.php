@@ -29,8 +29,8 @@ $categories = get_categories( array(
     <div class="hb-container hb-container--md">
         <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
         <span class="hb-eyebrow">BLOG</span>
-        <h1 class="hb-blog-hero__title">Insights ที่นำไปใช้ได้จริง</h1>
-        <p class="hb-blog-hero__lede">บทความเทคนิคจากทีมที่ Code, Run Ads และ Implement AI เอง — เน้นกรณีศึกษาและขั้นตอนที่ลงมือทำได้</p>
+        <h1 class="hb-blog-hero__title">Blog SEO, Web Performance และ AI Automation</h1>
+        <p class="hb-blog-hero__lede">บทความ SEO, Core Web Vitals, Digital Marketing + CRO และ AI จากทีมที่ Code, Run Ads และ Implement ระบบจริง — เน้นกรณีศึกษาและขั้นตอนที่ลงมือทำได้</p>
 
         <?php if ( ! empty( $categories ) ) : ?>
             <nav class="hb-blog-cats" aria-label="Categories">

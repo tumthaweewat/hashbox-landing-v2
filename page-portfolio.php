@@ -26,9 +26,9 @@ $projects   = isset( $portfolio['projects'] ) ? $portfolio['projects'] : array()
                 </ol>
             </nav>
             <span class="hb-eyebrow">Portfolio</span>
-            <h1 class="hb-hero__title">Selected Work<br><em>จากทีม Hashbox</em></h1>
+            <h1 class="hb-hero__title">Portfolio งาน Web,<br><em>Mobile และ Digital Product</em><br>จากทีม Hashbox</h1>
             <p class="hb-hero__sub">
-                ผลงานที่วัดผลได้ ทุกเคสคัดมาจากงานจริงในอุตสาหกรรม Banking, Real Estate, Mobile App, E-commerce และ AI แต่ละโปรเจกต์มี Tech Stack, Responsibility และ Outcome ที่ชัดเจน
+                รวมผลงาน web design, mobile app, e-commerce และ digital product ที่ทีม Hashbox เคยดูแลในอุตสาหกรรม Banking, Real Estate, Mobile App, E-commerce และ AI แต่ละโปรเจกต์มี Tech Stack, Responsibility และ Outcome ที่ชัดเจน
             </p>
             <div class="hb-rail">
                 <button class="hb-badge hb-badge--blue" data-filter="all" type="button">All Projects</button>

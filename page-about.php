@@ -23,13 +23,35 @@ $page_url = get_permalink();
             </nav>
             <span class="hb-eyebrow">About Hashbox</span>
             <h1 class="hb-hero__title">
-                เรารวม Web, Marketing<br>
-                และ AI ไว้ใน <em>ทีมเดียว</em><br>
-                ที่ <em>รับผิดชอบผลรวม</em>
+                เกี่ยวกับ Hashbox Studio<br>
+                ทีม Web, Marketing<br>
+                และ AI <em>ที่วัดผลได้จริง</em>
             </h1>
             <p class="hb-hero__sub">
-                Hashbox Studio ตั้งขึ้นจากความเชื่อง่าย ๆ ว่าลูกค้า SME ไทยไม่ควรต้องจ้าง 3 บริษัทมาทำงานที่จริง ๆ แล้วต้องเชื่อมกัน เราจึงรวม Technical Web Development, Digital Marketing พร้อม CRO และ AI Workforce Consulting ไว้ในทีมเดียว ใต้ KPI ชุดเดียวกัน เพื่อให้ลูกค้าเห็นผลลัพธ์ที่จับต้องและวัดได้จริง
+                Hashbox Studio ตั้งขึ้นจากความเชื่อว่าธุรกิจไทยไม่ควรต้องจ้าง 3 บริษัทแยกกันเพื่อทำเว็บ ทำ marketing และวาง AI เราจึงรวม Technical Web Development, Digital Marketing + CRO และ AI Workforce Consulting ไว้ในทีมเดียว ใต้ KPI ชุดเดียวกัน เพื่อให้ลูกค้าเห็นผลลัพธ์ที่จับต้องและวัดได้จริง
             </p>
+        </div>
+    </div>
+</section>
+
+<section class="hb-section">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">What we connect</span>
+            <h2 class="hb-h2">เราเชื่อม Web, Marketing และ AI ให้เป็นระบบเดียว</h2>
+            <p class="hb-section__sub">on-page SEO ที่ดีไม่ได้จบที่คำบนหน้า แต่ต้องเชื่อมบริการ ผลงาน และ proof ให้ผู้ใช้เดินทางต่อได้ชัดเจน</p>
+        </div>
+        <div class="hb-bento">
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Services</span>
+                <h3 class="hb-card__title">บริการทำเว็บไซต์ SEO, CRO และ AI Consulting</h3>
+                <p class="hb-card__body">ดูบริการหลักที่ทีม Hashbox ใช้แก้โจทย์ traffic, conversion และ workforce capacity.</p>
+            </a>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/work/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Proof</span>
+                <h3 class="hb-card__title">Case Studies ที่วัดผลด้วย GA4 และ Search Console</h3>
+                <p class="hb-card__body">ดูตัวอย่าง SEO recovery, CRO และ AI Workforce ที่มีตัวเลขผลลัพธ์จากงานจริง.</p>
+            </a>
         </div>
     </div>
 </section>
