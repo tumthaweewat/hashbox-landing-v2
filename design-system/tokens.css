@@ -5,7 +5,7 @@
  * Date: 2026-05-12
  * ========================================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
 
 :root {
   /* -----------------------------------------------------------------------
@@ -73,12 +73,12 @@
 
   /* -----------------------------------------------------------------------
    * TYPOGRAPHY
-   * Display: IBM Plex Sans Thai (Aktiv Grotesk Thai alternative, geometric)
+   * Display: DM Sans for headings/title, with IBM Plex Sans Thai fallback
    * Body:    IBM Plex Sans Thai + IBM Plex Sans (Latin fallback)
    * Mono:    IBM Plex Mono (stats, code, badges)
    * --------------------------------------------------------------------- */
 
-  --hb-font-display: 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --hb-font-display: 'DM Sans', 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --hb-font-body:    'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --hb-font-mono:    'IBM Plex Mono', 'SF Mono', ui-monospace, Menlo, monospace;
 

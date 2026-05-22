@@ -42,7 +42,7 @@ The site is a **one-page landing** driven by `front-page.php`, which assembles 9
 CSS custom properties defined in `:root` of `style.css`:
 - **Background**: Dark zinc (`#09090B`, `#18181B`, `#27272A`)
 - **Accents**: Blue (`#2563EB`), Cyan (`#06B6D4`), Amber (`#F59E0B`)
-- **Fonts**: `Space Grotesk` (display), `DM Sans` (body) — loaded from Google Fonts
+- **Fonts**: `DM Sans` (display/headings), `IBM Plex Sans Thai` (body/Thai fallback) — loaded from Google Fonts
 - **All styling is in `style.css`** (single file, ~39K lines) — no Tailwind, no SCSS
 
 ### JavaScript
