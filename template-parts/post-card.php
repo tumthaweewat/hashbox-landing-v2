@@ -5,24 +5,29 @@
  * @package Hashbox_Studio_V2
  */
 
-$variant = isset( $args['variant'] ) ? $args['variant'] : 'standard';
-$cats    = get_the_category();
-$cat     = ! empty( $cats ) ? $cats[0] : null;
-$thumb   = get_the_post_thumbnail_url( get_the_ID(), 'large' );
+$variant   = isset( $args['variant'] ) ? $args['variant'] : 'standard';
+$cats      = get_the_category();
+$cat       = ! empty( $cats ) ? $cats[0] : null;
+$thumb_id  = get_post_thumbnail_id();
 $thumb_alt = '';
-if ( $thumb ) {
-    $thumb_alt = trim( (string) get_post_meta( get_post_thumbnail_id(), '_wp_attachment_image_alt', true ) );
+if ( $thumb_id ) {
+    $thumb_alt = trim( (string) get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) );
     if ( '' === $thumb_alt ) {
         $thumb_alt = get_the_title();
     }
 }
-$read    = hashbox_reading_time();
+$read = hashbox_reading_time();
 ?>
 <article class="hb-card hb-card--<?php echo esc_attr( $variant ); ?>">
     <a class="hb-card__link" href="<?php the_permalink(); ?>" aria-label="<?php the_title_attribute(); ?>">
-        <?php if ( $thumb ) : ?>
+        <?php if ( $thumb_id ) : ?>
             <div class="hb-card__media">
-                <img src="<?php echo esc_url( $thumb ); ?>" alt="<?php echo esc_attr( $thumb_alt ); ?>" loading="lazy" decoding="async" width="800" height="450">
+                <?php echo wp_get_attachment_image( $thumb_id, 'large', false, array(
+                    'alt'      => $thumb_alt,
+                    'loading'  => 'lazy',
+                    'decoding' => 'async',
+                    'sizes'    => '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px',
+                ) ); ?>
             </div>
         <?php endif; ?>
         <div class="hb-card__body">

@@ -50,22 +50,28 @@ $categories = get_categories( array(
 <section class="hb-blog-featured" aria-label="Featured post">
     <div class="hb-container hb-container--md">
         <?php while ( $featured_query->have_posts() ) : $featured_query->the_post();
-            $thumb = get_the_post_thumbnail_url( get_the_ID(), 'full' );
-            $cats  = get_the_category();
-            $cat   = ! empty( $cats ) ? $cats[0] : null;
-            $read  = hashbox_reading_time();
+            $thumb_id = get_post_thumbnail_id();
+            $cats     = get_the_category();
+            $cat      = ! empty( $cats ) ? $cats[0] : null;
+            $read     = hashbox_reading_time();
         ?>
         <article class="hb-blog-featured__card">
             <a class="hb-blog-featured__link" href="<?php the_permalink(); ?>">
-                <?php if ( $thumb ) : ?>
+                <?php if ( $thumb_id ) : ?>
                     <div class="hb-blog-featured__media">
                         <?php
-                        $thumb_alt = trim( (string) get_post_meta( get_post_thumbnail_id(), '_wp_attachment_image_alt', true ) );
+                        $thumb_alt = trim( (string) get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) );
                         if ( '' === $thumb_alt ) {
                             $thumb_alt = get_the_title();
                         }
+                        echo wp_get_attachment_image( $thumb_id, 'full', false, array(
+                            'alt'           => $thumb_alt,
+                            'loading'       => 'eager',
+                            'fetchpriority' => 'high',
+                            'decoding'      => 'async',
+                            'sizes'         => '(max-width: 768px) 100vw, 960px',
+                        ) );
                         ?>
-                        <img src="<?php echo esc_url( $thumb ); ?>" alt="<?php echo esc_attr( $thumb_alt ); ?>" loading="eager" fetchpriority="high" width="1200" height="675">
                     </div>
                 <?php endif; ?>
                 <div class="hb-blog-featured__body">

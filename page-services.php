@@ -129,6 +129,54 @@ $page_url = get_permalink();
 </section>
 
 <?php
+$service_items = array(
+    array(
+        'name'        => 'SEO-Ready Website Build',
+        'url'         => home_url( '/services/seo-ready-website/' ),
+        'description' => 'Production-ready websites that pass Lighthouse 100, green Core Web Vitals, complete schema, and rank within 60-90 days.',
+        'serviceType' => 'Web Development',
+    ),
+    array(
+        'name'        => 'Digital Marketing Tools + CRO',
+        'url'         => home_url( '/services/digital-marketing-tools/' ),
+        'description' => 'GA4, GSC, Looker Studio, heatmaps, A/B testing, and monthly CRO sprints to compound conversion.',
+        'serviceType' => 'Digital Marketing',
+    ),
+    array(
+        'name'        => 'AI Expert Consulting',
+        'url'         => home_url( '/services/ai-consulting/' ),
+        'description' => 'LINE bot, sales GPT, RAG knowledge base, and workflow automation that ships to production.',
+        'serviceType' => 'AI Consulting',
+    ),
+);
+
+$item_list_elements = array();
+foreach ( $service_items as $i => $svc ) {
+    $item_list_elements[] = array(
+        '@type'    => 'ListItem',
+        'position' => $i + 1,
+        'item'     => array(
+            '@type'       => 'Service',
+            '@id'         => $svc['url'] . '#service',
+            'name'        => $svc['name'],
+            'url'         => $svc['url'],
+            'description' => $svc['description'],
+            'serviceType' => $svc['serviceType'],
+            'provider'    => array( '@id' => home_url( '/#organization' ) ),
+            'areaServed'  => 'Thailand',
+        ),
+    );
+}
+
+hashbox_jsonld( array(
+    '@context'        => 'https://schema.org',
+    '@type'           => 'ItemList',
+    '@id'             => $page_url . '#services-list',
+    'name'            => 'Hashbox Studio Services',
+    'numberOfItems'   => count( $service_items ),
+    'itemListElement' => $item_list_elements,
+) );
+
 hashbox_jsonld( array(
     '@context' => 'https://schema.org',
     '@type'    => 'BreadcrumbList',

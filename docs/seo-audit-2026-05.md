@@ -29,6 +29,11 @@
 | User profile fields: LinkedIn, X, GitHub, Job Title | `functions.php` `hashbox_user_contact_methods()` ใหม่ | ✓ |
 | `author.php` template พร้อม bio, social links, ProfilePage+Person schema | `author.php` ใหม่ | ✓ |
 | `footer.php` แก้ Terms/PDPA จาก URL ซ้ำ → anchor link บนหน้า privacy-policy | `footer.php:57-59` | ✓ |
+| **รอบ 2 (commit ถัดไป)** | | |
+| `Service` ItemList schema บน `/services/` hub พร้อม @id ref ไปยังหน้าย่อย | `page-services.php` ส่วน schema | ✓ |
+| Blog featured image (`home.php`) เปลี่ยนเป็น `wp_get_attachment_image()` → ได้ `srcset` + `sizes` อัตโนมัติ จาก WordPress + `decoding="async"` | `home.php` featured section | ✓ |
+| Post card image (`template-parts/post-card.php`) เปลี่ยนเป็น `wp_get_attachment_image()` → `srcset` + `sizes` อัตโนมัติ | `template-parts/post-card.php` | ✓ |
+| ตรวจสอบยืนยัน — page-work.php มี CollectionPage + ItemList ครบแล้ว, page-about.php มี AboutPage schema ครบแล้ว | — | ตรวจแล้ว ✓ |
 
 ### ⏸ ยังไม่ได้ทำ — ต้องใช้ decision/external infrastructure
 
