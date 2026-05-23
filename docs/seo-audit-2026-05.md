@@ -7,6 +7,45 @@
 
 ---
 
+## Remediation Log
+
+อัปเดต **2026-05-23** หลังลงมือแก้ตาม Roadmap:
+
+### ✅ ทำเสร็จแล้ว
+
+| รายการ | ไฟล์ | สถานะ |
+|---|---|---|
+| Service+Breadcrumb+FAQ schema ครบทั้ง 3 หน้า service | `page-seo-ready-website.php:174-186`, `page-digital-marketing-tools.php:155-166`, `page-ai-consulting.php:176-186` | มีอยู่แล้วเดิม (audit อ่านพลาด) |
+| Article `author` เป็น `Person` entity + `sameAs` | `functions.php` `hashbox_inject_post_schema()` + `hashbox_author_schema()` ใหม่ | ✓ |
+| `<meta name="robots" content="noindex,follow">` บน search, 404, portfolio, paginated archives | `functions.php` `hashbox_seo_noindex_meta()` ใหม่ | ✓ |
+| `404.php` พร้อม helpful nav + 4 service cards + search form | `404.php` ใหม่ | ✓ |
+| `single.php` featured image: เพิ่ม `sizes`, `decoding="async"` | `single.php:40-46` | ✓ |
+| Preload LCP image (featured image ของหน้า singular) | `functions.php` `hashbox_preload_critical_assets()` ใหม่ | ✓ |
+| `LocalBusiness` dual-type (`["ProfessionalService","LocalBusiness"]`) + `openingHoursSpecification` + `geo` + `telephone` + `email` + `image` + `address` | `functions.php` `hashbox_rankmath_schema_service()` + `hashbox_inject_home_schema()` | ✓ |
+| Organization schema เพิ่ม `address` (เดิมไม่มี) | `functions.php` `hashbox_rankmath_schema_organization()` | ✓ |
+| Canonical fallback เมื่อ Rank Math inactive | `functions.php:716` ใน `hashbox_homepage_meta_description()` | ✓ |
+| ลบ `og:locale:alternate en_US` (ไม่มีหน้า EN จริง) | `functions.php` | ✓ |
+| `.htaccess` mod_expires + mod_deflate รองรับ AVIF/WebP/woff2/JSON-LD | `.htaccess` | ✓ |
+| User profile fields: LinkedIn, X, GitHub, Job Title | `functions.php` `hashbox_user_contact_methods()` ใหม่ | ✓ |
+| `author.php` template พร้อม bio, social links, ProfilePage+Person schema | `author.php` ใหม่ | ✓ |
+| `footer.php` แก้ Terms/PDPA จาก URL ซ้ำ → anchor link บนหน้า privacy-policy | `footer.php:57-59` | ✓ |
+
+### ⏸ ยังไม่ได้ทำ — ต้องใช้ decision/external infrastructure
+
+| รายการ | เหตุผล | ผู้รับผิดชอบ |
+|---|---|---|
+| Hreflang Thai/English | ยังไม่มีหน้า English จริง — ถ้าจะทำต้องสร้าง subdirectory `/en/` ทั้งระบบ | Product decision |
+| WebP/AVIF image generation | ต้องติดตั้ง WordPress plugin (Imagify / Modern Image Formats) หรือ image CDN | DevOps |
+| CSS bundling (7 → 1 file) | CLAUDE.md ระบุ "no build step" — ต้องเปลี่ยน policy ก่อน | Product/Eng decision |
+| ขยาย About page ด้วย team members + credentials | ต้องเก็บข้อมูล + รูปสมาชิกทีม + ใบ certification | Marketing |
+| สร้างหน้า Terms / PDPA แยก | ต้องร่างกฎหมายโดยทนาย — ตอนนี้ใช้ anchor บนหน้า privacy-policy | Legal |
+| Portfolio images จริง | `assets/portfolio-images/` ยังว่าง (audit พบ) — ต้องเพิ่มไฟล์รูป | Design |
+| Direct-answer pattern + `<ol>` semantic บนหน้า home process | ต้องแก้ content + template-parts/* — ขอบเขตใหญ่ ขอแยก PR | Future sprint |
+
+ดูรายละเอียดเดิมด้านล่างเพื่อ context ของแต่ละการแก้
+
+---
+
 ## 0. Executive Summary
 
 ภาพรวม theme มีพื้นฐาน Technical SEO ที่ **แข็งแรงระดับสูงกว่ามาตรฐาน** — มี schema graph ครบ (Organization + WebSite + ProfessionalService + FAQ + Article + BreadcrumbList), title/description แบบ context-aware ทุกประเภทหน้า, semantic HTML สะอาด, HTTPS + HSTS + security headers ครบ, JS deferred ทั้งหมด, Google Fonts ใช้ `display=swap` + preconnect

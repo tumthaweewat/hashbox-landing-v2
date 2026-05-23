@@ -41,6 +41,8 @@ get_header();
                     'class'         => 'hb-post__featured-img',
                     'loading'       => 'eager',
                     'fetchpriority' => 'high',
+                    'decoding'      => 'async',
+                    'sizes'         => '(max-width: 768px) 100vw, 960px',
                 ) ); ?>
             </figure>
         <?php endif; ?>

@@ -713,8 +713,8 @@ function hashbox_homepage_meta_description() {
     $type  = is_singular( 'post' ) ? 'article' : 'website';
 
     echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
+    echo '<link rel="canonical" href="' . esc_url( $url ) . '">' . "\n";
     echo '<meta property="og:locale" content="th_TH">' . "\n";
-    echo '<meta property="og:locale:alternate" content="en_US">' . "\n";
     echo '<meta property="og:type" content="' . esc_attr( $type ) . '">' . "\n";
     echo '<meta property="og:site_name" content="' . esc_attr( get_bloginfo( 'name' ) ) . '">' . "\n";
     echo '<meta property="og:title" content="' . esc_attr( $title ) . '">' . "\n";
@@ -727,6 +727,110 @@ function hashbox_homepage_meta_description() {
     echo '<meta name="twitter:image" content="' . esc_url( $image ) . '">' . "\n";
 }
 add_action( 'wp_head', 'hashbox_homepage_meta_description', 1 );
+
+/**
+ * Emit <meta name="robots" content="noindex,follow"> on pages that
+ * shouldn't enter Google's index: internal search results, the 404
+ * page, paginated archives beyond page 1, and the password-gated
+ * portfolio page. Rank Math handles this when active, so we skip.
+ */
+function hashbox_seo_noindex_meta() {
+    if ( hashbox_rank_math_is_active() ) {
+        return;
+    }
+
+    $should_noindex = is_search()
+        || is_404()
+        || is_page_template( 'page-portfolio.php' )
+        || ( is_paged() && ( is_category() || is_tag() || is_author() || is_date() ) );
+
+    if ( $should_noindex ) {
+        echo '<meta name="robots" content="noindex,follow">' . "\n";
+    }
+}
+add_action( 'wp_head', 'hashbox_seo_noindex_meta', 1 );
+
+/**
+ * Preload the LCP image of singular pages (featured image) so it
+ * starts downloading during HTML parse instead of after CSS. Font
+ * woff2 URLs from Google Fonts are hashed and version-bumped, so we
+ * rely on the existing preconnect to fonts.gstatic.com plus
+ * font-display: swap for type — preloading a stale hashed URL would
+ * 404 and hurt rather than help.
+ */
+function hashbox_preload_critical_assets() {
+    if ( is_singular() && has_post_thumbnail() ) {
+        $img = wp_get_attachment_image_url( get_post_thumbnail_id(), 'full' );
+        if ( $img ) {
+            echo '<link rel="preload" as="image" fetchpriority="high" href="' . esc_url( $img ) . '">' . "\n";
+        }
+    }
+}
+add_action( 'wp_head', 'hashbox_preload_critical_assets', 2 );
+
+/**
+ * Build Person schema for an author. Pulls bio/social from user meta
+ * (LinkedIn, Twitter, GitHub) exposed via hashbox_user_contact_methods().
+ * Falls back to publisher Organization when author identity is thin so
+ * Article schema validates either way.
+ */
+function hashbox_author_schema( $user_id ) {
+    $user_id = (int) $user_id;
+    if ( ! $user_id ) {
+        return array( '@id' => home_url( '/#organization' ) );
+    }
+
+    $display = get_the_author_meta( 'display_name', $user_id );
+    if ( empty( $display ) ) {
+        return array( '@id' => home_url( '/#organization' ) );
+    }
+
+    $same_as = array();
+    foreach ( array( 'linkedin', 'twitter', 'github' ) as $key ) {
+        $url = get_the_author_meta( $key, $user_id );
+        if ( ! empty( $url ) ) {
+            $same_as[] = esc_url_raw( $url );
+        }
+    }
+
+    $person = array(
+        '@type' => 'Person',
+        '@id'   => get_author_posts_url( $user_id ) . '#author',
+        'name'  => $display,
+        'url'   => get_author_posts_url( $user_id ),
+    );
+
+    $bio = get_the_author_meta( 'description', $user_id );
+    if ( ! empty( $bio ) ) {
+        $person['description'] = wp_strip_all_tags( $bio );
+    }
+
+    $job = get_the_author_meta( 'job_title', $user_id );
+    if ( ! empty( $job ) ) {
+        $person['jobTitle'] = $job;
+    }
+
+    if ( ! empty( $same_as ) ) {
+        $person['sameAs'] = $same_as;
+    }
+
+    $person['worksFor'] = array( '@id' => home_url( '/#organization' ) );
+
+    return $person;
+}
+
+/**
+ * Surface LinkedIn / X (Twitter) / GitHub fields on the user profile
+ * screen so editors can fill them in. Powers Person schema sameAs.
+ */
+function hashbox_user_contact_methods( $methods ) {
+    $methods['linkedin'] = 'LinkedIn URL';
+    $methods['twitter']  = 'X (Twitter) URL';
+    $methods['github']   = 'GitHub URL';
+    $methods['job_title'] = 'Job title';
+    return $methods;
+}
+add_filter( 'user_contactmethods', 'hashbox_user_contact_methods' );
 
 /**
  * Feed optimized SEO metadata into Rank Math.
@@ -1045,6 +1149,14 @@ function hashbox_rankmath_schema_organization() {
             'areaServed'        => 'TH',
             'availableLanguage' => array( 'th', 'en' ),
         ),
+        'address' => array(
+            '@type'           => 'PostalAddress',
+            'streetAddress'   => '139 Pan Rd, Si Lom',
+            'addressLocality' => 'Bang Rak',
+            'addressRegion'   => 'Bangkok',
+            'postalCode'      => '10500',
+            'addressCountry'  => 'TH',
+        ),
     );
 }
 
@@ -1071,14 +1183,36 @@ function hashbox_rankmath_schema_website() {
 function hashbox_rankmath_schema_service() {
     $home = home_url( '/' );
     return array(
-        '@type'              => 'ProfessionalService',
+        '@type'              => array( 'ProfessionalService', 'LocalBusiness' ),
         '@id'                => $home . '#service',
         'name'               => 'Hashbox Studio',
         'description'        => 'SEO-ready website builds, digital marketing tools, CRO, and AI consulting for Thai SMEs.',
         'url'                => $home,
+        'image'              => hashbox_default_og_image_url(),
+        'telephone'          => '+66-2-266-6222',
+        'email'              => 'business@hashbox.co.th',
         'priceRange'         => '฿฿฿',
         'areaServed'         => 'Thailand',
         'parentOrganization' => array( '@id' => $home . '#organization' ),
+        'address' => array(
+            '@type'           => 'PostalAddress',
+            'streetAddress'   => '139 Pan Rd, Si Lom',
+            'addressLocality' => 'Bang Rak',
+            'addressRegion'   => 'Bangkok',
+            'postalCode'      => '10500',
+            'addressCountry'  => 'TH',
+        ),
+        'geo' => array(
+            '@type'     => 'GeoCoordinates',
+            'latitude'  => 13.7263,
+            'longitude' => 100.5270,
+        ),
+        'openingHoursSpecification' => array(
+            '@type'     => 'OpeningHoursSpecification',
+            'dayOfWeek' => array( 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ),
+            'opens'     => '09:00',
+            'closes'    => '18:00',
+        ),
     );
 }
 
@@ -1251,14 +1385,36 @@ function hashbox_inject_home_schema() {
                 ),
             ),
             array(
-                '@type'              => 'ProfessionalService',
+                '@type'              => array( 'ProfessionalService', 'LocalBusiness' ),
                 '@id'                => $home . '#service',
                 'name'               => 'Hashbox Studio',
                 'description'        => 'SEO-ready website builds, digital marketing tools, CRO, and AI consulting for Thai SMEs.',
                 'url'                => $home,
+                'image'              => $logo,
+                'telephone'          => '+66-2-266-6222',
+                'email'              => 'business@hashbox.co.th',
                 'priceRange'         => '฿฿฿',
                 'areaServed'         => 'Thailand',
                 'parentOrganization' => array( '@id' => $home . '#organization' ),
+                'address' => array(
+                    '@type'           => 'PostalAddress',
+                    'streetAddress'   => '139 Pan Rd, Si Lom',
+                    'addressLocality' => 'Bang Rak',
+                    'addressRegion'   => 'Bangkok',
+                    'postalCode'      => '10500',
+                    'addressCountry'  => 'TH',
+                ),
+                'geo' => array(
+                    '@type'     => 'GeoCoordinates',
+                    'latitude'  => 13.7263,
+                    'longitude' => 100.5270,
+                ),
+                'openingHoursSpecification' => array(
+                    '@type'     => 'OpeningHoursSpecification',
+                    'dayOfWeek' => array( 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ),
+                    'opens'     => '09:00',
+                    'closes'    => '18:00',
+                ),
                 'hasOfferCatalog'    => array(
                     '@type' => 'OfferCatalog',
                     'name'  => 'Services',
@@ -1804,7 +1960,7 @@ function hashbox_inject_post_schema() {
         'datePublished' => get_the_date( 'c', $post_id ),
         'dateModified'  => get_the_modified_date( 'c', $post_id ),
         'inLanguage'    => 'th-TH',
-        'author'        => array( '@id' => home_url( '/#organization' ) ),
+        'author'        => hashbox_author_schema( get_post_field( 'post_author', $post_id ) ),
         'publisher'     => array( '@id' => home_url( '/#organization' ) ),
         'mainEntityOfPage' => array(
             '@type' => 'WebPage',

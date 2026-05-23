@@ -55,8 +55,8 @@
                 <p>&copy; <?php echo esc_html( date( 'Y' ) ); ?> Hashbox Studio. All rights reserved.</p>
                 <div class="hb-footer__legal">
                     <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Privacy Policy</a>
-                    <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Terms</a>
-                    <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">PDPA</a>
+                    <a href="<?php echo esc_url( home_url( '/privacy-policy/#terms' ) ); ?>">Terms</a>
+                    <a href="<?php echo esc_url( home_url( '/privacy-policy/#pdpa' ) ); ?>">PDPA</a>
                 </div>
             </div>
         </div>

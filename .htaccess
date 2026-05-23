@@ -64,6 +64,11 @@ AddOutputFilterByType DEFLATE application/xhtml+xml
 AddOutputFilterByType DEFLATE application/rss+xml
 AddOutputFilterByType DEFLATE application/javascript
 AddOutputFilterByType DEFLATE application/x-javascript
+AddOutputFilterByType DEFLATE application/json
+AddOutputFilterByType DEFLATE application/ld+json
+AddOutputFilterByType DEFLATE image/svg+xml
+AddOutputFilterByType DEFLATE font/ttf
+AddOutputFilterByType DEFLATE font/otf
 </IfModule>
 
 # Browser caching
@@ -76,5 +81,13 @@ ExpiresByType image/jpg "access plus 1 year"
 ExpiresByType image/jpeg "access plus 1 year"
 ExpiresByType image/gif "access plus 1 year"
 ExpiresByType image/svg+xml "access plus 1 year"
+ExpiresByType image/webp "access plus 1 year"
+ExpiresByType image/avif "access plus 1 year"
+ExpiresByType font/woff "access plus 1 year"
+ExpiresByType font/woff2 "access plus 1 year"
+ExpiresByType font/ttf "access plus 1 year"
+ExpiresByType font/otf "access plus 1 year"
+ExpiresByType application/font-woff "access plus 1 year"
+ExpiresByType application/font-woff2 "access plus 1 year"
 </IfModule>
 # END WordPress
