@@ -25,7 +25,6 @@ if ( is_singular( 'post' ) ) {
 } elseif ( is_home() ) {
     $crumbs[] = array( 'name' => 'Blog', 'url' => '' );
 } elseif ( is_search() ) {
-    $crumbs[] = array( 'name' => 'Blog', 'url' => home_url( '/blog/' ) );
     $crumbs[] = array( 'name' => 'Search: ' . esc_html( get_search_query() ), 'url' => '' );
 } elseif ( is_archive() ) {
     $crumbs[] = array( 'name' => get_the_archive_title(), 'url' => '' );

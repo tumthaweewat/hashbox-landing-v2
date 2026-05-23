@@ -34,6 +34,11 @@
 | Blog featured image (`home.php`) เปลี่ยนเป็น `wp_get_attachment_image()` → ได้ `srcset` + `sizes` อัตโนมัติ จาก WordPress + `decoding="async"` | `home.php` featured section | ✓ |
 | Post card image (`template-parts/post-card.php`) เปลี่ยนเป็น `wp_get_attachment_image()` → `srcset` + `sizes` อัตโนมัติ | `template-parts/post-card.php` | ✓ |
 | ตรวจสอบยืนยัน — page-work.php มี CollectionPage + ItemList ครบแล้ว, page-about.php มี AboutPage schema ครบแล้ว | — | ตรวจแล้ว ✓ |
+| **รอบ 3 (commit ถัดไป)** | | |
+| `rel="me"` บนลิงก์ social ใน footer (LinkedIn/FB/IG/LINE) — identity verification + E-E-A-T | `footer.php:15-18` | ✓ |
+| `og:image:width` + `og:image:height` ใน OG meta — แก้ social card placeholder LCP | `functions.php` `hashbox_homepage_meta_description()` + helpers ใหม่ `hashbox_default_og_image_dimensions()` / `hashbox_og_image_dimensions()` | ✓ |
+| `Speakable` schema (SpeakableSpecification) บน FAQPage ทั้ง 4 ตำแหน่ง (home + 3 service pages) — voice search/AI Mode signal | `functions.php` `hashbox_inject_home_faq_schema()` + `page-{ai-consulting,seo-ready-website,digital-marketing-tools}.php` | ✓ |
+| Breadcrumb สำหรับ search results เปลี่ยนเป็น Home → Search (เดิม Home → Blog → Search ซึ่งสมมติว่า search มาจาก blog scope) | `template-parts/breadcrumbs.php:27-29` | ✓ |
 
 ### ⏸ ยังไม่ได้ทำ — ต้องใช้ decision/external infrastructure
 

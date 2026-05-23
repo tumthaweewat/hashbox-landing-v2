@@ -163,6 +163,6 @@ $faq_entities = array();
 foreach ( $faqs as $f ) {
     $faq_entities[] = array( '@type' => 'Question', 'name' => $f['q'], 'acceptedAnswer' => array( '@type' => 'Answer', 'text' => $f['a'] ) );
 }
-hashbox_jsonld( array( '@context' => 'https://schema.org', '@type' => 'FAQPage', '@id' => $page_url . '#faq', 'mainEntity' => $faq_entities ) );
+hashbox_jsonld( array( '@context' => 'https://schema.org', '@type' => 'FAQPage', '@id' => $page_url . '#faq', 'speakable' => array( '@type' => 'SpeakableSpecification', 'cssSelector' => array( '.hb-accordion__trigger', '.hb-accordion__content' ) ), 'mainEntity' => $faq_entities ) );
 
 get_footer();

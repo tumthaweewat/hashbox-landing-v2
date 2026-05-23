@@ -663,6 +663,54 @@ function hashbox_default_og_image_url() {
 }
 
 /**
+ * Return [width, height] of the default OG image so OpenGraph tags
+ * include og:image:width/height. Social previews render with a
+ * placeholder until both are present, so emitting them improves
+ * Facebook/LinkedIn/Slack card LCP. Cached for the request.
+ */
+function hashbox_default_og_image_dimensions() {
+    static $dims = null;
+    if ( null !== $dims ) {
+        return $dims;
+    }
+
+    $candidates = array(
+        get_template_directory() . '/assets/og-default.jpg',
+        get_template_directory() . '/screenshot.jpg',
+        get_template_directory() . '/assets/favicons/apple-touch-icon.png',
+    );
+    foreach ( $candidates as $path ) {
+        if ( file_exists( $path ) ) {
+            $info = @getimagesize( $path );
+            if ( $info && isset( $info[0], $info[1] ) ) {
+                $dims = array( (int) $info[0], (int) $info[1] );
+                return $dims;
+            }
+        }
+    }
+    $dims = array( 0, 0 );
+    return $dims;
+}
+
+/**
+ * Resolve width/height for an arbitrary OG image URL (featured image
+ * on a post falls back to attachment metadata so we avoid a disk
+ * read; default OG falls back to hashbox_default_og_image_dimensions).
+ */
+function hashbox_og_image_dimensions( $image_url ) {
+    if ( is_singular() ) {
+        $thumb_id = get_post_thumbnail_id( get_queried_object_id() );
+        if ( $thumb_id ) {
+            $src = wp_get_attachment_image_src( $thumb_id, 'full' );
+            if ( $src && isset( $src[1], $src[2] ) ) {
+                return array( (int) $src[1], (int) $src[2] );
+            }
+        }
+    }
+    return hashbox_default_og_image_dimensions();
+}
+
+/**
  * Canonical-like URL for social metadata.
  */
 function hashbox_current_public_url() {
@@ -721,6 +769,11 @@ function hashbox_homepage_meta_description() {
     echo '<meta property="og:description" content="' . esc_attr( $desc ) . '">' . "\n";
     echo '<meta property="og:url" content="' . esc_url( $url ) . '">' . "\n";
     echo '<meta property="og:image" content="' . esc_url( $image ) . '">' . "\n";
+    list( $img_w, $img_h ) = hashbox_og_image_dimensions( $image );
+    if ( $img_w > 0 && $img_h > 0 ) {
+        echo '<meta property="og:image:width" content="' . (int) $img_w . '">' . "\n";
+        echo '<meta property="og:image:height" content="' . (int) $img_h . '">' . "\n";
+    }
     echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
     echo '<meta name="twitter:title" content="' . esc_attr( $title ) . '">' . "\n";
     echo '<meta name="twitter:description" content="' . esc_attr( $desc ) . '">' . "\n";
@@ -1555,6 +1608,10 @@ function hashbox_inject_home_faq_schema() {
         '@context'   => 'https://schema.org',
         '@type'      => 'FAQPage',
         '@id'        => home_url( '/#faq' ),
+        'speakable'  => array(
+            '@type'       => 'SpeakableSpecification',
+            'cssSelector' => array( '.hb-accordion__trigger', '.hb-accordion__content' ),
+        ),
         'mainEntity' => $main_entity,
     ) );
 }
