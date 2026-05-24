@@ -82,17 +82,22 @@
   --hb-font-body:    'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --hb-font-mono:    'IBM Plex Mono', 'SF Mono', ui-monospace, Menlo, monospace;
 
-  /* Type scale (fluid clamp for responsive) */
+  /* Type scale (fluid clamp for responsive)
+   * Trimmed ~20% from prior baseline — old max values (96/72/52/
+   * 40/32/24px) read agency-bold but felt heavy on content-led
+   * landing + blog. New ceiling matches calmer typography of
+   * Thai consultancy sites. xs/sm/base unchanged (body legibility).
+   */
   --hb-text-xs:    clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
   --hb-text-sm:    clamp(0.875rem, 0.84rem + 0.18vw, 0.9375rem);
   --hb-text-base:  clamp(1rem, 0.95rem + 0.2vw, 1.0625rem);
-  --hb-text-lg:    clamp(1.125rem, 1.05rem + 0.4vw, 1.25rem);
-  --hb-text-xl:    clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
-  --hb-text-2xl:   clamp(1.5rem, 1.3rem + 1vw, 2rem);
-  --hb-text-3xl:   clamp(1.875rem, 1.5rem + 1.5vw, 2.5rem);
-  --hb-text-4xl:   clamp(2.25rem, 1.8rem + 2vw, 3.25rem);
-  --hb-text-5xl:   clamp(2.75rem, 2.1rem + 3vw, 4.5rem);
-  --hb-text-6xl:   clamp(3.5rem, 2.5rem + 4.5vw, 6rem);
+  --hb-text-lg:    clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  --hb-text-xl:    clamp(1.125rem, 1.05rem + 0.5vw, 1.375rem);
+  --hb-text-2xl:   clamp(1.25rem, 1.1rem + 0.75vw, 1.625rem);
+  --hb-text-3xl:   clamp(1.5rem, 1.25rem + 1.2vw, 2rem);
+  --hb-text-4xl:   clamp(1.875rem, 1.5rem + 1.6vw, 2.625rem);
+  --hb-text-5xl:   clamp(2.25rem, 1.75rem + 2.5vw, 3.5rem);
+  --hb-text-6xl:   clamp(2.75rem, 2rem + 3.5vw, 4.75rem);
 
   /* Weight scale */
   --hb-weight-light:    300;
