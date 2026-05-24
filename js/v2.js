@@ -15,11 +15,23 @@
    * -------------------------------------------------------------------- */
   const nav = document.querySelector('.hb-nav');
   if (nav) {
+    let scrolled = false;
+    let ticking = false;
+    const applyScrollState = () => {
+      const next = window.scrollY > 80;
+      if (next !== scrolled) {
+        scrolled = next;
+        nav.classList.toggle('hb-nav--scrolled', scrolled);
+      }
+      ticking = false;
+    };
     const onScroll = () => {
-      nav.classList.toggle('hb-nav--scrolled', window.scrollY > 80);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(applyScrollState);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    applyScrollState();
   }
 
   /* ----------------------------------------------------------------------
@@ -40,7 +52,9 @@
     burger.addEventListener('click', () => setSheetOpen(true));
     backdrop.addEventListener('click', () => setSheetOpen(false));
     sheetClose && sheetClose.addEventListener('click', () => setSheetOpen(false));
-    sheet.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setSheetOpen(false)));
+    sheet.addEventListener('click', (e) => {
+      if (e.target.closest('a')) setSheetOpen(false);
+    });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && sheet.dataset.open === 'true') setSheetOpen(false);
     });
@@ -171,17 +185,18 @@
   /* ----------------------------------------------------------------------
    * 7. Smooth scroll for in-page anchors (offset for sticky nav)
    * -------------------------------------------------------------------- */
-  document.querySelectorAll('a[href^="#"]').forEach((a) => {
-    a.addEventListener('click', (e) => {
-      const href = a.getAttribute('href');
-      if (href === '#' || href.length < 2) return;
-      const target = document.querySelector(href);
-      if (!target) return;
-      e.preventDefault();
-      const offset = (nav ? nav.getBoundingClientRect().height : 0) + 16;
-      const top = window.scrollY + target.getBoundingClientRect().top - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
-    });
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href || href === '#' || href.length < 2) return;
+    let target;
+    try { target = document.querySelector(href); } catch (_) { return; }
+    if (!target) return;
+    e.preventDefault();
+    const offset = (nav ? nav.getBoundingClientRect().height : 0) + 16;
+    const top = window.scrollY + target.getBoundingClientRect().top - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
   });
 
   /* ----------------------------------------------------------------------

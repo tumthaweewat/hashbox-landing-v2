@@ -41,6 +41,10 @@
 | Breadcrumb สำหรับ search results เปลี่ยนเป็น Home → Search (เดิม Home → Blog → Search ซึ่งสมมติว่า search มาจาก blog scope) | `template-parts/breadcrumbs.php:27-29` | ✓ |
 | **รอบ 4 (commit ถัดไป)** | | |
 | Defer legacy `style.css` (43K) — V2 templates ใช้แต่ `.hb-*` จาก /design-system/, legacy V1 classes (.about-*, .hero-*) ไม่ถูก reference เลย → ใช้ `media="print" onload=...` trick + `<noscript>` fallback ตัด render-blocking CSS ~30% | `functions.php` `hashbox_defer_legacy_stylesheet()` | ✓ |
+| **รอบ 5 (commit ถัดไป) — INP / TBT** | | |
+| Sticky-nav scroll listener: rAF batch + cached `scrolled` state, ไม่ `classList.toggle` ทุก scroll tick (เดิม toggle ทุก event แม้สถานะไม่เปลี่ยน → style recalc loop) | `js/v2.js` ส่วน sticky nav | ✓ |
+| Mobile sheet anchor closing: event delegation on `.hb-sheet` แทน addEventListener ทุก `<a>` (เดิม N listener × link count → init cost + memory) | `js/v2.js` ส่วน sheet | ✓ |
+| Smooth scroll: event delegation บน document แทน N listeners ที่ทุก `a[href^="#"]` + try/catch กรณี href ไม่ใช่ valid selector (`#`, `#!`, etc.) | `js/v2.js` ส่วน smooth scroll | ✓ |
 
 ### ⏸ ยังไม่ได้ทำ — ต้องใช้ decision/external infrastructure
 
