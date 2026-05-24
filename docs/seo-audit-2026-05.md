@@ -39,6 +39,8 @@
 | `og:image:width` + `og:image:height` ใน OG meta — แก้ social card placeholder LCP | `functions.php` `hashbox_homepage_meta_description()` + helpers ใหม่ `hashbox_default_og_image_dimensions()` / `hashbox_og_image_dimensions()` | ✓ |
 | `Speakable` schema (SpeakableSpecification) บน FAQPage ทั้ง 4 ตำแหน่ง (home + 3 service pages) — voice search/AI Mode signal | `functions.php` `hashbox_inject_home_faq_schema()` + `page-{ai-consulting,seo-ready-website,digital-marketing-tools}.php` | ✓ |
 | Breadcrumb สำหรับ search results เปลี่ยนเป็น Home → Search (เดิม Home → Blog → Search ซึ่งสมมติว่า search มาจาก blog scope) | `template-parts/breadcrumbs.php:27-29` | ✓ |
+| **รอบ 4 (commit ถัดไป)** | | |
+| Defer legacy `style.css` (43K) — V2 templates ใช้แต่ `.hb-*` จาก /design-system/, legacy V1 classes (.about-*, .hero-*) ไม่ถูก reference เลย → ใช้ `media="print" onload=...` trick + `<noscript>` fallback ตัด render-blocking CSS ~30% | `functions.php` `hashbox_defer_legacy_stylesheet()` | ✓ |
 
 ### ⏸ ยังไม่ได้ทำ — ต้องใช้ decision/external infrastructure
 

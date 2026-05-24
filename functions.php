@@ -106,6 +106,37 @@ function hashbox_enqueue_assets() {
 add_action( 'wp_enqueue_scripts', 'hashbox_enqueue_assets' );
 
 /**
+ * Async-load the legacy V1 stylesheet so it stops blocking first paint.
+ *
+ * V2 templates use only .hb-* classes served by /design-system/*.css —
+ * the 43KB style.css carries V1-only selectors (.about-*, .hero-*, etc.)
+ * that no V2 template references, but WordPress still requires it
+ * because get_stylesheet_uri() resolves to it and the theme header lives
+ * there. Swapping it to media="print" keeps the request happening while
+ * removing it from the critical render path. The noscript fallback
+ * covers JS-disabled clients and search-engine renderers that ignore
+ * the onload swap.
+ */
+function hashbox_defer_legacy_stylesheet( $html, $handle, $href, $media ) {
+    if ( 'hashbox-style' !== $handle ) {
+        return $html;
+    }
+    $async    = sprintf(
+        '<link rel="stylesheet" id="%s-css" href="%s" media="print" onload="this.media=\'%s\';this.onload=null">' . "\n",
+        esc_attr( $handle ),
+        esc_url( $href ),
+        esc_attr( $media )
+    );
+    $noscript = sprintf(
+        '<noscript><link rel="stylesheet" href="%s" media="%s"></noscript>' . "\n",
+        esc_url( $href ),
+        esc_attr( $media )
+    );
+    return $async . $noscript;
+}
+add_filter( 'style_loader_tag', 'hashbox_defer_legacy_stylesheet', 10, 4 );
+
+/**
  * Add preconnect resource hints for Google Fonts
  */
 function hashbox_resource_hints( $urls, $relation_type ) {
