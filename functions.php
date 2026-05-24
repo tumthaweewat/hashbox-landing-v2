@@ -2119,19 +2119,31 @@ add_action( 'wp_head', 'hashbox_inject_archive_schema', 23 );
 
 /**
  * Enqueue blog CSS conditionally.
+ *
+ * Loads the dedicated /design-system/blog.css layer only on URLs
+ * that actually use blog selectors (post index, single posts, all
+ * archive flavors, search results). Landing and service pages
+ * don't reference any .hb-blog-* / .hb-post-* / .hb-card--standard
+ * selectors, so they avoid the ~14KB cost.
+ *
+ * Depends on the last design-system layer (composed) rather than
+ * the legacy hashbox-style handle so blog styles cascade after the
+ * design-system but aren't delayed by the deferred legacy sheet.
  */
 function hashbox_enqueue_blog_assets() {
-    if ( is_home() || is_singular( 'post' ) || is_category() || is_tag() || is_archive() || is_search() ) {
-        $blog_css = get_template_directory() . '/css/blog.css';
-        if ( file_exists( $blog_css ) ) {
-            wp_enqueue_style(
-                'hashbox-blog',
-                get_template_directory_uri() . '/css/blog.css',
-                array( 'hashbox-style' ),
-                filemtime( $blog_css )
-            );
-        }
+    if ( ! ( is_home() || is_singular( 'post' ) || is_category() || is_tag() || is_archive() || is_search() ) ) {
+        return;
     }
+    $blog_css = get_template_directory() . '/design-system/blog.css';
+    if ( ! file_exists( $blog_css ) ) {
+        return;
+    }
+    wp_enqueue_style(
+        'hashbox-blog',
+        get_template_directory_uri() . '/design-system/blog.css',
+        array( 'hashbox-ds-composed' ),
+        filemtime( $blog_css )
+    );
 }
 add_action( 'wp_enqueue_scripts', 'hashbox_enqueue_blog_assets', 20 );
 
