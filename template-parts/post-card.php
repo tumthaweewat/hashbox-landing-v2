@@ -17,8 +17,13 @@ if ( $thumb_id ) {
     }
 }
 $read = hashbox_reading_time();
+$card_classes = array(
+    'hb-card',
+    'hb-card--' . sanitize_html_class( $variant ),
+    $thumb_id ? 'hb-card--with-media' : 'hb-card--text-only',
+);
 ?>
-<article class="hb-card hb-card--<?php echo esc_attr( $variant ); ?>">
+<article class="<?php echo esc_attr( implode( ' ', $card_classes ) ); ?>">
     <a class="hb-card__link" href="<?php the_permalink(); ?>" aria-label="<?php the_title_attribute(); ?>">
         <?php if ( $thumb_id ) : ?>
             <div class="hb-card__media">

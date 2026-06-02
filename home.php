@@ -54,8 +54,12 @@ $categories = get_categories( array(
             $cats     = get_the_category();
             $cat      = ! empty( $cats ) ? $cats[0] : null;
             $read     = hashbox_reading_time();
+            $featured_classes = array(
+                'hb-blog-featured__card',
+                $thumb_id ? 'hb-blog-featured__card--with-media' : 'hb-blog-featured__card--text-only',
+            );
         ?>
-        <article class="hb-blog-featured__card">
+        <article class="<?php echo esc_attr( implode( ' ', $featured_classes ) ); ?>">
             <a class="hb-blog-featured__link" href="<?php the_permalink(); ?>">
                 <?php if ( $thumb_id ) : ?>
                     <div class="hb-blog-featured__media">
