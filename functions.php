@@ -1653,6 +1653,120 @@ function hashbox_robots_txt( $output, $public ) {
 add_filter( 'robots_txt', 'hashbox_robots_txt', 10, 2 );
 
 /**
+ * Serve /llms.txt and /llms-full.txt for AI Search / GEO discovery.
+ * Spec: https://llmstxt.org
+ *
+ * /llms.txt          — concise index of canonical URLs + summaries
+ * /llms-full.txt     — concatenated body content of pillar pages
+ *
+ * Hooked on `init` so WordPress rewrite rules do not interfere.
+ */
+function hashbox_serve_llms_txt() {
+    $request_uri = isset( $_SERVER['REQUEST_URI'] ) ? wp_parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ) : '';
+    $request_uri = is_string( $request_uri ) ? rtrim( $request_uri, '/' ) : '';
+
+    if ( '/llms.txt' === $request_uri ) {
+        header( 'Content-Type: text/plain; charset=utf-8' );
+        header( 'X-Robots-Tag: noindex' );
+        header( 'Cache-Control: public, max-age=3600' );
+        echo hashbox_llms_txt_content();
+        exit;
+    }
+
+    if ( '/llms-full.txt' === $request_uri ) {
+        header( 'Content-Type: text/plain; charset=utf-8' );
+        header( 'X-Robots-Tag: noindex' );
+        header( 'Cache-Control: public, max-age=3600' );
+        echo hashbox_llms_full_txt_content();
+        exit;
+    }
+}
+add_action( 'init', 'hashbox_serve_llms_txt', 1 );
+
+function hashbox_llms_txt_content() {
+    $home = home_url( '/' );
+    $lines = array();
+    $lines[] = '# Hashbox Studio';
+    $lines[] = '';
+    $lines[] = '> Hashbox Studio is a Bangkok-based digital studio building SEO-Ready websites, AI consulting services, and digital marketing tools for Thai businesses. Every website ships with Lighthouse 100, green Core Web Vitals, complete Schema.org markup, and AI Search (GEO) optimization opted in.';
+    $lines[] = '';
+    $lines[] = '## About';
+    $lines[] = '';
+    $lines[] = '- [About Hashbox Studio](' . home_url( '/about/' ) . '): Team, mission, methodology';
+    $lines[] = '- [Work / Case Studies](' . home_url( '/work/' ) . '): Portfolio of SEO + web projects';
+    $lines[] = '- [Contact](' . home_url( '/#contact' ) . '): Free SEO audit + project enquiry';
+    $lines[] = '';
+    $lines[] = '## Services';
+    $lines[] = '';
+    $lines[] = '- [SEO-Ready Website Build](' . home_url( '/services/seo-ready-website/' ) . '): รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่ launch · Lighthouse 100 · Schema ครบ · เริ่ม 80,000 บาท';
+    $lines[] = '- [AI Consulting Bangkok](' . home_url( '/services/ai-consulting/' ) . '): ที่ปรึกษา AI สำหรับธุรกิจไทย · LLM integration · automation · custom agent';
+    $lines[] = '- [Digital Marketing Tools](' . home_url( '/services/digital-marketing-tools/' ) . '): SEO + CRO + analytics tooling';
+    $lines[] = '';
+    $lines[] = '## Pillar Guides';
+    $lines[] = '';
+    $lines[] = '- [Technical SEO คือ? คู่มือ 2026](' . home_url( '/technical-seo-guide/' ) . '): Technical SEO definition, audit checklist, common fixes';
+    $lines[] = '- [GEO คืออะไร? Generative Engine Optimization](' . home_url( '/geo-ai-search-optimization-2026/' ) . '): GEO definition + optimization for ChatGPT, Perplexity, Google AI Overviews';
+    $lines[] = '- [Next.js vs WordPress 2026](' . home_url( '/nextjs-vs-wordpress-2026/' ) . '): Stack comparison for SEO performance';
+    $lines[] = '- [AI Workforce Guide for Thai SMEs](' . home_url( '/ai-workforce-thai-sme/' ) . '): AI adoption playbook for Thai businesses';
+    $lines[] = '- [LINE Chatbot AI Guide 2026](' . home_url( '/line-chatbot-ai-thailand/' ) . '): Conversational AI for LINE platform';
+    $lines[] = '- [CRO Guide for Thai Websites](' . home_url( '/cro-thai-websites-2026/' ) . '): Conversion rate optimization for Thai market';
+    $lines[] = '';
+    $lines[] = '## Pricing (THB, excl. VAT)';
+    $lines[] = '';
+    $lines[] = '- SEO-Ready Landing Page: from 80,000 THB / 2-3 weeks';
+    $lines[] = '- SEO-Ready Corporate Site: from 200,000 THB / 4-6 weeks';
+    $lines[] = '- SEO-Ready E-commerce: from 350,000 THB / 6-10 weeks';
+    $lines[] = '- SEO-Ready Enterprise: from 500,000 THB / 8-14 weeks';
+    $lines[] = '';
+    $lines[] = '## Contact';
+    $lines[] = '';
+    $lines[] = '- Email: business@hashbox.co.th';
+    $lines[] = '- Phone: +66-2-266-6222';
+    $lines[] = '- Address: 139 Pan Rd, Si Lom, Bang Rak, Bangkok 10500, Thailand';
+    $lines[] = '- LinkedIn: https://www.linkedin.com/company/hashbox-studio';
+    $lines[] = '';
+    $lines[] = '## Optional';
+    $lines[] = '';
+    $lines[] = '- [Sitemap XML](' . home_url( '/sitemap_index.xml' ) . ')';
+    $lines[] = '- [robots.txt](' . home_url( '/robots.txt' ) . ')';
+    $lines[] = '- [llms-full.txt](' . home_url( '/llms-full.txt' ) . '): Full body content of pillar pages';
+    $lines[] = '';
+    return implode( "\n", $lines );
+}
+
+function hashbox_llms_full_txt_content() {
+    $out = hashbox_llms_txt_content();
+    $out .= "\n\n# Full Content\n\n";
+
+    $pillar_slugs = array(
+        'services/seo-ready-website',
+        'services/ai-consulting',
+        'technical-seo-guide',
+        'geo-ai-search-optimization-2026',
+        'nextjs-vs-wordpress-2026',
+    );
+
+    foreach ( $pillar_slugs as $slug ) {
+        $page = get_page_by_path( $slug );
+        if ( ! $page ) {
+            $page = get_page_by_path( $slug, OBJECT, 'post' );
+        }
+        if ( ! $page ) {
+            continue;
+        }
+        $out .= "\n---\n\n";
+        $out .= '# ' . $page->post_title . "\n\n";
+        $out .= 'URL: ' . get_permalink( $page ) . "\n\n";
+        $content = apply_filters( 'the_content', $page->post_content );
+        $content = wp_strip_all_tags( $content );
+        $content = preg_replace( '/\n{3,}/', "\n\n", $content );
+        $out .= trim( (string) $content ) . "\n";
+    }
+
+    return $out;
+}
+
+/**
  * Source-of-truth FAQ data. Used both for visible accordion AND FAQPage
  * schema. Defined here (not in faq.php) so it loads before wp_head fires.
  */
