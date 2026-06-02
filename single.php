@@ -21,7 +21,7 @@ $brief_items    = array(
     array( 'label' => 'เวลาอ่าน', 'value' => (int) $reading_min . ' min read' ),
     array( 'label' => 'อัปเดต', 'value' => get_the_modified_date( 'j M Y' ) ),
 );
-$brief_metrics  = array( 'Strategy', 'Execution', 'Measurement' );
+$brief_metrics  = array( 'อ่านง่าย', 'เช็กลิสต์', 'ลงมือทำ' );
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'hb-post' ); ?>>
@@ -53,8 +53,8 @@ $brief_metrics  = array( 'Strategy', 'Execution', 'Measurement' );
                 </div>
 
                 <aside class="hb-post-brief" aria-label="Article summary">
-                    <span class="hb-post-brief__eyebrow">Article Brief</span>
-                    <h2 class="hb-post-brief__title">สรุปก่อนอ่าน</h2>
+                    <span class="hb-post-brief__eyebrow">Quick Scan</span>
+                    <h2 class="hb-post-brief__title">สรุปบทความ</h2>
                     <dl class="hb-post-brief__list">
                         <?php foreach ( $brief_items as $brief_item ) : ?>
                             <div>
