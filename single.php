@@ -10,33 +10,76 @@ get_header();
 
 <?php while ( have_posts() ) : the_post(); ?>
 
+<?php
+$cats          = get_the_category();
+$primary       = ! empty( $cats ) ? $cats[0] : null;
+$is_local_seo  = 'local-seo-bangkok-b2b-2026' === get_post_field( 'post_name', get_the_ID() );
+$brief_items   = $is_local_seo
+    ? array(
+        array( 'label' => 'เหมาะกับ', 'value' => 'B2B ที่ต้องการลูกค้าในกรุงเทพ' ),
+        array( 'label' => 'โฟกัสหลัก', 'value' => 'GBP · NAP · Schema · Reviews' ),
+        array( 'label' => 'นำไปใช้', 'value' => 'Checklist สำหรับทีม marketing' ),
+    )
+    : array(
+        array( 'label' => 'เหมาะกับ', 'value' => 'เจ้าของธุรกิจและทีม marketing' ),
+        array( 'label' => 'โฟกัสหลัก', 'value' => 'SEO · Content · Performance' ),
+        array( 'label' => 'นำไปใช้', 'value' => 'Checklist สำหรับปรับเว็บไซต์' ),
+    );
+$brief_metrics = $is_local_seo
+    ? array( 'Map Pack', 'Local intent', 'Lead quality' )
+    : array( 'Search intent', 'Technical SEO', 'Business impact' );
+?>
+
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'hb-post' ); ?>>
 
     <header class="hb-post__hero">
-        <div class="hb-container hb-container--md">
+        <div class="hb-container hb-container--lg">
             <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
 
-            <?php
-            $cats = get_the_category();
-            if ( ! empty( $cats ) ) :
-                $primary = $cats[0];
-            ?>
-                <a class="hb-post__cat" href="<?php echo esc_url( get_category_link( $primary->term_id ) ); ?>">
-                    <?php echo esc_html( $primary->name ); ?>
-                </a>
-            <?php endif; ?>
+            <div class="hb-post__hero-grid">
+                <div class="hb-post__intro">
+                    <?php if ( $primary ) : ?>
+                        <a class="hb-post__cat" href="<?php echo esc_url( get_category_link( $primary->term_id ) ); ?>">
+                            <?php echo esc_html( $primary->name ); ?>
+                        </a>
+                    <?php endif; ?>
 
-            <h1 class="hb-post__title"><?php the_title(); ?></h1>
+                    <h1 class="hb-post__title"><?php the_title(); ?></h1>
 
-            <?php if ( has_excerpt() ) : ?>
-                <p class="hb-post__lede"><?php echo esc_html( get_the_excerpt() ); ?></p>
-            <?php endif; ?>
+                    <?php if ( has_excerpt() ) : ?>
+                        <p class="hb-post__lede"><?php echo esc_html( get_the_excerpt() ); ?></p>
+                    <?php endif; ?>
 
-            <?php get_template_part( 'template-parts/post-meta' ); ?>
+                    <?php get_template_part( 'template-parts/post-meta' ); ?>
+
+                    <div class="hb-post__hero-actions" aria-label="Article actions">
+                        <a class="hb-btn hb-btn--gradient" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">ปรึกษา SEO ฟรี</a>
+                        <a class="hb-btn hb-btn--outline" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>">ดูบริการ SEO-Ready</a>
+                    </div>
+                </div>
+
+                <aside class="hb-post-brief" aria-label="Article summary">
+                    <span class="hb-post-brief__eyebrow">SEO Brief</span>
+                    <h2 class="hb-post-brief__title">อ่านจบแล้วควรรู้</h2>
+                    <dl class="hb-post-brief__list">
+                        <?php foreach ( $brief_items as $brief_item ) : ?>
+                            <div>
+                                <dt><?php echo esc_html( $brief_item['label'] ); ?></dt>
+                                <dd><?php echo esc_html( $brief_item['value'] ); ?></dd>
+                            </div>
+                        <?php endforeach; ?>
+                    </dl>
+                    <div class="hb-post-brief__metrics" aria-label="Article focus areas">
+                        <?php foreach ( $brief_metrics as $brief_metric ) : ?>
+                            <span><?php echo esc_html( $brief_metric ); ?></span>
+                        <?php endforeach; ?>
+                    </div>
+                </aside>
+            </div>
         </div>
 
         <?php if ( has_post_thumbnail() ) : ?>
-            <figure class="hb-post__featured">
+            <figure class="hb-post__featured hb-container hb-container--lg">
                 <?php the_post_thumbnail( 'full', array(
                     'class'         => 'hb-post__featured-img',
                     'loading'       => 'eager',
@@ -49,16 +92,16 @@ get_header();
     </header>
 
     <div class="hb-post__body">
-        <div class="hb-container hb-container--md hb-post__layout">
+        <div class="hb-container hb-container--lg hb-post__layout">
             <aside class="hb-post__sidebar">
                 <?php get_template_part( 'template-parts/post-toc' ); ?>
                 <?php get_template_part( 'template-parts/post-share' ); ?>
 
-                <div class="hb-post-service" style="margin-top:var(--hb-space-6);padding:var(--hb-space-5);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);border-left:3px solid var(--hb-accent-blue,#2563EB);">
-                    <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">Featured Service</span>
-                    <h3 style="margin-top:var(--hb-space-2);font-size:var(--hb-text-base);font-weight:600;">รับทำเว็บไซต์ SEO-Ready</h3>
-                    <p style="margin-top:var(--hb-space-2);font-size:var(--hb-text-sm);color:var(--hb-text-muted,#a1a1aa);">Build Gate 12 ข้อ · Lighthouse 100 · Schema ครบ · ติด Google ตั้งแต่ launch</p>
-                    <a href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" style="display:inline-block;margin-top:var(--hb-space-3);font-size:var(--hb-text-sm);color:var(--hb-accent-blue,#2563EB);font-weight:600;">ดูบริการ →</a>
+                <div class="hb-post-service">
+                    <span class="hb-post-service__eyebrow">Featured Service</span>
+                    <h3 class="hb-post-service__title">รับทำเว็บไซต์ SEO-Ready</h3>
+                    <p class="hb-post-service__text">Build Gate 12 ข้อ · Lighthouse 100 · Schema ครบ · ติด Google ตั้งแต่ launch</p>
+                    <a class="hb-post-service__link" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>">ดูบริการ &rarr;</a>
                 </div>
             </aside>
 
