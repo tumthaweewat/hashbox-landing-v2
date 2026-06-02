@@ -1229,7 +1229,7 @@ function hashbox_rankmath_schema_organization() {
         ),
         'contactPoint' => array(
             '@type'             => 'ContactPoint',
-            'telephone'         => '+66-2-266-6222',
+            'telephone'         => '+66-62-516-9868',
             'email'             => 'business@hashbox.co.th',
             'contactType'       => 'sales',
             'areaServed'        => 'TH',
@@ -1298,7 +1298,7 @@ function hashbox_rankmath_schema_service() {
         'description'        => 'SEO-ready website builds, digital marketing tools, CRO, and AI consulting for Thai SMEs.',
         'url'                => $home,
         'image'              => hashbox_default_og_image_url(),
-        'telephone'          => '+66-2-266-6222',
+        'telephone'          => '+66-62-516-9868',
         'email'              => 'business@hashbox.co.th',
         'priceRange'         => '฿฿฿',
         'areaServed'         => 'Thailand',
@@ -1478,7 +1478,7 @@ function hashbox_inject_home_schema() {
                 ),
                 'contactPoint' => array(
                     '@type'             => 'ContactPoint',
-                    'telephone'         => '+66-2-266-6222',
+                    'telephone'         => '+66-62-516-9868',
                     'email'             => 'business@hashbox.co.th',
                     'contactType'       => 'sales',
                     'areaServed'        => 'TH',
@@ -1500,7 +1500,7 @@ function hashbox_inject_home_schema() {
                 'description'        => 'SEO-ready website builds, digital marketing tools, CRO, and AI consulting for Thai SMEs.',
                 'url'                => $home,
                 'image'              => $logo,
-                'telephone'          => '+66-2-266-6222',
+                'telephone'          => '+66-62-516-9868',
                 'email'              => 'business@hashbox.co.th',
                 'priceRange'         => '฿฿฿',
                 'areaServed'         => 'Thailand',
@@ -1746,7 +1746,7 @@ function hashbox_llms_txt_content() {
     $lines[] = '## Contact';
     $lines[] = '';
     $lines[] = '- Email: business@hashbox.co.th';
-    $lines[] = '- Phone: +66-2-266-6222';
+    $lines[] = '- Phone: +66-62-516-9868';
     $lines[] = '- Address: 139 Pan Rd, Si Lom, Bang Rak, Bangkok 10500, Thailand';
     $lines[] = '- LinkedIn: https://www.linkedin.com/company/hashbox-studio';
     $lines[] = '';

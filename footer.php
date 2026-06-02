@@ -43,7 +43,7 @@
                     <h3>Contact</h3>
                     <ul>
                         <li><a href="mailto:business@hashbox.co.th">business@hashbox.co.th</a></li>
-                        <li><a href="tel:+6622666222">02 266 6222</a></li>
+                        <li><a href="tel:+66625169868">Hotline: 062-516-9868</a></li>
                         <li><a href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer">LINE: @hashboxstudio</a></li>
                         <li style="color: var(--hb-text-faint); font-size: var(--hb-text-sm);">จันทร์-ศุกร์ 9:00-18:00</li>
                         <li style="color: var(--hb-text-faint); font-size: var(--hb-text-sm);">139 Pan Rd, Si Lom, Bang Rak, Bangkok 10500</li>

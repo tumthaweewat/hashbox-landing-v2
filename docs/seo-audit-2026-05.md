@@ -523,7 +523,7 @@ AddOutputFilterByType DEFLATE application/ld+json
 
 - `<html lang="th-TH">` forced ทุกหน้า (`functions.php:459-465`)
 - IBM Plex Sans Thai ใช้ `display=swap` (`functions.php:71`)
-- Phone format E.164: `+66-2-266-6222` ใน Organization schema (`functions.php:1238`)
+- Phone format E.164: `+66-62-516-9868` ใน Organization schema (`functions.php:1238`)
 - `addressCountry: "TH"` (`functions.php:1249`)
 - `availableLanguage: ["th", "en"]` (`functions.php:1242`)
 - `areaServed: "TH"` / `"Thailand"` (`functions.php:1241, 1075`)
@@ -544,7 +544,7 @@ AddOutputFilterByType DEFLATE application/ld+json
 1. ตัดสินใจเรื่อง EN version:
    - **ถ้ายังไม่ทำ**: ลบ `og:locale:alternate` ที่ `functions.php:717` (ลด confusion)
    - **ถ้าจะทำ**: สร้าง subdirectory `/en/` + hreflang `<link>` ทุกหน้า + sitemap แยก
-2. ยืนยัน NAP ใน Google Business Profile = `139 Pan Rd, Si Lom, Bang Rak, Bangkok 10500` + `+66 2 266 6222` (ต้องตรงเป๊ะ — ดูใน `footer.php:49`)
+2. ยืนยัน NAP ใน Google Business Profile = `139 Pan Rd, Si Lom, Bang Rak, Bangkok 10500` + `+66 62 516 9868` (ต้องตรงเป๊ะ — ดูใน `footer.php:49`)
 3. เพิ่ม `openingHoursSpecification` (Mon-Fri 09:00-18:00 ตามที่บอกใน `footer.php:48`)
 
 ---

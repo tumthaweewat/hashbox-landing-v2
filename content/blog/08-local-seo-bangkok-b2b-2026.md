@@ -93,13 +93,13 @@ GBP (เดิมชื่อ Google My Business) คือ **อันดับ
 ```
 Name: Hashbox Studio
 Address: 139 Pan Rd, Si Lom, Bang Rak, Bangkok 10500, Thailand
-Phone: +66-2-266-6222
+Phone: +66-62-516-9868
 ```
 
 **ห้าม:**
 - "Hashbox" บนเว็บ + "Hashbox Studio Co., Ltd." บน LinkedIn
 - "139 Pan Road" vs "139 Pan Rd."
-- "+66 2 266 6222" vs "+66-2-266-6222"
+- "+66 62 516 9868" vs "+66-62-516-9868"
 
 Google อ่าน NAP เหมือนเป็น identity fingerprint — ไม่ตรง = entity confusion
 
@@ -126,7 +126,7 @@ Google อ่าน NAP เหมือนเป็น identity fingerprint — 
     "latitude": 13.7280,
     "longitude": 100.5167
   },
-  "telephone": "+66-2-266-6222",
+  "telephone": "+66-62-516-9868",
   "url": "https://hashbox.co.th",
   "priceRange": "฿฿฿",
   "openingHoursSpecification": [

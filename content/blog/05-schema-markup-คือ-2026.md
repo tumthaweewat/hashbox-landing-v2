@@ -63,7 +63,7 @@ Schema Markup คือ vocabulary มาตรฐานที่กำหนด
     "postalCode": "10500",
     "addressCountry": "TH"
   },
-  "telephone": "+66-2-266-6222"
+  "telephone": "+66-62-516-9868"
 }
 </script>
 ```

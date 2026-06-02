@@ -294,7 +294,7 @@ Insert the following before `get_footer();` in `page-about.php` (replacing the c
         <div class="about-cta-info">
             <span>Email: project@hashbox.co.th</span>
             <span class="about-cta-divider">&middot;</span>
-            <span>โทร: 02 266 6222</span>
+            <span>โทร: Hotline: 062-516-9868</span>
             <span class="about-cta-divider">&middot;</span>
             <span>LINE: @hashboxstudio</span>
         </div>
@@ -328,7 +328,7 @@ Insert the following before `get_footer();` in `page-about.php` (replacing the c
             },
             "contactPoint": {
                 "@type": "ContactPoint",
-                "telephone": "+66-2-266-6222",
+                "telephone": "+66-62-516-9868",
                 "email": "project@hashbox.co.th",
                 "contactType": "customer service"
             },

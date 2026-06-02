@@ -108,7 +108,7 @@ Standalone WordPress page template for Hashbox Studio's About Us page. Uses the 
 - Gradient background (blue-tinted)
 - Heading: "พร้อมคุยกับเรา?"
 - Sub: "นัดหมายปรึกษาฟรี 30 นาที"
-- Contact info row: Email: project@hashbox.co.th · โทร: 02 266 6222 · LINE: @hashboxstudio
+- Contact info row: Email: project@hashbox.co.th · โทร: Hotline: 062-516-9868 · LINE: @hashboxstudio
 - Address: 139 Pan Rd, Si Lom, Bang Rak, Bangkok 10500
 - Hours: จันทร์ - ศุกร์ 9:00 - 18:00
 - 2 CTA buttons: "นัดปรึกษาฟรี →" (amber) + "LINE OA" (cyan outline)
