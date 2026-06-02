@@ -1224,6 +1224,8 @@ function hashbox_rankmath_schema_organization() {
             'https://www.linkedin.com/company/hashbox-studio',
             'https://www.facebook.com/hashboxstudio',
             'https://www.instagram.com/hashboxstudio',
+            'https://github.com/tumthaweewat',
+            'https://lin.ee/Xagx6i4',
         ),
         'contactPoint' => array(
             '@type'             => 'ContactPoint',
@@ -1240,6 +1242,29 @@ function hashbox_rankmath_schema_organization() {
             'addressRegion'   => 'Bangkok',
             'postalCode'      => '10500',
             'addressCountry'  => 'TH',
+        ),
+        'knowsAbout' => array(
+            'SEO',
+            'Technical SEO',
+            'Core Web Vitals',
+            'Schema.org',
+            'Generative Engine Optimization',
+            'Next.js',
+            'WordPress',
+            'AI Consulting',
+            'CRO',
+        ),
+        'potentialAction' => array(
+            array(
+                '@type'  => 'ContactAction',
+                'name'   => 'Request Free SEO Audit',
+                'target' => $home . '#contact',
+            ),
+            array(
+                '@type'  => 'ViewAction',
+                'name'   => 'View Services',
+                'target' => $home . 'services/',
+            ),
         ),
     );
 }

@@ -524,6 +524,23 @@ hashbox_jsonld( array(
         'itemListElement' => $offer_catalog,
     ),
     'offers' => $offer_catalog,
+    'potentialAction' => array(
+        array(
+            '@type'  => 'ContactAction',
+            'name'   => 'Request Free SEO Audit',
+            'target' => home_url( '/#contact' ),
+        ),
+        array(
+            '@type'  => 'ReserveAction',
+            'name'   => 'Book Discovery Call',
+            'target' => home_url( '/#contact' ),
+        ),
+    ),
+    'termsOfService' => home_url( '/privacy-policy/#terms' ),
+    'isRelatedTo' => array(
+        array( '@type' => 'Service', 'name' => 'Technical SEO Audit', 'url' => home_url( '/technical-seo-guide/' ) ),
+        array( '@type' => 'Service', 'name' => 'AI Consulting', 'url' => home_url( '/services/ai-consulting/' ) ),
+    ),
 ) );
 
 // Breadcrumb
