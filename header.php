@@ -42,7 +42,7 @@
     </header>
 
     <div class="hb-sheet-backdrop"></div>
-    <aside class="hb-sheet" id="navSheet" role="dialog" aria-modal="true" aria-labelledby="navSheetTitle">
+    <div class="hb-sheet" id="navSheet" role="dialog" aria-modal="true" aria-labelledby="navSheetTitle" aria-hidden="true">
         <div class="hb-sheet__head">
             <span id="navSheetTitle" class="hb-eyebrow">Menu</span>
             <button class="hb-sheet__close" aria-label="Close menu">
@@ -62,6 +62,6 @@
             <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ Audit ฟรี</a>
             <a href="https://lin.ee/Xagx6i4" class="hb-btn hb-btn--outline" target="_blank" rel="noopener noreferrer">คุยทาง LINE</a>
         </div>
-    </aside>
+    </div>
 
     <main id="content">

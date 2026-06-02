@@ -46,6 +46,7 @@
     const setSheetOpen = (open) => {
       sheet.dataset.open = String(open);
       backdrop.dataset.open = String(open);
+      sheet.setAttribute('aria-hidden', String(!open));
       burger.setAttribute('aria-expanded', String(open));
       document.body.style.overflow = open ? 'hidden' : '';
     };

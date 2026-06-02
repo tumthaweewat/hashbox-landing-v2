@@ -7,15 +7,78 @@
 
 get_header();
 $page_url = get_permalink();
-$desc = 'บริการที่ปรึกษา AI สำหรับธุรกิจไทยที่ต้องการใช้งานจริงใน Production ทีมเราออกแบบและพัฒนา LINE Bot, Sales GPT, RAG Knowledge Base และ workflow automation พร้อมคำนวณ AI ROI ก่อนเริ่มทุกโปรเจกต์';
+$desc = 'บริการที่ปรึกษา AI Consulting Bangkok สำหรับธุรกิจไทย · LINE Chatbot AI, Sales GPT, RAG Knowledge Base, Workflow Automation · ROI calculation ก่อนเริ่ม · เริ่ม 60,000 บาท · 50+ โปรเจกต์';
+
+$author_name      = 'Tum Thaweewat';
+$author_role      = 'Founder & Lead AI Engineer';
+$author_linkedin  = 'https://www.linkedin.com/in/thaweewat-srt';
+$author_bio       = '10+ ปีประสบการณ์ Software Engineering + AI/ML · ผ่านโปรเจกต์ LLM integration 30+ เคส · Cert: OpenAI API, Anthropic Claude, LangChain · Speaker AI/SaaS conferences ไทย';
 
 $faqs = array(
-    array( 'q' => 'AI Consulting ต่างจาก AI Consultancy ทั่วไปยังไง?', 'a' => 'AI Consultancy ทั่วไปจบที่ Slide ลูกค้าต้องไปจ้าง Dev อีกบริษัทมา Implement เราทำทั้ง 2 = ออกแบบ + ลงมือเขียน Code + Deploy + Train ทีม' ),
-    array( 'q' => 'AI Workforce 4 ประเภทที่ทำให้ มีอะไรบ้าง?', 'a' => '1) Customer Support AI · 2) Sales GPT + RAG · 3) Internal Workflow Automation · 4) Content Operations AI' ),
-    array( 'q' => 'AI ROI Framework ทำงานยังไง?', 'a' => 'ก่อนเริ่มเราคำนวณ Hours saved/week × Avg Hourly Rate × Team − Cost ของ AI/month เคสที่ ROI < 3x ใน 6 เดือนเราแนะนำให้ไม่ทำ' ),
-    array( 'q' => 'ใช้ Model ไหน?', 'a' => 'OpenAI GPT-4.1 สำหรับ General · Claude Sonnet/Opus สำหรับ Long Context · Llama/Qwen (Local) สำหรับ PDPA-strict เลือกตาม Trade-off Cost/Latency/Privacy' ),
-    array( 'q' => 'LINE Bot + OpenAI ทำได้อะไรบ้าง?', 'a' => 'ได้ทั้ง Reply + Push + Rich Menu + Flex Message + Quick Reply + LINE Login + Authenticated Conversation' ),
-    array( 'q' => 'ราคาและ Engagement?', 'a' => 'AI ROI Discovery 30,000 บาท · Build 150,000-500,000+ บาท · Retainer เริ่ม 50,000 บาท/เดือน' ),
+    array( 'q' => 'AI Consulting Bangkok ราคาเริ่มต้นเท่าไหร่?', 'a' => 'Discovery + ROI Assessment เริ่ม 60,000 บาท · PoC (Proof of Concept) 150,000-300,000 บาท · Production Build 300,000-1,500,000 บาท · ที่ปรึกษารายเดือน 30,000-150,000 บาท/เดือน ทุก quote ออกหลัง free assessment 30 นาที' ),
+    array( 'q' => 'ใช้เวลานานเท่าไหร่ตั้งแต่เริ่มถึง production?', 'a' => 'Simple chatbot (LINE OA + LLM): 2-3 สัปดาห์ · RAG Knowledge Base: 4-6 สัปดาห์ · Sales GPT + CRM integration: 6-10 สัปดาห์ · Custom AI agent + workflow: 8-16 สัปดาห์ ขึ้นกับ data + integration scope' ),
+    array( 'q' => 'Hashbox ใช้ AI model อะไรบ้าง?', 'a' => 'เลือกตามโจทย์ · OpenAI (GPT-5, GPT-4o) สำหรับ general-purpose · Anthropic Claude (Opus 4.7, Sonnet 4.6, Haiku 4.5) สำหรับ reasoning + long context · Google Gemini สำหรับ multimodal · open-source (Llama, Mistral) สำหรับ self-host/PDPA-sensitive · OpenAI Embedding หรือ Cohere สำหรับ RAG' ),
+    array( 'q' => 'ที่ปรึกษา AI ไทย ต่างจาก agency ทั่วไปอย่างไร?', 'a' => 'Agency ทั่วไปขายชั่วโมง consulting หรือ training course · Hashbox ส่งมอบ AI system ที่ run production ได้จริง พร้อม monitoring, cost guardrails, fallback logic, และ source code · ลูกค้าเป็นเจ้าของ 100% · ไม่ผูก vendor' ),
+    array( 'q' => 'รับทำ LINE Chatbot AI ไหม?', 'a' => 'รับ · เป็นบริการที่นิยมที่สุด ครอบคลุม LINE OA integration + LLM + custom knowledge base + handoff ไป human agent + analytics dashboard ดูบทความ LINE Chatbot AI Guide สำหรับรายละเอียด' ),
+    array( 'q' => 'รับทำ RAG (Retrieval-Augmented Generation) ไหม?', 'a' => 'รับ · ทำ vector database (Pinecone, Qdrant, Weaviate), embedding model selection, chunking strategy, retrieval reranking, citation tracking ใช้กับ knowledge base ภายในบริษัท, customer support, sales enablement, document Q&A' ),
+    array( 'q' => 'AI Workforce / Custom Agent คืออะไร?', 'a' => 'AI agent ที่ทำงานต่อเนื่องในบริษัท เช่น lead qualification bot, content generation pipeline, data analysis agent, monitoring + alert agent ระบบนี้ใช้ LLM + tool use + scheduled triggers + integration กับระบบเดิม (Salesforce, HubSpot, Notion, Slack, LINE)' ),
+    array( 'q' => 'คำนวณ AI ROI ทำอย่างไร?', 'a' => 'เริ่มทุกโปรเจกต์ด้วย ROI Assessment 30 นาทีฟรี: วิเคราะห์ workflow ปัจจุบัน, ระบุ task ที่ automate ได้, คำนวณ hours saved × hourly cost, เทียบกับ implementation cost + ongoing API cost ลูกค้าได้เอกสาร business case ก่อนตัดสินใจลงทุน' ),
+    array( 'q' => 'PDPA + Data Privacy ดูแลอย่างไร?', 'a' => 'เลือก AI provider ตาม data sensitivity · public LLM (OpenAI, Anthropic) สำหรับ non-sensitive · Azure OpenAI หรือ AWS Bedrock สำหรับ enterprise privacy · self-host (Llama, Mistral) สำหรับ data ห้ามออกจาก premise · มี data masking + audit log ทุกโปรเจกต์' ),
+    array( 'q' => 'มี ongoing maintenance + monitoring ไหม?', 'a' => 'มี Care Plan รายเดือนเริ่ม 30,000 บาท ครอบคลุม API cost monitoring, performance tracking, prompt engineering updates, hallucination guard, security patches, monthly performance review' ),
+    array( 'q' => 'รับ integration กับระบบเดิมไหม? (CRM, ERP, LINE)', 'a' => 'รับ integration กับ Salesforce, HubSpot, Zoho, Pipedrive, SAP, LINE OA, Microsoft Teams, Slack, Notion, Airtable, Google Workspace, Make/n8n, Zapier เว็บ legacy ใช้ REST API หรือ webhook' ),
+    array( 'q' => 'ทำในไทย vs จ้าง offshore (อินเดีย, ฟิลิปปินส์) ต่างกันยังไง?', 'a' => 'Offshore ราคาถูกกว่า 40-60% แต่เจอ problem ใหญ่: ไม่เข้าใจ business context ไทย, ไม่รู้ LINE ecosystem, sync time zone ยาก, PDPA compliance ไม่ชัด · Hashbox in-house ไทยทำให้ deploy เร็วและ relevant กับ Thai market' ),
+);
+
+$services_offered = array(
+    array( 'name' => 'LINE Chatbot AI', 'desc' => 'AI chatbot บน LINE OA — LLM + knowledge base + human handoff' ),
+    array( 'name' => 'Sales GPT', 'desc' => 'AI agent สำหรับ lead qualification, follow-up, proposal generation' ),
+    array( 'name' => 'RAG Knowledge Base', 'desc' => 'Vector DB + retrieval สำหรับ document Q&A, customer support, internal wiki' ),
+    array( 'name' => 'AI Workforce Agent', 'desc' => 'Autonomous agent ที่ทำงานต่อเนื่อง — monitoring, content, data analysis' ),
+    array( 'name' => 'Workflow Automation', 'desc' => 'AI + Make/n8n/Zapier — automate repetitive tasks ข้ามระบบ' ),
+    array( 'name' => 'Custom AI Integration', 'desc' => 'AI ใน existing app — OpenAI/Claude/Gemini API integration' ),
+);
+
+$deliverables = array(
+    'ROI Assessment Report 10-15 หน้า',
+    'PoC ที่ run ได้จริง (ก่อน production)',
+    'Production AI system + source code',
+    'API cost monitoring dashboard',
+    'Prompt engineering documentation',
+    'Hallucination guard + fallback logic',
+    'PDPA compliance review',
+    'Integration กับระบบเดิม (CRM, LINE, etc.)',
+    'Admin dashboard',
+    'Analytics + conversation tracking',
+    'Performance benchmarks',
+    'Cost guardrails (max spend per day/month)',
+    'Source code + Git repository',
+    'Documentation 20-30 หน้า',
+    'Training session 4 ชั่วโมง',
+    '30-day post-launch support',
+    'Monthly performance report template',
+    'Backup + disaster recovery plan',
+);
+
+$process = array(
+    array( 'name' => 'Discovery + ROI Assessment', 'time' => 'Week 1', 'detail' => 'สัมภาษณ์ stakeholder, map workflow ปัจจุบัน, ระบุ AI use case, คำนวณ ROI ฟรี' ),
+    array( 'name' => 'Architecture + Model Selection', 'time' => 'Week 1-2', 'detail' => 'เลือก LLM, vector DB, integration approach, security model, cost projection' ),
+    array( 'name' => 'PoC Build', 'time' => 'Week 2-4', 'detail' => 'Build minimal viable AI system, test กับ real data, iterate prompts, validate ROI' ),
+    array( 'name' => 'Production Build + Integration', 'time' => 'Week 4-8', 'detail' => 'Scale up architecture, integrate กับ CRM/LINE/ERP, monitoring + alerts, security hardening' ),
+    array( 'name' => 'Pilot + UAT', 'time' => 'Week 8-10', 'detail' => 'Pilot กับทีมเล็ก, gather feedback, prompt tuning, fallback testing' ),
+    array( 'name' => 'Production Launch + Monitor', 'time' => 'Week 10+', 'detail' => 'Full rollout, daily monitoring 30 วันแรก, monthly performance review' ),
+);
+
+$pricing = array(
+    array( 'tier' => 'ROI Assessment', 'price' => 60000, 'scope' => 'Discovery + 1 use case', 'time' => '1-2 สัปดาห์', 'fit' => 'ทีมที่ยังไม่แน่ใจว่า AI ทำอะไรได้' ),
+    array( 'tier' => 'PoC + Validation', 'price' => 200000, 'scope' => '1 AI use case end-to-end', 'time' => '3-5 สัปดาห์', 'fit' => 'อยากเห็น proof ก่อนลงทุนเต็ม' ),
+    array( 'tier' => 'Production Build', 'price' => 500000, 'scope' => '1-2 AI systems + integration', 'time' => '6-12 สัปดาห์', 'fit' => 'พร้อม deploy ใน production' ),
+    array( 'tier' => 'AI Workforce Enterprise', 'price' => 1200000, 'scope' => 'Multi-agent + multi-integration', 'time' => '12-20 สัปดาห์', 'fit' => 'Transformation ระดับองค์กร' ),
+);
+
+$cases = array(
+    array( 'name' => 'Sales GPT (B2B SaaS)', 'tag' => 'LLM + CRM Integration', 'metric1' => 'Lead qualification 4hr/day → 0hr', 'metric2' => 'Sales cycle -32%', 'metric3' => 'API cost ฿8/lead', 'url' => '/work/' ),
+    array( 'name' => 'LINE Chatbot AI (E-commerce)', 'tag' => 'LINE OA + LLM + Catalog RAG', 'metric1' => 'Customer response 6hr → 8 วินาที', 'metric2' => 'Order conversion +24%', 'metric3' => 'Cost saved ฿120k/เดือน', 'url' => '/line-chatbot-ai-thailand/' ),
+    array( 'name' => 'RAG Knowledge Base (Legal Firm)', 'tag' => 'Vector DB + Claude + Citation', 'metric1' => 'Document search 45min → 12sec', 'metric2' => 'Lawyer hours saved 18hr/week', 'metric3' => 'Hallucination <0.5%', 'url' => '/work/' ),
 );
 ?>
 
@@ -30,15 +93,63 @@ $faqs = array(
                     <li><span class="hb-breadcrumb__sep">/</span></li>
                     <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Services</a></li>
                     <li><span class="hb-breadcrumb__sep">/</span></li>
-                    <li aria-current="page">AI Consulting</li>
+                    <li aria-current="page">AI Consulting Bangkok</li>
                 </ol>
             </nav>
-            <span class="hb-eyebrow">Service 03 / 03</span>
-            <h1 class="hb-hero__title">ที่ปรึกษา AI<br><em>และ AI Workforce</em><br>ที่ใช้งานได้จริง</h1>
-            <p class="hb-hero__sub"><?php echo esc_html( $desc ); ?></p>
+            <span class="hb-eyebrow">Service 03 / 03 · Updated <?php echo esc_html( date_i18n( 'F Y' ) ); ?></span>
+            <h1 class="hb-hero__title">AI Consulting<br><em>Bangkok</em><br>ที่ปรึกษา AI สำหรับธุรกิจไทย</h1>
+            <p class="hb-hero__sub">บริการ AI Consulting Bangkok สำหรับธุรกิจไทยที่ต้องการ deploy AI ใน production จริง — LINE Chatbot, Sales GPT, RAG Knowledge Base, Workflow Automation · ROI calculation ก่อนเริ่มทุกโปรเจกต์ · เริ่ม 60,000 บาท · 50+ AI projects</p>
             <div class="hb-hero__actions">
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ AI ROI Discovery</a>
-                <a href="<?php echo esc_url( home_url( '/work/autobot-line/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูเคส AI</a>
+                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ AI ROI Assessment ฟรี</a>
+                <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดู AI Case Studies</a>
+            </div>
+            <div class="hb-trustbar" style="margin-top:var(--hb-space-8);display:flex;flex-wrap:wrap;gap:var(--hb-space-5);align-items:center;color:var(--hb-text-muted,#a1a1aa);font-size:var(--hb-text-sm);">
+                <span>✓ ROI calculation ก่อนเริ่ม</span>
+                <span>✓ 50+ AI projects</span>
+                <span>✓ PDPA + Data Privacy</span>
+                <span>✓ Source code 100%</span>
+                <span>✓ No vendor lock-in</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hb-section hb-section--surface" id="answer">
+    <div class="hb-container hb-container--md">
+        <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);">
+            <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">คำตอบสั้น</span>
+            <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
+                <strong>AI Consulting Bangkok คือบริการให้คำปรึกษาและพัฒนา AI สำหรับธุรกิจไทย</strong> ครอบคลุม LINE Chatbot, Sales GPT, RAG Knowledge Base, AI Workforce Agent, Workflow Automation ทุกโปรเจกต์เริ่มด้วย ROI Assessment ฟรี 30 นาที · ใช้ OpenAI/Claude/Gemini/open-source ตามโจทย์ · PDPA compliant · ส่งมอบ source code 100% ไม่มี vendor lock-in · ราคาเริ่ม 60,000 บาท
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="hb-section">
+    <div class="hb-container hb-container--md">
+        <span class="hb-eyebrow">ปัญหา</span>
+        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">ทำไม 80% ของโปรเจกต์ AI ในบริษัทไทยล้มเหลว</h2>
+        <p class="hb-lead" style="margin-top:var(--hb-space-4);">บริษัทไทยลงทุน AI กันมากใน 2024-2026 แต่กว่า 80% ของโปรเจกต์ไม่ scale ถึง production สาเหตุ 4 ข้อ:</p>
+        <div class="hb-bento" style="margin-top:var(--hb-space-6);">
+            <div class="hb-bento__cell">
+                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">No ROI Plan</span>
+                <h3 class="hb-card__title">เริ่มจาก "อยากใช้ AI" ไม่ใช่ "มี problem"</h3>
+                <p class="hb-card__body">PoC ดูดีบน demo แต่ไม่ได้คำนวณ hours saved × cost ทำให้ไม่มี business case ใน production</p>
+            </div>
+            <div class="hb-bento__cell">
+                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">No Integration</span>
+                <h3 class="hb-card__title">AI ไม่เชื่อมกับ CRM/ERP/LINE เดิม</h3>
+                <p class="hb-card__body">Chatbot ตอบเก่งแต่ไม่ update CRM, ไม่ trigger workflow ทำให้ไม่มีคุณค่าจริงต่อทีม</p>
+            </div>
+            <div class="hb-bento__cell">
+                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Cost Runaway</span>
+                <h3 class="hb-card__title">API cost บานออกไม่มี guardrail</h3>
+                <p class="hb-card__body">ไม่มี rate limit, cache, model fallback ทำให้ bill เดือนแรก ฿20,000 → เดือน 6 ฿200,000</p>
+            </div>
+            <div class="hb-bento__cell">
+                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Hallucination</span>
+                <h3 class="hb-card__title">AI ตอบผิดในเรื่องสำคัญ</h3>
+                <p class="hb-card__body">ไม่มี citation, ไม่มี fact-check, ไม่มี fallback ทำให้ลูกค้าได้ข้อมูลผิด · brand เสียหาย</p>
             </div>
         </div>
     </div>
@@ -47,101 +158,196 @@ $faqs = array(
 <section class="hb-section hb-section--surface">
     <div class="hb-container">
         <div class="hb-section__head">
-            <span class="hb-eyebrow">Use case fit</span>
-            <h2 class="hb-h2">AI Consulting เหมาะกับ use case แบบไหน</h2>
-            <p class="hb-section__sub">เราเริ่มจาก use case ที่มี ROI ชัด เช่น ลดเวลาตอบลูกค้า ลดงานเอกสาร หรือช่วยทีมขาย qualify lead ก่อนลงทุน build ระบบเต็ม</p>
+            <span class="hb-eyebrow">Services</span>
+            <h2 class="hb-h2">บริการ AI Consulting ของเรา</h2>
+            <p class="hb-lead" style="margin-top:var(--hb-space-4);">6 บริการหลัก ครอบคลุม use case ที่พบบ่อยที่สุดใน Thai B2B + SMB</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--hb-space-4);">
+            <?php foreach ( $services_offered as $s ) : ?>
+                <div class="hb-card hb-card--elevated">
+                    <h3 class="hb-card__title"><?php echo esc_html( $s['name'] ); ?></h3>
+                    <p class="hb-card__body" style="font-size:var(--hb-text-sm);"><?php echo esc_html( $s['desc'] ); ?></p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<section class="hb-section">
+    <div class="hb-container hb-container--md">
+        <span class="hb-eyebrow">Deliverables</span>
+        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">สิ่งที่คุณได้รับใน AI Consulting Package</h2>
+        <p class="hb-lead" style="margin-top:var(--hb-space-4);">รายการ deliverables มาตรฐานทุก tier (จำนวนต่างตาม scope) ไม่มี hidden charge</p>
+        <ul style="margin-top:var(--hb-space-6);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--hb-space-3);list-style:none;padding:0;">
+            <?php foreach ( $deliverables as $d ) : ?>
+                <li style="display:flex;gap:var(--hb-space-3);align-items:flex-start;font-size:var(--hb-text-sm);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--hb-accent-emerald)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span><?php echo esc_html( $d ); ?></span>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</section>
+
+<section class="hb-section hb-section--surface">
+    <div class="hb-container hb-container--md">
+        <span class="hb-eyebrow">Process</span>
+        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">Process 6 Phase: Assessment → Production</h2>
+        <p class="hb-lead" style="margin-top:var(--hb-space-4);">ระบบทำงานแบบ phased delivery เริ่มจาก ROI ก่อน build เพื่อลดความเสี่ยง</p>
+        <ol style="margin-top:var(--hb-space-6);list-style:none;padding:0;display:flex;flex-direction:column;gap:var(--hb-space-4);">
+            <?php foreach ( $process as $i => $p ) : ?>
+                <li style="display:flex;gap:var(--hb-space-4);padding:var(--hb-space-5);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);border-left:3px solid var(--hb-accent-cyan,#06B6D4);">
+                    <div style="flex-shrink:0;width:48px;height:48px;border-radius:50%;background:var(--hb-accent-cyan,#06B6D4);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--hb-text-lg);"><?php echo (int) ( $i + 1 ); ?></div>
+                    <div>
+                        <div style="display:flex;gap:var(--hb-space-3);align-items:baseline;flex-wrap:wrap;">
+                            <h3 class="hb-card__title" style="margin:0;"><?php echo esc_html( $p['name'] ); ?></h3>
+                            <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);"><?php echo esc_html( $p['time'] ); ?></span>
+                        </div>
+                        <p class="hb-body" style="margin-top:var(--hb-space-2);"><?php echo esc_html( $p['detail'] ); ?></p>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+</section>
+
+<section class="hb-section">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">Case Studies</span>
+            <h2 class="hb-h2">ผลงาน AI ที่ run production จริง</h2>
+            <p class="hb-lead" style="margin-top:var(--hb-space-4);">3 เคสจาก 50+ AI projects วัดผลด้วย hours saved, conversion lift, API cost per outcome</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--hb-space-4);">
+            <?php foreach ( $cases as $c ) : ?>
+                <a class="hb-card hb-card--elevated" href="<?php echo esc_url( home_url( $c['url'] ) ); ?>" style="text-decoration:none;display:flex;flex-direction:column;gap:var(--hb-space-3);">
+                    <span class="hb-eyebrow"><?php echo esc_html( $c['tag'] ); ?></span>
+                    <h3 class="hb-card__title"><?php echo esc_html( $c['name'] ); ?></h3>
+                    <div style="display:flex;flex-direction:column;gap:var(--hb-space-2);margin-top:var(--hb-space-3);">
+                        <div style="font-size:var(--hb-text-sm);color:var(--hb-accent-emerald,#10B981);font-weight:600;">▲ <?php echo esc_html( $c['metric1'] ); ?></div>
+                        <div style="font-size:var(--hb-text-sm);color:var(--hb-accent-emerald,#10B981);font-weight:600;">▲ <?php echo esc_html( $c['metric2'] ); ?></div>
+                        <div style="font-size:var(--hb-text-sm);color:var(--hb-accent-emerald,#10B981);font-weight:600;">▲ <?php echo esc_html( $c['metric3'] ); ?></div>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<section class="hb-section hb-section--surface">
+    <div class="hb-container hb-container--md">
+        <span class="hb-eyebrow">Comparison</span>
+        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">Hashbox AI Consulting vs ทางเลือกอื่น</h2>
+        <p class="hb-lead" style="margin-top:var(--hb-space-4);">เทียบ deliverable + ผลลัพธ์ vs ทางเลือกที่บริษัทไทยพิจารณาบ่อย</p>
+        <div style="margin-top:var(--hb-space-6);overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;font-size:var(--hb-text-sm);min-width:680px;">
+                <thead>
+                    <tr style="border-bottom:2px solid var(--hb-border,#27272A);">
+                        <th style="text-align:left;padding:var(--hb-space-3);">รายการ</th>
+                        <th style="text-align:center;padding:var(--hb-space-3);color:var(--hb-accent-blue,#2563EB);">Hashbox</th>
+                        <th style="text-align:center;padding:var(--hb-space-3);">Big Consulting</th>
+                        <th style="text-align:center;padding:var(--hb-space-3);">Freelance / Offshore</th>
+                        <th style="text-align:center;padding:var(--hb-space-3);">DIY (ChatGPT Team)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $rows = array(
+                        array( 'ROI assessment ก่อนเริ่ม', '✓', 'เพิ่ม fee', '✗', 'ทำเอง' ),
+                        array( 'Production-grade build', '✓', '✓', 'บางเคส', '✗' ),
+                        array( 'CRM/LINE/ERP integration', '✓', '✓', 'จำกัด', '✗' ),
+                        array( 'Cost guardrails + monitoring', '✓', 'บางเคส', '✗', '✗' ),
+                        array( 'PDPA compliance', '✓', '✓', 'บางเคส', '✗' ),
+                        array( 'Source code 100%', '✓', 'บางเคส', '✓', 'N/A' ),
+                        array( 'Thai market context', '✓', 'จำกัด', 'มัก ✗', 'N/A' ),
+                        array( 'LINE OA expertise', '✓', 'จำกัด', 'จำกัด', '✗' ),
+                        array( 'ราคาเริ่ม', '60k บาท', '500k-5M', '50k-300k', '$50/mo' ),
+                        array( 'Time-to-production', '4-12 สัปดาห์', '6-18 เดือน', 'unpredictable', 'instant แต่จำกัด' ),
+                    );
+                    foreach ( $rows as $r ) :
+                    ?>
+                    <tr style="border-bottom:1px solid var(--hb-border,#27272A);">
+                        <td style="padding:var(--hb-space-3);"><?php echo esc_html( $r[0] ); ?></td>
+                        <td style="padding:var(--hb-space-3);text-align:center;color:var(--hb-accent-emerald,#10B981);font-weight:600;"><?php echo esc_html( $r[1] ); ?></td>
+                        <td style="padding:var(--hb-space-3);text-align:center;color:var(--hb-text-muted,#a1a1aa);"><?php echo esc_html( $r[2] ); ?></td>
+                        <td style="padding:var(--hb-space-3);text-align:center;color:var(--hb-text-muted,#a1a1aa);"><?php echo esc_html( $r[3] ); ?></td>
+                        <td style="padding:var(--hb-space-3);text-align:center;color:var(--hb-text-muted,#a1a1aa);"><?php echo esc_html( $r[4] ); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="hb-section" id="pricing">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">Pricing</span>
+            <h2 class="hb-h2">ราคา AI Consulting Bangkok</h2>
+            <p class="hb-lead" style="margin-top:var(--hb-space-4);">ทุก tier รวม ROI assessment + Build + Integration + 30-day support</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--hb-space-4);">
+            <?php foreach ( $pricing as $p ) : ?>
+                <div class="hb-card hb-card--elevated" style="display:flex;flex-direction:column;gap:var(--hb-space-3);">
+                    <h3 class="hb-card__title"><?php echo esc_html( $p['tier'] ); ?></h3>
+                    <div style="font-size:var(--hb-text-xl,1.5rem);font-weight:700;color:var(--hb-accent-cyan,#06B6D4);">
+                        เริ่มต้น <?php echo esc_html( number_format( $p['price'] ) ); ?> บาท
+                    </div>
+                    <div style="font-size:var(--hb-text-sm);color:var(--hb-text-muted,#a1a1aa);">
+                        <div>📐 <?php echo esc_html( $p['scope'] ); ?></div>
+                        <div>⏱ <?php echo esc_html( $p['time'] ); ?></div>
+                    </div>
+                    <p class="hb-card__body" style="font-size:var(--hb-text-sm);"><strong>เหมาะกับ:</strong> <?php echo esc_html( $p['fit'] ); ?></p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <p style="margin-top:var(--hb-space-5);text-align:center;font-size:var(--hb-text-sm);color:var(--hb-text-muted,#a1a1aa);">ราคาไม่รวม VAT 7% + API cost (OpenAI/Claude billed separately) · quote ปิดหลัง ROI Assessment ฟรี</p>
+    </div>
+</section>
+
+<section class="hb-section hb-section--surface">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">Best fit</span>
+            <h2 class="hb-h2">บริการ AI Consulting เหมาะกับใคร</h2>
         </div>
         <div class="hb-bento">
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/work/autobot-line/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">LINE Bot + RAG</span>
-                <h3 class="hb-card__title">ลูกค้าทักเยอะ ทีมตอบไม่ทัน</h3>
-                <p class="hb-card__body">ดู AutoBot LINE case study ที่ใช้ LINE Bot + OpenAI ตอบ FAQ 80% และลด support cost 60%.</p>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/line-chatbot-ai-thailand/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">E-commerce / Service</span>
+                <h3 class="hb-card__title">ทีม customer support overload กับคำถามซ้ำ ๆ</h3>
+                <p class="hb-card__body">ดู LINE Chatbot AI Guide — automate 70% ของคำถามได้ ไม่ลดคุณภาพการบริการ</p>
             </a>
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">Sales automation</span>
-                <h3 class="hb-card__title">มี lead เข้าเว็บ แต่ทีมขายคัดกรองช้า</h3>
-                <p class="hb-card__body">เชื่อม AI กับ marketing funnel เพื่อ qualify lead, summarize conversation และส่งข้อมูลเข้า CRM.</p>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/ai-workforce-thai-sme/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">B2B Sales</span>
+                <h3 class="hb-card__title">Sales team เสียเวลา 50% กับ admin + lead qualification</h3>
+                <p class="hb-card__body">ดู AI Workforce Guide — automate research, qualification, follow-up</p>
             </a>
             <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">Content operations</span>
-                <h3 class="hb-card__title">ต้องการทำ content SEO ต่อเนื่อง แต่ทีมมีเวลาจำกัด</h3>
-                <p class="hb-card__body">ใช้ AI ช่วย research, outline, internal linking และ schema draft บนเว็บไซต์ที่พร้อม SEO อยู่แล้ว.</p>
+                <span class="hb-eyebrow">Foundation first</span>
+                <h3 class="hb-card__title">เว็บยังไม่ติด Google ก่อนทำ AI</h3>
+                <p class="hb-card__body">เริ่มจากบริการรับทำเว็บไซต์ SEO-Ready — ฐานต้องแน่นก่อน AI จะ scale ได้</p>
             </a>
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">Discovery</span>
-                <h3 class="hb-card__title">ยังไม่แน่ใจว่า AI use case ไหนคุ้มที่สุด</h3>
-                <p class="hb-card__body">เริ่มด้วย AI ROI Discovery เพื่อคำนวณ hours saved, implementation cost และ payback period ก่อน build.</p>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Full funnel</span>
+                <h3 class="hb-card__title">ทีมเดียวดูทั้ง Web, Marketing และ AI</h3>
+                <p class="hb-card__body">ดูภาพรวมบริการทั้งหมดของ Hashbox</p>
             </a>
         </div>
     </div>
 </section>
 
 <section class="hb-section">
-    <div class="hb-container">
-        <div class="hb-section__head">
-            <span class="hb-eyebrow">AI Workforce</span>
-            <h2 class="hb-h2">4 ประเภทที่ทีมเราส่งมอบ</h2>
-        </div>
-        <div class="hb-bento">
-            <div class="hb-bento__cell hb-bento__cell--c2 hb-bento__cell--feature">
-                <span class="hb-bento__label">01</span>
-                <h3 class="hb-h3">Customer Support AI</h3>
-                <p class="hb-body">LINE / Web Chat / Email Auto-Reply ตอบ 24/7 TH/EN เชื่อม Knowledge Base พร้อม Sentiment + Alert</p>
-            </div>
-            <div class="hb-bento__cell hb-bento__cell--c2">
-                <span class="hb-bento__label">02</span>
-                <h3 class="hb-h3">Sales GPT + RAG</h3>
-                <p class="hb-body">AI ที่รู้ Product + Pricing + Lead Qualification + CRM Integration</p>
-            </div>
-            <div class="hb-bento__cell hb-bento__cell--c2">
-                <span class="hb-bento__label">03</span>
-                <h3 class="hb-h3">Workflow Automation</h3>
-                <p class="hb-body">n8n / Make เชื่อม Tools ภายในองค์กร · OCR + AI Document Processing</p>
-            </div>
-            <div class="hb-bento__cell hb-bento__cell--c2">
-                <span class="hb-bento__label">04</span>
-                <h3 class="hb-h3">Content Operations AI</h3>
-                <p class="hb-body">SEO Content Draft + Optimize · Schema Auto-generate · Social Repurposing</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="hb-section">
-    <div class="hb-container">
-        <div class="hb-section__head">
-            <span class="hb-eyebrow">Stack</span>
-            <h2 class="hb-h2">LLM Models + RAG + Channels</h2>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--hb-space-4);">
-            <div class="hb-card hb-card--elevated">
-                <h3 class="hb-card__title">LLM Models</h3>
-                <div class="hb-rail">
-                    <span class="hb-badge hb-badge--violet">OpenAI GPT-4.1</span>
-                    <span class="hb-badge hb-badge--violet">Claude Sonnet</span>
-                    <span class="hb-badge hb-badge--violet">Claude Opus</span>
-                    <span class="hb-badge hb-badge--violet">Gemini</span>
-                    <span class="hb-badge hb-badge--violet">Llama 3.3</span>
-                </div>
-            </div>
-            <div class="hb-card hb-card--elevated">
-                <h3 class="hb-card__title">RAG + Orchestration</h3>
-                <div class="hb-rail">
-                    <span class="hb-badge hb-badge--cyan">LangChain</span>
-                    <span class="hb-badge hb-badge--cyan">LlamaIndex</span>
-                    <span class="hb-badge hb-badge--cyan">Flowise</span>
-                    <span class="hb-badge hb-badge--cyan">Pinecone</span>
-                    <span class="hb-badge hb-badge--cyan">Qdrant</span>
-                </div>
-            </div>
-            <div class="hb-card hb-card--elevated">
-                <h3 class="hb-card__title">Channels</h3>
-                <div class="hb-rail">
-                    <span class="hb-badge hb-badge--emerald">LINE Messaging API</span>
-                    <span class="hb-badge hb-badge--emerald">FB Messenger</span>
-                    <span class="hb-badge hb-badge--emerald">n8n</span>
-                    <span class="hb-badge hb-badge--emerald">Slack / Teams</span>
-                </div>
+    <div class="hb-container hb-container--md">
+        <span class="hb-eyebrow">Author / Team</span>
+        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">ทีมที่รับผิดชอบโปรเจกต์</h2>
+        <div style="margin-top:var(--hb-space-6);display:flex;gap:var(--hb-space-5);padding:var(--hb-space-5);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);flex-wrap:wrap;">
+            <div style="flex-shrink:0;width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--hb-accent-cyan,#06B6D4),var(--hb-accent-blue,#2563EB));display:flex;align-items:center;justify-content:center;color:#fff;font-size:2rem;font-weight:700;">T</div>
+            <div style="flex:1;min-width:240px;">
+                <h3 class="hb-card__title" style="margin:0;"><?php echo esc_html( $author_name ); ?></h3>
+                <p style="margin-top:var(--hb-space-2);font-size:var(--hb-text-sm);color:var(--hb-text-muted,#a1a1aa);"><?php echo esc_html( $author_role ); ?></p>
+                <p class="hb-body" style="margin-top:var(--hb-space-3);"><?php echo esc_html( $author_bio ); ?></p>
+                <a href="<?php echo esc_url( $author_linkedin ); ?>" rel="noopener author" target="_blank" style="display:inline-block;margin-top:var(--hb-space-3);font-size:var(--hb-text-sm);color:var(--hb-accent-cyan,#06B6D4);">LinkedIn →</a>
             </div>
         </div>
     </div>
@@ -165,24 +371,144 @@ $faqs = array(
 </section>
 
 <section class="hb-section">
+    <div class="hb-container hb-container--md">
+        <span class="hb-eyebrow">Related</span>
+        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">บทความที่เกี่ยวข้อง</h2>
+        <div style="margin-top:var(--hb-space-6);display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--hb-space-3);">
+            <a class="hb-card" href="<?php echo esc_url( home_url( '/line-chatbot-ai-thailand/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Guide</span>
+                <h3 class="hb-card__title">LINE Chatbot AI Guide 2026</h3>
+            </a>
+            <a class="hb-card" href="<?php echo esc_url( home_url( '/ai-workforce-thai-sme/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Guide</span>
+                <h3 class="hb-card__title">AI Workforce Guide for Thai SMEs</h3>
+            </a>
+            <a class="hb-card" href="<?php echo esc_url( home_url( '/geo-ai-search-optimization-2026/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">GEO</span>
+                <h3 class="hb-card__title">GEO + AI Search Optimization</h3>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="hb-section hb-section--surface">
     <div class="hb-container hb-container--md" style="text-align:center;">
-        <h2 class="hb-h2">เริ่มด้วย AI ROI Discovery</h2>
-        <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">1 สัปดาห์ 30,000 บาท ได้ Model ROI + Architecture + Roadmap ก่อนลงทุน Build</p>
-        <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">คุยเรื่อง AI Discovery &rarr;</a>
+        <h2 class="hb-h2">เริ่มด้วย ROI Assessment ฟรี</h2>
+        <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">รับ AI ROI Assessment Report 10-15 หน้า ภายใน 5 วันทำการ · ไม่มี commitment · ไม่มี up-sell</p>
+        <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ ROI Assessment ฟรี &rarr;</a>
     </div>
 </section>
 
 <?php
-hashbox_jsonld( array( '@context' => 'https://schema.org', '@type' => 'Service', '@id' => $page_url . '#service', 'name' => 'AI Expert Consulting', 'description' => $desc, 'url' => $page_url, 'provider' => array( '@id' => home_url( '/#organization' ) ), 'areaServed' => 'Thailand', 'serviceType' => 'AI Consulting' ) );
-hashbox_jsonld( array( '@context' => 'https://schema.org', '@type' => 'BreadcrumbList', 'itemListElement' => array(
-    array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
-    array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => home_url( '/services/' ) ),
-    array( '@type' => 'ListItem', 'position' => 3, 'name' => 'AI Consulting', 'item' => $page_url ),
-) ) );
+$offer_catalog = array();
+foreach ( $pricing as $p ) {
+    $offer_catalog[] = array(
+        '@type' => 'Offer',
+        'name'  => $p['tier'],
+        'price' => (string) $p['price'],
+        'priceCurrency' => 'THB',
+        'priceSpecification' => array(
+            '@type' => 'PriceSpecification',
+            'price' => (string) $p['price'],
+            'priceCurrency' => 'THB',
+            'valueAddedTaxIncluded' => false,
+        ),
+        'description' => $p['fit'] . ' · ' . $p['scope'] . ' · ' . $p['time'],
+        'availability' => 'https://schema.org/InStock',
+        'areaServed' => 'TH',
+    );
+}
+
+hashbox_jsonld( array(
+    '@context' => 'https://schema.org',
+    '@type' => 'Service',
+    '@id' => $page_url . '#service',
+    'name' => 'AI Consulting Bangkok',
+    'description' => $desc,
+    'url' => $page_url,
+    'provider' => array( '@id' => home_url( '/#organization' ) ),
+    'areaServed' => array(
+        '@type' => 'Country',
+        'name' => 'Thailand',
+    ),
+    'serviceType' => 'AI Consulting',
+    'category' => 'Artificial Intelligence Consulting',
+    'audience' => array(
+        '@type' => 'BusinessAudience',
+        'audienceType' => 'B2B, SMB, Enterprise',
+    ),
+    'hasOfferCatalog' => array(
+        '@type' => 'OfferCatalog',
+        'name' => 'AI Consulting Pricing Tiers',
+        'itemListElement' => $offer_catalog,
+    ),
+    'offers' => $offer_catalog,
+    'potentialAction' => array(
+        array(
+            '@type'  => 'ContactAction',
+            'name'   => 'Request Free AI ROI Assessment',
+            'target' => home_url( '/#contact' ),
+        ),
+        array(
+            '@type'  => 'ReserveAction',
+            'name'   => 'Book Discovery Call',
+            'target' => home_url( '/#contact' ),
+        ),
+    ),
+    'termsOfService' => home_url( '/privacy-policy/#terms' ),
+    'isRelatedTo' => array(
+        array( '@type' => 'Service', 'name' => 'SEO-Ready Website', 'url' => home_url( '/services/seo-ready-website/' ) ),
+        array( '@type' => 'Service', 'name' => 'Digital Marketing Tools', 'url' => home_url( '/services/digital-marketing-tools/' ) ),
+    ),
+) );
+
+hashbox_jsonld( array(
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => array(
+        array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
+        array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => home_url( '/services/' ) ),
+        array( '@type' => 'ListItem', 'position' => 3, 'name' => 'AI Consulting Bangkok', 'item' => $page_url ),
+    ),
+) );
+
 $faq_entities = array();
 foreach ( $faqs as $f ) {
-    $faq_entities[] = array( '@type' => 'Question', 'name' => $f['q'], 'acceptedAnswer' => array( '@type' => 'Answer', 'text' => $f['a'] ) );
+    $faq_entities[] = array(
+        '@type' => 'Question',
+        'name' => $f['q'],
+        'acceptedAnswer' => array( '@type' => 'Answer', 'text' => $f['a'] ),
+    );
 }
-hashbox_jsonld( array( '@context' => 'https://schema.org', '@type' => 'FAQPage', '@id' => $page_url . '#faq', 'speakable' => array( '@type' => 'SpeakableSpecification', 'cssSelector' => array( '.hb-accordion__trigger', '.hb-accordion__content' ) ), 'mainEntity' => $faq_entities ) );
+hashbox_jsonld( array(
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    '@id' => $page_url . '#faq',
+    'speakable' => array(
+        '@type' => 'SpeakableSpecification',
+        'cssSelector' => array( '.hb-accordion__trigger', '.hb-accordion__content', '.hb-answer-box', '.hb-hero__sub' ),
+    ),
+    'mainEntity' => $faq_entities,
+) );
+
+$howto_steps = array();
+foreach ( $process as $i => $p ) {
+    $howto_steps[] = array(
+        '@type' => 'HowToStep',
+        'position' => $i + 1,
+        'name' => $p['name'],
+        'text' => $p['detail'],
+        'timeRequired' => $p['time'],
+    );
+}
+hashbox_jsonld( array(
+    '@context' => 'https://schema.org',
+    '@type' => 'HowTo',
+    '@id' => $page_url . '#process',
+    'name' => 'How to Engage AI Consulting',
+    'description' => 'ขั้นตอน AI Consulting 6 phase ตั้งแต่ ROI Assessment ถึง Production Launch',
+    'totalTime' => 'P10W',
+    'step' => $howto_steps,
+) );
 
 get_footer();

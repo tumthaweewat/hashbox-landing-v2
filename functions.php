@@ -2199,7 +2199,7 @@ function hashbox_related_posts( $post_id = null, $count = 3 ) {
 }
 
 /**
- * OG image URL with fallback chain: featured → site default.
+ * OG image URL with fallback chain: featured → dynamic generated → site default.
  */
 function hashbox_og_image_url( $post_id = null ) {
     $post_id = $post_id ?: get_the_ID();
@@ -2209,7 +2209,130 @@ function hashbox_og_image_url( $post_id = null ) {
             return $src[0];
         }
     }
+    if ( $post_id && function_exists( 'imagecreatetruecolor' ) ) {
+        $generated = hashbox_dynamic_og_image_url( $post_id );
+        if ( $generated ) {
+            return $generated;
+        }
+    }
     return hashbox_default_og_image_url();
+}
+
+/**
+ * Generate (or return cached) dynamic OG image URL for a post.
+ * 1200x630 PNG composed via GD. Cache in uploads/og-cache/{id}-{slug}.png.
+ * Regenerated when post is updated (cache key includes modified time).
+ */
+function hashbox_dynamic_og_image_url( $post_id ) {
+    if ( ! function_exists( 'imagecreatetruecolor' ) ) {
+        return '';
+    }
+    $post = get_post( $post_id );
+    if ( ! $post ) {
+        return '';
+    }
+    $upload = wp_upload_dir();
+    if ( empty( $upload['basedir'] ) || ! empty( $upload['error'] ) ) {
+        return '';
+    }
+    $dir = trailingslashit( $upload['basedir'] ) . 'og-cache';
+    $url = trailingslashit( $upload['baseurl'] ) . 'og-cache';
+    if ( ! is_dir( $dir ) ) {
+        wp_mkdir_p( $dir );
+    }
+    $mtime = strtotime( $post->post_modified_gmt );
+    $key   = $post_id . '-' . $mtime;
+    $file  = $dir . '/' . $key . '.png';
+    if ( file_exists( $file ) ) {
+        return $url . '/' . $key . '.png';
+    }
+    $title  = wp_strip_all_tags( get_the_title( $post_id ) );
+    $eyebrow = '';
+    if ( 'post' === $post->post_type ) {
+        $cats = get_the_category( $post_id );
+        $eyebrow = ! empty( $cats ) ? strtoupper( $cats[0]->name ) : 'HASHBOX BLOG';
+    } else {
+        $eyebrow = 'HASHBOX STUDIO';
+    }
+    $ok = hashbox_render_og_png( $file, $title, $eyebrow );
+    return $ok ? ( $url . '/' . $key . '.png' ) : '';
+}
+
+/**
+ * Render a 1200x630 OG card to $path. Returns true on success.
+ */
+function hashbox_render_og_png( $path, $title, $eyebrow ) {
+    $w  = 1200;
+    $h  = 630;
+    $im = imagecreatetruecolor( $w, $h );
+    if ( ! $im ) {
+        return false;
+    }
+    $bg     = imagecolorallocate( $im, 9, 9, 11 );
+    $panel  = imagecolorallocate( $im, 24, 24, 27 );
+    $accent = imagecolorallocate( $im, 37, 99, 235 );
+    $cyan   = imagecolorallocate( $im, 6, 182, 212 );
+    $text   = imagecolorallocate( $im, 250, 250, 250 );
+    $muted  = imagecolorallocate( $im, 161, 161, 170 );
+    imagefilledrectangle( $im, 0, 0, $w, $h, $bg );
+    imagefilledrectangle( $im, 0, 0, 16, $h, $accent );
+    imagefilledrectangle( $im, 16, 0, 28, $h, $cyan );
+    imagefilledrectangle( $im, 60, 530, 1140, 540, $panel );
+    imagefilledrectangle( $im, 60, 530, 200, 540, $accent );
+    $font_dir = get_template_directory() . '/assets/fonts';
+    $title_font = $font_dir . '/og-title.ttf';
+    $body_font  = $font_dir . '/og-body.ttf';
+    if ( file_exists( $title_font ) && function_exists( 'imagettftext' ) ) {
+        imagettftext( $im, 22, 0, 60, 100, $muted, $title_font, $eyebrow );
+        $wrapped = hashbox_og_wrap_text( $title_font, 60, $title, 1000 );
+        $y = 200;
+        foreach ( $wrapped as $line ) {
+            imagettftext( $im, 60, 0, 60, $y, $text, $title_font, $line );
+            $y += 80;
+            if ( $y > 460 ) break;
+        }
+        if ( file_exists( $body_font ) ) {
+            imagettftext( $im, 22, 0, 60, 580, $muted, $body_font, 'hashbox.co.th' );
+        } else {
+            imagestring( $im, 5, 60, 570, 'hashbox.co.th', $muted );
+        }
+    } else {
+        imagestring( $im, 4, 60, 90, $eyebrow, $muted );
+        $lines = str_split( $title, 36 );
+        $y = 200;
+        foreach ( $lines as $line ) {
+            imagestring( $im, 5, 60, $y, $line, $text );
+            $y += 36;
+            if ( $y > 460 ) break;
+        }
+        imagestring( $im, 5, 60, 570, 'hashbox.co.th', $muted );
+    }
+    $ok = imagepng( $im, $path );
+    imagedestroy( $im );
+    return (bool) $ok;
+}
+
+function hashbox_og_wrap_text( $font, $size, $text, $max_width ) {
+    $words = preg_split( '/\s+/u', $text );
+    $lines = array();
+    $current = '';
+    foreach ( $words as $word ) {
+        $try = '' === $current ? $word : ( $current . ' ' . $word );
+        $box = imagettfbbox( $size, 0, $font, $try );
+        if ( $box ) {
+            $width = abs( $box[2] - $box[0] );
+            if ( $width > $max_width && '' !== $current ) {
+                $lines[] = $current;
+                $current = $word;
+                continue;
+            }
+        }
+        $current = $try;
+    }
+    if ( '' !== $current ) {
+        $lines[] = $current;
+    }
+    return array_slice( $lines, 0, 4 );
 }
 
 /**
@@ -2386,3 +2509,145 @@ function hashbox_blog_body_class( $classes ) {
     return $classes;
 }
 add_filter( 'body_class', 'hashbox_blog_body_class' );
+
+/**
+ * Web Vitals RUM monitoring — inline tiny script + REST endpoint.
+ * Skipped for logged-in admins, headless browsers.
+ */
+function hashbox_inject_cwv_rum() {
+    if ( is_admin() || current_user_can( 'manage_options' ) ) {
+        return;
+    }
+    $endpoint = esc_url_raw( rest_url( 'hashbox/v1/cwv' ) );
+    ?>
+<script id="hb-cwv-rum">
+(function () {
+  if (!('PerformanceObserver' in window) || navigator.webdriver) return;
+  var data = { lcp: 0, inp: 0, cls: 0, ttfb: 0, url: location.pathname, w: innerWidth };
+  try {
+    var nav = performance.getEntriesByType('navigation')[0];
+    if (nav) data.ttfb = Math.round(nav.responseStart);
+  } catch (e) {}
+  try {
+    new PerformanceObserver(function (l) {
+      var entries = l.getEntries();
+      var last = entries[entries.length - 1];
+      if (last) data.lcp = Math.round(last.startTime);
+    }).observe({ type: 'largest-contentful-paint', buffered: true });
+  } catch (e) {}
+  try {
+    var clsValue = 0;
+    new PerformanceObserver(function (l) {
+      l.getEntries().forEach(function (e) {
+        if (!e.hadRecentInput) clsValue += e.value;
+      });
+      data.cls = Math.round(clsValue * 1000) / 1000;
+    }).observe({ type: 'layout-shift', buffered: true });
+  } catch (e) {}
+  try {
+    var maxInp = 0;
+    new PerformanceObserver(function (l) {
+      l.getEntries().forEach(function (e) {
+        if (e.duration > maxInp) maxInp = e.duration;
+      });
+      data.inp = Math.round(maxInp);
+    }).observe({ type: 'event', buffered: true, durationThreshold: 40 });
+  } catch (e) {}
+  var sent = false;
+  function send() {
+    if (sent) return;
+    sent = true;
+    try {
+      var blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+      if (navigator.sendBeacon) navigator.sendBeacon('<?php echo esc_js( $endpoint ); ?>', blob);
+    } catch (e) {}
+  }
+  addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') send(); });
+  addEventListener('pagehide', send);
+})();
+</script>
+    <?php
+}
+add_action( 'wp_footer', 'hashbox_inject_cwv_rum', 99 );
+
+function hashbox_register_cwv_endpoint() {
+    register_rest_route( 'hashbox/v1', '/cwv', array(
+        'methods'             => 'POST',
+        'callback'            => 'hashbox_receive_cwv',
+        'permission_callback' => '__return_true',
+    ) );
+}
+add_action( 'rest_api_init', 'hashbox_register_cwv_endpoint' );
+
+function hashbox_receive_cwv( WP_REST_Request $req ) {
+    $body = $req->get_json_params();
+    if ( ! is_array( $body ) ) {
+        return new WP_REST_Response( array( 'ok' => false ), 400 );
+    }
+    $entry = array(
+        't'    => time(),
+        'url'  => isset( $body['url'] ) ? substr( wp_strip_all_tags( (string) $body['url'] ), 0, 200 ) : '',
+        'lcp'  => isset( $body['lcp'] ) ? (int) $body['lcp'] : 0,
+        'inp'  => isset( $body['inp'] ) ? (int) $body['inp'] : 0,
+        'cls'  => isset( $body['cls'] ) ? round( (float) $body['cls'], 3 ) : 0,
+        'ttfb' => isset( $body['ttfb'] ) ? (int) $body['ttfb'] : 0,
+        'w'    => isset( $body['w'] ) ? (int) $body['w'] : 0,
+    );
+    $log = get_option( 'hashbox_cwv_log', array() );
+    if ( ! is_array( $log ) ) {
+        $log = array();
+    }
+    $log[] = $entry;
+    if ( count( $log ) > 200 ) {
+        $log = array_slice( $log, -200 );
+    }
+    update_option( 'hashbox_cwv_log', $log, false );
+    return new WP_REST_Response( array( 'ok' => true ), 200 );
+}
+
+function hashbox_cwv_admin_menu() {
+    add_management_page( 'Web Vitals', 'Web Vitals', 'manage_options', 'hashbox-cwv', 'hashbox_cwv_admin_page' );
+}
+add_action( 'admin_menu', 'hashbox_cwv_admin_menu' );
+
+function hashbox_cwv_admin_page() {
+    if ( ! empty( $_POST['hashbox_cwv_clear'] ) && check_admin_referer( 'hashbox_cwv_clear' ) ) {
+        delete_option( 'hashbox_cwv_log' );
+        echo '<div class="notice notice-success"><p>Cleared.</p></div>';
+    }
+    $log = get_option( 'hashbox_cwv_log', array() );
+    if ( ! is_array( $log ) ) {
+        $log = array();
+    }
+    $count = count( $log );
+    $by_url = array();
+    foreach ( $log as $e ) {
+        $u = $e['url'] ?: '/';
+        if ( ! isset( $by_url[ $u ] ) ) {
+            $by_url[ $u ] = array( 'lcp' => array(), 'inp' => array(), 'cls' => array(), 'ttfb' => array() );
+        }
+        foreach ( array( 'lcp', 'inp', 'cls', 'ttfb' ) as $m ) {
+            if ( ! empty( $e[ $m ] ) ) {
+                $by_url[ $u ][ $m ][] = (float) $e[ $m ];
+            }
+        }
+    }
+    $p75 = function ( $a ) {
+        if ( empty( $a ) ) return '-';
+        sort( $a );
+        $idx = (int) floor( count( $a ) * 0.75 );
+        return $a[ min( $idx, count( $a ) - 1 ) ];
+    };
+    echo '<div class="wrap"><h1>Web Vitals RUM</h1>';
+    echo '<p>Captured ' . (int) $count . ' real-user sessions. p75 metrics per URL (excludes logged-in admins):</p>';
+    echo '<table class="wp-list-table widefat striped"><thead><tr><th>URL</th><th>Samples</th><th>LCP p75 (ms)</th><th>INP p75 (ms)</th><th>CLS p75</th><th>TTFB p75 (ms)</th></tr></thead><tbody>';
+    foreach ( $by_url as $u => $m ) {
+        $n = count( $m['lcp'] );
+        echo '<tr><td>' . esc_html( $u ) . '</td><td>' . (int) $n . '</td><td>' . esc_html( (string) $p75( $m['lcp'] ) ) . '</td><td>' . esc_html( (string) $p75( $m['inp'] ) ) . '</td><td>' . esc_html( (string) $p75( $m['cls'] ) ) . '</td><td>' . esc_html( (string) $p75( $m['ttfb'] ) ) . '</td></tr>';
+    }
+    echo '</tbody></table>';
+    echo '<form method="post" style="margin-top:20px;">';
+    wp_nonce_field( 'hashbox_cwv_clear' );
+    echo '<button type="submit" name="hashbox_cwv_clear" value="1" class="button">Clear log</button>';
+    echo '</form></div>';
+}

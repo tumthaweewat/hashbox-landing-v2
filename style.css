@@ -61,6 +61,7 @@ Tags: one-page, dark, agency, custom-menu, translation-ready
 
 html {
     scroll-behavior: smooth;
+    overflow-x: clip;
 }
 
 body {
@@ -68,7 +69,7 @@ body {
     color: var(--color-text);
     background-color: var(--color-bg);
     line-height: 1.65;
-    overflow-x: hidden;
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
