@@ -53,6 +53,13 @@ get_header();
             <aside class="hb-post__sidebar">
                 <?php get_template_part( 'template-parts/post-toc' ); ?>
                 <?php get_template_part( 'template-parts/post-share' ); ?>
+
+                <div class="hb-post-service" style="margin-top:var(--hb-space-6);padding:var(--hb-space-5);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);border-left:3px solid var(--hb-accent-blue,#2563EB);">
+                    <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">Featured Service</span>
+                    <h3 style="margin-top:var(--hb-space-2);font-size:var(--hb-text-base);font-weight:600;">รับทำเว็บไซต์ SEO-Ready</h3>
+                    <p style="margin-top:var(--hb-space-2);font-size:var(--hb-text-sm);color:var(--hb-text-muted,#a1a1aa);">Build Gate 12 ข้อ · Lighthouse 100 · Schema ครบ · ติด Google ตั้งแต่ launch</p>
+                    <a href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" style="display:inline-block;margin-top:var(--hb-space-3);font-size:var(--hb-text-sm);color:var(--hb-accent-blue,#2563EB);font-weight:600;">ดูบริการ →</a>
+                </div>
             </aside>
 
             <div class="hb-post__content hb-prose">
@@ -70,8 +77,11 @@ get_header();
 
                 <div class="hb-post__cta">
                     <h2 class="hb-post__cta-title">พร้อมยกระดับเว็บไซต์คุณ?</h2>
-                    <p class="hb-post__cta-text">รับ Audit ฟรีจากทีม Hashbox — เราจะหา 5 จุดที่ปรับได้ทันทีเพื่อ Speed, SEO และ Conversion</p>
-                    <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient">รับ Audit ฟรี &rarr;</a>
+                    <p class="hb-post__cta-text">ดู<a href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>">บริการรับทำเว็บไซต์ SEO-Ready</a> ของ Hashbox — Build Gate 12 ข้อ, Lighthouse 100, Schema ครบ ติด Google ตั้งแต่วันเปิดตัว · หรือรับ Audit ฟรี 15-20 หน้า</p>
+                    <div style="display:flex;gap:var(--hb-space-3);flex-wrap:wrap;">
+                        <a href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" class="hb-btn hb-btn--gradient">ดูบริการ SEO-Ready &rarr;</a>
+                        <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--outline">รับ Audit ฟรี</a>
+                    </div>
                 </div>
             </div>
         </div>
