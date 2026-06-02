@@ -16,14 +16,12 @@ $primary        = ! empty( $cats ) ? $cats[0] : null;
 $reading_min    = hashbox_reading_time();
 $content_html   = apply_filters( 'the_content', get_the_content() );
 $content_html   = preg_replace( '/<h1\b[^>]*>.*?<\/h1>/is', '', $content_html, 1 );
-$content_blocks = preg_split( '/(<h2\b[^>]*>.*?<\/h2>)/is', $content_html, -1, PREG_SPLIT_DELIM_CAPTURE );
-$intro_html     = is_array( $content_blocks ) ? trim( array_shift( $content_blocks ) ) : trim( $content_html );
 $brief_items    = array(
     array( 'label' => 'หมวดหมู่', 'value' => $primary ? $primary->name : 'Insight' ),
     array( 'label' => 'เวลาอ่าน', 'value' => (int) $reading_min . ' min read' ),
-    array( 'label' => 'เหมาะสำหรับ', 'value' => 'ทีมธุรกิจและ marketing' ),
+    array( 'label' => 'อัปเดต', 'value' => get_the_modified_date( 'j M Y' ) ),
 );
-$brief_metrics  = array( 'Checklist', 'Examples', 'Next steps' );
+$brief_metrics  = array( 'Strategy', 'Execution', 'Measurement' );
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'hb-post' ); ?>>
@@ -49,8 +47,8 @@ $brief_metrics  = array( 'Checklist', 'Examples', 'Next steps' );
                     <?php get_template_part( 'template-parts/post-meta' ); ?>
 
                     <div class="hb-post__hero-actions" aria-label="Article actions">
-                        <a class="hb-btn hb-btn--gradient" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">ปรึกษา SEO ฟรี</a>
-                        <a class="hb-btn hb-btn--outline" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>">ดูบริการ SEO-Ready</a>
+                        <a class="hb-btn hb-btn--gradient" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">ปรึกษาโปรเจกต์ฟรี</a>
+                        <a class="hb-btn hb-btn--outline" href="<?php echo esc_url( home_url( '/services/' ) ); ?>">ดูบริการทั้งหมด</a>
                     </div>
                 </div>
 
@@ -94,35 +92,17 @@ $brief_metrics  = array( 'Checklist', 'Examples', 'Next steps' );
                 <?php get_template_part( 'template-parts/post-share' ); ?>
 
                 <div class="hb-post-service">
-                    <span class="hb-post-service__eyebrow">Featured Service</span>
-                    <h3 class="hb-post-service__title">รับทำเว็บไซต์ SEO-Ready</h3>
-                    <p class="hb-post-service__text">Build Gate 12 ข้อ · Lighthouse 100 · Schema ครบ · ติด Google ตั้งแต่ launch</p>
-                    <a class="hb-post-service__link" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>">ดูบริการ &rarr;</a>
+                    <span class="hb-post-service__eyebrow">Work with Hashbox</span>
+                    <h3 class="hb-post-service__title">Web, Marketing และ AI ในทีมเดียว</h3>
+                    <p class="hb-post-service__text">ให้ทีมช่วย audit เว็บไซต์ จัดลำดับงานที่ควรทำก่อน และวาง roadmap ที่วัดผลได้จริง</p>
+                    <a class="hb-post-service__link" href="<?php echo esc_url( home_url( '/services/' ) ); ?>">ดูบริการ &rarr;</a>
                 </div>
             </aside>
 
             <div class="hb-post__content hb-prose">
-                <?php if ( '' !== $intro_html ) : ?>
-                    <section class="hb-post-intro-card">
-                        <?php echo $intro_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                    </section>
-                <?php endif; ?>
-
-                <?php if ( is_array( $content_blocks ) && ! empty( $content_blocks ) ) : ?>
-                    <?php for ( $i = 0; $i < count( $content_blocks ); $i += 2 ) : ?>
-                        <?php
-                        $section_heading = isset( $content_blocks[ $i ] ) ? trim( $content_blocks[ $i ] ) : '';
-                        $section_body    = isset( $content_blocks[ $i + 1 ] ) ? trim( $content_blocks[ $i + 1 ] ) : '';
-                        if ( '' === $section_heading && '' === $section_body ) {
-                            continue;
-                        }
-                        ?>
-                        <section class="hb-post-section">
-                            <?php echo $section_heading; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                            <?php echo $section_body; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                        </section>
-                    <?php endfor; ?>
-                <?php endif; ?>
+                <div class="hb-post-article-shell">
+                    <?php echo $content_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                </div>
 
                 <?php
                 $tags = get_the_tags();
@@ -135,11 +115,11 @@ $brief_metrics  = array( 'Checklist', 'Examples', 'Next steps' );
                 <?php endif; ?>
 
                 <div class="hb-post__cta">
-                    <h2 class="hb-post__cta-title">พร้อมยกระดับเว็บไซต์คุณ?</h2>
-                    <p class="hb-post__cta-text">ดู<a href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>">บริการรับทำเว็บไซต์ SEO-Ready</a> ของ Hashbox — Build Gate 12 ข้อ, Lighthouse 100, Schema ครบ ติด Google ตั้งแต่วันเปิดตัว · หรือรับ Audit ฟรี 15-20 หน้า</p>
-                    <div style="display:flex;gap:var(--hb-space-3);flex-wrap:wrap;">
-                        <a href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" class="hb-btn hb-btn--gradient">ดูบริการ SEO-Ready &rarr;</a>
-                        <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--outline">รับ Audit ฟรี</a>
+                    <h2 class="hb-post__cta-title">อยากให้ทีมช่วยดูโจทย์นี้ต่อ?</h2>
+                    <p class="hb-post__cta-text">ส่งเว็บไซต์หรือ brief ที่กำลังทำอยู่ให้ Hashbox ช่วย audit เบื้องต้น เราจะช่วยชี้จุดที่ควรแก้ก่อน ทั้งด้านเว็บไซต์ SEO, conversion, tracking และ AI workflow</p>
+                    <div class="hb-post__cta-actions">
+                        <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient">รับคำแนะนำฟรี &rarr;</a>
+                        <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-btn hb-btn--outline">ดูบริการทั้งหมด</a>
                     </div>
                 </div>
             </div>
