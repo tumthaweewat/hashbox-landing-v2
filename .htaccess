@@ -16,6 +16,13 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 # WordPress Permalink Structure
 RewriteBase /
 RewriteRule ^index\.php$ - [L]
+
+# Rank Math XML sitemaps are virtual endpoints. These explicit rules keep
+# pretty sitemap URLs working even when WP permalink rules were not flushed.
+RewriteRule ^sitemap_index\.xml$ /index.php?sitemap=1 [L]
+RewriteRule ^([^/]+?)-sitemap([0-9]+)?\.xml$ /index.php?sitemap=$1&sitemap_n=$2 [L]
+RewriteRule ^([a-z]+)?-?sitemap\.xsl$ /index.php?xsl=$1 [L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]

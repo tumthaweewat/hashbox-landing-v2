@@ -41,3 +41,4 @@ graphify-out/
 # Scratch refs + screenshots
 .tmp-ref/
 .audit-tmp/
+.playwright-mcp/
