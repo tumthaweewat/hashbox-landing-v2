@@ -129,30 +129,26 @@ $cases = array(
     </div>
 </section>
 
-<!-- Website Types -->
-<section class="hb-section">
+<!-- CASE STUDIES -->
+<section class="hb-section hb-section--surface">
     <div class="hb-container">
         <div class="hb-section__head">
-            <span class="hb-eyebrow">Website Development</span>
-            <h2 class="hb-h2">รับทำเว็บไซต์ธุรกิจทุกประเภท รองรับทุกการใช้งาน</h2>
-            <p class="hb-lead" style="margin-top:var(--hb-space-4);">บริการรับทำเว็บไซต์ครบวงจรสำหรับธุรกิจที่ต้องการเว็บพร้อมใช้งานจริง ตั้งแต่เว็บไซต์บริษัท เว็บแอปพลิเคชัน ไปจนถึงระบบเชื่อมต่อฐานข้อมูล โดยวางโครงสร้างให้พร้อมสำหรับ Google และ AI Search ตั้งแต่วันแรก</p>
+            <span class="hb-eyebrow">Case Studies</span>
+            <h2 class="hb-h2">ผลงาน SEO-Ready Website</h2>
+            <p class="hb-lead" style="margin-top:var(--hb-space-4);">3 เคสจาก 50+ โปรเจกต์ วัดผลจริงด้วย GSC, GA4, CrUX field data</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--hb-space-4);">
-            <div class="hb-card hb-card--elevated">
-                <span class="hb-eyebrow">Corporate Website</span>
-                <h3 class="hb-card__title">เว็บไซต์บริษัทและบริการ</h3>
-                <p class="hb-card__body">ออกแบบโครงสร้างหน้าเว็บให้สื่อสารบริการชัดเจน รองรับ SEO, lead generation, analytics และการดูแล content ต่อในระยะยาว</p>
-            </div>
-            <div class="hb-card hb-card--elevated">
-                <span class="hb-eyebrow">Web Application</span>
-                <h3 class="hb-card__title">เว็บแอปพลิเคชันสำหรับธุรกิจ</h3>
-                <p class="hb-card__body">พัฒนา frontend, backend และระบบสมาชิกหรือ workflow เฉพาะทาง โดยคุม performance, security และ user experience ตั้งแต่วันแรก</p>
-            </div>
-            <div class="hb-card hb-card--elevated">
-                <span class="hb-eyebrow">Data Integration</span>
-                <h3 class="hb-card__title">ระบบเชื่อมต่อฐานข้อมูล</h3>
-                <p class="hb-card__body">เชื่อมต่อ CRM, ERP, API, dashboard หรือระบบหลังบ้าน เพื่อให้เว็บไซต์เป็นฐานข้อมูลและช่องทางขายที่วัดผลได้จริง</p>
-            </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--hb-space-4);">
+            <?php foreach ( $cases as $c ) : ?>
+                <a class="hb-card hb-card--elevated" href="<?php echo esc_url( home_url( $c['url'] ) ); ?>" style="text-decoration:none;display:flex;flex-direction:column;gap:var(--hb-space-3);">
+                    <span class="hb-eyebrow"><?php echo esc_html( $c['tag'] ); ?></span>
+                    <h3 class="hb-card__title"><?php echo esc_html( $c['name'] ); ?></h3>
+                    <div style="display:flex;flex-direction:column;gap:var(--hb-space-2);margin-top:var(--hb-space-3);">
+                        <div style="font-size:var(--hb-text-sm);color:var(--hb-accent-emerald,#10B981);font-weight:600;">▲ <?php echo esc_html( $c['metric1'] ); ?></div>
+                        <div style="font-size:var(--hb-text-sm);color:var(--hb-accent-emerald,#10B981);font-weight:600;">▲ <?php echo esc_html( $c['metric2'] ); ?></div>
+                        <div style="font-size:var(--hb-text-sm);color:var(--hb-accent-emerald,#10B981);font-weight:600;">▲ <?php echo esc_html( $c['metric3'] ); ?></div>
+                    </div>
+                </a>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
@@ -166,40 +162,9 @@ $cases = array(
                 <strong>คือ เว็บไซต์ที่ผ่าน Build Gate กว่า 12 ขั้นตอนก่อน Deploy ขึ้น Production</strong> ครอบคลุมทั้ง Lighthouse Score 100, Core Web Vitals ระดับสีเขียวทุกค่า รวมถึงการติดตั้ง Schema.org Markup เพื่อช่วยให้ Search Engine เข้าใจเนื้อหาและธุรกิจได้ถูกต้องและแม่นยำ นอกจากนี้ยังมีการตั้งค่า Canonical, Robots.txt และ Sitemap พร้อม Auto Submit ไปยัง Google และ Bing รวมถึงรองรับ AI Crawlers จากแพลตฟอร์มที่กลุ่มเป้าหมายของทุกธุรกิจนิยมใช้อย่าง ChatGPT, Claude, Gemini, Google AI Overviews และ AI Mode
             </p>
         </div>
-        <blockquote style="margin-top:var(--hb-space-5);padding:var(--hb-space-5);border-left:4px solid var(--hb-accent-cyan,#06B6D4);background:var(--hb-bg,#09090B);border-radius:var(--hb-radius-md,8px);">
-            <p class="hb-lead">ทุกเว็บไซต์ที่มาจาก Hashbox จะถูก Index และเริ่มแข่งขันบน Search Engine ได้ตั้งแต่การ Crawl ครั้งแรก ช่วยลดระยะเวลาในการทำอันดับจากเดิมประมาณ 6 เดือน เหลือเพียง 1-2 เดือนในหลายอุตสาหกรรม</p>
+        <blockquote class="hb-seo-quote" style="margin:var(--hb-space-7) auto 0;max-width:56rem;padding:var(--hb-space-6) var(--hb-space-5);text-align:center;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015));border:1px solid rgba(129,140,248,0.22);border-radius:var(--hb-radius-md,8px);box-shadow:0 24px 80px -64px rgba(79,70,229,0.7);">
+            <p class="hb-lead" style="margin:0;color:var(--hb-text,#e4e4e7);font-style:italic;font-weight:600;line-height:1.75;">&ldquo;ทุกเว็บไซต์ที่มาจาก Hashbox จะถูก Index และเริ่มแข่งขันบน Search Engine ได้ตั้งแต่การ Crawl ครั้งแรก ช่วยลดระยะเวลาในการทำอันดับจากเดิมประมาณ 6 เดือน เหลือเพียง 1-2 เดือนในหลายอุตสาหกรรม&rdquo;</p>
         </blockquote>
-    </div>
-</section>
-
-<!-- PROBLEM -->
-<section class="hb-section">
-    <div class="hb-container hb-container--md">
-        <span class="hb-eyebrow">ปัญหา</span>
-        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">ทำไมเว็บส่วนใหญ่ไม่ติด Google ใน 6 เดือนแรก</h2>
-        <p class="hb-lead" style="margin-top:var(--hb-space-4);">จากประสบการณ์ดูแลเว็บไซต์ธุรกิจกว่า 50+ โปรเจกต์ เราพบว่าเว็บไซต์จำนวนมากมักถูกพัฒนาโดยข้ามขั้นตอน Technical SEO ตั้งแต่ต้น ส่งผลให้ต้องเสียเวลาและงบประมาณกลับมาแก้ไขหลัง Launch และเป็นสาเหตุสำคัญที่ทำให้เว็บไซต์ยังไม่ติดอันดับบน Google หรือ AI Search</p>
-        <div class="hb-bento" style="margin-top:var(--hb-space-6);">
-            <div class="hb-bento__cell">
-                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Indexation</span>
-                <h3 class="hb-card__title">Google Index หน้าเว็บได้ไม่ครบ</h3>
-                <p class="hb-card__body">robots.txt ผิด, ไม่ส่ง Sitemap หรือใช้ JS-rendered content โครงสร้างที่ Google อ่านยากทำให้หน้าเว็บ Index ได้แค่ 30-50%</p>
-            </div>
-            <div class="hb-bento__cell">
-                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Core Web Vitals</span>
-                <h3 class="hb-card__title">เว็บโหลดช้า กระทบอันดับ SEO</h3>
-                <p class="hb-card__body">ใช้ Plugin หนัก โหลดไฟล์ CSS/JS มากเกิน หรือไม่มี Image Preload ทำให้ Core Web Vitals ไม่ผ่านเกณฑ์ LCP เกิน 2.5s และ INP เกิน 200ms</p>
-            </div>
-            <div class="hb-bento__cell">
-                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Schema</span>
-                <h3 class="hb-card__title">Schema ไม่มี / ผิด Validation</h3>
-                <p class="hb-card__body">ไม่มี Schema สำคัญ เช่น Organization, Service, FAQ หรือ Breadcrumb ทำให้ Google ไม่แสดง Rich Snippets จนเสีย CTR 30-40%</p>
-            </div>
-            <div class="hb-bento__cell">
-                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">AI Search</span>
-                <h3 class="hb-card__title">เว็บไซต์ไม่รองรับ AI Search</h3>
-                <p class="hb-card__body">ไม่มีการตั้งค่ารองรับ AI Crawlers, ไม่มี llms.txt และ Schema ไม่ครบ Passage-level Citation ทำให้พลาดทราฟฟิกจาก AI Search ที่กำลังโตเร็ว</p>
-            </div>
-        </div>
     </div>
 </section>
 
@@ -231,6 +196,37 @@ $cases = array(
                     <span class="hb-body"><?php echo esc_html( $check ); ?></span>
                 </div>
             <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="hb-section">
+    <div class="hb-container hb-container--md">
+        <span class="hb-eyebrow">ปัญหา</span>
+        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">ทำไมเว็บส่วนใหญ่ไม่ติด Google ใน 6 เดือนแรก</h2>
+        <p class="hb-lead" style="margin-top:var(--hb-space-4);">จากประสบการณ์ดูแลเว็บไซต์ธุรกิจกว่า 50+ โปรเจกต์ เราพบว่าเว็บไซต์จำนวนมากมักถูกพัฒนาโดยข้ามขั้นตอน Technical SEO ตั้งแต่ต้น ส่งผลให้ต้องเสียเวลาและงบประมาณกลับมาแก้ไขหลัง Launch และเป็นสาเหตุสำคัญที่ทำให้เว็บไซต์ยังไม่ติดอันดับบน Google หรือ AI Search</p>
+        <div class="hb-bento" style="margin-top:var(--hb-space-6);">
+            <div class="hb-bento__cell">
+                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Indexation</span>
+                <h3 class="hb-card__title">Google Index หน้าเว็บได้ไม่ครบ</h3>
+                <p class="hb-card__body">robots.txt ผิด, ไม่ส่ง Sitemap หรือใช้ JS-rendered content โครงสร้างที่ Google อ่านยากทำให้หน้าเว็บ Index ได้แค่ 30-50%</p>
+            </div>
+            <div class="hb-bento__cell">
+                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Core Web Vitals</span>
+                <h3 class="hb-card__title">เว็บโหลดช้า กระทบอันดับ SEO</h3>
+                <p class="hb-card__body">ใช้ Plugin หนัก โหลดไฟล์ CSS/JS มากเกิน หรือไม่มี Image Preload ทำให้ Core Web Vitals ไม่ผ่านเกณฑ์ LCP เกิน 2.5s และ INP เกิน 200ms</p>
+            </div>
+            <div class="hb-bento__cell">
+                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Schema</span>
+                <h3 class="hb-card__title">Schema ไม่มี / ผิด Validation</h3>
+                <p class="hb-card__body">ไม่มี Schema สำคัญ เช่น Organization, Service, FAQ หรือ Breadcrumb ทำให้ Google ไม่แสดง Rich Snippets จนเสีย CTR 30-40%</p>
+            </div>
+            <div class="hb-bento__cell">
+                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">AI Search</span>
+                <h3 class="hb-card__title">เว็บไซต์ไม่รองรับ AI Search</h3>
+                <p class="hb-card__body">ไม่มีการตั้งค่ารองรับ AI Crawlers, ไม่มี llms.txt และ Schema ไม่ครบ Passage-level Citation ทำให้พลาดทราฟฟิกจาก AI Search ที่กำลังโตเร็ว</p>
+            </div>
         </div>
     </div>
 </section>
@@ -309,30 +305,6 @@ $cases = array(
                 </li>
             <?php endforeach; ?>
         </ol>
-    </div>
-</section>
-
-<!-- CASE STUDIES -->
-<section class="hb-section hb-section--surface">
-    <div class="hb-container">
-        <div class="hb-section__head">
-            <span class="hb-eyebrow">Case Studies</span>
-            <h2 class="hb-h2">ผลงาน SEO-Ready Website</h2>
-            <p class="hb-lead" style="margin-top:var(--hb-space-4);">3 เคสจาก 50+ โปรเจกต์ วัดผลจริงด้วย GSC, GA4, CrUX field data</p>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--hb-space-4);">
-            <?php foreach ( $cases as $c ) : ?>
-                <a class="hb-card hb-card--elevated" href="<?php echo esc_url( home_url( $c['url'] ) ); ?>" style="text-decoration:none;display:flex;flex-direction:column;gap:var(--hb-space-3);">
-                    <span class="hb-eyebrow"><?php echo esc_html( $c['tag'] ); ?></span>
-                    <h3 class="hb-card__title"><?php echo esc_html( $c['name'] ); ?></h3>
-                    <div style="display:flex;flex-direction:column;gap:var(--hb-space-2);margin-top:var(--hb-space-3);">
-                        <div style="font-size:var(--hb-text-sm);color:var(--hb-accent-emerald,#10B981);font-weight:600;">▲ <?php echo esc_html( $c['metric1'] ); ?></div>
-                        <div style="font-size:var(--hb-text-sm);color:var(--hb-accent-emerald,#10B981);font-weight:600;">▲ <?php echo esc_html( $c['metric2'] ); ?></div>
-                        <div style="font-size:var(--hb-text-sm);color:var(--hb-accent-emerald,#10B981);font-weight:600;">▲ <?php echo esc_html( $c['metric3'] ); ?></div>
-                    </div>
-                </a>
-            <?php endforeach; ?>
-        </div>
     </div>
 </section>
 
