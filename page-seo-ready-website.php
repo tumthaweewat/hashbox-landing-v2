@@ -171,7 +171,7 @@ $cases = array(
 <section class="hb-section hb-section--surface">
     <div class="hb-container hb-container--md">
         <span class="hb-eyebrow">Build Gate</span>
-        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">รับทำเว็บไซต์ พร้อมผ่าน Build Gate กว่า 12 ขั้นตอน</h2>
+        <h3 class="hb-h2" style="margin-top:var(--hb-space-3);">รับทำเว็บไซต์ พร้อมผ่าน Build Gate กว่า 12 ขั้นตอน</h3>
         <p class="hb-lead" style="margin-top:var(--hb-space-4);">บริการรับทำเว็บไซต์ที่มาจาก Hashbox ต้องผ่าน Build Gate ก่อน Deploy ขึ้น Production ตามเช็คลิสต์ 12 ข้อนี้ที่บังคับใน CI Pipeline — ไม่ผ่าน = ไม่ Deploy</p>
         <div class="hb-bento" style="margin-top:var(--hb-space-8);">
             <?php
