@@ -10,9 +10,9 @@ $page_url = get_permalink();
 $desc = 'บริการรับทำเว็บไซต์ SEO-Ready Bangkok ติด Google ตั้งแต่ launch · Lighthouse 100 · Core Web Vitals เขียว · Schema ครบ · Audit ฟรี · เริ่ม 80,000 บาท';
 
 $author_name      = 'Tum Thaweewat';
-$author_role      = 'Founder & Lead SEO Engineer';
+$author_role      = 'Head of Tech';
 $author_linkedin  = 'https://www.linkedin.com/in/tumthaweewat/';
-$author_bio       = '10+ ปีประสบการณ์ Technical SEO + Performance Engineering · ผ่านโปรเจกต์ SEO migration 50+ เคส · Cert: Google Analytics, Search Console, Cloudflare Performance Engineer';
+$author_bio       = '17 ปีประสบการณ์ Technical SEO + Performance Engineering · ผ่านโปรเจกต์ SEO migration 50+ เคส · Cert: Google Analytics, Search Console, Cloudflare Performance Engineer';
 
 $faqs = array(
     array( 'q' => 'รับทำเว็บไซต์ SEO-Ready ราคาเริ่มต้นเท่าไหร่?', 'a' => 'Landing Page เริ่ม 80,000 บาท · Corporate Site 200,000 บาท · E-commerce 350,000 บาท · Enterprise 500,000+ บาท ทุก quote ออกหลัง Audit ฟรี' ),

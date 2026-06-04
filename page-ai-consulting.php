@@ -10,9 +10,9 @@ $page_url = get_permalink();
 $desc = 'บริการที่ปรึกษา AI Consulting Bangkok สำหรับธุรกิจไทย · LINE Chatbot AI, Sales GPT, RAG Knowledge Base, Workflow Automation · ROI calculation ก่อนเริ่ม · เริ่ม 60,000 บาท · 50+ โปรเจกต์';
 
 $author_name      = 'Tum Thaweewat';
-$author_role      = 'Founder & Lead AI Engineer';
+$author_role      = 'Head of Tech';
 $author_linkedin  = 'https://www.linkedin.com/in/tumthaweewat/';
-$author_bio       = '10+ ปีประสบการณ์ Software Engineering + AI/ML · ผ่านโปรเจกต์ LLM integration 30+ เคส · Cert: OpenAI API, Anthropic Claude, LangChain · Speaker AI/SaaS conferences ไทย';
+$author_bio       = '17 ปีประสบการณ์ Software Engineering + AI/ML · ผ่านโปรเจกต์ LLM integration 30+ เคส · Cert: OpenAI API, Anthropic Claude, LangChain · Speaker AI/SaaS conferences ไทย';
 
 $faqs = array(
     array( 'q' => 'AI Consulting Bangkok ราคาเริ่มต้นเท่าไหร่?', 'a' => 'Discovery + ROI Assessment เริ่ม 60,000 บาท · PoC (Proof of Concept) 150,000-300,000 บาท · Production Build 300,000-1,500,000 บาท · ที่ปรึกษารายเดือน 30,000-150,000 บาท/เดือน ทุก quote ออกหลัง free assessment 30 นาที' ),
