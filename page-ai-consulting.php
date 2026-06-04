@@ -11,7 +11,7 @@ $desc = 'บริการที่ปรึกษา AI Consulting Bangkok ส
 
 $author_name      = 'Tum Thaweewat';
 $author_role      = 'Founder & Lead AI Engineer';
-$author_linkedin  = 'https://www.linkedin.com/in/thaweewat-srt';
+$author_linkedin  = 'https://www.linkedin.com/in/tumthaweewat/';
 $author_bio       = '10+ ปีประสบการณ์ Software Engineering + AI/ML · ผ่านโปรเจกต์ LLM integration 30+ เคส · Cert: OpenAI API, Anthropic Claude, LangChain · Speaker AI/SaaS conferences ไทย';
 
 $faqs = array(

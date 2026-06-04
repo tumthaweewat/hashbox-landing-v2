@@ -11,7 +11,7 @@ $desc = 'บริการรับทำเว็บไซต์ SEO-Ready Ban
 
 $author_name      = 'Tum Thaweewat';
 $author_role      = 'Founder & Lead SEO Engineer';
-$author_linkedin  = 'https://www.linkedin.com/in/thaweewat-srt';
+$author_linkedin  = 'https://www.linkedin.com/in/tumthaweewat/';
 $author_bio       = '10+ ปีประสบการณ์ Technical SEO + Performance Engineering · ผ่านโปรเจกต์ SEO migration 50+ เคส · Cert: Google Analytics, Search Console, Cloudflare Performance Engineer';
 
 $faqs = array(
