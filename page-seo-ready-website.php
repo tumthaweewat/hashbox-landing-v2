@@ -133,8 +133,7 @@ $cases = array(
 <section class="hb-section hb-section--surface">
     <div class="hb-container">
         <div class="hb-section__head">
-            <span class="hb-eyebrow">Case Studies</span>
-            <h2 class="hb-h2">ผลงาน SEO-Ready Website</h2>
+            <h2 class="hb-h2">รับทำเว็บไซต์ธุรกิจทุกประเภท รองรับทุกการใช้งาน</h2>
             <p class="hb-lead" style="margin-top:var(--hb-space-4);">3 เคสจาก 50+ โปรเจกต์ วัดผลจริงด้วย GSC, GA4, CrUX field data</p>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--hb-space-4);">
