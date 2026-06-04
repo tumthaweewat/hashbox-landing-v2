@@ -7,7 +7,7 @@
 
 get_header();
 $page_url = get_permalink();
-$desc = 'บริการรับทำเว็บไซต์ SEO-Ready Bangkok ติด Google ตั้งแต่ launch · Lighthouse 100 · Core Web Vitals เขียว · Schema ครบ · Audit ฟรี · เริ่ม 80,000 บาท';
+$desc = 'รับทำเว็บไซต์ครบวงจร ทั้งเว็บไซต์บริษัท เว็บแอปพลิเคชัน และระบบเชื่อมต่อฐานข้อมูล พร้อมวางโครงสร้างเว็บไซต์ให้พร้อมติด Google และ AI Search ตั้งแต่วันแรก';
 
 $author_name      = 'Tum Thaweewat';
 $author_role      = 'Head of Tech';
@@ -17,7 +17,7 @@ $author_bio       = '17 ปีประสบการณ์ Technical SEO + Per
 $faqs = array(
     array( 'q' => 'รับทำเว็บไซต์ SEO-Ready ราคาเริ่มต้นเท่าไหร่?', 'a' => 'Landing Page เริ่ม 80,000 บาท · Corporate Site 200,000 บาท · E-commerce 350,000 บาท · Enterprise 500,000+ บาท ทุก quote ออกหลัง Audit ฟรี' ),
     array( 'q' => 'ใช้เวลาทำเว็บไซต์ SEO-Ready นานเท่าไหร่?', 'a' => 'Landing Page 2-3 สัปดาห์ · Corporate Site 4-6 สัปดาห์ · E-commerce 6-10 สัปดาห์ · ระบบซับซ้อน 8-14 สัปดาห์ Discovery + Audit ฟรีก่อนเริ่มเสมอ' ),
-    array( 'q' => 'ทำไมต้องเลือก SEO-Ready Website แทนเว็บทั่วไป?', 'a' => 'เว็บทั่วไปต้องทำ Technical SEO Audit หลังเปิดตัว 2-3 รอบกว่าจะติด Google ของเราผ่าน Build Gate ตั้งแต่ก่อน Deploy: Lighthouse 100, CWV เขียว, Schema ครบ Googlebot Index ได้ตั้งแต่ Crawl แรก ลด time-to-rank จาก 6 เดือนเหลือ 4-8 สัปดาห์' ),
+    array( 'q' => 'ทำไมต้องเลือก SEO-Ready Website แทนเว็บทั่วไป?', 'a' => 'เว็บทั่วไปต้องทำ Technical SEO Audit หลังเปิดตัว 2-3 รอบกว่าจะติด Google ของเราผ่าน Build Gate ตั้งแต่ก่อน Deploy: Lighthouse 100, CWV เขียว, Schema ครบ Googlebot Index ได้ตั้งแต่ Crawl แรก ลด time-to-rank จาก 6 เดือนเหลือ 1-2 เดือนในหลายอุตสาหกรรม' ),
     array( 'q' => 'มาตรฐาน Lighthouse 100 ทำได้จริงทุกเคส?', 'a' => 'การันตี 95+ ทุกเคส และ 100/100/100/100 ในเคสที่ Stack ของเราควบคุมได้ (Next.js/Astro บน Vercel/Cloudflare) WordPress + Heavy Plugins อยู่ที่ 92-98 ขึ้นกับ Plugin Stack' ),
     array( 'q' => 'ใช้ Tech Stack อะไร เลือกได้ไหม?', 'a' => 'เลือกได้ตามโจทย์ Next.js + Headless WordPress สำหรับ Performance สูงสุด · WordPress Custom Theme สำหรับทีมที่ต้องแก้ Content เอง · Astro/11ty สำหรับ Marketing Site เน้น Speed' ),
     array( 'q' => 'Schema Markup ที่ติดตั้งให้มีอะไรบ้าง?', 'a' => 'Organization, ProfessionalService, WebSite, BreadcrumbList ทุกหน้า · Article + Person บนบทความ · Service บนหน้าบริการ · FAQPage + Speakable · LocalBusiness ถ้ามี Office · HowTo + Product ตามเคส validate ผ่าน Schema.org Validator + Google Rich Results Test' ),
@@ -111,8 +111,8 @@ $cases = array(
                 </ol>
             </nav>
             <span class="hb-eyebrow">Service 01 / 03 · Updated <?php echo esc_html( date_i18n( 'F Y' ) ); ?></span>
-            <h1 class="hb-hero__title">รับทำเว็บไซต์<br><em>SEO-Ready</em><br>ติด Google ตั้งแต่วันเปิดตัว</h1>
-            <p class="hb-hero__sub">รับทำเว็บไซต์ SEO-Ready สำหรับธุรกิจไทยที่ต้องการติด Google ตั้งแต่ launch ผ่าน Build Gate 12 ข้อก่อน deploy: Lighthouse 100, Core Web Vitals เขียว, Schema ครบ พร้อม AI Search Optimization · Audit ฟรี · เริ่ม 80,000 บาท · 50+ โปรเจกต์</p>
+            <h1 class="hb-hero__title">รับทำเว็บไซต์<br><em>SEO-Ready</em><br>พัฒนาเว็บให้พร้อมติด Google</h1>
+            <p class="hb-hero__sub">Hashbox รับทำเว็บไซต์ธุรกิจด้วยโครงสร้างที่รองรับการติดอันดับบน Google และติด AI Search ดูแลตั้งแต่ Website Performance, Technical SEO ไปจนถึง User Experience ทุกเว็บต้องผ่านมาตรฐาน Lighthouse 100 พร้อม Core Web Vitals ระดับสีเขียว และมีระบบ Sitemap Auto-Submit เพื่อให้ Google เข้าถึงและจัดอันดับเว็บไซต์ได้เร็วขึ้น เพราะการวางรากฐานเว็บไซต์ที่แข็งแรงและถูกต้องตั้งแต่ต้น คือปัจจัยสำคัญที่ช่วยให้การติด Google และ AI Search เป็นเรื่องง่ายและยั่งยืนกว่า</p>
             <div class="hb-hero__actions">
                 <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
                 <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงานที่ผ่านมา</a>
@@ -120,9 +120,38 @@ $cases = array(
             <div class="hb-trustbar" style="margin-top:var(--hb-space-8);display:flex;flex-wrap:wrap;gap:var(--hb-space-5);align-items:center;color:var(--hb-text-muted,#a1a1aa);font-size:var(--hb-text-sm);">
                 <span>✓ Lighthouse 95+ การันตี</span>
                 <span>✓ Core Web Vitals เขียว</span>
-                <span>✓ AI Search Ready (GEO)</span>
+                <span>✓ Sitemap Auto-Submit</span>
+                <span>✓ AI Search Ready</span>
                 <span>✓ WCAG 2.1 AA</span>
                 <span>✓ ส่งมอบ source code</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Website Types -->
+<section class="hb-section">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">Website Development</span>
+            <h2 class="hb-h2">รับทำเว็บไซต์ธุรกิจทุกประเภท รองรับทุกการใช้งาน</h2>
+            <p class="hb-lead" style="margin-top:var(--hb-space-4);">บริการรับทำเว็บไซต์ครบวงจรสำหรับธุรกิจที่ต้องการเว็บพร้อมใช้งานจริง ตั้งแต่เว็บไซต์บริษัท เว็บแอปพลิเคชัน ไปจนถึงระบบเชื่อมต่อฐานข้อมูล โดยวางโครงสร้างให้พร้อมสำหรับ Google และ AI Search ตั้งแต่วันแรก</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--hb-space-4);">
+            <div class="hb-card hb-card--elevated">
+                <span class="hb-eyebrow">Corporate Website</span>
+                <h3 class="hb-card__title">เว็บไซต์บริษัทและบริการ</h3>
+                <p class="hb-card__body">ออกแบบโครงสร้างหน้าเว็บให้สื่อสารบริการชัดเจน รองรับ SEO, lead generation, analytics และการดูแล content ต่อในระยะยาว</p>
+            </div>
+            <div class="hb-card hb-card--elevated">
+                <span class="hb-eyebrow">Web Application</span>
+                <h3 class="hb-card__title">เว็บแอปพลิเคชันสำหรับธุรกิจ</h3>
+                <p class="hb-card__body">พัฒนา frontend, backend และระบบสมาชิกหรือ workflow เฉพาะทาง โดยคุม performance, security และ user experience ตั้งแต่วันแรก</p>
+            </div>
+            <div class="hb-card hb-card--elevated">
+                <span class="hb-eyebrow">Data Integration</span>
+                <h3 class="hb-card__title">ระบบเชื่อมต่อฐานข้อมูล</h3>
+                <p class="hb-card__body">เชื่อมต่อ CRM, ERP, API, dashboard หรือระบบหลังบ้าน เพื่อให้เว็บไซต์เป็นฐานข้อมูลและช่องทางขายที่วัดผลได้จริง</p>
             </div>
         </div>
     </div>
@@ -134,9 +163,12 @@ $cases = array(
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);">
             <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">คำตอบสั้น</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
-                <strong>SEO-Ready Website คือเว็บไซต์ที่ผ่าน Build Gate 12 ข้อก่อน deploy ขึ้น production</strong> ครอบคลุม Lighthouse 100, Core Web Vitals เขียวทุกตัว, Schema.org markup ครบ, canonical/robots/sitemap auto-submit Google + Bing, AI crawler opt-in (ChatGPT, Claude, Perplexity, Google AI Overviews) ทำให้เว็บติด Google ตั้งแต่ crawl แรก ลด time-to-rank จาก 6 เดือนเหลือ 4-8 สัปดาห์
+                <strong>SEO-Ready Website คือเว็บไซต์ที่ผ่าน Build Gate กว่า 12 ขั้นตอนก่อน Deploy ขึ้น Production</strong> ครอบคลุมทั้ง Lighthouse Score 100, Core Web Vitals ระดับสีเขียวทุกค่า รวมถึงการติดตั้ง Schema.org Markup เพื่อช่วยให้ Search Engine เข้าใจเนื้อหาและธุรกิจได้ถูกต้องและแม่นยำ นอกจากนี้ยังมีการตั้งค่า Canonical, Robots.txt และ Sitemap พร้อม Auto Submit ไปยัง Google และ Bing รวมถึงรองรับ AI Crawlers จากแพลตฟอร์มที่กลุ่มเป้าหมายของทุกธุรกิจนิยมใช้อย่าง ChatGPT, Claude, Gemini, Google AI Overviews และ AI Mode
             </p>
         </div>
+        <blockquote style="margin-top:var(--hb-space-5);padding:var(--hb-space-5);border-left:4px solid var(--hb-accent-cyan,#06B6D4);background:var(--hb-bg,#09090B);border-radius:var(--hb-radius-md,8px);">
+            <p class="hb-lead">ทุกเว็บไซต์ที่มาจาก Hashbox จะถูก Index และเริ่มแข่งขันบน Search Engine ได้ตั้งแต่การ Crawl ครั้งแรก ช่วยลดระยะเวลาในการทำอันดับจากเดิมประมาณ 6 เดือน เหลือเพียง 1-2 เดือนในหลายอุตสาหกรรม</p>
+        </blockquote>
     </div>
 </section>
 
@@ -145,27 +177,27 @@ $cases = array(
     <div class="hb-container hb-container--md">
         <span class="hb-eyebrow">ปัญหา</span>
         <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">ทำไมเว็บส่วนใหญ่ไม่ติด Google ใน 6 เดือนแรก</h2>
-        <p class="hb-lead" style="margin-top:var(--hb-space-4);">เว็บที่ build โดยไม่ผ่าน technical SEO gate มักเจอ 4 ปัญหาซ้ำ ๆ ที่บังคับให้ต้องเสียเวลาแก้หลัง launch:</p>
+        <p class="hb-lead" style="margin-top:var(--hb-space-4);">จากประสบการณ์ดูแลเว็บไซต์ธุรกิจกว่า 50+ โปรเจกต์ เราพบว่าเว็บไซต์จำนวนมากมักถูกพัฒนาโดยข้ามขั้นตอน Technical SEO ตั้งแต่ต้น ส่งผลให้ต้องเสียเวลาและงบประมาณกลับมาแก้ไขหลัง Launch และเป็นสาเหตุสำคัญที่ทำให้เว็บไซต์ยังไม่ติดอันดับบน Google หรือ AI Search</p>
         <div class="hb-bento" style="margin-top:var(--hb-space-6);">
             <div class="hb-bento__cell">
                 <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Indexation</span>
-                <h3 class="hb-card__title">Googlebot crawl ไม่ครบ</h3>
-                <p class="hb-card__body">JS-rendered content, robots.txt ผิด, sitemap ไม่ submit ทำให้ Google index หน้าได้แค่ 30-50% ของจริง</p>
+                <h3 class="hb-card__title">Google Index หน้าเว็บได้ไม่ครบ</h3>
+                <p class="hb-card__body">robots.txt ผิด, ไม่ส่ง Sitemap หรือใช้ JS-rendered content โครงสร้างที่ Google อ่านยากทำให้หน้าเว็บ Index ได้แค่ 30-50%</p>
             </div>
             <div class="hb-bento__cell">
                 <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Core Web Vitals</span>
-                <h3 class="hb-card__title">LCP เกิน 2.5s · INP เกิน 200ms</h3>
-                <p class="hb-card__body">Heavy plugins, ไม่มี image preload, render-blocking CSS/JS ทำให้ Page Experience score แดง · ranking penalty</p>
+                <h3 class="hb-card__title">เว็บโหลดช้า กระทบอันดับ SEO</h3>
+                <p class="hb-card__body">ใช้ Plugin หนัก โหลดไฟล์ CSS/JS มากเกิน หรือไม่มี Image Preload ทำให้ Core Web Vitals ไม่ผ่านเกณฑ์ LCP เกิน 2.5s และ INP เกิน 200ms</p>
             </div>
             <div class="hb-bento__cell">
                 <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Schema</span>
-                <h3 class="hb-card__title">Schema ไม่มี / ผิด validation</h3>
-                <p class="hb-card__body">ขาด Organization, Service, FAQPage, BreadcrumbList ทำให้ไม่มี rich snippets · เสีย CTR 30-40%</p>
+                <h3 class="hb-card__title">Schema ไม่มี / ผิด Validation</h3>
+                <p class="hb-card__body">ไม่มี Schema สำคัญ เช่น Organization, Service, FAQ หรือ Breadcrumb ทำให้ Google ไม่แสดง Rich Snippets จนเสีย CTR 30-40%</p>
             </div>
             <div class="hb-bento__cell">
                 <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">AI Search</span>
-                <h3 class="hb-card__title">ไม่ติด ChatGPT / Perplexity / AI Overviews</h3>
-                <p class="hb-card__body">ไม่มี llms.txt, AI crawler block, schema ไม่ครบ passage-level citation ทำให้พลาดทราฟฟิกจาก AI Search ที่กำลังโตเร็ว</p>
+                <h3 class="hb-card__title">เว็บไซต์ไม่รองรับ AI Search</h3>
+                <p class="hb-card__body">ไม่มีการตั้งค่ารองรับ AI Crawlers, ไม่มี llms.txt และ Schema ไม่ครบ Passage-level Citation ทำให้พลาดทราฟฟิกจาก AI Search ที่กำลังโตเร็ว</p>
             </div>
         </div>
     </div>
@@ -175,8 +207,8 @@ $cases = array(
 <section class="hb-section hb-section--surface">
     <div class="hb-container hb-container--md">
         <span class="hb-eyebrow">Build Gate</span>
-        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">"SEO-Ready" หมายถึงอะไรในมาตรฐานของเรา</h2>
-        <p class="hb-lead" style="margin-top:var(--hb-space-4);">เว็บที่ออกจาก Hashbox ทุกตัวต้องผ่าน Build Gate ก่อน Deploy ขึ้น Production เช็คลิสต์ 12 ข้อนี้บังคับใน CI Pipeline — ไม่ผ่าน = ไม่ Deploy</p>
+        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">รับทำเว็บไซต์ พร้อมผ่าน Build Gate กว่า 12 ขั้นตอน</h2>
+        <p class="hb-lead" style="margin-top:var(--hb-space-4);">บริการรับทำเว็บไซต์ที่มาจาก Hashbox ต้องผ่าน Build Gate ก่อน Deploy ขึ้น Production ตามเช็คลิสต์ 12 ข้อนี้ที่บังคับใน CI Pipeline — ไม่ผ่าน = ไม่ Deploy</p>
         <div class="hb-bento" style="margin-top:var(--hb-space-8);">
             <?php
             $checks = array(
@@ -207,8 +239,8 @@ $cases = array(
 <section class="hb-section">
     <div class="hb-container hb-container--md">
         <span class="hb-eyebrow">Deliverables</span>
-        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">สิ่งที่คุณได้รับใน SEO-Ready Website Package</h2>
-        <p class="hb-lead" style="margin-top:var(--hb-space-4);">รายการ deliverables ครบทุก tier (ปริมาณต่างตาม scope) ทุกอย่างเป็น standard ของทุกโปรเจกต์ ไม่มี hidden charge</p>
+        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">สิ่งที่จะได้รับจากบริการรับทำเว็บไซต์ SEO-Ready</h2>
+        <p class="hb-lead" style="margin-top:var(--hb-space-4);">บริการรับทำเว็บไซต์พร้อมรายการ Deliverables ครบทุก Tier (ปริมาณแตกต่างตาม Scope งาน) โดยทุกอย่างเป็นมาตรฐานเดียวกันในทุกโปรเจกต์ ไม่มี Hidden Charge</p>
         <ul style="margin-top:var(--hb-space-6);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--hb-space-3);list-style:none;padding:0;">
             <?php foreach ( $deliverables as $d ) : ?>
                 <li style="display:flex;gap:var(--hb-space-3);align-items:flex-start;font-size:var(--hb-text-sm);">
@@ -262,7 +294,7 @@ $cases = array(
     <div class="hb-container hb-container--md">
         <span class="hb-eyebrow">Process</span>
         <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">Process 6 Phase: Discovery → Launch</h2>
-        <p class="hb-lead" style="margin-top:var(--hb-space-4);">ระบบทำงานแบบ phased delivery มี milestone ชัดเจน · update รายสัปดาห์ · sign-off ก่อนเข้า phase ถัดไป</p>
+        <p class="hb-lead" style="margin-top:var(--hb-space-4);">บริการรับทำเว็บไซต์แบบ Phased Delivery วางแผนการทำงานเป็นขั้นตอน มี Milestone ชัดเจน อัปเดตความคืบหน้ารายสัปดาห์ และมีการ Sign-off ทุก Phase ก่อนเริ่มขั้นตอนถัดไป</p>
         <ol style="margin-top:var(--hb-space-6);list-style:none;padding:0;display:flex;flex-direction:column;gap:var(--hb-space-4);" itemscope itemtype="https://schema.org/HowTo">
             <?php foreach ( $process as $i => $p ) : ?>
                 <li style="display:flex;gap:var(--hb-space-4);padding:var(--hb-space-5);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);border-left:3px solid var(--hb-accent-blue,#2563EB);" itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
@@ -308,8 +340,8 @@ $cases = array(
 <section class="hb-section">
     <div class="hb-container hb-container--md">
         <span class="hb-eyebrow">Comparison</span>
-        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">Hashbox SEO-Ready vs ทางเลือกอื่น</h2>
-        <p class="hb-lead" style="margin-top:var(--hb-space-4);">เปรียบเทียบ deliverable + ผลลัพธ์ vs ทางเลือกที่ธุรกิจไทยพิจารณาบ่อย</p>
+        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">ทำเว็บไซต์กับ Hashbox vs ทางเลือกอื่น</h2>
+        <p class="hb-lead" style="margin-top:var(--hb-space-4);">เปรียบเทียบบริการรับทำเว็บไซต์ของ Hashbox ทั้งด้าน Deliverables และผลลัพธ์ด้าน SEO/AI Search เทียบกับทางเลือกอื่นที่หลายธุรกิจกำลังพิจารณา</p>
         <div style="margin-top:var(--hb-space-6);overflow-x:auto;">
             <table style="width:100%;border-collapse:collapse;font-size:var(--hb-text-sm);min-width:680px;">
                 <thead>
@@ -357,7 +389,7 @@ $cases = array(
         <div class="hb-section__head">
             <span class="hb-eyebrow">Pricing</span>
             <h2 class="hb-h2">ราคาบริการรับทำเว็บไซต์ SEO-Ready</h2>
-            <p class="hb-lead" style="margin-top:var(--hb-space-4);">ทุก tier รวม Build Gate 12 ข้อ + Deliverables 20 รายการ ราคาต่างตาม scope, จำนวนหน้า, และความซับซ้อน</p>
+            <p class="hb-lead" style="margin-top:var(--hb-space-4);">ราคาบริการรับทำเว็บไซต์ทุก Tier มาพร้อม Build Gate 12 ขั้นตอน และ Deliverables 20 รายการ มาตรฐานเดียวกันทุกโปรเจกต์ โดยราคาจะต่างกันตาม Scope งาน จำนวนหน้าเว็บไซต์ และระดับความซับซ้อนของระบบ</p>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--hb-space-4);">
             <?php foreach ( $pricing as $p ) : ?>
@@ -383,8 +415,8 @@ $cases = array(
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">Best fit</span>
-            <h2 class="hb-h2">บริการทำเว็บไซต์ SEO-Ready เหมาะกับใคร</h2>
-            <p class="hb-lead" style="margin-top:var(--hb-space-4);">เหมาะกับทีมที่ไม่อยากเสียเวลาแก้ technical SEO หลังเว็บเปิดตัว และต้องการให้เว็บเป็นฐานสำหรับ SEO, Ads, CRO และ AI ในอนาคต</p>
+            <h2 class="hb-h2">บริการรับทำเว็บไซต์ SEO-Ready เหมาะกับใคร</h2>
+            <p class="hb-lead" style="margin-top:var(--hb-space-4);">เหมาะสำหรับธุรกิจที่ไม่อยากเสียเวลาและงบประมาณมาแก้ปัญหา Technical SEO หลังเว็บไซต์เปิดใช้งาน รองรับทั้งการทำ SEO, Performance Marketing, CRO (Conversion Rate Optimization) และ AI Search โดยเฉพาะธุรกิจที่ต้องการใช้เว็บไซต์เป็นช่องทางสร้างยอดขาย สร้าง Lead และแข่งขันบน Google อย่างจริงจัง</p>
         </div>
         <div class="hb-bento">
             <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/work/nexus-corp/' ) ); ?>" style="text-decoration:none;">
@@ -504,7 +536,7 @@ hashbox_jsonld( array(
     '@context' => 'https://schema.org',
     '@type' => 'Service',
     '@id' => $page_url . '#service',
-    'name' => 'SEO-Ready Website Build',
+    'name' => 'รับทำเว็บไซต์ SEO-Ready',
     'description' => $desc,
     'url' => $page_url,
     'provider' => array( '@id' => home_url( '/#organization' ) ),
@@ -550,7 +582,7 @@ hashbox_jsonld( array(
     'itemListElement' => array(
         array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
         array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => home_url( '/services/' ) ),
-        array( '@type' => 'ListItem', 'position' => 3, 'name' => 'SEO-Ready Website', 'item' => $page_url ),
+        array( '@type' => 'ListItem', 'position' => 3, 'name' => 'รับทำเว็บไซต์ SEO-Ready', 'item' => $page_url ),
     ),
 ) );
 
@@ -589,8 +621,8 @@ hashbox_jsonld( array(
     '@context' => 'https://schema.org',
     '@type' => 'HowTo',
     '@id' => $page_url . '#process',
-    'name' => 'How to Build an SEO-Ready Website',
-    'description' => 'ขั้นตอนการ build เว็บไซต์ SEO-Ready 6 phase ตั้งแต่ Discovery ถึง Launch + Monitoring',
+    'name' => 'Process 6 Phase: Discovery to Launch',
+    'description' => 'ขั้นตอนบริการรับทำเว็บไซต์ SEO-Ready แบบ phased delivery ตั้งแต่ Discovery ถึง Launch และ Monitoring',
     'totalTime' => 'P6W',
     'step' => $howto_steps,
 ) );

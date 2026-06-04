@@ -568,8 +568,8 @@ function hashbox_get_seo_metadata() {
                 'description' => 'รวมบริการทำเว็บไซต์ SEO-Ready, Digital Marketing + CRO และ AI Consulting ในทีมเดียว วาง KPI เดียวกัน ตั้งแต่เว็บพร้อมติด Google ไปจนถึงระบบ AI ลดงาน Manual',
             ),
             'seo-ready-website' => array(
-                'title'       => 'รับทำเว็บไซต์ SEO-Ready Lighthouse 100 | Hashbox',
-                'description' => 'บริการรับทำเว็บไซต์ SEO-Ready สำหรับธุรกิจไทย วางโครงสร้าง technical SEO, schema, sitemap, Core Web Vitals และ Lighthouse 100 ก่อน deploy ขึ้น production',
+                'title'       => 'รับทำเว็บไซต์ ออกแบบเว็บไซต์ธุรกิจทุกประเภท พร้อมใช้งานทันที',
+                'description' => 'รับทำเว็บไซต์ครบวงจร ทั้งเว็บไซต์บริษัท เว็บแอปพลิเคชัน และระบบเชื่อมต่อฐานข้อมูล พร้อมวางโครงสร้างเว็บไซต์ให้พร้อมติด Google และ AI Search ตั้งแต่วันแรก',
             ),
             'digital-marketing-tools' => array(
                 'title'       => 'Digital Marketing Tools + CRO เพิ่ม Conversion | Hashbox',
