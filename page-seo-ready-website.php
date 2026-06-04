@@ -94,391 +94,1176 @@ $cases = array(
         'url'     => '/work/',
     ),
 );
+
+$case_bars = array(
+    array( 28, 42, 66, 92 ),
+    array( 18, 36, 72, 100 ),
+    array( 24, 34, 62, 86 ),
+);
+
+$checks = array(
+    'Lighthouse Performance 90+ (Mobile) / 95+ (Desktop)',
+    'Lighthouse SEO 100/100',
+    'Lighthouse Best Practices 95+',
+    'Core Web Vitals เขียวทั้ง LCP / INP / CLS',
+    'Schema.org Validator ผ่านทุก Type',
+    'Robots.txt + Sitemap.xml auto-submit GSC + Bing',
+    'Security Headers เกรด A+',
+    'Canonical + OG + Twitter Card',
+    'Hreflang สำหรับ Multilingual',
+    'Mobile-First Responsive (320-1920px)',
+    'Accessibility WCAG 2.1 AA',
+    'PDPA Cookie Consent v2',
+);
 ?>
 
-<section class="hb-hero">
-    <div class="hb-hero__bg"></div>
-    <div class="hb-hero__grid"></div>
-    <div class="hb-container">
-        <div class="hb-hero__inner">
-            <nav class="hb-breadcrumb">
-                <ol class="hb-breadcrumb__list">
-                    <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
-                    <li><span class="hb-breadcrumb__sep">/</span></li>
-                    <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Services</a></li>
-                    <li><span class="hb-breadcrumb__sep">/</span></li>
-                    <li aria-current="page">SEO-Ready Website</li>
-                </ol>
-            </nav>
-            <span class="hb-eyebrow">Service 01 / 03 · Updated <?php echo esc_html( date_i18n( 'F Y' ) ); ?></span>
-            <h1 class="hb-hero__title">รับทำเว็บไซต์<br><em>SEO-Ready</em><br>พัฒนาเว็บให้พร้อมติด Google</h1>
-            <p class="hb-hero__sub"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="color:inherit;text-decoration:underline;text-decoration-color:var(--hb-accent-blue,#2563EB);text-underline-offset:0.18em;">Hashbox</a> รับทำเว็บไซต์ธุรกิจด้วยโครงสร้างที่รองรับการติดอันดับบน Google และติด AI Search ดูแลตั้งแต่ Website Performance, Technical SEO ไปจนถึง User Experience ทุกเว็บต้องผ่านมาตรฐาน Lighthouse 100 พร้อม Core Web Vitals ระดับสีเขียว และมีระบบ Sitemap Auto-Submit เพื่อให้ Google เข้าถึงและจัดอันดับเว็บไซต์ได้เร็วขึ้น เพราะการวางรากฐานเว็บไซต์ที่แข็งแรงและถูกต้องตั้งแต่ต้น คือปัจจัยสำคัญที่ช่วยให้การติด Google และ AI Search เป็นเรื่องง่ายและยั่งยืนกว่า</p>
-            <div class="hb-hero__actions">
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
-                <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงานที่ผ่านมา</a>
-            </div>
-            <div class="hb-trustbar" style="margin-top:var(--hb-space-8);display:flex;flex-wrap:wrap;gap:var(--hb-space-5);align-items:center;color:var(--hb-text-muted,#a1a1aa);font-size:var(--hb-text-sm);">
-                <span>✓ Lighthouse 95+ การันตี</span>
-                <span>✓ Core Web Vitals เขียว</span>
-                <span>✓ Sitemap Auto-Submit</span>
-                <span>✓ AI Search Ready</span>
-                <span>✓ WCAG 2.1 AA</span>
-                <span>✓ ส่งมอบ source code</span>
-            </div>
-        </div>
-    </div>
-</section>
+<style>
+    .hb-srw-page {
+        --srw-bg: var(--hb-bg, #09090b);
+        --srw-surface: var(--hb-bg-elevated, #18181b);
+        --srw-line: rgba(255, 255, 255, .1);
+        --srw-muted: var(--hb-text-muted, #a1a1aa);
+        --srw-soft: var(--hb-text-soft, #d4d4d8);
+        --srw-text: var(--hb-text, #f4f4f5);
+        --srw-blue: var(--hb-accent-blue, #5452ff);
+        --srw-cyan: var(--hb-accent-cyan, #06b6d4);
+        --srw-green: var(--hb-accent-emerald, #10b981);
+        --srw-amber: var(--hb-accent-amber, #f59e0b);
+        --srw-radius: var(--hb-radius-md, 8px);
+        background:
+            linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px),
+            var(--srw-bg);
+        background-size: 72px 72px;
+        color: var(--srw-text);
+    }
 
-<!-- CASE STUDIES -->
-<section class="hb-section hb-section--surface">
-    <div class="hb-container">
-        <div class="hb-section__head">
-            <h2 class="hb-h2">รับทำเว็บไซต์ธุรกิจทุกประเภท รองรับทุกการใช้งาน</h2>
-            <p class="hb-lead" style="margin-top:var(--hb-space-4);">3 เคสจาก 50+ โปรเจกต์ วัดผลจริงด้วย GSC, GA4, CrUX field data</p>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--hb-space-4);">
-            <?php foreach ( $cases as $c ) : ?>
-                <a class="hb-card hb-card--elevated" href="<?php echo esc_url( home_url( $c['url'] ) ); ?>" style="text-decoration:none;display:flex;flex-direction:column;gap:var(--hb-space-3);">
-                    <span class="hb-eyebrow"><?php echo esc_html( $c['tag'] ); ?></span>
-                    <h3 class="hb-card__title"><?php echo esc_html( $c['name'] ); ?></h3>
-                    <div style="display:flex;flex-direction:column;gap:var(--hb-space-2);margin-top:var(--hb-space-3);">
-                        <div style="font-size:var(--hb-text-sm);color:var(--hb-accent-emerald,#10B981);font-weight:600;">▲ <?php echo esc_html( $c['metric1'] ); ?></div>
-                        <div style="font-size:var(--hb-text-sm);color:var(--hb-accent-emerald,#10B981);font-weight:600;">▲ <?php echo esc_html( $c['metric2'] ); ?></div>
-                        <div style="font-size:var(--hb-text-sm);color:var(--hb-accent-emerald,#10B981);font-weight:600;">▲ <?php echo esc_html( $c['metric3'] ); ?></div>
-                    </div>
-                </a>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
+    .hb-srw-section {
+        padding: clamp(72px, 8vw, 112px) 0;
+        border-top: 1px solid rgba(255, 255, 255, .06);
+    }
 
-<!-- ANSWER BLOCK (GEO citation passage) -->
-<section class="hb-section hb-section--surface" id="answer">
-    <div class="hb-container hb-container--md">
-        <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);">
-            <h2 class="hb-h2">SEO-Ready Website คืออะไร?</h2>
-            <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
-                <strong>คือ เว็บไซต์ที่ผ่าน Build Gate กว่า 12 ขั้นตอนก่อน Deploy ขึ้น Production</strong> ครอบคลุมทั้ง Lighthouse Score 100, Core Web Vitals ระดับสีเขียวทุกค่า รวมถึงการติดตั้ง Schema.org Markup เพื่อช่วยให้ Search Engine เข้าใจเนื้อหาและธุรกิจได้ถูกต้องและแม่นยำ นอกจากนี้ยังมีการตั้งค่า Canonical, Robots.txt และ Sitemap พร้อม Auto Submit ไปยัง Google และ Bing รวมถึงรองรับ AI Crawlers จากแพลตฟอร์มที่กลุ่มเป้าหมายของทุกธุรกิจนิยมใช้อย่าง ChatGPT, Claude, Gemini, Google AI Overviews และ AI Mode
-            </p>
-        </div>
-        <blockquote class="hb-seo-quote" style="margin:var(--hb-space-7) auto 0;max-width:56rem;padding:var(--hb-space-6) var(--hb-space-5);text-align:center;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015));border:1px solid rgba(129,140,248,0.22);border-radius:var(--hb-radius-md,8px);box-shadow:0 24px 80px -64px rgba(79,70,229,0.7);">
-            <p class="hb-lead" style="margin:0;color:var(--hb-text,#e4e4e7);font-style:italic;font-weight:600;line-height:1.75;">&ldquo;ทุกเว็บไซต์ที่มาจาก Hashbox จะถูก Index และเริ่มแข่งขันบน Search Engine ได้ตั้งแต่การ Crawl ครั้งแรก ช่วยลดระยะเวลาในการทำอันดับจากเดิมประมาณ 6 เดือน เหลือเพียง 1-2 เดือนในหลายอุตสาหกรรม&rdquo;</p>
-        </blockquote>
-    </div>
-</section>
+    .hb-srw-section--surface {
+        background: linear-gradient(180deg, rgba(255, 255, 255, .035), rgba(255, 255, 255, .012));
+    }
 
-<!-- Build Gate -->
-<section class="hb-section hb-section--surface">
-    <div class="hb-container hb-container--md">
-        <span class="hb-eyebrow">Build Gate</span>
-        <h3 class="hb-h2" style="margin-top:var(--hb-space-3);">รับทำเว็บไซต์ พร้อมผ่าน Build Gate กว่า 12 ขั้นตอน</h3>
-        <p class="hb-lead" style="margin-top:var(--hb-space-4);">บริการรับทำเว็บไซต์ที่มาจาก Hashbox ต้องผ่าน Build Gate ก่อน Deploy ขึ้น Production ตามเช็คลิสต์ 12 ข้อนี้ที่บังคับใน CI Pipeline — ไม่ผ่าน = ไม่ Deploy</p>
-        <div class="hb-bento" style="margin-top:var(--hb-space-8);">
-            <?php
-            $checks = array(
-                'Lighthouse Performance 90+ (Mobile) / 95+ (Desktop)',
-                'Lighthouse SEO 100/100',
-                'Lighthouse Best Practices 95+',
-                'Core Web Vitals เขียวทั้ง LCP / INP / CLS',
-                'Schema.org Validator ผ่านทุก Type',
-                'Robots.txt + Sitemap.xml auto-submit GSC + Bing',
-                'Security Headers เกรด A+',
-                'Canonical + OG + Twitter Card',
-                'Hreflang สำหรับ Multilingual',
-                'Mobile-First Responsive (320-1920px)',
-                'Accessibility WCAG 2.1 AA',
-                'PDPA Cookie Consent v2',
-            );
-            foreach ( $checks as $check ) : ?>
-                <div class="hb-bento__cell" style="flex-direction:row;align-items:center;gap:var(--hb-space-3);">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--hb-accent-emerald)" stroke-width="2" style="flex-shrink:0;"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span class="hb-body"><?php echo esc_html( $check ); ?></span>
+    .hb-srw-head {
+        max-width: 920px;
+        margin-bottom: var(--hb-space-8, 3rem);
+    }
+
+    .hb-srw-head .hb-lead {
+        margin-top: var(--hb-space-4, 1rem);
+    }
+
+    .hb-srw-hero {
+        position: relative;
+        min-height: 840px;
+        display: grid;
+        align-items: center;
+        padding: clamp(80px, 10vw, 132px) 0 clamp(76px, 9vw, 120px);
+        border-top: 0;
+        overflow: hidden;
+    }
+
+    .hb-srw-hero:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            linear-gradient(90deg, rgba(9, 9, 11, .98) 0%, rgba(9, 9, 11, .91) 46%, rgba(9, 9, 11, .6) 100%),
+            linear-gradient(135deg, rgba(84, 82, 255, .24), transparent 38%),
+            linear-gradient(315deg, rgba(6, 182, 212, .14), transparent 34%);
+        pointer-events: none;
+    }
+
+    .hb-srw-hero__inner {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(390px, .72fr);
+        gap: clamp(36px, 5vw, 64px);
+        align-items: center;
+    }
+
+    .hb-srw-hero .hb-breadcrumb {
+        margin-bottom: var(--hb-space-6, 2rem);
+    }
+
+    .hb-srw-hero__sub {
+        max-width: 820px;
+        margin-top: var(--hb-space-6, 2rem);
+    }
+
+    .hb-srw-hero__actions,
+    .hb-srw-trustbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--hb-space-3, .75rem);
+        margin-top: var(--hb-space-6, 2rem);
+    }
+
+    .hb-srw-trustbar {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--hb-space-3, .75rem);
+        margin-top: var(--hb-space-7, 2.5rem);
+    }
+
+    .hb-srw-chip,
+    .hb-srw-mini-card,
+    .hb-srw-card {
+        border: 1px solid var(--srw-line);
+        border-radius: var(--srw-radius);
+        background: rgba(255, 255, 255, .04);
+    }
+
+    .hb-srw-chip {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        gap: var(--hb-space-2, .5rem);
+        padding: var(--hb-space-2, .5rem) var(--hb-space-3, .75rem);
+        color: var(--srw-soft);
+        font-size: var(--hb-text-sm, .875rem);
+    }
+
+    .hb-srw-icon {
+        width: 22px;
+        height: 22px;
+        flex: 0 0 auto;
+        color: var(--srw-blue);
+    }
+
+    .hb-srw-dashboard {
+        position: relative;
+        padding: clamp(16px, 2vw, 22px);
+        border: 1px solid rgba(255, 255, 255, .12);
+        border-radius: 14px;
+        background: rgba(18, 18, 23, .72);
+        box-shadow: 0 28px 90px rgba(0, 0, 0, .36);
+        backdrop-filter: blur(18px);
+    }
+
+    .hb-srw-dashboard__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--hb-space-3, .75rem);
+        padding-bottom: var(--hb-space-4, 1rem);
+        border-bottom: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .hb-srw-dots {
+        display: flex;
+        gap: 7px;
+    }
+
+    .hb-srw-dots span {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: #3f3f46;
+    }
+
+    .hb-srw-status {
+        color: var(--srw-green);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .hb-srw-score {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: var(--hb-space-4, 1rem);
+        align-items: center;
+        padding: var(--hb-space-5, 1.5rem) 0 var(--hb-space-4, 1rem);
+    }
+
+    .hb-srw-ring {
+        width: 150px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        background:
+            radial-gradient(circle at center, var(--srw-surface) 0 54%, transparent 55%),
+            conic-gradient(var(--srw-green) 0 96%, rgba(255, 255, 255, .1) 96% 100%);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08);
+        text-align: center;
+    }
+
+    .hb-srw-ring strong {
+        display: block;
+        font-size: 2.5rem;
+        line-height: 1;
+    }
+
+    .hb-srw-ring span,
+    .hb-srw-metric span,
+    .hb-srw-flow span {
+        color: var(--srw-muted);
+        font-size: var(--hb-text-xs, .75rem);
+    }
+
+    .hb-srw-metric-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--hb-space-2, .5rem);
+    }
+
+    .hb-srw-metric {
+        min-height: 82px;
+        padding: var(--hb-space-3, .75rem);
+        border: 1px solid rgba(255, 255, 255, .09);
+        border-radius: var(--srw-radius);
+        background: rgba(255, 255, 255, .035);
+    }
+
+    .hb-srw-metric b {
+        display: block;
+        font-size: 1.35rem;
+        line-height: 1.1;
+    }
+
+    .hb-srw-flow {
+        display: grid;
+        gap: var(--hb-space-2, .5rem);
+    }
+
+    .hb-srw-flow__row {
+        display: grid;
+        grid-template-columns: 24px 1fr auto;
+        gap: var(--hb-space-3, .75rem);
+        align-items: center;
+        padding: var(--hb-space-3, .75rem);
+        border: 1px solid rgba(255, 255, 255, .08);
+        border-radius: var(--srw-radius);
+        background: rgba(9, 9, 11, .52);
+    }
+
+    .hb-srw-flow strong {
+        color: var(--srw-soft);
+        font-size: var(--hb-text-sm, .875rem);
+    }
+
+    .hb-srw-case-grid,
+    .hb-srw-problem-grid,
+    .hb-srw-stack-grid,
+    .hb-srw-price-grid,
+    .hb-srw-related-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--hb-space-4, 1rem);
+    }
+
+    .hb-srw-card {
+        padding: clamp(22px, 2.5vw, 32px);
+        box-shadow: 0 18px 70px rgba(0, 0, 0, .22);
+    }
+
+    .hb-srw-case {
+        position: relative;
+        min-height: 320px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-decoration: none;
+        overflow: hidden;
+    }
+
+    .hb-srw-case:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-top: 3px solid var(--srw-green);
+        opacity: .8;
+        pointer-events: none;
+    }
+
+    .hb-srw-case .hb-card__title {
+        margin-top: var(--hb-space-4, 1rem);
+    }
+
+    .hb-srw-chart {
+        display: flex;
+        align-items: end;
+        gap: 8px;
+        height: 74px;
+        margin-top: var(--hb-space-6, 2rem);
+    }
+
+    .hb-srw-bar {
+        width: 100%;
+        border-radius: 5px 5px 0 0;
+        background: linear-gradient(180deg, var(--srw-green), rgba(16, 185, 129, .2));
+    }
+
+    .hb-srw-metrics {
+        display: grid;
+        gap: var(--hb-space-2, .5rem);
+        margin-top: var(--hb-space-5, 1.5rem);
+        color: var(--srw-green);
+        font-size: var(--hb-text-sm, .875rem);
+        font-weight: 700;
+    }
+
+    .hb-srw-answer-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: var(--hb-space-5, 1.5rem);
+        align-items: stretch;
+    }
+
+    .hb-srw-answer-box {
+        border-left: 4px solid var(--srw-blue);
+    }
+
+    .hb-srw-quote {
+        display: grid;
+        align-content: center;
+        text-align: center;
+        background: linear-gradient(180deg, rgba(84, 82, 255, .14), rgba(255, 255, 255, .03));
+    }
+
+    .hb-srw-quote__mark {
+        color: var(--srw-blue);
+        font-size: 3.4rem;
+        line-height: 1;
+    }
+
+    .hb-srw-quote p {
+        color: var(--srw-soft);
+        font-size: clamp(1.05rem, 2vw, 1.25rem);
+        font-style: italic;
+        font-weight: 700;
+        line-height: 1.75;
+    }
+
+    .hb-srw-gate-layout {
+        display: grid;
+        grid-template-columns: 310px minmax(0, 1fr);
+        gap: var(--hb-space-5, 1.5rem);
+        align-items: start;
+    }
+
+    .hb-srw-gate-summary {
+        position: sticky;
+        top: 96px;
+    }
+
+    .hb-srw-gate-number {
+        width: 180px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        margin: var(--hb-space-5, 1.5rem) auto;
+        border-radius: 999px;
+        background:
+            radial-gradient(circle at center, var(--srw-surface) 0 55%, transparent 56%),
+            conic-gradient(var(--srw-blue) 0 100%);
+        box-shadow: 0 20px 70px rgba(84, 82, 255, .28);
+        text-align: center;
+    }
+
+    .hb-srw-gate-number strong {
+        display: block;
+        font-size: 3rem;
+        line-height: 1;
+    }
+
+    .hb-srw-check-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--hb-space-3, .75rem);
+    }
+
+    .hb-srw-check {
+        min-height: 144px;
+        display: flex;
+        flex-direction: column;
+        gap: var(--hb-space-4, 1rem);
+    }
+
+    .hb-srw-check .hb-srw-icon,
+    .hb-srw-problem .hb-srw-icon {
+        color: var(--srw-green);
+    }
+
+    .hb-srw-problem-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .hb-srw-problem {
+        min-height: 410px;
+        border-color: rgba(245, 158, 11, .2);
+    }
+
+    .hb-srw-problem .hb-srw-icon {
+        color: var(--srw-amber);
+    }
+
+    .hb-srw-problem .hb-card__title {
+        margin-top: var(--hb-space-5, 1.5rem);
+    }
+
+    .hb-srw-deliverables {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--hb-space-3, .75rem);
+        padding: 0;
+        margin: var(--hb-space-7, 2.5rem) 0 0;
+        list-style: none;
+    }
+
+    .hb-srw-deliverables li {
+        display: flex;
+        gap: var(--hb-space-3, .75rem);
+        align-items: flex-start;
+        min-height: 64px;
+        padding: var(--hb-space-4, 1rem);
+        border: 1px solid var(--srw-line);
+        border-radius: var(--srw-radius);
+        background: rgba(255, 255, 255, .035);
+    }
+
+    .hb-srw-stack-card ul {
+        display: grid;
+        gap: var(--hb-space-3, .75rem);
+        margin: var(--hb-space-5, 1.5rem) 0 0;
+        padding-left: var(--hb-space-5, 1.5rem);
+        color: var(--srw-muted);
+    }
+
+    .hb-srw-stack-title {
+        display: flex;
+        align-items: center;
+        gap: var(--hb-space-3, .75rem);
+    }
+
+    .hb-srw-stack-icon {
+        width: 52px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        border-radius: var(--srw-radius);
+        background: rgba(84, 82, 255, .14);
+    }
+
+    .hb-srw-timeline {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: var(--hb-space-3, .75rem);
+        list-style: none;
+        padding: 0;
+        margin: var(--hb-space-7, 2.5rem) 0 0;
+    }
+
+    .hb-srw-step {
+        min-height: 250px;
+    }
+
+    .hb-srw-step__number {
+        width: 42px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        background: var(--srw-blue);
+        color: #fff;
+        font-weight: 800;
+    }
+
+    .hb-srw-step .hb-card__title {
+        margin-top: var(--hb-space-4, 1rem);
+    }
+
+    .hb-srw-table-wrap {
+        margin-top: var(--hb-space-7, 2.5rem);
+        overflow-x: auto;
+        border: 1px solid var(--srw-line);
+        border-radius: var(--srw-radius);
+        background: rgba(255, 255, 255, .035);
+    }
+
+    .hb-srw-table {
+        width: 100%;
+        min-width: 720px;
+        border-collapse: collapse;
+        font-size: var(--hb-text-sm, .875rem);
+    }
+
+    .hb-srw-table th,
+    .hb-srw-table td {
+        padding: var(--hb-space-4, 1rem);
+        border-bottom: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .hb-srw-table th {
+        text-align: left;
+        color: var(--srw-text);
+        background: rgba(9, 9, 11, .45);
+    }
+
+    .hb-srw-table td:not(:first-child),
+    .hb-srw-table th:not(:first-child) {
+        text-align: center;
+    }
+
+    .hb-srw-price-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .hb-srw-price {
+        display: flex;
+        flex-direction: column;
+        gap: var(--hb-space-4, 1rem);
+    }
+
+    .hb-srw-price__amount {
+        color: var(--srw-blue);
+        font-size: clamp(1.3rem, 2vw, 1.7rem);
+        font-weight: 800;
+        line-height: 1.3;
+    }
+
+    .hb-srw-best-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--hb-space-4, 1rem);
+    }
+
+    .hb-srw-author {
+        display: grid;
+        grid-template-columns: 96px minmax(0, 1fr);
+        gap: var(--hb-space-5, 1.5rem);
+        align-items: center;
+    }
+
+    .hb-srw-avatar {
+        width: 96px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--srw-blue), var(--srw-cyan));
+        color: #fff;
+        font-size: 2.4rem;
+        font-weight: 800;
+    }
+
+    .hb-srw-related-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .hb-srw-cta {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: var(--hb-space-6, 2rem);
+        align-items: center;
+        border-color: rgba(84, 82, 255, .35);
+        background: linear-gradient(135deg, rgba(84, 82, 255, .2), rgba(18, 18, 23, .88));
+    }
+
+    .hb-srw-hero__copy,
+    .hb-srw-dashboard {
+        animation: hbSrwFadeUp .72s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
+    .hb-srw-dashboard {
+        animation-delay: .12s;
+    }
+
+    .hb-srw-ring {
+        animation: hbSrwScorePulse 3.8s ease-in-out infinite;
+    }
+
+    .hb-srw-bar {
+        transform-origin: bottom;
+        animation: hbSrwBarGrow .92s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
+    .hb-srw-bar:nth-child(2) {
+        animation-delay: .08s;
+    }
+
+    .hb-srw-bar:nth-child(3) {
+        animation-delay: .16s;
+    }
+
+    .hb-srw-bar:nth-child(4) {
+        animation-delay: .24s;
+    }
+
+    .hb-srw-card,
+    .hb-srw-dashboard,
+    .hb-srw-chip {
+        transition: transform .22s ease, border-color .22s ease, background .22s ease, box-shadow .22s ease;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        .hb-srw-card:hover,
+        .hb-srw-chip:hover {
+            transform: translateY(-4px);
+            border-color: rgba(129, 140, 248, .38);
+            background: rgba(255, 255, 255, .055);
+        }
+
+        .hb-srw-dashboard:hover {
+            transform: translateY(-6px);
+            border-color: rgba(129, 140, 248, .32);
+        }
+    }
+
+    @keyframes hbSrwFadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(18px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes hbSrwScorePulse {
+        0%,
+        100% {
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08), 0 0 0 rgba(16, 185, 129, 0);
+        }
+        50% {
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08), 0 0 42px rgba(16, 185, 129, .18);
+        }
+    }
+
+    @keyframes hbSrwBarGrow {
+        from {
+            transform: scaleY(.08);
+            opacity: .36;
+        }
+        to {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .hb-srw-page *,
+        .hb-srw-page *:before,
+        .hb-srw-page *:after {
+            animation-duration: .01ms !important;
+            animation-iteration-count: 1 !important;
+            scroll-behavior: auto !important;
+            transition-duration: .01ms !important;
+        }
+    }
+
+    @media (max-width: 1180px) {
+        .hb-srw-hero__inner,
+        .hb-srw-answer-layout,
+        .hb-srw-gate-layout,
+        .hb-srw-cta {
+            grid-template-columns: 1fr;
+        }
+
+        .hb-srw-gate-summary {
+            position: static;
+        }
+
+        .hb-srw-case-grid,
+        .hb-srw-problem-grid,
+        .hb-srw-stack-grid,
+        .hb-srw-price-grid,
+        .hb-srw-related-grid,
+        .hb-srw-check-grid,
+        .hb-srw-timeline,
+        .hb-srw-trustbar {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 720px) {
+        .hb-srw-hero {
+            min-height: auto;
+            padding-top: var(--hb-space-10, 5rem);
+        }
+
+        .hb-srw-trustbar,
+        .hb-srw-metric-grid,
+        .hb-srw-score,
+        .hb-srw-case-grid,
+        .hb-srw-problem-grid,
+        .hb-srw-stack-grid,
+        .hb-srw-price-grid,
+        .hb-srw-related-grid,
+        .hb-srw-check-grid,
+        .hb-srw-timeline,
+        .hb-srw-best-grid,
+        .hb-srw-deliverables,
+        .hb-srw-author {
+            grid-template-columns: 1fr;
+        }
+
+        .hb-srw-score {
+            justify-items: center;
+        }
+
+        .hb-srw-flow__row {
+            grid-template-columns: 24px 1fr;
+        }
+
+        .hb-srw-flow strong {
+            grid-column: 2;
+        }
+
+        .hb-srw-hero__actions .hb-btn,
+        .hb-srw-cta .hb-btn {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="hb-srw-page">
+    <section class="hb-srw-hero">
+        <div class="hb-container hb-srw-hero__inner">
+            <div class="hb-srw-hero__copy">
+                <nav class="hb-breadcrumb">
+                    <ol class="hb-breadcrumb__list">
+                        <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
+                        <li><span class="hb-breadcrumb__sep">/</span></li>
+                        <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Services</a></li>
+                        <li><span class="hb-breadcrumb__sep">/</span></li>
+                        <li aria-current="page">SEO-Ready Website</li>
+                    </ol>
+                </nav>
+                <span class="hb-eyebrow">Service 01 / 03 · Updated <?php echo esc_html( date_i18n( 'F Y' ) ); ?></span>
+                <h1 class="hb-hero__title">รับทำเว็บไซต์<br><em>SEO-Ready</em><br>พัฒนาเว็บให้พร้อมติด Google</h1>
+                <p class="hb-hero__sub hb-srw-hero__sub"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="color:inherit;text-decoration:underline;text-decoration-color:var(--hb-accent-blue,#2563EB);text-underline-offset:0.18em;">Hashbox</a> รับทำเว็บไซต์ธุรกิจด้วยโครงสร้างที่รองรับการติดอันดับบน Google และติด AI Search ดูแลตั้งแต่ Website Performance, Technical SEO ไปจนถึง User Experience ทุกเว็บต้องผ่านมาตรฐาน Lighthouse 100 พร้อม Core Web Vitals ระดับสีเขียว และมีระบบ Sitemap Auto-Submit เพื่อให้ Google เข้าถึงและจัดอันดับเว็บไซต์ได้เร็วขึ้น เพราะการวางรากฐานเว็บไซต์ที่แข็งแรงและถูกต้องตั้งแต่ต้น คือปัจจัยสำคัญที่ช่วยให้การติด Google และ AI Search เป็นเรื่องง่ายและยั่งยืนกว่า</p>
+                <div class="hb-hero__actions hb-srw-hero__actions">
+                    <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
+                    <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงานที่ผ่านมา</a>
                 </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
+                <div class="hb-srw-trustbar">
+                    <span class="hb-srw-chip">Lighthouse 95+ การันตี</span>
+                    <span class="hb-srw-chip">Core Web Vitals เขียว</span>
+                    <span class="hb-srw-chip">Sitemap Auto-Submit</span>
+                    <span class="hb-srw-chip">AI Search Ready</span>
+                    <span class="hb-srw-chip">WCAG 2.1 AA</span>
+                    <span class="hb-srw-chip">ส่งมอบ source code</span>
+                </div>
+            </div>
 
-<!-- PROBLEM -->
-<section class="hb-section">
-    <div class="hb-container hb-container--md">
-        <span class="hb-eyebrow">ปัญหา</span>
-        <h3 class="hb-h2" style="margin-top:var(--hb-space-3);">ทำไมเว็บส่วนใหญ่ไม่ติด Google ใน 6 เดือนแรก</h3>
-        <p class="hb-lead" style="margin-top:var(--hb-space-4);">จากประสบการณ์ดูแลเว็บไซต์ธุรกิจกว่า 50+ โปรเจกต์ เราพบว่าเว็บไซต์จำนวนมากมักถูกพัฒนาโดยข้ามขั้นตอน Technical SEO ตั้งแต่ต้น ส่งผลให้ต้องเสียเวลาและงบประมาณกลับมาแก้ไขหลัง Launch และเป็นสาเหตุสำคัญที่ทำให้เว็บไซต์ยังไม่ติดอันดับบน Google หรือ AI Search</p>
-        <div class="hb-bento" style="margin-top:var(--hb-space-6);">
-            <div class="hb-bento__cell">
-                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Indexation</span>
-                <h3 class="hb-card__title">Google Index หน้าเว็บได้ไม่ครบ</h3>
-                <p class="hb-card__body">robots.txt ผิด, ไม่ส่ง Sitemap หรือใช้ JS-rendered content โครงสร้างที่ Google อ่านยากทำให้หน้าเว็บ Index ได้แค่ 30-50%</p>
-            </div>
-            <div class="hb-bento__cell">
-                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Core Web Vitals</span>
-                <h3 class="hb-card__title">เว็บโหลดช้า กระทบอันดับ SEO</h3>
-                <p class="hb-card__body">ใช้ Plugin หนัก โหลดไฟล์ CSS/JS มากเกิน หรือไม่มี Image Preload ทำให้ Core Web Vitals ไม่ผ่านเกณฑ์ LCP เกิน 2.5s และ INP เกิน 200ms</p>
-            </div>
-            <div class="hb-bento__cell">
-                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Schema</span>
-                <h3 class="hb-card__title">Schema ไม่มี / ผิด Validation</h3>
-                <p class="hb-card__body">ไม่มี Schema สำคัญ เช่น Organization, Service, FAQ หรือ Breadcrumb ทำให้ Google ไม่แสดง Rich Snippets จนเสีย CTR 30-40%</p>
-            </div>
-            <div class="hb-bento__cell">
-                <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">AI Search</span>
-                <h3 class="hb-card__title">เว็บไซต์ไม่รองรับ AI Search</h3>
-                <p class="hb-card__body">ไม่มีการตั้งค่ารองรับ AI Crawlers, ไม่มี llms.txt และ Schema ไม่ครบ Passage-level Citation ทำให้พลาดทราฟฟิกจาก AI Search ที่กำลังโตเร็ว</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- DELIVERABLES -->
-<section class="hb-section">
-    <div class="hb-container hb-container--md">
-        <span class="hb-eyebrow">Deliverables</span>
-        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">สิ่งที่จะได้รับจากบริการรับทำเว็บไซต์ SEO-Ready</h2>
-        <p class="hb-lead" style="margin-top:var(--hb-space-4);">บริการรับทำเว็บไซต์พร้อมรายการ Deliverables ครบทุก Tier (ปริมาณแตกต่างตาม Scope งาน) โดยทุกอย่างเป็นมาตรฐานเดียวกันในทุกโปรเจกต์ ไม่มี Hidden Charge</p>
-        <ul style="margin-top:var(--hb-space-6);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--hb-space-3);list-style:none;padding:0;">
-            <?php foreach ( $deliverables as $d ) : ?>
-                <li style="display:flex;gap:var(--hb-space-3);align-items:flex-start;font-size:var(--hb-text-sm);">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--hb-accent-emerald)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span><?php echo esc_html( $d ); ?></span>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-</section>
-
-<!-- Tech Stack -->
-<section class="hb-section hb-section--surface">
-    <div class="hb-container">
-        <div class="hb-section__head">
-            <span class="hb-eyebrow">Tech Stack</span>
-            <h3 class="hb-h2">เลือก Stack ตามโจทย์</h3>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--hb-space-4);">
-            <div class="hb-card hb-card--elevated">
-                <h3 class="hb-card__title">Frontend</h3>
-                <ul class="hb-prose" style="padding-left:var(--hb-space-5);font-size:var(--hb-text-sm);">
-                    <li><strong>Next.js</strong> — Performance สูงสุด, SSR/ISR, Vercel edge</li>
-                    <li><strong>WordPress Custom</strong> — ทีม non-tech แก้ content เองได้</li>
-                    <li><strong>Astro / 11ty</strong> — Marketing/Docs site เน้น speed</li>
-                </ul>
-            </div>
-            <div class="hb-card hb-card--elevated">
-                <h3 class="hb-card__title">CMS</h3>
-                <ul class="hb-prose" style="padding-left:var(--hb-space-5);font-size:var(--hb-text-sm);">
-                    <li><strong>Headless WordPress</strong> — มี ecosystem, plugin มาก</li>
-                    <li><strong>Sanity</strong> — structured content, multi-channel</li>
-                    <li><strong>Contentful</strong> — enterprise, multi-language</li>
-                    <li><strong>Strapi</strong> — self-host, open source</li>
-                </ul>
-            </div>
-            <div class="hb-card hb-card--elevated">
-                <h3 class="hb-card__title">Hosting / Edge</h3>
-                <ul class="hb-prose" style="padding-left:var(--hb-space-5);font-size:var(--hb-text-sm);">
-                    <li><strong>Vercel</strong> — Next.js + ISR, edge runtime</li>
-                    <li><strong>Cloudflare Pages</strong> — Astro/static, free tier ดี</li>
-                    <li><strong>WP Engine / Kinsta</strong> — managed WordPress</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- PROCESS TIMELINE (HowTo) -->
-<section class="hb-section">
-    <div class="hb-container hb-container--md">
-        <span class="hb-eyebrow">Process</span>
-        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">Process 6 Phase: Discovery → Launch</h2>
-        <p class="hb-lead" style="margin-top:var(--hb-space-4);">บริการรับทำเว็บไซต์แบบ Phased Delivery วางแผนการทำงานเป็นขั้นตอน มี Milestone ชัดเจน อัปเดตความคืบหน้ารายสัปดาห์ และมีการ Sign-off ทุก Phase ก่อนเริ่มขั้นตอนถัดไป</p>
-        <ol style="margin-top:var(--hb-space-6);list-style:none;padding:0;display:flex;flex-direction:column;gap:var(--hb-space-4);" itemscope itemtype="https://schema.org/HowTo">
-            <?php foreach ( $process as $i => $p ) : ?>
-                <li style="display:flex;gap:var(--hb-space-4);padding:var(--hb-space-5);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);border-left:3px solid var(--hb-accent-blue,#2563EB);" itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
-                    <div style="flex-shrink:0;width:48px;height:48px;border-radius:50%;background:var(--hb-accent-blue,#2563EB);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--hb-text-lg);"><?php echo (int) ( $i + 1 ); ?></div>
-                    <div>
-                        <div style="display:flex;gap:var(--hb-space-3);align-items:baseline;flex-wrap:wrap;">
-                            <h3 class="hb-card__title" itemprop="name" style="margin:0;"><?php echo esc_html( $p['name'] ); ?></h3>
-                            <span class="hb-eyebrow" style="color:var(--hb-accent-cyan,#06B6D4);"><?php echo esc_html( $p['time'] ); ?></span>
+            <figure class="hb-srw-dashboard" aria-hidden="true">
+                <div class="hb-srw-dashboard__top">
+                    <div class="hb-srw-dots"><span></span><span></span><span></span></div>
+                    <div class="hb-srw-status">READY_FOR_DEPLOY</div>
+                </div>
+                <div class="hb-srw-score">
+                    <div class="hb-srw-ring">
+                        <div>
+                            <strong>100</strong>
+                            <span>Lighthouse</span>
                         </div>
-                        <p class="hb-body" itemprop="text" style="margin-top:var(--hb-space-2);"><?php echo esc_html( $p['detail'] ); ?></p>
                     </div>
-                </li>
-            <?php endforeach; ?>
-        </ol>
-    </div>
-</section>
-
-<!-- COMPARISON TABLE -->
-<section class="hb-section">
-    <div class="hb-container hb-container--md">
-        <span class="hb-eyebrow">Comparison</span>
-        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">ทำเว็บไซต์กับ Hashbox vs ทางเลือกอื่น</h2>
-        <p class="hb-lead" style="margin-top:var(--hb-space-4);">เปรียบเทียบบริการรับทำเว็บไซต์ของ Hashbox ทั้งด้าน Deliverables และผลลัพธ์ด้าน SEO/AI Search เทียบกับทางเลือกอื่นที่หลายธุรกิจกำลังพิจารณา</p>
-        <div style="margin-top:var(--hb-space-6);overflow-x:auto;">
-            <table style="width:100%;border-collapse:collapse;font-size:var(--hb-text-sm);min-width:680px;">
-                <thead>
-                    <tr style="border-bottom:2px solid var(--hb-border,#27272A);">
-                        <th style="text-align:left;padding:var(--hb-space-3);">รายการ</th>
-                        <th style="text-align:center;padding:var(--hb-space-3);color:var(--hb-accent-blue,#2563EB);">Hashbox</th>
-                        <th style="text-align:center;padding:var(--hb-space-3);">Agency ทั่วไป</th>
-                        <th style="text-align:center;padding:var(--hb-space-3);">Freelance</th>
-                        <th style="text-align:center;padding:var(--hb-space-3);">Template สำเร็จรูป</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $rows = array(
-                        array( 'Lighthouse 95+ การันตี', '✓', '✗', '✗', '✗' ),
-                        array( 'Core Web Vitals เขียวก่อน launch', '✓', 'บางเคส', '✗', '✗' ),
-                        array( 'Schema 8+ types', '✓', '2-3 types', '1-2 types', '0-1 types' ),
-                        array( 'AI Search / GEO ready', '✓', '✗', '✗', '✗' ),
-                        array( 'WCAG 2.1 AA', '✓', 'บางเคส', '✗', '✗' ),
-                        array( 'ส่งมอบ source code', '✓', 'บางเคส', '✓', '✗ (locked)' ),
-                        array( '301 Redirect Map (migration)', '✓', 'เพิ่ม fee', '✗', '✗' ),
-                        array( 'Care plan + monitoring', '✓ (optional)', '✓ (mandatory)', '✗', '✗' ),
-                        array( 'ราคาเริ่มต้น', '80k บาท', '150k-500k', '30k-100k', '5k-20k' ),
-                        array( 'Time-to-rank (เฉลี่ย)', '4-8 สัปดาห์', '4-6 เดือน', '6-12 เดือน', 'ไม่การันตี' ),
-                    );
-                    foreach ( $rows as $r ) :
-                    ?>
-                    <tr style="border-bottom:1px solid var(--hb-border,#27272A);">
-                        <td style="padding:var(--hb-space-3);"><?php echo esc_html( $r[0] ); ?></td>
-                        <td style="padding:var(--hb-space-3);text-align:center;color:var(--hb-accent-emerald,#10B981);font-weight:600;"><?php echo esc_html( $r[1] ); ?></td>
-                        <td style="padding:var(--hb-space-3);text-align:center;color:var(--hb-text-muted,#a1a1aa);"><?php echo esc_html( $r[2] ); ?></td>
-                        <td style="padding:var(--hb-space-3);text-align:center;color:var(--hb-text-muted,#a1a1aa);"><?php echo esc_html( $r[3] ); ?></td>
-                        <td style="padding:var(--hb-space-3);text-align:center;color:var(--hb-text-muted,#a1a1aa);"><?php echo esc_html( $r[4] ); ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
-
-<!-- PRICING TIERS -->
-<section class="hb-section hb-section--surface" id="pricing">
-    <div class="hb-container">
-        <div class="hb-section__head">
-            <span class="hb-eyebrow">Pricing</span>
-            <h2 class="hb-h2">ราคาบริการรับทำเว็บไซต์ SEO-Ready</h2>
-            <p class="hb-lead" style="margin-top:var(--hb-space-4);">ราคาบริการรับทำเว็บไซต์ทุก Tier มาพร้อม Build Gate 12 ขั้นตอน และ Deliverables 20 รายการ มาตรฐานเดียวกันทุกโปรเจกต์ โดยราคาจะต่างกันตาม Scope งาน จำนวนหน้าเว็บไซต์ และระดับความซับซ้อนของระบบ</p>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--hb-space-4);">
-            <?php foreach ( $pricing as $p ) : ?>
-                <div class="hb-card hb-card--elevated" style="display:flex;flex-direction:column;gap:var(--hb-space-3);">
-                    <h3 class="hb-card__title"><?php echo esc_html( $p['tier'] ); ?></h3>
-                    <div style="font-size:var(--hb-text-xl,1.5rem);font-weight:700;color:var(--hb-accent-blue,#2563EB);">
-                        เริ่มต้น <?php echo esc_html( number_format( $p['price'] ) ); ?> บาท
+                    <div class="hb-srw-metric-grid">
+                        <div class="hb-srw-metric"><b>100</b><span>SEO score</span></div>
+                        <div class="hb-srw-metric"><b>0.02</b><span>CLS target</span></div>
+                        <div class="hb-srw-metric"><b>1.1s</b><span>LCP field target</span></div>
+                        <div class="hb-srw-metric"><b>12/12</b><span>Build Gate passed</span></div>
                     </div>
-                    <div style="font-size:var(--hb-text-sm);color:var(--hb-text-muted,#a1a1aa);">
-                        <div>📄 <?php echo esc_html( $p['pages'] ); ?></div>
-                        <div>⏱ <?php echo esc_html( $p['time'] ); ?></div>
-                    </div>
-                    <p class="hb-card__body" style="font-size:var(--hb-text-sm);"><strong>เหมาะกับ:</strong> <?php echo esc_html( $p['fit'] ); ?></p>
                 </div>
-            <?php endforeach; ?>
+                <div class="hb-srw-flow">
+                    <div class="hb-srw-flow__row">
+                        <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+                        <span>Schema.org Validator</span>
+                        <strong>ผ่านทุก Type</strong>
+                    </div>
+                    <div class="hb-srw-flow__row">
+                        <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+                        <span>robots.txt + Sitemap.xml</span>
+                        <strong>auto-submit GSC + Bing</strong>
+                    </div>
+                    <div class="hb-srw-flow__row">
+                        <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+                        <span>Security Headers</span>
+                        <strong>เกรด A+</strong>
+                    </div>
+                </div>
+            </figure>
         </div>
-        <p style="margin-top:var(--hb-space-5);text-align:center;font-size:var(--hb-text-sm);color:var(--hb-text-muted,#a1a1aa);">ราคาไม่รวม VAT 7% · ไม่มี hidden fee · quote ปิดหลัง Audit ฟรี</p>
-    </div>
-</section>
+    </section>
 
-<!-- BEST FIT -->
-<section class="hb-section">
-    <div class="hb-container">
-        <div class="hb-section__head">
-            <span class="hb-eyebrow">Best fit</span>
-            <h2 class="hb-h2">บริการรับทำเว็บไซต์ SEO-Ready เหมาะกับใคร</h2>
-            <p class="hb-lead" style="margin-top:var(--hb-space-4);">เหมาะสำหรับธุรกิจที่ไม่อยากเสียเวลาและงบประมาณมาแก้ปัญหา Technical SEO หลังเว็บไซต์เปิดใช้งาน รองรับทั้งการทำ SEO, Performance Marketing, CRO (Conversion Rate Optimization) และ AI Search โดยเฉพาะธุรกิจที่ต้องการใช้เว็บไซต์เป็นช่องทางสร้างยอดขาย สร้าง Lead และแข่งขันบน Google อย่างจริงจัง</p>
-        </div>
-        <div class="hb-bento">
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/work/nexus-corp/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">Corporate SEO</span>
-                <h3 class="hb-card__title">Corporate site ที่ช้าและ index ไม่ครบ</h3>
-                <p class="hb-card__body">ดู Nexus Corp case study ที่ย้ายจาก legacy WordPress เป็น Headless WordPress + Next.js จน users เพิ่ม +540%</p>
-            </a>
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/work/rank-project/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">SEO Recovery</span>
-                <h3 class="hb-card__title">เว็บมีสินค้า/บริการดี แต่ organic search ไม่โต</h3>
-                <p class="hb-card__body">ดู Rank Project case study ที่ technical SEO + content programme เพิ่ม impressions +2,200%</p>
-            </a>
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">Next step</span>
-                <h3 class="hb-card__title">หลังเว็บพร้อม SEO แล้ว ควรวัด Conversion ต่อ</h3>
-                <p class="hb-card__body">ต่อยอดด้วย Digital Marketing + CRO เพื่อติดตาม funnel, heatmap และทดสอบ landing page รายเดือน</p>
-            </a>
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">Full funnel</span>
-                <h3 class="hb-card__title">ต้องการทีมเดียวดูทั้ง Web, Marketing และ AI</h3>
-                <p class="hb-card__body">ดูภาพรวมบริการทั้งหมดของ Hashbox Studio เพื่อวาง roadmap 90/180/365 วัน</p>
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- TEAM / AUTHOR -->
-<section class="hb-section hb-section--surface">
-    <div class="hb-container hb-container--md">
-        <span class="hb-eyebrow">Author / Team</span>
-        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">ทีมที่รับผิดชอบโปรเจกต์</h2>
-        <div style="margin-top:var(--hb-space-6);display:flex;gap:var(--hb-space-5);padding:var(--hb-space-5);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);flex-wrap:wrap;" itemscope itemtype="https://schema.org/Person">
-            <div style="flex-shrink:0;width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--hb-accent-blue,#2563EB),var(--hb-accent-cyan,#06B6D4));display:flex;align-items:center;justify-content:center;color:#fff;font-size:2rem;font-weight:700;">T</div>
-            <div style="flex:1;min-width:240px;">
-                <h3 class="hb-card__title" itemprop="name" style="margin:0;"><?php echo esc_html( $author_name ); ?></h3>
-                <p style="margin-top:var(--hb-space-2);font-size:var(--hb-text-sm);color:var(--hb-text-muted,#a1a1aa);" itemprop="jobTitle"><?php echo esc_html( $author_role ); ?></p>
-                <p class="hb-body" style="margin-top:var(--hb-space-3);" itemprop="description"><?php echo esc_html( $author_bio ); ?></p>
-                <a href="<?php echo esc_url( $author_linkedin ); ?>" rel="noopener author" target="_blank" style="display:inline-block;margin-top:var(--hb-space-3);font-size:var(--hb-text-sm);color:var(--hb-accent-blue,#2563EB);" itemprop="sameAs">LinkedIn →</a>
+    <section class="hb-srw-section hb-srw-section--surface">
+        <div class="hb-container">
+            <div class="hb-srw-head">
+                <h2 class="hb-h2">รับทำเว็บไซต์ธุรกิจทุกประเภท รองรับทุกการใช้งาน</h2>
+                <p class="hb-lead">3 เคสจาก 50+ โปรเจกต์ วัดผลจริงด้วย GSC, GA4, CrUX field data</p>
+            </div>
+            <div class="hb-srw-case-grid">
+                <?php foreach ( $cases as $i => $c ) : ?>
+                    <a class="hb-srw-card hb-srw-case" href="<?php echo esc_url( home_url( $c['url'] ) ); ?>">
+                        <div>
+                            <span class="hb-eyebrow"><?php echo esc_html( $c['tag'] ); ?></span>
+                            <h3 class="hb-card__title"><?php echo esc_html( $c['name'] ); ?></h3>
+                        </div>
+                        <div>
+                            <div class="hb-srw-chart" aria-hidden="true">
+                                <?php foreach ( $case_bars[ $i ] as $height ) : ?>
+                                    <span class="hb-srw-bar" style="height:<?php echo esc_attr( $height ); ?>%;"></span>
+                                <?php endforeach; ?>
+                            </div>
+                            <div class="hb-srw-metrics">
+                                <span>▲ <?php echo esc_html( $c['metric1'] ); ?></span>
+                                <span>▲ <?php echo esc_html( $c['metric2'] ); ?></span>
+                                <span>▲ <?php echo esc_html( $c['metric3'] ); ?></span>
+                            </div>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- FAQ -->
-<section class="hb-section">
-    <div class="hb-container hb-container--md">
-        <div class="hb-section__head">
-            <span class="hb-eyebrow">FAQ</span>
-            <h2 class="hb-h2">คำถามที่พบบ่อย</h2>
+    <section class="hb-srw-section hb-srw-section--surface" id="answer">
+        <div class="hb-container hb-container--md">
+            <div class="hb-srw-answer-layout">
+                <div class="hb-srw-card hb-srw-answer-box hb-answer-box">
+                    <h2 class="hb-h2">SEO-Ready Website คืออะไร?</h2>
+                    <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
+                        <strong>คือ เว็บไซต์ที่ผ่าน Build Gate กว่า 12 ขั้นตอนก่อน Deploy ขึ้น Production</strong> ครอบคลุมทั้ง Lighthouse Score 100, Core Web Vitals ระดับสีเขียวทุกค่า รวมถึงการติดตั้ง Schema.org Markup เพื่อช่วยให้ Search Engine เข้าใจเนื้อหาและธุรกิจได้ถูกต้องและแม่นยำ นอกจากนี้ยังมีการตั้งค่า Canonical, Robots.txt และ Sitemap พร้อม Auto Submit ไปยัง Google และ Bing รวมถึงรองรับ AI Crawlers จากแพลตฟอร์มที่กลุ่มเป้าหมายของทุกธุรกิจนิยมใช้อย่าง ChatGPT, Claude, Gemini, Google AI Overviews และ AI Mode
+                    </p>
+                </div>
+                <blockquote class="hb-srw-card hb-srw-quote">
+                    <div class="hb-srw-quote__mark" aria-hidden="true">&ldquo;</div>
+                    <p>&ldquo;ทุกเว็บไซต์ที่มาจาก Hashbox จะถูก Index และเริ่มแข่งขันบน Search Engine ได้ตั้งแต่การ Crawl ครั้งแรก ช่วยลดระยะเวลาในการทำอันดับจากเดิมประมาณ 6 เดือน เหลือเพียง 1-2 เดือนในหลายอุตสาหกรรม&rdquo;</p>
+                </blockquote>
+            </div>
         </div>
-        <div class="hb-accordion">
-            <?php foreach ( $faqs as $i => $f ) : ?>
-                <details class="hb-accordion__item" <?php echo $i === 0 ? 'open' : ''; ?>>
-                    <summary class="hb-accordion__trigger"><?php echo esc_html( $f['q'] ); ?></summary>
-                    <div class="hb-accordion__content"><p><?php echo esc_html( $f['a'] ); ?></p></div>
-                </details>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- RELATED -->
-<section class="hb-section hb-section--surface">
-    <div class="hb-container hb-container--md">
-        <span class="hb-eyebrow">Related</span>
-        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">บทความที่เกี่ยวข้อง</h2>
-        <div style="margin-top:var(--hb-space-6);display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--hb-space-3);">
-            <a class="hb-card" href="<?php echo esc_url( home_url( '/technical-seo-guide/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">Guide</span>
-                <h3 class="hb-card__title">Technical SEO คือ? คู่มือ 2026</h3>
-            </a>
-            <a class="hb-card" href="<?php echo esc_url( home_url( '/geo-ai-search-optimization-2026/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">GEO</span>
-                <h3 class="hb-card__title">GEO คืออะไร? AI Search Optimization</h3>
-            </a>
-            <a class="hb-card" href="<?php echo esc_url( home_url( '/nextjs-vs-wordpress-2026/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">Compare</span>
-                <h3 class="hb-card__title">Next.js vs WordPress 2026</h3>
-            </a>
+    <section class="hb-srw-section hb-srw-section--surface">
+        <div class="hb-container">
+            <div class="hb-srw-head">
+                <span class="hb-eyebrow">Build Gate</span>
+                <h3 class="hb-h2" style="margin-top:var(--hb-space-3);">รับทำเว็บไซต์ พร้อมผ่าน Build Gate กว่า 12 ขั้นตอน</h3>
+                <p class="hb-lead">บริการรับทำเว็บไซต์ที่มาจาก Hashbox ต้องผ่าน Build Gate ก่อน Deploy ขึ้น Production ตามเช็คลิสต์ 12 ข้อนี้ที่บังคับใน CI Pipeline — ไม่ผ่าน = ไม่ Deploy</p>
+            </div>
+            <div class="hb-srw-gate-layout">
+                <aside class="hb-srw-card hb-srw-gate-summary" aria-hidden="true">
+                    <span class="hb-eyebrow">CI Pipeline</span>
+                    <div class="hb-srw-gate-number">
+                        <div>
+                            <strong>12/12</strong>
+                            <span>checks passed</span>
+                        </div>
+                    </div>
+                    <p class="hb-body">ทุกข้อถูกจัดเป็น Build Gate ก่อนขึ้น Production เพื่อให้ SEO, performance, security และ UX อยู่ในมาตรฐานเดียวกันตั้งแต่วันแรก</p>
+                </aside>
+                <div class="hb-srw-check-grid">
+                    <?php foreach ( $checks as $check ) : ?>
+                        <div class="hb-srw-card hb-srw-check">
+                            <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+                            <p class="hb-body"><?php echo esc_html( $check ); ?></p>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- CTA -->
-<section class="hb-section">
-    <div class="hb-container hb-container--md" style="text-align:center;">
-        <h2 class="hb-h2">เริ่มด้วย Audit ฟรี</h2>
-        <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">รับ SEO + Performance Audit Report 15-20 หน้า ภายใน 3 วันทำการ · ไม่มี commitment · ไม่มี up-sell</p>
-        <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ Audit ฟรี &rarr;</a>
-    </div>
-</section>
+    <section class="hb-srw-section">
+        <div class="hb-container">
+            <div class="hb-srw-head">
+                <span class="hb-eyebrow">ปัญหา</span>
+                <h3 class="hb-h2" style="margin-top:var(--hb-space-3);">ทำไมเว็บส่วนใหญ่ไม่ติด Google ใน 6 เดือนแรก</h3>
+                <p class="hb-lead">จากประสบการณ์ดูแลเว็บไซต์ธุรกิจกว่า 50+ โปรเจกต์ เราพบว่าเว็บไซต์จำนวนมากมักถูกพัฒนาโดยข้ามขั้นตอน Technical SEO ตั้งแต่ต้น ส่งผลให้ต้องเสียเวลาและงบประมาณกลับมาแก้ไขหลัง Launch และเป็นสาเหตุสำคัญที่ทำให้เว็บไซต์ยังไม่ติดอันดับบน Google หรือ AI Search</p>
+            </div>
+            <div class="hb-srw-problem-grid">
+                <div class="hb-srw-card hb-srw-problem">
+                    <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h10"/></svg>
+                    <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Indexation</span>
+                    <h3 class="hb-card__title">Google Index หน้าเว็บได้ไม่ครบ</h3>
+                    <p class="hb-card__body">robots.txt ผิด, ไม่ส่ง Sitemap หรือใช้ JS-rendered content โครงสร้างที่ Google อ่านยากทำให้หน้าเว็บ Index ได้แค่ 30-50%</p>
+                </div>
+                <div class="hb-srw-card hb-srw-problem">
+                    <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m13 2-2 9h7l-8 11 2-9H5l8-11Z"/></svg>
+                    <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Core Web Vitals</span>
+                    <h3 class="hb-card__title">เว็บโหลดช้า กระทบอันดับ SEO</h3>
+                    <p class="hb-card__body">ใช้ Plugin หนัก โหลดไฟล์ CSS/JS มากเกิน หรือไม่มี Image Preload ทำให้ Core Web Vitals ไม่ผ่านเกณฑ์ LCP เกิน 2.5s และ INP เกิน 200ms</p>
+                </div>
+                <div class="hb-srw-card hb-srw-problem">
+                    <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/><path d="m13 7-2 10"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>
+                    <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Schema</span>
+                    <h3 class="hb-card__title">Schema ไม่มี / ผิด Validation</h3>
+                    <p class="hb-card__body">ไม่มี Schema สำคัญ เช่น Organization, Service, FAQ หรือ Breadcrumb ทำให้ Google ไม่แสดง Rich Snippets จนเสีย CTR 30-40%</p>
+                </div>
+                <div class="hb-srw-card hb-srw-problem">
+                    <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+                    <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">AI Search</span>
+                    <h3 class="hb-card__title">เว็บไซต์ไม่รองรับ AI Search</h3>
+                    <p class="hb-card__body">ไม่มีการตั้งค่ารองรับ AI Crawlers, ไม่มี llms.txt และ Schema ไม่ครบ Passage-level Citation ทำให้พลาดทราฟฟิกจาก AI Search ที่กำลังโตเร็ว</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hb-srw-section">
+        <div class="hb-container hb-container--md">
+            <div class="hb-srw-head">
+                <span class="hb-eyebrow">Deliverables</span>
+                <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">สิ่งที่จะได้รับจากบริการรับทำเว็บไซต์ SEO-Ready</h2>
+                <p class="hb-lead">บริการรับทำเว็บไซต์พร้อมรายการ Deliverables ครบทุก Tier (ปริมาณแตกต่างตาม Scope งาน) โดยทุกอย่างเป็นมาตรฐานเดียวกันในทุกโปรเจกต์ ไม่มี Hidden Charge</p>
+            </div>
+            <ul class="hb-srw-deliverables">
+                <?php foreach ( $deliverables as $d ) : ?>
+                    <li>
+                        <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+                        <span><?php echo esc_html( $d ); ?></span>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </section>
+
+    <section class="hb-srw-section hb-srw-section--surface">
+        <div class="hb-container">
+            <div class="hb-srw-head">
+                <span class="hb-eyebrow">Tech Stack</span>
+                <h3 class="hb-h2">เลือก Stack ตามโจทย์</h3>
+            </div>
+            <div class="hb-srw-stack-grid">
+                <div class="hb-srw-card hb-srw-stack-card">
+                    <div class="hb-srw-stack-title">
+                        <span class="hb-srw-stack-icon"><svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10Z"/></svg></span>
+                        <h3 class="hb-card__title">Frontend</h3>
+                    </div>
+                    <ul>
+                        <li><strong>Next.js</strong> — Performance สูงสุด, SSR/ISR, Vercel edge</li>
+                        <li><strong>WordPress Custom</strong> — ทีม non-tech แก้ content เองได้</li>
+                        <li><strong>Astro / 11ty</strong> — Marketing/Docs site เน้น speed</li>
+                    </ul>
+                </div>
+                <div class="hb-srw-card hb-srw-stack-card">
+                    <div class="hb-srw-stack-title">
+                        <span class="hb-srw-stack-icon"><svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h10"/></svg></span>
+                        <h3 class="hb-card__title">CMS</h3>
+                    </div>
+                    <ul>
+                        <li><strong>Headless WordPress</strong> — มี ecosystem, plugin มาก</li>
+                        <li><strong>Sanity</strong> — structured content, multi-channel</li>
+                        <li><strong>Contentful</strong> — enterprise, multi-language</li>
+                        <li><strong>Strapi</strong> — self-host, open source</li>
+                    </ul>
+                </div>
+                <div class="hb-srw-card hb-srw-stack-card">
+                    <div class="hb-srw-stack-title">
+                        <span class="hb-srw-stack-icon"><svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"/><path d="m17 5-5-3-5 3"/><path d="m17 19-5 3-5-3"/></svg></span>
+                        <h3 class="hb-card__title">Hosting / Edge</h3>
+                    </div>
+                    <ul>
+                        <li><strong>Vercel</strong> — Next.js + ISR, edge runtime</li>
+                        <li><strong>Cloudflare Pages</strong> — Astro/static, free tier ดี</li>
+                        <li><strong>WP Engine / Kinsta</strong> — managed WordPress</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hb-srw-section">
+        <div class="hb-container">
+            <div class="hb-srw-head">
+                <span class="hb-eyebrow">Process</span>
+                <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">Process 6 Phase: Discovery → Launch</h2>
+                <p class="hb-lead">บริการรับทำเว็บไซต์แบบ Phased Delivery วางแผนการทำงานเป็นขั้นตอน มี Milestone ชัดเจน อัปเดตความคืบหน้ารายสัปดาห์ และมีการ Sign-off ทุก Phase ก่อนเริ่มขั้นตอนถัดไป</p>
+            </div>
+            <ol class="hb-srw-timeline" itemscope itemtype="https://schema.org/HowTo">
+                <?php foreach ( $process as $i => $p ) : ?>
+                    <li class="hb-srw-card hb-srw-step" itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+                        <div class="hb-srw-step__number"><?php echo (int) ( $i + 1 ); ?></div>
+                        <h3 class="hb-card__title" itemprop="name"><?php echo esc_html( $p['name'] ); ?></h3>
+                        <span class="hb-eyebrow" style="color:var(--hb-accent-cyan,#06B6D4);"><?php echo esc_html( $p['time'] ); ?></span>
+                        <p class="hb-body" itemprop="text" style="margin-top:var(--hb-space-3);"><?php echo esc_html( $p['detail'] ); ?></p>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+        </div>
+    </section>
+
+    <section class="hb-srw-section">
+        <div class="hb-container hb-container--md">
+            <div class="hb-srw-head">
+                <span class="hb-eyebrow">Comparison</span>
+                <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">ทำเว็บไซต์กับ Hashbox vs ทางเลือกอื่น</h2>
+                <p class="hb-lead">เปรียบเทียบบริการรับทำเว็บไซต์ของ Hashbox ทั้งด้าน Deliverables และผลลัพธ์ด้าน SEO/AI Search เทียบกับทางเลือกอื่นที่หลายธุรกิจกำลังพิจารณา</p>
+            </div>
+            <div class="hb-srw-table-wrap">
+                <table class="hb-srw-table">
+                    <thead>
+                        <tr>
+                            <th>รายการ</th>
+                            <th style="color:var(--hb-accent-blue,#2563EB);">Hashbox</th>
+                            <th>Agency ทั่วไป</th>
+                            <th>Freelance</th>
+                            <th>Template สำเร็จรูป</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $rows = array(
+                            array( 'Lighthouse 95+ การันตี', '✓', '✗', '✗', '✗' ),
+                            array( 'Core Web Vitals เขียวก่อน launch', '✓', 'บางเคส', '✗', '✗' ),
+                            array( 'Schema 8+ types', '✓', '2-3 types', '1-2 types', '0-1 types' ),
+                            array( 'AI Search / GEO ready', '✓', '✗', '✗', '✗' ),
+                            array( 'WCAG 2.1 AA', '✓', 'บางเคส', '✗', '✗' ),
+                            array( 'ส่งมอบ source code', '✓', 'บางเคส', '✓', '✗ (locked)' ),
+                            array( '301 Redirect Map (migration)', '✓', 'เพิ่ม fee', '✗', '✗' ),
+                            array( 'Care plan + monitoring', '✓ (optional)', '✓ (mandatory)', '✗', '✗' ),
+                            array( 'ราคาเริ่มต้น', '80k บาท', '150k-500k', '30k-100k', '5k-20k' ),
+                            array( 'Time-to-rank (เฉลี่ย)', '4-8 สัปดาห์', '4-6 เดือน', '6-12 เดือน', 'ไม่การันตี' ),
+                        );
+                        foreach ( $rows as $r ) :
+                        ?>
+                        <tr>
+                            <td><?php echo esc_html( $r[0] ); ?></td>
+                            <td style="color:var(--hb-accent-emerald,#10B981);font-weight:700;"><?php echo esc_html( $r[1] ); ?></td>
+                            <td><?php echo esc_html( $r[2] ); ?></td>
+                            <td><?php echo esc_html( $r[3] ); ?></td>
+                            <td><?php echo esc_html( $r[4] ); ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="hb-srw-section hb-srw-section--surface" id="pricing">
+        <div class="hb-container">
+            <div class="hb-srw-head">
+                <span class="hb-eyebrow">Pricing</span>
+                <h2 class="hb-h2">ราคาบริการรับทำเว็บไซต์ SEO-Ready</h2>
+                <p class="hb-lead">ราคาบริการรับทำเว็บไซต์ทุก Tier มาพร้อม Build Gate 12 ขั้นตอน และ Deliverables 20 รายการ มาตรฐานเดียวกันทุกโปรเจกต์ โดยราคาจะต่างกันตาม Scope งาน จำนวนหน้าเว็บไซต์ และระดับความซับซ้อนของระบบ</p>
+            </div>
+            <div class="hb-srw-price-grid">
+                <?php foreach ( $pricing as $p ) : ?>
+                    <div class="hb-srw-card hb-srw-price">
+                        <h3 class="hb-card__title"><?php echo esc_html( $p['tier'] ); ?></h3>
+                        <div class="hb-srw-price__amount">เริ่มต้น <?php echo esc_html( number_format( $p['price'] ) ); ?> บาท</div>
+                        <div class="hb-body">
+                            <div><?php echo esc_html( $p['pages'] ); ?></div>
+                            <div><?php echo esc_html( $p['time'] ); ?></div>
+                        </div>
+                        <p class="hb-card__body"><strong>เหมาะกับ:</strong> <?php echo esc_html( $p['fit'] ); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <p class="hb-body" style="margin-top:var(--hb-space-5);text-align:center;">ราคาไม่รวม VAT 7% · ไม่มี hidden fee · quote ปิดหลัง Audit ฟรี</p>
+        </div>
+    </section>
+
+    <section class="hb-srw-section">
+        <div class="hb-container">
+            <div class="hb-srw-head">
+                <span class="hb-eyebrow">Best fit</span>
+                <h2 class="hb-h2">บริการรับทำเว็บไซต์ SEO-Ready เหมาะกับใคร</h2>
+                <p class="hb-lead">เหมาะสำหรับธุรกิจที่ไม่อยากเสียเวลาและงบประมาณมาแก้ปัญหา Technical SEO หลังเว็บไซต์เปิดใช้งาน รองรับทั้งการทำ SEO, Performance Marketing, CRO (Conversion Rate Optimization) และ AI Search โดยเฉพาะธุรกิจที่ต้องการใช้เว็บไซต์เป็นช่องทางสร้างยอดขาย สร้าง Lead และแข่งขันบน Google อย่างจริงจัง</p>
+            </div>
+            <div class="hb-srw-best-grid">
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/work/nexus-corp/' ) ); ?>" style="text-decoration:none;">
+                    <span class="hb-eyebrow">Corporate SEO</span>
+                    <h3 class="hb-card__title">Corporate site ที่ช้าและ index ไม่ครบ</h3>
+                    <p class="hb-card__body">ดู Nexus Corp case study ที่ย้ายจาก legacy WordPress เป็น Headless WordPress + Next.js จน users เพิ่ม +540%</p>
+                </a>
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/work/rank-project/' ) ); ?>" style="text-decoration:none;">
+                    <span class="hb-eyebrow">SEO Recovery</span>
+                    <h3 class="hb-card__title">เว็บมีสินค้า/บริการดี แต่ organic search ไม่โต</h3>
+                    <p class="hb-card__body">ดู Rank Project case study ที่ technical SEO + content programme เพิ่ม impressions +2,200%</p>
+                </a>
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" style="text-decoration:none;">
+                    <span class="hb-eyebrow">Next step</span>
+                    <h3 class="hb-card__title">หลังเว็บพร้อม SEO แล้ว ควรวัด Conversion ต่อ</h3>
+                    <p class="hb-card__body">ต่อยอดด้วย Digital Marketing + CRO เพื่อติดตาม funnel, heatmap และทดสอบ landing page รายเดือน</p>
+                </a>
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/services/' ) ); ?>" style="text-decoration:none;">
+                    <span class="hb-eyebrow">Full funnel</span>
+                    <h3 class="hb-card__title">ต้องการทีมเดียวดูทั้ง Web, Marketing และ AI</h3>
+                    <p class="hb-card__body">ดูภาพรวมบริการทั้งหมดของ Hashbox Studio เพื่อวาง roadmap 90/180/365 วัน</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="hb-srw-section hb-srw-section--surface">
+        <div class="hb-container hb-container--md">
+            <div class="hb-srw-head">
+                <span class="hb-eyebrow">Author / Team</span>
+                <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">ทีมที่รับผิดชอบโปรเจกต์</h2>
+            </div>
+            <div class="hb-srw-card hb-srw-author" itemscope itemtype="https://schema.org/Person">
+                <div class="hb-srw-avatar">T</div>
+                <div>
+                    <h3 class="hb-card__title" itemprop="name" style="margin:0;"><?php echo esc_html( $author_name ); ?></h3>
+                    <p class="hb-body" itemprop="jobTitle" style="margin-top:var(--hb-space-2);"><?php echo esc_html( $author_role ); ?></p>
+                    <p class="hb-body" itemprop="description" style="margin-top:var(--hb-space-3);"><?php echo esc_html( $author_bio ); ?></p>
+                    <a href="<?php echo esc_url( $author_linkedin ); ?>" rel="noopener author" target="_blank" itemprop="sameAs" style="display:inline-block;margin-top:var(--hb-space-3);color:var(--hb-accent-blue,#2563EB);">LinkedIn →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hb-srw-section">
+        <div class="hb-container hb-container--md">
+            <div class="hb-srw-head">
+                <span class="hb-eyebrow">FAQ</span>
+                <h2 class="hb-h2">คำถามที่พบบ่อย</h2>
+            </div>
+            <div class="hb-accordion">
+                <?php foreach ( $faqs as $i => $f ) : ?>
+                    <details class="hb-accordion__item" <?php echo $i === 0 ? 'open' : ''; ?>>
+                        <summary class="hb-accordion__trigger"><?php echo esc_html( $f['q'] ); ?></summary>
+                        <div class="hb-accordion__content"><p><?php echo esc_html( $f['a'] ); ?></p></div>
+                    </details>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </section>
+
+    <section class="hb-srw-section hb-srw-section--surface">
+        <div class="hb-container hb-container--md">
+            <div class="hb-srw-head">
+                <span class="hb-eyebrow">Related</span>
+                <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">บทความที่เกี่ยวข้อง</h2>
+            </div>
+            <div class="hb-srw-related-grid">
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/technical-seo-guide/' ) ); ?>" style="text-decoration:none;">
+                    <span class="hb-eyebrow">Guide</span>
+                    <h3 class="hb-card__title">Technical SEO คือ? คู่มือ 2026</h3>
+                </a>
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/geo-ai-search-optimization-2026/' ) ); ?>" style="text-decoration:none;">
+                    <span class="hb-eyebrow">GEO</span>
+                    <h3 class="hb-card__title">GEO คืออะไร? AI Search Optimization</h3>
+                </a>
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/nextjs-vs-wordpress-2026/' ) ); ?>" style="text-decoration:none;">
+                    <span class="hb-eyebrow">Compare</span>
+                    <h3 class="hb-card__title">Next.js vs WordPress 2026</h3>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="hb-srw-section">
+        <div class="hb-container">
+            <div class="hb-srw-card hb-srw-cta">
+                <div>
+                    <h2 class="hb-h2">เริ่มด้วย Audit ฟรี</h2>
+                    <p class="hb-lead" style="margin-top:var(--hb-space-4);">รับ SEO + Performance Audit Report 15-20 หน้า ภายใน 3 วันทำการ · ไม่มี commitment · ไม่มี up-sell</p>
+                </div>
+                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ Audit ฟรี &rarr;</a>
+            </div>
+        </div>
+    </section>
+</div>
 
 <?php
 // ---------- Schemas ----------
