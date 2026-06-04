@@ -161,9 +161,9 @@ $cases = array(
 <section class="hb-section hb-section--surface" id="answer">
     <div class="hb-container hb-container--md">
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);">
-            <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">คำตอบสั้น</span>
+            <h2 class="hb-h2">SEO-Ready Website คืออะไร?</h2>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
-                <strong>SEO-Ready Website คือเว็บไซต์ที่ผ่าน Build Gate กว่า 12 ขั้นตอนก่อน Deploy ขึ้น Production</strong> ครอบคลุมทั้ง Lighthouse Score 100, Core Web Vitals ระดับสีเขียวทุกค่า รวมถึงการติดตั้ง Schema.org Markup เพื่อช่วยให้ Search Engine เข้าใจเนื้อหาและธุรกิจได้ถูกต้องและแม่นยำ นอกจากนี้ยังมีการตั้งค่า Canonical, Robots.txt และ Sitemap พร้อม Auto Submit ไปยัง Google และ Bing รวมถึงรองรับ AI Crawlers จากแพลตฟอร์มที่กลุ่มเป้าหมายของทุกธุรกิจนิยมใช้อย่าง ChatGPT, Claude, Gemini, Google AI Overviews และ AI Mode
+                <strong>คือ เว็บไซต์ที่ผ่าน Build Gate กว่า 12 ขั้นตอนก่อน Deploy ขึ้น Production</strong> ครอบคลุมทั้ง Lighthouse Score 100, Core Web Vitals ระดับสีเขียวทุกค่า รวมถึงการติดตั้ง Schema.org Markup เพื่อช่วยให้ Search Engine เข้าใจเนื้อหาและธุรกิจได้ถูกต้องและแม่นยำ นอกจากนี้ยังมีการตั้งค่า Canonical, Robots.txt และ Sitemap พร้อม Auto Submit ไปยัง Google และ Bing รวมถึงรองรับ AI Crawlers จากแพลตฟอร์มที่กลุ่มเป้าหมายของทุกธุรกิจนิยมใช้อย่าง ChatGPT, Claude, Gemini, Google AI Overviews และ AI Mode
             </p>
         </div>
         <blockquote style="margin-top:var(--hb-space-5);padding:var(--hb-space-5);border-left:4px solid var(--hb-accent-cyan,#06B6D4);background:var(--hb-bg,#09090B);border-radius:var(--hb-radius-md,8px);">
