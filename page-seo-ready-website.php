@@ -680,18 +680,26 @@ $checks = array(
 
     .hb-srw-bar {
         transform-origin: bottom;
+    }
+
+    .hb-srw-page.is-motion-ready .hb-srw-bar {
+        opacity: .36;
+        transform: scaleY(.08);
+    }
+
+    .hb-srw-page.is-motion-ready .hb-srw-case.is-visible .hb-srw-bar {
         animation: hbSrwBarGrow .92s cubic-bezier(.2, .8, .2, 1) both;
     }
 
-    .hb-srw-bar:nth-child(2) {
+    .hb-srw-case.is-visible .hb-srw-bar:nth-child(2) {
         animation-delay: .08s;
     }
 
-    .hb-srw-bar:nth-child(3) {
+    .hb-srw-case.is-visible .hb-srw-bar:nth-child(3) {
         animation-delay: .16s;
     }
 
-    .hb-srw-bar:nth-child(4) {
+    .hb-srw-case.is-visible .hb-srw-bar:nth-child(4) {
         animation-delay: .24s;
     }
 
@@ -699,6 +707,37 @@ $checks = array(
     .hb-srw-dashboard,
     .hb-srw-chip {
         transition: transform .22s ease, border-color .22s ease, background .22s ease, box-shadow .22s ease;
+    }
+
+    .hb-srw-page.is-motion-ready .hb-srw-reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+            opacity .56s cubic-bezier(.2, .8, .2, 1),
+            transform .56s cubic-bezier(.2, .8, .2, 1),
+            border-color .22s ease,
+            background .22s ease,
+            box-shadow .22s ease;
+    }
+
+    .hb-srw-page.is-motion-ready .hb-srw-reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: var(--srw-reveal-delay, 0ms);
+    }
+
+    .hb-srw-page.is-motion-ready .hb-srw-check .hb-srw-icon path {
+        stroke-dasharray: 32;
+        stroke-dashoffset: 32;
+    }
+
+    .hb-srw-page.is-motion-ready .hb-srw-check.is-visible .hb-srw-icon path {
+        animation: hbSrwCheckDraw .48s ease forwards;
+        animation-delay: calc(var(--srw-reveal-delay, 0ms) + 120ms);
+    }
+
+    .hb-srw-cta .hb-btn--gradient {
+        animation: hbSrwCtaGlow 3.6s ease-in-out infinite;
     }
 
     @media (hover: hover) and (pointer: fine) {
@@ -744,6 +783,22 @@ $checks = array(
         to {
             transform: scaleY(1);
             opacity: 1;
+        }
+    }
+
+    @keyframes hbSrwCheckDraw {
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    @keyframes hbSrwCtaGlow {
+        0%,
+        100% {
+            box-shadow: 0 18px 48px rgba(84, 82, 255, .24);
+        }
+        50% {
+            box-shadow: 0 22px 64px rgba(84, 82, 255, .42);
         }
     }
 
@@ -860,15 +915,15 @@ $checks = array(
                 <div class="hb-srw-score">
                     <div class="hb-srw-ring">
                         <div>
-                            <strong>100</strong>
+                            <strong data-srw-count="100">100</strong>
                             <span>Lighthouse</span>
                         </div>
                     </div>
                     <div class="hb-srw-metric-grid">
-                        <div class="hb-srw-metric"><b>100</b><span>SEO score</span></div>
-                        <div class="hb-srw-metric"><b>0.02</b><span>CLS target</span></div>
-                        <div class="hb-srw-metric"><b>1.1s</b><span>LCP field target</span></div>
-                        <div class="hb-srw-metric"><b>12/12</b><span>Build Gate passed</span></div>
+                        <div class="hb-srw-metric"><b data-srw-count="100">100</b><span>SEO score</span></div>
+                        <div class="hb-srw-metric"><b data-srw-count="0.02" data-srw-decimals="2">0.02</b><span>CLS target</span></div>
+                        <div class="hb-srw-metric"><b data-srw-count="1.1" data-srw-decimals="1" data-srw-suffix="s">1.1s</b><span>LCP field target</span></div>
+                        <div class="hb-srw-metric"><b data-srw-count="12" data-srw-suffix="/12">12/12</b><span>Build Gate passed</span></div>
                     </div>
                 </div>
                 <div class="hb-srw-flow">
@@ -952,7 +1007,7 @@ $checks = array(
                     <span class="hb-eyebrow">CI Pipeline</span>
                     <div class="hb-srw-gate-number">
                         <div>
-                            <strong>12/12</strong>
+                            <strong data-srw-count="12" data-srw-suffix="/12">12/12</strong>
                             <span>checks passed</span>
                         </div>
                     </div>
@@ -1263,6 +1318,130 @@ $checks = array(
         </div>
     </section>
 </div>
+
+<script>
+(() => {
+    const root = document.querySelector('.hb-srw-page');
+    if (!root) {
+        return;
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealSelectors = [
+        '.hb-srw-head',
+        '.hb-srw-card',
+        '.hb-srw-chip',
+        '.hb-srw-dashboard',
+        '.hb-srw-flow__row',
+        '.hb-srw-deliverables li',
+        '.hb-accordion__item'
+    ];
+    const revealTargets = Array.from(new Set(root.querySelectorAll(revealSelectors.join(','))));
+
+    revealTargets.forEach((element) => {
+        element.classList.add('hb-srw-reveal');
+    });
+
+    const staggerGroups = root.querySelectorAll([
+        '.hb-srw-trustbar',
+        '.hb-srw-flow',
+        '.hb-srw-case-grid',
+        '.hb-srw-check-grid',
+        '.hb-srw-problem-grid',
+        '.hb-srw-deliverables',
+        '.hb-srw-stack-grid',
+        '.hb-srw-timeline',
+        '.hb-srw-price-grid',
+        '.hb-srw-best-grid',
+        '.hb-srw-related-grid',
+        '.hb-accordion'
+    ].join(','));
+
+    staggerGroups.forEach((group) => {
+        Array.from(group.children).forEach((element, index) => {
+            if (element.classList.contains('hb-srw-reveal')) {
+                element.style.setProperty('--srw-reveal-delay', `${Math.min(index * 70, 560)}ms`);
+            }
+        });
+    });
+
+    const countElements = Array.from(root.querySelectorAll('[data-srw-count]'));
+    const setFinalCount = (element) => {
+        const target = Number(element.dataset.srwCount || 0);
+        const decimals = Number(element.dataset.srwDecimals || 0);
+        const suffix = element.dataset.srwSuffix || '';
+        element.textContent = `${target.toFixed(decimals)}${suffix}`;
+    };
+
+    const animateCount = (element) => {
+        if (element.dataset.srwCountDone === 'true') {
+            return;
+        }
+
+        element.dataset.srwCountDone = 'true';
+        const target = Number(element.dataset.srwCount || 0);
+        const decimals = Number(element.dataset.srwDecimals || 0);
+        const suffix = element.dataset.srwSuffix || '';
+        const duration = 980;
+        const start = performance.now();
+
+        const tick = (now) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const value = target * eased;
+            element.textContent = `${value.toFixed(decimals)}${suffix}`;
+
+            if (progress < 1) {
+                requestAnimationFrame(tick);
+            } else {
+                setFinalCount(element);
+            }
+        };
+
+        element.textContent = `${(0).toFixed(decimals)}${suffix}`;
+        requestAnimationFrame(tick);
+    };
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+        revealTargets.forEach((element) => element.classList.add('is-visible'));
+        countElements.forEach(setFinalCount);
+        return;
+    }
+
+    root.classList.add('is-motion-ready');
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+                return;
+            }
+
+            const element = entry.target;
+            element.classList.add('is-visible');
+            const delay = parseInt(element.style.getPropertyValue('--srw-reveal-delay'), 10) || 0;
+            window.setTimeout(() => {
+                element.style.setProperty('--srw-reveal-delay', '0ms');
+            }, delay + 700);
+            observer.unobserve(element);
+        });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+
+    revealTargets.forEach((element) => revealObserver.observe(element));
+
+    const countObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+                return;
+            }
+
+            animateCount(entry.target);
+            observer.unobserve(entry.target);
+        });
+    }, { rootMargin: '0px 0px -18% 0px', threshold: 0.4 });
+
+    countElements.forEach((element) => countObserver.observe(element));
+})();
+</script>
 
 <?php
 // ---------- Schemas ----------
