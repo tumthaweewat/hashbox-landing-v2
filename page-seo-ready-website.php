@@ -203,7 +203,7 @@ $cases = array(
 <section class="hb-section">
     <div class="hb-container hb-container--md">
         <span class="hb-eyebrow">ปัญหา</span>
-        <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">ทำไมเว็บส่วนใหญ่ไม่ติด Google ใน 6 เดือนแรก</h2>
+        <h3 class="hb-h2" style="margin-top:var(--hb-space-3);">ทำไมเว็บส่วนใหญ่ไม่ติด Google ใน 6 เดือนแรก</h3>
         <p class="hb-lead" style="margin-top:var(--hb-space-4);">จากประสบการณ์ดูแลเว็บไซต์ธุรกิจกว่า 50+ โปรเจกต์ เราพบว่าเว็บไซต์จำนวนมากมักถูกพัฒนาโดยข้ามขั้นตอน Technical SEO ตั้งแต่ต้น ส่งผลให้ต้องเสียเวลาและงบประมาณกลับมาแก้ไขหลัง Launch และเป็นสาเหตุสำคัญที่ทำให้เว็บไซต์ยังไม่ติดอันดับบน Google หรือ AI Search</p>
         <div class="hb-bento" style="margin-top:var(--hb-space-6);">
             <div class="hb-bento__cell">
@@ -252,7 +252,7 @@ $cases = array(
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">Tech Stack</span>
-            <h2 class="hb-h2">เลือก Stack ตามโจทย์</h2>
+            <h3 class="hb-h2">เลือก Stack ตามโจทย์</h3>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--hb-space-4);">
             <div class="hb-card hb-card--elevated">
