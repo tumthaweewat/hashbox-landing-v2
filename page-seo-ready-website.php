@@ -112,7 +112,7 @@ $cases = array(
             </nav>
             <span class="hb-eyebrow">Service 01 / 03 · Updated <?php echo esc_html( date_i18n( 'F Y' ) ); ?></span>
             <h1 class="hb-hero__title">รับทำเว็บไซต์<br><em>SEO-Ready</em><br>พัฒนาเว็บให้พร้อมติด Google</h1>
-            <p class="hb-hero__sub">Hashbox รับทำเว็บไซต์ธุรกิจด้วยโครงสร้างที่รองรับการติดอันดับบน Google และติด AI Search ดูแลตั้งแต่ Website Performance, Technical SEO ไปจนถึง User Experience ทุกเว็บต้องผ่านมาตรฐาน Lighthouse 100 พร้อม Core Web Vitals ระดับสีเขียว และมีระบบ Sitemap Auto-Submit เพื่อให้ Google เข้าถึงและจัดอันดับเว็บไซต์ได้เร็วขึ้น เพราะการวางรากฐานเว็บไซต์ที่แข็งแรงและถูกต้องตั้งแต่ต้น คือปัจจัยสำคัญที่ช่วยให้การติด Google และ AI Search เป็นเรื่องง่ายและยั่งยืนกว่า</p>
+            <p class="hb-hero__sub"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="color:inherit;text-decoration:underline;text-decoration-color:var(--hb-accent-blue,#2563EB);text-underline-offset:0.18em;">Hashbox</a> รับทำเว็บไซต์ธุรกิจด้วยโครงสร้างที่รองรับการติดอันดับบน Google และติด AI Search ดูแลตั้งแต่ Website Performance, Technical SEO ไปจนถึง User Experience ทุกเว็บต้องผ่านมาตรฐาน Lighthouse 100 พร้อม Core Web Vitals ระดับสีเขียว และมีระบบ Sitemap Auto-Submit เพื่อให้ Google เข้าถึงและจัดอันดับเว็บไซต์ได้เร็วขึ้น เพราะการวางรากฐานเว็บไซต์ที่แข็งแรงและถูกต้องตั้งแต่ต้น คือปัจจัยสำคัญที่ช่วยให้การติด Google และ AI Search เป็นเรื่องง่ายและยั่งยืนกว่า</p>
             <div class="hb-hero__actions">
                 <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
                 <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงานที่ผ่านมา</a>
