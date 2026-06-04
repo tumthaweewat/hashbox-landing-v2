@@ -61,6 +61,15 @@ $process = array(
     array( 'name' => '30-day Monitoring', 'time' => 'Week 6-10', 'detail' => 'CWV alerts, crawl error monitoring, ranking tracking, optimization rounds' ),
 );
 
+$process_icons = array(
+    '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+    '<path d="M3 7h18"/><path d="M7 7v14"/><path d="M17 7v14"/><path d="M5 21h14"/><path d="M8 3h8l2 4H6l2-4Z"/>',
+    '<rect width="18" height="14" x="3" y="5" rx="2"/><path d="M7 9h10"/><path d="M7 13h6"/>',
+    '<path d="m13 2-2 9h7l-8 11 2-9H5l8-11Z"/>',
+    '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/>',
+    '<path d="M3 12h4l3 8 4-16 3 8h4"/>',
+);
+
 $pricing = array(
     array( 'tier' => 'Landing Page', 'price' => 80000, 'pages' => '1-3 หน้า', 'time' => '2-3 สัปดาห์', 'fit' => 'Product launch, campaign, lead-gen' ),
     array( 'tier' => 'Corporate Site', 'price' => 200000, 'pages' => '5-15 หน้า', 'time' => '4-6 สัปดาห์', 'fit' => 'B2B, agency, professional service' ),
@@ -551,20 +560,49 @@ $checks = array(
     }
 
     .hb-srw-timeline {
+        position: relative;
         display: grid;
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-        gap: var(--hb-space-3, .75rem);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--hb-space-5, 1.5rem);
         list-style: none;
         padding: 0;
         margin: var(--hb-space-7, 2.5rem) 0 0;
     }
 
     .hb-srw-step {
-        min-height: 250px;
+        position: relative;
+        min-height: 260px;
+        display: flex;
+        flex-direction: column;
+        gap: var(--hb-space-4, 1rem);
+        overflow: visible;
+    }
+
+    .hb-srw-step:after {
+        content: "";
+        position: absolute;
+        top: 50px;
+        right: -24px;
+        width: 24px;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(84, 82, 255, .55), rgba(84, 82, 255, 0));
+        pointer-events: none;
+    }
+
+    .hb-srw-step:nth-child(3n):after,
+    .hb-srw-step:last-child:after {
+        display: none;
+    }
+
+    .hb-srw-step__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--hb-space-3, .75rem);
     }
 
     .hb-srw-step__number {
-        width: 42px;
+        width: 38px;
         aspect-ratio: 1;
         display: grid;
         place-items: center;
@@ -572,10 +610,40 @@ $checks = array(
         background: var(--srw-blue);
         color: #fff;
         font-weight: 800;
+        box-shadow: 0 14px 42px rgba(84, 82, 255, .26);
+    }
+
+    .hb-srw-step__meta {
+        display: flex;
+        align-items: center;
+        gap: var(--hb-space-3, .75rem);
+    }
+
+    .hb-srw-step__icon {
+        width: 46px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(129, 140, 248, .24);
+        border-radius: var(--srw-radius);
+        background: rgba(84, 82, 255, .12);
+        color: var(--srw-blue);
+    }
+
+    .hb-srw-step__icon .hb-srw-icon {
+        width: 20px;
+        height: 20px;
     }
 
     .hb-srw-step .hb-card__title {
-        margin-top: var(--hb-space-4, 1rem);
+        margin: 0;
+        max-width: 16rem;
+        font-size: clamp(1.35rem, 2vw, 1.9rem);
+        line-height: 1.28;
+    }
+
+    .hb-srw-step .hb-body {
+        margin-top: 0;
     }
 
     .hb-srw-table-wrap {
@@ -831,9 +899,21 @@ $checks = array(
         .hb-srw-price-grid,
         .hb-srw-related-grid,
         .hb-srw-check-grid,
-        .hb-srw-timeline,
         .hb-srw-trustbar {
             grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .hb-srw-timeline {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .hb-srw-step:nth-child(3n):after {
+            display: block;
+        }
+
+        .hb-srw-step:nth-child(2n):after,
+        .hb-srw-step:last-child:after {
+            display: none;
         }
     }
 
@@ -857,6 +937,10 @@ $checks = array(
         .hb-srw-deliverables,
         .hb-srw-author {
             grid-template-columns: 1fr;
+        }
+
+        .hb-srw-step:after {
+            display: none;
         }
 
         .hb-srw-score {
@@ -1134,10 +1218,17 @@ $checks = array(
             <ol class="hb-srw-timeline" itemscope itemtype="https://schema.org/HowTo">
                 <?php foreach ( $process as $i => $p ) : ?>
                     <li class="hb-srw-card hb-srw-step" itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
-                        <div class="hb-srw-step__number"><?php echo (int) ( $i + 1 ); ?></div>
+                        <div class="hb-srw-step__top">
+                            <div class="hb-srw-step__meta">
+                                <span class="hb-srw-step__number"><?php echo (int) ( $i + 1 ); ?></span>
+                                <span class="hb-srw-step__icon" aria-hidden="true">
+                                    <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><?php echo $process_icons[ $i ]; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></svg>
+                                </span>
+                            </div>
+                            <span class="hb-eyebrow" style="color:var(--hb-accent-cyan,#06B6D4);"><?php echo esc_html( $p['time'] ); ?></span>
+                        </div>
                         <h3 class="hb-card__title" itemprop="name"><?php echo esc_html( $p['name'] ); ?></h3>
-                        <span class="hb-eyebrow" style="color:var(--hb-accent-cyan,#06B6D4);"><?php echo esc_html( $p['time'] ); ?></span>
-                        <p class="hb-body" itemprop="text" style="margin-top:var(--hb-space-3);"><?php echo esc_html( $p['detail'] ); ?></p>
+                        <p class="hb-body" itemprop="text"><?php echo esc_html( $p['detail'] ); ?></p>
                     </li>
                 <?php endforeach; ?>
             </ol>
