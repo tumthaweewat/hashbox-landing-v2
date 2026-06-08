@@ -602,6 +602,13 @@ function hashbox_get_seo_metadata() {
         }
     }
 
+    if ( 'services/website-development' === hashbox_current_request_path() ) {
+        return array(
+            'title'       => 'รับทำเว็บไซต์ ออกแบบเว็บไซต์ธุรกิจทุกประเภท พร้อมใช้งานทันที',
+            'description' => 'รับทำเว็บไซต์ครบวงจร ทั้งเว็บไซต์บริษัท เว็บแอปพลิเคชัน และระบบเชื่อมต่อฐานข้อมูล พร้อมวางโครงสร้างเว็บไซต์ให้พร้อมติด Google และ AI Search ตั้งแต่วันแรก',
+        );
+    }
+
     if ( is_singular() ) {
         $post_obj = get_queried_object();
         $title    = $post_obj instanceof WP_Post ? get_the_title( $post_obj ) . ' | Hashbox Studio' : $fallback['title'];
