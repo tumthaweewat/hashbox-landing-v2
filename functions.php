@@ -692,11 +692,7 @@ function hashbox_get_meta_description() {
 }
 
 function hashbox_sync_website_development_rankmath_meta() {
-    if ( ! hashbox_rank_math_is_active() ) {
-        return;
-    }
-
-    $sync_key = '20260608_website_development_rankmath_meta_v1';
+    $sync_key = '20260608_website_development_rankmath_meta_v2';
     if ( $sync_key === get_option( 'hashbox_website_development_rankmath_meta_version' ) ) {
         return;
     }
@@ -711,9 +707,10 @@ function hashbox_sync_website_development_rankmath_meta() {
 
     update_post_meta( $page->ID, 'rank_math_title', 'รับทำเว็บไซต์ ออกแบบเว็บไซต์ธุรกิจทุกประเภท พร้อมใช้งานทันที' );
     update_post_meta( $page->ID, 'rank_math_description', 'รับทำเว็บไซต์ครบวงจร ทั้งเว็บไซต์บริษัท เว็บแอปพลิเคชัน และระบบเชื่อมต่อฐานข้อมูล พร้อมวางโครงสร้างเว็บไซต์ให้พร้อมติด Google และ AI Search ตั้งแต่วันแรก' );
+    clean_post_cache( $page->ID );
     update_option( 'hashbox_website_development_rankmath_meta_version', $sync_key, false );
 }
-add_action( 'init', 'hashbox_sync_website_development_rankmath_meta', 40 );
+add_action( 'wp', 'hashbox_sync_website_development_rankmath_meta', 1 );
 
 /**
  * Default Open Graph image with an existing asset fallback.
