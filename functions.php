@@ -933,26 +933,26 @@ add_filter( 'user_contactmethods', 'hashbox_user_contact_methods' );
 function hashbox_rankmath_title( $title ) {
     return hashbox_get_seo_title( $title );
 }
-add_filter( 'rank_math/frontend/title', 'hashbox_rankmath_title', 20 );
+add_filter( 'rank_math/frontend/title', 'hashbox_rankmath_title', 999 );
 
 function hashbox_rankmath_description( $description ) {
     $seo_description = hashbox_get_meta_description();
     return ! empty( $seo_description ) ? $seo_description : $description;
 }
-add_filter( 'rank_math/frontend/description', 'hashbox_rankmath_description', 20 );
+add_filter( 'rank_math/frontend/description', 'hashbox_rankmath_description', 999 );
 
 function hashbox_rankmath_social_title( $content ) {
     return hashbox_get_seo_title( $content );
 }
-add_filter( 'rank_math/opengraph/facebook/og_title', 'hashbox_rankmath_social_title', 20 );
-add_filter( 'rank_math/opengraph/twitter/twitter_title', 'hashbox_rankmath_social_title', 20 );
+add_filter( 'rank_math/opengraph/facebook/og_title', 'hashbox_rankmath_social_title', 999 );
+add_filter( 'rank_math/opengraph/twitter/twitter_title', 'hashbox_rankmath_social_title', 999 );
 
 function hashbox_rankmath_social_description( $content ) {
     $seo_description = hashbox_get_meta_description();
     return ! empty( $seo_description ) ? $seo_description : $content;
 }
-add_filter( 'rank_math/opengraph/facebook/og_description', 'hashbox_rankmath_social_description', 20 );
-add_filter( 'rank_math/opengraph/twitter/twitter_description', 'hashbox_rankmath_social_description', 20 );
+add_filter( 'rank_math/opengraph/facebook/og_description', 'hashbox_rankmath_social_description', 999 );
+add_filter( 'rank_math/opengraph/twitter/twitter_description', 'hashbox_rankmath_social_description', 999 );
 
 /**
  * Rank Math sitemap pretty URLs can 404 on hosts where the root .htaccess is
