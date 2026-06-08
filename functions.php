@@ -944,6 +944,77 @@ add_filter( 'rank_math/opengraph/facebook/og_description', 'hashbox_rankmath_soc
 add_filter( 'rank_math/opengraph/twitter/twitter_description', 'hashbox_rankmath_social_description', 20 );
 
 /**
+ * Rank Math sitemap pretty URLs can 404 on hosts where the root .htaccess is
+ * not managed by this theme. Keep the public /sitemap_index.xml style URLs
+ * mapped to Rank Math's working query endpoints.
+ */
+function hashbox_rankmath_sitemap_query_from_path( $path ) {
+    $path = trim( (string) $path, '/' );
+
+    if ( 'sitemap_index.xml' === $path ) {
+        return array( 'sitemap' => '1' );
+    }
+
+    if ( preg_match( '#^([a-z0-9_-]+)-sitemap([0-9]+)?\.xml$#i', $path, $matches ) ) {
+        $query = array( 'sitemap' => sanitize_key( $matches[1] ) );
+        if ( ! empty( $matches[2] ) ) {
+            $query['sitemap_n'] = absint( $matches[2] );
+        }
+        return $query;
+    }
+
+    if ( preg_match( '#^([a-z]+)?-?sitemap\.xsl$#i', $path, $matches ) ) {
+        return array( 'xsl' => ! empty( $matches[1] ) ? sanitize_key( $matches[1] ) : '' );
+    }
+
+    return array();
+}
+
+function hashbox_register_rankmath_sitemap_rewrites() {
+    if ( ! hashbox_rank_math_is_active() ) {
+        return;
+    }
+
+    add_rewrite_rule( '^sitemap_index\.xml$', 'index.php?sitemap=1', 'top' );
+    add_rewrite_rule( '^([^/]+?)-sitemap([0-9]+)?\.xml$', 'index.php?sitemap=$matches[1]&sitemap_n=$matches[2]', 'top' );
+    add_rewrite_rule( '^([a-z]+)?-?sitemap\.xsl$', 'index.php?xsl=$matches[1]', 'top' );
+}
+add_action( 'init', 'hashbox_register_rankmath_sitemap_rewrites', 1 );
+
+function hashbox_prime_rankmath_sitemap_request() {
+    if ( ! hashbox_rank_math_is_active() || is_admin() || wp_doing_ajax() ) {
+        return;
+    }
+
+    $path = isset( $_SERVER['REQUEST_URI'] ) ? wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH ) : '';
+    $query = hashbox_rankmath_sitemap_query_from_path( $path );
+    if ( empty( $query ) ) {
+        return;
+    }
+
+    foreach ( $query as $key => $value ) {
+        $_GET[ $key ]     = $value;
+        $_REQUEST[ $key ] = $value;
+    }
+}
+add_action( 'init', 'hashbox_prime_rankmath_sitemap_request', -100 );
+
+function hashbox_flush_rankmath_sitemap_rewrites_once() {
+    if ( ! hashbox_rank_math_is_active() ) {
+        return;
+    }
+
+    $rewrite_key = '20260608_rankmath_sitemap_rewrites_v1';
+    if ( $rewrite_key === get_option( 'hashbox_rankmath_sitemap_rewrite_version' ) ) {
+        return;
+    }
+
+    flush_rewrite_rules( false );
+    update_option( 'hashbox_rankmath_sitemap_rewrite_version', $rewrite_key, false );
+}
+add_action( 'init', 'hashbox_flush_rankmath_sitemap_rewrites_once', 30 );
+
+/**
  * Case-study pages live in WP under /services/* on production, but the public
  * SEO URL should be /work/* to match the IA and internal links.
  */
