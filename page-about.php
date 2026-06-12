@@ -126,11 +126,11 @@ $page_url = get_permalink();
                 <span class="hb-bento__label">IN-HOUSE TOOLS</span>
                 <h3 class="hb-h4">5 ตัวที่ทีมเราสร้างเอง</h3>
                 <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:var(--hb-space-3);">
-                    <li><strong style="color:var(--hb-accent-amber);">Paid Media Alert</strong> — เตือนเมื่อ Cost-per-Lead เกิน Threshold</li>
-                    <li><strong style="color:var(--hb-accent-blue);">SEO Tracker</strong> — Track Keyword Position รายวันแบบ Realtime</li>
-                    <li><strong style="color:var(--hb-accent-cyan);">Asearchlab</strong> — เครื่องมือ AI Visibility Audit</li>
-                    <li><strong style="color:var(--hb-accent-amber);">peec.AI</strong> — AI Citation Monitor</li>
-                    <li><strong style="color:var(--hb-accent-blue);">Query Fan-out</strong> — สร้าง Topic Cluster อัตโนมัติ</li>
+                    <li><strong style="color:var(--hb-accent-amber);">AI Chatbot</strong> — ผู้ช่วยตอบลูกค้าอัตโนมัติ เชื่อม LINE OA และเว็บ</li>
+                    <li><strong style="color:var(--hb-accent-blue);">ERP System</strong> — ระบบจัดการธุรกิจครบวงจร สต็อก-ขาย-บัญชี</li>
+                    <li><strong style="color:var(--hb-accent-cyan);">Document AI</strong> — สกัดข้อมูลจากเอกสาร PDF และใบเสร็จอัตโนมัติ</li>
+                    <li><strong style="color:var(--hb-accent-amber);">Booking System</strong> — ระบบจองคิวและนัดหมายออนไลน์</li>
+                    <li><strong style="color:var(--hb-accent-blue);">Internal Dashboard</strong> — รวมข้อมูลธุรกิจแบบ Realtime ในที่เดียว</li>
                 </ul>
             </div>
         </div>
