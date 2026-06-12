@@ -1325,8 +1325,8 @@ function hashbox_rankmath_schema_organization() {
         'logo'  => hashbox_default_og_image_url(),
         'sameAs' => array(
             'https://www.linkedin.com/company/hashbox-studio',
-            'https://www.facebook.com/hashboxstudio',
-            'https://www.instagram.com/hashboxstudio',
+            'https://www.facebook.com/profile.php?id=61590390615650',
+            'https://www.instagram.com/hashbox.studio/',
             'https://github.com/tumthaweewat',
             'https://lin.ee/Xagx6i4',
         ),
@@ -1576,8 +1576,8 @@ function hashbox_inject_home_schema() {
                 'logo'  => $logo,
                 'sameAs' => array(
                     'https://www.linkedin.com/company/hashbox-studio',
-                    'https://www.facebook.com/hashboxstudio',
-                    'https://www.instagram.com/hashboxstudio',
+                    'https://www.facebook.com/profile.php?id=61590390615650',
+                    'https://www.instagram.com/hashbox.studio/',
                 ),
                 'contactPoint' => array(
                     '@type'             => 'ContactPoint',
