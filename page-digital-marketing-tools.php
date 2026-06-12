@@ -57,7 +57,7 @@ $faqs = array(
                 <h3 class="hb-card__title">Conversion Rate ต่ำ แม้มีคนเข้าเว็บต่อเนื่อง</h3>
                 <p class="hb-card__body">ดู Flow Store case study ที่ storefront ใหม่ + CRO Sprint เพิ่ม conversion เป็น 3.8% ภายใน 6 เดือน.</p>
             </a>
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" style="text-decoration:none;">
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">Foundation</span>
                 <h3 class="hb-card__title">เว็บยังช้า หรือ tracking ยังไม่ครบ</h3>
                 <p class="hb-card__body">เริ่มจาก SEO-Ready Website เพื่อให้ performance, event tracking และ technical SEO พร้อมก่อนรัน experiment.</p>

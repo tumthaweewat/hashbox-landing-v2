@@ -22,7 +22,7 @@
                 <div class="hb-footer__col">
                     <h3>Services</h3>
                     <ul>
-                        <li><a href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>">SEO-Ready Website</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>">SEO-Ready Website</a></li>
                         <li><a href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>">Marketing Tools + CRO</a></li>
                         <li><a href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>">AI Expert Consulting</a></li>
                         <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">All Services</a></li>

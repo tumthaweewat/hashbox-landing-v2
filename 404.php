@@ -47,7 +47,7 @@ get_header();
             <h2 class="hb-h2">เส้นทางยอดนิยม</h2>
         </div>
         <div class="hb-bento">
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" style="text-decoration:none;">
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">Service</span>
                 <h3 class="hb-card__title">SEO-Ready Website</h3>
                 <p class="hb-card__body">เว็บที่ผ่าน Lighthouse 100, Core Web Vitals เขียว และ schema ครบตั้งแต่วันเปิดตัว</p>

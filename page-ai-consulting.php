@@ -323,7 +323,7 @@ $cases = array(
                 <h3 class="hb-card__title">Sales team เสียเวลา 50% กับ admin + lead qualification</h3>
                 <p class="hb-card__body">ดู AI Workforce Guide — automate research, qualification, follow-up</p>
             </a>
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" style="text-decoration:none;">
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">Foundation first</span>
                 <h3 class="hb-card__title">เว็บยังไม่ติด Google ก่อนทำ AI</h3>
                 <p class="hb-card__body">เริ่มจากบริการรับทำเว็บไซต์ SEO-Ready — ฐานต้องแน่นก่อน AI จะ scale ได้</p>
@@ -457,7 +457,7 @@ hashbox_jsonld( array(
     ),
     'termsOfService' => home_url( '/privacy-policy/#terms' ),
     'isRelatedTo' => array(
-        array( '@type' => 'Service', 'name' => 'SEO-Ready Website', 'url' => home_url( '/services/seo-ready-website/' ) ),
+        array( '@type' => 'Service', 'name' => 'SEO-Ready Website', 'url' => home_url( '/services/website-development/' ) ),
         array( '@type' => 'Service', 'name' => 'Digital Marketing Tools', 'url' => home_url( '/services/digital-marketing-tools/' ) ),
     ),
 ) );

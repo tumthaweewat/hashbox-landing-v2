@@ -42,7 +42,7 @@ $page_url = get_permalink();
             <p class="hb-section__sub">on-page SEO ที่ดีไม่ได้จบที่คำบนหน้า แต่ต้องเชื่อมบริการ ผลงาน และ proof ให้ผู้ใช้เดินทางต่อได้ชัดเจน</p>
         </div>
         <div class="hb-bento">
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" style="text-decoration:none;" data-accent="blue">
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" style="text-decoration:none;" data-accent="blue">
                 <span class="hb-eyebrow">Flagship Service</span>
                 <h3 class="hb-card__title">รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่วันเปิดตัว</h3>
                 <p class="hb-card__body">บริการหลักของ Hashbox — Build Gate 12 ข้อ, Lighthouse 100, Schema ครบ, AI Search ready · เริ่ม 80,000 บาท.</p>

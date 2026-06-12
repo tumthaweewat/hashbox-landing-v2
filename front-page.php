@@ -56,7 +56,7 @@ get_header();
         </div>
 
         <div class="hb-bento">
-            <a href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="blue" style="text-decoration:none;">
+            <a href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="blue" style="text-decoration:none;">
                 <span class="hb-service__num">01</span>
                 <span class="hb-service__icon">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="7 8 10 11 7 14"/><line x1="13" y1="14" x2="17" y2="14"/></svg>
@@ -101,7 +101,7 @@ get_header();
             <p class="hb-section__sub">เราเพิ่ม internal links ตาม intent หลักของลูกค้า เพื่อให้ทั้งผู้ใช้และ Google เข้าใจว่าแต่ละบริการเชื่อมกันอย่างไรใน funnel เดียวกัน</p>
         </div>
         <div class="hb-bento">
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" style="text-decoration:none;">
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">Technical SEO</span>
                 <h3 class="hb-card__title">ต้องการเว็บใหม่ที่พร้อมติด Google ตั้งแต่วันแรก</h3>
                 <p class="hb-card__body">เริ่มจากบริการรับทำเว็บไซต์ SEO-Ready พร้อม schema, sitemap, canonical, Core Web Vitals และ Lighthouse build gate.</p>

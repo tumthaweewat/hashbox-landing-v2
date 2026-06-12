@@ -33,7 +33,7 @@ $page_url = get_permalink();
 <section class="hb-section hb-section--surface">
     <div class="hb-container">
         <div class="hb-bento">
-            <a href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="blue" style="text-decoration:none;">
+            <a href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="blue" style="text-decoration:none;">
                 <span class="hb-service__num">01</span>
                 <span class="hb-service__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="7 8 10 11 7 14"/><line x1="13" y1="14" x2="17" y2="14"/></svg></span>
                 <h2 class="hb-service__title">SEO-Ready Website</h2>
@@ -71,7 +71,7 @@ $page_url = get_permalink();
             <p class="hb-section__sub">เลือกจากปัญหาหลักของธุรกิจตอนนี้ แล้วค่อยขยายเป็นระบบ Web + Marketing + AI ที่ทำงานร่วมกัน</p>
         </div>
         <div class="hb-bento">
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" style="text-decoration:none;">
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">Website first</span>
                 <h3 class="hb-card__title">เว็บช้า ติด Google ยาก หรือกำลังทำเว็บใหม่</h3>
                 <p class="hb-card__body">เริ่มด้วย SEO-Ready Website เพื่อแก้ technical foundation ก่อนลงงบ marketing เพิ่ม.</p>
@@ -132,7 +132,7 @@ $page_url = get_permalink();
 $service_items = array(
     array(
         'name'        => 'SEO-Ready Website Build',
-        'url'         => home_url( '/services/seo-ready-website/' ),
+        'url'         => home_url( '/services/website-development/' ),
         'description' => 'Production-ready websites that pass Lighthouse 100, green Core Web Vitals, complete schema, and rank within 60-90 days.',
         'serviceType' => 'Web Development',
     ),

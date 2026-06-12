@@ -1744,7 +1744,7 @@ function hashbox_llms_txt_content() {
     $lines[] = '';
     $lines[] = '## Services';
     $lines[] = '';
-    $lines[] = '- [SEO-Ready Website Build](' . home_url( '/services/seo-ready-website/' ) . '): รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่ launch · Lighthouse 100 · Schema ครบ · เริ่ม 80,000 บาท';
+    $lines[] = '- [SEO-Ready Website Build](' . home_url( '/services/website-development/' ) . '): รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่ launch · Lighthouse 100 · Schema ครบ · เริ่ม 80,000 บาท';
     $lines[] = '- [AI Consulting Bangkok](' . home_url( '/services/ai-consulting/' ) . '): ที่ปรึกษา AI สำหรับธุรกิจไทย · LLM integration · automation · custom agent';
     $lines[] = '- [Digital Marketing Tools](' . home_url( '/services/digital-marketing-tools/' ) . '): SEO + CRO + analytics tooling';
     $lines[] = '';
@@ -1785,7 +1785,7 @@ function hashbox_llms_full_txt_content() {
     $out .= "\n\n# Full Content\n\n";
 
     $pillar_slugs = array(
-        'services/seo-ready-website',
+        'services/website-development',
         'services/ai-consulting',
         'technical-seo-guide',
         'geo-ai-search-optimization-2026',
@@ -2026,7 +2026,7 @@ function hashbox_render_case_study( array $case ) {
                     <p class="hb-section__sub">เลือกบริการที่ตรงกับ pain point หลัก หรือเริ่มจาก audit ฟรีเพื่อให้ทีมเราจัดลำดับ technical SEO, CRO และ AI automation ตามผลกระทบจริง</p>
                 </div>
                 <div class="hb-bento">
-                    <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo-ready-website/' ) ); ?>" style="text-decoration:none;">
+                    <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" style="text-decoration:none;">
                         <span class="hb-eyebrow">Technical SEO</span>
                         <h3 class="hb-card__title">รับทำเว็บไซต์ SEO-Ready</h3>
                         <p class="hb-card__body">เหมาะกับเว็บที่ต้องการ Core Web Vitals เขียว, schema ครบ, sitemap ถูกต้อง และพร้อม index ตั้งแต่วันเปิดตัว.</p>
