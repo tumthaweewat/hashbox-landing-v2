@@ -1906,20 +1906,32 @@ function hashbox_handle_contact_submit() {
     $website = isset( $_POST['website'] ) ? esc_url_raw( wp_unslash( $_POST['website'] ) )         : '';
     $service = isset( $_POST['service'] ) ? sanitize_text_field( wp_unslash( $_POST['service'] ) ) : '';
     $message = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
+    $source  = isset( $_POST['source'] )  ? sanitize_text_field( wp_unslash( $_POST['source'] ) )  : '';
     $pdpa    = isset( $_POST['pdpa'] );
 
+    // Where to send the visitor back to. Defaults to the home contact section,
+    // but a campaign landing page can pass redirect_to to keep users on-page
+    // (and to fire its own conversion tracking on the ?contact=sent state).
+    $redirect_base = home_url( '/#contact' );
+    if ( isset( $_POST['redirect_to'] ) ) {
+        $candidate = wp_validate_redirect( esc_url_raw( wp_unslash( $_POST['redirect_to'] ) ), '' );
+        if ( $candidate ) {
+            $redirect_base = $candidate;
+        }
+    }
+
     if ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) {
-        wp_safe_redirect( add_query_arg( 'contact', 'invalid', home_url( '/#contact' ) ) );
+        wp_safe_redirect( add_query_arg( 'contact', 'invalid', $redirect_base ) );
         exit;
     }
 
     $to      = 'business@hashbox.co.th';
     $subject = sprintf( '[Hashbox V2] New enquiry from %s — %s', $name, $service ?: 'unspecified' );
-    $body    = sprintf( "Name: %s\nEmail: %s\nPhone: %s\nWebsite: %s\nService: %s\n\nMessage:\n%s", $name, $email, $phone, $website, $service, $message );
+    $body    = sprintf( "Name: %s\nEmail: %s\nPhone: %s\nWebsite: %s\nService: %s\nSource: %s\n\nMessage:\n%s", $name, $email, $phone, $website, $service, $source ?: 'site', $message );
     $headers = array( 'Content-Type: text/plain; charset=UTF-8', sprintf( 'Reply-To: %s <%s>', $name, $email ) );
 
     $sent = wp_mail( $to, $subject, $body, $headers );
-    wp_safe_redirect( add_query_arg( 'contact', $sent ? 'sent' : 'error', home_url( '/#contact' ) ) );
+    wp_safe_redirect( add_query_arg( 'contact', $sent ? 'sent' : 'error', $redirect_base ) );
     exit;
 }
 add_action( 'admin_post_nopriv_hashbox_contact', 'hashbox_handle_contact_submit' );
