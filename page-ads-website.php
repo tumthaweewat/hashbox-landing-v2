@@ -30,6 +30,43 @@ $line_url       = 'https://lin.ee/Xagx6i4';
 $tel_raw        = '+66625169868';
 $tel_display    = '062-516-9868';
 
+/* Message-matched variants — pick by page slug so you can spin up one page
+ * per ad group (sharper message match = higher Quality Score + conversion)
+ * from this single template. Name the page slug with "corporate" or
+ * "ecommerce"; anything else falls back to the general website build. */
+$variants = array(
+    'default' => array(
+        'eyebrow' => 'รับทำเว็บไซต์ · SEO-Ready',
+        'h1'      => 'รับทำเว็บไซต์บริษัท<br><em>ติด Google ตั้งแต่วันเปิดตัว</em>',
+        'sub'     => 'เว็บใหม่ที่ผ่าน Technical SEO ตั้งแต่ก่อน deploy — Lighthouse 95+, Core Web Vitals เขียว, Schema ครบ พร้อมติด Google และ AI Search ลด time-to-rank จาก 6 เดือนเหลือ 1-2 เดือน',
+        'service' => 'seo-website',
+        'source'  => 'google-ads-website',
+    ),
+    'corporate' => array(
+        'eyebrow' => 'รับทำเว็บไซต์องค์กร · B2B',
+        'h1'      => 'รับทำเว็บไซต์องค์กร & B2B<br><em>ภาพลักษณ์โปร โหลดเร็ว ติด Google</em>',
+        'sub'     => 'เว็บบริษัทที่ดูน่าเชื่อถือ โหลดไวระดับ Lighthouse 95+ พร้อม Schema และ Technical SEO ครบ ช่วยให้ลูกค้า B2B ค้นเจอและไว้ใจตั้งแต่คลิกแรก',
+        'service' => 'seo-website',
+        'source'  => 'google-ads-corporate',
+    ),
+    'ecommerce' => array(
+        'eyebrow' => 'รับทำเว็บไซต์ขายของ · E-commerce',
+        'h1'      => 'รับทำเว็บไซต์ขายของออนไลน์<br><em>เร็ว ติด Google ปิดการขาย</em>',
+        'sub'     => 'ร้านค้าออนไลน์ที่โหลดไว Core Web Vitals เขียว รองรับ WooCommerce/Shopify พร้อม Schema สินค้า ช่วยให้ติดอันดับและเพิ่ม conversion จากทราฟฟิกเดิม',
+        'service' => 'seo-website',
+        'source'  => 'google-ads-ecommerce',
+    ),
+);
+$lp_qid  = get_queried_object_id();
+$lp_slug = $lp_qid ? (string) get_post_field( 'post_name', $lp_qid ) : '';
+$variant = 'default';
+if ( strpos( $lp_slug, 'corporate' ) !== false || strpos( $lp_slug, 'b2b' ) !== false ) {
+    $variant = 'corporate';
+} elseif ( strpos( $lp_slug, 'ecommerce' ) !== false || strpos( $lp_slug, 'shop' ) !== false || strpos( $lp_slug, 'store' ) !== false ) {
+    $variant = 'ecommerce';
+}
+$v = $variants[ $variant ];
+
 $trust = array(
     array( 'k' => 'Lighthouse 95+', 'v' => 'การันตี ไม่ถึงคืนเงิน' ),
     array( 'k' => 'ติด Google', 'v' => 'ใน 1-2 เดือน หลายอุตสาหกรรม' ),
@@ -115,10 +152,10 @@ $faqs = array(
     <div class="hb-container">
         <div class="hb-adlp__grid">
             <div>
-                <span class="hb-eyebrow">รับทำเว็บไซต์ · SEO-Ready</span>
-                <h1 class="hb-hero__title" style="margin-top:var(--hb-space-4);">รับทำเว็บไซต์บริษัท<br><em>ติด Google ตั้งแต่วันเปิดตัว</em></h1>
+                <span class="hb-eyebrow"><?php echo esc_html( $v['eyebrow'] ); ?></span>
+                <h1 class="hb-hero__title" style="margin-top:var(--hb-space-4);"><?php echo wp_kses_post( $v['h1'] ); ?></h1>
                 <p class="hb-hero__sub" style="margin-top:var(--hb-space-4);">
-                    เว็บใหม่ที่ผ่าน Technical SEO ตั้งแต่ก่อน deploy — Lighthouse 95+, Core Web Vitals เขียว, Schema ครบ พร้อมติด Google และ AI Search ลด time-to-rank จาก 6 เดือนเหลือ 1-2 เดือน
+                    <?php echo esc_html( $v['sub'] ); ?>
                 </p>
                 <ul class="hb-adlp__points">
                     <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span><b>การันตี Lighthouse 95+</b> ไม่ถึงเป้าคืนเงิน Performance fee 100%</span></li>
@@ -128,12 +165,17 @@ $faqs = array(
             </div>
 
             <div class="hb-adlp__formcard" id="lead">
+                <?php if ( $contact_status === 'sent' ) : ?>
+                    <div class="hb-badge hb-badge--emerald hb-badge--lg" style="margin-bottom:var(--hb-space-5);">&#10003; ส่งสำเร็จแล้ว</div>
+                    <h2 class="hb-h3" style="margin:0 0 var(--hb-space-2);">อยากได้ Audit เร็วขึ้น? ทักทาง LINE เลย</h2>
+                    <p style="color:var(--hb-text-muted,#A1A1AA);margin:0 0 var(--hb-space-5);font-size:0.95rem;">ทีมเราติดต่อกลับใน 1 วันทำการ แต่ถ้าแอดไลน์มาคุยตอนนี้ จะเริ่ม Audit ให้ได้เร็วกว่า</p>
+                    <a href="<?php echo esc_url( $line_url ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg" target="_blank" rel="noopener noreferrer" data-lp-track="line" style="width:100%;justify-content:center;">เพิ่มเพื่อนใน LINE OA &rarr;</a>
+                    <a href="tel:<?php echo esc_attr( $tel_raw ); ?>" class="hb-btn hb-btn--outline hb-btn--lg" data-lp-track="tel" style="width:100%;justify-content:center;margin-top:var(--hb-space-3);">โทร <?php echo esc_html( $tel_display ); ?></a>
+                <?php else : ?>
                 <h2 class="hb-h3" style="margin:0 0 var(--hb-space-2);">รับ SEO Audit ฟรี</h2>
                 <p style="color:var(--hb-text-muted,#A1A1AA);margin:0 0 var(--hb-space-5);font-size:0.95rem;">กรอกสั้น ๆ ทีมเราติดต่อกลับใน 1 วันทำการ</p>
 
-                <?php if ( $contact_status === 'sent' ) : ?>
-                    <div class="hb-badge hb-badge--emerald hb-badge--lg" style="margin-bottom:var(--hb-space-4);">ส่งสำเร็จ ทีมเราจะติดต่อกลับใน 1 วันทำการ</div>
-                <?php elseif ( $contact_status === 'invalid' ) : ?>
+                <?php if ( $contact_status === 'invalid' ) : ?>
                     <div class="hb-badge hb-badge--rose hb-badge--lg" style="margin-bottom:var(--hb-space-4);">กรุณากรอกชื่อ อีเมล และยินยอม PDPA</div>
                 <?php elseif ( $contact_status === 'error' ) : ?>
                     <div class="hb-badge hb-badge--rose hb-badge--lg" style="margin-bottom:var(--hb-space-4);">ส่งไม่สำเร็จ ลองอีกครั้งหรือทักผ่าน LINE</div>
@@ -141,8 +183,8 @@ $faqs = array(
 
                 <form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" style="display:flex;flex-direction:column;gap:var(--hb-space-4);">
                     <input type="hidden" name="action" value="hashbox_contact">
-                    <input type="hidden" name="service" value="seo-website">
-                    <input type="hidden" name="source" value="google-ads-website">
+                    <input type="hidden" name="service" value="<?php echo esc_attr( $v['service'] ); ?>">
+                    <input type="hidden" name="source" value="<?php echo esc_attr( $v['source'] ); ?>">
                     <input type="hidden" name="redirect_to" value="<?php echo esc_url( $page_url . '#lead' ); ?>">
                     <?php wp_nonce_field( 'hashbox_contact', 'hashbox_nonce' ); ?>
 
@@ -169,6 +211,7 @@ $faqs = array(
                     <button type="submit" class="hb-btn hb-btn--gradient hb-btn--lg">ส่งและรับ Audit ฟรี &rarr;</button>
                     <p style="text-align:center;margin:0;font-size:0.85rem;color:var(--hb-text-muted,#A1A1AA);">หรือทักด่วนทาง <a href="<?php echo esc_url( $line_url ); ?>" target="_blank" rel="noopener noreferrer" data-lp-track="line" style="color:var(--hb-accent-emerald,#10B981);">LINE OA</a> · โทร <a href="tel:<?php echo esc_attr( $tel_raw ); ?>" data-lp-track="tel" style="color:inherit;"><?php echo esc_html( $tel_display ); ?></a></p>
                 </form>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -296,7 +339,7 @@ $faqs = array(
   // 1) Lead conversion — fires when the form returns ?contact=sent.
   var status = new URLSearchParams(window.location.search).get('contact');
   if (status === 'sent') {
-    dataLayer.push({ event: 'generate_lead', lead_source: 'google-ads-website', form: 'seo-audit' });
+    dataLayer.push({ event: 'generate_lead', lead_source: '<?php echo esc_js( $v['source'] ); ?>', form: 'seo-audit' });
     <?php if ( $ads_use_gtag ) : ?>
     if (typeof gtag === 'function') {
       gtag('event', 'conversion', {
@@ -311,7 +354,7 @@ $faqs = array(
   // 2) Micro-conversions — LINE OA clicks and phone clicks.
   document.querySelectorAll('[data-lp-track]').forEach(function (el) {
     el.addEventListener('click', function () {
-      dataLayer.push({ event: 'lead_contact', method: el.getAttribute('data-lp-track'), lead_source: 'google-ads-website' });
+      dataLayer.push({ event: 'lead_contact', method: el.getAttribute('data-lp-track'), lead_source: '<?php echo esc_js( $v['source'] ); ?>' });
     });
   });
 })();
