@@ -559,6 +559,21 @@ function hashbox_get_seo_metadata() {
         return isset( $case_meta[ $case_slug ] ) ? $case_meta[ $case_slug ] : $fallback;
     }
 
+    // English pages live under /en/ and share a post_name with their
+    // Thai counterpart (e.g. both are slug "ai-consulting"), so key
+    // their meta off the request PATH, not the slug, to avoid the
+    // collision returning the Thai metadata.
+    $en_path = hashbox_current_request_path();
+    $en_meta = array(
+        'en/ai-consulting' => array(
+            'title'       => 'AI Consulting Bangkok | Production AI for Thai Business',
+            'description' => 'AI consulting company in Bangkok, Thailand — LINE chatbots, Sales GPT, RAG knowledge bases and workflow automation, shipped to production with ROI calculated before we build. From THB 60,000.',
+        ),
+    );
+    if ( isset( $en_meta[ $en_path ] ) ) {
+        return $en_meta[ $en_path ];
+    }
+
     if ( is_page() ) {
         $post = get_queried_object();
         $slug = $post instanceof WP_Post ? $post->post_name : '';
@@ -588,8 +603,8 @@ function hashbox_get_seo_metadata() {
                 'description' => 'รวม case study งาน SEO, CRO, เว็บไซต์และ AI ของ Hashbox Studio พร้อมตัวเลขจาก GA4 และ Search Console เช่น +2,200% impressions, 3x conversion และลด cost 60%',
             ),
             'about' => array(
-                'title'       => 'เกี่ยวกับ Hashbox Studio | Web, Marketing และ AI',
-                'description' => 'รู้จัก Hashbox Studio ทีมที่รวม web development, digital marketing, CRO และ AI consulting ไว้ด้วยกัน เพื่อช่วย SME ไทยสร้างระบบที่วัดผลได้จริง',
+                'title'       => 'Hashbox Studio: ทีม Web + SEO + AI สำหรับธุรกิจไทย',
+                'description' => 'รู้จักทีม Hashbox Studio — รวม web development, technical SEO, CRO และ AI consulting ไว้ในทีมเดียว ส่งมอบงานที่ run production จริงและวัดผลได้ ไม่ใช่แค่ slide',
             ),
             'portfolio' => array(
                 'title'       => 'Portfolio งาน Web, Mobile และ Digital | Hashbox Studio',
@@ -883,6 +898,56 @@ function hashbox_preload_critical_assets() {
     }
 }
 add_action( 'wp_head', 'hashbox_preload_critical_assets', 2 );
+
+/**
+ * Bilingual URL pairs for hreflang.
+ *
+ * Each pair maps the canonical Thai page path to its English
+ * counterpart. EN pages live under /en/ as standalone WP pages
+ * assigned the matching "EN:" template. Keep this list small and
+ * explicit — the site is TH-first, EN pages exist only for the
+ * high-value English query clusters surfaced in Search Console
+ * (currently AI consulting: "ai consulting bangkok" et al.).
+ */
+function hashbox_hreflang_pairs() {
+    return array(
+        array(
+            'th' => 'services/ai-consulting',
+            'en' => 'en/ai-consulting',
+        ),
+    );
+}
+
+/**
+ * Emit reciprocal hreflang alternates on any page that has a
+ * bilingual counterpart. TH is x-default (the site's primary
+ * language). Guarded so nothing is emitted until BOTH pages exist
+ * — pointing hreflang at a 404 is worse than omitting it, so a
+ * pair only activates once its EN page has been created in WP.
+ */
+function hashbox_inject_hreflang() {
+    $path = hashbox_current_request_path();
+
+    foreach ( hashbox_hreflang_pairs() as $pair ) {
+        if ( $path !== $pair['th'] && $path !== $pair['en'] ) {
+            continue;
+        }
+
+        // Only emit when the EN page actually exists.
+        if ( ! get_page_by_path( $pair['en'], OBJECT, 'page' ) ) {
+            return;
+        }
+
+        $th_url = home_url( '/' . $pair['th'] . '/' );
+        $en_url = home_url( '/' . $pair['en'] . '/' );
+
+        printf( '<link rel="alternate" hreflang="th" href="%s">' . "\n", esc_url( $th_url ) );
+        printf( '<link rel="alternate" hreflang="en" href="%s">' . "\n", esc_url( $en_url ) );
+        printf( '<link rel="alternate" hreflang="x-default" href="%s">' . "\n", esc_url( $th_url ) );
+        return;
+    }
+}
+add_action( 'wp_head', 'hashbox_inject_hreflang', 3 );
 
 /**
  * Build Person schema for an author. Pulls bio/social from user meta
