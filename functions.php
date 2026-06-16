@@ -580,8 +580,8 @@ function hashbox_get_seo_metadata() {
                 'description' => 'ติดตั้ง GA4, GSC, Server-side GTM, Looker Studio, heatmap และ A/B testing พร้อมรัน CRO Sprint รายเดือนเพื่อเพิ่ม conversion จาก traffic เดิม',
             ),
             'ai-consulting' => array(
-                'title'       => 'ที่ปรึกษา AI และ AI Workforce | Hashbox Studio',
-                'description' => 'ที่ปรึกษา AI ที่ออกแบบและพัฒนา AI Workforce ใช้งานจริงใน production เช่น LINE Bot, Sales GPT, RAG และ workflow automation พร้อมคำนวณ ROI ก่อนเริ่ม',
+                'title'       => 'AI Consulting Bangkok | ที่ปรึกษา AI ธุรกิจไทย | Hashbox',
+                'description' => 'AI Consulting in Bangkok — ที่ปรึกษา AI ที่ออกแบบและพัฒนา AI Workforce ใช้งานจริงใน production เช่น LINE Bot, Sales GPT, RAG และ workflow automation พร้อมคำนวณ ROI ก่อนเริ่ม',
             ),
             'work' => array(
                 'title'       => 'Case Studies SEO, CRO, AI ที่วัดผลได้ | Hashbox',
