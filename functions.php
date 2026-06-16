@@ -1017,11 +1017,25 @@ add_filter( 'user_contactmethods', 'hashbox_user_contact_methods' );
  * Feed optimized SEO metadata into Rank Math.
  */
 function hashbox_rankmath_title( $title ) {
+    // Honor a per-post custom title set in the Rank Math editor. The
+    // theme's titles are a FALLBACK for pages driven by page_meta
+    // (services, about, EN pages); they must not clobber a title an
+    // editor deliberately set on an individual post/page.
+    $obj_id = get_queried_object_id();
+    if ( $obj_id && '' !== (string) get_post_meta( $obj_id, 'rank_math_title', true ) ) {
+        return $title;
+    }
     return hashbox_get_seo_title( $title );
 }
 add_filter( 'rank_math/frontend/title', 'hashbox_rankmath_title', 999 );
 
 function hashbox_rankmath_description( $description ) {
+    // Same precedence rule as the title: a custom per-post Rank Math
+    // description wins over the theme's generated fallback.
+    $obj_id = get_queried_object_id();
+    if ( $obj_id && '' !== (string) get_post_meta( $obj_id, 'rank_math_description', true ) ) {
+        return $description;
+    }
     $seo_description = hashbox_get_meta_description();
     return ! empty( $seo_description ) ? $seo_description : $description;
 }
