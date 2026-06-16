@@ -1393,6 +1393,14 @@ $checks = array(
                     <span class="hb-eyebrow">Compare</span>
                     <h3 class="hb-card__title">Next.js vs WordPress 2026</h3>
                 </a>
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/schema-markup-thai-guide-2026/' ) ); ?>" style="text-decoration:none;">
+                    <span class="hb-eyebrow">Guide</span>
+                    <h3 class="hb-card__title">Schema Markup คือ? คู่มือ 2026</h3>
+                </a>
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/core-web-vitals-thai-guide-2026/' ) ); ?>" style="text-decoration:none;">
+                    <span class="hb-eyebrow">Performance</span>
+                    <h3 class="hb-card__title">Core Web Vitals คู่มือ 2026</h3>
+                </a>
             </div>
         </div>
     </section>

@@ -581,7 +581,7 @@ function hashbox_get_seo_metadata() {
             ),
             'ai-consulting' => array(
                 'title'       => 'AI Consulting Bangkok | ที่ปรึกษา AI ธุรกิจไทย | Hashbox',
-                'description' => 'AI Consulting in Bangkok — ที่ปรึกษา AI ที่ออกแบบและพัฒนา AI Workforce ใช้งานจริงใน production เช่น LINE Bot, Sales GPT, RAG และ workflow automation พร้อมคำนวณ ROI ก่อนเริ่ม',
+                'description' => 'AI Consulting Bangkok สำหรับธุรกิจไทย — LINE Chatbot, Sales GPT, RAG Knowledge Base, Workflow Automation พร้อมคำนวณ ROI ก่อนเริ่มทุกโปรเจกต์ · เริ่ม 60,000 บาท · 50+ AI projects',
             ),
             'work' => array(
                 'title'       => 'Case Studies SEO, CRO, AI ที่วัดผลได้ | Hashbox',
