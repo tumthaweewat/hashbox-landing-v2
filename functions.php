@@ -2751,3 +2751,207 @@ function hashbox_cwv_admin_page() {
     echo '<button type="submit" name="hashbox_cwv_clear" value="1" class="button">Clear log</button>';
     echo '</form></div>';
 }
+
+/* =====================================================================
+ * GEO Readiness Checker — free linkable tool
+ *
+ * A standalone tool page (template page-geo-checker.php) that fetches
+ * a user-supplied URL and scores how well it is set up to be CITED by
+ * generative engines (ChatGPT, Perplexity, Google AI Overviews) — the
+ * studio's specialty. Built as a no-budget linkable asset: useful on
+ * its own, captures leads, and earns organic links.
+ *
+ * Security: the fetch is the sensitive part. We use wp_safe_remote_get
+ * (WP blocks private/reserved IP ranges by default), force http/https,
+ * cap redirects + body size, short timeout, and rate-limit per IP.
+ * Nothing here runs unless a page is created with the template.
+ * =================================================================== */
+
+/**
+ * Enqueue the checker's JS/CSS only on its template, and hand the
+ * front end an ajax url + nonce.
+ */
+function hashbox_enqueue_geo_checker_assets() {
+    if ( ! is_page_template( 'page-geo-checker.php' ) ) {
+        return;
+    }
+    $css = get_template_directory() . '/css/geo-checker.css';
+    if ( file_exists( $css ) ) {
+        wp_enqueue_style( 'hashbox-geo-checker', get_template_directory_uri() . '/css/geo-checker.css', array( 'hashbox-ds-composed' ), filemtime( $css ) );
+    }
+    $js = get_template_directory() . '/js/geo-checker.js';
+    if ( file_exists( $js ) ) {
+        wp_enqueue_script( 'hashbox-geo-checker', get_template_directory_uri() . '/js/geo-checker.js', array(), filemtime( $js ), true );
+        wp_localize_script( 'hashbox-geo-checker', 'hbGeo', array(
+            'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'nonce'   => wp_create_nonce( 'hb_geo_check' ),
+        ) );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'hashbox_enqueue_geo_checker_assets' );
+
+/**
+ * Reject URLs that point at private / reserved / loopback hosts so the
+ * checker can't be turned into an SSRF probe. wp_safe_remote_get also
+ * guards this, but we fail fast with a clear message.
+ */
+function hashbox_geo_url_is_public( $url ) {
+    $parts = wp_parse_url( $url );
+    if ( empty( $parts['scheme'] ) || ! in_array( strtolower( $parts['scheme'] ), array( 'http', 'https' ), true ) ) {
+        return false;
+    }
+    if ( empty( $parts['host'] ) ) {
+        return false;
+    }
+    $host = $parts['host'];
+    // Block obvious internal hostnames.
+    if ( in_array( strtolower( $host ), array( 'localhost', 'localhost.localdomain' ), true ) ) {
+        return false;
+    }
+    // If the host is an IP, ensure it is a public one.
+    if ( filter_var( $host, FILTER_VALIDATE_IP ) ) {
+        return (bool) filter_var( $host, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE );
+    }
+    // Resolve the hostname and reject if it maps to a private range.
+    $ip = gethostbyname( $host );
+    if ( $ip && filter_var( $ip, FILTER_VALIDATE_IP ) ) {
+        return (bool) filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE );
+    }
+    return true; // Unresolvable here; wp_safe_remote_get still guards the actual request.
+}
+
+/**
+ * Run the heuristic GEO checks against fetched HTML. Returns a list of
+ * checks (id, label, pass, weight, hint) plus a 0-100 score.
+ */
+function hashbox_geo_run_checks( $html, $llms_txt_found ) {
+    $checks = array();
+
+    $title = '';
+    if ( preg_match( '/<title[^>]*>(.*?)<\/title>/is', $html, $m ) ) {
+        $title = trim( wp_strip_all_tags( $m[1] ) );
+    }
+    $title_len = mb_strlen( $title );
+
+    $has_meta_desc = (bool) preg_match( '/<meta[^>]+name=["\']description["\'][^>]+content=["\'][^"\']{50,}/is', $html );
+
+    $h1_count = preg_match_all( '/<h1[\b>]/i', $html );
+    $h2_count = preg_match_all( '/<h2[\b>]/i', $html );
+
+    // JSON-LD blocks.
+    $jsonld = '';
+    if ( preg_match_all( '/<script[^>]+application\/ld\+json[^>]*>(.*?)<\/script>/is', $html, $mm ) ) {
+        $jsonld = implode( ' ', $mm[1] );
+    }
+    $has_faq      = false !== stripos( $jsonld, 'FAQPage' ) || false !== stripos( $jsonld, '"Question"' );
+    $has_article  = (bool) preg_match( '/"@type"\s*:\s*"(Article|BlogPosting|NewsArticle|TechArticle)"/i', $jsonld );
+    $has_org      = (bool) preg_match( '/"@type"\s*:\s*"(Organization|LocalBusiness)"/i', $jsonld );
+    $has_author   = (bool) preg_match( '/"@type"\s*:\s*"Person"/i', $jsonld ) || (bool) preg_match( '/<meta[^>]+name=["\']author["\']/i', $html );
+    $has_breadcrumb = false !== stripos( $jsonld, 'BreadcrumbList' );
+
+    $has_og = (bool) preg_match( '/<meta[^>]+property=["\']og:title["\']/i', $html )
+        && preg_match( '/<meta[^>]+property=["\']og:image["\']/i', $html );
+
+    // Structured, citable content signals.
+    $list_count = preg_match_all( '/<(ul|ol|table)[\b>]/i', $html );
+
+    // Plain-text body for depth + answer-style heuristic.
+    $text  = wp_strip_all_tags( preg_replace( '/<(script|style)[^>]*>.*?<\/\1>/is', ' ', $html ) );
+    $words = str_word_count( $text ) + (int) ( mb_strlen( preg_replace( '/[\x00-\x7F]/', '', $text ) ) / 3 ); // rough TH allowance
+
+    // Question-style heading (good for AI Q&A extraction).
+    $has_question_heading = (bool) preg_match( '/<h[23][^>]*>[^<]*(\?|คือ|อะไร|how|what|why|วิธี)[^<]*<\/h[23]>/iu', $html );
+
+    $add = function ( &$checks, $id, $label, $pass, $weight, $hint ) {
+        $checks[] = array( 'id' => $id, 'label' => $label, 'pass' => (bool) $pass, 'weight' => $weight, 'hint' => $hint );
+    };
+
+    $add( $checks, 'title', 'มี <title> ความยาวเหมาะสม (15–65 ตัว)', $title_len >= 15 && $title_len <= 70, 8, 'ตั้ง title ที่ชัดและมี keyword หลัก' );
+    $add( $checks, 'meta', 'มี meta description (≥50 ตัว)', $has_meta_desc, 6, 'เขียน meta description สรุปหน้าแบบดึงคลิก' );
+    $add( $checks, 'h1', 'มี H1 เดียว', 1 === $h1_count, 8, 'ใช้ H1 หนึ่งอันต่อหน้าเป็นหัวข้อหลัก' );
+    $add( $checks, 'h2', 'มีโครงหัวข้อย่อย (H2 ≥ 2)', $h2_count >= 2, 6, 'แบ่งเนื้อหาด้วย H2/H3 ให้ AI ดึงเป็นส่วนๆ ได้' );
+    $add( $checks, 'answer', 'มีหัวข้อแบบคำถาม (คือ/อะไร/วิธี/?)', $has_question_heading, 10, 'ตั้งหัวข้อเป็นคำถามที่คนถาม AI แล้วตอบทันทีใต้หัวข้อ' );
+    $add( $checks, 'faq', 'มี FAQPage schema', $has_faq, 14, 'เพิ่ม FAQ + FAQPage schema — รูปแบบที่ AI ชอบอ้างมากที่สุด' );
+    $add( $checks, 'article', 'มี Article/BlogPosting schema', $has_article, 8, 'ใส่ Article schema ระบุ author + datePublished' );
+    $add( $checks, 'org', 'มี Organization schema', $has_org, 8, 'ประกาศตัวตนแบรนด์ด้วย Organization schema + sameAs' );
+    $add( $checks, 'author', 'มีสัญญาณ author / E-E-A-T', $has_author, 8, 'ระบุผู้เขียน (Person schema หรือ meta author) เพิ่มความน่าเชื่อถือ' );
+    $add( $checks, 'breadcrumb', 'มี BreadcrumbList schema', $has_breadcrumb, 4, 'เพิ่ม breadcrumb ช่วย engine เข้าใจโครงสร้างเว็บ' );
+    $add( $checks, 'og', 'มี Open Graph (title + image)', $has_og, 4, 'ใส่ og:title + og:image ให้แชร์/อ้างอิงแล้วแสดงผลดี' );
+    $add( $checks, 'lists', 'มี list/table (เนื้อหาแบบ structured)', $list_count >= 1, 6, 'ใช้ bullet/ตาราง — AI ดึงไปตอบง่ายกว่าย่อหน้ายาว' );
+    $add( $checks, 'depth', 'เนื้อหามีความลึก (~800+ คำ)', $words >= 800, 6, 'เพิ่มความลึกของเนื้อหาให้ครอบคลุมหัวข้อจริง' );
+    $add( $checks, 'llms', 'มีไฟล์ /llms.txt', $llms_txt_found, 4, 'เพิ่ม /llms.txt ชี้ทางให้ AI crawler หาเนื้อหาสำคัญ' );
+
+    $max = 0;
+    $got = 0;
+    foreach ( $checks as $ch ) {
+        $max += $ch['weight'];
+        if ( $ch['pass'] ) {
+            $got += $ch['weight'];
+        }
+    }
+    $score = $max > 0 ? (int) round( $got / $max * 100 ) : 0;
+
+    return array( 'checks' => $checks, 'score' => $score, 'title' => $title );
+}
+
+/**
+ * AJAX endpoint for the checker.
+ */
+function hashbox_geo_check_handler() {
+    check_ajax_referer( 'hb_geo_check', 'nonce' );
+
+    $url = isset( $_POST['url'] ) ? esc_url_raw( wp_unslash( $_POST['url'] ) ) : '';
+    if ( '' === $url ) {
+        wp_send_json_error( array( 'message' => 'กรุณาใส่ URL' ) );
+    }
+    if ( ! preg_match( '#^https?://#i', $url ) ) {
+        $url = 'https://' . ltrim( $url, '/' );
+    }
+    if ( ! hashbox_geo_url_is_public( $url ) ) {
+        wp_send_json_error( array( 'message' => 'URL ไม่ถูกต้องหรือชี้ไปยังที่อยู่ภายใน' ) );
+    }
+
+    // Rate limit: 12 checks / 10 min per IP.
+    $ip  = isset( $_SERVER['REMOTE_ADDR'] ) ? preg_replace( '/[^0-9a-f:.]/i', '', wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : 'x';
+    $key = 'hb_geo_rl_' . md5( $ip );
+    $hits = (int) get_transient( $key );
+    if ( $hits >= 12 ) {
+        wp_send_json_error( array( 'message' => 'ตรวจบ่อยเกินไป ลองใหม่ในอีกสักครู่' ) );
+    }
+    set_transient( $key, $hits + 1, 10 * MINUTE_IN_SECONDS );
+
+    $args = array(
+        'timeout'     => 10,
+        'redirection' => 3,
+        'user-agent'  => 'HashboxGEOChecker/1.0 (+https://hashbox.co.th)',
+        'headers'     => array( 'Accept' => 'text/html' ),
+    );
+    $res = wp_safe_remote_get( $url, $args );
+    if ( is_wp_error( $res ) ) {
+        wp_send_json_error( array( 'message' => 'ดึงหน้าเว็บไม่สำเร็จ: ' . $res->get_error_message() ) );
+    }
+    $code = wp_remote_retrieve_response_code( $res );
+    if ( $code < 200 || $code >= 400 ) {
+        wp_send_json_error( array( 'message' => 'หน้าเว็บตอบกลับ HTTP ' . (int) $code ) );
+    }
+    $html = (string) wp_remote_retrieve_body( $res );
+    if ( '' === $html ) {
+        wp_send_json_error( array( 'message' => 'หน้าเว็บไม่มีเนื้อหา HTML' ) );
+    }
+    $html = substr( $html, 0, 2 * 1024 * 1024 ); // cap at 2MB
+
+    // Probe /llms.txt at the same origin.
+    $origin   = wp_parse_url( $url );
+    $llms_ok  = false;
+    if ( ! empty( $origin['scheme'] ) && ! empty( $origin['host'] ) ) {
+        $llms_url = $origin['scheme'] . '://' . $origin['host'] . '/llms.txt';
+        $llms_res = wp_safe_remote_get( $llms_url, array( 'timeout' => 5, 'redirection' => 1 ) );
+        $llms_ok  = ! is_wp_error( $llms_res ) && 200 === (int) wp_remote_retrieve_response_code( $llms_res );
+    }
+
+    $result = hashbox_geo_run_checks( $html, $llms_ok );
+    $result['url'] = $url;
+    wp_send_json_success( $result );
+}
+add_action( 'wp_ajax_hb_geo_check', 'hashbox_geo_check_handler' );
+add_action( 'wp_ajax_nopriv_hb_geo_check', 'hashbox_geo_check_handler' );
