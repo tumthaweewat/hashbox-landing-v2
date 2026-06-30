@@ -102,6 +102,29 @@ function hashbox_enqueue_assets() {
         $version,
         true
     );
+
+    if ( function_exists( 'hashbox_get_audit_landing_for_path' ) && hashbox_get_audit_landing_for_path() ) {
+        $audit_css = get_template_directory() . '/css/audit-landing.css';
+        if ( file_exists( $audit_css ) ) {
+            wp_enqueue_style(
+                'hashbox-audit-landing',
+                $theme_uri . '/css/audit-landing.css',
+                array( 'hashbox-ds-composed' ),
+                filemtime( $audit_css )
+            );
+        }
+
+        $audit_js = get_template_directory() . '/js/audit-landing.js';
+        if ( file_exists( $audit_js ) ) {
+            wp_enqueue_script(
+                'hashbox-audit-landing',
+                $theme_uri . '/js/audit-landing.js',
+                array( 'hashbox-v2-script' ),
+                filemtime( $audit_js ),
+                true
+            );
+        }
+    }
 }
 add_action( 'wp_enqueue_scripts', 'hashbox_enqueue_assets' );
 
@@ -514,6 +537,14 @@ function hashbox_get_seo_metadata() {
         'description' => 'Hashbox Studio ช่วยธุรกิจไทยสร้างเว็บไซต์ SEO-Ready, วาง Digital Marketing + CRO และพัฒนา AI Workforce ที่ใช้งานจริง วัดผลผ่าน KPI เดียวกัน',
     );
 
+    $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
+    if ( $audit_landing ) {
+        return array(
+            'title'       => $audit_landing['meta_title'],
+            'description' => $audit_landing['meta_description'],
+        );
+    }
+
     if ( is_front_page() ) {
         return array(
             'title'       => 'รับทำเว็บไซต์ SEO + AI Consulting | Hashbox Studio',
@@ -776,6 +807,17 @@ function hashbox_default_og_image_dimensions() {
  * read; default OG falls back to hashbox_default_og_image_dimensions).
  */
 function hashbox_og_image_dimensions( $image_url ) {
+    $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
+    if ( $audit_landing && function_exists( 'hashbox_audit_landing_og_image_url' ) && hashbox_audit_landing_og_image_url( $audit_landing ) === $image_url ) {
+        $path = hashbox_audit_landing_asset_path( $audit_landing['og_image'] );
+        if ( file_exists( $path ) ) {
+            $info = @getimagesize( $path );
+            if ( $info && isset( $info[0], $info[1] ) ) {
+                return array( (int) $info[0], (int) $info[1] );
+            }
+        }
+    }
+
     if ( is_singular() ) {
         $thumb_id = get_post_thumbnail_id( get_queried_object_id() );
         if ( $thumb_id ) {
@@ -801,6 +843,10 @@ function hashbox_current_public_url() {
     $case_slug = hashbox_current_case_study_slug();
     if ( $case_slug ) {
         return hashbox_case_study_canonical_url( $case_slug );
+    }
+    $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
+    if ( $audit_landing && function_exists( 'hashbox_audit_landing_canonical_url' ) ) {
+        return hashbox_audit_landing_canonical_url( $audit_landing );
     }
     if ( is_singular() ) {
         return get_permalink();
@@ -835,7 +881,10 @@ function hashbox_homepage_meta_description() {
 
     $title = wp_get_document_title();
     $url   = hashbox_current_public_url();
-    $image = is_singular() ? hashbox_og_image_url( get_queried_object_id() ) : hashbox_default_og_image_url();
+    $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
+    $image = $audit_landing && function_exists( 'hashbox_audit_landing_og_image_url' )
+        ? hashbox_audit_landing_og_image_url( $audit_landing )
+        : ( is_singular() ? hashbox_og_image_url( get_queried_object_id() ) : hashbox_default_og_image_url() );
     $type  = is_singular( 'post' ) ? 'article' : 'website';
 
     echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
@@ -890,6 +939,12 @@ add_action( 'wp_head', 'hashbox_seo_noindex_meta', 1 );
  * 404 and hurt rather than help.
  */
 function hashbox_preload_critical_assets() {
+    $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
+    if ( $audit_landing && function_exists( 'hashbox_audit_landing_asset_uri' ) ) {
+        echo '<link rel="preload" as="image" fetchpriority="high" href="' . esc_url( hashbox_audit_landing_asset_uri( $audit_landing['wide_image'] ) ) . '">' . "\n";
+        return;
+    }
+
     if ( is_singular() && has_post_thumbnail() ) {
         $img = wp_get_attachment_image_url( get_post_thumbnail_id(), 'full' );
         if ( $img ) {
@@ -1153,6 +1208,295 @@ function hashbox_current_request_path() {
     $path = $uri ? wp_parse_url( $uri, PHP_URL_PATH ) : '';
     return trim( (string) $path, '/' );
 }
+
+/* =========================================================================
+ * Paid Audit Landing Pages — Google/Meta/LinkedIn campaign entry points.
+ * ========================================================================= */
+
+function hashbox_audit_landing_pages() {
+    static $pages = null;
+    if ( null !== $pages ) {
+        return $pages;
+    }
+
+    $pages = array(
+        'ai-workflow-audit' => array(
+            'slug'             => 'ai-workflow-audit',
+            'service_label'    => 'AI Workforce',
+            'service_interest' => 'AI Tool / LINE Bot',
+            'meta_title'       => 'AI Workflow Audit ฟรี | Hashbox Studio',
+            'meta_description' => 'ตรวจโอกาสลดงานซ้ำด้วย LINE Bot, RAG Knowledge Base และ Workflow Automation พร้อม AI ROI map สำหรับทีมขายและซัพพอร์ต',
+            'hero_headline'    => 'ลดงานซ้ำด้วย AI ที่วัด ROI ได้',
+            'hero_subcopy'     => 'LINE Bot, RAG Knowledge Base และ Workflow Automation สำหรับทีมขายและซัพพอร์ตที่ต้องการตอบเร็วขึ้นโดยไม่เพิ่ม headcount',
+            'primary_cta'      => 'รับ AI Audit ฟรี',
+            'proof_line'       => '-60% Support Cost จาก AI Bot + RAG ภายใน 8 สัปดาห์',
+            'creative_key'     => 'ai_workflow',
+            'wide_image'       => 'ai_workflow__wide_1200x627.png',
+            'portrait_image'   => 'ai_workflow__portrait_1080x1350.png',
+            'og_image'         => 'ai_workflow__wide_1200x627.png',
+            'pain_points'      => array(
+                'ทีมขายและซัพพอร์ตตอบคำถามซ้ำหลายรอบต่อวัน แต่ยังไม่มี knowledge base ที่ AI ใช้ได้จริง',
+                'อยากใช้ AI แต่ยังไม่ชัดว่า use case ไหนคืนทุนและควรเริ่มจาก workflow ใดก่อน',
+                'ข้อมูลกระจายอยู่ใน LINE, sheet, PDF และ CRM ทำให้ลูกค้ารอคำตอบนานกว่าที่ควร',
+            ),
+            'audit_includes'   => array(
+                array( 'title' => 'AI ROI Map', 'body' => 'คำนวณชั่วโมงงานซ้ำ ต้นทุนต่อเดือน และลำดับ use case ที่ควรเริ่มก่อน' ),
+                array( 'title' => 'Workflow Blueprint', 'body' => 'วาง flow LINE Bot, RAG, CRM handoff และจุดที่ควรให้มนุษย์รับต่อ' ),
+                array( 'title' => 'Data Readiness Check', 'body' => 'ตรวจเอกสาร, FAQ, policy และระบบเดิมว่าพร้อมให้ AI ใช้งานแค่ไหน' ),
+            ),
+            'proof'            => array(
+                'metric' => '-60%',
+                'title'  => 'ลด support cost ด้วย LINE Bot + RAG',
+                'body'   => 'ทีม Hashbox เคยทำ AI Bot สำหรับ on-demand service ให้ตอบลูกค้า 24/7, ลด response time และ route งานซับซ้อนไปหา human โดยยังวัดผลผ่าน dashboard เดียว',
+                'href'   => '/work/autobot-line/',
+            ),
+            'process'          => array(
+                array( 'title' => 'วัด baseline งานซ้ำ', 'body' => 'เก็บคำถามซ้ำ, SLA, ticket volume และต้นทุนเวลาของทีม' ),
+                array( 'title' => 'เลือก use case ที่คืนทุน', 'body' => 'จัด priority ด้วย ROI, integration effort และ risk ของข้อมูล' ),
+                array( 'title' => 'ส่ง roadmap พร้อม next sprint', 'body' => 'สรุป flow, stack, timeline และงบประมาณที่เหมาะกับทีมคุณ' ),
+            ),
+            'faqs'             => array(
+                array( 'q' => 'Audit นี้เหมาะกับธุรกิจแบบไหน?', 'a' => 'เหมาะกับทีมที่มีแชทลูกค้าเยอะ มี FAQ หรือ policy ซ้ำ ๆ และอยากเริ่มใช้ AI แบบวัดผลได้ ไม่ใช่ทำ demo แล้วจบ' ),
+                array( 'q' => 'ต้องมีข้อมูลพร้อมแค่ไหนก่อนเริ่ม?', 'a' => 'ไม่จำเป็นต้องพร้อมทั้งหมดครับ Audit จะช่วยบอกว่าข้อมูลส่วนไหนใช้ได้ทันที ส่วนไหนควรจัดโครงสร้างก่อนนำเข้า RAG หรือ Bot' ),
+                array( 'q' => 'หลัง Audit ต้องจ้างทำต่อไหม?', 'a' => 'ไม่บังคับครับ คุณจะได้ roadmap กลับไปใช้ตัดสินใจ ถ้า scope fit กันค่อยคุย sprint implementation ต่อ' ),
+            ),
+        ),
+        'seo-audit' => array(
+            'slug'             => 'seo-audit',
+            'service_label'    => 'SEO-Ready Website',
+            'service_interest' => 'SEO-Ready Website',
+            'meta_title'       => 'SEO Audit ฟรีสำหรับเว็บใหม่ | Hashbox Studio',
+            'meta_description' => 'ตรวจแผนทำเว็บใหม่ให้พร้อมติด Google ตั้งแต่วันแรก ครอบคลุม Technical SEO, Core Web Vitals, Schema, GA4 และ GSC',
+            'hero_headline'    => 'ทำเว็บใหม่ให้พร้อมติด Google',
+            'hero_subcopy'     => 'วาง Technical SEO, Core Web Vitals, Schema และ GA4/GSC ตั้งแต่วันแรก เพื่อให้เว็บใหม่ไม่เสียโอกาส organic traffic หลัง deploy',
+            'primary_cta'      => 'รับ SEO Audit ฟรี',
+            'proof_line'       => '100 Lighthouse Score และ Core Web Vitals เขียวทุก URL ก่อน Deploy',
+            'creative_key'     => 'seo_ready',
+            'wide_image'       => 'seo_ready__wide_1200x627.png',
+            'portrait_image'   => 'seo_ready__portrait_1080x1350.png',
+            'og_image'         => 'seo_ready__wide_1200x627.png',
+            'pain_points'      => array(
+                'กำลังทำเว็บใหม่แต่ยังไม่มี SEO checklist ที่ทีม dev, content และ owner ใช้ร่วมกัน',
+                'กลัวเว็บสวยแต่โหลดช้า ไม่มี schema, sitemap, canonical หรือ GA4/GSC ตั้งแต่วันแรก',
+                'ต้องการ migrate หรือเปิดตัวเว็บใหม่โดยไม่ให้ ranking และ indexed pages หายไป',
+            ),
+            'audit_includes'   => array(
+                array( 'title' => 'SEO Build Gate', 'body' => 'Checklist สำหรับ Lighthouse, CWV, schema, sitemap, canonical และ redirect plan' ),
+                array( 'title' => 'Information Architecture', 'body' => 'ตรวจโครงสร้างหน้า, service taxonomy และ internal link ให้รองรับ keyword intent' ),
+                array( 'title' => 'Launch Tracking Plan', 'body' => 'กำหนด GA4, GSC, conversion events และ dashboard ที่ต้องติดก่อนเปิดเว็บ' ),
+            ),
+            'proof'            => array(
+                'metric' => '100',
+                'title'  => 'Lighthouse 100 เป็น build gate ไม่ใช่คำสัญญาหลังบ้าน',
+                'body'   => 'เว็บที่ทีม Hashbox ส่งมอบต้องผ่าน performance, accessibility, best practices และ SEO gate ก่อน deploy พร้อมตรวจ CWV และ schema validator ทุก URL สำคัญ',
+                'href'   => '/services/website-development/',
+            ),
+            'process'          => array(
+                array( 'title' => 'ตรวจเว็บหรือ wireframe ปัจจุบัน', 'body' => 'ดู sitemap, page intent, content gap และ technical risk ก่อนเริ่ม build' ),
+                array( 'title' => 'วาง launch checklist', 'body' => 'ระบุสิ่งที่ต้องมีใน sprint แรก เช่น schema, redirect, tracking และ CWV budget' ),
+                array( 'title' => 'ส่ง roadmap 30/60/90 วัน', 'body' => 'ทำให้ทีมเห็นว่าเปิดเว็บแล้วต้อง optimize อะไรต่อเพื่อให้ Google เก็บสัญญาณได้เร็ว' ),
+            ),
+            'faqs'             => array(
+                array( 'q' => 'ถ้ายังไม่มีเว็บเดิม ขอ Audit ได้ไหม?', 'a' => 'ได้ครับ เราจะตรวจจาก brief, wireframe, sitemap หรือคู่แข่งแทน เพื่อวาง SEO-ready requirements ก่อนเริ่มออกแบบและพัฒนา' ),
+                array( 'q' => 'Audit ครอบคลุม migration จากเว็บเก่าหรือไม่?', 'a' => 'ครอบคลุมครับ โดยเฉพาะ redirect map, URL inventory, canonical และ priority pages ที่ห้ามเสีย ranking ตอนย้ายเว็บ' ),
+                array( 'q' => 'ใช้กับ WordPress ได้ไหม?', 'a' => 'ได้ครับ ทีมเราทำได้ทั้ง WordPress custom theme และ Next.js/headless โดยเลือก stack จาก requirement ของทีมคุณ' ),
+            ),
+        ),
+        'seo-recovery-audit' => array(
+            'slug'             => 'seo-recovery-audit',
+            'service_label'    => 'Technical SEO',
+            'service_interest' => 'SEO-Ready Website',
+            'meta_title'       => 'SEO Recovery Audit ฟรี | Hashbox Studio',
+            'meta_description' => 'Traffic ตกหรือ organic ไม่โต ให้ทีมตรวจ Core Web Vitals, indexation, schema, backlinks และ competitor gap พร้อม recovery roadmap',
+            'hero_headline'    => 'Traffic ตก? ให้ทีมตรวจระบบ SEO',
+            'hero_subcopy'     => 'เช็ก CWV, Indexation, Schema, Backlinks และ Competitor Gap พร้อม roadmap ที่บอกว่าควรแก้ technical หรือ content ก่อน',
+            'primary_cta'      => 'รับ Audit ฟรี',
+            'proof_line'       => '+2,200% Impressions จาก Technical SEO + Content Recovery',
+            'creative_key'     => 'seo_recovery',
+            'wide_image'       => 'seo_recovery__wide_1200x627.png',
+            'portrait_image'   => 'seo_recovery__portrait_1080x1350.png',
+            'og_image'         => 'seo_recovery__wide_1200x627.png',
+            'pain_points'      => array(
+                'Organic traffic ลดลงแต่ยังไม่รู้ว่าเกิดจาก technical, content, indexation หรือคู่แข่ง',
+                'แก้ SEO เป็นรายจุดมาหลายครั้งแต่ ranking ยังไม่กลับ เพราะไม่มี baseline และ priority ที่ชัด',
+                'GSC มี impressions หรือ indexed pages ผิดปกติ แต่ทีมยังไม่มี roadmap ที่ dev ลงมือทำได้ทันที',
+            ),
+            'audit_includes'   => array(
+                array( 'title' => 'Technical Crawl', 'body' => 'ตรวจ indexation, canonical, sitemap, status code, schema และ internal link health' ),
+                array( 'title' => 'Search Console Diagnosis', 'body' => 'อ่าน query/page trends เพื่อแยกสาเหตุ traffic drop และหา quick wins' ),
+                array( 'title' => 'Recovery Roadmap', 'body' => 'จัดลำดับ dev fixes, content refresh และ competitor gap ตาม impact ต่อ organic growth' ),
+            ),
+            'proof'            => array(
+                'metric' => '+2,200%',
+                'title'  => 'SEO Recovery ที่วัดผลจาก GSC จริง',
+                'body'   => 'Rank Project ใช้ Technical SEO overhaul และ content programme ต่อเนื่อง จน search impressions เพิ่ม 22 เท่า และ organic traffic เพิ่ม 700%',
+                'href'   => '/work/rank-project/',
+            ),
+            'process'          => array(
+                array( 'title' => 'อ่านสัญญาณจาก GSC/GA4', 'body' => 'แยก traffic drop ตาม query, page type, device และ date range สำคัญ' ),
+                array( 'title' => 'ตรวจ technical blockers', 'body' => 'หา crawl waste, duplicate, CWV, schema และ indexation issue ที่ขวางการเติบโต' ),
+                array( 'title' => 'ส่ง recovery backlog', 'body' => 'แบ่งงานเป็น quick wins, dev sprint และ content sprint พร้อม impact estimate' ),
+            ),
+            'faqs'             => array(
+                array( 'q' => 'ต้องให้ access GSC/GA4 ไหม?', 'a' => 'ถ้าให้ได้จะวิเคราะห์แม่นขึ้นมากครับ แต่ถ้ายังไม่พร้อม เราเริ่มจาก public crawl และข้อมูลที่คุณ export มาให้ก่อนได้' ),
+                array( 'q' => 'Audit ใช้เวลากี่วัน?', 'a' => 'โดยปกติ 3 วันทำการสำหรับเว็บ SME หรือ landing site ถ้าเป็นเว็บใหญ่หลายพัน URL จะประเมิน timeline เพิ่มหลังดู scope' ),
+                array( 'q' => 'แก้แล้วเห็นผลทันทีไหม?', 'a' => 'บาง technical issue เห็นสัญญาณเร็วใน 2-4 สัปดาห์ แต่ ranking recovery ปกติควรวัดเป็นรอบ 60-90 วันตามการ crawl และ competitive landscape' ),
+            ),
+        ),
+        'cro-funnel-audit' => array(
+            'slug'             => 'cro-funnel-audit',
+            'service_label'    => 'CRO Sprint',
+            'service_interest' => 'Digital Marketing + CRO',
+            'meta_title'       => 'CRO Funnel Audit ฟรี | Hashbox Studio',
+            'meta_description' => 'มี traffic แต่ lead ไม่มา ตรวจ funnel ด้วย GA4, GSC, heatmap และ A/B test plan เพื่อเพิ่ม conversion จาก traffic เดิม',
+            'hero_headline'    => 'มี Traffic แต่ Lead ไม่มา?',
+            'hero_subcopy'     => 'วัด funnel ด้วย GA4, GSC, heatmap และ A/B test เพื่อหา friction ที่ทำให้คนไม่กรอกฟอร์มหรือไม่ทัก LINE',
+            'primary_cta'      => 'ตรวจ Funnel ฟรี',
+            'proof_line'       => '3x Conversion Rate จาก CRO Sprint + Heatmap + A/B Test',
+            'creative_key'     => 'cro',
+            'wide_image'       => 'cro__wide_1200x627.png',
+            'portrait_image'   => 'cro__portrait_1080x1350.png',
+            'og_image'         => 'cro__wide_1200x627.png',
+            'pain_points'      => array(
+                'ยิงแอดหรือทำ SEO แล้วมี traffic แต่ form submit, LINE click หรือ qualified lead ต่ำ',
+                'ติด GA4 แล้วแต่ event ไม่ครบ ทำให้ไม่รู้ว่าคนหลุดที่ hero, offer, pricing หรือ form',
+                'เปลี่ยน copy/design ตามความรู้สึกมากกว่าทดสอบ hypothesis จากข้อมูลจริง',
+            ),
+            'audit_includes'   => array(
+                array( 'title' => 'Conversion Event Check', 'body' => 'ตรวจ GA4 key events, Pixel, LinkedIn tag และ form/LINE/phone click tracking' ),
+                array( 'title' => 'Funnel Friction Review', 'body' => 'อ่าน landing page, offer, CTA, form length และ trust proof เพื่อหา friction' ),
+                array( 'title' => 'A/B Test Backlog', 'body' => 'เสนอ hypothesis ที่ควรทดสอบก่อน พร้อม metric และ sample size ที่ต้องใช้' ),
+            ),
+            'proof'            => array(
+                'metric' => '3x',
+                'title'  => 'เพิ่ม conversion จาก traffic เดิม',
+                'body'   => 'Flow Store ใช้ storefront ใหม่และ CRO Sprint ต่อเนื่อง ทำให้ conversion rate เพิ่มจาก 1.2% เป็น 3.8% ภายใน 6 เดือน',
+                'href'   => '/work/flow-store/',
+            ),
+            'process'          => array(
+                array( 'title' => 'ตรวจ tracking ก่อน', 'body' => 'เช็กว่า lead events ถูกยิงจาก form, LINE, phone และ email อย่างถูกต้อง' ),
+                array( 'title' => 'หา friction จากหน้าและ data', 'body' => 'อ่าน journey ตั้งแต่ ad intent ถึง form submit เพื่อจับจุดหลุดหลัก' ),
+                array( 'title' => 'ส่ง test plan', 'body' => 'จัดลำดับ copy, layout, offer และ form tests ที่ควรทำใน sprint แรก' ),
+            ),
+            'faqs'             => array(
+                array( 'q' => 'ต้องมี traffic เท่าไหร่ถึงทำ CRO ได้?', 'a' => 'ถ้า traffic ยังน้อย เราจะเน้น heuristic review และ tracking readiness ก่อน ส่วน A/B test จริงต้องมี volume พอให้ผลไม่แกว่ง' ),
+                array( 'q' => 'Audit รวมติดตั้ง tracking ให้เลยไหม?', 'a' => 'Audit จะบอกสิ่งที่ขาดและ priority ให้ ส่วนการติดตั้งจริงทำต่อเป็น implementation sprint ได้หลังตกลง scope' ),
+                array( 'q' => 'ดูได้ทั้ง lead form และ LINE OA ไหม?', 'a' => 'ได้ครับ เราดูทั้ง form submit, LINE click, phone click, email click และ quality ของ lead หลัง submit' ),
+            ),
+        ),
+        'growth-audit' => array(
+            'slug'             => 'growth-audit',
+            'service_label'    => 'Web + Marketing + AI',
+            'service_interest' => 'Bundle ทั้ง 3 บริการ',
+            'meta_title'       => 'Growth Audit ฟรี | Hashbox Studio',
+            'meta_description' => 'ทีมเดียวดูครบ Web, Ads, SEO และ AI ลดปัญหาแยกหลายเอเจนซี พร้อม audit funnel ทั้ง customer journey',
+            'hero_headline'    => 'ทีมเดียวดูครบ Web, Ads, SEO และ AI',
+            'hero_subcopy'     => 'ลดปัญหาแยกเอเจนซีหลายทีม แล้ววัด KPI เดียวตลอด customer journey ตั้งแต่ traffic, conversion จนถึง workflow หลังบ้าน',
+            'primary_cta'      => 'รับ Growth Audit ฟรี',
+            'proof_line'       => '17 ปี Experience และ 300+ แบรนด์ที่ผ่านมือทีม',
+            'creative_key'     => 'bundle',
+            'wide_image'       => 'bundle__wide_1200x627.png',
+            'portrait_image'   => 'bundle__portrait_1080x1350.png',
+            'og_image'         => 'bundle__wide_1200x627.png',
+            'pain_points'      => array(
+                'เว็บ, แอด, SEO และ AI อยู่คนละทีม ทำให้ insight ไม่ต่อกันและไม่มีใครรับผิดชอบผลรวม',
+                'มี dashboard หลายชุดแต่ยังตอบไม่ได้ว่า traffic คุณภาพแค่ไหนและ lead ติดตรงไหน',
+                'อยาก scale growth แต่ติดทั้ง performance, conversion และ manual operation หลังบ้าน',
+            ),
+            'audit_includes'   => array(
+                array( 'title' => 'Journey Audit', 'body' => 'ดูตั้งแต่ ad/search intent, landing page, tracking, lead quality และ follow-up workflow' ),
+                array( 'title' => 'KPI Map', 'body' => 'รวม metric เว็บ, SEO, ads, CRO และ AI ให้เป็น operating dashboard ชุดเดียว' ),
+                array( 'title' => '90-Day Growth Roadmap', 'body' => 'จัดลำดับ sprint ที่ควรทำก่อนระหว่าง web fix, tracking, CRO, SEO และ AI automation' ),
+            ),
+            'proof'            => array(
+                'metric' => '300+',
+                'title'  => 'ประสบการณ์ข้าม Web, Marketing และ AI',
+                'body'   => 'Hashbox รวม web development, technical SEO, CRO และ AI consulting ไว้ในทีมเดียว เพื่อให้ funnel และ operational workflow ถูกออกแบบด้วย KPI เดียวกัน',
+                'href'   => '/work/',
+            ),
+            'process'          => array(
+                array( 'title' => 'รวมภาพ funnel ปัจจุบัน', 'body' => 'อ่าน channel, landing page, conversion, CRM handoff และ manual workload' ),
+                array( 'title' => 'ระบุ bottleneck ที่กระทบ revenue', 'body' => 'แยกปัญหาที่ควรแก้ด้วย web, ads, SEO, CRO หรือ AI automation' ),
+                array( 'title' => 'ส่ง sprint roadmap', 'body' => 'จัดลำดับงาน 90 วันแรกพร้อมเจ้าของ metric และ expected impact' ),
+            ),
+            'faqs'             => array(
+                array( 'q' => 'Growth Audit ต่างจาก SEO Audit อย่างไร?', 'a' => 'SEO Audit โฟกัส organic visibility ส่วน Growth Audit มองทั้ง funnel ตั้งแต่ traffic, conversion, lead quality และ workflow หลังบ้าน' ),
+                array( 'q' => 'เหมาะกับทีมที่มีเอเจนซีอยู่แล้วไหม?', 'a' => 'เหมาะครับ เราช่วยตรวจภาพรวมและช่องว่างระหว่างทีมได้ โดยไม่จำเป็นต้องเปลี่ยน vendor ทั้งหมดทันที' ),
+                array( 'q' => 'ต้องเตรียมข้อมูลอะไรบ้าง?', 'a' => 'URL เว็บ, channel ที่ใช้อยู่, dashboard ถ้ามี, ปัญหาหลักที่อยากแก้ และเป้าหมาย lead/revenue ที่ต้องการวัด' ),
+            ),
+        ),
+    );
+
+    return $pages;
+}
+
+function hashbox_get_audit_landing_for_path( $path = null ) {
+    $slug  = null === $path ? hashbox_current_request_path() : trim( (string) $path, '/' );
+    $pages = hashbox_audit_landing_pages();
+    return isset( $pages[ $slug ] ) ? $pages[ $slug ] : null;
+}
+
+function hashbox_audit_landing_asset_uri( $file ) {
+    return get_template_directory_uri() . '/assets/ads/hashbox/' . ltrim( (string) $file, '/' );
+}
+
+function hashbox_audit_landing_asset_path( $file ) {
+    return get_template_directory() . '/assets/ads/hashbox/' . ltrim( (string) $file, '/' );
+}
+
+function hashbox_audit_landing_og_image_url( $landing = null ) {
+    $landing = $landing ?: hashbox_get_audit_landing_for_path();
+    return $landing ? hashbox_audit_landing_asset_uri( $landing['og_image'] ) : hashbox_default_og_image_url();
+}
+
+function hashbox_audit_landing_canonical_url( $landing = null ) {
+    $landing = $landing ?: hashbox_get_audit_landing_for_path();
+    return $landing ? home_url( '/' . $landing['slug'] . '/' ) : home_url( '/' );
+}
+
+function hashbox_audit_landing_template_fallback( $template ) {
+    if ( is_admin() || wp_doing_ajax() ) {
+        return $template;
+    }
+
+    $landing = hashbox_get_audit_landing_for_path();
+    if ( ! $landing ) {
+        return $template;
+    }
+
+    $audit_template = get_template_directory() . '/page-audit-landing.php';
+    if ( ! file_exists( $audit_template ) ) {
+        return $template;
+    }
+
+    global $wp_query;
+    status_header( 200 );
+    $wp_query->is_404      = false;
+    $wp_query->is_page     = true;
+    $wp_query->is_singular = true;
+
+    return $audit_template;
+}
+add_filter( 'template_include', 'hashbox_audit_landing_template_fallback', 80 );
+
+function hashbox_audit_landing_redirect_canonical( $redirect_url, $requested_url ) {
+    $requested_path = trim( (string) wp_parse_url( $requested_url, PHP_URL_PATH ), '/' );
+    if ( hashbox_get_audit_landing_for_path( $requested_path ) ) {
+        return false;
+    }
+    return $redirect_url;
+}
+add_filter( 'redirect_canonical', 'hashbox_audit_landing_redirect_canonical', 9, 2 );
+
+function hashbox_audit_landing_body_class( $classes ) {
+    $landing = hashbox_get_audit_landing_for_path();
+    if ( $landing ) {
+        $classes[] = 'hb-audit-landing';
+        $classes[] = 'hb-audit-landing--' . sanitize_html_class( $landing['creative_key'] );
+    }
+    return $classes;
+}
+add_filter( 'body_class', 'hashbox_audit_landing_body_class' );
 
 function hashbox_case_study_slug_from_path( $path = null ) {
     $path = null === $path ? hashbox_current_request_path() : trim( (string) $path, '/' );
@@ -1580,6 +1924,10 @@ function hashbox_rankmath_canonical( $canonical ) {
     if ( $case_slug ) {
         return hashbox_case_study_canonical_url( $case_slug );
     }
+    $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
+    if ( $audit_landing ) {
+        return hashbox_audit_landing_canonical_url( $audit_landing );
+    }
     return $canonical;
 }
 add_filter( 'rank_math/frontend/canonical', 'hashbox_rankmath_canonical' );
@@ -1595,6 +1943,10 @@ function hashbox_rankmath_og_url( $url ) {
 add_filter( 'rank_math/opengraph/url', 'hashbox_rankmath_og_url' );
 
 function hashbox_rankmath_og_image( $image ) {
+    $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
+    if ( $audit_landing ) {
+        return hashbox_audit_landing_og_image_url( $audit_landing );
+    }
     if ( ! empty( $image ) ) {
         return $image;
     }
@@ -1979,26 +2331,78 @@ function hashbox_handle_contact_submit() {
     if ( ! isset( $_POST['hashbox_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['hashbox_nonce'] ), 'hashbox_contact' ) ) {
         wp_die( 'Invalid request token.', 'Forbidden', array( 'response' => 403 ) );
     }
-    $name    = isset( $_POST['name'] )    ? sanitize_text_field( wp_unslash( $_POST['name'] ) )    : '';
-    $email   = isset( $_POST['email'] )   ? sanitize_email( wp_unslash( $_POST['email'] ) )       : '';
-    $phone   = isset( $_POST['phone'] )   ? sanitize_text_field( wp_unslash( $_POST['phone'] ) )   : '';
-    $website = isset( $_POST['website'] ) ? esc_url_raw( wp_unslash( $_POST['website'] ) )         : '';
-    $service = isset( $_POST['service'] ) ? sanitize_text_field( wp_unslash( $_POST['service'] ) ) : '';
-    $message = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
-    $pdpa    = isset( $_POST['pdpa'] );
 
-    if ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) {
-        wp_safe_redirect( add_query_arg( 'contact', 'invalid', home_url( '/#contact' ) ) );
+    $name               = isset( $_POST['name'] )               ? sanitize_text_field( wp_unslash( $_POST['name'] ) )               : '';
+    $email              = isset( $_POST['email'] )              ? sanitize_email( wp_unslash( $_POST['email'] ) )                   : '';
+    $phone              = isset( $_POST['phone'] )              ? sanitize_text_field( wp_unslash( $_POST['phone'] ) )              : '';
+    $website            = isset( $_POST['website'] )            ? esc_url_raw( wp_unslash( $_POST['website'] ) )                    : '';
+    $service            = isset( $_POST['service'] )            ? sanitize_text_field( wp_unslash( $_POST['service'] ) )            : '';
+    $message            = isset( $_POST['message'] )            ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) )        : '';
+    $problem            = isset( $_POST['problem'] )            ? sanitize_textarea_field( wp_unslash( $_POST['problem'] ) )        : '';
+    $budget             = isset( $_POST['budget'] )             ? sanitize_text_field( wp_unslash( $_POST['budget'] ) )             : '';
+    $timeline           = isset( $_POST['timeline'] )           ? sanitize_text_field( wp_unslash( $_POST['timeline'] ) )           : '';
+    $contact_preference = isset( $_POST['contact_preference'] ) ? sanitize_text_field( wp_unslash( $_POST['contact_preference'] ) ) : '';
+    $contact_detail     = isset( $_POST['contact_detail'] )     ? sanitize_text_field( wp_unslash( $_POST['contact_detail'] ) )     : '';
+    $landing_slug       = isset( $_POST['landing_slug'] )       ? sanitize_title( wp_unslash( $_POST['landing_slug'] ) )            : '';
+    $form_context       = isset( $_POST['form_context'] )       ? sanitize_key( wp_unslash( $_POST['form_context'] ) )              : '';
+    $pdpa               = isset( $_POST['pdpa'] );
+    $is_audit_form      = 'audit_landing' === $form_context;
+    $message            = $problem ?: $message;
+
+    $redirect_to = isset( $_POST['redirect_to'] ) ? esc_url_raw( wp_unslash( $_POST['redirect_to'] ) ) : home_url( '/#contact' );
+    $redirect_to = wp_validate_redirect( $redirect_to, home_url( '/#contact' ) );
+
+    $invalid = $is_audit_form
+        ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
+        : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa );
+
+    if ( $email !== '' && ! is_email( $email ) ) {
+        $invalid = true;
+    }
+
+    if ( $invalid ) {
+        wp_safe_redirect( add_query_arg( 'contact', 'invalid', $redirect_to ) );
         exit;
     }
 
-    $to      = 'business@hashbox.co.th';
-    $subject = sprintf( '[Hashbox V2] New enquiry from %s — %s', $name, $service ?: 'unspecified' );
-    $body    = sprintf( "Name: %s\nEmail: %s\nPhone: %s\nWebsite: %s\nService: %s\n\nMessage:\n%s", $name, $email, $phone, $website, $service, $message );
-    $headers = array( 'Content-Type: text/plain; charset=UTF-8', sprintf( 'Reply-To: %s <%s>', $name, $email ) );
+    $utm = array();
+    foreach ( array( 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term' ) as $utm_key ) {
+        $utm[ $utm_key ] = isset( $_POST[ $utm_key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $utm_key ] ) ) : '';
+    }
+
+    $reply_email = is_email( $email ) ? $email : ( is_email( $contact_detail ) ? $contact_detail : '' );
+    $to          = 'business@hashbox.co.th';
+    $subject     = sprintf( '[Hashbox V2] %s from %s — %s', $is_audit_form ? 'Audit request' : 'New enquiry', $name, $service ?: 'unspecified' );
+    $body_lines  = array(
+        'Name / Company: ' . $name,
+        'Email: ' . $email,
+        'Phone: ' . $phone,
+        'Website: ' . $website,
+        'Service: ' . $service,
+        'Budget: ' . $budget,
+        'Timeline: ' . $timeline,
+        'Preferred contact: ' . $contact_preference,
+        'Contact detail: ' . $contact_detail,
+        'Landing page: ' . $landing_slug,
+        '',
+        'Problem / Message:',
+        $message,
+        '',
+        'UTM:',
+        'utm_source: ' . $utm['utm_source'],
+        'utm_medium: ' . $utm['utm_medium'],
+        'utm_campaign: ' . $utm['utm_campaign'],
+        'utm_content: ' . $utm['utm_content'],
+        'utm_term: ' . $utm['utm_term'],
+    );
+    $body        = implode( "\n", $body_lines );
+    $headers     = array( 'Content-Type: text/plain; charset=UTF-8' );
+    if ( $reply_email ) {
+        $headers[] = sprintf( 'Reply-To: %s <%s>', $name, $reply_email );
+    }
 
     $sent = wp_mail( $to, $subject, $body, $headers );
-    wp_safe_redirect( add_query_arg( 'contact', $sent ? 'sent' : 'error', home_url( '/#contact' ) ) );
+    wp_safe_redirect( add_query_arg( 'contact', $sent ? 'sent' : 'error', $redirect_to ) );
     exit;
 }
 add_action( 'admin_post_nopriv_hashbox_contact', 'hashbox_handle_contact_submit' );
