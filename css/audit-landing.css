@@ -595,3 +595,22 @@ body.hb-audit-landing {
     white-space: normal;
   }
 }
+
+@media (max-width: 480px) {
+  .hb-audit-hero__copy,
+  .hb-audit-hero__visual,
+  .hb-audit-hero__actions,
+  .hb-audit-proofline {
+    width: min(100%, 22rem);
+    max-width: min(100%, 22rem);
+  }
+
+  .hb-audit-hero__title {
+    max-width: 20rem;
+  }
+
+  .hb-audit-hero__sub {
+    max-width: 21rem;
+    font-size: 0.98rem;
+  }
+}
