@@ -97,6 +97,30 @@ $page_url = get_permalink();
 <section class="hb-section">
     <div class="hb-container">
         <div class="hb-section__head">
+            <span class="hb-eyebrow">Leadership</span>
+            <h2 class="hb-h2">คนที่อยู่เบื้องหลังงานทุกชิ้น</h2>
+            <p class="hb-section__sub">งานทุกโปรเจกต์ของ Hashbox อยู่ภายใต้การกำกับด้านเทคนิคโดยตรง ไม่ใช่ทีมนิรนาม</p>
+        </div>
+        <div class="hb-card hb-bento__cell--feature" itemscope itemtype="https://schema.org/Person">
+            <div style="display:flex;gap:var(--hb-space-5);align-items:flex-start;flex-wrap:wrap;">
+                <div aria-hidden="true" style="flex:0 0 88px;width:88px;height:88px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--hb-accent-blue,#2563EB),var(--hb-accent-cyan,#06B6D4));">TT</div>
+                <div style="flex:1;min-width:260px;">
+                    <h3 class="hb-h3" itemprop="name" style="margin:0;">Tum Thaweewat</h3>
+                    <p class="hb-bento__label" itemprop="jobTitle" style="margin-top:var(--hb-space-2);">Head of Tech · Hashbox Studio</p>
+                    <p class="hb-body" itemprop="description" style="margin-top:var(--hb-space-3);">17 ปีประสบการณ์ด้าน Software Engineering, AI/ML และ Technical SEO · ผ่านโปรเจกต์ LLM integration และ SEO/Performance migration กว่า 50 เคส · Cert: OpenAI API, Anthropic Claude, LangChain, Google Search Console, Cloudflare Performance</p>
+                    <div class="hb-rail" style="margin-top:var(--hb-space-4);">
+                        <a class="hb-btn hb-btn--outline" href="https://www.linkedin.com/in/tumthaweewat/" target="_blank" rel="noopener noreferrer me"><span itemprop="sameAs" style="display:none;">https://www.linkedin.com/in/tumthaweewat/</span>LinkedIn &rarr;</a>
+                    </div>
+                    <meta itemprop="worksFor" content="Hashbox Studio">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hb-section">
+    <div class="hb-container">
+        <div class="hb-section__head">
             <span class="hb-eyebrow">Tools</span>
             <h2 class="hb-h2">Tech Stack + เครื่องมือ In-House</h2>
         </div>
@@ -193,6 +217,24 @@ hashbox_jsonld( array(
         array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
         array( '@type' => 'ListItem', 'position' => 2, 'name' => 'About', 'item' => $page_url ),
     ),
+) );
+hashbox_jsonld( array(
+    '@context'    => 'https://schema.org',
+    '@type'       => 'Person',
+    '@id'         => home_url( '/#tum-thaweewat' ),
+    'name'        => 'Tum Thaweewat',
+    'jobTitle'    => 'Head of Tech',
+    'description' => '17 ปีประสบการณ์ด้าน Software Engineering, AI/ML และ Technical SEO · ผ่านโปรเจกต์ LLM integration และ SEO/Performance migration กว่า 50 เคส · Cert: OpenAI API, Anthropic Claude, LangChain, Google Search Console, Cloudflare Performance',
+    'url'         => 'https://www.linkedin.com/in/tumthaweewat/',
+    'sameAs'      => array( 'https://www.linkedin.com/in/tumthaweewat/' ),
+    'worksFor'    => array( '@id' => home_url( '/#organization' ) ),
+) );
+hashbox_jsonld( array(
+    '@context' => 'https://schema.org',
+    '@type'    => 'Organization',
+    '@id'      => home_url( '/#organization' ),
+    'founder'  => array( '@id' => home_url( '/#tum-thaweewat' ) ),
+    'employee' => array( array( '@id' => home_url( '/#tum-thaweewat' ) ) ),
 ) );
 
 get_footer();
