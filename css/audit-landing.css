@@ -476,16 +476,50 @@ body.hb-audit-landing {
     gap: 1.5rem;
   }
 
+  body.hb-audit-landing .hb-nav__inner {
+    gap: 0.5rem;
+    padding-inline: 0.75rem;
+  }
+
+  body.hb-audit-landing .hb-nav__brand {
+    min-width: 0;
+  }
+
+  body.hb-audit-landing .hb-nav__brand > span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  body.hb-audit-landing .hb-nav__actions > .hb-btn {
+    display: none;
+  }
+
+  .hb-audit-hero__copy,
+  .hb-audit-card,
+  .hb-audit-step,
+  .hb-audit-form {
+    min-width: 0;
+  }
+
   .hb-audit-hero__title {
-    max-width: 13ch;
+    max-width: 100%;
     font-size: 2.75rem;
+    overflow-wrap: anywhere;
   }
 
   .hb-audit-hero__sub {
     font-size: 1.03rem;
+    max-width: 100%;
   }
 
   .hb-audit-hero__actions .hb-btn {
+    width: 100%;
+  }
+
+  .hb-audit-proofline {
+    align-items: flex-start;
+    max-width: 100%;
     width: 100%;
   }
 
