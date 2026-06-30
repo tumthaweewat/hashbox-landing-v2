@@ -503,10 +503,21 @@ body.hb-audit-landing {
   }
 
   .hb-audit-hero__copy,
+  .hb-audit-hero__visual,
   .hb-audit-card,
   .hb-audit-step,
   .hb-audit-form {
     min-width: 0;
+    max-width: 100%;
+  }
+
+  .hb-audit-hero__visual {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .hb-audit-hero__visual picture {
+    display: block;
     max-width: 100%;
   }
 
@@ -533,6 +544,8 @@ body.hb-audit-landing {
     align-items: flex-start;
     max-width: calc(100vw - 2rem);
     width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .hb-audit-hero__visual img {
