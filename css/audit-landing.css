@@ -465,6 +465,13 @@ body.hb-audit-landing {
 @media (max-width: 720px) {
   body.hb-audit-landing {
     padding-bottom: 4.75rem;
+    overflow-x: hidden;
+  }
+
+  body.hb-audit-landing #content,
+  body.hb-audit-landing .hb-audit {
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 
   .hb-audit-hero {
@@ -500,10 +507,11 @@ body.hb-audit-landing {
   .hb-audit-step,
   .hb-audit-form {
     min-width: 0;
+    max-width: 100%;
   }
 
   .hb-audit-hero__title {
-    max-width: 100%;
+    max-width: calc(100vw - 2rem);
     font-size: 2.35rem;
     overflow-wrap: anywhere;
     word-break: break-word;
@@ -511,18 +519,19 @@ body.hb-audit-landing {
 
   .hb-audit-hero__sub {
     font-size: 1.03rem;
-    max-width: 100%;
+    max-width: calc(100vw - 2rem);
     overflow-wrap: anywhere;
-    word-break: break-word;
+    word-break: break-all;
   }
 
   .hb-audit-hero__actions .hb-btn {
     width: 100%;
+    max-width: 100%;
   }
 
   .hb-audit-proofline {
     align-items: flex-start;
-    max-width: 100%;
+    max-width: calc(100vw - 2rem);
     width: 100%;
   }
 
