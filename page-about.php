@@ -103,7 +103,7 @@ $page_url = get_permalink();
         </div>
         <div class="hb-card hb-bento__cell--feature" itemscope itemtype="https://schema.org/Person">
             <div style="display:flex;gap:var(--hb-space-5);align-items:flex-start;flex-wrap:wrap;">
-                <div aria-hidden="true" style="flex:0 0 88px;width:88px;height:88px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--hb-accent-blue,#2563EB),var(--hb-accent-cyan,#06B6D4));">TT</div>
+                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/team/tum-thaweewat.jpg' ); ?>" alt="Tum Thaweewat — Head of Tech, Hashbox Studio" width="88" height="88" loading="lazy" decoding="async" itemprop="image" style="flex:0 0 88px;width:88px;height:88px;border-radius:50%;object-fit:cover;border:2px solid var(--hb-accent-blue,#2563EB);">
                 <div style="flex:1;min-width:260px;">
                     <h3 class="hb-h3" itemprop="name" style="margin:0;">Tum Thaweewat</h3>
                     <p class="hb-bento__label" itemprop="jobTitle" style="margin-top:var(--hb-space-2);">Head of Tech · Hashbox Studio</p>
@@ -224,6 +224,7 @@ hashbox_jsonld( array(
     '@id'         => home_url( '/#tum-thaweewat' ),
     'name'        => 'Tum Thaweewat',
     'jobTitle'    => 'Head of Tech',
+    'image'       => get_template_directory_uri() . '/assets/team/tum-thaweewat.jpg',
     'description' => '17 ปีประสบการณ์ด้าน Software Engineering, AI/ML และ Technical SEO · ผ่านโปรเจกต์ LLM integration และ SEO/Performance migration กว่า 50 เคส · Cert: OpenAI API, Anthropic Claude, LangChain, Google Search Console, Cloudflare Performance',
     'url'         => 'https://www.linkedin.com/in/tumthaweewat/',
     'sameAs'      => array( 'https://www.linkedin.com/in/tumthaweewat/' ),
