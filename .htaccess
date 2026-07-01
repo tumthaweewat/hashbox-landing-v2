@@ -2,6 +2,10 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
+# Retire older paid-media artwork left behind by non-deleting deploys.
+RewriteRule ^wp-content/themes/hashbox-studio-v2/assets/ads/hashbox/(ai_workflow__|bundle__|cro__|seo_ready__|seo_recovery__).+\.png$ - [G,L,NC]
+RewriteRule ^wp-content/themes/hashbox-studio-v2/assets/ads/hashbox/.*(_v2|_v3|artwork_contact_sheet).*\.png$ - [G,L,NC]
+
 # Canonical production host + HTTPS in one hop
 RewriteCond %{HTTP_HOST} ^www\.hashbox\.co\.th$ [NC,OR]
 RewriteCond %{HTTPS} off
