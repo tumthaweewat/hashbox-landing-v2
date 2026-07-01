@@ -18,9 +18,9 @@ const routes = {
     service: 'AI Workforce',
     headline: ['ลดงานซ้ำ', 'ด้วย AI ที่วัด ROI ได้'],
     sub: 'LINE Bot • RAG • Workflow Automation',
-    chips: ['Use case', 'ROI', 'Deploy จริง'],
+    chips: ['ROI Map', 'Use Case', 'Deploy Plan'],
     cta: 'รับ AI Audit ฟรี',
-    micro: 'สำหรับ Sales / Support / Ops',
+    micro: 'สำหรับทีม Sales, Support, Ops',
     url: 'hashbox.co.th',
     metric: '-60%',
     metricLabel: 'support cost',
@@ -33,9 +33,9 @@ const routes = {
     service: 'SEO-Ready Website',
     headline: ['เว็บใหม่', 'ต้องพร้อมติด Google'],
     sub: 'Technical SEO • Schema • Core Web Vitals',
-    chips: ['Lighthouse 100', 'GA4/GSC', 'CRO'],
+    chips: ['Lighthouse 100', 'Schema', 'GA4/GSC'],
     cta: 'ขอ SEO Audit ฟรี',
-    micro: 'Build Gate ก่อน Deploy',
+    micro: 'ตรวจ Build Gate ก่อน Deploy',
     url: 'hashbox.co.th',
     metric: '100',
     metricLabel: 'Lighthouse',
@@ -48,7 +48,7 @@ const routes = {
     service: 'Technical SEO',
     headline: ['Traffic ตก?', 'ให้ทีมตรวจ SEO'],
     sub: 'Indexation • CWV • Schema • Competitor Gap',
-    chips: ['GSC', 'Backlinks', 'Roadmap'],
+    chips: ['GSC Audit', 'Index Fix', 'Roadmap'],
     cta: 'รับ Audit ฟรี',
     micro: 'Case: Impressions +2,200%',
     url: 'hashbox.co.th',
@@ -63,9 +63,9 @@ const routes = {
     service: 'CRO Sprint',
     headline: ['มี Traffic', 'แต่ Lead ไม่มา?'],
     sub: 'GA4 • GSC • Heatmap • A/B Test',
-    chips: ['Funnel', 'Heatmap', 'Test plan'],
+    chips: ['Funnel', 'Heatmap', 'Test Plan'],
     cta: 'ตรวจ Funnel ฟรี',
-    micro: 'หา Lead leak ก่อนเพิ่มงบ',
+    micro: 'หา Lead Leak ก่อนเพิ่มงบ',
     url: 'hashbox.co.th',
     metric: '3x',
     metricLabel: 'conversion',
@@ -78,7 +78,7 @@ const routes = {
     service: 'Web + Marketing + AI',
     headline: ['ทีมเดียวดูครบ', 'Traffic → Lead → AI'],
     sub: 'Website • Performance • CRO • AI Workforce',
-    chips: ['1 KPI', '1 Dashboard', '1 Team'],
+    chips: ['One KPI', 'Dashboard', 'One Team'],
     cta: 'เริ่มด้วย Audit ฟรี',
     micro: 'ทีมเดียวรับผิดชอบ Growth KPI',
     url: 'hashbox.co.th',
@@ -98,6 +98,7 @@ const formats = [
 ];
 
 const routeOrder = ['ai_workforce', 'seo_ready', 'seo_recovery', 'cro_sprint', 'growth_bundle'];
+const uiFontStack = '"Sukhumvit Set", "Thonburi", "Tahoma", "Arial Unicode MS", sans-serif';
 
 function esc(text) {
   return String(text)
@@ -216,13 +217,12 @@ function layout(format, routeKey) {
       subSize: 32,
       chipTop: 582,
       visualLeft: 106,
-      visualTop: 690,
+      visualTop: 665,
       visualWidth: 868,
-      visualHeight: 220,
-      ctaTop: 935,
+      visualHeight: 250,
+      ctaTop: 922,
       ctaLeft: 106,
-      microLeft: 382,
-      microTop: 954,
+      microTop: 980,
       urlRight: 78,
       urlBottom: 43,
       frameInset: 54,
@@ -245,7 +245,7 @@ function chips(route) {
   return route.chips.map((chip) => `<span>${esc(chip)}</span>`).join('');
 }
 
-function visual(route, box) {
+function visual(route) {
   const common = `
     <div class="visualTop">
       <div class="trafficDots"><i></i><i></i><i></i></div>
@@ -258,122 +258,98 @@ function visual(route, box) {
   `;
 
   return `
-    <div class="visualCard">
+    <div class="visualCard visual-${route.visual}">
       ${common}
-      ${visualSvg(route, box)}
+      <div class="visualBody">${visualBody(route)}</div>
     </div>
   `;
 }
 
 function visualTitle(type) {
   return {
-    ai: 'AI workflow map',
-    seoReady: 'SEO launch gate',
-    seoRecovery: 'Recovery dashboard',
-    cro: 'Conversion leak map',
-    growth: 'Growth command center',
+    ai: 'ROI workflow',
+    seoReady: 'Launch readiness',
+    seoRecovery: 'GSC trend',
+    cro: 'Funnel diagnostics',
+    growth: 'Growth dashboard',
   }[type];
 }
 
-function visualSvg(route, box) {
+function visualBody(route) {
   const a = route.accent;
   const b = route.accent2;
   if (route.visual === 'ai') {
     return `
-      <svg class="visualSvg" viewBox="0 0 840 260" aria-hidden="true">
-        <defs>
-          <linearGradient id="line-ai" x1="0" x2="1"><stop stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient>
-          <filter id="glow-ai"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
-        <g fill="none" stroke="rgba(221,232,255,.13)" stroke-width="1">
-          <path d="M35 52H805M35 130H805M35 208H805"/>
-        </g>
-        <g filter="url(#glow-ai)" stroke="url(#line-ai)" stroke-width="4" fill="none" stroke-linecap="round">
-          <path d="M160 130 C270 52 394 70 500 95 S648 130 714 130"/>
-          <path d="M160 130 C275 198 402 190 500 160 S650 130 714 130"/>
-        </g>
-        <g class="node"><rect x="58" y="96" width="205" height="68" rx="22"/><text x="160" y="137">Manual</text></g>
-        <g class="node hot"><rect x="332" y="64" width="178" height="62" rx="21"/><text x="421" y="101">AI Bot</text></g>
-        <g class="node"><rect x="332" y="148" width="178" height="62" rx="21"/><text x="421" y="185">RAG</text></g>
-        <g class="node"><rect x="610" y="96" width="180" height="68" rx="22"/><text x="700" y="137">CRM</text></g>
-        <g class="pulse" fill="${b}">
-          <circle cx="421" cy="95" r="5"/><circle cx="610" cy="130" r="5"/><circle cx="332" cy="179" r="5"/>
-        </g>
-      </svg>
+      <div class="workflowMap">
+        <svg class="flowLines" viewBox="0 0 820 180" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="flow-ai" x1="0" x2="1"><stop stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs>
+          <path d="M150 94 C278 24 398 34 512 68 S650 94 724 94"/>
+          <path d="M150 94 C278 150 398 150 512 122 S650 94 724 94"/>
+          <circle cx="150" cy="94" r="7"/><circle cx="410" cy="44" r="7"/><circle cx="410" cy="138" r="7"/><circle cx="724" cy="94" r="7"/>
+        </svg>
+        <div class="flowNode manual"><b>Manual</b><span>handoff</span></div>
+        <div class="flowNode aiBot"><b>AI Bot</b><span>answer</span></div>
+        <div class="flowNode rag"><b>RAG</b><span>knowledge</span></div>
+        <div class="flowNode crm"><b>CRM</b><span>sync</span></div>
+      </div>
     `;
   }
   if (route.visual === 'seoReady') {
     return `
-      <svg class="visualSvg" viewBox="0 0 840 260" aria-hidden="true">
-        <defs>
-          <linearGradient id="ring-seo" x1="0" x2="1"><stop stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient>
-        </defs>
-        <g transform="translate(64 44)">
-          <circle cx="82" cy="82" r="70" fill="none" stroke="rgba(221,232,255,.12)" stroke-width="18"/>
-          <circle cx="82" cy="82" r="70" fill="none" stroke="url(#ring-seo)" stroke-width="18" stroke-dasharray="410 440" stroke-linecap="round" transform="rotate(-90 82 82)"/>
-          <text class="big" x="82" y="82">100</text>
-          <text class="small" x="82" y="112">Lighthouse</text>
-        </g>
-        <g class="checklist" transform="translate(250 42)">
-          <rect x="0" y="0" width="520" height="178" rx="26" fill="rgba(255,255,255,.035)" stroke="rgba(37,217,255,.22)"/>
-          <g class="row" transform="translate(34 38)"><circle cx="13" cy="13" r="13"/><path d="M7 13l5 5 9-12"/><text x="45" y="18">Core Web Vitals</text><rect x="330" y="3" width="118" height="20" rx="10"/></g>
-          <g class="row" transform="translate(34 82)"><circle cx="13" cy="13" r="13"/><path d="M7 13l5 5 9-12"/><text x="45" y="18">Schema + Sitemap</text><rect x="330" y="3" width="94" height="20" rx="10"/></g>
-          <g class="row" transform="translate(34 126)"><circle cx="13" cy="13" r="13"/><path d="M7 13l5 5 9-12"/><text x="45" y="18">GA4 / GSC events</text><rect x="330" y="3" width="136" height="20" rx="10"/></g>
-        </g>
-      </svg>
+      <div class="readyVisual">
+        <div class="scoreRing">
+          <svg viewBox="0 0 160 160" aria-hidden="true">
+            <defs><linearGradient id="ring-seo" x1="0" x2="1"><stop stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs>
+            <circle cx="80" cy="80" r="64"></circle>
+            <circle class="score" cx="80" cy="80" r="64"></circle>
+          </svg>
+          <b>100</b><span>Lighthouse</span>
+        </div>
+        <div class="qualityList">
+          <div><i></i><span>Core Web Vitals</span><b>Pass</b></div>
+          <div><i></i><span>Schema + Sitemap</span><b>Ready</b></div>
+          <div><i></i><span>GA4 / GSC Events</span><b>Live</b></div>
+        </div>
+      </div>
     `;
   }
   if (route.visual === 'seoRecovery') {
     return `
-      <svg class="visualSvg" viewBox="0 0 840 260" aria-hidden="true">
-        <defs><linearGradient id="chart-recovery" x1="0" x2="1"><stop stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs>
-        <g class="chartGrid" stroke="rgba(221,232,255,.12)">
-          <path d="M74 62H764M74 112H764M74 162H764M74 212H764"/>
-        </g>
-        <path d="M74 190 C160 178 186 194 255 170 S354 152 426 160 548 144 618 92 706 64 764 48" fill="none" stroke="url(#chart-recovery)" stroke-width="8" stroke-linecap="round"/>
-        <path d="M74 190 C160 178 186 194 255 170 S354 152 426 160 548 144 618 92 706 64 764 48 L764 220 L74 220Z" fill="url(#chart-recovery)" opacity=".12"/>
-        <g class="pillGroup">
-          <rect x="96" y="70" width="134" height="40" rx="20"/><text x="163" y="96">Indexation</text>
-          <rect x="268" y="44" width="110" height="40" rx="20"/><text x="323" y="70">CWV</text>
-          <rect x="418" y="88" width="124" height="40" rx="20"/><text x="480" y="114">Schema</text>
-        </g>
-      </svg>
+      <div class="recoveryVisual">
+        <svg class="trendChart" viewBox="0 0 820 190" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="chart-recovery" x1="0" x2="1"><stop stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs>
+          <path class="gridLine" d="M38 36H782M38 84H782M38 132H782M38 180H782"/>
+          <path class="area" d="M38 158 C150 150 228 154 316 132 S462 116 560 86 698 56 782 38 L782 190 L38 190Z"/>
+          <path class="line" d="M38 158 C150 150 228 154 316 132 S462 116 560 86 698 56 782 38"/>
+          <g class="points"><circle cx="38" cy="158" r="7"/><circle cx="316" cy="132" r="7"/><circle cx="560" cy="86" r="7"/><circle cx="782" cy="38" r="7"/></g>
+        </svg>
+        <div class="signalPills"><span>Index</span><span>CWV</span><span>Schema</span></div>
+      </div>
     `;
   }
   if (route.visual === 'cro') {
     return `
-      <svg class="visualSvg" viewBox="0 0 840 260" aria-hidden="true">
-        <defs><linearGradient id="funnel-cro" x1="0" x2="1"><stop stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs>
-        <g transform="translate(68 48)">
-          <path d="M0 0H460L394 54H66Z" fill="rgba(37,217,255,.14)" stroke="rgba(37,217,255,.34)"/>
-          <path d="M66 68H394L336 122H124Z" fill="rgba(47,115,255,.18)" stroke="rgba(47,115,255,.40)"/>
-          <path d="M124 136H336L294 186H166Z" fill="rgba(255,122,217,.14)" stroke="rgba(255,122,217,.36)"/>
-          <text x="28" y="35">Traffic</text><text x="145" y="103">Landing</text><text x="182" y="171">Lead</text>
-        </g>
-        <g transform="translate(570 40)" class="heat">
-          <rect x="0" y="0" width="190" height="180" rx="24"/>
-          <circle cx="45" cy="46" r="18"/><circle cx="100" cy="70" r="12"/><circle cx="148" cy="42" r="22"/>
-          <circle cx="62" cy="124" r="10"/><circle cx="126" cy="132" r="28"/><circle cx="160" cy="104" r="9"/>
-          <text x="95" y="212">Heatmap signal</text>
-        </g>
-      </svg>
+      <div class="croVisual">
+        <div class="funnelStack">
+          <div class="wideStep"><b>Traffic</b><span>visits</span></div>
+          <div class="midStep"><b>Landing</b><span>intent</span></div>
+          <div class="smallStep"><b>Lead</b><span>submit</span></div>
+        </div>
+        <div class="heatPanel">
+          <i class="h1"></i><i class="h2"></i><i class="h3"></i><i class="h4"></i><i class="h5"></i>
+        </div>
+      </div>
     `;
   }
   return `
-    <svg class="visualSvg" viewBox="0 0 840 260" aria-hidden="true">
-      <defs><linearGradient id="flow-growth" x1="0" x2="1"><stop stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs>
-      <g class="dashTiles">
-        <rect x="58" y="48" width="176" height="132" rx="24"/><text x="146" y="100">Traffic</text><path d="M94 138h104"/>
-        <rect x="332" y="48" width="176" height="132" rx="24"/><text x="420" y="100">Lead</text><path d="M368 138h104"/>
-        <rect x="606" y="48" width="176" height="132" rx="24"/><text x="694" y="100">AI</text><path d="M642 138h104"/>
-      </g>
-      <g stroke="url(#flow-growth)" stroke-width="6" stroke-linecap="round" fill="none">
-        <path d="M238 114H322"/><path d="M512 114H596"/>
-      </g>
-      <g fill="url(#flow-growth)"><circle cx="280" cy="114" r="7"/><circle cx="554" cy="114" r="7"/></g>
-      <rect x="236" y="200" width="370" height="38" rx="19" fill="rgba(37,217,255,.11)" stroke="rgba(37,217,255,.28)"/>
-      <text class="centerSmall" x="421" y="225">1 Dashboard • 1 KPI • 1 Team</text>
-    </svg>
+    <div class="growthVisual">
+      <div class="growthTile"><b>Traffic</b><span>SEO + Ads</span><i></i></div>
+      <div class="growthArrow"></div>
+      <div class="growthTile"><b>Lead</b><span>CRO</span><i></i></div>
+      <div class="growthArrow"></div>
+      <div class="growthTile"><b>AI</b><span>Ops</span><i></i></div>
+      <div class="dashboardPill">1 Dashboard • 1 KPI • 1 Team</div>
+    </div>
   `;
 }
 
@@ -381,14 +357,24 @@ function html(routeKey, format) {
   const route = routes[routeKey];
   const box = layout(format, routeKey);
   const isWide = format.key === 'linkedin_wide';
+  const isSquare = format.key === 'meta_square';
   const logoSize = 42 * box.brandScale;
   const brandFont = 26 * box.brandScale;
-  const badgeFont = isWide ? 13 : 15;
-  const ctaFont = isWide ? 18 : 22;
-  const ctaPadX = isWide ? 20 : 26;
+  const badgeFont = isWide ? 14 : 17;
+  const chipFont = isWide ? 12 : format.key === 'meta_square' ? 15 : 16;
+  const ctaFont = isWide ? 19 : 23;
+  const ctaPadX = isWide ? 20 : 28;
   const ctaPadY = isWide ? 11 : 15;
   const visualClass = isWide ? 'wide' : format.key.replace('meta_', '');
-  const visualSvgHeight = isWide ? 210 : format.key === 'meta_story' ? 280 : format.key === 'meta_portrait' ? 210 : 150;
+  const visualInset = isWide ? 24 : 34;
+  const visualBodyTop = isWide ? 92 : format.key === 'meta_square' ? 88 : 102;
+  const visualTitleFont = isWide ? 15 : 19;
+  const visualLabelFont = isWide ? 13 : format.key === 'meta_square' ? 15 : 17;
+  const visualSmallFont = isWide ? 10 : format.key === 'meta_square' ? 12 : 13;
+  const funnelStepHeight = isWide ? 39 : isSquare ? 35 : format.key === 'meta_portrait' ? 42 : 48;
+  const funnelGap = isWide ? 9 : isSquare ? 8 : 12;
+  const croHeatWidth = isWide ? 132 : isSquare ? 150 : 170;
+  const croGap = isWide ? 18 : isSquare ? 18 : 26;
   const microFont = isWide ? 19 : format.key === 'meta_square' ? 22 : 28;
 
   return `<!doctype html>
@@ -399,9 +385,11 @@ function html(routeKey, format) {
   * { box-sizing: border-box; }
   html, body { margin: 0; width: ${format.width}px; height: ${format.height}px; overflow: hidden; background: #030712; }
   body {
-    font-family: "Sukhumvit Set", "Arial Unicode MS", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-family: ${uiFontStack};
     -webkit-font-smoothing: antialiased;
     text-rendering: geometricPrecision;
+    font-synthesis: none;
+    font-kerning: normal;
   }
   .art {
     position: relative;
@@ -469,10 +457,10 @@ function html(routeKey, format) {
     box-shadow: 0 18px 42px rgba(42,104,255,.38);
   }
   .brandText {
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-family: ${uiFontStack};
     font-size: ${brandFont}px;
     font-weight: 900;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
     line-height: 1;
   }
   .brandText span { color: #f5f8ff; }
@@ -483,13 +471,15 @@ function html(routeKey, format) {
     top: ${box.badgeTop}px;
     display: inline-flex;
     align-items: center;
-    min-height: ${isWide ? 30 : 34}px;
-    padding: 0 ${isWide ? 15 : 18}px;
+    min-height: ${isWide ? 32 : 38}px;
+    padding: ${isWide ? 2 : 3}px ${isWide ? 16 : 20}px 0;
     border-radius: 999px;
     color: #f5f8ff;
     font-size: ${badgeFont}px;
     font-weight: 800;
     letter-spacing: 0;
+    line-height: 1;
+    white-space: nowrap;
     background: linear-gradient(135deg, ${route.accent}, ${route.accent2});
     box-shadow: 0 12px 34px rgba(42,104,255,.35);
   }
@@ -499,10 +489,12 @@ function html(routeKey, format) {
     top: ${box.headlineTop}px;
     width: ${box.headlineWidth}px;
     color: #f5f8ff;
+    font-family: ${uiFontStack};
     font-size: ${box.headlineSize}px;
     font-weight: 900;
-    line-height: 1.12;
+    line-height: 1.18;
     letter-spacing: 0;
+    padding-top: .08em;
   }
   .headline .line {
     display: block;
@@ -518,6 +510,7 @@ function html(routeKey, format) {
     top: ${box.subTop}px;
     width: ${isWide ? 630 : 880}px;
     color: #c8d5ee;
+    font-family: ${uiFontStack};
     font-size: ${box.subSize}px;
     font-weight: 500;
     line-height: 1.28;
@@ -533,14 +526,17 @@ function html(routeKey, format) {
   .chips span {
     display: inline-flex;
     align-items: center;
-    height: ${isWide ? 24 : 30}px;
-    padding: 0 ${isWide ? 10 : 12}px;
+    height: ${isWide ? 28 : 34}px;
+    padding: ${isWide ? 1 : 2}px ${isWide ? 12 : 15}px 0;
     border: 1px solid rgba(37,217,255,.46);
     border-radius: 999px;
     color: #dce8ff;
     background: rgba(6,14,33,.68);
-    font-size: ${isWide ? 11 : 13}px;
-    font-weight: 700;
+    font-family: ${uiFontStack};
+    font-size: ${chipFont}px;
+    font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
   }
   .visualWrap {
     position: absolute;
@@ -563,14 +559,17 @@ function html(routeKey, format) {
   }
   .visualTop {
     position: absolute;
-    left: ${isWide ? 22 : 36}px;
-    top: ${isWide ? 20 : 28}px;
+    left: ${isWide ? 22 : 34}px;
+    top: ${isWide ? 20 : 27}px;
     display: flex;
     align-items: center;
     gap: ${isWide ? 12 : 16}px;
     color: #f5f8ff;
-    font-size: ${isWide ? 15 : 18}px;
+    font-family: ${uiFontStack};
+    font-size: ${visualTitleFont}px;
     font-weight: 800;
+    line-height: 1;
+    z-index: 3;
   }
   .trafficDots { display: flex; gap: 7px; }
   .trafficDots i { width: 10px; height: 10px; border-radius: 999px; display: block; }
@@ -579,60 +578,334 @@ function html(routeKey, format) {
   .trafficDots i:nth-child(3) { background: #61f4b1; }
   .visualMetric {
     position: absolute;
-    right: ${isWide ? 24 : 38}px;
-    top: ${isWide ? 42 : 52}px;
+    right: ${isWide ? 26 : 38}px;
+    top: ${isWide ? 44 : 52}px;
     text-align: right;
+    z-index: 3;
   }
   .visualMetric b {
     display: block;
     color: #f5f8ff;
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-    font-size: ${isWide ? 40 : 48}px;
+    font-family: ${uiFontStack};
+    font-size: ${isWide ? 39 : 48}px;
     font-weight: 900;
-    line-height: .9;
-    letter-spacing: -0.04em;
+    line-height: 1;
+    letter-spacing: 0;
   }
   .visualMetric span {
     display: block;
     margin-top: 5px;
     color: #aebcd7;
+    font-family: ${uiFontStack};
     font-size: ${isWide ? 11 : 13}px;
     font-weight: 800;
     text-transform: uppercase;
   }
-  .visualSvg {
+  .visualBody {
     position: absolute;
-    left: ${isWide ? 20 : 28}px;
-    right: ${isWide ? 20 : 28}px;
-    bottom: ${isWide ? 20 : 28}px;
-    width: calc(100% - ${isWide ? 40 : 56}px);
-    height: ${visualSvgHeight}px;
+    left: ${visualInset}px;
+    right: ${visualInset}px;
+    top: ${visualBodyTop}px;
+    bottom: ${visualInset}px;
+    font-family: ${uiFontStack};
+    font-size: ${visualLabelFont}px;
+    z-index: 1;
   }
-  .visualCard text {
-    fill: #dce8ff;
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-    font-size: 22px;
+  .workflowMap, .readyVisual, .recoveryVisual, .croVisual, .growthVisual {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .flowLines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .flowLines path {
+    fill: none;
+    stroke: ${route.accent};
+    stroke-width: 6;
+    stroke-linecap: round;
+    opacity: .86;
+  }
+  .flowLines circle { fill: ${route.accent2}; }
+  .flowNode {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 40%;
+    min-height: 48px;
+    border: 1.5px solid rgba(37,217,255,.48);
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(42,104,255,.14), rgba(6,14,33,.88));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 16px 34px rgba(0,0,0,.22);
+  }
+  .flowNode b {
+    color: #f5f8ff;
+    font-size: ${visualLabelFont}px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .flowNode span {
+    margin-top: 4px;
+    color: #aebcd7;
+    font-size: ${visualSmallFont}px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .flowNode.manual { left: 0; top: 31%; width: 25%; }
+  .flowNode.aiBot { left: 36%; top: 0; width: 28%; }
+  .flowNode.rag { left: 36%; bottom: 0; width: 28%; }
+  .flowNode.crm { right: 0; top: 31%; width: 25%; }
+  .readyVisual {
+    display: flex;
+    align-items: center;
+    gap: ${isWide ? 22 : 30}px;
+  }
+  .scoreRing {
+    position: relative;
+    width: ${isWide ? 112 : 132}px;
+    height: ${isWide ? 112 : 132}px;
+    flex: 0 0 auto;
+  }
+  .scoreRing svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .scoreRing circle {
+    fill: none;
+    stroke: rgba(221,232,255,.13);
+    stroke-width: 15;
+  }
+  .scoreRing .score {
+    stroke: ${route.accent2};
+    stroke-linecap: round;
+    stroke-dasharray: 386 402;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+  }
+  .scoreRing b {
+    position: absolute;
+    inset: 35% 0 auto;
+    color: #fff;
+    text-align: center;
+    font-size: ${isWide ? 30 : 38}px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .scoreRing span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 62%;
+    color: #aebcd7;
+    text-align: center;
+    font-size: ${visualSmallFont}px;
     font-weight: 800;
-    text-anchor: middle;
+    line-height: 1;
   }
-  .visualCard .small { fill: #aebcd7; font-size: 15px; font-weight: 800; }
-  .visualCard .big { fill: #fff; font-size: 44px; font-weight: 900; dominant-baseline: middle; text-anchor: middle; }
-  .visualCard .node rect { fill: rgba(42,104,255,.08); stroke: rgba(37,217,255,.55); stroke-width: 2.2; }
-  .visualCard .node.hot rect { fill: rgba(37,217,255,.12); stroke: rgba(37,217,255,.8); }
-  .visualCard .node text { font-size: 20px; dominant-baseline: middle; }
-  .visualCard .row circle { fill: rgba(37,217,255,.15); stroke: rgba(37,217,255,.8); }
-  .visualCard .row path { fill: none; stroke: #61f4b1; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
-  .visualCard .row text { text-anchor: start; font-size: 20px; fill: #f5f8ff; }
-  .visualCard .row rect { fill: rgba(37,217,255,.2); }
-  .pillGroup rect { fill: rgba(37,217,255,.1); stroke: rgba(37,217,255,.35); }
-  .pillGroup text { font-size: 17px; dominant-baseline: middle; }
-  .heat rect { fill: rgba(255,255,255,.035); stroke: rgba(37,217,255,.26); }
-  .heat circle { fill: url(#funnel-cro); opacity: .58; }
-  .heat text { fill: #aebcd7; font-size: 15px; }
-  .dashTiles rect { fill: rgba(255,255,255,.04); stroke: rgba(37,217,255,.28); }
-  .dashTiles text { dominant-baseline: middle; }
-  .dashTiles path { stroke: url(#flow-growth); stroke-width: 8; stroke-linecap: round; opacity: .75; }
-  .centerSmall { fill: #c8d5ee; font-size: 18px; dominant-baseline: middle; }
+  .qualityList {
+    flex: 1;
+    display: grid;
+    gap: ${isWide ? 10 : 13}px;
+  }
+  .qualityList div {
+    display: grid;
+    grid-template-columns: ${isWide ? 18 : 22}px 1fr auto;
+    align-items: center;
+    gap: ${isWide ? 10 : 12}px;
+    min-height: ${isWide ? 34 : 42}px;
+    padding: 0 ${isWide ? 12 : 16}px;
+    border: 1px solid rgba(37,217,255,.22);
+    border-radius: 999px;
+    background: rgba(255,255,255,.04);
+  }
+  .qualityList i {
+    width: ${isWide ? 18 : 22}px;
+    height: ${isWide ? 18 : 22}px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 50% 50%, #61f4b1 0 34%, rgba(97,244,177,.2) 36% 100%);
+  }
+  .qualityList span {
+    color: #f5f8ff;
+    font-size: ${visualLabelFont}px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .qualityList b {
+    color: #61f4b1;
+    font-size: ${visualSmallFont}px;
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  .trendChart {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: ${isWide ? 4 : 0}px;
+    width: 100%;
+    height: calc(100% - ${isWide ? 38 : 44}px);
+  }
+  .visual-seoRecovery .trendChart {
+    right: ${isWide ? 146 : isSquare ? 230 : 250}px;
+    width: auto;
+  }
+  .trendChart .gridLine {
+    fill: none;
+    stroke: rgba(221,232,255,.15);
+    stroke-width: 1.5;
+  }
+  .trendChart .area { fill: ${route.accent2}; opacity: .16; }
+  .trendChart .line {
+    fill: none;
+    stroke: ${route.accent2};
+    stroke-width: 8;
+    stroke-linecap: round;
+  }
+  .trendChart .points circle { fill: #f5f8ff; stroke: ${route.accent2}; stroke-width: 4; }
+  .signalPills {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    gap: ${isWide ? 10 : 13}px;
+  }
+  .signalPills span {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: ${isWide ? 28 : 34}px;
+    border: 1px solid rgba(37,217,255,.28);
+    border-radius: 999px;
+    color: #dce8ff;
+    background: rgba(37,217,255,.08);
+    font-size: ${visualLabelFont}px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .croVisual {
+    display: grid;
+    grid-template-columns: 1fr ${croHeatWidth}px;
+    gap: ${croGap}px;
+    align-items: stretch;
+  }
+  .funnelStack {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: ${funnelGap}px;
+  }
+  .funnelStack div {
+    height: ${funnelStepHeight}px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 ${isWide ? 18 : 24}px;
+    color: #f5f8ff;
+    border: 1px solid rgba(37,217,255,.28);
+    background: linear-gradient(90deg, rgba(37,217,255,.18), rgba(255,122,217,.1));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+  }
+  .funnelStack .wideStep { width: 100%; border-radius: 18px; }
+  .funnelStack .midStep { width: 78%; margin-left: 11%; border-radius: 17px; }
+  .funnelStack .smallStep { width: 56%; margin-left: 22%; border-radius: 16px; }
+  .funnelStack b { font-size: ${visualLabelFont}px; font-weight: 900; line-height: 1; }
+  .funnelStack span { color: #aebcd7; font-size: ${visualSmallFont}px; font-weight: 800; line-height: 1; }
+  .heatPanel {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,122,217,.26);
+    border-radius: ${isWide ? 20 : 24}px;
+    background: radial-gradient(circle at 70% 58%, rgba(255,122,217,.34), transparent 38%), rgba(255,255,255,.04);
+  }
+  .heatPanel b {
+    position: absolute;
+    left: ${isWide ? 14 : 18}px;
+    top: ${isWide ? 14 : 18}px;
+    color: #f5f8ff;
+    font-size: ${visualLabelFont}px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .heatPanel i {
+    position: absolute;
+    display: block;
+    border-radius: 999px;
+    background: linear-gradient(135deg, ${route.accent}, ${route.accent2});
+    opacity: .7;
+    filter: blur(.3px);
+  }
+  .heatPanel .h1 { width: 32px; height: 32px; left: 22%; top: 38%; }
+  .heatPanel .h2 { width: 52px; height: 52px; right: 16%; top: 42%; }
+  .heatPanel .h3 { width: 22px; height: 22px; left: 44%; top: 24%; }
+  .heatPanel .h4 { width: 18px; height: 18px; left: 22%; bottom: 18%; }
+  .heatPanel .h5 { width: 28px; height: 28px; right: 34%; bottom: 12%; }
+  .growthVisual {
+    display: grid;
+    grid-template-columns: 1fr ${isWide ? 28 : 36}px 1fr ${isWide ? 28 : 36}px 1fr;
+    gap: ${isWide ? 10 : 14}px;
+    align-items: start;
+    padding-bottom: ${isWide ? 42 : 48}px;
+  }
+  .growthTile {
+    min-height: ${isWide ? 92 : 104}px;
+    padding: ${isWide ? 18 : 22}px ${isWide ? 16 : 20}px;
+    border: 1px solid rgba(37,217,255,.26);
+    border-radius: ${isWide ? 20 : 24}px;
+    background: rgba(255,255,255,.045);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+  }
+  .growthTile b {
+    display: block;
+    color: #f5f8ff;
+    font-size: ${visualLabelFont}px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .growthTile span {
+    display: block;
+    margin-top: 8px;
+    color: #aebcd7;
+    font-size: ${visualSmallFont}px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .growthTile i {
+    display: block;
+    width: 70%;
+    height: 8px;
+    margin-top: ${isWide ? 16 : 20}px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, ${route.accent}, ${route.accent2});
+  }
+  .growthArrow {
+    align-self: center;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, ${route.accent}, ${route.accent2});
+    box-shadow: 0 0 14px rgba(37,217,255,.3);
+  }
+  .dashboardPill {
+    position: absolute;
+    left: 18%;
+    right: 18%;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: ${isWide ? 30 : 36}px;
+    border: 1px solid rgba(37,217,255,.28);
+    border-radius: 999px;
+    color: #dce8ff;
+    background: rgba(37,217,255,.08);
+    font-size: ${visualLabelFont}px;
+    font-weight: 800;
+    line-height: 1;
+  }
   .cta {
     position: absolute;
     left: ${box.ctaLeft}px;
@@ -646,9 +919,11 @@ function html(routeKey, format) {
     color: #fff;
     background: linear-gradient(135deg, ${route.accent}, ${route.accent2});
     box-shadow: 0 18px 46px rgba(42,104,255,.36);
+    font-family: ${uiFontStack};
     font-size: ${ctaFont}px;
     font-weight: 900;
     line-height: 1;
+    white-space: nowrap;
   }
   .cta svg { width: ${isWide ? 18 : 22}px; height: ${isWide ? 18 : 22}px; }
   .micro {
@@ -656,15 +931,18 @@ function html(routeKey, format) {
     left: ${box.microLeft || box.headlineLeft}px;
     top: ${box.microTop}px;
     color: #aebcd7;
+    font-family: ${uiFontStack};
     font-size: ${microFont}px;
     font-weight: 600;
     line-height: 1.2;
+    white-space: nowrap;
   }
   .url {
     position: absolute;
     right: ${box.urlRight}px;
     bottom: ${box.urlBottom}px;
     color: rgba(174,188,215,.76);
+    font-family: ${uiFontStack};
     font-size: ${isWide ? 16 : 20}px;
     font-weight: 800;
   }
