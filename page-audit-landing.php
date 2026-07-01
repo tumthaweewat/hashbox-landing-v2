@@ -46,7 +46,7 @@ $utm_keys = array( 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'u
 get_header();
 ?>
 
-<article class="hb-audit" data-audit-slug="<?php echo esc_attr( $landing['slug'] ); ?>" data-service-interest="<?php echo esc_attr( $landing['service_interest'] ); ?>">
+<article class="hb-audit" data-audit-slug="<?php echo esc_attr( $landing['slug'] ); ?>" data-service-interest="<?php echo esc_attr( $landing['service_interest'] ); ?>" data-utm-content="<?php echo esc_attr( isset( $landing['utm_content'] ) ? $landing['utm_content'] : '' ); ?>">
     <header class="hb-audit-hero">
         <div class="hb-audit-hero__grid"></div>
         <div class="hb-container hb-container--xl">
@@ -172,7 +172,8 @@ get_header();
                     <input type="hidden" name="landing_slug" value="<?php echo esc_attr( $landing['slug'] ); ?>">
                     <input type="hidden" name="redirect_to" value="<?php echo esc_url( $current_url ); ?>#audit-form">
                     <?php foreach ( $utm_keys as $utm_key ) : ?>
-                        <input type="hidden" name="<?php echo esc_attr( $utm_key ); ?>" data-utm-field="<?php echo esc_attr( $utm_key ); ?>" value="">
+                        <?php $utm_default = 'utm_content' === $utm_key && isset( $landing['utm_content'] ) ? $landing['utm_content'] : ''; ?>
+                        <input type="hidden" name="<?php echo esc_attr( $utm_key ); ?>" data-utm-field="<?php echo esc_attr( $utm_key ); ?>" data-utm-default="<?php echo esc_attr( $utm_default ); ?>" value="<?php echo esc_attr( $utm_default ); ?>">
                     <?php endforeach; ?>
                     <?php wp_nonce_field( 'hashbox_contact', 'hashbox_nonce' ); ?>
 

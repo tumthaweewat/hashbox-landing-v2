@@ -43,7 +43,7 @@
   function applyUtms(data) {
     UTM_KEYS.forEach(function (key) {
       document.querySelectorAll('[data-utm-field="' + key + '"]').forEach(function (input) {
-        input.value = data[key] || '';
+        input.value = data[key] || input.dataset.utmDefault || '';
       });
     });
   }
@@ -78,7 +78,8 @@
     return Object.assign({
       page_path: window.location.pathname,
       audit_slug: root ? root.dataset.auditSlug : '',
-      service_interest: root ? root.dataset.serviceInterest : ''
+      service_interest: root ? root.dataset.serviceInterest : '',
+      utm_content: root ? root.dataset.utmContent : ''
     }, extra || {});
   }
 
@@ -106,6 +107,10 @@
   };
 
   var utms = captureUtms();
+  var root = document.querySelector('.hb-audit');
+  if (root && root.dataset.utmContent && !utms.utm_content) {
+    utms.utm_content = root.dataset.utmContent;
+  }
   applyUtms(utms);
   preserveUtmsOnInternalLinks(utms);
 

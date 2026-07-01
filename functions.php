@@ -103,17 +103,29 @@ function hashbox_enqueue_assets() {
         true
     );
 
-    if ( function_exists( 'hashbox_get_audit_landing_for_path' ) && hashbox_get_audit_landing_for_path() ) {
+    $is_audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) && hashbox_get_audit_landing_for_path();
+    $is_ads_preview   = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
+
+    if ( $is_audit_landing || $is_ads_preview ) {
+        wp_enqueue_style(
+            'hashbox-audit-v4-fonts',
+            'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Thai:wght@400;500;600;700;800;900&display=swap',
+            array(),
+            null
+        );
+
         $audit_css = get_template_directory() . '/css/audit-landing.css';
         if ( file_exists( $audit_css ) ) {
             wp_enqueue_style(
                 'hashbox-audit-landing',
                 $theme_uri . '/css/audit-landing.css',
-                array( 'hashbox-ds-composed' ),
+                array( 'hashbox-ds-composed', 'hashbox-audit-v4-fonts' ),
                 filemtime( $audit_css )
             );
         }
+    }
 
+    if ( $is_audit_landing ) {
         $audit_js = get_template_directory() . '/js/audit-landing.js';
         if ( file_exists( $audit_js ) ) {
             wp_enqueue_script(
@@ -545,6 +557,13 @@ function hashbox_get_seo_metadata() {
         );
     }
 
+    if ( function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request() ) {
+        return array(
+            'title'       => 'Hashbox Ads Kit V4 Preview | Hashbox Studio',
+            'description' => 'Internal preview for Hashbox Ads Kit V4 artwork and landing page creative mappings.',
+        );
+    }
+
     if ( is_front_page() ) {
         return array(
             'title'       => 'รับทำเว็บไซต์ SEO + AI Consulting | Hashbox Studio',
@@ -847,6 +866,9 @@ function hashbox_current_public_url() {
     $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
     if ( $audit_landing && function_exists( 'hashbox_audit_landing_canonical_url' ) ) {
         return hashbox_audit_landing_canonical_url( $audit_landing );
+    }
+    if ( function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request() ) {
+        return home_url( '/ads-preview/' );
     }
     if ( is_singular() ) {
         return get_permalink();
@@ -1224,16 +1246,19 @@ function hashbox_audit_landing_pages() {
             'slug'             => 'ai-workflow-audit',
             'service_label'    => 'AI Workforce',
             'service_interest' => 'AI Tool / LINE Bot',
-            'meta_title'       => 'AI Workflow Audit ฟรี | Hashbox Studio',
+            'meta_title'       => 'AI Workforce Audit ฟรี | Hashbox Studio',
             'meta_description' => 'ตรวจโอกาสลดงานซ้ำด้วย LINE Bot, RAG Knowledge Base และ Workflow Automation พร้อม AI ROI map สำหรับทีมขายและซัพพอร์ต',
             'hero_headline'    => 'ลดงานซ้ำด้วย AI ที่วัด ROI ได้',
             'hero_subcopy'     => 'LINE Bot, RAG Knowledge Base และ Workflow Automation สำหรับทีมขายและซัพพอร์ตที่ต้องการตอบเร็วขึ้นโดยไม่เพิ่ม headcount',
             'primary_cta'      => 'รับ AI Audit ฟรี',
             'proof_line'       => '-60% Support Cost จาก AI Bot + RAG ภายใน 8 สัปดาห์',
-            'creative_key'     => 'ai_workflow',
-            'wide_image'       => 'ai_workflow__wide_1200x627.png',
-            'portrait_image'   => 'ai_workflow__portrait_1080x1350.png',
-            'og_image'         => 'ai_workflow__wide_1200x627.png',
+            'creative_key'     => 'ai_workforce',
+            'utm_content'      => 'ai_workforce_v4',
+            'wide_image'       => 'linkedin_wide_ai_workforce_v4.png',
+            'portrait_image'   => 'meta_portrait_ai_workforce_v4.png',
+            'square_image'     => 'meta_square_ai_workforce_v4.png',
+            'story_image'      => 'meta_story_ai_workforce_v4.png',
+            'og_image'         => 'linkedin_wide_ai_workforce_v4.png',
             'pain_points'      => array(
                 'ทีมขายและซัพพอร์ตตอบคำถามซ้ำหลายรอบต่อวัน แต่ยังไม่มี knowledge base ที่ AI ใช้ได้จริง',
                 'อยากใช้ AI แต่ยังไม่ชัดว่า use case ไหนคืนทุนและควรเริ่มจาก workflow ใดก่อน',
@@ -1269,12 +1294,15 @@ function hashbox_audit_landing_pages() {
             'meta_description' => 'ตรวจแผนทำเว็บใหม่ให้พร้อมติด Google ตั้งแต่วันแรก ครอบคลุม Technical SEO, Core Web Vitals, Schema, GA4 และ GSC',
             'hero_headline'    => 'ทำเว็บใหม่ให้พร้อมติด Google',
             'hero_subcopy'     => 'วาง Technical SEO, Core Web Vitals, Schema และ GA4/GSC ตั้งแต่วันแรก เพื่อให้เว็บใหม่ไม่เสียโอกาส organic traffic หลัง deploy',
-            'primary_cta'      => 'รับ SEO Audit ฟรี',
+            'primary_cta'      => 'ขอ SEO Audit ฟรี',
             'proof_line'       => '100 Lighthouse Score และ Core Web Vitals เขียวทุก URL ก่อน Deploy',
             'creative_key'     => 'seo_ready',
-            'wide_image'       => 'seo_ready__wide_1200x627.png',
-            'portrait_image'   => 'seo_ready__portrait_1080x1350.png',
-            'og_image'         => 'seo_ready__wide_1200x627.png',
+            'utm_content'      => 'seo_ready_v4',
+            'wide_image'       => 'linkedin_wide_seo_ready_v4.png',
+            'portrait_image'   => 'meta_portrait_seo_ready_v4.png',
+            'square_image'     => 'meta_square_seo_ready_v4.png',
+            'story_image'      => 'meta_story_seo_ready_v4.png',
+            'og_image'         => 'linkedin_wide_seo_ready_v4.png',
             'pain_points'      => array(
                 'กำลังทำเว็บใหม่แต่ยังไม่มี SEO checklist ที่ทีม dev, content และ owner ใช้ร่วมกัน',
                 'กลัวเว็บสวยแต่โหลดช้า ไม่มี schema, sitemap, canonical หรือ GA4/GSC ตั้งแต่วันแรก',
@@ -1313,9 +1341,12 @@ function hashbox_audit_landing_pages() {
             'primary_cta'      => 'รับ Audit ฟรี',
             'proof_line'       => '+2,200% Impressions จาก Technical SEO + Content Recovery',
             'creative_key'     => 'seo_recovery',
-            'wide_image'       => 'seo_recovery__wide_1200x627.png',
-            'portrait_image'   => 'seo_recovery__portrait_1080x1350.png',
-            'og_image'         => 'seo_recovery__wide_1200x627.png',
+            'utm_content'      => 'seo_recovery_v4',
+            'wide_image'       => 'linkedin_wide_seo_recovery_v4.png',
+            'portrait_image'   => 'meta_portrait_seo_recovery_v4.png',
+            'square_image'     => 'meta_square_seo_recovery_v4.png',
+            'story_image'      => 'meta_story_seo_recovery_v4.png',
+            'og_image'         => 'linkedin_wide_seo_recovery_v4.png',
             'pain_points'      => array(
                 'Organic traffic ลดลงแต่ยังไม่รู้ว่าเกิดจาก technical, content, indexation หรือคู่แข่ง',
                 'แก้ SEO เป็นรายจุดมาหลายครั้งแต่ ranking ยังไม่กลับ เพราะไม่มี baseline และ priority ที่ชัด',
@@ -1353,10 +1384,13 @@ function hashbox_audit_landing_pages() {
             'hero_subcopy'     => 'วัด funnel ด้วย GA4, GSC, heatmap และ A/B test เพื่อหา friction ที่ทำให้คนไม่กรอกฟอร์มหรือไม่ทัก LINE',
             'primary_cta'      => 'ตรวจ Funnel ฟรี',
             'proof_line'       => '3x Conversion Rate จาก CRO Sprint + Heatmap + A/B Test',
-            'creative_key'     => 'cro',
-            'wide_image'       => 'cro__wide_1200x627.png',
-            'portrait_image'   => 'cro__portrait_1080x1350.png',
-            'og_image'         => 'cro__wide_1200x627.png',
+            'creative_key'     => 'cro_sprint',
+            'utm_content'      => 'cro_sprint_v4',
+            'wide_image'       => 'linkedin_wide_cro_sprint_v4.png',
+            'portrait_image'   => 'meta_portrait_cro_sprint_v4.png',
+            'square_image'     => 'meta_square_cro_sprint_v4.png',
+            'story_image'      => 'meta_story_cro_sprint_v4.png',
+            'og_image'         => 'linkedin_wide_cro_sprint_v4.png',
             'pain_points'      => array(
                 'ยิงแอดหรือทำ SEO แล้วมี traffic แต่ form submit, LINE click หรือ qualified lead ต่ำ',
                 'ติด GA4 แล้วแต่ event ไม่ครบ ทำให้ไม่รู้ว่าคนหลุดที่ hero, offer, pricing หรือ form',
@@ -1392,12 +1426,15 @@ function hashbox_audit_landing_pages() {
             'meta_description' => 'ทีมเดียวดูครบ Web, Ads, SEO และ AI ลดปัญหาแยกหลายเอเจนซี พร้อม audit funnel ทั้ง customer journey',
             'hero_headline'    => 'ทีมเดียวดูครบ Web, Ads, SEO และ AI',
             'hero_subcopy'     => 'ลดปัญหาแยกเอเจนซีหลายทีม แล้ววัด KPI เดียวตลอด customer journey ตั้งแต่ traffic, conversion จนถึง workflow หลังบ้าน',
-            'primary_cta'      => 'รับ Growth Audit ฟรี',
+            'primary_cta'      => 'เริ่มด้วย Audit ฟรี',
             'proof_line'       => '17 ปี Experience และ 300+ แบรนด์ที่ผ่านมือทีม',
-            'creative_key'     => 'bundle',
-            'wide_image'       => 'bundle__wide_1200x627.png',
-            'portrait_image'   => 'bundle__portrait_1080x1350.png',
-            'og_image'         => 'bundle__wide_1200x627.png',
+            'creative_key'     => 'growth_bundle',
+            'utm_content'      => 'growth_bundle_v4',
+            'wide_image'       => 'linkedin_wide_growth_bundle_v4.png',
+            'portrait_image'   => 'meta_portrait_growth_bundle_v4.png',
+            'square_image'     => 'meta_square_growth_bundle_v4.png',
+            'story_image'      => 'meta_story_growth_bundle_v4.png',
+            'og_image'         => 'linkedin_wide_growth_bundle_v4.png',
             'pain_points'      => array(
                 'เว็บ, แอด, SEO และ AI อยู่คนละทีม ทำให้ insight ไม่ต่อกันและไม่มีใครรับผิดชอบผลรวม',
                 'มี dashboard หลายชุดแต่ยังตอบไม่ได้ว่า traffic คุณภาพแค่ไหนและ lead ติดตรงไหน',
@@ -1434,6 +1471,32 @@ function hashbox_get_audit_landing_for_path( $path = null ) {
     $slug  = null === $path ? hashbox_current_request_path() : trim( (string) $path, '/' );
     $pages = hashbox_audit_landing_pages();
     return isset( $pages[ $slug ] ) ? $pages[ $slug ] : null;
+}
+
+function hashbox_is_ads_preview_request( $path = null ) {
+    $slug = null === $path ? hashbox_current_request_path() : trim( (string) $path, '/' );
+    return 'ads-preview' === $slug;
+}
+
+function hashbox_ads_preview_formats() {
+    return array(
+        'square_image'   => array(
+            'label'      => 'Meta Square',
+            'dimensions' => '1080x1080',
+        ),
+        'portrait_image' => array(
+            'label'      => 'Meta Portrait',
+            'dimensions' => '1080x1350',
+        ),
+        'story_image'    => array(
+            'label'      => 'Meta Story',
+            'dimensions' => '1080x1920',
+        ),
+        'wide_image'     => array(
+            'label'      => 'LinkedIn Wide',
+            'dimensions' => '1200x627',
+        ),
+    );
 }
 
 function hashbox_audit_landing_asset_uri( $file ) {
@@ -1497,6 +1560,51 @@ function hashbox_audit_landing_body_class( $classes ) {
     return $classes;
 }
 add_filter( 'body_class', 'hashbox_audit_landing_body_class' );
+
+function hashbox_ads_preview_template_fallback( $template ) {
+    if ( is_admin() || wp_doing_ajax() || ! hashbox_is_ads_preview_request() ) {
+        return $template;
+    }
+
+    $preview_template = get_template_directory() . '/page-ads-preview.php';
+    if ( ! file_exists( $preview_template ) ) {
+        return $template;
+    }
+
+    global $wp_query;
+    status_header( 200 );
+    $wp_query->is_404      = false;
+    $wp_query->is_page     = true;
+    $wp_query->is_singular = true;
+
+    return $preview_template;
+}
+add_filter( 'template_include', 'hashbox_ads_preview_template_fallback', 81 );
+
+function hashbox_ads_preview_redirect_canonical( $redirect_url, $requested_url ) {
+    $requested_path = trim( (string) wp_parse_url( $requested_url, PHP_URL_PATH ), '/' );
+    if ( hashbox_is_ads_preview_request( $requested_path ) ) {
+        return false;
+    }
+    return $redirect_url;
+}
+add_filter( 'redirect_canonical', 'hashbox_ads_preview_redirect_canonical', 9, 2 );
+
+function hashbox_ads_preview_body_class( $classes ) {
+    if ( hashbox_is_ads_preview_request() ) {
+        $classes[] = 'hb-audit-landing';
+        $classes[] = 'hb-ads-preview-page';
+    }
+    return $classes;
+}
+add_filter( 'body_class', 'hashbox_ads_preview_body_class' );
+
+function hashbox_ads_preview_robots_meta() {
+    if ( hashbox_is_ads_preview_request() ) {
+        echo '<meta name="robots" content="noindex,nofollow">' . "\n";
+    }
+}
+add_action( 'wp_head', 'hashbox_ads_preview_robots_meta', 1 );
 
 function hashbox_case_study_slug_from_path( $path = null ) {
     $path = null === $path ? hashbox_current_request_path() : trim( (string) $path, '/' );
@@ -1927,6 +2035,9 @@ function hashbox_rankmath_canonical( $canonical ) {
     $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
     if ( $audit_landing ) {
         return hashbox_audit_landing_canonical_url( $audit_landing );
+    }
+    if ( function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request() ) {
+        return home_url( '/ads-preview/' );
     }
     return $canonical;
 }

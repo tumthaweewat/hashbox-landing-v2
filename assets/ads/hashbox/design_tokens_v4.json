@@ -1,0 +1,26 @@
+{
+  "colors": {
+    "black": "#030712",
+    "navy": "#071330",
+    "panel": "#060E21",
+    "electricBlue": "#2A68FF",
+    "cyan": "#25D9FF",
+    "white": "#F5F8FF",
+    "muted": "#AEBCD7"
+  },
+  "fonts": {
+    "thai_headline": "Noto Sans Thai Condensed Black",
+    "thai_body": "Noto Sans Thai",
+    "latin_headline": "Inter Display Black",
+    "latin_body": "Inter"
+  },
+  "do_not_package_font_files": true,
+  "design_principles": [
+    "dark premium B2B",
+    "large 2-line headline",
+    "one proof visual per ad",
+    "single CTA",
+    "safe margins 7%",
+    "Hashbox blue as primary accent"
+  ]
+}
