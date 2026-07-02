@@ -43,8 +43,20 @@ add_action( 'after_setup_theme', 'hashbox_theme_setup' );
 
 /**
  * SEO-optimized document titles.
+ *
+ * A per-post title set in the Rank Math editor must win over the theme's
+ * generated map. Rank Math resolves that meta earlier in this same filter,
+ * so when the meta exists we pass its result through untouched.
  */
+function hashbox_has_custom_rankmath_title() {
+    $obj_id = get_queried_object_id();
+    return $obj_id && '' !== (string) get_post_meta( $obj_id, 'rank_math_title', true );
+}
+
 function hashbox_document_title( $title ) {
+    if ( hashbox_has_custom_rankmath_title() ) {
+        return $title;
+    }
     return hashbox_get_seo_title( $title );
 }
 add_filter( 'pre_get_document_title', 'hashbox_document_title', 20 );
@@ -1119,6 +1131,11 @@ function hashbox_rankmath_description( $description ) {
 add_filter( 'rank_math/frontend/description', 'hashbox_rankmath_description', 999 );
 
 function hashbox_rankmath_social_title( $content ) {
+    // Same precedence rule as the document title: a custom per-post
+    // Rank Math title wins over the theme's generated fallback.
+    if ( hashbox_has_custom_rankmath_title() ) {
+        return $content;
+    }
     return hashbox_get_seo_title( $content );
 }
 add_filter( 'rank_math/opengraph/facebook/og_title', 'hashbox_rankmath_social_title', 999 );
