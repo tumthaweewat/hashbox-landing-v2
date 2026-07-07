@@ -83,10 +83,10 @@
 
 .hb-hero__title {
   font-family: var(--hb-font-display);
-  font-size: var(--hb-text-6xl);
+  font-size: clamp(2.25rem, 4.2vw, 4rem);
   font-weight: var(--hb-weight-bold);
   line-height: var(--hb-leading-tight);
-  letter-spacing: var(--hb-tracking-tighter);
+  letter-spacing: 0;
   color: var(--hb-text-strong);
   margin: 0;
 }
@@ -169,12 +169,13 @@
 }
 
 .hb-hero__inner--with-visual .hb-hero__sub {
+  font-size: clamp(0.95rem, 0.45vw + 0.86rem, 1.08rem);
   max-width: 58ch;
 }
 
 .hb-hero__inner--with-visual .hb-hero__title {
-  font-size: clamp(2.5rem, 4.15vw, 3.8rem);
-  line-height: 1.08;
+  font-size: clamp(1.95rem, 2.75vw + 0.75rem, 3.15rem);
+  line-height: 1.12;
   letter-spacing: 0;
 }
 
