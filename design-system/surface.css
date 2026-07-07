@@ -870,7 +870,7 @@
 .hb-section--light .hb-case {
   padding: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem);
   gap: var(--hb-space-4);
-  min-height: 280px;
+  min-height: 430px;
   border-radius: 20px;
 }
 
@@ -941,8 +941,8 @@
 /* Service card breathing room: bigger padding, consistent min-height */
 .hb-section--light .hb-service {
   padding: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem);
-  gap: var(--hb-space-3);
-  min-height: 360px;
+  gap: var(--hb-space-4);
+  min-height: 500px;
   border-radius: 20px;
 }
 

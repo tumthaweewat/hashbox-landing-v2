@@ -16,31 +16,102 @@ get_header();
     <div class="hb-hero__bg"></div>
     <div class="hb-hero__grid"></div>
     <div class="hb-container">
-        <div class="hb-hero__inner">
-            <span class="hb-hero__pill">
-                <span class="hb-hero__pill-mark">H</span>
-                Website Craft · Performance Marketing · AI Workforce
-            </span>
-            <h1 class="hb-hero__title">
-                รับทำเว็บไซต์ SEO-Ready<br>
-                <em>พร้อม Marketing + AI</em><br>
-                ไว้ในทีมเดียว<br>
-                <em>เพื่อผลลัพธ์ที่วัดได้จริง</em><span class="hb-hero__cursor"></span>
-            </h1>
-            <p class="hb-hero__sub">
-                Hashbox Studio รับทำเว็บไซต์ SEO-Ready สำหรับธุรกิจไทยที่ต้องการมากกว่าเว็บสวย เราวางโครงสร้าง Technical SEO, Core Web Vitals, Schema, Digital Marketing + CRO และ AI Workforce ไว้ในระบบเดียวกัน เพื่อเพิ่ม Traffic, Conversion และลดงาน Manual — โดยลูกค้าจะเริ่มเห็นสัญญาณผลลัพธ์ภายใน <strong>60-90 วันแรก</strong>
-            </p>
-            <div class="hb-hero__actions">
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-                <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูเคสที่เราทำให้ลูกค้า</a>
+        <div class="hb-hero__inner hb-hero__inner--with-visual">
+            <div class="hb-hero__copy">
+                <span class="hb-hero__pill">
+                    <span class="hb-hero__pill-mark">H</span>
+                    Website Craft · Performance Marketing · AI Workforce
+                </span>
+                <h1 class="hb-hero__title">
+                    รับทำเว็บไซต์ SEO&#8209;Ready<br>
+                    <em>พร้อม Marketing + AI</em><br>
+                    ไว้ในทีมเดียว<br>
+                    <em>เพื่อผลลัพธ์ที่วัดได้จริง</em><span class="hb-hero__cursor"></span>
+                </h1>
+                <p class="hb-hero__sub">
+                    Hashbox Studio รับทำเว็บไซต์ SEO-Ready สำหรับธุรกิจไทยที่ต้องการมากกว่าเว็บสวย เราวางโครงสร้าง Technical SEO, Core Web Vitals, Schema, Digital Marketing + CRO และ AI Workforce ไว้ในระบบเดียวกัน เพื่อเพิ่ม Traffic, Conversion และลดงาน Manual — โดยลูกค้าจะเริ่มเห็นสัญญาณผลลัพธ์ภายใน <strong>60-90 วันแรก</strong>
+                </p>
+                <div class="hb-hero__actions">
+                    <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </a>
+                    <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูเคสที่เราทำให้ลูกค้า</a>
+                </div>
+                <div class="hb-hero__trust">
+                    <div class="hb-hero__trust-item"><span class="hb-hero__trust-value" data-target="17">17</span><span>ปี ประสบการณ์ทีม</span></div>
+                    <div class="hb-hero__trust-item"><span class="hb-hero__trust-value">300+</span><span>แบรนด์ที่ผ่านมือ</span></div>
+                    <div class="hb-hero__trust-item"><span class="hb-hero__trust-value">100</span><span>Lighthouse Score</span></div>
+                    <div class="hb-hero__trust-item"><span class="hb-hero__trust-value">90</span><span>วัน เห็นผล</span></div>
+                </div>
             </div>
-            <div class="hb-hero__trust">
-                <div class="hb-hero__trust-item"><span class="hb-hero__trust-value" data-target="17">17</span><span>ปี ประสบการณ์ทีม</span></div>
-                <div class="hb-hero__trust-item"><span class="hb-hero__trust-value">300+</span><span>แบรนด์ที่ผ่านมือ</span></div>
-                <div class="hb-hero__trust-item"><span class="hb-hero__trust-value">100</span><span>Lighthouse Score</span></div>
-                <div class="hb-hero__trust-item"><span class="hb-hero__trust-value">90</span><span>วัน เห็นผล</span></div>
+
+            <aside class="hb-hero__visual" aria-label="ตัวอย่างระบบ Growth OS ของ Hashbox">
+                <figure class="hb-hero__creative-card">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/linkedin_wide_seo_ready_v4.png' ); ?>" alt="ตัวอย่างครีเอทีฟ SEO-Ready Website ของ Hashbox Studio" loading="eager" decoding="async">
+                </figure>
+                <div class="hb-dashboard">
+                    <div class="hb-dashboard__bar">
+                        <span class="hb-dashboard__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                        <span>Hashbox Growth OS</span>
+                        <strong>LIVE</strong>
+                    </div>
+                    <div class="hb-dashboard__body">
+                        <div class="hb-dashboard__kpis">
+                            <div>
+                                <span>SEO score</span>
+                                <strong>100</strong>
+                                <small>Build gate</small>
+                            </div>
+                            <div>
+                                <span>Conversion</span>
+                                <strong>3×</strong>
+                                <small>CRO sprint</small>
+                            </div>
+                            <div>
+                                <span>AI saved</span>
+                                <strong>20h</strong>
+                                <small>per week</small>
+                            </div>
+                        </div>
+                        <div class="hb-dashboard__chart" aria-hidden="true">
+                            <span style="--h: 38%;"></span>
+                            <span style="--h: 54%;"></span>
+                            <span style="--h: 46%;"></span>
+                            <span style="--h: 72%;"></span>
+                            <span style="--h: 61%;"></span>
+                            <span style="--h: 84%;"></span>
+                            <span style="--h: 93%;"></span>
+                        </div>
+                        <div class="hb-dashboard__flow" aria-label="Website to marketing to AI workflow">
+                            <span>Website</span>
+                            <i aria-hidden="true"></i>
+                            <span>Marketing</span>
+                            <i aria-hidden="true"></i>
+                            <span>AI Workforce</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<!-- ============ PROOF STRIP ============ -->
+<section class="hb-proof-strip" aria-label="Hashbox proof and delivery stack">
+    <div class="hb-container">
+        <div class="hb-proof-strip__inner">
+            <p class="hb-proof-strip__label">Delivery stack ที่พร้อมวัดผลตั้งแต่วันแรก</p>
+            <div class="hb-proof-strip__logos" aria-label="Technology and measurement stack">
+                <span>Lighthouse 100</span>
+                <span>Core Web Vitals</span>
+                <span>GA4</span>
+                <span>GSC</span>
+                <span>Schema</span>
+                <span>AI Workflow</span>
+            </div>
+            <div class="hb-proof-strip__score">
+                <strong>60-90</strong>
+                <span>วันแรกเริ่มเห็นสัญญาณ</span>
             </div>
         </div>
     </div>
@@ -61,6 +132,9 @@ get_header();
                 <span class="hb-service__icon">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="7 8 10 11 7 14"/><line x1="13" y1="14" x2="17" y2="14"/></svg>
                 </span>
+                <div class="hb-service__visual hb-service__visual--site" aria-hidden="true">
+                    <span></span><span></span><span></span>
+                </div>
                 <h3 class="hb-service__title">SEO-Ready Website</h3>
                 <p class="hb-service__desc">เว็บไซต์ที่พร้อมติด Google ตั้งแต่วันเปิดตัว ผ่าน Build Gate: Lighthouse 100 ทั้ง 4 หมวด, CWV เขียวทุก URL, Schema ครบ ลูกค้าเห็นผล Ranking ขยับใน 60-90 วัน</p>
                 <div class="hb-service__stack">Next.js · Headless WordPress · Cloudflare · Vercel</div>
@@ -72,6 +146,9 @@ get_header();
                 <span class="hb-service__icon">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/><circle cx="20" cy="9" r="1.5"/></svg>
                 </span>
+                <div class="hb-service__visual hb-service__visual--growth" aria-hidden="true">
+                    <span></span><span></span><span></span>
+                </div>
                 <h3 class="hb-service__title">Digital Marketing + CRO</h3>
                 <p class="hb-service__desc">การมี Traffic เยอะแต่ Conversion ต่ำคือเสียโอกาส ติดตั้งและดูแลเครื่องมือ Marketing ครบวงจร พร้อม CRO Sprint รายเดือนเพิ่ม Conversion ต่อเนื่อง ดูผลผ่าน Looker Studio Real-time</p>
                 <div class="hb-service__stack">GA4 · GSC · GrowthBook · Microsoft Clarity</div>
@@ -83,11 +160,43 @@ get_header();
                 <span class="hb-service__icon">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/></svg>
                 </span>
+                <div class="hb-service__visual hb-service__visual--ai" aria-hidden="true">
+                    <span></span><span></span><span></span>
+                </div>
                 <h3 class="hb-service__title">AI Expert Consulting</h3>
                 <p class="hb-service__desc">ที่ปรึกษา AI ที่ลงมือเขียนโค้ดและ Deploy เอง ไม่ใช่จบที่ Slide ทุกโปรเจกต์เริ่มจากการคำนวณ AI ROI ถ้าผลตอบแทนคุ้มค่าจึงจะลงมือ Implement พร้อม Knowledge Transfer ให้ทีมลูกค้าดูแลต่อเองได้</p>
                 <div class="hb-service__stack">OpenAI · Claude · LangChain · LINE Messaging API · n8n · RAG</div>
                 <span class="hb-service__link">ดูบริการที่ปรึกษา AI + AI Workforce &rarr;</span>
             </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CREATIVE SHOWCASE ============ -->
+<section class="hb-section hb-showcase">
+    <div class="hb-container">
+        <div class="hb-showcase__grid">
+            <div class="hb-showcase__copy">
+                <span class="hb-eyebrow">Launch system</span>
+                <h2 class="hb-h2">เว็บหนึ่งโปรเจกต์ แต่พร้อมใช้ต่อทั้ง SEO, Ads และ AI Workflow</h2>
+                <p class="hb-section__sub">เราวางหน้าเว็บ, tracking, content structure และ creative routes ให้เป็นระบบเดียวกันตั้งแต่ต้น งานจึงไม่ได้จบที่ดีไซน์สวย แต่พร้อมต่อยอดเป็น campaign, dashboard และ automation ได้ทันทีหลัง launch</p>
+                <div class="hb-showcase__stats">
+                    <div><strong>15</strong><span>ad-ready creatives</span></div>
+                    <div><strong>4</strong><span>measurement layers</span></div>
+                    <div><strong>1</strong><span>growth system</span></div>
+                </div>
+            </div>
+            <div class="hb-showcase__gallery" aria-label="ตัวอย่าง visual routes ของ Hashbox">
+                <figure class="hb-showcase__image hb-showcase__image--square">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/meta_square_seo_ready_v4.png' ); ?>" alt="ครีเอทีฟ SEO-Ready Website สำหรับแคมเปญ Hashbox" loading="lazy" decoding="async">
+                </figure>
+                <figure class="hb-showcase__image hb-showcase__image--square hb-showcase__image--offset">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/meta_square_ai_workforce_v4.png' ); ?>" alt="ครีเอทีฟ AI Workforce Audit สำหรับแคมเปญ Hashbox" loading="lazy" decoding="async">
+                </figure>
+                <figure class="hb-showcase__image hb-showcase__image--wide">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/linkedin_wide_growth_bundle_v4.png' ); ?>" alt="ครีเอทีฟ Growth Bundle สำหรับ LinkedIn ของ Hashbox" loading="lazy" decoding="async">
+                </figure>
+            </div>
         </div>
     </div>
 </section>
@@ -214,6 +323,7 @@ get_header();
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--hb-space-4);">
             <a href="<?php echo esc_url( home_url( '/work/nexus-corp/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #4338CA, #4F46E5);">
                 <div class="hb-case__head"><span class="hb-case__industry">Enterprise · 2025</span><span class="hb-badge hb-badge--blue">Corporate</span></div>
+                <div class="hb-case__media hb-case__media--enterprise" aria-hidden="true"></div>
                 <h3 class="hb-case__name">Nexus Corp</h3>
                 <p class="hb-case__metric">+540%</p>
                 <p class="hb-case__desc">Headless WordPress + Next.js corporate site กับ SEO recovery ครบใน 12 เดือน Users เพิ่ม 540%</p>
@@ -222,6 +332,7 @@ get_header();
 
             <a href="<?php echo esc_url( home_url( '/work/flow-store/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #3730A3, #6366F1);">
                 <div class="hb-case__head"><span class="hb-case__industry">E-commerce · 2025</span><span class="hb-badge hb-badge--cyan">CRO</span></div>
+                <div class="hb-case__media hb-case__media--commerce" aria-hidden="true"></div>
                 <h3 class="hb-case__name">Flow Store</h3>
                 <p class="hb-case__metric">3×</p>
                 <p class="hb-case__desc">Storefront ใหม่บน Next.js + CRO Sprint 4 เดือน Conversion Rate 3 เท่า ใน 6 เดือน</p>
@@ -230,6 +341,7 @@ get_header();
 
             <a href="<?php echo esc_url( home_url( '/work/rank-project/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #312E81, #4F46E5);">
                 <div class="hb-case__head"><span class="hb-case__industry">HR-Tech · 2024</span><span class="hb-badge hb-badge--blue">SEO Recovery</span></div>
+                <div class="hb-case__media hb-case__media--seo" aria-hidden="true"></div>
                 <h3 class="hb-case__name">Rank Project</h3>
                 <p class="hb-case__metric">+2,200%</p>
                 <p class="hb-case__desc">Technical SEO overhaul + 12-month content programme — Impressions เพิ่ม 22 เท่า, Traffic +700%</p>
@@ -238,6 +350,7 @@ get_header();
 
             <a href="<?php echo esc_url( home_url( '/work/autobot-line/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #064E3B, #059669);">
                 <div class="hb-case__head"><span class="hb-case__industry">On-demand · 2025</span><span class="hb-badge hb-badge--emerald">AI Workforce</span></div>
+                <div class="hb-case__media hb-case__media--ai" aria-hidden="true"></div>
                 <h3 class="hb-case__name">AutoBot LINE</h3>
                 <p class="hb-case__metric">−60%</p>
                 <p class="hb-case__desc">LINE Bot + OpenAI + RAG ตอบลูกค้าไทย 24/7 ลด Support Cost 60% ใน 8 สัปดาห์</p>
@@ -246,6 +359,7 @@ get_header();
 
             <a href="<?php echo esc_url( home_url( '/work/gold-brand/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #7C2D12, #C2410C);">
                 <div class="hb-case__head"><span class="hb-case__industry">Luxury · 2024</span><span class="hb-badge hb-badge--amber">Brand + Web</span></div>
+                <div class="hb-case__media hb-case__media--brand" aria-hidden="true"></div>
                 <h3 class="hb-case__name">Gold Brand</h3>
                 <p class="hb-case__metric">+180%</p>
                 <p class="hb-case__desc">Brand refresh + Performance site บน Next.js Branded Search เพิ่ม 180% ใน 5 เดือน</p>
@@ -254,6 +368,7 @@ get_header();
 
             <a href="<?php echo esc_url( home_url( '/work/pitch-deck/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #312E81, #7C3AED);">
                 <div class="hb-case__head"><span class="hb-case__industry">SaaS · 2025</span><span class="hb-badge hb-badge--violet">Investor Web</span></div>
+                <div class="hb-case__media hb-case__media--saas" aria-hidden="true"></div>
                 <h3 class="hb-case__name">Pitch Deck Microsite</h3>
                 <p class="hb-case__metric">Series A</p>
                 <p class="hb-case__desc">Investor Microsite + Live Metrics Dashboard ใน 3 สัปดาห์ ปิด Series A ที่ Valuation 1.4×</p>
