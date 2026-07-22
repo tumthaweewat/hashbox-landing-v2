@@ -966,7 +966,7 @@ $checks = array(
     <section class="hb-srw-hero">
         <div class="hb-container hb-srw-hero__inner">
             <div class="hb-srw-hero__copy">
-                <nav class="hb-breadcrumb">
+                <nav class="hb-breadcrumb" aria-label="Breadcrumb">
                     <ol class="hb-breadcrumb__list">
                         <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
                         <li><span class="hb-breadcrumb__sep">/</span></li>
@@ -1012,17 +1012,17 @@ $checks = array(
                 </div>
                 <div class="hb-srw-flow">
                     <div class="hb-srw-flow__row">
-                        <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+                        <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
                         <span>Schema.org Validator</span>
                         <strong>ผ่านทุก Type</strong>
                     </div>
                     <div class="hb-srw-flow__row">
-                        <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+                        <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
                         <span>robots.txt + Sitemap.xml</span>
                         <strong>auto-submit GSC + Bing</strong>
                     </div>
                     <div class="hb-srw-flow__row">
-                        <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+                        <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
                         <span>Security Headers</span>
                         <strong>เกรด A+</strong>
                     </div>
@@ -1100,7 +1100,7 @@ $checks = array(
                 <div class="hb-srw-check-grid">
                     <?php foreach ( $checks as $check ) : ?>
                         <div class="hb-srw-card hb-srw-check">
-                            <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+                            <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
                             <p class="hb-body"><?php echo esc_html( $check ); ?></p>
                         </div>
                     <?php endforeach; ?>
@@ -1118,25 +1118,25 @@ $checks = array(
             </div>
             <div class="hb-srw-problem-grid">
                 <div class="hb-srw-card hb-srw-problem">
-                    <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h10"/></svg>
+                    <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h10"/></svg>
                     <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Indexation</span>
                     <h3 class="hb-card__title">Google Index หน้าเว็บได้ไม่ครบ</h3>
                     <p class="hb-card__body">robots.txt ผิด, ไม่ส่ง Sitemap หรือใช้ JS-rendered content โครงสร้างที่ Google อ่านยากทำให้หน้าเว็บ Index ได้แค่ 30-50%</p>
                 </div>
                 <div class="hb-srw-card hb-srw-problem">
-                    <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m13 2-2 9h7l-8 11 2-9H5l8-11Z"/></svg>
+                    <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m13 2-2 9h7l-8 11 2-9H5l8-11Z"/></svg>
                     <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Core Web Vitals</span>
                     <h3 class="hb-card__title">เว็บโหลดช้า กระทบอันดับ SEO</h3>
                     <p class="hb-card__body">ใช้ Plugin หนัก โหลดไฟล์ CSS/JS มากเกิน หรือไม่มี Image Preload ทำให้ Core Web Vitals ไม่ผ่านเกณฑ์ LCP เกิน 2.5s และ INP เกิน 200ms</p>
                 </div>
                 <div class="hb-srw-card hb-srw-problem">
-                    <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/><path d="m13 7-2 10"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>
+                    <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/><path d="m13 7-2 10"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>
                     <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Schema</span>
                     <h3 class="hb-card__title">Schema ไม่มี / ผิด Validation</h3>
                     <p class="hb-card__body">ไม่มี Schema สำคัญ เช่น Organization, Service, FAQ หรือ Breadcrumb ทำให้ Google ไม่แสดง Rich Snippets จนเสีย CTR 30-40%</p>
                 </div>
                 <div class="hb-srw-card hb-srw-problem">
-                    <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+                    <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
                     <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">AI Search</span>
                     <h3 class="hb-card__title">เว็บไซต์ไม่รองรับ AI Search</h3>
                     <p class="hb-card__body">ไม่มีการตั้งค่ารองรับ AI Crawlers, ไม่มี llms.txt และ Schema ไม่ครบ Passage-level Citation ทำให้พลาดทราฟฟิกจาก AI Search ที่กำลังโตเร็ว</p>
@@ -1155,7 +1155,7 @@ $checks = array(
             <ul class="hb-srw-deliverables">
                 <?php foreach ( $deliverables as $d ) : ?>
                     <li>
-                        <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+                        <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
                         <span><?php echo esc_html( $d ); ?></span>
                     </li>
                 <?php endforeach; ?>
@@ -1172,7 +1172,7 @@ $checks = array(
             <div class="hb-srw-stack-grid">
                 <div class="hb-srw-card hb-srw-stack-card">
                     <div class="hb-srw-stack-title">
-                        <span class="hb-srw-stack-icon"><svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10Z"/></svg></span>
+                        <span class="hb-srw-stack-icon"><svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10Z"/></svg></span>
                         <h3 class="hb-card__title">Frontend</h3>
                     </div>
                     <ul>
@@ -1183,7 +1183,7 @@ $checks = array(
                 </div>
                 <div class="hb-srw-card hb-srw-stack-card">
                     <div class="hb-srw-stack-title">
-                        <span class="hb-srw-stack-icon"><svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h10"/></svg></span>
+                        <span class="hb-srw-stack-icon"><svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h10"/></svg></span>
                         <h3 class="hb-card__title">CMS</h3>
                     </div>
                     <ul>
@@ -1195,7 +1195,7 @@ $checks = array(
                 </div>
                 <div class="hb-srw-card hb-srw-stack-card">
                     <div class="hb-srw-stack-title">
-                        <span class="hb-srw-stack-icon"><svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"/><path d="m17 5-5-3-5 3"/><path d="m17 19-5 3-5-3"/></svg></span>
+                        <span class="hb-srw-stack-icon"><svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"/><path d="m17 5-5-3-5 3"/><path d="m17 19-5 3-5-3"/></svg></span>
                         <h3 class="hb-card__title">Hosting / Edge</h3>
                     </div>
                     <ul>
@@ -1222,7 +1222,7 @@ $checks = array(
                             <div class="hb-srw-step__meta">
                                 <span class="hb-srw-step__number"><?php echo (int) ( $i + 1 ); ?></span>
                                 <span class="hb-srw-step__icon" aria-hidden="true">
-                                    <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><?php echo $process_icons[ $i ]; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></svg>
+                                    <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><?php echo $process_icons[ $i ]; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></svg>
                                 </span>
                             </div>
                             <span class="hb-eyebrow" style="color:var(--hb-accent-cyan,#06B6D4);"><?php echo esc_html( $p['time'] ); ?></span>

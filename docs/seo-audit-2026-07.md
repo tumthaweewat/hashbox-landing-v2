@@ -36,36 +36,38 @@
 
 ---
 
-## 2. Recommended Follow-ups — ยังไม่ได้แก้ (เรียงตามความสำคัญ)
+## 2. Remediation Log — Round 2 (follow-ups ที่แก้เพิ่มแล้ว)
 
-รายการเหล่านี้ **ไม่ได้แก้ใน PR นี้** เพราะต้องใช้ decision, external validation (Rich Results Test บน live) หรือ pipeline เพิ่ม จึงแยกไว้ให้ทีมตัดสินใจ
+หลังส่งมอบ round 1 ได้ลงมือทำ follow-up ต่อจนเกือบครบ:
 
-### 🔴 High-impact
+| # | ปัญหา (เดิม P#) | ไฟล์ | ผลกระทบ |
+|---|-----------------|------|---------|
+| ✅ F10 | **P1 — Ad PNG 26 MB ไม่มี modern format** | สร้าง WebP ครบ 20 ไฟล์ (**25.8 MB → 0.8 MB, −97%**); front-page + audit-landing เสิร์ฟผ่าน `<picture>` + PNG fallback; hero preload ชี้ WebP + `type="image/webp"` | LCP/bandwidth ลดฮวบ โดยเฉพาะ mobile (hero 756 KB → 36 KB) |
+| ✅ F11 | **P5 — Live Service schema ขาด `hasOfferCatalog`** | เพิ่ม 3-item offer catalog ใน `hashbox_rankmath_schema_service()` | service offers ครบใน schema ตอน Rank Math active |
+| ✅ F12 | **P3 — Case-study BreadcrumbList ซ้ำ** | strip BreadcrumbList ของ Rank Math บนหน้า case-study (`hashbox_rankmath_json_ld`) — คง Article + Breadcrumb ของเราเป็นแหล่งเดียว | เหลือ BreadcrumbList เดียว ไม่เสีย Article schema |
+| ✅ F13 | **P4 — Case-study `Article` ขาด `image`** | เพิ่ม `image` + `dateModified` (จริง) | ผ่านเกณฑ์ Article rich result |
+| ✅ F14 | **P16 — logo schema เป็น OG banner ไม่ใช่โลโก้** | สร้าง `icon-512.png` (สี่เหลี่ยมจริง) + helper `hashbox_logo_image_url()`; `Organization.logo` เป็น `ImageObject` 512×512 | ตรงเกณฑ์ logo ของ Google |
+| ✅ F15 | **P8 — DM Sans weight 800 ไม่ถูกใช้** | ตัด `;800` ออกจาก Google Fonts URL (weight สูงสุดที่ใช้จริง = 700) | โหลดฟอนต์เบาลง |
+| ✅ F16 | **P9 — ไม่มี Brotli** | เพิ่ม `mod_brotli` block ใน `.htaccess` (gzip เป็น fallback) | text/CSS/JS เล็กลง 15–25% บน host ที่รองรับ |
+| ✅ F17 | **P10 — ไม่มี `og:image:alt`** | เพิ่มใน fallback meta | social card a11y |
+| ✅ F18 | **P11 — Decorative SVG ไม่มี `aria-hidden`** | เพิ่ม `aria-hidden="true"` ให้ 32 SVG (header, front-page, services, ai-consulting, seo-ready) | screen reader ไม่อ่าน icon ว่าง |
+| ✅ F19 | **P12 — Taxonomy ข้าม H1→H3** + **`.screen-reader-text` ไม่ถูก define** (label ใน `search.php` เลยโชว์) | เพิ่ม utility class ใน `primitives.css` + `<h2 class="screen-reader-text">` ใน 5 taxonomy templates | heading hierarchy ครบ + fix label ที่โผล่ |
+| ✅ F20 | **P13 — `index.php` ใช้ `<h2>` เป็น title (0 H1)** | เปลี่ยนเป็น `<h1>` | fallback route มี H1 |
+| ✅ F21 | **P14 — nav landmark + breadcrumb aria-label** | wrap desktop nav ใน `<nav aria-label="Primary">`; เพิ่ม `aria-label="Breadcrumb"` 5 หน้า | landmark ครบ |
+| ✅ F22 | **P15 — `geo-checker` ไม่มี title/desc** | เพิ่ม mapping ใน `$page_meta` | tool page มี meta เฉพาะ |
+| ✅ F23 | **P17 — Fallback canonical ทิ้ง pagination** | ใช้ `get_pagenum_link()` เมื่อ `is_paged()` (category/tag) | canonical ของ page 2+ ถูกต้อง |
+| ✅ L1 | Dead MIME `image/jpg` ใน `.htaccess` | ลบทิ้ง | config สะอาด |
 
-- **P1 — แปลง Ad PNG เป็น WebP/AVIF** (`assets/ads/hashbox/`, รวม **26 MB**, ไม่มี modern format เลย) hero 756 KB, meta_square 1.2 MB/รูป, meta_story 2 MB/รูป หน้าแรกดึงมา ~2.4 MB `.htaccess` ตั้ง cache สำหรับ webp/avif ไว้แล้ว → generate variant + เสิร์ฟผ่าน `<picture>` ลดได้ **70–90%** → LCP/bandwidth ดีขึ้นมากบน mobile
-- **P2 — ยืนยัน GA4/Analytics ทำงานจริง** ธีม**ไม่มี**โค้ด tracking เลย (ไม่มี GA4/GTM/Clarity/Pixel) — ตั้งใจให้ผ่าน plugin (Site Kit) ตาม `BLOG-SETUP.md` แต่ถ้ายังไม่ติดตั้ง = ไม่มี behavioral/conversion data ให้ยืนยันบน live (ดู §7)
+> Round 2: PHP 30+ ไฟล์ผ่าน `php -l` · WebP hero ตรวจ render แล้วคมชัดไม่มี artifact · ไม่มี double-attribute
 
-### 🟡 Medium
+### ยังเหลือ (ต้องใช้ input / visual testing)
 
-- **P3 — Case-study schema ไม่ guard Rank Math** (`functions.php` ~2698–2723) emit `Article` + `BreadcrumbList` แบบ unconditional → ตอน Rank Math active อาจได้ `BreadcrumbList` ซ้ำ + Article ทับ WebPage แนะนำ wrap ด้วย `if ( ! hashbox_rank_math_is_active() )` หรือปิด breadcrumb module ของ Rank Math บนหน้านี้ *(ต้อง validate ด้วย Rich Results Test บน live ก่อน)*
-- **P4 — Case-study `Article` ขาด `image` + วันที่สังเคราะห์** `datePublished = {year}-01-01`, ไม่มี `dateModified`, ไม่มี `image` (Google Article rich result บังคับ `image`) พิจารณาเปลี่ยน type เป็น `CreativeWork`/case-study มากกว่า `Article`
-- **P5 — Live Service schema ขาด `hasOfferCatalog`** path fallback มี 3-item offer catalog แต่ `hashbox_rankmath_schema_service()` (ตัวที่ใช้จริงตอน Rank Math active) ไม่มี → ก็อป array มาใส่
-- **P6 — รวม builder ของ Organization schema** สอง path (`hashbox_rankmath_schema_organization` vs `hashbox_inject_home_schema`) `sameAs`/`knowsAbout` ไม่ตรงกัน (5 vs 3 profile) → ดึงเป็น builder เดียวกันกัน drift
-- **P7 — CSS render-blocking ~114 KB, 6 ไฟล์** ใน `<head>` ไม่มี critical CSS inline (`functions.php` ~90–104) → inline above-the-fold + concat/defer layer ที่เหลือ (`style.css` เดิม defer ถูกต้องแล้ว ใช้เป็นแบบได้)
-- **P8 — Google Fonts หนัก 4 family × ~20 weight** (`functions.php` ~83) Thai subset ใหญ่ → ตัด weight ที่ไม่ใช้ หรือ self-host woff2 เพื่อ preload ได้ (ตอนนี้ preload ไม่ได้เพราะ URL ของ Google มี hash)
-
-### 🟢 Low / polish
-
-- **P9** — Brotli: `.htaccess` มีแค่ gzip เพิ่ม `mod_brotli` block (ลด text อีก 15–25%, ขึ้นกับ host)
-- **P10** — เพิ่ม `og:image:alt` (`functions.php` ~932)
-- **P11** — Decorative inline SVG หลายจุดไม่มี `aria-hidden="true"` (front-page, page-seo-ready-website, ฯลฯ)
-- **P12** — Taxonomy templates (`category/tag/archive/author/search`) ข้าม H1→H3 เพิ่ม `<h2>` section เหมือน `home.php:104`
-- **P13** — `index.php:22` ใช้ `<h2>` เป็น title (0 H1) — route ที่ตกมา fallback จะไม่มี H1
-- **P14** — Desktop primary nav ไม่อยู่ใน `<nav>` landmark (`header.php:27`); breadcrumb 5 หน้าไม่มี `aria-label="Breadcrumb"`
-- **P15** — Title `website-development` ไม่มี suffix `| Hashbox Studio`; `geo-checker` ไม่มี title/desc mapping
-- **P16** — เพิ่ม `twitter:site` handle; ตั้ง Organization `logo` เป็นโลโก้สี่เหลี่ยมจริง (ตอนนี้ใช้ OG banner 1200×630)
-- **P17** — Fallback canonical ทิ้ง pagination (page 2+ ชี้ page 1) เฉพาะ path ที่ไม่มี Rank Math (`functions.php` ~888)
-- **P18** — Case-study 6 หน้ายังไม่มีรูป (screenshot/ก่อน-หลัง/กราฟผล) = พลาด image-search + visual proof บนหน้าเงิน
+- **P2 — ยืนยัน GA4/Analytics** — ทำแทนไม่ได้: ต้องใช้ **Measurement ID ของคุณ** + เข้า live ธีมไม่มี tracking โดยตั้งใจ (ผ่าน Site Kit ตาม `BLOG-SETUP.md`) → ถ้ายังไม่ติดตั้ง = ไม่มี behavioral/conversion data (ดู §7)
+- **P6 — รวม builder ของ Organization schema** (rankmath vs fallback `sameAs` 5 vs 3) — refactor ที่ควรทำพร้อม review, ไม่เร่ง
+- **P7 — Inline critical CSS / concat 6 layer** (~114 KB render-blocking) — **ต้องทำพร้อม visual testing** เพราะ tokens/primitives/surface เป็น above-the-fold การ defer ผิดจะเกิด FOUC → เว้นไว้ทำแบบมีการทดสอบ
+- **P18** — Case-study 6 หน้ายังไม่มีรูป (screenshot/ก่อน-หลัง/กราฟผล) — งาน content/design
+- **P15 (title suffix)** — จงใจ**ไม่ทำ**: title `website-development` ยาว ~56 ตัวอยู่แล้ว การเติม `| Hashbox Studio` เสี่ยงโดนตัด + ต้อง re-sync `rank_math_title` (การละไว้ดูตั้งใจ)
+- **P16 (`twitter:site`)** — ข้าม: แบรนด์ไม่มีบัญชี X/Twitter (social มีแค่ LinkedIn/FB/IG/LINE)
 
 ---
 
@@ -73,7 +75,7 @@
 
 **ทำได้ดี:** `add_theme_support('title-tag')` ไม่มี `<title>` hard-code; title/description เขียนมือครบทุกหน้าหลัก + 6 case study + EN; Rank Math per-post ชนะ map เสมอ; canonical remap `/services/*`→`/work/*` ตรงกับ sitemap entry; hreflang th/en/x-default reciprocal + guard ไม่ให้ยิงเมื่อหน้า EN ไม่มี; OG 1200×630 พร้อม width/height, `twitter:card=summary_large_image`; entity graph `@id`-linked (Organization/LocalBusiness + PostalAddress + Geo + OpeningHours + ContactPoint + sameAs); post `Article`+`BreadcrumbList` guard Rank Math ถูกต้อง; **ไม่มี fake `aggregateRating`/`Review`**
 
-**ประเด็น:** ดู F1, F3, F8, F9 (แก้แล้ว) และ P3–P6, P10, P15–P17 (follow-up)
+**ประเด็น:** F1, F3, F8, F9 (round 1) + F11–F14, F17, F22, F23 (round 2) แก้แล้ว · เหลือ **P6** (รวม Organization builder) ที่ยังไม่ทำ
 
 ---
 
@@ -81,7 +83,7 @@
 
 **ทำได้ดี:** ทุก template มี **H1 เดียว** และเป็นหัวข้อหน้า (logo เป็น `<a>` เฉย ๆ); `single.php` strip H1 แรกใน content กัน double-H1; หน้าแรก 1×H1 → 11×H2 → H3 ไม่ข้ามลำดับ; **alt ครบ 100%** ทุก `<img>` มี alt เชิงความหมาย (มี title fallback ตอน WP alt ว่าง); semantic ครบ (`<main>` เดียว, `<article>/<figure>/<time>/<dl>/<details>`); `target="_blank"` มี `rel="noopener"` ทุกจุด; ไม่มี "click here"/"อ่านต่อ" เป็น anchor เชิง scale; 6 case study เป็น content เฉพาะจริง ไม่ใช่ near-duplicate
 
-**ประเด็น:** F4, F7 (แก้แล้ว) และ P12–P14, P18 (follow-up)
+**ประเด็น:** F4, F7 (round 1) + F18–F21 (round 2 — heading/nav/a11y) แก้แล้ว · เหลือ **P18** (เพิ่มรูปใน case study — งาน content)
 
 > **หมายเหตุ false-positive:** ลิงก์บล็อกไป `/technical-seo-guide/`, `/nextjs-vs-wordpress-2026/`, `/geo-ai-search-optimization-2026/` **ไม่ใช่ลิงก์เสีย** — โพสต์เหล่านี้ published จริงบน WP (มี GSC position ใน keyword-research.md: technical-seo pos 27, geo pos 77, nextjs pos 10) เพียงแต่ไม่ได้อยู่เป็นไฟล์ .md ใน repo → **ไม่ต้องแก้** แค่ยืนยันว่า resolve บน live
 

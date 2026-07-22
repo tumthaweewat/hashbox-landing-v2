@@ -82,13 +82,31 @@ AddOutputFilterByType DEFLATE font/ttf
 AddOutputFilterByType DEFLATE font/otf
 </IfModule>
 
+# Brotli — 15-25% smaller than gzip for text/CSS/JS on supporting hosts.
+# gzip (mod_deflate above) stays as the fallback for clients without br.
+<IfModule mod_brotli.c>
+AddOutputFilterByType BROTLI_COMPRESS text/plain
+AddOutputFilterByType BROTLI_COMPRESS text/html
+AddOutputFilterByType BROTLI_COMPRESS text/xml
+AddOutputFilterByType BROTLI_COMPRESS text/css
+AddOutputFilterByType BROTLI_COMPRESS application/xml
+AddOutputFilterByType BROTLI_COMPRESS application/xhtml+xml
+AddOutputFilterByType BROTLI_COMPRESS application/rss+xml
+AddOutputFilterByType BROTLI_COMPRESS application/javascript
+AddOutputFilterByType BROTLI_COMPRESS application/x-javascript
+AddOutputFilterByType BROTLI_COMPRESS application/json
+AddOutputFilterByType BROTLI_COMPRESS application/ld+json
+AddOutputFilterByType BROTLI_COMPRESS image/svg+xml
+AddOutputFilterByType BROTLI_COMPRESS font/ttf
+AddOutputFilterByType BROTLI_COMPRESS font/otf
+</IfModule>
+
 # Browser caching
 <IfModule mod_expires.c>
 ExpiresActive on
 ExpiresByType text/css "access plus 1 year"
 ExpiresByType application/javascript "access plus 1 year"
 ExpiresByType image/png "access plus 1 year"
-ExpiresByType image/jpg "access plus 1 year"
 ExpiresByType image/jpeg "access plus 1 year"
 ExpiresByType image/gif "access plus 1 year"
 ExpiresByType image/svg+xml "access plus 1 year"
