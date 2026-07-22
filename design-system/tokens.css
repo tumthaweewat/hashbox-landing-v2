@@ -5,7 +5,9 @@
  * Date: 2026-05-12
  * ========================================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+/* Google Fonts are enqueued in functions.php (hashbox-google-fonts) with
+ * preconnect hints. A render-blocking @import here duplicated that request
+ * and forced a CSS request waterfall, so it was removed. */
 
 :root {
   /* -----------------------------------------------------------------------

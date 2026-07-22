@@ -528,15 +528,33 @@ function portfolio_settings_page() {
  * ========================================================================= */
 
 /**
+ * Detect the English-language page(s). English content lives under /en/ and
+ * shares a post_name with its Thai counterpart, so key off the request PATH
+ * (and the EN template) rather than the slug. Used to emit the correct
+ * language + locale signals so an English page is not mislabelled as Thai.
+ */
+function hashbox_is_english_page() {
+    $path = function_exists( 'hashbox_current_request_path' ) ? hashbox_current_request_path() : '';
+    if ( 'en' === $path || 0 === strpos( $path, 'en/' ) ) {
+        return true;
+    }
+    return is_page_template( 'page-en-ai-consulting.php' );
+}
+
+/**
  * Force HTML lang="th" site-wide so crawlers classify the site as Thai.
  *
  * The visible content is Thai-primary; the WP locale was previously en-US which
  * mis-signalled language to Google. Override at the language_attributes filter
- * level so this works regardless of WP Settings → General locale.
+ * level so this works regardless of WP Settings → General locale. English pages
+ * under /en/ get lang="en-US" so their language signal matches their content.
  */
 function hashbox_force_thai_lang_attribute( $output ) {
     if ( function_exists( 'pll_current_language' ) || defined( 'ICL_SITEPRESS_VERSION' ) ) {
         return $output;
+    }
+    if ( hashbox_is_english_page() ) {
+        return 'lang="en-US"';
     }
     return 'lang="th-TH"';
 }
@@ -629,7 +647,7 @@ function hashbox_get_seo_metadata() {
     $en_meta = array(
         'en/ai-consulting' => array(
             'title'       => 'AI Consulting Bangkok | Production AI for Thai Business',
-            'description' => 'AI consulting company in Bangkok, Thailand — LINE chatbots, Sales GPT, RAG knowledge bases and workflow automation, shipped to production with ROI calculated before we build. From THB 60,000.',
+            'description' => 'AI consulting company in Bangkok, Thailand — LINE chatbots, Sales GPT, RAG & workflow automation shipped to production. ROI calculated first. From THB 60,000.',
         ),
     );
     if ( isset( $en_meta[ $en_path ] ) ) {
@@ -923,7 +941,7 @@ function hashbox_homepage_meta_description() {
 
     echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
     echo '<link rel="canonical" href="' . esc_url( $url ) . '">' . "\n";
-    echo '<meta property="og:locale" content="th_TH">' . "\n";
+    echo '<meta property="og:locale" content="' . ( hashbox_is_english_page() ? 'en_US' : 'th_TH' ) . '">' . "\n";
     echo '<meta property="og:type" content="' . esc_attr( $type ) . '">' . "\n";
     echo '<meta property="og:site_name" content="' . esc_attr( get_bloginfo( 'name' ) ) . '">' . "\n";
     echo '<meta property="og:title" content="' . esc_attr( $title ) . '">' . "\n";
@@ -965,6 +983,27 @@ function hashbox_seo_noindex_meta() {
 add_action( 'wp_head', 'hashbox_seo_noindex_meta', 1 );
 
 /**
+ * Rank Math delegates noindex to per-page settings, which are easy to forget.
+ * Force noindex on the password-gated portfolio template (and, defensively, on
+ * internal search + paginated archives) so a thin/gated page can't slip into
+ * the index when Rank Math is active. This filter only fires while Rank Math is
+ * active, complementing hashbox_seo_noindex_meta() which runs when it is not —
+ * so exactly one robots directive is emitted, never a duplicate.
+ */
+function hashbox_rankmath_force_noindex( $robots ) {
+    $should_noindex = is_search()
+        || is_page_template( 'page-portfolio.php' )
+        || ( is_paged() && ( is_category() || is_tag() || is_author() || is_date() ) );
+
+    if ( $should_noindex ) {
+        $robots['index']  = 'noindex';
+        $robots['follow'] = 'follow';
+    }
+    return $robots;
+}
+add_filter( 'rank_math/frontend/robots', 'hashbox_rankmath_force_noindex' );
+
+/**
  * Preload the LCP image of singular pages (featured image) so it
  * starts downloading during HTML parse instead of after CSS. Font
  * woff2 URLs from Google Fonts are hashed and version-bumped, so we
@@ -976,6 +1015,11 @@ function hashbox_preload_critical_assets() {
     $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
     if ( $audit_landing && function_exists( 'hashbox_audit_landing_asset_uri' ) ) {
         echo '<link rel="preload" as="image" fetchpriority="high" href="' . esc_url( hashbox_audit_landing_asset_uri( $audit_landing['wide_image'] ) ) . '">' . "\n";
+        return;
+    }
+
+    if ( is_front_page() ) {
+        echo '<link rel="preload" as="image" fetchpriority="high" href="' . esc_url( get_template_directory_uri() . '/assets/ads/hashbox/linkedin_wide_seo_ready_v4.png' ) . '">' . "\n";
         return;
     }
 
@@ -2084,7 +2128,7 @@ add_filter( 'rank_math/opengraph/facebook/image', 'hashbox_rankmath_og_image' );
 add_filter( 'rank_math/opengraph/twitter/image', 'hashbox_rankmath_og_image' );
 
 function hashbox_rankmath_og_locale( $locale ) {
-    return 'th_TH';
+    return hashbox_is_english_page() ? 'en_US' : 'th_TH';
 }
 add_filter( 'rank_math/opengraph/facebook/og_locale', 'hashbox_rankmath_og_locale' );
 add_filter( 'rank_math/opengraph/facebook/locale', 'hashbox_rankmath_og_locale' );

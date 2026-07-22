@@ -262,7 +262,7 @@ Backlinks จากเว็บไทยที่ relevant = local relevance sig
 
 Local SEO B2B ต้องทำ 7 ด้านพร้อมกัน: GBP, NAP, schema, citations, reviews, backlinks, content ใช้เวลา 90-180 วันถึงจะเห็นผลเต็มที่
 
-ที่ Hashbox เรารวม Local SEO setup ใน [บริการรับทำเว็บไซต์ SEO-Ready](/services/seo-ready-website/) ครอบคลุม LocalBusiness schema + citation building + review collection workflow
+ที่ Hashbox เรารวม Local SEO setup ใน [บริการรับทำเว็บไซต์ SEO-Ready](/services/website-development/) ครอบคลุม LocalBusiness schema + citation building + review collection workflow
 
 ดูเพิ่ม:
 - [Technical SEO คือ?](/technical-seo-guide/)

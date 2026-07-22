@@ -173,4 +173,4 @@ Every business is different, but the pattern is the same: identify repetitive ma
 
 We'd love to help you find your 40%.
 
-[Calculate your business savings →](#contact)
+[Calculate your business savings →](/#contact)

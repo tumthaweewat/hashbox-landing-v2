@@ -47,7 +47,7 @@ get_header();
 
             <aside class="hb-hero__visual" aria-label="ตัวอย่างระบบ Growth OS ของ Hashbox">
                 <figure class="hb-hero__creative-card">
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/linkedin_wide_seo_ready_v4.png' ); ?>" alt="ตัวอย่างครีเอทีฟ SEO-Ready Website ของ Hashbox Studio" loading="eager" decoding="async">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/linkedin_wide_seo_ready_v4.png' ); ?>" alt="ตัวอย่างครีเอทีฟ SEO-Ready Website ของ Hashbox Studio" width="1200" height="627" loading="eager" fetchpriority="high" decoding="async">
                 </figure>
                 <div class="hb-dashboard">
                     <div class="hb-dashboard__bar">
@@ -188,13 +188,13 @@ get_header();
             </div>
             <div class="hb-showcase__gallery" aria-label="ตัวอย่าง visual routes ของ Hashbox">
                 <figure class="hb-showcase__image hb-showcase__image--square">
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/meta_square_seo_ready_v4.png' ); ?>" alt="ครีเอทีฟ SEO-Ready Website สำหรับแคมเปญ Hashbox" loading="lazy" decoding="async">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/meta_square_seo_ready_v4.png' ); ?>" alt="ครีเอทีฟ SEO-Ready Website สำหรับแคมเปญ Hashbox" width="1080" height="1080" loading="lazy" decoding="async">
                 </figure>
                 <figure class="hb-showcase__image hb-showcase__image--square hb-showcase__image--offset">
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/meta_square_ai_workforce_v4.png' ); ?>" alt="ครีเอทีฟ AI Workforce Audit สำหรับแคมเปญ Hashbox" loading="lazy" decoding="async">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/meta_square_ai_workforce_v4.png' ); ?>" alt="ครีเอทีฟ AI Workforce Audit สำหรับแคมเปญ Hashbox" width="1080" height="1080" loading="lazy" decoding="async">
                 </figure>
                 <figure class="hb-showcase__image hb-showcase__image--wide">
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/linkedin_wide_growth_bundle_v4.png' ); ?>" alt="ครีเอทีฟ Growth Bundle สำหรับ LinkedIn ของ Hashbox" loading="lazy" decoding="async">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/linkedin_wide_growth_bundle_v4.png' ); ?>" alt="ครีเอทีฟ Growth Bundle สำหรับ LinkedIn ของ Hashbox" width="1200" height="627" loading="lazy" decoding="async">
                 </figure>
             </div>
         </div>
