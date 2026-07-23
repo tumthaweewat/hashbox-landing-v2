@@ -67,7 +67,7 @@
 | **ปรึกษาทำระบบ ai solution สำหรับธุรกิจ** | `/blog/ปรึกษาทำระบบ-ai-solution-2026/` | **Spoke A1** (info→commercial) | ❌ | **เขียนใหม่** (บทความ 09) |
 | **ai transformation คือ / ปรึกษา ai transformation** | `/blog/ai-transformation-คือ-2026/` | **Spoke A2** (info→commercial) | ❌ | **เขียนใหม่** (บทความ 10) |
 | **line chatbot ai / แชทบอท ai ธุรกิจ** | `/blog/line-chatbot-ai-ธุรกิจ-2026/` | **Spoke A3** (commercial) | ❌ | **เขียนใหม่** (บทความ 11) |
-| รับทำ ai tool / ai prototype | `/blog/รับทำ-ai-tool-prototype-2026/` | **Spoke A4** (commercial) | ❌ | เขียนรอบถัดไป (spec ด้านล่าง) |
+| รับทำ ai tool / ai prototype | `/รับทำ-ai-tool-prototype-2026/` | **Spoke A4** (commercial) | ✅ | **เขียนแล้ว** (บทความ 12) |
 
 > **หลักการ mapping:** commercial-core keyword → **service page** (money page ปิดการขาย), long-tail/informational → **blog spoke** (ดัก demand ต้นทาง + ส่ง lead เข้า service page) ห้าม 2 หน้าเล็ง keyword เดียวกัน (cannibalization)
 
@@ -113,7 +113,7 @@
 - **Links OUT:** `/services/ai-consulting/`, A1, A4, `/blog/5-ways-ai-save-team-20-hours/`
 - **Links IN:** hub, A1, A2
 
-### Spoke A4 — รับทำ AI Tool / AI Prototype ต้องเตรียมอะไรบ้าง  → เขียนรอบถัดไป
+### Spoke A4 — รับทำ AI Tool / AI Prototype ต้องเตรียมอะไรบ้าง  → บทความ 12 (เขียนแล้ว)
 - **Slug:** `รับทำ-ai-tool-prototype-2026`
 - **Primary:** `รับทำ ai tool` · **Secondary:** `รับทำ ai prototype`, `พัฒนา ai tool`, `poc ai`, `mvp ai`
 - **Intent:** Commercial — คนที่มี use-case ชัดแล้ว อยากได้ทีม build

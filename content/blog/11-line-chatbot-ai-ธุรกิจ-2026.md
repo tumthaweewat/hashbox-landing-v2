@@ -126,6 +126,7 @@ AI chatbot ไม่ใช่ของวิเศษที่เสียบแ
 
 ดูเพิ่ม:
 - [ปรึกษาทำระบบ AI Solution สำหรับธุรกิจ เริ่มต้นอย่างไร](/ปรึกษาทำระบบ-ai-solution-2026/)
+- [รับทำ AI Tool / AI Prototype ต้องเตรียมอะไรบ้าง](/รับทำ-ai-tool-prototype-2026/)
 - [5 วิธีที่ AI ช่วยลดงาน manual และประหยัดเวลาทีม](/5-ways-ai-save-team-20-hours-week/)
 - [บริการที่ปรึกษา AI สำหรับธุรกิจไทย](/services/ai-consulting/)
 
