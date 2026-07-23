@@ -33,7 +33,7 @@ get_header();
                 </p>
                 <div class="hb-hero__actions">
                     <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </a>
                     <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูเคสที่เราทำให้ลูกค้า</a>
                 </div>
@@ -47,7 +47,10 @@ get_header();
 
             <aside class="hb-hero__visual" aria-label="ตัวอย่างระบบ Growth OS ของ Hashbox">
                 <figure class="hb-hero__creative-card">
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/linkedin_wide_seo_ready_v4.png' ); ?>" alt="ตัวอย่างครีเอทีฟ SEO-Ready Website ของ Hashbox Studio" loading="eager" decoding="async">
+                    <picture>
+                        <source srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/linkedin_wide_seo_ready_v4.webp' ); ?>" type="image/webp">
+                        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/linkedin_wide_seo_ready_v4.png' ); ?>" alt="ตัวอย่างครีเอทีฟ SEO-Ready Website ของ Hashbox Studio" width="1200" height="627" loading="eager" fetchpriority="high" decoding="async">
+                    </picture>
                 </figure>
                 <div class="hb-dashboard">
                     <div class="hb-dashboard__bar">
@@ -130,7 +133,7 @@ get_header();
             <a href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="blue" style="text-decoration:none;">
                 <span class="hb-service__num">01</span>
                 <span class="hb-service__icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="7 8 10 11 7 14"/><line x1="13" y1="14" x2="17" y2="14"/></svg>
+                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="7 8 10 11 7 14"/><line x1="13" y1="14" x2="17" y2="14"/></svg>
                 </span>
                 <div class="hb-service__visual hb-service__visual--site" aria-hidden="true">
                     <span></span><span></span><span></span>
@@ -144,7 +147,7 @@ get_header();
             <a href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="cyan" style="text-decoration:none;">
                 <span class="hb-service__num">02</span>
                 <span class="hb-service__icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/><circle cx="20" cy="9" r="1.5"/></svg>
+                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/><circle cx="20" cy="9" r="1.5"/></svg>
                 </span>
                 <div class="hb-service__visual hb-service__visual--growth" aria-hidden="true">
                     <span></span><span></span><span></span>
@@ -158,7 +161,7 @@ get_header();
             <a href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c4" data-accent="violet" style="text-decoration:none;">
                 <span class="hb-service__num">03</span>
                 <span class="hb-service__icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/></svg>
+                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/></svg>
                 </span>
                 <div class="hb-service__visual hb-service__visual--ai" aria-hidden="true">
                     <span></span><span></span><span></span>
@@ -188,13 +191,22 @@ get_header();
             </div>
             <div class="hb-showcase__gallery" aria-label="ตัวอย่าง visual routes ของ Hashbox">
                 <figure class="hb-showcase__image hb-showcase__image--square">
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/meta_square_seo_ready_v4.png' ); ?>" alt="ครีเอทีฟ SEO-Ready Website สำหรับแคมเปญ Hashbox" loading="lazy" decoding="async">
+                    <picture>
+                        <source srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/meta_square_seo_ready_v4.webp' ); ?>" type="image/webp">
+                        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/meta_square_seo_ready_v4.png' ); ?>" alt="ครีเอทีฟ SEO-Ready Website สำหรับแคมเปญ Hashbox" width="1080" height="1080" loading="lazy" decoding="async">
+                    </picture>
                 </figure>
                 <figure class="hb-showcase__image hb-showcase__image--square hb-showcase__image--offset">
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/meta_square_ai_workforce_v4.png' ); ?>" alt="ครีเอทีฟ AI Workforce Audit สำหรับแคมเปญ Hashbox" loading="lazy" decoding="async">
+                    <picture>
+                        <source srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/meta_square_ai_workforce_v4.webp' ); ?>" type="image/webp">
+                        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/meta_square_ai_workforce_v4.png' ); ?>" alt="ครีเอทีฟ AI Workforce Audit สำหรับแคมเปญ Hashbox" width="1080" height="1080" loading="lazy" decoding="async">
+                    </picture>
                 </figure>
                 <figure class="hb-showcase__image hb-showcase__image--wide">
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/linkedin_wide_growth_bundle_v4.png' ); ?>" alt="ครีเอทีฟ Growth Bundle สำหรับ LinkedIn ของ Hashbox" loading="lazy" decoding="async">
+                    <picture>
+                        <source srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/linkedin_wide_growth_bundle_v4.webp' ); ?>" type="image/webp">
+                        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/ads/hashbox/linkedin_wide_growth_bundle_v4.png' ); ?>" alt="ครีเอทีฟ Growth Bundle สำหรับ LinkedIn ของ Hashbox" width="1200" height="627" loading="lazy" decoding="async">
+                    </picture>
                 </figure>
             </div>
         </div>
@@ -279,27 +291,27 @@ get_header();
 
         <ol class="hb-steps">
             <li class="hb-step">
-                <span class="hb-step__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+                <span class="hb-step__icon"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
                 <h3 class="hb-step__title">Discovery + Free Audit</h3>
                 <p class="hb-step__desc">วัด Baseline ปัจจุบัน — CWV, Schema, Indexation, Backlinks, Competitor Gap ส่งรายงาน 15-20 หน้าฟรี</p>
             </li>
             <li class="hb-step">
-                <span class="hb-step__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg></span>
+                <span class="hb-step__icon"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg></span>
                 <h3 class="hb-step__title">Strategy + KPI Sign-off</h3>
                 <p class="hb-step__desc">วาง Target KW, Conversion Goal, Tech Stack, Roadmap 90/180/365 วัน ลูกค้า Sign-off ก่อนเริ่ม Code</p>
             </li>
             <li class="hb-step">
-                <span class="hb-step__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+                <span class="hb-step__icon"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
                 <h3 class="hb-step__title">SEO-Ready Build</h3>
                 <p class="hb-step__desc">Code + Schema + Performance ผ่าน Lighthouse Build Gate Deploy บน Cloudflare หรือ Vercel</p>
             </li>
             <li class="hb-step">
-                <span class="hb-step__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></span>
+                <span class="hb-step__icon"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></span>
                 <h3 class="hb-step__title">Marketing + CRO Setup</h3>
                 <p class="hb-step__desc">ติดตั้ง GA4, GSC, Heatmap, A/B Framework เริ่ม CRO Sprint รายเดือน Hypothesize → Test → Measure</p>
             </li>
             <li class="hb-step">
-                <span class="hb-step__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/></svg></span>
+                <span class="hb-step__icon"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/></svg></span>
                 <h3 class="hb-step__title">AI Workforce + Handover</h3>
                 <p class="hb-step__desc">Implement AI Bot/Tool ฝึกทีมลูกค้า ส่งมอบ Documentation, Runbook และ Retainer สำหรับ Optimize ต่อเนื่อง</p>
             </li>
@@ -550,10 +562,10 @@ get_header();
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--hb-space-12);align-items:start;max-width:64rem;margin:0 auto;">
             <div>
                 <div style="display:flex;flex-direction:column;gap:var(--hb-space-3);">
-                    <p style="display:flex;align-items:center;gap:var(--hb-space-3);color:var(--hb-text);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg><a href="mailto:business@hashbox.co.th" style="color:inherit;">business@hashbox.co.th</a></p>
-                    <p style="display:flex;align-items:center;gap:var(--hb-space-3);color:var(--hb-text);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+66625169868" style="color:inherit;">Hotline: 062-516-9868</a></p>
-                    <p style="display:flex;align-items:center;gap:var(--hb-space-3);color:var(--hb-text);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>139 Pan Rd, Si Lom, Bang Rak, Bangkok 10500</p>
-                    <p style="display:flex;align-items:center;gap:var(--hb-space-3);color:var(--hb-text);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>จันทร์-ศุกร์ 9:00-18:00</p>
+                    <p style="display:flex;align-items:center;gap:var(--hb-space-3);color:var(--hb-text);"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg><a href="mailto:business@hashbox.co.th" style="color:inherit;">business@hashbox.co.th</a></p>
+                    <p style="display:flex;align-items:center;gap:var(--hb-space-3);color:var(--hb-text);"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+66625169868" style="color:inherit;">Hotline: 062-516-9868</a></p>
+                    <p style="display:flex;align-items:center;gap:var(--hb-space-3);color:var(--hb-text);"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>139 Pan Rd, Si Lom, Bang Rak, Bangkok 10500</p>
+                    <p style="display:flex;align-items:center;gap:var(--hb-space-3);color:var(--hb-text);"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>จันทร์-ศุกร์ 9:00-18:00</p>
                 </div>
                 <a href="https://lin.ee/Xagx6i4" class="hb-btn hb-btn--gradient hb-btn--lg" target="_blank" rel="noopener noreferrer" style="margin-top:var(--hb-space-6);">คุยทาง LINE OA</a>
             </div>

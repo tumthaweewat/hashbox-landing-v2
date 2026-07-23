@@ -80,7 +80,7 @@ function hashbox_enqueue_assets() {
     // V2 stack — DM Sans for display headings, IBM Plex Sans Thai for body/Thai fallback.
     wp_enqueue_style(
         'hashbox-google-fonts',
-        'https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap',
         array(),
         null
     );
@@ -528,15 +528,33 @@ function portfolio_settings_page() {
  * ========================================================================= */
 
 /**
+ * Detect the English-language page(s). English content lives under /en/ and
+ * shares a post_name with its Thai counterpart, so key off the request PATH
+ * (and the EN template) rather than the slug. Used to emit the correct
+ * language + locale signals so an English page is not mislabelled as Thai.
+ */
+function hashbox_is_english_page() {
+    $path = function_exists( 'hashbox_current_request_path' ) ? hashbox_current_request_path() : '';
+    if ( 'en' === $path || 0 === strpos( $path, 'en/' ) ) {
+        return true;
+    }
+    return is_page_template( 'page-en-ai-consulting.php' );
+}
+
+/**
  * Force HTML lang="th" site-wide so crawlers classify the site as Thai.
  *
  * The visible content is Thai-primary; the WP locale was previously en-US which
  * mis-signalled language to Google. Override at the language_attributes filter
- * level so this works regardless of WP Settings → General locale.
+ * level so this works regardless of WP Settings → General locale. English pages
+ * under /en/ get lang="en-US" so their language signal matches their content.
  */
 function hashbox_force_thai_lang_attribute( $output ) {
     if ( function_exists( 'pll_current_language' ) || defined( 'ICL_SITEPRESS_VERSION' ) ) {
         return $output;
+    }
+    if ( hashbox_is_english_page() ) {
+        return 'lang="en-US"';
     }
     return 'lang="th-TH"';
 }
@@ -629,7 +647,7 @@ function hashbox_get_seo_metadata() {
     $en_meta = array(
         'en/ai-consulting' => array(
             'title'       => 'AI Consulting Bangkok | Production AI for Thai Business',
-            'description' => 'AI consulting company in Bangkok, Thailand — LINE chatbots, Sales GPT, RAG knowledge bases and workflow automation, shipped to production with ROI calculated before we build. From THB 60,000.',
+            'description' => 'AI consulting company in Bangkok, Thailand — LINE chatbots, Sales GPT, RAG & workflow automation shipped to production. ROI calculated first. From THB 60,000.',
         ),
     );
     if ( isset( $en_meta[ $en_path ] ) ) {
@@ -671,6 +689,10 @@ function hashbox_get_seo_metadata() {
             'portfolio' => array(
                 'title'       => 'Portfolio งาน Web, Mobile และ Digital | Hashbox Studio',
                 'description' => 'รวมผลงาน web design, mobile app, e-commerce และ digital product จากทีม Hashbox Studio ครอบคลุม Banking, Real Estate, E-commerce และ AI',
+            ),
+            'geo-checker' => array(
+                'title'       => 'GEO Readiness Checker — เว็บพร้อมถูก AI อ้างอิงไหม | Hashbox',
+                'description' => 'เครื่องมือฟรี ใส่ URL แล้วรู้คะแนน 0-100 ว่าหน้าเว็บพร้อมถูก ChatGPT, Perplexity และ Google AI Overviews อ้างอิงแค่ไหน พร้อมคำแนะนำที่ลงมือทำได้ทันที',
             ),
         );
 
@@ -803,6 +825,18 @@ function hashbox_default_og_image_url() {
 }
 
 /**
+ * Real square brand logo for schema Organization.logo (Google logo
+ * guidance prefers a near-square logo, not the 1200x630 OG banner).
+ * Falls back to the OG image only if the logo asset is missing.
+ */
+function hashbox_logo_image_url() {
+    if ( file_exists( get_template_directory() . '/assets/favicons/icon-512.png' ) ) {
+        return get_template_directory_uri() . '/assets/favicons/icon-512.png';
+    }
+    return hashbox_default_og_image_url();
+}
+
+/**
  * Return [width, height] of the default OG image so OpenGraph tags
  * include og:image:width/height. Social previews render with a
  * placeholder until both are present, so emitting them improves
@@ -886,10 +920,10 @@ function hashbox_current_public_url() {
         return get_permalink();
     }
     if ( is_category() ) {
-        return get_category_link( get_queried_object_id() );
+        return is_paged() ? get_pagenum_link( get_query_var( 'paged' ) ) : get_category_link( get_queried_object_id() );
     }
     if ( is_tag() ) {
-        return get_tag_link( get_queried_object_id() );
+        return is_paged() ? get_pagenum_link( get_query_var( 'paged' ) ) : get_tag_link( get_queried_object_id() );
     }
     if ( is_search() ) {
         return get_search_link();
@@ -923,13 +957,14 @@ function hashbox_homepage_meta_description() {
 
     echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
     echo '<link rel="canonical" href="' . esc_url( $url ) . '">' . "\n";
-    echo '<meta property="og:locale" content="th_TH">' . "\n";
+    echo '<meta property="og:locale" content="' . ( hashbox_is_english_page() ? 'en_US' : 'th_TH' ) . '">' . "\n";
     echo '<meta property="og:type" content="' . esc_attr( $type ) . '">' . "\n";
     echo '<meta property="og:site_name" content="' . esc_attr( get_bloginfo( 'name' ) ) . '">' . "\n";
     echo '<meta property="og:title" content="' . esc_attr( $title ) . '">' . "\n";
     echo '<meta property="og:description" content="' . esc_attr( $desc ) . '">' . "\n";
     echo '<meta property="og:url" content="' . esc_url( $url ) . '">' . "\n";
     echo '<meta property="og:image" content="' . esc_url( $image ) . '">' . "\n";
+    echo '<meta property="og:image:alt" content="' . esc_attr( $title ) . '">' . "\n";
     list( $img_w, $img_h ) = hashbox_og_image_dimensions( $image );
     if ( $img_w > 0 && $img_h > 0 ) {
         echo '<meta property="og:image:width" content="' . (int) $img_w . '">' . "\n";
@@ -965,6 +1000,27 @@ function hashbox_seo_noindex_meta() {
 add_action( 'wp_head', 'hashbox_seo_noindex_meta', 1 );
 
 /**
+ * Rank Math delegates noindex to per-page settings, which are easy to forget.
+ * Force noindex on the password-gated portfolio template (and, defensively, on
+ * internal search + paginated archives) so a thin/gated page can't slip into
+ * the index when Rank Math is active. This filter only fires while Rank Math is
+ * active, complementing hashbox_seo_noindex_meta() which runs when it is not —
+ * so exactly one robots directive is emitted, never a duplicate.
+ */
+function hashbox_rankmath_force_noindex( $robots ) {
+    $should_noindex = is_search()
+        || is_page_template( 'page-portfolio.php' )
+        || ( is_paged() && ( is_category() || is_tag() || is_author() || is_date() ) );
+
+    if ( $should_noindex ) {
+        $robots['index']  = 'noindex';
+        $robots['follow'] = 'follow';
+    }
+    return $robots;
+}
+add_filter( 'rank_math/frontend/robots', 'hashbox_rankmath_force_noindex' );
+
+/**
  * Preload the LCP image of singular pages (featured image) so it
  * starts downloading during HTML parse instead of after CSS. Font
  * woff2 URLs from Google Fonts are hashed and version-bumped, so we
@@ -975,7 +1031,13 @@ add_action( 'wp_head', 'hashbox_seo_noindex_meta', 1 );
 function hashbox_preload_critical_assets() {
     $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
     if ( $audit_landing && function_exists( 'hashbox_audit_landing_asset_uri' ) ) {
-        echo '<link rel="preload" as="image" fetchpriority="high" href="' . esc_url( hashbox_audit_landing_asset_uri( $audit_landing['wide_image'] ) ) . '">' . "\n";
+        $wide_png = hashbox_audit_landing_asset_uri( $audit_landing['wide_image'] );
+        echo '<link rel="preload" as="image" type="image/webp" fetchpriority="high" href="' . esc_url( str_replace( '.png', '.webp', $wide_png ) ) . '">' . "\n";
+        return;
+    }
+
+    if ( is_front_page() ) {
+        echo '<link rel="preload" as="image" type="image/webp" fetchpriority="high" href="' . esc_url( get_template_directory_uri() . '/assets/ads/hashbox/linkedin_wide_seo_ready_v4.webp' ) . '">' . "\n";
         return;
     }
 
@@ -1870,7 +1932,12 @@ function hashbox_rankmath_schema_organization() {
         '@id'   => $home . '#organization',
         'name'  => 'Hashbox Studio',
         'url'   => $home,
-        'logo'  => hashbox_default_og_image_url(),
+        'logo'  => array(
+            '@type'  => 'ImageObject',
+            'url'    => hashbox_logo_image_url(),
+            'width'  => 512,
+            'height' => 512,
+        ),
         'sameAs' => array(
             'https://www.linkedin.com/company/hashbox-studio',
             'https://www.facebook.com/profile.php?id=61590390615650',
@@ -1973,6 +2040,15 @@ function hashbox_rankmath_schema_service() {
             'opens'     => '09:00',
             'closes'    => '18:00',
         ),
+        'hasOfferCatalog' => array(
+            '@type'           => 'OfferCatalog',
+            'name'            => 'Services',
+            'itemListElement' => array(
+                array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'SEO-Ready Website Build', 'description' => 'Production-ready websites that pass Lighthouse 100, green Core Web Vitals, complete schema, and rank within 60-90 days.' ) ),
+                array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'Digital Marketing Tools + CRO', 'description' => 'GA4, GSC, Looker Studio, heatmaps, A/B testing, and monthly CRO sprints to compound conversion.' ) ),
+                array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'AI Expert Consulting', 'description' => 'LINE bot, sales GPT, RAG knowledge base, and workflow automation that ships to production.' ) ),
+            ),
+        ),
     );
 }
 
@@ -1984,12 +2060,21 @@ function hashbox_rankmath_json_ld( $data, $jsonld = null ) {
     $home        = home_url( '/' );
     $current_url = hashbox_current_public_url();
     $description = hashbox_get_meta_description();
-    $has_org     = false;
-    $has_website = false;
-    $has_service = false;
+    $has_org       = false;
+    $has_website   = false;
+    $has_service   = false;
+    $is_case_study = (bool) hashbox_current_case_study_slug();
 
     foreach ( $data as $key => $entity ) {
         if ( ! is_array( $entity ) ) {
+            continue;
+        }
+
+        // Case-study pages emit their own Article + BreadcrumbList (see
+        // hashbox_render_case_study), so drop Rank Math's BreadcrumbList to
+        // avoid two BreadcrumbList graphs describing the same page.
+        if ( $is_case_study && hashbox_schema_entity_has_type( $entity, 'BreadcrumbList' ) ) {
+            unset( $data[ $key ] );
             continue;
         }
 
@@ -2084,7 +2169,7 @@ add_filter( 'rank_math/opengraph/facebook/image', 'hashbox_rankmath_og_image' );
 add_filter( 'rank_math/opengraph/twitter/image', 'hashbox_rankmath_og_image' );
 
 function hashbox_rankmath_og_locale( $locale ) {
-    return 'th_TH';
+    return hashbox_is_english_page() ? 'en_US' : 'th_TH';
 }
 add_filter( 'rank_math/opengraph/facebook/og_locale', 'hashbox_rankmath_og_locale' );
 add_filter( 'rank_math/opengraph/facebook/locale', 'hashbox_rankmath_og_locale' );
@@ -2122,7 +2207,7 @@ function hashbox_inject_home_schema() {
     }
 
     $home   = home_url( '/' );
-    $logo   = get_template_directory_uri() . '/assets/favicons/apple-touch-icon.png';
+    $logo   = hashbox_logo_image_url();
 
     hashbox_jsonld( array(
         '@context' => 'https://schema.org',
@@ -2702,7 +2787,9 @@ function hashbox_render_case_study( array $case ) {
         'headline'       => $case['name'] . ' — ' . $case['headline'],
         'description'    => $case['lede'],
         'url'            => $work_url,
+        'image'          => hashbox_default_og_image_url(),
         'datePublished'  => $case['year'] . '-01-01',
+        'dateModified'   => get_post_modified_time( 'c', true, get_queried_object_id() ) ?: ( $case['year'] . '-01-01' ),
         'inLanguage'     => 'th-TH',
         'author'         => array( '@id' => home_url( '/#organization' ) ),
         'publisher'      => array( '@id' => home_url( '/#organization' ) ),

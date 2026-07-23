@@ -74,7 +74,10 @@ get_header();
                 <figure class="hb-audit-hero__visual" data-reveal>
                     <picture>
                         <source media="(max-width: 720px)" srcset="<?php echo esc_url( $portrait_image ); ?>">
-                        <img src="<?php echo esc_url( $wide_image ); ?>" alt="<?php echo esc_attr( 'Hashbox ' . $landing['service_label'] . ' campaign artwork' ); ?>" width="1200" height="627" fetchpriority="high">
+                        <picture>
+                            <source srcset="<?php echo esc_url( str_replace( '.png', '.webp', $wide_image ) ); ?>" type="image/webp">
+                            <img src="<?php echo esc_url( $wide_image ); ?>" alt="<?php echo esc_attr( 'Hashbox ' . $landing['service_label'] . ' campaign artwork' ); ?>" width="1200" height="627" fetchpriority="high" decoding="async">
+                        </picture>
                     </picture>
                 </figure>
             </div>

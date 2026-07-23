@@ -110,4 +110,4 @@ Most of our clients see positive ROI within the first month.
 
 Every hour your team spends on repetitive manual work is an hour they're not spending on growth, creativity, or customer relationships. Let's fix that.
 
-[Calculate your business savings →](#contact)
+[Calculate your business savings →](/#contact)

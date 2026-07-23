@@ -87,7 +87,7 @@ $cases = array(
     <div class="hb-hero__grid"></div>
     <div class="hb-container">
         <div class="hb-hero__inner">
-            <nav class="hb-breadcrumb">
+            <nav class="hb-breadcrumb" aria-label="Breadcrumb">
                 <ol class="hb-breadcrumb__list">
                     <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
                     <li><span class="hb-breadcrumb__sep">/</span></li>
@@ -181,7 +181,7 @@ $cases = array(
         <ul style="margin-top:var(--hb-space-6);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--hb-space-3);list-style:none;padding:0;">
             <?php foreach ( $deliverables as $d ) : ?>
                 <li style="display:flex;gap:var(--hb-space-3);align-items:flex-start;font-size:var(--hb-text-sm);">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--hb-accent-emerald)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--hb-accent-emerald)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
                     <span><?php echo esc_html( $d ); ?></span>
                 </li>
             <?php endforeach; ?>

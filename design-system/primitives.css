@@ -564,3 +564,31 @@
   background: var(--hb-surface-2);
   color: var(--hb-text-strong);
 }
+
+/* Visually-hidden but screen-reader-accessible (standard WP utility).
+ * Used by search.php's label and the taxonomy section headings. */
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+.screen-reader-text:focus {
+  background-color: var(--hb-surface-2);
+  clip: auto !important;
+  clip-path: none;
+  display: block;
+  height: auto;
+  left: 5px;
+  top: 5px;
+  padding: 15px 23px 14px;
+  width: auto;
+  z-index: 100000;
+}
