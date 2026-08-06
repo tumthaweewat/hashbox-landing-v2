@@ -658,7 +658,7 @@ function hashbox_get_seo_metadata() {
             ),
             'ai-consulting' => array(
                 'title'       => 'AI Consulting Bangkok | ที่ปรึกษา AI ธุรกิจไทย | Hashbox',
-                'description' => 'AI Consulting Bangkok สำหรับธุรกิจไทย — LINE Chatbot, Sales GPT, RAG Knowledge Base, Workflow Automation พร้อมคำนวณ ROI ก่อนเริ่มทุกโปรเจกต์ · เริ่ม 60,000 บาท · 50+ AI projects',
+                'description' => 'AI Consulting Bangkok สำหรับธุรกิจไทย — LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Integration · คุยประเมินโอกาสฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท',
             ),
             'work' => array(
                 'title'       => 'Case Studies SEO, CRO, AI ที่วัดผลได้ | Hashbox',
@@ -1263,11 +1263,11 @@ function hashbox_audit_landing_pages() {
             'slug'             => 'ai-workflow-audit',
             'service_label'    => 'AI Workforce',
             'service_interest' => 'AI Tool / LINE Bot',
-            'meta_title'       => 'AI Workforce Audit ฟรี | Hashbox Studio',
-            'meta_description' => 'ตรวจโอกาสลดงานซ้ำด้วย LINE Bot, RAG Knowledge Base และ Workflow Automation พร้อม AI ROI map สำหรับทีมขายและซัพพอร์ต',
+            'meta_title'       => 'AI Opportunity Screening ฟรี 30 นาที | Hashbox Studio',
+            'meta_description' => 'คุยกับทีม AI 30 นาทีเพื่อประเมินโอกาสลดงานซ้ำด้วย LINE Bot, RAG Knowledge Base และ Workflow Automation พร้อมแนวทางเริ่มต้นที่เหมาะกับธุรกิจ',
             'hero_headline'    => 'ลดงานซ้ำด้วย AI ที่วัด ROI ได้',
             'hero_subcopy'     => 'LINE Bot, RAG Knowledge Base และ Workflow Automation สำหรับทีมขายและซัพพอร์ตที่ต้องการตอบเร็วขึ้นโดยไม่เพิ่ม headcount',
-            'primary_cta'      => 'รับ AI Audit ฟรี',
+            'primary_cta'      => 'นัดคุย AI ฟรี 30 นาที',
             'proof_line'       => '-60% Support Cost จาก AI Bot + RAG ภายใน 8 สัปดาห์',
             'creative_key'     => 'ai_workforce',
             'utm_content'      => 'ai_workforce_v4',
@@ -1282,9 +1282,9 @@ function hashbox_audit_landing_pages() {
                 'ข้อมูลกระจายอยู่ใน LINE, sheet, PDF และ CRM ทำให้ลูกค้ารอคำตอบนานกว่าที่ควร',
             ),
             'audit_includes'   => array(
-                array( 'title' => 'AI ROI Map', 'body' => 'คำนวณชั่วโมงงานซ้ำ ต้นทุนต่อเดือน และลำดับ use case ที่ควรเริ่มก่อน' ),
-                array( 'title' => 'Workflow Blueprint', 'body' => 'วาง flow LINE Bot, RAG, CRM handoff และจุดที่ควรให้มนุษย์รับต่อ' ),
-                array( 'title' => 'Data Readiness Check', 'body' => 'ตรวจเอกสาร, FAQ, policy และระบบเดิมว่าพร้อมให้ AI ใช้งานแค่ไหน' ),
+                array( 'title' => 'Use Case Shortlist', 'body' => 'คัดโจทย์ที่น่าทดลองก่อนจากปริมาณงานซ้ำ ผลกระทบ และความพร้อมของทีม' ),
+                array( 'title' => 'Quick Workflow Map', 'body' => 'มองภาพ flow ของ LINE Bot, RAG, CRM handoff และจุดที่ควรให้มนุษย์รับต่อ' ),
+                array( 'title' => 'Recommended Next Step', 'body' => 'สรุปว่าควรจัดข้อมูล ทดลอง PoC หรือทำ ROI Assessment แบบลงรายละเอียดต่อหรือไม่' ),
             ),
             'proof'            => array(
                 'metric' => '-60%',
@@ -1295,12 +1295,12 @@ function hashbox_audit_landing_pages() {
             'process'          => array(
                 array( 'title' => 'วัด baseline งานซ้ำ', 'body' => 'เก็บคำถามซ้ำ, SLA, ticket volume และต้นทุนเวลาของทีม' ),
                 array( 'title' => 'เลือก use case ที่คืนทุน', 'body' => 'จัด priority ด้วย ROI, integration effort และ risk ของข้อมูล' ),
-                array( 'title' => 'ส่ง roadmap พร้อม next sprint', 'body' => 'สรุป flow, stack, timeline และงบประมาณที่เหมาะกับทีมคุณ' ),
+                array( 'title' => 'สรุปแนวทางเริ่มต้น', 'body' => 'แนะนำ next step, ช่วงเวลา และระดับงบประมาณเบื้องต้นที่เหมาะกับทีมคุณ' ),
             ),
             'faqs'             => array(
                 array( 'q' => 'Audit นี้เหมาะกับธุรกิจแบบไหน?', 'a' => 'เหมาะกับทีมที่มีแชทลูกค้าเยอะ มี FAQ หรือ policy ซ้ำ ๆ และอยากเริ่มใช้ AI แบบวัดผลได้ ไม่ใช่ทำ demo แล้วจบ' ),
                 array( 'q' => 'ต้องมีข้อมูลพร้อมแค่ไหนก่อนเริ่ม?', 'a' => 'ไม่จำเป็นต้องพร้อมทั้งหมดครับ Audit จะช่วยบอกว่าข้อมูลส่วนไหนใช้ได้ทันที ส่วนไหนควรจัดโครงสร้างก่อนนำเข้า RAG หรือ Bot' ),
-                array( 'q' => 'หลัง Audit ต้องจ้างทำต่อไหม?', 'a' => 'ไม่บังคับครับ คุณจะได้ roadmap กลับไปใช้ตัดสินใจ ถ้า scope fit กันค่อยคุย sprint implementation ต่อ' ),
+                array( 'q' => 'หลัง Screening ต้องจ้างทำต่อไหม?', 'a' => 'ไม่บังคับครับ คุณจะได้แนวทางเบื้องต้นกลับไปตัดสินใจ ถ้าต้องการ business case แบบลงรายละเอียดค่อยเริ่ม ROI Assessment Report หรือ PoC ต่อ' ),
             ),
         ),
         'seo-audit' => array(
@@ -1756,6 +1756,29 @@ function hashbox_redirect_legacy_services_case_studies() {
     exit;
 }
 add_action( 'template_redirect', 'hashbox_redirect_legacy_services_case_studies', 1 );
+
+/**
+ * Keep previously published AI guide URLs working after their slug changes.
+ */
+function hashbox_redirect_legacy_ai_guides() {
+    if ( is_admin() || wp_doing_ajax() || is_preview() ) {
+        return;
+    }
+
+    $redirects = array(
+        'line-chatbot-ai-thailand' => '/line-chatbot-ai-guide-2026/',
+        'ai-workforce-thai-sme'    => '/ai-workforce-sme-thailand-2026/',
+    );
+    $path      = hashbox_current_request_path();
+
+    if ( ! isset( $redirects[ $path ] ) ) {
+        return;
+    }
+
+    wp_safe_redirect( home_url( $redirects[ $path ] ), 301 );
+    exit;
+}
+add_action( 'template_redirect', 'hashbox_redirect_legacy_ai_guides', 2 );
 
 function hashbox_case_study_redirect_canonical( $redirect_url, $requested_url ) {
     $requested_path = trim( (string) wp_parse_url( $requested_url, PHP_URL_PATH ), '/' );
@@ -2312,8 +2335,8 @@ function hashbox_llms_txt_content() {
     $lines[] = '- [Technical SEO คือ? คู่มือ 2026](' . home_url( '/technical-seo-guide/' ) . '): Technical SEO definition, audit checklist, common fixes';
     $lines[] = '- [GEO คืออะไร? Generative Engine Optimization](' . home_url( '/geo-ai-search-optimization-2026/' ) . '): GEO definition + optimization for ChatGPT, Perplexity, Google AI Overviews';
     $lines[] = '- [Next.js vs WordPress 2026](' . home_url( '/nextjs-vs-wordpress-2026/' ) . '): Stack comparison for SEO performance';
-    $lines[] = '- [AI Workforce Guide for Thai SMEs](' . home_url( '/ai-workforce-thai-sme/' ) . '): AI adoption playbook for Thai businesses';
-    $lines[] = '- [LINE Chatbot AI Guide 2026](' . home_url( '/line-chatbot-ai-thailand/' ) . '): Conversational AI for LINE platform';
+    $lines[] = '- [AI Workforce Guide for Thai SMEs](' . home_url( '/ai-workforce-sme-thailand-2026/' ) . '): AI adoption playbook for Thai businesses';
+    $lines[] = '- [LINE Chatbot AI Guide 2026](' . home_url( '/line-chatbot-ai-guide-2026/' ) . '): Conversational AI for LINE platform';
     $lines[] = '- [CRO Guide for Thai Websites](' . home_url( '/cro-thai-websites-2026/' ) . '): Conversion rate optimization for Thai market';
     $lines[] = '';
     $lines[] = '## Pricing (THB, excl. VAT)';
@@ -2474,7 +2497,8 @@ function hashbox_handle_contact_submit() {
     $landing_slug       = isset( $_POST['landing_slug'] )       ? sanitize_title( wp_unslash( $_POST['landing_slug'] ) )            : '';
     $form_context       = isset( $_POST['form_context'] )       ? sanitize_key( wp_unslash( $_POST['form_context'] ) )              : '';
     $pdpa               = isset( $_POST['pdpa'] );
-    $is_audit_form      = 'audit_landing' === $form_context;
+    $is_ai_form         = 'ai_consulting' === $form_context && 'ai-workflow-audit' === $landing_slug;
+    $is_audit_form      = 'audit_landing' === $form_context || $is_ai_form;
     $message            = $problem ?: $message;
 
     $redirect_to = isset( $_POST['redirect_to'] ) ? esc_url_raw( wp_unslash( $_POST['redirect_to'] ) ) : home_url( '/#contact' );
@@ -2494,13 +2518,14 @@ function hashbox_handle_contact_submit() {
     }
 
     $utm = array();
-    foreach ( array( 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term' ) as $utm_key ) {
+    foreach ( array( 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'wbraid', 'gbraid' ) as $utm_key ) {
         $utm[ $utm_key ] = isset( $_POST[ $utm_key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $utm_key ] ) ) : '';
     }
 
     $reply_email = is_email( $email ) ? $email : ( is_email( $contact_detail ) ? $contact_detail : '' );
     $to          = 'business@hashbox.co.th';
-    $subject     = sprintf( '[Hashbox V2] %s from %s — %s', $is_audit_form ? 'Audit request' : 'New enquiry', $name, $service ?: 'unspecified' );
+    $request_type = $is_ai_form ? 'AI consultation request' : ( $is_audit_form ? 'Audit request' : 'New enquiry' );
+    $subject      = sprintf( '[Hashbox V2] %s from %s — %s', $request_type, $name, $service ?: 'unspecified' );
     $body_lines  = array(
         'Name / Company: ' . $name,
         'Email: ' . $email,
@@ -2522,6 +2547,9 @@ function hashbox_handle_contact_submit() {
         'utm_campaign: ' . $utm['utm_campaign'],
         'utm_content: ' . $utm['utm_content'],
         'utm_term: ' . $utm['utm_term'],
+        'gclid: ' . $utm['gclid'],
+        'wbraid: ' . $utm['wbraid'],
+        'gbraid: ' . $utm['gbraid'],
     );
     $body        = implode( "\n", $body_lines );
     $headers     = array( 'Content-Type: text/plain; charset=UTF-8' );
@@ -2530,6 +2558,14 @@ function hashbox_handle_contact_submit() {
     }
 
     $sent = wp_mail( $to, $subject, $body, $headers );
+    if ( $sent && $is_ai_form ) {
+        wp_safe_redirect( add_query_arg( array(
+            'contact'  => 'ai_sent',
+            'lead_ref' => wp_generate_uuid4(),
+        ), $redirect_to ) );
+        exit;
+    }
+
     wp_safe_redirect( add_query_arg( 'contact', $sent ? 'sent' : 'error', $redirect_to ) );
     exit;
 }
