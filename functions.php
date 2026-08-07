@@ -77,30 +77,32 @@ function hashbox_enqueue_assets() {
     $theme_uri = get_template_directory_uri();
     $version   = wp_get_theme()->get( 'Version' );
 
-    // V2 stack — DM Sans for display headings, IBM Plex Sans Thai for body/Thai fallback.
-    wp_enqueue_style(
-        'hashbox-google-fonts',
-        'https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap',
-        array(),
-        null
-    );
-
-    add_filter( 'wp_resource_hints', 'hashbox_resource_hints', 10, 2 );
-
-    // V2 design system — load in dependency order (tokens first)
-    $layers = array(
-        'tokens'      => 'tokens.css',
-        'primitives'  => 'primitives.css',
-        'surface'     => 'surface.css',
-        'navigation'  => 'navigation.css',
-        'interactive' => 'interactive.css',
-        'composed'    => 'composed.css',
-    );
-    $prev = 'hashbox-google-fonts';
-    foreach ( $layers as $key => $file ) {
-        $handle = 'hashbox-ds-' . $key;
-        wp_enqueue_style( $handle, $theme_uri . '/design-system/' . $file, array( $prev ), $version );
-        $prev = $handle;
+    // V2 stack — fonts are self-hosted (design-system/fonts.css inside the
+    // bundle) so nothing render-blocking leaves the origin. The design
+    // system ships as one bundled sheet built by tools/build-css-bundle.mjs;
+    // the layered files remain the editable source and the fallback.
+    $bundle = get_template_directory() . '/design-system/bundle.min.css';
+    if ( file_exists( $bundle ) ) {
+        // Keep the 'hashbox-ds-composed' handle — dependent enqueues
+        // (blog, geo-checker, audit landing) reference it.
+        wp_enqueue_style( 'hashbox-ds-composed', $theme_uri . '/design-system/bundle.min.css', array(), filemtime( $bundle ) );
+        $prev = 'hashbox-ds-composed';
+    } else {
+        $layers = array(
+            'fonts'       => 'fonts.css',
+            'tokens'      => 'tokens.css',
+            'primitives'  => 'primitives.css',
+            'surface'     => 'surface.css',
+            'navigation'  => 'navigation.css',
+            'interactive' => 'interactive.css',
+            'composed'    => 'composed.css',
+        );
+        $prev = '';
+        foreach ( $layers as $key => $file ) {
+            $handle = 'hashbox-ds-' . $key;
+            wp_enqueue_style( $handle, $theme_uri . '/design-system/' . $file, $prev ? array( $prev ) : array(), $version );
+            $prev = $handle;
+        }
     }
 
     // Legacy theme stylesheet (loads last — kept so WP recognizes theme)
@@ -112,18 +114,22 @@ function hashbox_enqueue_assets() {
         $theme_uri . '/js/v2.js',
         array(),
         $version,
-        true
+        array(
+            'in_footer' => true,
+            'strategy'  => 'defer',
+        )
     );
 
     $is_audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) && hashbox_get_audit_landing_for_path();
     $is_ads_preview   = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
 
     if ( $is_audit_landing || $is_ads_preview ) {
+        $audit_fonts = get_template_directory() . '/css/audit-fonts.css';
         wp_enqueue_style(
             'hashbox-audit-v4-fonts',
-            'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Thai:wght@400;500;600;700;800;900&display=swap',
+            $theme_uri . '/css/audit-fonts.css',
             array(),
-            null
+            file_exists( $audit_fonts ) ? filemtime( $audit_fonts ) : $version
         );
 
         $audit_css = get_template_directory() . '/css/audit-landing.css';
@@ -184,21 +190,34 @@ function hashbox_defer_legacy_stylesheet( $html, $handle, $href, $media ) {
 add_filter( 'style_loader_tag', 'hashbox_defer_legacy_stylesheet', 10, 4 );
 
 /**
- * Add preconnect resource hints for Google Fonts
+ * Preload the critical self-hosted woff2 files so text renders in the
+ * final face on first paint. Thai body/heading faces cover the hero;
+ * everything else loads on demand via unicode-range.
  */
-function hashbox_resource_hints( $urls, $relation_type ) {
-    if ( 'preconnect' === $relation_type ) {
-        $urls[] = array(
-            'href' => 'https://fonts.googleapis.com',
-            'crossorigin' => false,
+function hashbox_preload_critical_fonts() {
+    $theme_uri = get_template_directory_uri();
+    $is_audit  = function_exists( 'hashbox_get_audit_landing_for_path' ) && hashbox_get_audit_landing_for_path();
+    $is_ads    = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
+
+    $fonts = ( $is_audit || $is_ads )
+        ? array(
+            'noto-sans-thai-thai-400.woff2',
+            'noto-sans-thai-thai-800.woff2',
+            'inter-latin-700.woff2',
+        )
+        : array(
+            'ibm-plex-sans-thai-thai-400.woff2',
+            'ibm-plex-sans-thai-thai-700.woff2',
+            'ibm-plex-sans-thai-latin-400.woff2',
         );
-        $urls[] = array(
-            'href' => 'https://fonts.gstatic.com',
-            'crossorigin' => 'anonymous',
-        );
+
+    foreach ( $fonts as $file ) {
+        if ( file_exists( get_template_directory() . '/assets/fonts/' . $file ) ) {
+            echo '<link rel="preload" as="font" type="font/woff2" crossorigin href="' . esc_url( $theme_uri . '/assets/fonts/' . $file ) . '">' . "\n";
+        }
     }
-    return $urls;
 }
+add_action( 'wp_head', 'hashbox_preload_critical_fonts', 2 );
 
 /**
  * Fallback menu callback — renders static nav links when no WP menu is assigned
@@ -676,7 +695,7 @@ function hashbox_get_seo_metadata() {
             ),
             'ai-consulting' => array(
                 'title'       => 'AI Consulting Bangkok | ที่ปรึกษา AI ธุรกิจไทย | Hashbox',
-                'description' => 'AI Consulting Bangkok สำหรับธุรกิจไทย — LINE Chatbot, Sales GPT, RAG Knowledge Base, Workflow Automation พร้อมคำนวณ ROI ก่อนเริ่มทุกโปรเจกต์ · เริ่ม 60,000 บาท · 50+ AI projects',
+                'description' => 'AI Consulting Bangkok สำหรับธุรกิจไทย — LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Integration · คุยประเมินโอกาสฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท',
             ),
             'work' => array(
                 'title'       => 'Case Studies SEO, CRO, AI ที่วัดผลได้ | Hashbox',
@@ -1021,23 +1040,20 @@ function hashbox_rankmath_force_noindex( $robots ) {
 add_filter( 'rank_math/frontend/robots', 'hashbox_rankmath_force_noindex' );
 
 /**
- * Preload the LCP image of singular pages (featured image) so it
- * starts downloading during HTML parse instead of after CSS. Font
- * woff2 URLs from Google Fonts are hashed and version-bumped, so we
- * rely on the existing preconnect to fonts.gstatic.com plus
- * font-display: swap for type — preloading a stale hashed URL would
- * 404 and hurt rather than help.
+ * Preload the LCP image so it starts downloading during HTML parse
+ * instead of after CSS. Landing pages preload their WebP hero art;
+ * singular posts preload the featured image.
  */
 function hashbox_preload_critical_assets() {
     $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
     if ( $audit_landing && function_exists( 'hashbox_audit_landing_asset_uri' ) ) {
-        $wide_png = hashbox_audit_landing_asset_uri( $audit_landing['wide_image'] );
-        echo '<link rel="preload" as="image" type="image/webp" fetchpriority="high" href="' . esc_url( str_replace( '.png', '.webp', $wide_png ) ) . '">' . "\n";
+        echo '<link rel="preload" as="image" fetchpriority="high" media="(max-width: 720px)" imagesrcset="' . esc_attr( hashbox_ad_webp_srcset( $audit_landing['portrait_image'], array( 540, 1080 ) ) ) . '" imagesizes="100vw">' . "\n";
+        echo '<link rel="preload" as="image" fetchpriority="high" media="(min-width: 721px)" href="' . esc_url( hashbox_ad_webp_uri( $audit_landing['wide_image'], 1200 ) ) . '" imagesrcset="' . esc_attr( hashbox_ad_webp_srcset( $audit_landing['wide_image'], array( 640, 1200 ) ) ) . '" imagesizes="(min-width: 900px) 640px, 100vw">' . "\n";
         return;
     }
 
     if ( is_front_page() ) {
-        echo '<link rel="preload" as="image" type="image/webp" fetchpriority="high" href="' . esc_url( get_template_directory_uri() . '/assets/ads/hashbox/linkedin_wide_seo_ready_v4.webp' ) . '">' . "\n";
+        echo '<link rel="preload" as="image" fetchpriority="high" href="' . esc_url( hashbox_ad_webp_uri( 'linkedin_wide_seo_ready_v4.png', 1200 ) ) . '" imagesrcset="' . esc_attr( hashbox_ad_webp_srcset( 'linkedin_wide_seo_ready_v4.png', array( 640, 1200 ) ) ) . '" imagesizes="(min-width: 900px) 640px, 100vw">' . "\n";
         return;
     }
 
@@ -1325,11 +1341,11 @@ function hashbox_audit_landing_pages() {
             'slug'             => 'ai-workflow-audit',
             'service_label'    => 'AI Workforce',
             'service_interest' => 'AI Tool / LINE Bot',
-            'meta_title'       => 'AI Workforce Audit ฟรี | Hashbox Studio',
-            'meta_description' => 'ตรวจโอกาสลดงานซ้ำด้วย LINE Bot, RAG Knowledge Base และ Workflow Automation พร้อม AI ROI map สำหรับทีมขายและซัพพอร์ต',
+            'meta_title'       => 'AI Opportunity Screening ฟรี 30 นาที | Hashbox Studio',
+            'meta_description' => 'คุยกับทีม AI 30 นาทีเพื่อประเมินโอกาสลดงานซ้ำด้วย LINE Bot, RAG Knowledge Base และ Workflow Automation พร้อมแนวทางเริ่มต้นที่เหมาะกับธุรกิจ',
             'hero_headline'    => 'ลดงานซ้ำด้วย AI ที่วัด ROI ได้',
             'hero_subcopy'     => 'LINE Bot, RAG Knowledge Base และ Workflow Automation สำหรับทีมขายและซัพพอร์ตที่ต้องการตอบเร็วขึ้นโดยไม่เพิ่ม headcount',
-            'primary_cta'      => 'รับ AI Audit ฟรี',
+            'primary_cta'      => 'นัดคุย AI ฟรี 30 นาที',
             'proof_line'       => '-60% Support Cost จาก AI Bot + RAG ภายใน 8 สัปดาห์',
             'creative_key'     => 'ai_workforce',
             'utm_content'      => 'ai_workforce_v4',
@@ -1344,9 +1360,9 @@ function hashbox_audit_landing_pages() {
                 'ข้อมูลกระจายอยู่ใน LINE, sheet, PDF และ CRM ทำให้ลูกค้ารอคำตอบนานกว่าที่ควร',
             ),
             'audit_includes'   => array(
-                array( 'title' => 'AI ROI Map', 'body' => 'คำนวณชั่วโมงงานซ้ำ ต้นทุนต่อเดือน และลำดับ use case ที่ควรเริ่มก่อน' ),
-                array( 'title' => 'Workflow Blueprint', 'body' => 'วาง flow LINE Bot, RAG, CRM handoff และจุดที่ควรให้มนุษย์รับต่อ' ),
-                array( 'title' => 'Data Readiness Check', 'body' => 'ตรวจเอกสาร, FAQ, policy และระบบเดิมว่าพร้อมให้ AI ใช้งานแค่ไหน' ),
+                array( 'title' => 'Use Case Shortlist', 'body' => 'คัดโจทย์ที่น่าทดลองก่อนจากปริมาณงานซ้ำ ผลกระทบ และความพร้อมของทีม' ),
+                array( 'title' => 'Quick Workflow Map', 'body' => 'มองภาพ flow ของ LINE Bot, RAG, CRM handoff และจุดที่ควรให้มนุษย์รับต่อ' ),
+                array( 'title' => 'Recommended Next Step', 'body' => 'สรุปว่าควรจัดข้อมูล ทดลอง PoC หรือทำ ROI Assessment แบบลงรายละเอียดต่อหรือไม่' ),
             ),
             'proof'            => array(
                 'metric' => '-60%',
@@ -1357,12 +1373,12 @@ function hashbox_audit_landing_pages() {
             'process'          => array(
                 array( 'title' => 'วัด baseline งานซ้ำ', 'body' => 'เก็บคำถามซ้ำ, SLA, ticket volume และต้นทุนเวลาของทีม' ),
                 array( 'title' => 'เลือก use case ที่คืนทุน', 'body' => 'จัด priority ด้วย ROI, integration effort และ risk ของข้อมูล' ),
-                array( 'title' => 'ส่ง roadmap พร้อม next sprint', 'body' => 'สรุป flow, stack, timeline และงบประมาณที่เหมาะกับทีมคุณ' ),
+                array( 'title' => 'สรุปแนวทางเริ่มต้น', 'body' => 'แนะนำ next step, ช่วงเวลา และระดับงบประมาณเบื้องต้นที่เหมาะกับทีมคุณ' ),
             ),
             'faqs'             => array(
                 array( 'q' => 'Audit นี้เหมาะกับธุรกิจแบบไหน?', 'a' => 'เหมาะกับทีมที่มีแชทลูกค้าเยอะ มี FAQ หรือ policy ซ้ำ ๆ และอยากเริ่มใช้ AI แบบวัดผลได้ ไม่ใช่ทำ demo แล้วจบ' ),
                 array( 'q' => 'ต้องมีข้อมูลพร้อมแค่ไหนก่อนเริ่ม?', 'a' => 'ไม่จำเป็นต้องพร้อมทั้งหมดครับ Audit จะช่วยบอกว่าข้อมูลส่วนไหนใช้ได้ทันที ส่วนไหนควรจัดโครงสร้างก่อนนำเข้า RAG หรือ Bot' ),
-                array( 'q' => 'หลัง Audit ต้องจ้างทำต่อไหม?', 'a' => 'ไม่บังคับครับ คุณจะได้ roadmap กลับไปใช้ตัดสินใจ ถ้า scope fit กันค่อยคุย sprint implementation ต่อ' ),
+                array( 'q' => 'หลัง Screening ต้องจ้างทำต่อไหม?', 'a' => 'ไม่บังคับครับ คุณจะได้แนวทางเบื้องต้นกลับไปตัดสินใจ ถ้าต้องการ business case แบบลงรายละเอียดค่อยเริ่ม ROI Assessment Report หรือ PoC ต่อ' ),
             ),
         ),
         'seo-audit' => array(
@@ -1584,6 +1600,31 @@ function hashbox_audit_landing_asset_uri( $file ) {
 
 function hashbox_audit_landing_asset_path( $file ) {
     return get_template_directory() . '/assets/ads/hashbox/' . ltrim( (string) $file, '/' );
+}
+
+/**
+ * URI of a WebP variant generated by tools/optimize-ad-images.mjs
+ * (assets/ads/hashbox/webp/<stem>-<width>w.webp). Falls back to the
+ * source PNG when the variant is missing so a stale deploy never 404s.
+ */
+function hashbox_ad_webp_uri( $file, $width ) {
+    $stem = pathinfo( (string) $file, PATHINFO_FILENAME );
+    $rel  = 'webp/' . $stem . '-' . (int) $width . 'w.webp';
+    if ( file_exists( hashbox_audit_landing_asset_path( $rel ) ) ) {
+        return hashbox_audit_landing_asset_uri( $rel );
+    }
+    return hashbox_audit_landing_asset_uri( $file );
+}
+
+/**
+ * "small 640w, large 1200w"-style srcset for an ad creative.
+ */
+function hashbox_ad_webp_srcset( $file, $widths ) {
+    $parts = array();
+    foreach ( $widths as $width ) {
+        $parts[] = hashbox_ad_webp_uri( $file, $width ) . ' ' . (int) $width . 'w';
+    }
+    return implode( ', ', $parts );
 }
 
 function hashbox_audit_landing_og_image_url( $landing = null ) {
@@ -1818,6 +1859,29 @@ function hashbox_redirect_legacy_services_case_studies() {
     exit;
 }
 add_action( 'template_redirect', 'hashbox_redirect_legacy_services_case_studies', 1 );
+
+/**
+ * Keep previously published AI guide URLs working after their slug changes.
+ */
+function hashbox_redirect_legacy_ai_guides() {
+    if ( is_admin() || wp_doing_ajax() || is_preview() ) {
+        return;
+    }
+
+    $redirects = array(
+        'line-chatbot-ai-thailand' => '/line-chatbot-ai-guide-2026/',
+        'ai-workforce-thai-sme'    => '/ai-workforce-sme-thailand-2026/',
+    );
+    $path      = hashbox_current_request_path();
+
+    if ( ! isset( $redirects[ $path ] ) ) {
+        return;
+    }
+
+    wp_safe_redirect( home_url( $redirects[ $path ] ), 301 );
+    exit;
+}
+add_action( 'template_redirect', 'hashbox_redirect_legacy_ai_guides', 2 );
 
 function hashbox_case_study_redirect_canonical( $redirect_url, $requested_url ) {
     $requested_path = trim( (string) wp_parse_url( $requested_url, PHP_URL_PATH ), '/' );
@@ -2397,8 +2461,8 @@ function hashbox_llms_txt_content() {
     $lines[] = '- [Technical SEO คือ? คู่มือ 2026](' . home_url( '/technical-seo-guide/' ) . '): Technical SEO definition, audit checklist, common fixes';
     $lines[] = '- [GEO คืออะไร? Generative Engine Optimization](' . home_url( '/geo-ai-search-optimization-2026/' ) . '): GEO definition + optimization for ChatGPT, Perplexity, Google AI Overviews';
     $lines[] = '- [Next.js vs WordPress 2026](' . home_url( '/nextjs-vs-wordpress-2026/' ) . '): Stack comparison for SEO performance';
-    $lines[] = '- [AI Workforce Guide for Thai SMEs](' . home_url( '/ai-workforce-thai-sme/' ) . '): AI adoption playbook for Thai businesses';
-    $lines[] = '- [LINE Chatbot AI Guide 2026](' . home_url( '/line-chatbot-ai-thailand/' ) . '): Conversational AI for LINE platform';
+    $lines[] = '- [AI Workforce Guide for Thai SMEs](' . home_url( '/ai-workforce-sme-thailand-2026/' ) . '): AI adoption playbook for Thai businesses';
+    $lines[] = '- [LINE Chatbot AI Guide 2026](' . home_url( '/line-chatbot-ai-guide-2026/' ) . '): Conversational AI for LINE platform';
     $lines[] = '- [CRO Guide for Thai Websites](' . home_url( '/cro-thai-websites-2026/' ) . '): Conversion rate optimization for Thai market';
     $lines[] = '';
     $lines[] = '## Pricing (THB, excl. VAT)';
@@ -2559,7 +2623,8 @@ function hashbox_handle_contact_submit() {
     $landing_slug       = isset( $_POST['landing_slug'] )       ? sanitize_title( wp_unslash( $_POST['landing_slug'] ) )            : '';
     $form_context       = isset( $_POST['form_context'] )       ? sanitize_key( wp_unslash( $_POST['form_context'] ) )              : '';
     $pdpa               = isset( $_POST['pdpa'] );
-    $is_audit_form      = 'audit_landing' === $form_context;
+    $is_ai_form         = 'ai_consulting' === $form_context && 'ai-workflow-audit' === $landing_slug;
+    $is_audit_form      = 'audit_landing' === $form_context || $is_ai_form;
     $message            = $problem ?: $message;
 
     $redirect_to = isset( $_POST['redirect_to'] ) ? esc_url_raw( wp_unslash( $_POST['redirect_to'] ) ) : home_url( '/#contact' );
@@ -2579,13 +2644,14 @@ function hashbox_handle_contact_submit() {
     }
 
     $utm = array();
-    foreach ( array( 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term' ) as $utm_key ) {
+    foreach ( array( 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'wbraid', 'gbraid' ) as $utm_key ) {
         $utm[ $utm_key ] = isset( $_POST[ $utm_key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $utm_key ] ) ) : '';
     }
 
     $reply_email = is_email( $email ) ? $email : ( is_email( $contact_detail ) ? $contact_detail : '' );
     $to          = 'business@hashbox.co.th';
-    $subject     = sprintf( '[Hashbox V2] %s from %s — %s', $is_audit_form ? 'Audit request' : 'New enquiry', $name, $service ?: 'unspecified' );
+    $request_type = $is_ai_form ? 'AI consultation request' : ( $is_audit_form ? 'Audit request' : 'New enquiry' );
+    $subject      = sprintf( '[Hashbox V2] %s from %s — %s', $request_type, $name, $service ?: 'unspecified' );
     $body_lines  = array(
         'Name / Company: ' . $name,
         'Email: ' . $email,
@@ -2607,6 +2673,9 @@ function hashbox_handle_contact_submit() {
         'utm_campaign: ' . $utm['utm_campaign'],
         'utm_content: ' . $utm['utm_content'],
         'utm_term: ' . $utm['utm_term'],
+        'gclid: ' . $utm['gclid'],
+        'wbraid: ' . $utm['wbraid'],
+        'gbraid: ' . $utm['gbraid'],
     );
     $body        = implode( "\n", $body_lines );
     $headers     = array( 'Content-Type: text/plain; charset=UTF-8' );
@@ -2615,6 +2684,14 @@ function hashbox_handle_contact_submit() {
     }
 
     $sent = wp_mail( $to, $subject, $body, $headers );
+    if ( $sent && $is_ai_form ) {
+        wp_safe_redirect( add_query_arg( array(
+            'contact'  => 'ai_sent',
+            'lead_ref' => wp_generate_uuid4(),
+        ), $redirect_to ) );
+        exit;
+    }
+
     wp_safe_redirect( add_query_arg( 'contact', $sent ? 'sent' : 'error', $redirect_to ) );
     exit;
 }

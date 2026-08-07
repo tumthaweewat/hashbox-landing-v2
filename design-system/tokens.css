@@ -5,9 +5,8 @@
  * Date: 2026-05-12
  * ========================================================================= */
 
-/* Google Fonts are enqueued in functions.php (hashbox-google-fonts) with
- * preconnect hints. A render-blocking @import here duplicated that request
- * and forced a CSS request waterfall, so it was removed. */
+/* Fonts are self-hosted — see design-system/fonts.css (bundled ahead of
+ * this file by tools/build-css-bundle.mjs). */
 
 :root {
   /* -----------------------------------------------------------------------

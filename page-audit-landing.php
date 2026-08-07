@@ -19,21 +19,39 @@ $current_url    = hashbox_audit_landing_canonical_url( $landing );
 $wide_image     = hashbox_audit_landing_asset_uri( $landing['wide_image'] );
 $portrait_image = hashbox_audit_landing_asset_uri( $landing['portrait_image'] );
 $proof_url      = home_url( $landing['proof']['href'] );
+$is_ai_landing  = 'ai-workflow-audit' === $landing['slug'];
 
-$service_options = array(
-    'SEO-Ready Website',
-    'AI Tool / LINE Bot',
-    'Digital Marketing + CRO',
-    'Bundle ทั้ง 3 บริการ',
-    'ยังไม่แน่ใจ ขอ Audit ก่อน',
-);
-$budget_options = array(
-    'ต่ำกว่า 50,000',
-    '50,000-100,000',
-    '100,000-300,000',
-    '300,000+',
-    'ยังไม่แน่ใจ',
-);
+$service_options = $is_ai_landing
+    ? array(
+        'AI / LINE Chatbot',
+        'Workflow Automation / n8n',
+        'RAG / Internal Knowledge Assistant',
+        'Custom AI Integration',
+        'ยังไม่แน่ใจ ขอ AI Screening ก่อน',
+    )
+    : array(
+        'SEO-Ready Website',
+        'AI Tool / LINE Bot',
+        'Digital Marketing + CRO',
+        'Bundle ทั้ง 3 บริการ',
+        'ยังไม่แน่ใจ ขอ Audit ก่อน',
+    );
+$budget_options = $is_ai_landing
+    ? array(
+        'ต่ำกว่า 60,000',
+        '60,000-150,000',
+        '150,001-300,000',
+        '300,001-1,000,000',
+        'มากกว่า 1,000,000',
+        'ยังไม่แน่ใจ',
+    )
+    : array(
+        'ต่ำกว่า 50,000',
+        '50,000-100,000',
+        '100,000-300,000',
+        '300,000+',
+        'ยังไม่แน่ใจ',
+    );
 $timeline_options = array(
     'ภายใน 30 วัน',
     '1-3 เดือน',
@@ -41,7 +59,7 @@ $timeline_options = array(
     'ยังสำรวจอยู่',
 );
 $contact_options = array( 'LINE', 'โทร', 'Email' );
-$utm_keys = array( 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term' );
+$attribution_keys = array( 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'wbraid', 'gbraid' );
 
 get_header();
 ?>
@@ -73,11 +91,8 @@ get_header();
 
                 <figure class="hb-audit-hero__visual" data-reveal>
                     <picture>
-                        <source media="(max-width: 720px)" srcset="<?php echo esc_url( $portrait_image ); ?>">
-                        <picture>
-                            <source srcset="<?php echo esc_url( str_replace( '.png', '.webp', $wide_image ) ); ?>" type="image/webp">
-                            <img src="<?php echo esc_url( $wide_image ); ?>" alt="<?php echo esc_attr( 'Hashbox ' . $landing['service_label'] . ' campaign artwork' ); ?>" width="1200" height="627" fetchpriority="high" decoding="async">
-                        </picture>
+                        <source media="(max-width: 720px)" srcset="<?php echo esc_attr( hashbox_ad_webp_srcset( $landing['portrait_image'], array( 540, 1080 ) ) ); ?>" sizes="100vw">
+                        <img src="<?php echo esc_url( hashbox_ad_webp_uri( $landing['wide_image'], 1200 ) ); ?>" srcset="<?php echo esc_attr( hashbox_ad_webp_srcset( $landing['wide_image'], array( 640, 1200 ) ) ); ?>" sizes="(min-width: 900px) 640px, 100vw" alt="<?php echo esc_attr( 'Hashbox ' . $landing['service_label'] . ' campaign artwork' ); ?>" width="1200" height="627" fetchpriority="high" decoding="async">
                     </picture>
                 </figure>
             </div>
@@ -105,8 +120,8 @@ get_header();
         <div class="hb-container">
             <div class="hb-audit-section__head" data-reveal>
                 <span class="hb-eyebrow">What the audit includes</span>
-                <h2 class="hb-h2">สิ่งที่คุณจะได้จาก Audit ฟรี</h2>
-                <p class="hb-audit-section__sub">สรุปเป็น report และ action backlog ที่ทีมธุรกิจ, marketing และ dev อ่านร่วมกันได้</p>
+                <h2 class="hb-h2"><?php echo esc_html( $is_ai_landing ? 'สิ่งที่คุยใน Screening 30 นาที' : 'สิ่งที่คุณจะได้จาก Audit ฟรี' ); ?></h2>
+                <p class="hb-audit-section__sub"><?php echo esc_html( $is_ai_landing ? 'คุยให้เห็น use case ที่มีโอกาสคุ้ม ความพร้อมของข้อมูล และ next step ก่อนลงทุนทำ Assessment หรือ PoC' : 'สรุปเป็น report และ action backlog ที่ทีมธุรกิจ, marketing และ dev อ่านร่วมกันได้' ); ?></p>
             </div>
             <div class="hb-audit-card-grid hb-audit-card-grid--three">
                 <?php foreach ( $landing['audit_includes'] as $item ) : ?>
@@ -161,7 +176,7 @@ get_header();
                 <div class="hb-audit-form-copy" data-reveal>
                     <span class="hb-eyebrow">Request audit</span>
                     <h2 class="hb-h2"><?php echo esc_html( $landing['primary_cta'] ); ?></h2>
-                    <p>กรอกข้อมูลให้พอเห็นบริบท ทีมเราจะตรวจ baseline และส่ง next-step recommendation กลับไปภายใน 1-3 วันทำการ</p>
+                    <p><?php echo esc_html( $is_ai_landing ? 'กรอกบริบทสั้น ๆ ทีมเราจะติดต่อกลับเพื่อนัดเวลา Screening 30 นาทีภายใน 1-3 วันทำการ' : 'กรอกข้อมูลให้พอเห็นบริบท ทีมเราจะตรวจ baseline และส่ง next-step recommendation กลับไปภายใน 1-3 วันทำการ' ); ?></p>
                     <div class="hb-audit-contact-strip">
                         <a href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer" data-track-event="line_click">LINE OA</a>
                         <a href="tel:+66625169868" data-track-event="phone_click">062-516-9868</a>
@@ -171,16 +186,16 @@ get_header();
 
                 <form class="hb-audit-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" data-audit-form data-reveal>
                     <input type="hidden" name="action" value="hashbox_contact">
-                    <input type="hidden" name="form_context" value="audit_landing">
+                    <input type="hidden" name="form_context" value="<?php echo esc_attr( $is_ai_landing ? 'ai_consulting' : 'audit_landing' ); ?>">
                     <input type="hidden" name="landing_slug" value="<?php echo esc_attr( $landing['slug'] ); ?>">
                     <input type="hidden" name="redirect_to" value="<?php echo esc_url( $current_url ); ?>#audit-form">
-                    <?php foreach ( $utm_keys as $utm_key ) : ?>
-                        <?php $utm_default = 'utm_content' === $utm_key && isset( $landing['utm_content'] ) ? $landing['utm_content'] : ''; ?>
-                        <input type="hidden" name="<?php echo esc_attr( $utm_key ); ?>" data-utm-field="<?php echo esc_attr( $utm_key ); ?>" data-utm-default="<?php echo esc_attr( $utm_default ); ?>" value="<?php echo esc_attr( $utm_default ); ?>">
+                    <?php foreach ( $attribution_keys as $attribution_key ) : ?>
+                        <?php $attribution_default = 'utm_content' === $attribution_key && isset( $landing['utm_content'] ) ? $landing['utm_content'] : ''; ?>
+                        <input type="hidden" name="<?php echo esc_attr( $attribution_key ); ?>" data-attribution-field="<?php echo esc_attr( $attribution_key ); ?>" data-attribution-default="<?php echo esc_attr( $attribution_default ); ?>" value="<?php echo esc_attr( $attribution_default ); ?>">
                     <?php endforeach; ?>
                     <?php wp_nonce_field( 'hashbox_contact', 'hashbox_nonce' ); ?>
 
-                    <?php if ( 'sent' === $contact_status ) : ?>
+                    <?php if ( ( $is_ai_landing && 'ai_sent' === $contact_status ) || ( ! $is_ai_landing && 'sent' === $contact_status ) ) : ?>
                         <div class="hb-audit-alert hb-audit-alert--success">ส่งคำขอสำเร็จ ทีม Hashbox จะติดต่อกลับภายใน 1-3 วันทำการ</div>
                     <?php elseif ( 'invalid' === $contact_status ) : ?>
                         <div class="hb-audit-alert hb-audit-alert--error">กรุณากรอกข้อมูลที่จำเป็นให้ครบ และยินยอม PDPA ก่อนส่งฟอร์ม</div>
@@ -198,14 +213,14 @@ get_header();
                             <input id="audit-website" class="hb-input" type="url" name="website" required inputmode="url" placeholder="https://company.com">
                         </div>
                         <div class="hb-field">
-                            <label class="hb-label" for="audit-email">อีเมลสำหรับส่ง Audit</label>
+                            <label class="hb-label" for="audit-email"><?php echo esc_html( $is_ai_landing ? 'อีเมลสำหรับนัดหมาย' : 'อีเมลสำหรับส่ง Audit' ); ?></label>
                             <input id="audit-email" class="hb-input" type="email" name="email" autocomplete="email" placeholder="you@company.com">
                         </div>
                         <div class="hb-field">
                             <label class="hb-label" for="audit-service">สนใจบริการไหน? <span class="hb-label__required">*</span></label>
                             <select id="audit-service" class="hb-select" name="service" required>
                                 <?php foreach ( $service_options as $option ) : ?>
-                                    <option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, $landing['service_interest'] ); ?>><?php echo esc_html( $option ); ?></option>
+                                    <option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, $is_ai_landing ? 'ยังไม่แน่ใจ ขอ AI Screening ก่อน' : $landing['service_interest'] ); ?>><?php echo esc_html( $option ); ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -231,7 +246,7 @@ get_header();
 
                     <div class="hb-field">
                         <label class="hb-label" for="audit-problem">โจทย์หลักที่อยากแก้คืออะไร? <span class="hb-label__required">*</span></label>
-                        <textarea id="audit-problem" class="hb-textarea" name="problem" rows="4" required placeholder="เล่าอาการปัจจุบัน เช่น traffic ตก, lead ไม่มา, ทีมตอบแชทซ้ำเยอะ"></textarea>
+                        <textarea id="audit-problem" class="hb-textarea" name="problem" rows="4" required placeholder="<?php echo esc_attr( $is_ai_landing ? 'เช่น ทีมตอบคำถามซ้ำ ข้อมูลอยู่หลายระบบ หรือต้องการค้นเอกสารด้วย AI' : 'เล่าอาการปัจจุบัน เช่น traffic ตก, lead ไม่มา, ทีมตอบแชทซ้ำเยอะ' ); ?>"></textarea>
                     </div>
 
                     <div class="hb-audit-form__grid">
