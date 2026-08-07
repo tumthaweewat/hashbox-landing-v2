@@ -120,7 +120,9 @@ function hashbox_enqueue_assets() {
         )
     );
 
-    $is_audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) && hashbox_get_audit_landing_for_path();
+    $audit_landing    = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
+    $is_audit_landing = (bool) $audit_landing;
+    $is_ai_audit      = is_array( $audit_landing ) && 'ai-workflow-audit' === $audit_landing['slug'];
     $is_ads_preview   = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
 
     if ( $is_audit_landing || $is_ads_preview ) {
@@ -141,6 +143,24 @@ function hashbox_enqueue_assets() {
                 filemtime( $audit_css )
             );
         }
+    }
+
+    if ( $is_ai_audit ) {
+        $ai_tokens = get_template_directory() . '/tokens.css';
+        wp_enqueue_style(
+            'hashbox-ai-audit-tokens',
+            $theme_uri . '/tokens.css',
+            array( 'hashbox-audit-landing' ),
+            file_exists( $ai_tokens ) ? filemtime( $ai_tokens ) : $version
+        );
+
+        $ai_css = get_template_directory() . '/css/ai-workflow-audit.css';
+        wp_enqueue_style(
+            'hashbox-ai-workflow-audit',
+            $theme_uri . '/css/ai-workflow-audit.css',
+            array( 'hashbox-ai-audit-tokens' ),
+            file_exists( $ai_css ) ? filemtime( $ai_css ) : $version
+        );
     }
 
     if ( $is_audit_landing ) {
@@ -196,10 +216,19 @@ add_filter( 'style_loader_tag', 'hashbox_defer_legacy_stylesheet', 10, 4 );
  */
 function hashbox_preload_critical_fonts() {
     $theme_uri = get_template_directory_uri();
-    $is_audit  = function_exists( 'hashbox_get_audit_landing_for_path' ) && hashbox_get_audit_landing_for_path();
+    $landing   = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
+    $is_audit  = (bool) $landing;
+    $is_ai     = is_array( $landing ) && 'ai-workflow-audit' === $landing['slug'];
     $is_ads    = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
 
-    $fonts = ( $is_audit || $is_ads )
+    $fonts = $is_ai
+        ? array(
+            'noto-sans-thai-thai-400.woff2',
+            'noto-sans-thai-thai-700.woff2',
+            'dm-sans-latin-700.woff2',
+            'ibm-plex-mono-latin-700.woff2',
+        )
+        : ( ( $is_audit || $is_ads )
         ? array(
             'noto-sans-thai-thai-400.woff2',
             'noto-sans-thai-thai-800.woff2',
@@ -211,7 +240,7 @@ function hashbox_preload_critical_fonts() {
             'ibm-plex-sans-thai-thai-700.woff2',
             'ibm-plex-sans-thai-latin-400.woff2',
             'dm-sans-latin-700.woff2',
-        );
+        ) );
 
     foreach ( $fonts as $file ) {
         if ( file_exists( get_template_directory() . '/assets/fonts/' . $file ) ) {
@@ -993,6 +1022,9 @@ add_action( 'wp_head', 'hashbox_seo_noindex_meta', 1 );
 function hashbox_preload_critical_assets() {
     $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
     if ( $audit_landing && function_exists( 'hashbox_audit_landing_asset_uri' ) ) {
+        if ( 'ai-workflow-audit' === $audit_landing['slug'] ) {
+            return;
+        }
         echo '<link rel="preload" as="image" fetchpriority="high" media="(max-width: 720px)" imagesrcset="' . esc_attr( hashbox_ad_webp_srcset( $audit_landing['portrait_image'], array( 540, 1080 ) ) ) . '" imagesizes="100vw">' . "\n";
         echo '<link rel="preload" as="image" fetchpriority="high" media="(min-width: 721px)" href="' . esc_url( hashbox_ad_webp_uri( $audit_landing['wide_image'], 1200 ) ) . '" imagesrcset="' . esc_attr( hashbox_ad_webp_srcset( $audit_landing['wide_image'], array( 640, 1200 ) ) ) . '" imagesizes="(min-width: 900px) 640px, 100vw">' . "\n";
         return;
@@ -1291,7 +1323,7 @@ function hashbox_audit_landing_pages() {
             'meta_description' => 'คุยกับทีม AI 30 นาทีเพื่อประเมินโอกาสลดงานซ้ำด้วย LINE Bot, RAG Knowledge Base และ Workflow Automation พร้อมแนวทางเริ่มต้นที่เหมาะกับธุรกิจ',
             'hero_headline'    => 'ลดงานซ้ำด้วย AI ที่วัด ROI ได้',
             'hero_subcopy'     => 'LINE Bot, RAG Knowledge Base และ Workflow Automation สำหรับทีมขายและซัพพอร์ตที่ต้องการตอบเร็วขึ้นโดยไม่เพิ่ม headcount',
-            'primary_cta'      => 'นัดคุย AI ฟรี 30 นาที',
+            'primary_cta'      => 'ส่งโจทย์ให้ทีม AI',
             'proof_line'       => '-60% Support Cost จาก AI Bot + RAG ภายใน 8 สัปดาห์',
             'creative_key'     => 'ai_workforce',
             'utm_content'      => 'ai_workforce_v4',
@@ -1305,10 +1337,27 @@ function hashbox_audit_landing_pages() {
                 'อยากใช้ AI แต่ยังไม่ชัดว่า use case ไหนคืนทุนและควรเริ่มจาก workflow ใดก่อน',
                 'ข้อมูลกระจายอยู่ใน LINE, sheet, PDF และ CRM ทำให้ลูกค้ารอคำตอบนานกว่าที่ควร',
             ),
+            'use_cases'        => array(
+                array(
+                    'title' => 'AI / LINE Chatbot',
+                    'body'  => 'ตอบ FAQ, สถานะงาน และคำถามก่อนขายตลอด 24 ชั่วโมง พร้อมส่งต่อเคสซับซ้อนให้ทีมงาน',
+                    'fit'   => 'เหมาะเมื่อทีมตอบคำถามเดิมซ้ำ ๆ และลูกค้ารอคำตอบนอกเวลาทำการ',
+                ),
+                array(
+                    'title' => 'Workflow Automation',
+                    'body'  => 'เชื่อม LINE, CRM, Sheet, Email และระบบหลังบ้าน เพื่อลดการคัดลอกข้อมูลและงานส่งต่อแบบ manual',
+                    'fit'   => 'เหมาะเมื่อข้อมูลเดียวกันต้องถูกกรอกหลายระบบ หรือมีงานตกหล่นระหว่างทีม',
+                ),
+                array(
+                    'title' => 'RAG Knowledge Assistant',
+                    'body'  => 'ค้นและตอบจากเอกสารภายใน เช่น policy, product spec, SOP และคู่มือ โดยอ้างอิงแหล่งข้อมูลที่ตรวจสอบได้',
+                    'fit'   => 'เหมาะเมื่อความรู้อยู่กระจายใน PDF, Drive หรือ Notion และคนหาไม่ทันเวลาที่ต้องใช้',
+                ),
+            ),
             'audit_includes'   => array(
-                array( 'title' => 'Use Case Shortlist', 'body' => 'คัดโจทย์ที่น่าทดลองก่อนจากปริมาณงานซ้ำ ผลกระทบ และความพร้อมของทีม' ),
-                array( 'title' => 'Quick Workflow Map', 'body' => 'มองภาพ flow ของ LINE Bot, RAG, CRM handoff และจุดที่ควรให้มนุษย์รับต่อ' ),
-                array( 'title' => 'Recommended Next Step', 'body' => 'สรุปว่าควรจัดข้อมูล ทดลอง PoC หรือทำ ROI Assessment แบบลงรายละเอียดต่อหรือไม่' ),
+                array( 'title' => 'โจทย์ที่ควรเริ่มก่อน', 'body' => 'คัด use case ที่น่าทดลองจากปริมาณงานซ้ำ ผลกระทบ และความพร้อมของทีม' ),
+                array( 'title' => 'แผนผัง Workflow แบบเร็ว', 'body' => 'มองภาพ flow ของ LINE Bot, RAG, CRM handoff และจุดที่ควรให้มนุษย์รับต่อ' ),
+                array( 'title' => 'ขั้นตอนถัดไปที่แนะนำ', 'body' => 'สรุปว่าควรจัดข้อมูล ทดลอง PoC หรือทำ ROI Assessment แบบลงรายละเอียดต่อหรือไม่' ),
             ),
             'proof'            => array(
                 'metric' => '-60%',
@@ -1322,8 +1371,8 @@ function hashbox_audit_landing_pages() {
                 array( 'title' => 'สรุปแนวทางเริ่มต้น', 'body' => 'แนะนำ next step, ช่วงเวลา และระดับงบประมาณเบื้องต้นที่เหมาะกับทีมคุณ' ),
             ),
             'faqs'             => array(
-                array( 'q' => 'Audit นี้เหมาะกับธุรกิจแบบไหน?', 'a' => 'เหมาะกับทีมที่มีแชทลูกค้าเยอะ มี FAQ หรือ policy ซ้ำ ๆ และอยากเริ่มใช้ AI แบบวัดผลได้ ไม่ใช่ทำ demo แล้วจบ' ),
-                array( 'q' => 'ต้องมีข้อมูลพร้อมแค่ไหนก่อนเริ่ม?', 'a' => 'ไม่จำเป็นต้องพร้อมทั้งหมดครับ Audit จะช่วยบอกว่าข้อมูลส่วนไหนใช้ได้ทันที ส่วนไหนควรจัดโครงสร้างก่อนนำเข้า RAG หรือ Bot' ),
+                array( 'q' => 'Screening นี้เหมาะกับธุรกิจแบบไหน?', 'a' => 'เหมาะกับทีมที่มีแชทลูกค้าเยอะ มี FAQ หรือ policy ซ้ำ ๆ และอยากเริ่มใช้ AI แบบวัดผลได้ ไม่ใช่ทำ demo แล้วจบ' ),
+                array( 'q' => 'ต้องมีข้อมูลพร้อมแค่ไหนก่อนเริ่ม?', 'a' => 'ไม่จำเป็นต้องพร้อมทั้งหมดครับ Screening จะช่วยบอกว่าข้อมูลส่วนไหนใช้ได้ทันที ส่วนไหนควรจัดโครงสร้างก่อนนำเข้า RAG หรือ Bot' ),
                 array( 'q' => 'หลัง Screening ต้องจ้างทำต่อไหม?', 'a' => 'ไม่บังคับครับ คุณจะได้แนวทางเบื้องต้นกลับไปตัดสินใจ ถ้าต้องการ business case แบบลงรายละเอียดค่อยเริ่ม ROI Assessment Report หรือ PoC ต่อ' ),
             ),
         ),
@@ -2527,6 +2576,25 @@ add_action( 'wp_head', 'hashbox_inject_home_faq_schema', 21 );
 /**
  * Contact form submission handler (admin-post.php endpoint).
  */
+function hashbox_get_audit_landing_for_return_url( $url ) {
+    $path      = trim( (string) wp_parse_url( $url, PHP_URL_PATH ), '/' );
+    $home_path = trim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+
+    if ( '' !== $home_path ) {
+        if ( $path === $home_path ) {
+            $path = '';
+        } elseif ( 0 === strpos( $path, $home_path . '/' ) ) {
+            $path = substr( $path, strlen( $home_path ) + 1 );
+        } else {
+            return null;
+        }
+    }
+
+    return function_exists( 'hashbox_get_audit_landing_for_path' )
+        ? hashbox_get_audit_landing_for_path( $path )
+        : null;
+}
+
 function hashbox_handle_contact_submit() {
     if ( ! isset( $_POST['hashbox_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['hashbox_nonce'] ), 'hashbox_contact' ) ) {
         wp_die( 'Invalid request token.', 'Forbidden', array( 'response' => 403 ) );
@@ -2543,19 +2611,24 @@ function hashbox_handle_contact_submit() {
     $timeline           = isset( $_POST['timeline'] )           ? sanitize_text_field( wp_unslash( $_POST['timeline'] ) )           : '';
     $contact_preference = isset( $_POST['contact_preference'] ) ? sanitize_text_field( wp_unslash( $_POST['contact_preference'] ) ) : '';
     $contact_detail     = isset( $_POST['contact_detail'] )     ? sanitize_text_field( wp_unslash( $_POST['contact_detail'] ) )     : '';
-    $landing_slug       = isset( $_POST['landing_slug'] )       ? sanitize_title( wp_unslash( $_POST['landing_slug'] ) )            : '';
-    $form_context       = isset( $_POST['form_context'] )       ? sanitize_key( wp_unslash( $_POST['form_context'] ) )              : '';
     $pdpa               = isset( $_POST['pdpa'] );
-    $is_ai_form         = 'ai_consulting' === $form_context && 'ai-workflow-audit' === $landing_slug;
-    $is_audit_form      = 'audit_landing' === $form_context || $is_ai_form;
     $message            = $problem ?: $message;
 
     $redirect_to = isset( $_POST['redirect_to'] ) ? esc_url_raw( wp_unslash( $_POST['redirect_to'] ) ) : home_url( '/#contact' );
     $redirect_to = wp_validate_redirect( $redirect_to, home_url( '/#contact' ) );
+    $landing      = hashbox_get_audit_landing_for_return_url( $redirect_to );
+    $landing_slug = is_array( $landing ) && isset( $landing['slug'] ) ? $landing['slug'] : '';
+    $is_ai_route  = 'ai-workflow-audit' === $landing_slug;
+    $ai_nonce_ok  = isset( $_POST['hashbox_ai_nonce'] )
+        && wp_verify_nonce( wp_unslash( $_POST['hashbox_ai_nonce'] ), 'hashbox_ai_contact' );
+    $is_ai_form    = $is_ai_route && $ai_nonce_ok;
+    $is_audit_form = is_array( $landing );
 
-    $invalid = $is_audit_form
-        ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
-        : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa );
+    $invalid = ( $is_ai_route && ! $ai_nonce_ok ) || ( $is_ai_form
+        ? ( $name === '' || $email === '' || ! is_email( $email ) || $message === '' || ! $pdpa )
+        : ( $is_audit_form
+            ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
+            : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) ) );
 
     if ( $email !== '' && ! is_email( $email ) ) {
         $invalid = true;
@@ -3635,7 +3708,10 @@ function hashbox_print_third_party_delay_loader() {
         var pending = Array.prototype.slice.call(document.querySelectorAll('script[data-hb-delay]'));
         (function next() {
           var old = pending.shift();
-          if (!old) { return; }
+          if (!old) {
+            window.dispatchEvent(new CustomEvent('hashbox:third-party-ready'));
+            return;
+          }
           var s = document.createElement('script');
           for (var i = 0; i < old.attributes.length; i++) {
             var a = old.attributes[i];
@@ -3654,6 +3730,12 @@ function hashbox_print_third_party_delay_loader() {
         })();
       }
       events.forEach(function (ev) { window.addEventListener(ev, activate, { passive: true }); });
+      var successParams = new URLSearchParams(window.location.search);
+      var successLeadRef = successParams.get('lead_ref') || '';
+      var isConfirmedAiLead = document.querySelector('.hb-audit[data-audit-slug="ai-workflow-audit"]')
+        && successParams.get('contact') === 'ai_sent'
+        && /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(successLeadRef);
+      if (isConfirmedAiLead) { window.setTimeout(activate, 0); }
     })();
     </script>
     <?php

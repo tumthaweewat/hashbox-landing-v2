@@ -5,39 +5,107 @@
   'use strict';
 
   var ATTRIBUTION_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'wbraid', 'gbraid'];
-  var STORAGE_KEY = 'hashbox_attribution_params';
+  var CLICK_ID_KEYS = ['gclid', 'wbraid', 'gbraid'];
+  var ATTRIBUTION_STORAGE_PREFIX = 'hashbox_attribution_v2_';
+  var LEGACY_ATTRIBUTION_STORAGE_KEY = 'hashbox_attribution_params';
+  var ATTRIBUTION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
   var AI_CONVERSION_DESTINATION = 'AW-18190672421/qx_ICPKggN0cEKXE_uFD';
+  var AI_PENDING_LEAD_KEY = 'hashbox_ai_pending_lead_ref';
 
-  function readStoredAttribution() {
+  function attributionStorageKey(scope) {
+    return ATTRIBUTION_STORAGE_PREFIX + String(scope || 'site').replace(/[^a-z0-9_-]/gi, '_');
+  }
+
+  function readStoredAttribution(scope) {
     try {
-      var raw = window.localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : {};
+      var key = attributionStorageKey(scope);
+      var raw = window.localStorage.getItem(key);
+      if (!raw) return { data: {}, identity: '' };
+
+      var record = JSON.parse(raw);
+      var capturedAt = Number(record && record.capturedAt) || 0;
+      if (!record || record.version !== 2 || !record.data || !capturedAt || Date.now() - capturedAt > ATTRIBUTION_TTL_MS) {
+        window.localStorage.removeItem(key);
+        return { data: {}, identity: '' };
+      }
+
+      var data = {};
+      ATTRIBUTION_KEYS.forEach(function (keyName) {
+        if (typeof record.data[keyName] === 'string' && record.data[keyName]) {
+          data[keyName] = record.data[keyName];
+        }
+      });
+
+      return {
+        data: data,
+        identity: typeof record.identity === 'string' ? record.identity : ''
+      };
     } catch (err) {
-      return {};
+      return { data: {}, identity: '' };
     }
   }
 
-  function writeStoredAttribution(data) {
+  function writeStoredAttribution(scope, data, identity) {
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      window.localStorage.setItem(attributionStorageKey(scope), JSON.stringify({
+        version: 2,
+        capturedAt: Date.now(),
+        identity: identity || '',
+        data: data
+      }));
+      window.localStorage.removeItem(LEGACY_ATTRIBUTION_STORAGE_KEY);
     } catch (err) {}
   }
 
-  function captureAttribution() {
+  function attributionIdentity(data) {
+    var clickIdentity = '';
+    CLICK_ID_KEYS.some(function (key) {
+      if (!data[key]) return false;
+      clickIdentity = 'click:' + key + ':' + data[key];
+      return true;
+    });
+    if (clickIdentity) return clickIdentity;
+
+    var campaignParts = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].map(function (key) {
+      return data[key] || '';
+    });
+    return campaignParts.some(Boolean) ? 'utm:' + campaignParts.join('|') : '';
+  }
+
+  function captureAttribution(scope) {
     var params = new URLSearchParams(window.location.search);
-    var stored = readStoredAttribution();
-    var next = Object.assign({}, stored);
+    var stored = readStoredAttribution(scope);
+    var incoming = {};
     var found = false;
 
     ATTRIBUTION_KEYS.forEach(function (key) {
       var value = params.get(key);
       if (value) {
-        next[key] = value;
+        incoming[key] = value;
         found = true;
       }
     });
 
-    if (found) writeStoredAttribution(next);
+    if (!found) return stored.data;
+
+    var incomingIdentity = attributionIdentity(incoming);
+    var next = incomingIdentity && stored.identity && incomingIdentity !== stored.identity
+      ? {}
+      : Object.assign({}, stored.data);
+
+    ATTRIBUTION_KEYS.forEach(function (key) {
+      if (incoming[key]) next[key] = incoming[key];
+    });
+
+    writeStoredAttribution(scope, next, incomingIdentity || stored.identity);
+    return next;
+  }
+
+  function withAttributionDefaults(data, root) {
+    var next = Object.assign({}, data || {});
+    if (root && root.dataset.utmContent && !next.utm_content) {
+      next.utm_content = root.dataset.utmContent;
+    }
     return next;
   }
 
@@ -102,24 +170,80 @@
     window.history.replaceState({}, '', cleanUrl.pathname + (cleanUrl.searchParams.toString() ? '?' + cleanUrl.searchParams.toString() : '') + cleanUrl.hash);
   }
 
-  function trackConfirmedAiLead(root, attempt) {
-    var params = new URLSearchParams(window.location.search);
-    var leadRef = params.get('lead_ref') || '';
-    var storageKey = 'hashbox_ai_lead_' + leadRef;
+  function isValidLeadRef(leadRef) {
+    return /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(leadRef || '');
+  }
 
-    if (root.dataset.auditSlug !== 'ai-workflow-audit' || params.get('contact') !== 'ai_sent' || !leadRef) return;
+  function aiLeadStorageKey(leadRef) {
+    return 'hashbox_ai_lead_' + leadRef;
+  }
 
+  function readAiLeadState(leadRef) {
+    var empty = { analytics: false, ads: false, meta: false };
     try {
-      if (window.sessionStorage.getItem(storageKey)) {
-        cleanSuccessParams();
-        return;
+      var raw = window.sessionStorage.getItem(aiLeadStorageKey(leadRef));
+      if (!raw) return empty;
+      if (raw === '1') return { analytics: true, ads: true, meta: true };
+
+      var stored = JSON.parse(raw);
+      return {
+        analytics: stored.analytics === true,
+        ads: stored.ads === true,
+        meta: stored.meta === true
+      };
+    } catch (err) {
+      return empty;
+    }
+  }
+
+  function writeAiLeadState(leadRef, state) {
+    try {
+      window.sessionStorage.setItem(aiLeadStorageKey(leadRef), JSON.stringify(state));
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function rememberPendingAiLead(leadRef) {
+    try {
+      window.sessionStorage.setItem(AI_PENDING_LEAD_KEY, leadRef);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function clearPendingAiLead(leadRef) {
+    try {
+      if (window.sessionStorage.getItem(AI_PENDING_LEAD_KEY) === leadRef) {
+        window.sessionStorage.removeItem(AI_PENDING_LEAD_KEY);
       }
     } catch (err) {}
+  }
 
-    window.hashboxAiLeadTracked = window.hashboxAiLeadTracked || { analytics: false, ads: false, meta: false };
+  function confirmedAiLeadRef(root) {
+    if (!root || root.dataset.auditSlug !== 'ai-workflow-audit') return '';
+
+    var params = new URLSearchParams(window.location.search);
+    var leadRef = params.get('contact') === 'ai_sent' ? params.get('lead_ref') || '' : '';
+    if (isValidLeadRef(leadRef)) return leadRef;
+
+    try {
+      leadRef = window.sessionStorage.getItem(AI_PENDING_LEAD_KEY) || '';
+    } catch (err) {
+      leadRef = '';
+    }
+    return isValidLeadRef(leadRef) ? leadRef : '';
+  }
+
+  function trackConfirmedAiLead(root, leadRef, attempt) {
+    if (!root || root.dataset.auditSlug !== 'ai-workflow-audit' || !isValidLeadRef(leadRef)) return;
+
+    var state = readAiLeadState(leadRef);
 
     if (typeof window.gtag === 'function') {
-      if (!window.hashboxAiLeadTracked.analytics) {
+      if (!state.analytics) {
         window.gtag('event', 'ai_consultation_lead', {
           form_id: 'ai-workflow-audit',
           form_name: 'AI Opportunity Screening',
@@ -128,50 +252,121 @@
           value: 1,
           transaction_id: leadRef
         });
-        window.hashboxAiLeadTracked.analytics = true;
+        state.analytics = true;
       }
 
-      if (!window.hashboxAiLeadTracked.ads) {
+      if (!state.ads) {
         window.gtag('event', 'conversion', {
           send_to: AI_CONVERSION_DESTINATION,
           transaction_id: leadRef,
           currency: 'THB',
           value: 1
         });
-        window.hashboxAiLeadTracked.ads = true;
+        state.ads = true;
       }
     }
 
-    if (!window.hashboxAiLeadTracked.meta && typeof window.fbq === 'function') {
-      window.fbq('track', 'Lead', { content_name: 'AI Opportunity Screening' });
-      window.hashboxAiLeadTracked.meta = true;
+    if (!state.meta && typeof window.fbq === 'function') {
+      window.fbq('track', 'Lead', { content_name: 'AI Opportunity Screening' }, { eventID: leadRef });
+      state.meta = true;
     }
 
-    if (window.hashboxAiLeadTracked.analytics && window.hashboxAiLeadTracked.ads) {
-      try {
-        window.sessionStorage.setItem(storageKey, '1');
-      } catch (err) {}
+    var stateStored = writeAiLeadState(leadRef, state);
+    var pendingStored = state.meta ? true : rememberPendingAiLead(leadRef);
+
+    if (state.meta) clearPendingAiLead(leadRef);
+
+    if (state.analytics && state.ads && (state.meta || stateStored && pendingStored)) {
       cleanSuccessParams();
-      return;
     }
 
-    if (attempt < 40) {
-      window.setTimeout(function () { trackConfirmedAiLead(root, attempt + 1); }, 250);
+    if (state.analytics && state.ads && state.meta) return;
+
+    if (attempt < 120) {
+      window.setTimeout(function () { trackConfirmedAiLead(root, leadRef, attempt + 1); }, 500);
     }
   }
 
-  var attribution = captureAttribution();
+  function focusContactAlert() {
+    var alert = document.querySelector('[data-contact-alert]');
+    if (!alert) return;
+
+    window.setTimeout(function () {
+      try {
+        alert.focus({ preventScroll: true });
+      } catch (err) {
+        alert.focus();
+      }
+    }, 0);
+  }
+
+  function initAiStickyCta(root) {
+    if (root.dataset.auditSlug !== 'ai-workflow-audit') return;
+
+    var sticky = root.querySelector('[data-ai-sticky-cta]');
+    var heroCta = root.querySelector('.hb-ai-hero__primary');
+    var formSection = root.querySelector('#audit-form');
+    if (!sticky || !heroCta || !formSection || typeof window.IntersectionObserver !== 'function') return;
+
+    var compactViewport = window.matchMedia('(max-width: 720px)');
+    var heroCtaPassedAbove = false;
+    var formVisible = false;
+
+    function syncStickyState() {
+      var visible = compactViewport.matches && heroCtaPassedAbove && !formVisible;
+      sticky.classList.toggle('is-visible', visible);
+      sticky.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      if (visible) {
+        sticky.removeAttribute('inert');
+      } else {
+        sticky.setAttribute('inert', '');
+      }
+    }
+
+    new IntersectionObserver(function (entries) {
+      var entry = entries[0];
+      heroCtaPassedAbove = !entry.isIntersecting && entry.boundingClientRect.bottom <= 0;
+      syncStickyState();
+    }, { threshold: 0.05 }).observe(heroCta);
+
+    new IntersectionObserver(function (entries) {
+      formVisible = entries[0].isIntersecting;
+      syncStickyState();
+    }, { threshold: 0, rootMargin: '0px 0px -45% 0px' }).observe(formSection);
+
+    if (typeof compactViewport.addEventListener === 'function') {
+      compactViewport.addEventListener('change', syncStickyState);
+    } else if (typeof compactViewport.addListener === 'function') {
+      compactViewport.addListener(syncStickyState);
+    }
+
+    syncStickyState();
+  }
+
   var root = document.querySelector('.hb-audit');
-  if (root && root.dataset.utmContent && !attribution.utm_content) {
-    attribution.utm_content = root.dataset.utmContent;
-  }
+  var attributionScope = root ? root.dataset.auditSlug : 'site';
+  var attribution = withAttributionDefaults(captureAttribution(attributionScope), root);
   applyAttribution(attribution);
   preserveAttributionOnInternalLinks(attribution);
-  if (root) trackConfirmedAiLead(root, 0);
+  if (root) {
+    if (root.dataset.auditSlug === 'ai-workflow-audit') {
+      var retryConfirmedLead = function () {
+        window.removeEventListener('hashbox:third-party-ready', retryConfirmedLead);
+        var pendingLeadRef = confirmedAiLeadRef(root);
+        if (pendingLeadRef) trackConfirmedAiLead(root, pendingLeadRef, 0);
+      };
+      window.addEventListener('hashbox:third-party-ready', retryConfirmedLead);
+
+      var leadRef = confirmedAiLeadRef(root);
+      if (leadRef) trackConfirmedAiLead(root, leadRef, 0);
+    }
+    initAiStickyCta(root);
+  }
+  focusContactAlert();
 
   document.querySelectorAll('[data-audit-form]').forEach(function (form) {
     form.addEventListener('submit', function () {
-      applyAttribution(readStoredAttribution());
+      applyAttribution(attribution);
       window.hashboxTrack('audit_request_submit', {
         service_interest: form.querySelector('[name="service"]') ? form.querySelector('[name="service"]').value : '',
         budget: form.querySelector('[name="budget"]') ? form.querySelector('[name="budget"]').value : '',
