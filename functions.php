@@ -3570,3 +3570,88 @@ function hashbox_geo_check_handler() {
 }
 add_action( 'wp_ajax_hb_geo_check', 'hashbox_geo_check_handler' );
 add_action( 'wp_ajax_nopriv_hb_geo_check', 'hashbox_geo_check_handler' );
+
+/* -------------------------------------------------------------------------
+ * THIRD-PARTY SCRIPT DELAY
+ * gtag, HubSpot and the Meta pixel together cost ~1.5s of mobile
+ * main-thread time yet do nothing useful before the visitor interacts.
+ * Buffer the page, neutralise their <script> tags to type="text/plain",
+ * and re-activate them (in order) on the first interaction. Our own
+ * code guards every gtag()/fbq() call with typeof checks, and the
+ * inline gtag bootstrap keeps queueing into dataLayer meanwhile.
+ * ---------------------------------------------------------------------- */
+
+function hashbox_delay_third_party_scripts( $html ) {
+    $hosts = 'googletagmanager\.com|connect\.facebook\.net|hs-scripts\.com|hs-analytics\.net|hscollectedforms\.net|hs-banner\.com|hsadspixel\.net';
+
+    // External scripts from the ad/analytics hosts.
+    $html = preg_replace(
+        '#<script(\s[^>]*src=["\'][^"\']*(?:' . $hosts . ')[^"\']*["\'][^>]*)>#i',
+        '<script type="text/plain" data-hb-delay$1>',
+        $html
+    );
+
+    // Inline Meta-pixel bootstrap + trackers (they self-inject fbevents.js).
+    $html = preg_replace_callback(
+        '#<script(?![^>]*\ssrc=)([^>]*)>(.*?)</script>#is',
+        function ( $m ) {
+            if ( false !== strpos( $m[0], 'data-hb-delay' ) || ! preg_match( '/fbq\s*\(/', $m[2] ) ) {
+                return $m[0];
+            }
+            return '<script type="text/plain" data-hb-delay' . $m[1] . '>' . $m[2] . '</script>';
+        },
+        $html
+    );
+
+    return $html;
+}
+
+function hashbox_start_third_party_delay_buffer() {
+    if ( is_admin() || is_feed() || is_user_logged_in() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+        return;
+    }
+    ob_start( 'hashbox_delay_third_party_scripts' );
+}
+add_action( 'template_redirect', 'hashbox_start_third_party_delay_buffer', 1 );
+
+function hashbox_print_third_party_delay_loader() {
+    if ( is_admin() || is_user_logged_in() ) {
+        return;
+    }
+    ?>
+    <script id="hb-delay-loader">
+    (function () {
+      'use strict';
+      var fired = false;
+      var events = ['pointerdown', 'keydown', 'touchstart', 'wheel', 'scroll', 'mousemove'];
+      function activate() {
+        if (fired) { return; }
+        fired = true;
+        events.forEach(function (ev) { window.removeEventListener(ev, activate, { passive: true }); });
+        var pending = Array.prototype.slice.call(document.querySelectorAll('script[data-hb-delay]'));
+        (function next() {
+          var old = pending.shift();
+          if (!old) { return; }
+          var s = document.createElement('script');
+          for (var i = 0; i < old.attributes.length; i++) {
+            var a = old.attributes[i];
+            if (a.name === 'type' || a.name === 'data-hb-delay') { continue; }
+            s.setAttribute(a.name, a.value);
+          }
+          if (old.src) {
+            s.addEventListener('load', next);
+            s.addEventListener('error', next);
+            old.replaceWith(s);
+          } else {
+            s.text = old.text;
+            old.replaceWith(s);
+            next();
+          }
+        })();
+      }
+      events.forEach(function (ev) { window.addEventListener(ev, activate, { passive: true }); });
+    })();
+    </script>
+    <?php
+}
+add_action( 'wp_footer', 'hashbox_print_third_party_delay_loader', 5 );
