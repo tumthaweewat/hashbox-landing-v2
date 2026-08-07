@@ -197,7 +197,9 @@
     e.preventDefault();
     const offset = (nav ? nav.getBoundingClientRect().height : 0) + 16;
     const top = window.scrollY + target.getBoundingClientRect().top - offset;
-    window.scrollTo({ top, behavior: 'smooth' });
+    const reduceMotion = typeof window.matchMedia === 'function'
+      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' });
   });
 
   /* ----------------------------------------------------------------------
@@ -208,6 +210,10 @@
     const animate = (el) => {
       const target = parseFloat(el.dataset.target);
       if (Number.isNaN(target)) return;
+      // Markup ships the final value, so freezing the measured width
+      // before counting up keeps neighbours from shifting (CLS).
+      el.style.minWidth = el.getBoundingClientRect().width + 'px';
+      el.style.display = 'inline-block';
       const duration = 1400;
       const start = performance.now();
       const ease = (t) => 1 - Math.pow(1 - t, 4);

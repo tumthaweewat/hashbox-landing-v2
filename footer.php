@@ -1,6 +1,27 @@
     </main>
 
-    <footer class="hb-footer">
+    <?php
+    $hashbox_footer_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
+    $hashbox_is_ai_audit    = is_array( $hashbox_footer_landing ) && 'ai-workflow-audit' === $hashbox_footer_landing['slug'];
+    ?>
+
+    <?php if ( $hashbox_is_ai_audit ) : ?>
+        <footer class="hb-ai-footer">
+            <div class="hb-container">
+                <p class="hb-ai-footer__statement">เริ่มจากโจทย์ที่ชัด ก่อนลงทุนทำ AI</p>
+                <div class="hb-ai-footer__meta">
+                    <a class="hb-ai-footer__brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">HASHBOX.STUDIO</a>
+                    <nav class="hb-ai-footer__links" aria-label="ช่องทางติดต่อและข้อมูลส่วนบุคคล">
+                        <a href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer" data-track-event="line_click">LINE OA</a>
+                        <a href="mailto:business@hashbox.co.th" data-track-event="email_click">business@hashbox.co.th</a>
+                        <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Privacy / PDPA</a>
+                    </nav>
+                    <span>&copy; <?php echo esc_html( date( 'Y' ) ); ?> Hashbox Studio</span>
+                </div>
+            </div>
+        </footer>
+    <?php else : ?>
+        <footer class="hb-footer">
         <div class="hb-container">
             <div class="hb-footer__grid">
                 <div class="hb-footer__brand">
@@ -60,7 +81,8 @@
                 </div>
             </div>
         </div>
-    </footer>
+        </footer>
+    <?php endif; ?>
 
     <div class="hb-toast-stack"></div>
 

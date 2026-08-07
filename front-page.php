@@ -102,7 +102,7 @@ get_header();
         <div class="hb-proof-strip__inner">
             <p class="hb-proof-strip__label">Delivery stack ที่พร้อมวัดผลตั้งแต่วันแรก</p>
             <div class="hb-proof-strip__logos" aria-label="Technology and measurement stack">
-                <span>Lighthouse 100</span>
+                <span>PageSpeed 98/100</span>
                 <span>Core Web Vitals</span>
                 <span>GA4</span>
                 <span>GSC</span>
@@ -114,6 +114,20 @@ get_header();
                 <span>วันแรกเริ่มเห็นสัญญาณ</span>
             </div>
         </div>
+
+        <figure class="hb-proof-strip__report">
+            <img
+                src="<?php echo esc_url( get_template_directory_uri() . '/assets/proof/psi-report-2026-08-1600w.webp' ); ?>"
+                srcset="<?php echo esc_attr( get_template_directory_uri() . '/assets/proof/psi-report-2026-08-800w.webp 800w, ' . get_template_directory_uri() . '/assets/proof/psi-report-2026-08-1600w.webp 1600w' ); ?>"
+                sizes="(min-width: 1200px) 1120px, 92vw"
+                width="1600" height="541"
+                loading="lazy" decoding="async"
+                alt="ผลทดสอบ Google PageSpeed Insights ของ hashbox.co.th — Mobile 98 คะแนน, Desktop 100 คะแนน, Core Web Vitals ผ่านทุกตัว">
+            <figcaption class="hb-proof-strip__report-caption">
+                <span>ผลทดสอบจริงของ hashbox.co.th จาก Google PageSpeed Insights — 7 ส.ค. 2026</span>
+                <a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fhashbox.co.th%2F" target="_blank" rel="noopener noreferrer">รันทดสอบเว็บเราเองได้ที่ pagespeed.web.dev →</a>
+            </figcaption>
+        </figure>
     </div>
 </section>
 

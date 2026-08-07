@@ -1339,3 +1339,41 @@ main > .hb-section {
   content-visibility: auto;
   contain-intrinsic-size: auto 900px;
 }
+
+/* -------------------------------------------------------------------------
+ * PROOF STRIP — real PageSpeed Insights report screenshot
+ * ---------------------------------------------------------------------- */
+
+.hb-proof-strip__report {
+  margin: var(--hb-space-6) 0 0;
+}
+
+.hb-proof-strip__report img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--hb-border-strong);
+  border-radius: var(--hb-radius-xl);
+  background: #fff;
+  box-shadow: var(--hb-shadow-lg);
+}
+
+.hb-proof-strip__report-caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--hb-space-2);
+  margin-top: var(--hb-space-3);
+  font-family: var(--hb-font-mono);
+  font-size: var(--hb-text-xs);
+  color: var(--hb-text-muted);
+}
+
+.hb-proof-strip__report-caption a {
+  color: var(--hb-accent-blue-soft);
+  text-decoration: none;
+}
+
+.hb-proof-strip__report-caption a:hover {
+  text-decoration: underline;
+}
