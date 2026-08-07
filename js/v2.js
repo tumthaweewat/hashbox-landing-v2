@@ -197,7 +197,9 @@
     e.preventDefault();
     const offset = (nav ? nav.getBoundingClientRect().height : 0) + 16;
     const top = window.scrollY + target.getBoundingClientRect().top - offset;
-    window.scrollTo({ top, behavior: 'smooth' });
+    const reduceMotion = typeof window.matchMedia === 'function'
+      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' });
   });
 
   /* ----------------------------------------------------------------------
