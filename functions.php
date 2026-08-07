@@ -1323,6 +1323,7 @@ function hashbox_audit_landing_pages() {
             'meta_description' => 'คุยกับทีม AI 30 นาทีเพื่อประเมินโอกาสลดงานซ้ำด้วย LINE Bot, RAG Knowledge Base และ Workflow Automation พร้อมแนวทางเริ่มต้นที่เหมาะกับธุรกิจ',
             'hero_headline'    => 'ลดงานซ้ำด้วย AI ที่วัด ROI ได้',
             'hero_subcopy'     => 'LINE Bot, RAG Knowledge Base และ Workflow Automation สำหรับทีมขายและซัพพอร์ตที่ต้องการตอบเร็วขึ้นโดยไม่เพิ่ม headcount',
+            'hero_vendor'      => 'AI Consulting + Production Implementation ในกรุงเทพฯ สำหรับธุรกิจไทย',
             'primary_cta'      => 'ส่งโจทย์ให้ทีม AI',
             'proof_line'       => '-60% Support Cost จาก AI Bot + RAG ภายใน 8 สัปดาห์',
             'creative_key'     => 'ai_workforce',
@@ -1365,6 +1366,44 @@ function hashbox_audit_landing_pages() {
                 'body'   => 'ทีม Hashbox เคยทำ AI Bot สำหรับ on-demand service ให้ตอบลูกค้า 24/7, ลด response time และ route งานซับซ้อนไปหา human โดยยังวัดผลผ่าน dashboard เดียว',
                 'href'   => '/work/autobot-line/',
             ),
+            'case_metrics'     => array(
+                array( 'metric' => '2 นาที', 'label' => 'Avg Response Time', 'detail' => 'ลดลงจาก 2 ชั่วโมง' ),
+                array( 'metric' => '84%', 'label' => 'AI-handled Resolution', 'detail' => 'AI จัดการเคสได้โดยไม่ต้องส่งต่อ' ),
+                array( 'metric' => '8 สัปดาห์', 'label' => 'Time to Production', 'detail' => 'จาก discovery ถึงระบบที่ใช้งานจริง' ),
+            ),
+            'engagements'      => array(
+                array(
+                    'title'    => 'AI Opportunity Screening',
+                    'price'    => 'ฟรี',
+                    'timeline' => '30 นาที',
+                    'body'     => 'คุยโจทย์ ความพร้อมของข้อมูล และขั้นตอนถัดไปที่เหมาะกับธุรกิจ',
+                ),
+                array(
+                    'title'    => 'ROI Assessment',
+                    'price'    => 'เริ่ม 60,000 บาท',
+                    'timeline' => '1–2 สัปดาห์',
+                    'body'     => 'Discovery และวิเคราะห์ 1 use case เพื่อจัดลำดับ workflow และประเมิน ROI',
+                ),
+                array(
+                    'title'    => 'PoC + Validation',
+                    'price'    => 'เริ่ม 200,000 บาท',
+                    'timeline' => '3–5 สัปดาห์',
+                    'body'     => 'ทดสอบ 1 AI use case แบบ end-to-end กับข้อมูลจริงก่อนลงทุนระบบเต็ม',
+                ),
+                array(
+                    'title'    => 'Production Build',
+                    'price'    => 'เริ่ม 500,000 บาท',
+                    'timeline' => '6–12 สัปดาห์',
+                    'body'     => '1–2 AI systems พร้อม integration, source code, monitoring และซัพพอร์ตหลังเปิดใช้ 30 วัน',
+                ),
+            ),
+            'engagement_note'  => 'ราคาเริ่มต้นตามขอบเขตที่ระบุ ไม่รวม VAT 7% และค่า API · ทีมจะสรุป scope และใบเสนอราคาหลัง Screening',
+            'project_lead'     => array(
+                'name'       => 'Tum Thaweewat',
+                'role'       => 'Head of Tech',
+                'experience' => '17 ปีในงาน Software Engineering',
+                'linkedin'   => 'https://www.linkedin.com/in/tumthaweewat/',
+            ),
             'process'          => array(
                 array( 'title' => 'วัด baseline งานซ้ำ', 'body' => 'เก็บคำถามซ้ำ, SLA, ticket volume และต้นทุนเวลาของทีม' ),
                 array( 'title' => 'เลือก use case ที่คืนทุน', 'body' => 'จัด priority ด้วย ROI, integration effort และ risk ของข้อมูล' ),
@@ -1372,7 +1411,12 @@ function hashbox_audit_landing_pages() {
             ),
             'faqs'             => array(
                 array( 'q' => 'Screening นี้เหมาะกับธุรกิจแบบไหน?', 'a' => 'เหมาะกับทีมที่มีแชทลูกค้าเยอะ มี FAQ หรือ policy ซ้ำ ๆ และอยากเริ่มใช้ AI แบบวัดผลได้ ไม่ใช่ทำ demo แล้วจบ' ),
+                array( 'q' => 'Screening ฟรีต่างจาก ROI Assessment อย่างไร?', 'a' => 'Screening 30 นาทีใช้เพื่อดูโจทย์ ความพร้อม และ next step เบื้องต้น ส่วน ROI Assessment เป็นงานแบบเสียค่าใช้จ่ายที่ map workflow และเปรียบเทียบชั่วโมงที่ลดได้กับค่าพัฒนาและ API' ),
+                array( 'q' => 'ราคาเริ่มต้นและใช้เวลาเท่าไหร่?', 'a' => 'ROI Assessment เริ่ม 60,000 บาท ใช้เวลา 1–2 สัปดาห์ · PoC + Validation เริ่ม 200,000 บาท ใช้เวลา 3–5 สัปดาห์ · Production Build เริ่ม 500,000 บาท ใช้เวลา 6–12 สัปดาห์ ขึ้นกับข้อมูลและ integration scope' ),
                 array( 'q' => 'ต้องมีข้อมูลพร้อมแค่ไหนก่อนเริ่ม?', 'a' => 'ไม่จำเป็นต้องพร้อมทั้งหมดครับ Screening จะช่วยบอกว่าข้อมูลส่วนไหนใช้ได้ทันที ส่วนไหนควรจัดโครงสร้างก่อนนำเข้า RAG หรือ Bot' ),
+                array( 'q' => 'ข้อมูลลูกค้าและ PDPA ดูแลอย่างไร?', 'a' => 'ทีมเลือก AI provider ตามความไวของข้อมูล รองรับทั้ง enterprise provider และ self-host พร้อมวาง data masking และ audit log ตามขอบเขตโปรเจกต์' ),
+                array( 'q' => 'ลูกค้าได้รับ source code และถูกผูกกับ vendor หรือไม่?', 'a' => 'ลูกค้าเป็นเจ้าของ source code 100% ตามขอบเขตที่ตกลง ไม่ผูก vendor และระบบ production มี monitoring, cost guardrails และ fallback logic' ),
+                array( 'q' => 'มีดูแลระบบหลังเปิดใช้หรือไม่?', 'a' => 'มี Care Plan รายเดือนเริ่ม 30,000 บาท ครอบคลุม API cost monitoring, performance tracking, prompt update, hallucination guard, security patch และ monthly performance review' ),
                 array( 'q' => 'หลัง Screening ต้องจ้างทำต่อไหม?', 'a' => 'ไม่บังคับครับ คุณจะได้แนวทางเบื้องต้นกลับไปตัดสินใจ ถ้าต้องการ business case แบบลงรายละเอียดค่อยเริ่ม ROI Assessment Report หรือ PoC ต่อ' ),
             ),
         ),
@@ -2595,12 +2639,56 @@ function hashbox_get_audit_landing_for_return_url( $url ) {
         : null;
 }
 
+/**
+ * Send the AI lead acknowledgement outside the conversion-critical redirect.
+ */
+function hashbox_send_ai_confirmation_email( $email, $name, $lead_ref ) {
+    $email    = sanitize_email( $email );
+    $name     = sanitize_text_field( $name );
+    $lead_ref = sanitize_text_field( $lead_ref );
+
+    if ( ! is_email( $email ) || ! preg_match( '/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i', $lead_ref ) ) {
+        return;
+    }
+
+    $confirmation_subject = '[Hashbox] รับโจทย์ AI ของคุณแล้ว';
+    $confirmation_body    = implode( "\n", array(
+        'สวัสดีคุณ ' . $name . ',',
+        '',
+        'ทีม Hashbox ได้รับโจทย์ AI Opportunity Screening ของคุณแล้ว และจะติดต่อกลับภายใน 1–3 วันทำการ',
+        '',
+        'สิ่งที่เตรียมไว้ก่อนคุยจะช่วยให้ประเมินได้เร็วขึ้น:',
+        '• Workflow หรือปัญหาปัจจุบันที่อยากลดงานซ้ำ',
+        '• แหล่งข้อมูลที่เกี่ยวข้อง เช่น LINE, CRM, Sheet, PDF หรือ Notion',
+        '• Baseline ที่มี เช่น จำนวนเคส เวลาตอบ หรือชั่วโมงที่ใช้ต่อสัปดาห์',
+        '• Stakeholder ที่ดูแล workflow และระบบเดิม',
+        '',
+        'ถ้าต้องการส่งข้อมูลเพิ่มเติม คุยกับทีมทาง LINE: https://lin.ee/Xagx6i4',
+        '',
+        'เลขอ้างอิง: ' . $lead_ref,
+        '',
+        'Hashbox Studio',
+    ) );
+
+    wp_mail(
+        $email,
+        $confirmation_subject,
+        $confirmation_body,
+        array(
+            'Content-Type: text/plain; charset=UTF-8',
+            'Reply-To: Hashbox Studio <business@hashbox.co.th>',
+        )
+    );
+}
+add_action( 'hashbox_send_ai_confirmation_email', 'hashbox_send_ai_confirmation_email', 10, 3 );
+
 function hashbox_handle_contact_submit() {
     if ( ! isset( $_POST['hashbox_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['hashbox_nonce'] ), 'hashbox_contact' ) ) {
         wp_die( 'Invalid request token.', 'Forbidden', array( 'response' => 403 ) );
     }
 
     $name               = isset( $_POST['name'] )               ? sanitize_text_field( wp_unslash( $_POST['name'] ) )               : '';
+    $company            = isset( $_POST['company'] )            ? sanitize_text_field( wp_unslash( $_POST['company'] ) )            : '';
     $email              = isset( $_POST['email'] )              ? sanitize_email( wp_unslash( $_POST['email'] ) )                   : '';
     $phone              = isset( $_POST['phone'] )              ? sanitize_text_field( wp_unslash( $_POST['phone'] ) )              : '';
     $website            = isset( $_POST['website'] )            ? esc_url_raw( wp_unslash( $_POST['website'] ) )                    : '';
@@ -2623,9 +2711,11 @@ function hashbox_handle_contact_submit() {
         && wp_verify_nonce( wp_unslash( $_POST['hashbox_ai_nonce'] ), 'hashbox_ai_contact' );
     $is_ai_form    = $is_ai_route && $ai_nonce_ok;
     $is_audit_form = is_array( $landing );
+    $needs_contact_detail = $is_ai_form && in_array( $contact_preference, array( 'LINE', 'โทร' ), true );
+    $invalid_ai_contact_preference = $is_ai_form && ! in_array( $contact_preference, array( '', 'LINE', 'โทร' ), true );
 
     $invalid = ( $is_ai_route && ! $ai_nonce_ok ) || ( $is_ai_form
-        ? ( $name === '' || $email === '' || ! is_email( $email ) || $message === '' || ! $pdpa )
+        ? ( $name === '' || $company === '' || $email === '' || ! is_email( $email ) || $message === '' || $invalid_ai_contact_preference || ( $needs_contact_detail && $contact_detail === '' ) || ! $pdpa )
         : ( $is_audit_form
             ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
             : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) ) );
@@ -2648,8 +2738,11 @@ function hashbox_handle_contact_submit() {
     $to          = 'business@hashbox.co.th';
     $request_type = $is_ai_form ? 'AI consultation request' : ( $is_audit_form ? 'Audit request' : 'New enquiry' );
     $subject      = sprintf( '[Hashbox V2] %s from %s — %s', $request_type, $name, $service ?: 'unspecified' );
-    $body_lines  = array(
-        'Name / Company: ' . $name,
+    $lead_ref     = $is_ai_form ? wp_generate_uuid4() : '';
+    $body_lines   = $is_ai_form
+        ? array( 'Name: ' . $name, 'Company: ' . $company, 'Lead reference: ' . $lead_ref )
+        : array( 'Name / Company: ' . $name );
+    $body_lines   = array_merge( $body_lines, array(
         'Email: ' . $email,
         'Phone: ' . $phone,
         'Website: ' . $website,
@@ -2672,7 +2765,7 @@ function hashbox_handle_contact_submit() {
         'gclid: ' . $utm['gclid'],
         'wbraid: ' . $utm['wbraid'],
         'gbraid: ' . $utm['gbraid'],
-    );
+    ) );
     $body        = implode( "\n", $body_lines );
     $headers     = array( 'Content-Type: text/plain; charset=UTF-8' );
     if ( $reply_email ) {
@@ -2681,9 +2774,15 @@ function hashbox_handle_contact_submit() {
 
     $sent = wp_mail( $to, $subject, $body, $headers );
     if ( $sent && $is_ai_form ) {
+        $confirmation_queued = wp_schedule_single_event(
+            time(),
+            'hashbox_send_ai_confirmation_email',
+            array( $email, $name, $lead_ref )
+        );
         wp_safe_redirect( add_query_arg( array(
-            'contact'  => 'ai_sent',
-            'lead_ref' => wp_generate_uuid4(),
+            'contact'      => 'ai_sent',
+            'lead_ref'     => $lead_ref,
+            'confirmation' => $confirmation_queued ? 'queued' : 'unavailable',
         ), $redirect_to ) );
         exit;
     }

@@ -15,11 +15,16 @@ if ( ! $landing ) {
 }
 
 $contact_status = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_GET['contact'] ) ) : '';
+$confirmation_status = isset( $_GET['confirmation'] ) ? sanitize_key( wp_unslash( $_GET['confirmation'] ) ) : '';
 $current_url    = hashbox_audit_landing_canonical_url( $landing );
 $wide_image     = hashbox_audit_landing_asset_uri( $landing['wide_image'] );
 $portrait_image = hashbox_audit_landing_asset_uri( $landing['portrait_image'] );
 $proof_url      = home_url( $landing['proof']['href'] );
 $is_ai_landing  = 'ai-workflow-audit' === $landing['slug'];
+$lead_ref_param = isset( $_GET['lead_ref'] ) ? sanitize_text_field( wp_unslash( $_GET['lead_ref'] ) ) : '';
+$confirmed_ai_lead = $is_ai_landing
+    && 'ai_sent' === $contact_status
+    && 1 === preg_match( '/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i', $lead_ref_param );
 
 $service_options = $is_ai_landing
     ? array(
@@ -71,6 +76,7 @@ get_header();
                 <div class="hb-ai-hero__layout">
                     <div class="hb-ai-hero__copy">
                         <p class="hb-ai-hero__availability">AI Opportunity Screening · 30 นาที · ไม่มีค่าใช้จ่าย</p>
+                        <p class="hb-ai-hero__vendor"><?php echo esc_html( $landing['hero_vendor'] ); ?></p>
                         <h1 class="hb-ai-hero__title"><?php echo esc_html( $landing['hero_headline'] ); ?></h1>
                         <p class="hb-ai-hero__lede"><?php echo esc_html( $landing['hero_subcopy'] ); ?></p>
                         <div class="hb-ai-hero__actions">
@@ -114,6 +120,14 @@ get_header();
                         <div><h3>ส่งต่อ Human พร้อมบริบท</h3><p>เคสซับซ้อนถูกส่งต่อให้ทีมงาน โดยยังคงประวัติและเหตุผลที่ต้องรับช่วง</p></div>
                     </li>
                 </ol>
+                <dl class="hb-ai-case__metrics" aria-label="ผลลัพธ์จากเคส AutoBot">
+                    <?php foreach ( $landing['case_metrics'] as $metric ) : ?>
+                        <div>
+                            <dt><?php echo esc_html( $metric['metric'] ); ?></dt>
+                            <dd><strong><?php echo esc_html( $metric['label'] ); ?></strong><span><?php echo esc_html( $metric['detail'] ); ?></span></dd>
+                        </div>
+                    <?php endforeach; ?>
+                </dl>
             </div>
         </section>
 
@@ -164,6 +178,31 @@ get_header();
                         </dl>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section class="hb-ai-engagements" aria-labelledby="ai-engagements-heading">
+            <div class="hb-container">
+                <div class="hb-ai-engagements__intro">
+                    <h2 id="ai-engagements-heading" class="hb-ai-section__heading">เริ่มเล็ก แล้วเพิ่มงบเมื่อข้อมูลยืนยัน</h2>
+                    <p class="hb-ai-section__lede">Screening ช่วยเลือกทางที่เหมาะ จากนั้นค่อยตัดสินใจว่าจะหยุด จัดทำ business case ทดลอง PoC หรือขึ้นระบบ Production</p>
+                </div>
+                <ol class="hb-ai-engagements__list">
+                    <?php foreach ( $landing['engagements'] as $index => $engagement ) : ?>
+                        <li>
+                            <span class="hb-ai-engagements__index"><?php echo esc_html( sprintf( '%02d', $index + 1 ) ); ?></span>
+                            <div class="hb-ai-engagements__copy">
+                                <h3><?php echo esc_html( $engagement['title'] ); ?></h3>
+                                <p><?php echo esc_html( $engagement['body'] ); ?></p>
+                            </div>
+                            <dl class="hb-ai-engagements__meta">
+                                <div><dt>งบเริ่มต้น</dt><dd><?php echo esc_html( $engagement['price'] ); ?></dd></div>
+                                <div><dt>ระยะเวลา</dt><dd><?php echo esc_html( $engagement['timeline'] ); ?></dd></div>
+                            </dl>
+                        </li>
+                    <?php endforeach; ?>
+                </ol>
+                <p class="hb-ai-engagements__note"><?php echo esc_html( $landing['engagement_note'] ); ?></p>
             </div>
         </section>
     <?php else : ?>
@@ -279,16 +318,15 @@ get_header();
                 <div class="hb-audit-form-copy"<?php if ( ! $is_ai_landing ) : ?> data-reveal<?php endif; ?>>
                     <?php if ( ! $is_ai_landing ) : ?><span class="hb-eyebrow">Request audit</span><?php endif; ?>
                     <h2 class="hb-h2"><?php echo esc_html( $landing['primary_cta'] ); ?></h2>
-                    <p><?php echo esc_html( $is_ai_landing ? 'กรอกบริบทสั้น ๆ ทีมเราจะติดต่อกลับเพื่อนัดเวลา Screening 30 นาทีภายใน 1-3 วันทำการ' : 'กรอกข้อมูลให้พอเห็นบริบท ทีมเราจะตรวจ baseline และส่ง next-step recommendation กลับไปภายใน 1-3 วันทำการ' ); ?></p>
+                    <p><?php echo esc_html( $is_ai_landing ? 'กรอกบริบทสั้น ๆ ทีมเราจะติดต่อกลับเพื่อนัดเวลา Screening 30 นาทีภายใน 1–3 วันทำการ' : 'กรอกข้อมูลให้พอเห็นบริบท ทีมเราจะตรวจ baseline และส่ง next-step recommendation กลับไปภายใน 1–3 วันทำการ' ); ?></p>
                     <?php if ( $is_ai_landing ) : ?>
-                        <ol class="hb-ai-form-steps" aria-label="ขั้นตอนหลังส่งโจทย์">
-                            <?php foreach ( $landing['process'] as $index => $step ) : ?>
-                                <li>
-                                    <span><?php echo esc_html( sprintf( '%02d', $index + 1 ) ); ?></span>
-                                    <div><h3><?php echo esc_html( $step['title'] ); ?></h3><p><?php echo esc_html( $step['body'] ); ?></p></div>
-                                </li>
-                            <?php endforeach; ?>
-                        </ol>
+                        <aside class="hb-ai-project-lead" aria-label="ผู้ดูแลโครงการ">
+                            <p class="hb-ai-project-lead__label">Project lead</p>
+                            <h3><?php echo esc_html( $landing['project_lead']['name'] ); ?></h3>
+                            <p class="hb-ai-project-lead__role"><?php echo esc_html( $landing['project_lead']['role'] ); ?> · <?php echo esc_html( $landing['project_lead']['experience'] ); ?></p>
+                            <p>ดูแลตั้งแต่เลือก use case, architecture, integration ไปจนถึง production monitoring</p>
+                            <a class="hb-ai-text-link" href="<?php echo esc_url( $landing['project_lead']['linkedin'] ); ?>" target="_blank" rel="noopener noreferrer">ดูประสบการณ์บน LinkedIn <span aria-hidden="true">↗</span></a>
+                        </aside>
                     <?php endif; ?>
                     <div class="hb-audit-contact-strip">
                         <a href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer" data-track-event="line_click">LINE OA</a>
@@ -311,23 +349,59 @@ get_header();
                         <?php wp_nonce_field( 'hashbox_ai_contact', 'hashbox_ai_nonce', false ); ?>
                     <?php endif; ?>
 
-                    <?php if ( ( $is_ai_landing && 'ai_sent' === $contact_status ) || ( ! $is_ai_landing && 'sent' === $contact_status ) ) : ?>
+                    <?php if ( $confirmed_ai_lead ) : ?>
+                        <div class="hb-audit-alert hb-audit-alert--success hb-ai-success" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" data-contact-alert>
+                            <strong>ได้รับโจทย์แล้ว</strong>
+                            <?php if ( 'queued' === $confirmation_status ) : ?>
+                                <p>ทีม Hashbox จะติดต่อกลับภายใน 1–3 วันทำการ ระบบกำลังส่งอีเมลยืนยันพร้อมรายการข้อมูลที่ควรเตรียมไว้ให้คุณ</p>
+                            <?php else : ?>
+                                <p>ทีม Hashbox จะติดต่อกลับภายใน 1–3 วันทำการ หากต้องการส่งข้อมูลเพิ่มสามารถคุยต่อทาง LINE ได้ทันที</p>
+                            <?php endif; ?>
+                            <a class="hb-ai-text-link" href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer" data-track-event="line_click">คุยต่อทาง LINE <span aria-hidden="true">→</span></a>
+                        </div>
+                    <?php elseif ( ! $is_ai_landing && 'sent' === $contact_status ) : ?>
                         <div class="hb-audit-alert hb-audit-alert--success" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" data-contact-alert>ส่งคำขอสำเร็จ ทีม Hashbox จะติดต่อกลับภายใน 1-3 วันทำการ</div>
                     <?php elseif ( 'invalid' === $contact_status ) : ?>
-                        <div class="hb-audit-alert hb-audit-alert--error" role="alert" aria-live="assertive" aria-atomic="true" tabindex="-1" data-contact-alert><?php echo esc_html( $is_ai_landing ? 'กรุณากรอกชื่อ อีเมล โจทย์ และยินยอม PDPA ก่อนส่งฟอร์ม' : 'กรุณากรอกข้อมูลที่จำเป็นให้ครบ และยินยอม PDPA ก่อนส่งฟอร์ม' ); ?></div>
+                        <div class="hb-audit-alert hb-audit-alert--error" role="alert" aria-live="assertive" aria-atomic="true" tabindex="-1" data-contact-alert><?php echo esc_html( $is_ai_landing ? 'ข้อมูลยังไม่ครบ กรุณากรอกชื่อ บริษัท อีเมล โจทย์ และช่องทางติดต่อที่เลือก พร้อมยินยอม PDPA' : 'กรุณากรอกข้อมูลที่จำเป็นให้ครบ และยินยอม PDPA ก่อนส่งฟอร์ม' ); ?></div>
                     <?php elseif ( 'error' === $contact_status ) : ?>
                         <div class="hb-audit-alert hb-audit-alert--error" role="alert" aria-live="assertive" aria-atomic="true" tabindex="-1" data-contact-alert>ส่งฟอร์มไม่สำเร็จ กรุณาลองใหม่หรือทัก LINE OA</div>
                     <?php endif; ?>
 
+                    <?php if ( ! $confirmed_ai_lead ) : ?>
                     <?php if ( $is_ai_landing ) : ?>
                         <div class="hb-ai-form__essential">
-                            <div class="hb-field">
-                                <label class="hb-label" for="audit-name">ชื่อ / บริษัท <span class="hb-label__required">*</span></label>
-                                <input id="audit-name" class="hb-input" type="text" name="name" required aria-required="true" autocomplete="name" placeholder="ชื่อคุณ · บริษัท">
+                            <div class="hb-ai-form__identity">
+                                <div class="hb-field">
+                                    <label class="hb-label" for="audit-name">ชื่อผู้ติดต่อ <span class="hb-label__required">*</span></label>
+                                    <input id="audit-name" class="hb-input" type="text" name="name" required aria-required="true" autocomplete="name" placeholder="ชื่อและนามสกุล">
+                                </div>
+                                <div class="hb-field">
+                                    <label class="hb-label" for="audit-company">บริษัท <span class="hb-label__required">*</span></label>
+                                    <input id="audit-company" class="hb-input" type="text" name="company" required aria-required="true" autocomplete="organization" placeholder="ชื่อบริษัทหรือองค์กร">
+                                </div>
                             </div>
                             <div class="hb-field">
                                 <label class="hb-label" for="audit-email">อีเมลสำหรับนัดหมาย <span class="hb-label__required">*</span></label>
                                 <input id="audit-email" class="hb-input" type="email" name="email" required aria-required="true" autocomplete="email" inputmode="email" placeholder="you@company.com">
+                            </div>
+                            <div class="hb-ai-form__qualification">
+                                <div class="hb-field">
+                                    <label class="hb-label" for="audit-service">โจทย์ที่สนใจ</label>
+                                    <select id="audit-service" class="hb-select" name="service">
+                                        <?php foreach ( $service_options as $option ) : ?>
+                                            <option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, 'ยังไม่แน่ใจ ขอ AI Screening ก่อน' ); ?>><?php echo esc_html( $option ); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="hb-field">
+                                    <label class="hb-label" for="audit-timeline">ช่วงเวลาที่อยากเริ่ม</label>
+                                    <select id="audit-timeline" class="hb-select" name="timeline">
+                                        <option value="">ยังไม่ระบุ</option>
+                                        <?php foreach ( $timeline_options as $option ) : ?>
+                                            <option value="<?php echo esc_attr( $option ); ?>"><?php echo esc_html( $option ); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
                             </div>
                             <div class="hb-field">
                                 <label class="hb-label" for="audit-problem">โจทย์หลักที่อยากแก้คืออะไร? <span class="hb-label__required">*</span></label>
@@ -338,14 +412,6 @@ get_header();
                         <details class="hb-ai-form__optional">
                             <summary>เพิ่มข้อมูลเพื่อให้คำแนะนำแม่นขึ้น (ไม่บังคับ)</summary>
                             <div class="hb-ai-form__optional-fields">
-                                <div class="hb-field">
-                                    <label class="hb-label" for="audit-service">สนใจบริการไหน?</label>
-                                    <select id="audit-service" class="hb-select" name="service">
-                                        <?php foreach ( $service_options as $option ) : ?>
-                                            <option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, 'ยังไม่แน่ใจ ขอ AI Screening ก่อน' ); ?>><?php echo esc_html( $option ); ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
                                 <div class="hb-field">
                                     <label class="hb-label" for="audit-website">เว็บไซต์ปัจจุบัน</label>
                                     <input id="audit-website" class="hb-input" type="url" name="website" inputmode="url" autocomplete="url" placeholder="https://company.com">
@@ -360,26 +426,18 @@ get_header();
                                     </select>
                                 </div>
                                 <div class="hb-field">
-                                    <label class="hb-label" for="audit-timeline">ต้องการเริ่มเมื่อไหร่?</label>
-                                    <select id="audit-timeline" class="hb-select" name="timeline">
-                                        <option value="">ยังไม่ระบุ</option>
-                                        <?php foreach ( $timeline_options as $option ) : ?>
-                                            <option value="<?php echo esc_attr( $option ); ?>"><?php echo esc_html( $option ); ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="hb-field">
                                     <label class="hb-label" for="audit-contact">ช่องทางติดต่ออื่นที่สะดวก</label>
-                                    <select id="audit-contact" class="hb-select" name="contact_preference">
+                                    <select id="audit-contact" class="hb-select" name="contact_preference" data-ai-contact-preference>
                                         <option value="">ใช้อีเมลด้านบน</option>
-                                        <?php foreach ( $contact_options as $option ) : ?>
+                                        <?php foreach ( array( 'LINE', 'โทร' ) as $option ) : ?>
                                             <option value="<?php echo esc_attr( $option ); ?>"><?php echo esc_html( $option ); ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="hb-field">
-                                    <label class="hb-label" for="audit-contact-detail">เบอร์โทร / LINE ID</label>
-                                    <input id="audit-contact-detail" class="hb-input" type="text" name="contact_detail" autocomplete="tel" placeholder="ระบุเมื่ออยากให้ติดต่อช่องทางอื่น">
+                                    <label class="hb-label" for="audit-contact-detail">เบอร์โทร / LINE ID <span class="hb-label__required" data-ai-contact-required hidden>*</span></label>
+                                    <input id="audit-contact-detail" class="hb-input" type="text" name="contact_detail" autocomplete="tel" aria-describedby="audit-contact-detail-help" data-ai-contact-detail placeholder="ระบุเมื่ออยากให้ติดต่อช่องทางอื่น">
+                                    <p id="audit-contact-detail-help" class="hb-field__help">จำเป็นเมื่อเลือก LINE หรือโทรศัพท์</p>
                                 </div>
                             </div>
                         </details>
@@ -453,6 +511,7 @@ get_header();
                     </label>
 
                     <button class="hb-btn hb-btn--gradient hb-btn--lg hb-audit-form__submit<?php echo $is_ai_landing ? ' hb-ai-button' : ''; ?>" type="submit"><?php echo esc_html( $landing['primary_cta'] ); ?> <span aria-hidden="true">→</span></button>
+                    <?php endif; ?>
                 </form>
             </div>
         </div>
