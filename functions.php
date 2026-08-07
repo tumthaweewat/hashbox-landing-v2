@@ -3591,11 +3591,13 @@ function hashbox_delay_third_party_scripts( $html ) {
         $html
     );
 
-    // Inline Meta-pixel bootstrap + trackers (they self-inject fbevents.js).
+    // Inline bootstraps that self-inject their libraries: the Meta-pixel
+    // stub (fbevents.js) and the GTM container snippet (gtm.js). The plain
+    // gtag config snippet stays live — it only queues into dataLayer.
     $html = preg_replace_callback(
         '#<script(?![^>]*\ssrc=)([^>]*)>(.*?)</script>#is',
         function ( $m ) {
-            if ( false !== strpos( $m[0], 'data-hb-delay' ) || ! preg_match( '/fbq\s*\(/', $m[2] ) ) {
+            if ( false !== strpos( $m[0], 'data-hb-delay' ) || ! preg_match( '#fbq\s*\(|googletagmanager\.com/gtm\.js#', $m[2] ) ) {
                 return $m[0];
             }
             return '<script type="text/plain" data-hb-delay' . $m[1] . '>' . $m[2] . '</script>';
