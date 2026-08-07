@@ -203,12 +203,14 @@ function hashbox_preload_critical_fonts() {
         ? array(
             'noto-sans-thai-thai-400.woff2',
             'noto-sans-thai-thai-800.woff2',
+            'inter-latin-400.woff2',
             'inter-latin-700.woff2',
         )
         : array(
             'ibm-plex-sans-thai-thai-400.woff2',
             'ibm-plex-sans-thai-thai-700.woff2',
             'ibm-plex-sans-thai-latin-400.woff2',
+            'dm-sans-latin-700.woff2',
         );
 
     foreach ( $fonts as $file ) {
