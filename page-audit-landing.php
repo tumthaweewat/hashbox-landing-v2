@@ -91,8 +91,8 @@ get_header();
 
                 <figure class="hb-audit-hero__visual" data-reveal>
                     <picture>
-                        <source media="(max-width: 720px)" srcset="<?php echo esc_url( $portrait_image ); ?>">
-                        <img src="<?php echo esc_url( $wide_image ); ?>" alt="<?php echo esc_attr( 'Hashbox ' . $landing['service_label'] . ' campaign artwork' ); ?>" width="1200" height="627" fetchpriority="high">
+                        <source media="(max-width: 720px)" srcset="<?php echo esc_attr( hashbox_ad_webp_srcset( $landing['portrait_image'], array( 540, 1080 ) ) ); ?>" sizes="100vw">
+                        <img src="<?php echo esc_url( hashbox_ad_webp_uri( $landing['wide_image'], 1200 ) ); ?>" srcset="<?php echo esc_attr( hashbox_ad_webp_srcset( $landing['wide_image'], array( 640, 1200 ) ) ); ?>" sizes="(min-width: 900px) 640px, 100vw" alt="<?php echo esc_attr( 'Hashbox ' . $landing['service_label'] . ' campaign artwork' ); ?>" width="1200" height="627" fetchpriority="high" decoding="async">
                     </picture>
                 </figure>
             </div>

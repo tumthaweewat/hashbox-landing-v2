@@ -77,30 +77,32 @@ function hashbox_enqueue_assets() {
     $theme_uri = get_template_directory_uri();
     $version   = wp_get_theme()->get( 'Version' );
 
-    // V2 stack — DM Sans for display headings, IBM Plex Sans Thai for body/Thai fallback.
-    wp_enqueue_style(
-        'hashbox-google-fonts',
-        'https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap',
-        array(),
-        null
-    );
-
-    add_filter( 'wp_resource_hints', 'hashbox_resource_hints', 10, 2 );
-
-    // V2 design system — load in dependency order (tokens first)
-    $layers = array(
-        'tokens'      => 'tokens.css',
-        'primitives'  => 'primitives.css',
-        'surface'     => 'surface.css',
-        'navigation'  => 'navigation.css',
-        'interactive' => 'interactive.css',
-        'composed'    => 'composed.css',
-    );
-    $prev = 'hashbox-google-fonts';
-    foreach ( $layers as $key => $file ) {
-        $handle = 'hashbox-ds-' . $key;
-        wp_enqueue_style( $handle, $theme_uri . '/design-system/' . $file, array( $prev ), $version );
-        $prev = $handle;
+    // V2 stack — fonts are self-hosted (design-system/fonts.css inside the
+    // bundle) so nothing render-blocking leaves the origin. The design
+    // system ships as one bundled sheet built by tools/build-css-bundle.mjs;
+    // the layered files remain the editable source and the fallback.
+    $bundle = get_template_directory() . '/design-system/bundle.min.css';
+    if ( file_exists( $bundle ) ) {
+        // Keep the 'hashbox-ds-composed' handle — dependent enqueues
+        // (blog, geo-checker, audit landing) reference it.
+        wp_enqueue_style( 'hashbox-ds-composed', $theme_uri . '/design-system/bundle.min.css', array(), filemtime( $bundle ) );
+        $prev = 'hashbox-ds-composed';
+    } else {
+        $layers = array(
+            'fonts'       => 'fonts.css',
+            'tokens'      => 'tokens.css',
+            'primitives'  => 'primitives.css',
+            'surface'     => 'surface.css',
+            'navigation'  => 'navigation.css',
+            'interactive' => 'interactive.css',
+            'composed'    => 'composed.css',
+        );
+        $prev = '';
+        foreach ( $layers as $key => $file ) {
+            $handle = 'hashbox-ds-' . $key;
+            wp_enqueue_style( $handle, $theme_uri . '/design-system/' . $file, $prev ? array( $prev ) : array(), $version );
+            $prev = $handle;
+        }
     }
 
     // Legacy theme stylesheet (loads last — kept so WP recognizes theme)
@@ -112,18 +114,22 @@ function hashbox_enqueue_assets() {
         $theme_uri . '/js/v2.js',
         array(),
         $version,
-        true
+        array(
+            'in_footer' => true,
+            'strategy'  => 'defer',
+        )
     );
 
     $is_audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) && hashbox_get_audit_landing_for_path();
     $is_ads_preview   = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
 
     if ( $is_audit_landing || $is_ads_preview ) {
+        $audit_fonts = get_template_directory() . '/css/audit-fonts.css';
         wp_enqueue_style(
             'hashbox-audit-v4-fonts',
-            'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Thai:wght@400;500;600;700;800;900&display=swap',
+            $theme_uri . '/css/audit-fonts.css',
             array(),
-            null
+            file_exists( $audit_fonts ) ? filemtime( $audit_fonts ) : $version
         );
 
         $audit_css = get_template_directory() . '/css/audit-landing.css';
@@ -184,21 +190,34 @@ function hashbox_defer_legacy_stylesheet( $html, $handle, $href, $media ) {
 add_filter( 'style_loader_tag', 'hashbox_defer_legacy_stylesheet', 10, 4 );
 
 /**
- * Add preconnect resource hints for Google Fonts
+ * Preload the critical self-hosted woff2 files so text renders in the
+ * final face on first paint. Thai body/heading faces cover the hero;
+ * everything else loads on demand via unicode-range.
  */
-function hashbox_resource_hints( $urls, $relation_type ) {
-    if ( 'preconnect' === $relation_type ) {
-        $urls[] = array(
-            'href' => 'https://fonts.googleapis.com',
-            'crossorigin' => false,
+function hashbox_preload_critical_fonts() {
+    $theme_uri = get_template_directory_uri();
+    $is_audit  = function_exists( 'hashbox_get_audit_landing_for_path' ) && hashbox_get_audit_landing_for_path();
+    $is_ads    = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
+
+    $fonts = ( $is_audit || $is_ads )
+        ? array(
+            'noto-sans-thai-thai-400.woff2',
+            'noto-sans-thai-thai-800.woff2',
+            'inter-latin-700.woff2',
+        )
+        : array(
+            'ibm-plex-sans-thai-thai-400.woff2',
+            'ibm-plex-sans-thai-thai-700.woff2',
+            'ibm-plex-sans-thai-latin-400.woff2',
         );
-        $urls[] = array(
-            'href' => 'https://fonts.gstatic.com',
-            'crossorigin' => 'anonymous',
-        );
+
+    foreach ( $fonts as $file ) {
+        if ( file_exists( get_template_directory() . '/assets/fonts/' . $file ) ) {
+            echo '<link rel="preload" as="font" type="font/woff2" crossorigin href="' . esc_url( $theme_uri . '/assets/fonts/' . $file ) . '">' . "\n";
+        }
     }
-    return $urls;
 }
+add_action( 'wp_head', 'hashbox_preload_critical_fonts', 2 );
 
 /**
  * Fallback menu callback — renders static nav links when no WP menu is assigned
@@ -965,17 +984,20 @@ function hashbox_seo_noindex_meta() {
 add_action( 'wp_head', 'hashbox_seo_noindex_meta', 1 );
 
 /**
- * Preload the LCP image of singular pages (featured image) so it
- * starts downloading during HTML parse instead of after CSS. Font
- * woff2 URLs from Google Fonts are hashed and version-bumped, so we
- * rely on the existing preconnect to fonts.gstatic.com plus
- * font-display: swap for type — preloading a stale hashed URL would
- * 404 and hurt rather than help.
+ * Preload the LCP image so it starts downloading during HTML parse
+ * instead of after CSS. Landing pages preload their WebP hero art;
+ * singular posts preload the featured image.
  */
 function hashbox_preload_critical_assets() {
     $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
     if ( $audit_landing && function_exists( 'hashbox_audit_landing_asset_uri' ) ) {
-        echo '<link rel="preload" as="image" fetchpriority="high" href="' . esc_url( hashbox_audit_landing_asset_uri( $audit_landing['wide_image'] ) ) . '">' . "\n";
+        echo '<link rel="preload" as="image" fetchpriority="high" media="(max-width: 720px)" imagesrcset="' . esc_attr( hashbox_ad_webp_srcset( $audit_landing['portrait_image'], array( 540, 1080 ) ) ) . '" imagesizes="100vw">' . "\n";
+        echo '<link rel="preload" as="image" fetchpriority="high" media="(min-width: 721px)" href="' . esc_url( hashbox_ad_webp_uri( $audit_landing['wide_image'], 1200 ) ) . '" imagesrcset="' . esc_attr( hashbox_ad_webp_srcset( $audit_landing['wide_image'], array( 640, 1200 ) ) ) . '" imagesizes="(min-width: 900px) 640px, 100vw">' . "\n";
+        return;
+    }
+
+    if ( is_front_page() ) {
+        echo '<link rel="preload" as="image" fetchpriority="high" href="' . esc_url( hashbox_ad_webp_uri( 'linkedin_wide_seo_ready_v4.png', 1200 ) ) . '" imagesrcset="' . esc_attr( hashbox_ad_webp_srcset( 'linkedin_wide_seo_ready_v4.png', array( 640, 1200 ) ) ) . '" imagesizes="(min-width: 900px) 640px, 100vw">' . "\n";
         return;
     }
 
@@ -1522,6 +1544,31 @@ function hashbox_audit_landing_asset_uri( $file ) {
 
 function hashbox_audit_landing_asset_path( $file ) {
     return get_template_directory() . '/assets/ads/hashbox/' . ltrim( (string) $file, '/' );
+}
+
+/**
+ * URI of a WebP variant generated by tools/optimize-ad-images.mjs
+ * (assets/ads/hashbox/webp/<stem>-<width>w.webp). Falls back to the
+ * source PNG when the variant is missing so a stale deploy never 404s.
+ */
+function hashbox_ad_webp_uri( $file, $width ) {
+    $stem = pathinfo( (string) $file, PATHINFO_FILENAME );
+    $rel  = 'webp/' . $stem . '-' . (int) $width . 'w.webp';
+    if ( file_exists( hashbox_audit_landing_asset_path( $rel ) ) ) {
+        return hashbox_audit_landing_asset_uri( $rel );
+    }
+    return hashbox_audit_landing_asset_uri( $file );
+}
+
+/**
+ * "small 640w, large 1200w"-style srcset for an ad creative.
+ */
+function hashbox_ad_webp_srcset( $file, $widths ) {
+    $parts = array();
+    foreach ( $widths as $width ) {
+        $parts[] = hashbox_ad_webp_uri( $file, $width ) . ' ' . (int) $width . 'w';
+    }
+    return implode( ', ', $parts );
 }
 
 function hashbox_audit_landing_og_image_url( $landing = null ) {

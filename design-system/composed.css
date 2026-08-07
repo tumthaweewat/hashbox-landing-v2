@@ -1327,3 +1327,15 @@
   font-weight: var(--hb-weight-bold);
   flex-shrink: 0;
 }
+
+/* -------------------------------------------------------------------------
+ * BELOW-THE-FOLD RENDER DEFERRAL
+ * Every top-level .hb-section sits below the hero, so the browser can
+ * skip their layout/paint until they approach the viewport. The
+ * intrinsic-size placeholder keeps scrollbar + anchor positions sane.
+ * ---------------------------------------------------------------------- */
+
+main > .hb-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
