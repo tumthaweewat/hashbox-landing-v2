@@ -707,8 +707,8 @@ function hashbox_get_seo_metadata() {
                 'description' => 'ติดตั้ง GA4, GSC, Server-side GTM, Looker Studio, heatmap และ A/B testing พร้อมรัน CRO Sprint รายเดือนเพื่อเพิ่ม conversion จาก traffic เดิม',
             ),
             'ai-consulting' => array(
-                'title'       => 'AI Consulting Bangkok | ที่ปรึกษา AI ธุรกิจไทย | Hashbox',
-                'description' => 'AI Consulting Bangkok สำหรับธุรกิจไทย — LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Integration · คุยประเมินโอกาสฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท',
+                'title'       => 'ที่ปรึกษา AI สำหรับธุรกิจ | ปรึกษาทำระบบ AI Solution | Hashbox',
+                'description' => 'บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทย — ปรึกษาทำระบบ AI, LINE Chatbot, RAG Knowledge Base และ Workflow Automation · คุยประเมินโอกาสฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท',
             ),
             'work' => array(
                 'title'       => 'Case Studies SEO, CRO, AI ที่วัดผลได้ | Hashbox',
@@ -2469,7 +2469,7 @@ function hashbox_llms_txt_content() {
     $lines[] = '## Services';
     $lines[] = '';
     $lines[] = '- [SEO-Ready Website Build](' . home_url( '/services/website-development/' ) . '): รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่ launch · Lighthouse 100 · Schema ครบ · เริ่ม 80,000 บาท';
-    $lines[] = '- [AI Consulting Bangkok](' . home_url( '/services/ai-consulting/' ) . '): ที่ปรึกษา AI สำหรับธุรกิจไทย · LLM integration · automation · custom agent';
+    $lines[] = '- [ที่ปรึกษา AI สำหรับธุรกิจ](' . home_url( '/services/ai-consulting/' ) . '): บริการให้คำปรึกษาและปรึกษาทำระบบ AI Solution · LLM integration · automation · custom agent';
     $lines[] = '- [Digital Marketing Tools](' . home_url( '/services/digital-marketing-tools/' ) . '): SEO + CRO + analytics tooling';
     $lines[] = '';
     $lines[] = '## Pillar Guides';
