@@ -37,12 +37,14 @@ $hashbox_is_website_audit = is_page( 'website-audit' );
             <?php endif; ?>
 
             <?php if ( ! $hashbox_is_ai_audit && ! $hashbox_is_website_audit ) : ?>
-                <ul class="hb-nav__menu">
-                    <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-nav__link">Services</a></li>
-                    <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-nav__link">Work</a></li>
-                    <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="hb-nav__link">Blog</a></li>
-                    <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="hb-nav__link">About</a></li>
-                </ul>
+                <nav class="hb-nav__primary" aria-label="Primary">
+                    <ul class="hb-nav__menu">
+                        <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-nav__link">Services</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-nav__link">Work</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="hb-nav__link">Blog</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="hb-nav__link">About</a></li>
+                    </ul>
+                </nav>
             <?php endif; ?>
 
             <div class="hb-nav__actions">
@@ -54,7 +56,7 @@ $hashbox_is_website_audit = is_page( 'website-audit' );
                     <span class="hb-nav__status">All systems live</span>
                     <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--sm">รับ Audit ฟรี</a>
                     <button class="hb-nav__burger" id="navBurger" aria-label="Open menu" aria-controls="navSheet" aria-expanded="false">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
                     </button>
                 <?php endif; ?>
             </div>
@@ -67,7 +69,7 @@ $hashbox_is_website_audit = is_page( 'website-audit' );
             <div class="hb-sheet__head">
                 <span id="navSheetTitle" class="hb-eyebrow">Menu</span>
                 <button class="hb-sheet__close" aria-label="Close menu">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
             <nav>

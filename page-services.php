@@ -35,7 +35,7 @@ $page_url = get_permalink();
         <div class="hb-bento">
             <a href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="blue" style="text-decoration:none;">
                 <span class="hb-service__num">01</span>
-                <span class="hb-service__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="7 8 10 11 7 14"/><line x1="13" y1="14" x2="17" y2="14"/></svg></span>
+                <span class="hb-service__icon"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="7 8 10 11 7 14"/><line x1="13" y1="14" x2="17" y2="14"/></svg></span>
                 <h2 class="hb-service__title">SEO-Ready Website</h2>
                 <p class="hb-service__desc">บริการรับทำเว็บไซต์ SEO-Ready สำหรับบริษัทที่ต้องการเว็บใหม่พร้อมติด Google ตั้งแต่วันเปิดตัว ผ่าน Build Gate, schema, sitemap และ Core Web Vitals ก่อน deploy</p>
                 <div class="hb-service__stack">Next.js · WordPress Headless · Lighthouse 100</div>
@@ -44,7 +44,7 @@ $page_url = get_permalink();
 
             <a href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="cyan" style="text-decoration:none;">
                 <span class="hb-service__num">02</span>
-                <span class="hb-service__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/><circle cx="20" cy="9" r="1.5"/></svg></span>
+                <span class="hb-service__icon"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/><circle cx="20" cy="9" r="1.5"/></svg></span>
                 <h2 class="hb-service__title">Digital Marketing + CRO</h2>
                 <p class="hb-service__desc">ติดตั้ง GA4, GSC, Server-side GTM, Looker Studio, heatmap และ A/B testing พร้อม CRO Sprint รายเดือนเพื่อเพิ่ม Conversion จาก Traffic เดิม</p>
                 <div class="hb-service__stack">GA4 · GSC · A/B Testing · CRO Sprint</div>
@@ -53,7 +53,7 @@ $page_url = get_permalink();
 
             <a href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c4" data-accent="violet" style="text-decoration:none;">
                 <span class="hb-service__num">03</span>
-                <span class="hb-service__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/></svg></span>
+                <span class="hb-service__icon"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/></svg></span>
                 <h2 class="hb-service__title">AI Expert Consulting</h2>
                 <p class="hb-service__desc">ที่ปรึกษา AI ที่ลงมือ implement จริง ออกแบบ LINE Bot, Sales GPT, RAG และ workflow automation ที่ลด Manual Work พร้อม ROI Framework และ Knowledge Transfer</p>
                 <div class="hb-service__stack">LINE Bot · Sales GPT + RAG · n8n Workflow Automation</div>

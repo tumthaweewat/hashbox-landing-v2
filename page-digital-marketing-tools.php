@@ -24,7 +24,7 @@ $faqs = array(
     <div class="hb-hero__grid"></div>
     <div class="hb-container">
         <div class="hb-hero__inner">
-            <nav class="hb-breadcrumb">
+            <nav class="hb-breadcrumb" aria-label="Breadcrumb">
                 <ol class="hb-breadcrumb__list">
                     <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
                     <li><span class="hb-breadcrumb__sep">/</span></li>
