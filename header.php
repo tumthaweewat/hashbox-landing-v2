@@ -25,7 +25,7 @@ $hashbox_is_website_audit = is_page( 'website-audit' );
     <header class="hb-nav<?php echo $hashbox_is_ai_audit ? ' hb-nav--ai-audit' : ''; ?>" id="siteNav">
         <div class="hb-nav__inner">
             <?php if ( $hashbox_is_website_audit ) : ?>
-                <span class="hb-nav__brand" aria-label="Hashbox Studio">
+                <span class="hb-nav__brand">
                     <span class="hb-nav__brand-mark">H</span>
                     <span>HASHBOX<span class="hb-nav__brand-accent">.STUDIO</span></span>
                 </span>
@@ -47,7 +47,6 @@ $hashbox_is_website_audit = is_page( 'website-audit' );
 
             <div class="hb-nav__actions">
                 <?php if ( $hashbox_is_website_audit ) : ?>
-                    <a href="https://lin.ee/Xagx6i4" class="hb-nav__link" target="_blank" rel="noopener noreferrer">LINE</a>
                     <a href="#project-form" class="hb-btn hb-btn--outline hb-btn--sm">ขอประเมิน</a>
                 <?php elseif ( $hashbox_is_ai_audit ) : ?>
                     <a href="#audit-form" class="hb-btn hb-btn--gradient hb-btn--sm hb-ai-button" data-track-event="ai_cta_click">ส่งโจทย์ AI</a>
