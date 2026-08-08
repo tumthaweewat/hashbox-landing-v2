@@ -175,6 +175,28 @@ function hashbox_enqueue_assets() {
             );
         }
     }
+
+    if ( is_page( 'website-audit' ) ) {
+        $website_audit_js = get_template_directory() . '/js/website-audit-tracking.js';
+        if ( file_exists( $website_audit_js ) ) {
+            wp_enqueue_script(
+                'hashbox-website-audit-tracking',
+                $theme_uri . '/js/website-audit-tracking.js',
+                array( 'hashbox-v2-script' ),
+                filemtime( $website_audit_js ),
+                true
+            );
+            wp_localize_script(
+                'hashbox-website-audit-tracking',
+                'hashboxWebsiteAuditTracking',
+                array(
+                    'prepareUrl'            => admin_url( 'admin-ajax.php' ),
+                    'prepareAction'         => 'hashbox_prepare_website_audit_lead',
+                    'conversionDestination' => 'AW-18190672421/zT9ACPe6ttocEKXE_uFD',
+                )
+            );
+        }
+    }
 }
 add_action( 'wp_enqueue_scripts', 'hashbox_enqueue_assets' );
 
@@ -725,8 +747,8 @@ function hashbox_get_seo_metadata() {
                 'description' => 'ติดตั้ง GA4, GSC, Server-side GTM, Looker Studio, heatmap และ A/B testing พร้อมรัน CRO Sprint รายเดือนเพื่อเพิ่ม conversion จาก traffic เดิม',
             ),
             'ai-consulting' => array(
-                'title'       => 'AI Consulting Bangkok | ที่ปรึกษา AI ธุรกิจไทย | Hashbox',
-                'description' => 'AI Consulting Bangkok สำหรับธุรกิจไทย — LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Integration · คุยประเมินโอกาสฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท',
+                'title'       => 'ที่ปรึกษา AI สำหรับธุรกิจ | ปรึกษาทำระบบ AI Solution | Hashbox',
+                'description' => 'บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทย — ปรึกษาทำระบบ AI, LINE Chatbot, RAG Knowledge Base และ Workflow Automation · คุยประเมินโอกาสฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท',
             ),
             'work' => array(
                 'title'       => 'Case Studies SEO, CRO, AI ที่วัดผลได้ | Hashbox',
@@ -1379,6 +1401,7 @@ function hashbox_audit_landing_pages() {
             'meta_description' => 'คุยกับทีม AI 30 นาทีเพื่อประเมินโอกาสลดงานซ้ำด้วย LINE Bot, RAG Knowledge Base และ Workflow Automation พร้อมแนวทางเริ่มต้นที่เหมาะกับธุรกิจ',
             'hero_headline'    => 'ลดงานซ้ำด้วย AI ที่วัด ROI ได้',
             'hero_subcopy'     => 'LINE Bot, RAG Knowledge Base และ Workflow Automation สำหรับทีมขายและซัพพอร์ตที่ต้องการตอบเร็วขึ้นโดยไม่เพิ่ม headcount',
+            'hero_vendor'      => 'AI Consulting + Production Implementation ในกรุงเทพฯ สำหรับธุรกิจไทย',
             'primary_cta'      => 'ส่งโจทย์ให้ทีม AI',
             'proof_line'       => '-60% Support Cost จาก AI Bot + RAG ภายใน 8 สัปดาห์',
             'creative_key'     => 'ai_workforce',
@@ -1421,6 +1444,44 @@ function hashbox_audit_landing_pages() {
                 'body'   => 'ทีม Hashbox เคยทำ AI Bot สำหรับ on-demand service ให้ตอบลูกค้า 24/7, ลด response time และ route งานซับซ้อนไปหา human โดยยังวัดผลผ่าน dashboard เดียว',
                 'href'   => '/work/autobot-line/',
             ),
+            'case_metrics'     => array(
+                array( 'metric' => '2 นาที', 'label' => 'Avg Response Time', 'detail' => 'ลดลงจาก 2 ชั่วโมง' ),
+                array( 'metric' => '84%', 'label' => 'AI-handled Resolution', 'detail' => 'AI จัดการเคสได้โดยไม่ต้องส่งต่อ' ),
+                array( 'metric' => '8 สัปดาห์', 'label' => 'Time to Production', 'detail' => 'จาก discovery ถึงระบบที่ใช้งานจริง' ),
+            ),
+            'engagements'      => array(
+                array(
+                    'title'    => 'AI Opportunity Screening',
+                    'price'    => 'ฟรี',
+                    'timeline' => '30 นาที',
+                    'body'     => 'คุยโจทย์ ความพร้อมของข้อมูล และขั้นตอนถัดไปที่เหมาะกับธุรกิจ',
+                ),
+                array(
+                    'title'    => 'ROI Assessment',
+                    'price'    => 'เริ่ม 60,000 บาท',
+                    'timeline' => '1–2 สัปดาห์',
+                    'body'     => 'Discovery และวิเคราะห์ 1 use case เพื่อจัดลำดับ workflow และประเมิน ROI',
+                ),
+                array(
+                    'title'    => 'PoC + Validation',
+                    'price'    => 'เริ่ม 200,000 บาท',
+                    'timeline' => '3–5 สัปดาห์',
+                    'body'     => 'ทดสอบ 1 AI use case แบบ end-to-end กับข้อมูลจริงก่อนลงทุนระบบเต็ม',
+                ),
+                array(
+                    'title'    => 'Production Build',
+                    'price'    => 'เริ่ม 500,000 บาท',
+                    'timeline' => '6–12 สัปดาห์',
+                    'body'     => '1–2 AI systems พร้อม integration, source code, monitoring และซัพพอร์ตหลังเปิดใช้ 30 วัน',
+                ),
+            ),
+            'engagement_note'  => 'ราคาเริ่มต้นตามขอบเขตที่ระบุ ไม่รวม VAT 7% และค่า API · ทีมจะสรุป scope และใบเสนอราคาหลัง Screening',
+            'project_lead'     => array(
+                'name'       => 'Tum Thaweewat',
+                'role'       => 'Head of Tech',
+                'experience' => '17 ปีในงาน Software Engineering',
+                'linkedin'   => 'https://www.linkedin.com/in/tumthaweewat/',
+            ),
             'process'          => array(
                 array( 'title' => 'วัด baseline งานซ้ำ', 'body' => 'เก็บคำถามซ้ำ, SLA, ticket volume และต้นทุนเวลาของทีม' ),
                 array( 'title' => 'เลือก use case ที่คืนทุน', 'body' => 'จัด priority ด้วย ROI, integration effort และ risk ของข้อมูล' ),
@@ -1428,7 +1489,12 @@ function hashbox_audit_landing_pages() {
             ),
             'faqs'             => array(
                 array( 'q' => 'Screening นี้เหมาะกับธุรกิจแบบไหน?', 'a' => 'เหมาะกับทีมที่มีแชทลูกค้าเยอะ มี FAQ หรือ policy ซ้ำ ๆ และอยากเริ่มใช้ AI แบบวัดผลได้ ไม่ใช่ทำ demo แล้วจบ' ),
+                array( 'q' => 'Screening ฟรีต่างจาก ROI Assessment อย่างไร?', 'a' => 'Screening 30 นาทีใช้เพื่อดูโจทย์ ความพร้อม และ next step เบื้องต้น ส่วน ROI Assessment เป็นงานแบบเสียค่าใช้จ่ายที่ map workflow และเปรียบเทียบชั่วโมงที่ลดได้กับค่าพัฒนาและ API' ),
+                array( 'q' => 'ราคาเริ่มต้นและใช้เวลาเท่าไหร่?', 'a' => 'ROI Assessment เริ่ม 60,000 บาท ใช้เวลา 1–2 สัปดาห์ · PoC + Validation เริ่ม 200,000 บาท ใช้เวลา 3–5 สัปดาห์ · Production Build เริ่ม 500,000 บาท ใช้เวลา 6–12 สัปดาห์ ขึ้นกับข้อมูลและ integration scope' ),
                 array( 'q' => 'ต้องมีข้อมูลพร้อมแค่ไหนก่อนเริ่ม?', 'a' => 'ไม่จำเป็นต้องพร้อมทั้งหมดครับ Screening จะช่วยบอกว่าข้อมูลส่วนไหนใช้ได้ทันที ส่วนไหนควรจัดโครงสร้างก่อนนำเข้า RAG หรือ Bot' ),
+                array( 'q' => 'ข้อมูลลูกค้าและ PDPA ดูแลอย่างไร?', 'a' => 'ทีมเลือก AI provider ตามความไวของข้อมูล รองรับทั้ง enterprise provider และ self-host พร้อมวาง data masking และ audit log ตามขอบเขตโปรเจกต์' ),
+                array( 'q' => 'ลูกค้าได้รับ source code และถูกผูกกับ vendor หรือไม่?', 'a' => 'ลูกค้าเป็นเจ้าของ source code 100% ตามขอบเขตที่ตกลง ไม่ผูก vendor และระบบ production มี monitoring, cost guardrails และ fallback logic' ),
+                array( 'q' => 'มีดูแลระบบหลังเปิดใช้หรือไม่?', 'a' => 'มี Care Plan รายเดือนเริ่ม 30,000 บาท ครอบคลุม API cost monitoring, performance tracking, prompt update, hallucination guard, security patch และ monthly performance review' ),
                 array( 'q' => 'หลัง Screening ต้องจ้างทำต่อไหม?', 'a' => 'ไม่บังคับครับ คุณจะได้แนวทางเบื้องต้นกลับไปตัดสินใจ ถ้าต้องการ business case แบบลงรายละเอียดค่อยเริ่ม ROI Assessment Report หรือ PoC ต่อ' ),
             ),
         ),
@@ -2504,7 +2570,7 @@ function hashbox_llms_txt_content() {
     $lines[] = '## Services';
     $lines[] = '';
     $lines[] = '- [SEO-Ready Website Build](' . home_url( '/services/website-development/' ) . '): รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่ launch · Lighthouse 100 · Schema ครบ · เริ่ม 80,000 บาท';
-    $lines[] = '- [AI Consulting Bangkok](' . home_url( '/services/ai-consulting/' ) . '): ที่ปรึกษา AI สำหรับธุรกิจไทย · LLM integration · automation · custom agent';
+    $lines[] = '- [ที่ปรึกษา AI สำหรับธุรกิจ](' . home_url( '/services/ai-consulting/' ) . '): บริการให้คำปรึกษาและปรึกษาทำระบบ AI Solution · LLM integration · automation · custom agent';
     $lines[] = '- [Digital Marketing Tools](' . home_url( '/services/digital-marketing-tools/' ) . '): SEO + CRO + analytics tooling';
     $lines[] = '';
     $lines[] = '## Pillar Guides';
@@ -2655,6 +2721,97 @@ add_action( 'wp_head', 'hashbox_inject_home_faq_schema', 21 );
 /**
  * Contact form submission handler (admin-post.php endpoint).
  */
+function hashbox_is_uuid_v4( $value ) {
+    return is_string( $value )
+        && 1 === preg_match( '/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i', $value );
+}
+
+function hashbox_website_audit_lead_transient_key( $lead_ref ) {
+    return 'hb_website_lead_' . md5( (string) $lead_ref );
+}
+
+function hashbox_website_audit_lead_claim_key( $lead_ref ) {
+    return 'hb_website_lead_claim_' . md5( (string) $lead_ref );
+}
+
+function hashbox_website_audit_lead_signature( $lead_ref ) {
+    return hash_hmac( 'sha256', 'website-audit|' . (string) $lead_ref, wp_salt( 'auth' ) );
+}
+
+/**
+ * Prepare a correlation ID and contact nonce before the Website Audit form is
+ * submitted. The UUID is copied into HubSpot by the collected-form runtime and
+ * is reused by the success email and Google Ads transaction ID.
+ */
+function hashbox_prepare_website_audit_lead() {
+    $ip       = isset( $_SERVER['REMOTE_ADDR'] ) ? preg_replace( '/[^0-9a-f:.]/i', '', wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : 'unknown';
+    $rate_key = 'hb_website_prepare_rl_' . md5( $ip );
+    $hits     = (int) get_transient( $rate_key );
+    if ( $hits >= 60 ) {
+        wp_send_json_error( array( 'message' => 'Too many preparation requests.' ), 429 );
+    }
+    set_transient( $rate_key, $hits + 1, 30 * MINUTE_IN_SECONDS );
+
+    $lead_ref = wp_generate_uuid4();
+    set_transient(
+        hashbox_website_audit_lead_transient_key( $lead_ref ),
+        'prepared',
+        6 * HOUR_IN_SECONDS
+    );
+
+    wp_send_json_success( array(
+        'lead_ref' => $lead_ref,
+        'nonce'    => wp_create_nonce( 'hashbox_contact' ),
+    ) );
+}
+add_action( 'wp_ajax_nopriv_hashbox_prepare_website_audit_lead', 'hashbox_prepare_website_audit_lead' );
+add_action( 'wp_ajax_hashbox_prepare_website_audit_lead', 'hashbox_prepare_website_audit_lead' );
+
+/**
+ * Return the verified Website Audit lead reference for a success page.
+ */
+function hashbox_get_confirmed_website_audit_lead_ref() {
+    if ( ! is_page( 'website-audit' ) ) {
+        return '';
+    }
+
+    $contact  = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_GET['contact'] ) ) : '';
+    $lead_ref = isset( $_GET['lead_ref'] ) ? sanitize_text_field( wp_unslash( $_GET['lead_ref'] ) ) : '';
+    $lead_sig = isset( $_GET['lead_sig'] ) ? sanitize_text_field( wp_unslash( $_GET['lead_sig'] ) ) : '';
+
+    if ( 'sent' !== $contact || ! hashbox_is_uuid_v4( $lead_ref ) || ! preg_match( '/^[a-f0-9]{64}$/i', $lead_sig ) ) {
+        return '';
+    }
+
+    if ( 'sent' !== get_transient( hashbox_website_audit_lead_transient_key( $lead_ref ) ) ) {
+        return '';
+    }
+
+    $expected = hashbox_website_audit_lead_signature( $lead_ref );
+    return hash_equals( $expected, strtolower( $lead_sig ) ) ? $lead_ref : '';
+}
+
+function hashbox_print_website_audit_confirmation_meta() {
+    $lead_ref = hashbox_get_confirmed_website_audit_lead_ref();
+    if ( '' === $lead_ref ) {
+        return;
+    }
+
+    echo '<meta name="hashbox-confirmed-website-lead" content="' . esc_attr( $lead_ref ) . '">' . "\n";
+}
+add_action( 'wp_head', 'hashbox_print_website_audit_confirmation_meta', 2 );
+
+function hashbox_disable_cache_for_confirmed_website_audit_lead() {
+    if ( '' === hashbox_get_confirmed_website_audit_lead_ref() ) {
+        return;
+    }
+    if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+        define( 'DONOTCACHEPAGE', true );
+    }
+    nocache_headers();
+}
+add_action( 'template_redirect', 'hashbox_disable_cache_for_confirmed_website_audit_lead', 0 );
+
 function hashbox_get_audit_landing_for_return_url( $url ) {
     $path      = trim( (string) wp_parse_url( $url, PHP_URL_PATH ), '/' );
     $home_path = trim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
@@ -2674,12 +2831,56 @@ function hashbox_get_audit_landing_for_return_url( $url ) {
         : null;
 }
 
+/**
+ * Send the AI lead acknowledgement outside the conversion-critical redirect.
+ */
+function hashbox_send_ai_confirmation_email( $email, $name, $lead_ref ) {
+    $email    = sanitize_email( $email );
+    $name     = sanitize_text_field( $name );
+    $lead_ref = sanitize_text_field( $lead_ref );
+
+    if ( ! is_email( $email ) || ! preg_match( '/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i', $lead_ref ) ) {
+        return;
+    }
+
+    $confirmation_subject = '[Hashbox] รับโจทย์ AI ของคุณแล้ว';
+    $confirmation_body    = implode( "\n", array(
+        'สวัสดีคุณ ' . $name . ',',
+        '',
+        'ทีม Hashbox ได้รับโจทย์ AI Opportunity Screening ของคุณแล้ว และจะติดต่อกลับภายใน 1–3 วันทำการ',
+        '',
+        'สิ่งที่เตรียมไว้ก่อนคุยจะช่วยให้ประเมินได้เร็วขึ้น:',
+        '• Workflow หรือปัญหาปัจจุบันที่อยากลดงานซ้ำ',
+        '• แหล่งข้อมูลที่เกี่ยวข้อง เช่น LINE, CRM, Sheet, PDF หรือ Notion',
+        '• Baseline ที่มี เช่น จำนวนเคส เวลาตอบ หรือชั่วโมงที่ใช้ต่อสัปดาห์',
+        '• Stakeholder ที่ดูแล workflow และระบบเดิม',
+        '',
+        'ถ้าต้องการส่งข้อมูลเพิ่มเติม คุยกับทีมทาง LINE: https://lin.ee/Xagx6i4',
+        '',
+        'เลขอ้างอิง: ' . $lead_ref,
+        '',
+        'Hashbox Studio',
+    ) );
+
+    wp_mail(
+        $email,
+        $confirmation_subject,
+        $confirmation_body,
+        array(
+            'Content-Type: text/plain; charset=UTF-8',
+            'Reply-To: Hashbox Studio <business@hashbox.co.th>',
+        )
+    );
+}
+add_action( 'hashbox_send_ai_confirmation_email', 'hashbox_send_ai_confirmation_email', 10, 3 );
+
 function hashbox_handle_contact_submit() {
     if ( ! isset( $_POST['hashbox_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['hashbox_nonce'] ), 'hashbox_contact' ) ) {
         wp_die( 'Invalid request token.', 'Forbidden', array( 'response' => 403 ) );
     }
 
     $name               = isset( $_POST['name'] )               ? sanitize_text_field( wp_unslash( $_POST['name'] ) )               : '';
+    $company            = isset( $_POST['company'] )            ? sanitize_text_field( wp_unslash( $_POST['company'] ) )            : '';
     $email              = isset( $_POST['email'] )              ? sanitize_email( wp_unslash( $_POST['email'] ) )                   : '';
     $phone              = isset( $_POST['phone'] )              ? sanitize_text_field( wp_unslash( $_POST['phone'] ) )              : '';
     $website            = isset( $_POST['website'] )            ? esc_url_raw( wp_unslash( $_POST['website'] ) )                    : '';
@@ -2696,18 +2897,28 @@ function hashbox_handle_contact_submit() {
     $redirect_to = isset( $_POST['redirect_to'] ) ? esc_url_raw( wp_unslash( $_POST['redirect_to'] ) ) : home_url( '/#contact' );
     $redirect_to = wp_validate_redirect( $redirect_to, home_url( '/#contact' ) );
     $landing      = hashbox_get_audit_landing_for_return_url( $redirect_to );
-    $landing_slug = is_array( $landing ) && isset( $landing['slug'] ) ? $landing['slug'] : '';
+    $posted_landing_slug = isset( $_POST['landing_slug'] ) ? sanitize_key( wp_unslash( $_POST['landing_slug'] ) ) : '';
+    $redirect_path       = trim( (string) wp_parse_url( $redirect_to, PHP_URL_PATH ), '/' );
+    $website_audit_path  = trim( (string) wp_parse_url( home_url( '/website-audit/' ), PHP_URL_PATH ), '/' );
+    $is_website_audit_form = 'website-audit' === $posted_landing_slug && $redirect_path === $website_audit_path;
+    $landing_slug = is_array( $landing ) && isset( $landing['slug'] )
+        ? $landing['slug']
+        : ( $is_website_audit_form ? 'website-audit' : '' );
     $is_ai_route  = 'ai-workflow-audit' === $landing_slug;
     $ai_nonce_ok  = isset( $_POST['hashbox_ai_nonce'] )
         && wp_verify_nonce( wp_unslash( $_POST['hashbox_ai_nonce'] ), 'hashbox_ai_contact' );
     $is_ai_form    = $is_ai_route && $ai_nonce_ok;
     $is_audit_form = is_array( $landing );
+    $needs_contact_detail = $is_ai_form && in_array( $contact_preference, array( 'LINE', 'โทร' ), true );
+    $invalid_ai_contact_preference = $is_ai_form && ! in_array( $contact_preference, array( '', 'LINE', 'โทร' ), true );
 
     $invalid = ( $is_ai_route && ! $ai_nonce_ok ) || ( $is_ai_form
-        ? ( $name === '' || $email === '' || ! is_email( $email ) || $message === '' || ! $pdpa )
-        : ( $is_audit_form
-            ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
-            : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) ) );
+        ? ( $name === '' || $company === '' || $email === '' || ! is_email( $email ) || $message === '' || $invalid_ai_contact_preference || ( $needs_contact_detail && $contact_detail === '' ) || ! $pdpa )
+        : ( $is_website_audit_form
+            ? ( $name === '' || $company === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || $budget === '' || $timeline === '' || 'phone-or-line' !== $contact_preference || $contact_detail === '' || $message === '' || ! $pdpa )
+            : ( $is_audit_form
+                ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
+                : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) ) ) );
 
     if ( $email !== '' && ! is_email( $email ) ) {
         $invalid = true;
@@ -2725,10 +2936,62 @@ function hashbox_handle_contact_submit() {
 
     $reply_email = is_email( $email ) ? $email : ( is_email( $contact_detail ) ? $contact_detail : '' );
     $to          = 'business@hashbox.co.th';
-    $request_type = $is_ai_form ? 'AI consultation request' : ( $is_audit_form ? 'Audit request' : 'New enquiry' );
+    $request_type = $is_ai_form
+        ? 'AI consultation request'
+        : ( $is_website_audit_form ? 'Website project evaluation' : ( $is_audit_form ? 'Audit request' : 'New enquiry' ) );
     $subject      = sprintf( '[Hashbox V2] %s from %s — %s', $request_type, $name, $service ?: 'unspecified' );
-    $body_lines  = array(
-        'Name / Company: ' . $name,
+    $lead_ref     = $is_ai_form ? wp_generate_uuid4() : '';
+    $prepared_website_lead = false;
+    $prepared_lead_claim_key = '';
+
+    if ( $is_website_audit_form ) {
+        $prepared_lead_ref = isset( $_POST['lead_ref'] ) ? sanitize_text_field( wp_unslash( $_POST['lead_ref'] ) ) : '';
+        $prepared_lead_key = hashbox_is_uuid_v4( $prepared_lead_ref )
+            ? hashbox_website_audit_lead_transient_key( $prepared_lead_ref )
+            : '';
+        $prepared_lead_state = $prepared_lead_key ? get_transient( $prepared_lead_key ) : false;
+
+        if ( 'sent' === $prepared_lead_state ) {
+            wp_safe_redirect( add_query_arg( array(
+                'contact'  => 'sent',
+                'lead_ref' => $prepared_lead_ref,
+                'lead_sig' => hashbox_website_audit_lead_signature( $prepared_lead_ref ),
+            ), $redirect_to ) );
+            exit;
+        }
+
+        if ( 'prepared' !== $prepared_lead_state ) {
+            wp_safe_redirect( add_query_arg( 'contact', 'invalid', $redirect_to ) );
+            exit;
+        }
+
+        $lead_ref = $prepared_lead_ref;
+        $prepared_lead_claim_key = hashbox_website_audit_lead_claim_key( $lead_ref );
+        $claim_acquired = add_option( $prepared_lead_claim_key, time(), '', false );
+        if ( ! $claim_acquired ) {
+            $claimed_at = (int) get_option( $prepared_lead_claim_key, 0 );
+            if ( $claimed_at > 0 && $claimed_at < time() - ( 10 * MINUTE_IN_SECONDS ) ) {
+                delete_option( $prepared_lead_claim_key );
+                $claim_acquired = add_option( $prepared_lead_claim_key, time(), '', false );
+            }
+        }
+        if ( ! $claim_acquired ) {
+            wp_safe_redirect( add_query_arg( 'contact', 'processing', $redirect_to ) );
+            exit;
+        }
+
+        $prepared_website_lead = true;
+        // Claim before sending email so the same prepared reference cannot
+        // mint another conversion through a replayed form submission.
+        set_transient( $prepared_lead_key, 'claimed', 6 * HOUR_IN_SECONDS );
+    }
+
+    $body_lines = $is_ai_form
+        ? array( 'Name: ' . $name, 'Company: ' . $company, 'Lead reference: ' . $lead_ref )
+        : ( $is_website_audit_form
+            ? array( 'Name: ' . $name, 'Company: ' . $company, 'Lead reference: ' . $lead_ref )
+            : array( 'Name / Company: ' . $name ) );
+    $body_lines   = array_merge( $body_lines, array(
         'Email: ' . $email,
         'Phone: ' . $phone,
         'Website: ' . $website,
@@ -2751,7 +3014,7 @@ function hashbox_handle_contact_submit() {
         'gclid: ' . $utm['gclid'],
         'wbraid: ' . $utm['wbraid'],
         'gbraid: ' . $utm['gbraid'],
-    );
+    ) );
     $body        = implode( "\n", $body_lines );
     $headers     = array( 'Content-Type: text/plain; charset=UTF-8' );
     if ( $reply_email ) {
@@ -2760,11 +3023,35 @@ function hashbox_handle_contact_submit() {
 
     $sent = wp_mail( $to, $subject, $body, $headers );
     if ( $sent && $is_ai_form ) {
+        $confirmation_queued = wp_schedule_single_event(
+            time(),
+            'hashbox_send_ai_confirmation_email',
+            array( $email, $name, $lead_ref )
+        );
         wp_safe_redirect( add_query_arg( array(
-            'contact'  => 'ai_sent',
-            'lead_ref' => wp_generate_uuid4(),
+            'contact'      => 'ai_sent',
+            'lead_ref'     => $lead_ref,
+            'confirmation' => $confirmation_queued ? 'queued' : 'unavailable',
         ), $redirect_to ) );
         exit;
+    }
+
+    if ( $sent && $is_website_audit_form ) {
+        if ( $prepared_website_lead ) {
+            set_transient( hashbox_website_audit_lead_transient_key( $lead_ref ), 'sent', 6 * HOUR_IN_SECONDS );
+            delete_option( $prepared_lead_claim_key );
+        }
+        wp_safe_redirect( add_query_arg( array(
+            'contact'  => 'sent',
+            'lead_ref' => $lead_ref,
+            'lead_sig' => hashbox_website_audit_lead_signature( $lead_ref ),
+        ), $redirect_to ) );
+        exit;
+    }
+
+    if ( ! $sent && $prepared_website_lead ) {
+        set_transient( hashbox_website_audit_lead_transient_key( $lead_ref ), 'failed', 10 * MINUTE_IN_SECONDS );
+        delete_option( $prepared_lead_claim_key );
     }
 
     wp_safe_redirect( add_query_arg( 'contact', $sent ? 'sent' : 'error', $redirect_to ) );
@@ -3793,6 +4080,14 @@ function hashbox_print_third_party_delay_loader() {
             window.dispatchEvent(new CustomEvent('hashbox:third-party-ready'));
             return;
           }
+          // The signed Website Audit flow now owns its success UI and Meta
+          // event. Skipping the editor-era runtime prevents it from removing
+          // the retryable Google conversion URL before delivery is confirmed.
+          if (isConfirmedWebsiteLead && !old.src && /trackConfirmedMetaLead/.test(old.textContent || '')) {
+            old.remove();
+            next();
+            return;
+          }
           var s = document.createElement('script');
           for (var i = 0; i < old.attributes.length; i++) {
             var a = old.attributes[i];
@@ -3813,12 +4108,21 @@ function hashbox_print_third_party_delay_loader() {
       events.forEach(function (ev) { window.addEventListener(ev, activate, { passive: true }); });
       var successParams = new URLSearchParams(window.location.search);
       var successLeadRef = successParams.get('lead_ref') || '';
+      var successUuidPattern = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
       var isConfirmedAiLead = document.querySelector('.hb-audit[data-audit-slug="ai-workflow-audit"]')
         && successParams.get('contact') === 'ai_sent'
-        && /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(successLeadRef);
-      if (isConfirmedAiLead) { window.setTimeout(activate, 0); }
+        && successUuidPattern.test(successLeadRef);
+      var confirmedWebsiteLeadMeta = document.querySelector('meta[name="hashbox-confirmed-website-lead"]');
+      var isConfirmedWebsiteLead = successParams.get('contact') === 'sent'
+        && successUuidPattern.test(successLeadRef)
+        && confirmedWebsiteLeadMeta
+        && confirmedWebsiteLeadMeta.getAttribute('content') === successLeadRef;
+      if (isConfirmedWebsiteLead) { window.hashboxConfirmedWebsiteLeadRef = successLeadRef; }
+      if (isConfirmedAiLead || isConfirmedWebsiteLead) { window.setTimeout(activate, 0); }
     })();
     </script>
     <?php
 }
-add_action( 'wp_footer', 'hashbox_print_third_party_delay_loader', 5 );
+// Run after enqueued footer scripts so success-page guards and transaction IDs
+// are installed before any delayed legacy tracker is reactivated.
+add_action( 'wp_footer', 'hashbox_print_third_party_delay_loader', 25 );

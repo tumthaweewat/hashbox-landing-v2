@@ -1,6 +1,7 @@
 <?php
-$hashbox_header_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
-$hashbox_is_ai_audit    = is_array( $hashbox_header_landing ) && 'ai-workflow-audit' === $hashbox_header_landing['slug'];
+$hashbox_header_landing   = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
+$hashbox_is_ai_audit      = is_array( $hashbox_header_landing ) && 'ai-workflow-audit' === $hashbox_header_landing['slug'];
+$hashbox_is_website_audit = is_page( 'website-audit' );
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -23,12 +24,19 @@ $hashbox_is_ai_audit    = is_array( $hashbox_header_landing ) && 'ai-workflow-au
 
     <header class="hb-nav<?php echo $hashbox_is_ai_audit ? ' hb-nav--ai-audit' : ''; ?>" id="siteNav">
         <div class="hb-nav__inner">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="hb-nav__brand">
-                <span class="hb-nav__brand-mark">H</span>
-                <span>HASHBOX<span class="hb-nav__brand-accent">.STUDIO</span></span>
-            </a>
+            <?php if ( $hashbox_is_website_audit ) : ?>
+                <span class="hb-nav__brand">
+                    <span class="hb-nav__brand-mark">H</span>
+                    <span>HASHBOX<span class="hb-nav__brand-accent">.STUDIO</span></span>
+                </span>
+            <?php else : ?>
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="hb-nav__brand">
+                    <span class="hb-nav__brand-mark">H</span>
+                    <span>HASHBOX<span class="hb-nav__brand-accent">.STUDIO</span></span>
+                </a>
+            <?php endif; ?>
 
-            <?php if ( ! $hashbox_is_ai_audit ) : ?>
+            <?php if ( ! $hashbox_is_ai_audit && ! $hashbox_is_website_audit ) : ?>
                 <nav class="hb-nav__primary" aria-label="Primary">
                     <ul class="hb-nav__menu">
                         <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-nav__link">Services</a></li>
@@ -40,7 +48,9 @@ $hashbox_is_ai_audit    = is_array( $hashbox_header_landing ) && 'ai-workflow-au
             <?php endif; ?>
 
             <div class="hb-nav__actions">
-                <?php if ( $hashbox_is_ai_audit ) : ?>
+                <?php if ( $hashbox_is_website_audit ) : ?>
+                    <a href="#project-form" class="hb-btn hb-btn--outline hb-btn--sm">ขอประเมิน</a>
+                <?php elseif ( $hashbox_is_ai_audit ) : ?>
                     <a href="#audit-form" class="hb-btn hb-btn--gradient hb-btn--sm hb-ai-button" data-track-event="ai_cta_click">ส่งโจทย์ AI</a>
                 <?php else : ?>
                     <span class="hb-nav__status">All systems live</span>
@@ -53,7 +63,7 @@ $hashbox_is_ai_audit    = is_array( $hashbox_header_landing ) && 'ai-workflow-au
         </div>
     </header>
 
-    <?php if ( ! $hashbox_is_ai_audit ) : ?>
+    <?php if ( ! $hashbox_is_ai_audit && ! $hashbox_is_website_audit ) : ?>
         <div class="hb-sheet-backdrop"></div>
         <div class="hb-sheet" id="navSheet" role="dialog" aria-modal="true" aria-labelledby="navSheetTitle" aria-hidden="true">
             <div class="hb-sheet__head">

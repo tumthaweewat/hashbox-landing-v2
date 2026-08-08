@@ -167,6 +167,7 @@
     var cleanUrl = new URL(window.location.href);
     cleanUrl.searchParams.delete('contact');
     cleanUrl.searchParams.delete('lead_ref');
+    cleanUrl.searchParams.delete('confirmation');
     window.history.replaceState({}, '', cleanUrl.pathname + (cleanUrl.searchParams.toString() ? '?' + cleanUrl.searchParams.toString() : '') + cleanUrl.hash);
   }
 
@@ -300,6 +301,31 @@
     }, 0);
   }
 
+  function initAiContactRequirement(form) {
+    var preference = form.querySelector('[data-ai-contact-preference]');
+    var detail = form.querySelector('[data-ai-contact-detail]');
+    var requiredMark = form.querySelector('[data-ai-contact-required]');
+    if (!preference || !detail) return;
+
+    function syncRequirement() {
+      var required = preference.value === 'LINE' || preference.value === 'โทร';
+      detail.required = required;
+      if (required) {
+        detail.setAttribute('aria-required', 'true');
+      } else {
+        detail.removeAttribute('aria-required');
+      }
+      if (requiredMark) requiredMark.hidden = !required;
+    }
+
+    preference.addEventListener('change', syncRequirement);
+    detail.addEventListener('invalid', function () {
+      var disclosure = detail.closest('details');
+      if (disclosure) disclosure.open = true;
+    });
+    syncRequirement();
+  }
+
   function initAiStickyCta(root) {
     if (root.dataset.auditSlug !== 'ai-workflow-audit') return;
 
@@ -365,6 +391,7 @@
   focusContactAlert();
 
   document.querySelectorAll('[data-audit-form]').forEach(function (form) {
+    initAiContactRequirement(form);
     form.addEventListener('submit', function () {
       applyAttribution(attribution);
       window.hashboxTrack('audit_request_submit', {

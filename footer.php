@@ -1,11 +1,29 @@
     </main>
 
     <?php
-    $hashbox_footer_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
-    $hashbox_is_ai_audit    = is_array( $hashbox_footer_landing ) && 'ai-workflow-audit' === $hashbox_footer_landing['slug'];
+    $hashbox_footer_landing   = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
+    $hashbox_is_ai_audit      = is_array( $hashbox_footer_landing ) && 'ai-workflow-audit' === $hashbox_footer_landing['slug'];
+    $hashbox_is_website_audit = is_page( 'website-audit' );
     ?>
 
-    <?php if ( $hashbox_is_ai_audit ) : ?>
+    <?php if ( $hashbox_is_website_audit ) : ?>
+        <footer class="hb-footer" style="margin-top: 0; padding-block: var(--hb-space-6);">
+            <div class="hb-container">
+                <div class="hb-footer__bottom" style="margin-top: 0; padding-top: 0; border-top: 0;">
+                    <span class="hb-footer__brand-mark">
+                        <span class="hb-nav__brand-mark">H</span>
+                        HASHBOX<span class="hb-nav__brand-accent">.STUDIO</span>
+                    </span>
+                    <span>&copy; <?php echo esc_html( date( 'Y' ) ); ?> Hashbox Studio</span>
+                    <nav class="hb-footer__legal" aria-label="ช่องทางติดต่อและข้อมูลส่วนบุคคล">
+                        <a href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer">LINE</a>
+                        <a href="mailto:business@hashbox.co.th">business@hashbox.co.th</a>
+                        <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Privacy / PDPA</a>
+                    </nav>
+                </div>
+            </div>
+        </footer>
+    <?php elseif ( $hashbox_is_ai_audit ) : ?>
         <footer class="hb-ai-footer">
             <div class="hb-container">
                 <p class="hb-ai-footer__statement">เริ่มจากโจทย์ที่ชัด ก่อนลงทุนทำ AI</p>
@@ -45,7 +63,7 @@
                     <ul>
                         <li><a href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>">SEO-Ready Website</a></li>
                         <li><a href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>">Marketing Tools + CRO</a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>">AI Expert Consulting</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>">ที่ปรึกษา AI สำหรับธุรกิจ</a></li>
                         <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">All Services</a></li>
                     </ul>
                 </div>
