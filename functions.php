@@ -1364,17 +1364,17 @@ function hashbox_audit_landing_pages() {
                 array(
                     'title' => 'AI / LINE Chatbot',
                     'body'  => 'ตอบ FAQ, สถานะงาน และคำถามก่อนขายตลอด 24 ชั่วโมง พร้อมส่งต่อเคสซับซ้อนให้ทีมงาน',
-                    'fit'   => 'เหมาะเมื่อทีมตอบคำถามเดิมซ้ำ ๆ และลูกค้ารอคำตอบนอกเวลาทำการ',
+                    'fit'   => 'ทีมตอบคำถามเดิมซ้ำ ๆ และลูกค้ารอคำตอบนอกเวลาทำการ',
                 ),
                 array(
                     'title' => 'Workflow Automation',
                     'body'  => 'เชื่อม LINE, CRM, Sheet, Email และระบบหลังบ้าน เพื่อลดการคัดลอกข้อมูลและงานส่งต่อแบบ manual',
-                    'fit'   => 'เหมาะเมื่อข้อมูลเดียวกันต้องถูกกรอกหลายระบบ หรือมีงานตกหล่นระหว่างทีม',
+                    'fit'   => 'ข้อมูลเดียวกันต้องถูกกรอกหลายระบบ หรือมีงานตกหล่นระหว่างทีม',
                 ),
                 array(
                     'title' => 'RAG Knowledge Assistant',
                     'body'  => 'ค้นและตอบจากเอกสารภายใน เช่น policy, product spec, SOP และคู่มือ โดยอ้างอิงแหล่งข้อมูลที่ตรวจสอบได้',
-                    'fit'   => 'เหมาะเมื่อความรู้อยู่กระจายใน PDF, Drive หรือ Notion และคนหาไม่ทันเวลาที่ต้องใช้',
+                    'fit'   => 'ความรู้อยู่กระจายใน PDF, Drive หรือ Notion และคนหาไม่ทันเวลาที่ต้องใช้',
                 ),
             ),
             'audit_includes'   => array(
@@ -1399,24 +1399,28 @@ function hashbox_audit_landing_pages() {
                     'price'    => 'ฟรี',
                     'timeline' => '30 นาที',
                     'body'     => 'คุยโจทย์ ความพร้อมของข้อมูล และขั้นตอนถัดไปที่เหมาะกับธุรกิจ',
+                    'decision' => 'กรอบ use case และ next step เบื้องต้น เพื่อนำไปตัดสินใจต่อโดยไม่ผูกมัด',
                 ),
                 array(
                     'title'    => 'ROI Assessment',
                     'price'    => 'เริ่ม 60,000 บาท',
                     'timeline' => '1–2 สัปดาห์',
                     'body'     => 'Discovery และวิเคราะห์ 1 use case เพื่อจัดลำดับ workflow และประเมิน ROI',
+                    'decision' => 'ROI Assessment Report ของ 1 use case เพื่อเลือกทำ PoC ปรับ scope หรือหยุด',
                 ),
                 array(
                     'title'    => 'PoC + Validation',
                     'price'    => 'เริ่ม 200,000 บาท',
                     'timeline' => '3–5 สัปดาห์',
                     'body'     => 'ทดสอบ 1 AI use case แบบ end-to-end กับข้อมูลจริงก่อนลงทุนระบบเต็ม',
+                    'decision' => 'ผลทดสอบ end-to-end กับข้อมูลจริง เพื่อเลือกขึ้น Production ปรับ scope หรือหยุด',
                 ),
                 array(
                     'title'    => 'Production Build',
                     'price'    => 'เริ่ม 500,000 บาท',
                     'timeline' => '6–12 สัปดาห์',
                     'body'     => '1–2 AI systems พร้อม integration, source code, monitoring และซัพพอร์ตหลังเปิดใช้ 30 วัน',
+                    'decision' => 'Source code และระบบ Production พร้อม monitoring เพื่อให้ทีมรับช่วงต่อได้โดยไม่ผูก vendor',
                 ),
             ),
             'engagement_note'  => 'ราคาเริ่มต้นตามขอบเขตที่ระบุ ไม่รวม VAT 7% และค่า API · ทีมจะสรุป scope และใบเสนอราคาหลัง Screening',
@@ -1697,6 +1701,23 @@ function hashbox_audit_landing_canonical_url( $landing = null ) {
     $landing = $landing ?: hashbox_get_audit_landing_for_path();
     return $landing ? home_url( '/' . $landing['slug'] . '/' ) : home_url( '/' );
 }
+
+/**
+ * Mark virtual audit landing routes as valid before WordPress exits on HEAD.
+ */
+function hashbox_audit_landing_pre_handle_404( $preempt, $wp_query ) {
+    if ( is_admin() || wp_doing_ajax() || ! hashbox_get_audit_landing_for_path() ) {
+        return $preempt;
+    }
+
+    status_header( 200 );
+    $wp_query->is_404      = false;
+    $wp_query->is_page     = true;
+    $wp_query->is_singular = true;
+
+    return true;
+}
+add_filter( 'pre_handle_404', 'hashbox_audit_landing_pre_handle_404', 10, 2 );
 
 function hashbox_audit_landing_template_fallback( $template ) {
     if ( is_admin() || wp_doing_ajax() ) {

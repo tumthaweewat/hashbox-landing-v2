@@ -568,6 +568,16 @@ body.hb-audit-landing--ai_workforce :is(.hb-btn--gradient, .hb-btn--outline):act
   line-height: 1.65;
 }
 
+.hb-ai-engagements__copy .hb-ai-engagements__decision {
+  margin-block-start: var(--space-sm) !important;
+  color: var(--color-ink-2);
+  font-size: var(--text-sm);
+}
+
+.hb-ai-engagements__decision strong {
+  color: var(--color-ink);
+}
+
 .hb-ai-engagements__meta {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -601,6 +611,7 @@ body.hb-audit-landing--ai_workforce :is(.hb-btn--gradient, .hb-btn--outline):act
 }
 
 body.hb-audit-landing--ai_workforce .hb-audit-form-section {
+  scroll-margin-block-start: var(--space-3xl);
   padding-block: var(--space-2xl) var(--space-3xl);
   border-block: 0;
   background: var(--color-paper-2);

@@ -331,7 +331,7 @@
 
     var sticky = root.querySelector('[data-ai-sticky-cta]');
     var heroCta = root.querySelector('.hb-ai-hero__primary');
-    var formSection = root.querySelector('#audit-form');
+    var formSection = root.querySelector('[data-audit-form]');
     if (!sticky || !heroCta || !formSection || typeof window.IntersectionObserver !== 'function') return;
 
     var compactViewport = window.matchMedia('(max-width: 720px)');
