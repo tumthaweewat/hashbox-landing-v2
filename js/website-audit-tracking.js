@@ -1,0 +1,369 @@
+/**
+ * Website Audit attribution + confirmed conversion tracking.
+ *
+ * The WordPress page body is managed in the editor, so this runtime injects
+ * correlation and attribution fields without coupling them to page content.
+ */
+(function () {
+  'use strict';
+
+  var ATTRIBUTION_KEYS = [
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_content',
+    'utm_term',
+    'gclid',
+    'wbraid',
+    'gbraid'
+  ];
+  var CLICK_ID_KEYS = ['gclid', 'wbraid', 'gbraid'];
+  var STORAGE_KEY = 'hashbox_attribution_v3_website_audit';
+  var STORAGE_TTL_MS = 90 * 24 * 60 * 60 * 1000;
+  var CONVERSION_STATE_PREFIX = 'hashbox_website_audit_conversion_';
+  var META_STATE_PREFIX = 'hashbox_website_audit_meta_';
+  var UUID_V4_PATTERN = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
+  var config = window.hashboxWebsiteAuditTracking || {};
+  var form = document.querySelector('form[data-hb5-form]');
+
+  if (!form) return;
+
+  function readStoredAttribution() {
+    try {
+      var raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) return { data: {}, identity: '' };
+
+      var record = JSON.parse(raw);
+      var capturedAt = Number(record && record.capturedAt) || 0;
+      if (!record || record.version !== 3 || !record.data || !capturedAt || Date.now() - capturedAt > STORAGE_TTL_MS) {
+        window.localStorage.removeItem(STORAGE_KEY);
+        return { data: {}, identity: '' };
+      }
+
+      var data = {};
+      ATTRIBUTION_KEYS.forEach(function (key) {
+        if (typeof record.data[key] === 'string' && record.data[key]) {
+          data[key] = record.data[key];
+        }
+      });
+      return { data: data, identity: typeof record.identity === 'string' ? record.identity : '' };
+    } catch (err) {
+      return { data: {}, identity: '' };
+    }
+  }
+
+  function attributionIdentity(data) {
+    var clickIdentity = '';
+    CLICK_ID_KEYS.some(function (key) {
+      if (!data[key]) return false;
+      clickIdentity = 'click:' + key + ':' + data[key];
+      return true;
+    });
+    if (clickIdentity) return clickIdentity;
+
+    var campaign = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].map(function (key) {
+      return data[key] || '';
+    });
+    return campaign.some(Boolean) ? 'utm:' + campaign.join('|') : '';
+  }
+
+  function captureAttribution() {
+    var stored = readStoredAttribution();
+    var params = new URLSearchParams(window.location.search);
+    var incoming = {};
+    var found = false;
+
+    ATTRIBUTION_KEYS.forEach(function (key) {
+      var value = params.get(key);
+      if (!value) return;
+      incoming[key] = value;
+      found = true;
+    });
+
+    if (!found) return stored.data;
+
+    var incomingIdentity = attributionIdentity(incoming);
+    var next = incomingIdentity && stored.identity && incomingIdentity !== stored.identity
+      ? {}
+      : Object.assign({}, stored.data);
+
+    ATTRIBUTION_KEYS.forEach(function (key) {
+      if (incoming[key]) next[key] = incoming[key];
+    });
+
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        version: 3,
+        capturedAt: Date.now(),
+        identity: incomingIdentity || stored.identity,
+        data: next
+      }));
+    } catch (err) {}
+
+    return next;
+  }
+
+  function ensureHiddenField(name) {
+    var field = form.querySelector('input[name="' + name + '"]');
+    if (field) return field;
+
+    field = document.createElement('input');
+    field.type = 'hidden';
+    field.name = name;
+    field.setAttribute('data-hashbox-tracking-field', name);
+    form.appendChild(field);
+    return field;
+  }
+
+  function applyAttribution(data) {
+    ATTRIBUTION_KEYS.forEach(function (key) {
+      ensureHiddenField(key).value = data[key] || '';
+    });
+  }
+
+  function setFormReady(nonceValue, message) {
+    var nonce = form.querySelector('input[name="hashbox_nonce"]');
+    var submit = form.querySelector('[data-hb5-submit]');
+    var status = form.querySelector('[data-hb5-status]');
+
+    if (nonce && nonceValue && !nonce.value) nonce.value = nonceValue;
+    if (submit && nonce && nonce.value) submit.disabled = false;
+    if (status && message) {
+      status.textContent = message;
+      status.dataset.state = nonce && nonce.value ? 'success' : 'error';
+    }
+  }
+
+  function showPreparationError() {
+    var submit = form.querySelector('[data-hb5-submit]');
+    var status = form.querySelector('[data-hb5-status]');
+    if (submit) submit.disabled = true;
+    if (status) {
+      status.textContent = 'ระบบรับข้อมูลยังไม่พร้อม กรุณารีเฟรชหน้าแล้วลองอีกครั้ง';
+      status.dataset.state = 'error';
+    }
+  }
+
+  function prepareLead() {
+    if (!config.prepareUrl || !config.prepareAction || typeof window.fetch !== 'function') {
+      showPreparationError();
+      return;
+    }
+
+    var body = new URLSearchParams();
+    body.set('action', config.prepareAction);
+    var controller = typeof window.AbortController === 'function' ? new window.AbortController() : null;
+    var settled = false;
+    var timeout = window.setTimeout(function () {
+      if (settled) return;
+      showPreparationError();
+      if (controller) controller.abort();
+    }, 5000);
+
+    window.fetch(config.prepareUrl, {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+      body: body.toString(),
+      signal: controller ? controller.signal : undefined
+    })
+      .then(function (response) {
+        if (!response.ok) throw new Error('prepare');
+        return response.json();
+      })
+      .then(function (payload) {
+        var data = payload && payload.success && payload.data ? payload.data : null;
+        if (!data || !UUID_V4_PATTERN.test(data.lead_ref || '') || !data.nonce) throw new Error('payload');
+
+        ensureHiddenField('lead_ref').value = data.lead_ref;
+        setFormReady(data.nonce, 'ข้อมูลจะถูกส่งอย่างปลอดภัยไปยังทีม Hashbox');
+      })
+      .catch(function () {
+        showPreparationError();
+      })
+      .then(function () {
+        settled = true;
+        window.clearTimeout(timeout);
+      });
+  }
+
+  function conversionAlreadyDelivered(leadRef) {
+    try {
+      return window.localStorage.getItem(CONVERSION_STATE_PREFIX + leadRef) === 'delivered';
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function markConversionDelivered(leadRef) {
+    try {
+      window.localStorage.setItem(CONVERSION_STATE_PREFIX + leadRef, 'delivered');
+    } catch (err) {}
+  }
+
+  function metaAlreadyQueued(leadRef) {
+    try {
+      return window.localStorage.getItem(META_STATE_PREFIX + leadRef) === 'queued';
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function markMetaQueued(leadRef) {
+    try {
+      window.localStorage.setItem(META_STATE_PREFIX + leadRef, 'queued');
+    } catch (err) {}
+  }
+
+  function cleanSuccessParams() {
+    var cleanUrl = new URL(window.location.href);
+    cleanUrl.searchParams.delete('contact');
+    cleanUrl.searchParams.delete('lead_ref');
+    cleanUrl.searchParams.delete('lead_sig');
+    window.history.replaceState(
+      {},
+      '',
+      cleanUrl.pathname + (cleanUrl.searchParams.toString() ? '?' + cleanUrl.searchParams.toString() : '') + cleanUrl.hash
+    );
+  }
+
+  function finishConfirmedLead(leadRef) {
+    if (!window.hashboxWebsiteAuditMetaLeadSent && typeof window.fbq === 'function') {
+      window.fbq(
+        'track',
+        'Lead',
+        { content_name: 'Website Project Evaluation' },
+        { eventID: leadRef }
+      );
+      window.hashboxWebsiteAuditMetaLeadSent = true;
+    }
+    if (window.hashboxWebsiteAuditMetaLeadSent) markMetaQueued(leadRef);
+  }
+
+  function scheduleConfirmedLeadFinish(leadRef) {
+    if (metaAlreadyQueued(leadRef)) window.hashboxWebsiteAuditMetaLeadSent = true;
+    window.addEventListener('hashbox:third-party-ready', function () {
+      finishConfirmedLead(leadRef);
+    }, { once: true });
+    // Logged-in sessions do not use the delayed loader. This fallback also
+    // prevents a failed third-party request from leaving signed query data in
+    // the address bar indefinitely.
+    window.setTimeout(function () { finishConfirmedLead(leadRef); }, 8000);
+  }
+
+  function confirmedLeadRef() {
+    var meta = document.querySelector('meta[name="hashbox-confirmed-website-lead"]');
+    var params = new URLSearchParams(window.location.search);
+    var leadRef = params.get('contact') === 'sent'
+      ? params.get('lead_ref') || ''
+      : window.hashboxConfirmedWebsiteLeadRef || '';
+    if (!meta || !UUID_V4_PATTERN.test(leadRef)) return '';
+    return meta.getAttribute('content') === leadRef ? leadRef : '';
+  }
+
+  function renderSuccessState() {
+    Array.prototype.forEach.call(form.elements || [], function (control) {
+      control.disabled = true;
+    });
+    Array.prototype.forEach.call(form.querySelectorAll('.hb5-field, .hb5-consent'), function (field) {
+      field.hidden = true;
+    });
+
+    var submit = form.querySelector('[data-hb5-submit]');
+    var status = form.querySelector('[data-hb5-status]');
+    form.dataset.state = 'success';
+    form.setAttribute('aria-disabled', 'true');
+    if (submit) {
+      submit.disabled = true;
+      submit.textContent = 'ส่งข้อมูลเรียบร้อยแล้ว';
+    }
+    if (status) {
+      status.textContent = 'ส่งข้อมูลเรียบร้อยแล้ว ทีม Hashbox จะติดต่อกลับโดยเร็วที่สุด';
+      status.dataset.state = 'success';
+    }
+  }
+
+  function queueConfirmedConversion(leadRef) {
+    // Claim the legacy page-builder conversion flag before DOMContentLoaded so
+    // the unsigned contact=sent handler cannot send a duplicate event.
+    window.hashboxGa4LeadSent = true;
+
+    if (conversionAlreadyDelivered(leadRef)) {
+      scheduleConfirmedLeadFinish(leadRef);
+      cleanSuccessParams();
+      return;
+    }
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
+    window.gtag('config', 'AW-18190672421');
+    window.gtag('event', 'generate_lead', {
+      currency: 'THB',
+      value: 1,
+      form_id: 'hashbox_contact',
+      form_name: 'Website Project Evaluation',
+      lead_source: 'website_audit',
+      transaction_id: leadRef
+    });
+    var deliveryRecorded = false;
+    function recordDelivery() {
+      if (deliveryRecorded) return;
+      deliveryRecorded = true;
+      markConversionDelivered(leadRef);
+      cleanSuccessParams();
+    }
+    window.gtag('event', 'conversion', {
+      send_to: config.conversionDestination || 'AW-18190672421/zT9ACPe6ttocEKXE_uFD',
+      currency: 'THB',
+      value: 1,
+      transaction_id: leadRef,
+      event_callback: recordDelivery,
+      event_timeout: 6000
+    });
+
+    scheduleConfirmedLeadFinish(leadRef);
+  }
+
+  var attribution = captureAttribution();
+  applyAttribution(attribution);
+
+  var submitting = false;
+  form.addEventListener('submit', function (event) {
+    applyAttribution(captureAttribution());
+    var preparedLead = form.querySelector('input[name="lead_ref"]');
+    if (!preparedLead || !UUID_V4_PATTERN.test(preparedLead.value || '')) {
+      event.preventDefault();
+      showPreparationError();
+      return;
+    }
+    if (submitting) {
+      event.preventDefault();
+      return;
+    }
+    submitting = true;
+    var submit = form.querySelector('[data-hb5-submit]');
+    var status = form.querySelector('[data-hb5-status]');
+    if (submit) submit.disabled = true;
+    if (status) {
+      status.textContent = 'กำลังส่งข้อมูล…';
+      status.dataset.state = 'loading';
+    }
+  });
+
+  var params = new URLSearchParams(window.location.search);
+  var leadRef = confirmedLeadRef();
+  if (leadRef) {
+    renderSuccessState();
+    queueConfirmedConversion(leadRef);
+  } else if (params.get('contact') === 'sent') {
+    // An unsigned success URL must not trigger the legacy Google or Meta lead
+    // handlers even if the visitor interacts and delayed scripts later load.
+    window.hashboxGa4LeadSent = true;
+    window.hashboxWebsiteAuditMetaLeadSent = true;
+    cleanSuccessParams();
+    prepareLead();
+  } else {
+    prepareLead();
+  }
+})();

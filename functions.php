@@ -175,6 +175,28 @@ function hashbox_enqueue_assets() {
             );
         }
     }
+
+    if ( is_page( 'website-audit' ) ) {
+        $website_audit_js = get_template_directory() . '/js/website-audit-tracking.js';
+        if ( file_exists( $website_audit_js ) ) {
+            wp_enqueue_script(
+                'hashbox-website-audit-tracking',
+                $theme_uri . '/js/website-audit-tracking.js',
+                array( 'hashbox-v2-script' ),
+                filemtime( $website_audit_js ),
+                true
+            );
+            wp_localize_script(
+                'hashbox-website-audit-tracking',
+                'hashboxWebsiteAuditTracking',
+                array(
+                    'prepareUrl'            => admin_url( 'admin-ajax.php' ),
+                    'prepareAction'         => 'hashbox_prepare_website_audit_lead',
+                    'conversionDestination' => 'AW-18190672421/zT9ACPe6ttocEKXE_uFD',
+                )
+            );
+        }
+    }
 }
 add_action( 'wp_enqueue_scripts', 'hashbox_enqueue_assets' );
 
@@ -2620,6 +2642,97 @@ add_action( 'wp_head', 'hashbox_inject_home_faq_schema', 21 );
 /**
  * Contact form submission handler (admin-post.php endpoint).
  */
+function hashbox_is_uuid_v4( $value ) {
+    return is_string( $value )
+        && 1 === preg_match( '/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i', $value );
+}
+
+function hashbox_website_audit_lead_transient_key( $lead_ref ) {
+    return 'hb_website_lead_' . md5( (string) $lead_ref );
+}
+
+function hashbox_website_audit_lead_claim_key( $lead_ref ) {
+    return 'hb_website_lead_claim_' . md5( (string) $lead_ref );
+}
+
+function hashbox_website_audit_lead_signature( $lead_ref ) {
+    return hash_hmac( 'sha256', 'website-audit|' . (string) $lead_ref, wp_salt( 'auth' ) );
+}
+
+/**
+ * Prepare a correlation ID and contact nonce before the Website Audit form is
+ * submitted. The UUID is copied into HubSpot by the collected-form runtime and
+ * is reused by the success email and Google Ads transaction ID.
+ */
+function hashbox_prepare_website_audit_lead() {
+    $ip       = isset( $_SERVER['REMOTE_ADDR'] ) ? preg_replace( '/[^0-9a-f:.]/i', '', wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : 'unknown';
+    $rate_key = 'hb_website_prepare_rl_' . md5( $ip );
+    $hits     = (int) get_transient( $rate_key );
+    if ( $hits >= 60 ) {
+        wp_send_json_error( array( 'message' => 'Too many preparation requests.' ), 429 );
+    }
+    set_transient( $rate_key, $hits + 1, 30 * MINUTE_IN_SECONDS );
+
+    $lead_ref = wp_generate_uuid4();
+    set_transient(
+        hashbox_website_audit_lead_transient_key( $lead_ref ),
+        'prepared',
+        6 * HOUR_IN_SECONDS
+    );
+
+    wp_send_json_success( array(
+        'lead_ref' => $lead_ref,
+        'nonce'    => wp_create_nonce( 'hashbox_contact' ),
+    ) );
+}
+add_action( 'wp_ajax_nopriv_hashbox_prepare_website_audit_lead', 'hashbox_prepare_website_audit_lead' );
+add_action( 'wp_ajax_hashbox_prepare_website_audit_lead', 'hashbox_prepare_website_audit_lead' );
+
+/**
+ * Return the verified Website Audit lead reference for a success page.
+ */
+function hashbox_get_confirmed_website_audit_lead_ref() {
+    if ( ! is_page( 'website-audit' ) ) {
+        return '';
+    }
+
+    $contact  = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_GET['contact'] ) ) : '';
+    $lead_ref = isset( $_GET['lead_ref'] ) ? sanitize_text_field( wp_unslash( $_GET['lead_ref'] ) ) : '';
+    $lead_sig = isset( $_GET['lead_sig'] ) ? sanitize_text_field( wp_unslash( $_GET['lead_sig'] ) ) : '';
+
+    if ( 'sent' !== $contact || ! hashbox_is_uuid_v4( $lead_ref ) || ! preg_match( '/^[a-f0-9]{64}$/i', $lead_sig ) ) {
+        return '';
+    }
+
+    if ( 'sent' !== get_transient( hashbox_website_audit_lead_transient_key( $lead_ref ) ) ) {
+        return '';
+    }
+
+    $expected = hashbox_website_audit_lead_signature( $lead_ref );
+    return hash_equals( $expected, strtolower( $lead_sig ) ) ? $lead_ref : '';
+}
+
+function hashbox_print_website_audit_confirmation_meta() {
+    $lead_ref = hashbox_get_confirmed_website_audit_lead_ref();
+    if ( '' === $lead_ref ) {
+        return;
+    }
+
+    echo '<meta name="hashbox-confirmed-website-lead" content="' . esc_attr( $lead_ref ) . '">' . "\n";
+}
+add_action( 'wp_head', 'hashbox_print_website_audit_confirmation_meta', 2 );
+
+function hashbox_disable_cache_for_confirmed_website_audit_lead() {
+    if ( '' === hashbox_get_confirmed_website_audit_lead_ref() ) {
+        return;
+    }
+    if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+        define( 'DONOTCACHEPAGE', true );
+    }
+    nocache_headers();
+}
+add_action( 'template_redirect', 'hashbox_disable_cache_for_confirmed_website_audit_lead', 0 );
+
 function hashbox_get_audit_landing_for_return_url( $url ) {
     $path      = trim( (string) wp_parse_url( $url, PHP_URL_PATH ), '/' );
     $home_path = trim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
@@ -2705,7 +2818,13 @@ function hashbox_handle_contact_submit() {
     $redirect_to = isset( $_POST['redirect_to'] ) ? esc_url_raw( wp_unslash( $_POST['redirect_to'] ) ) : home_url( '/#contact' );
     $redirect_to = wp_validate_redirect( $redirect_to, home_url( '/#contact' ) );
     $landing      = hashbox_get_audit_landing_for_return_url( $redirect_to );
-    $landing_slug = is_array( $landing ) && isset( $landing['slug'] ) ? $landing['slug'] : '';
+    $posted_landing_slug = isset( $_POST['landing_slug'] ) ? sanitize_key( wp_unslash( $_POST['landing_slug'] ) ) : '';
+    $redirect_path       = trim( (string) wp_parse_url( $redirect_to, PHP_URL_PATH ), '/' );
+    $website_audit_path  = trim( (string) wp_parse_url( home_url( '/website-audit/' ), PHP_URL_PATH ), '/' );
+    $is_website_audit_form = 'website-audit' === $posted_landing_slug && $redirect_path === $website_audit_path;
+    $landing_slug = is_array( $landing ) && isset( $landing['slug'] )
+        ? $landing['slug']
+        : ( $is_website_audit_form ? 'website-audit' : '' );
     $is_ai_route  = 'ai-workflow-audit' === $landing_slug;
     $ai_nonce_ok  = isset( $_POST['hashbox_ai_nonce'] )
         && wp_verify_nonce( wp_unslash( $_POST['hashbox_ai_nonce'] ), 'hashbox_ai_contact' );
@@ -2716,9 +2835,11 @@ function hashbox_handle_contact_submit() {
 
     $invalid = ( $is_ai_route && ! $ai_nonce_ok ) || ( $is_ai_form
         ? ( $name === '' || $company === '' || $email === '' || ! is_email( $email ) || $message === '' || $invalid_ai_contact_preference || ( $needs_contact_detail && $contact_detail === '' ) || ! $pdpa )
-        : ( $is_audit_form
-            ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
-            : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) ) );
+        : ( $is_website_audit_form
+            ? ( $name === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || 'phone-or-line' !== $contact_preference || $contact_detail === '' || $budget === '' || $message === '' || ! $pdpa )
+            : ( $is_audit_form
+                ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
+                : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) ) ) );
 
     if ( $email !== '' && ! is_email( $email ) ) {
         $invalid = true;
@@ -2736,12 +2857,61 @@ function hashbox_handle_contact_submit() {
 
     $reply_email = is_email( $email ) ? $email : ( is_email( $contact_detail ) ? $contact_detail : '' );
     $to          = 'business@hashbox.co.th';
-    $request_type = $is_ai_form ? 'AI consultation request' : ( $is_audit_form ? 'Audit request' : 'New enquiry' );
+    $request_type = $is_ai_form
+        ? 'AI consultation request'
+        : ( $is_website_audit_form ? 'Website project evaluation' : ( $is_audit_form ? 'Audit request' : 'New enquiry' ) );
     $subject      = sprintf( '[Hashbox V2] %s from %s — %s', $request_type, $name, $service ?: 'unspecified' );
     $lead_ref     = $is_ai_form ? wp_generate_uuid4() : '';
-    $body_lines   = $is_ai_form
+    $prepared_website_lead = false;
+    $prepared_lead_claim_key = '';
+
+    if ( $is_website_audit_form ) {
+        $prepared_lead_ref = isset( $_POST['lead_ref'] ) ? sanitize_text_field( wp_unslash( $_POST['lead_ref'] ) ) : '';
+        $prepared_lead_key = hashbox_is_uuid_v4( $prepared_lead_ref )
+            ? hashbox_website_audit_lead_transient_key( $prepared_lead_ref )
+            : '';
+        $prepared_lead_state = $prepared_lead_key ? get_transient( $prepared_lead_key ) : false;
+
+        if ( 'sent' === $prepared_lead_state ) {
+            wp_safe_redirect( add_query_arg( array(
+                'contact'  => 'sent',
+                'lead_ref' => $prepared_lead_ref,
+                'lead_sig' => hashbox_website_audit_lead_signature( $prepared_lead_ref ),
+            ), $redirect_to ) );
+            exit;
+        }
+
+        if ( 'prepared' !== $prepared_lead_state ) {
+            wp_safe_redirect( add_query_arg( 'contact', 'invalid', $redirect_to ) );
+            exit;
+        }
+
+        $lead_ref = $prepared_lead_ref;
+        $prepared_lead_claim_key = hashbox_website_audit_lead_claim_key( $lead_ref );
+        $claim_acquired = add_option( $prepared_lead_claim_key, time(), '', false );
+        if ( ! $claim_acquired ) {
+            $claimed_at = (int) get_option( $prepared_lead_claim_key, 0 );
+            if ( $claimed_at > 0 && $claimed_at < time() - ( 10 * MINUTE_IN_SECONDS ) ) {
+                delete_option( $prepared_lead_claim_key );
+                $claim_acquired = add_option( $prepared_lead_claim_key, time(), '', false );
+            }
+        }
+        if ( ! $claim_acquired ) {
+            wp_safe_redirect( add_query_arg( 'contact', 'processing', $redirect_to ) );
+            exit;
+        }
+
+        $prepared_website_lead = true;
+        // Claim before sending email so the same prepared reference cannot
+        // mint another conversion through a replayed form submission.
+        set_transient( $prepared_lead_key, 'claimed', 6 * HOUR_IN_SECONDS );
+    }
+
+    $body_lines = $is_ai_form
         ? array( 'Name: ' . $name, 'Company: ' . $company, 'Lead reference: ' . $lead_ref )
-        : array( 'Name / Company: ' . $name );
+        : ( $is_website_audit_form
+            ? array( 'Name / Company: ' . $name, 'Lead reference: ' . $lead_ref )
+            : array( 'Name / Company: ' . $name ) );
     $body_lines   = array_merge( $body_lines, array(
         'Email: ' . $email,
         'Phone: ' . $phone,
@@ -2785,6 +2955,24 @@ function hashbox_handle_contact_submit() {
             'confirmation' => $confirmation_queued ? 'queued' : 'unavailable',
         ), $redirect_to ) );
         exit;
+    }
+
+    if ( $sent && $is_website_audit_form ) {
+        if ( $prepared_website_lead ) {
+            set_transient( hashbox_website_audit_lead_transient_key( $lead_ref ), 'sent', 6 * HOUR_IN_SECONDS );
+            delete_option( $prepared_lead_claim_key );
+        }
+        wp_safe_redirect( add_query_arg( array(
+            'contact'  => 'sent',
+            'lead_ref' => $lead_ref,
+            'lead_sig' => hashbox_website_audit_lead_signature( $lead_ref ),
+        ), $redirect_to ) );
+        exit;
+    }
+
+    if ( ! $sent && $prepared_website_lead ) {
+        set_transient( hashbox_website_audit_lead_transient_key( $lead_ref ), 'failed', 10 * MINUTE_IN_SECONDS );
+        delete_option( $prepared_lead_claim_key );
     }
 
     wp_safe_redirect( add_query_arg( 'contact', $sent ? 'sent' : 'error', $redirect_to ) );
@@ -3811,6 +3999,14 @@ function hashbox_print_third_party_delay_loader() {
             window.dispatchEvent(new CustomEvent('hashbox:third-party-ready'));
             return;
           }
+          // The signed Website Audit flow now owns its success UI and Meta
+          // event. Skipping the editor-era runtime prevents it from removing
+          // the retryable Google conversion URL before delivery is confirmed.
+          if (isConfirmedWebsiteLead && !old.src && /trackConfirmedMetaLead/.test(old.textContent || '')) {
+            old.remove();
+            next();
+            return;
+          }
           var s = document.createElement('script');
           for (var i = 0; i < old.attributes.length; i++) {
             var a = old.attributes[i];
@@ -3831,12 +4027,21 @@ function hashbox_print_third_party_delay_loader() {
       events.forEach(function (ev) { window.addEventListener(ev, activate, { passive: true }); });
       var successParams = new URLSearchParams(window.location.search);
       var successLeadRef = successParams.get('lead_ref') || '';
+      var successUuidPattern = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
       var isConfirmedAiLead = document.querySelector('.hb-audit[data-audit-slug="ai-workflow-audit"]')
         && successParams.get('contact') === 'ai_sent'
-        && /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(successLeadRef);
-      if (isConfirmedAiLead) { window.setTimeout(activate, 0); }
+        && successUuidPattern.test(successLeadRef);
+      var confirmedWebsiteLeadMeta = document.querySelector('meta[name="hashbox-confirmed-website-lead"]');
+      var isConfirmedWebsiteLead = successParams.get('contact') === 'sent'
+        && successUuidPattern.test(successLeadRef)
+        && confirmedWebsiteLeadMeta
+        && confirmedWebsiteLeadMeta.getAttribute('content') === successLeadRef;
+      if (isConfirmedWebsiteLead) { window.hashboxConfirmedWebsiteLeadRef = successLeadRef; }
+      if (isConfirmedAiLead || isConfirmedWebsiteLead) { window.setTimeout(activate, 0); }
     })();
     </script>
     <?php
 }
-add_action( 'wp_footer', 'hashbox_print_third_party_delay_loader', 5 );
+// Run after enqueued footer scripts so success-page guards and transaction IDs
+// are installed before any delayed legacy tracker is reactivated.
+add_action( 'wp_footer', 'hashbox_print_third_party_delay_loader', 25 );
