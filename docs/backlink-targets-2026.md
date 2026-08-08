@@ -34,6 +34,15 @@
 - ไล่จาก case studies ที่ live: gold-brand, autobot-line, flow-store, nexus-corp, rank-project
 - ขอทีละราย ตอนส่ง report ประจำเดือน = จังหวะดีสุด
 
+### ลิงก์ลูกค้าที่ LIVE แล้ว (ตรวจ 2026-08-08)
+
+| เว็บ | สถานะ | รายละเอียด |
+|---|---|---|
+| cpnproperty.com | ✅ dofollow, sitewide footer | anchor "Hashbox Studio" → homepage · rel="noopener" (ไม่มี nofollow) |
+| radacompany.com | ✅ dofollow, หน้าแรก (one-page site) | anchor "Hashbox Studio" → homepage · rel="noopener" |
+
+**ห้ามเปลี่ยน anchor เป็น keyword** — footer sitewide + exact-match anchor = สัญญาณ over-optimization · brand anchor แบบนี้ถูกต้องแล้ว
+
 ## Template Outreach
 
 ### A. พิตช์ guest post (อีเมล/DM ถึง บก.)
