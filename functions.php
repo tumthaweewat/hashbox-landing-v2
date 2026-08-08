@@ -2836,7 +2836,7 @@ function hashbox_handle_contact_submit() {
     $invalid = ( $is_ai_route && ! $ai_nonce_ok ) || ( $is_ai_form
         ? ( $name === '' || $company === '' || $email === '' || ! is_email( $email ) || $message === '' || $invalid_ai_contact_preference || ( $needs_contact_detail && $contact_detail === '' ) || ! $pdpa )
         : ( $is_website_audit_form
-            ? ( $name === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || 'phone-or-line' !== $contact_preference || $contact_detail === '' || $budget === '' || $message === '' || ! $pdpa )
+            ? ( $name === '' || $company === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || $budget === '' || $timeline === '' || 'phone-or-line' !== $contact_preference || $contact_detail === '' || $message === '' || ! $pdpa )
             : ( $is_audit_form
                 ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
                 : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) ) ) );
@@ -2910,7 +2910,7 @@ function hashbox_handle_contact_submit() {
     $body_lines = $is_ai_form
         ? array( 'Name: ' . $name, 'Company: ' . $company, 'Lead reference: ' . $lead_ref )
         : ( $is_website_audit_form
-            ? array( 'Name / Company: ' . $name, 'Lead reference: ' . $lead_ref )
+            ? array( 'Name: ' . $name, 'Company: ' . $company, 'Lead reference: ' . $lead_ref )
             : array( 'Name / Company: ' . $name ) );
     $body_lines   = array_merge( $body_lines, array(
         'Email: ' . $email,
