@@ -2754,6 +2754,66 @@ function hashbox_disable_cache_for_confirmed_website_audit_lead() {
 }
 add_action( 'template_redirect', 'hashbox_disable_cache_for_confirmed_website_audit_lead', 0 );
 
+/**
+ * AI Workflow Audit signed-lead helpers — mirror of the Website Audit flow.
+ *
+ * The AI success redirect used to expose contact=ai_sent&lead_ref=<uuid>
+ * without any server-side proof, so a crafted URL could fire the Google Ads
+ * conversion in audit-landing.js. These helpers sign the reference with an
+ * HMAC and record it in a transient at submit time; the confirmation meta tag
+ * below is the only trigger the tracking runtime trusts.
+ */
+function hashbox_ai_audit_lead_transient_key( $lead_ref ) {
+    return 'hb_ai_lead_' . md5( (string) $lead_ref );
+}
+
+function hashbox_ai_audit_lead_signature( $lead_ref ) {
+    return hash_hmac( 'sha256', 'ai-workflow-audit|' . (string) $lead_ref, wp_salt( 'auth' ) );
+}
+
+function hashbox_get_confirmed_ai_audit_lead_ref() {
+    $landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
+    if ( ! is_array( $landing ) || ! isset( $landing['slug'] ) || 'ai-workflow-audit' !== $landing['slug'] ) {
+        return '';
+    }
+
+    $contact  = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_GET['contact'] ) ) : '';
+    $lead_ref = isset( $_GET['lead_ref'] ) ? sanitize_text_field( wp_unslash( $_GET['lead_ref'] ) ) : '';
+    $lead_sig = isset( $_GET['lead_sig'] ) ? sanitize_text_field( wp_unslash( $_GET['lead_sig'] ) ) : '';
+
+    if ( 'ai_sent' !== $contact || ! hashbox_is_uuid_v4( $lead_ref ) || ! preg_match( '/^[a-f0-9]{64}$/i', $lead_sig ) ) {
+        return '';
+    }
+
+    if ( 'sent' !== get_transient( hashbox_ai_audit_lead_transient_key( $lead_ref ) ) ) {
+        return '';
+    }
+
+    $expected = hashbox_ai_audit_lead_signature( $lead_ref );
+    return hash_equals( $expected, strtolower( $lead_sig ) ) ? $lead_ref : '';
+}
+
+function hashbox_print_ai_audit_confirmation_meta() {
+    $lead_ref = hashbox_get_confirmed_ai_audit_lead_ref();
+    if ( '' === $lead_ref ) {
+        return;
+    }
+
+    echo '<meta name="hashbox-confirmed-ai-lead" content="' . esc_attr( $lead_ref ) . '">' . "\n";
+}
+add_action( 'wp_head', 'hashbox_print_ai_audit_confirmation_meta', 2 );
+
+function hashbox_disable_cache_for_confirmed_ai_audit_lead() {
+    if ( '' === hashbox_get_confirmed_ai_audit_lead_ref() ) {
+        return;
+    }
+    if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+        define( 'DONOTCACHEPAGE', true );
+    }
+    nocache_headers();
+}
+add_action( 'template_redirect', 'hashbox_disable_cache_for_confirmed_ai_audit_lead', 0 );
+
 function hashbox_get_audit_landing_for_return_url( $url ) {
     $path      = trim( (string) wp_parse_url( $url, PHP_URL_PATH ), '/' );
     $home_path = trim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
@@ -2964,7 +3024,24 @@ function hashbox_handle_contact_submit() {
     }
 
     $sent = wp_mail( $to, $subject, $body, $headers );
+
+    if ( $sent && is_email( $email ) ) {
+        // HubSpot's collected-forms runtime drops hidden inputs, so campaign
+        // attribution is written through the CRM API two minutes later (gives
+        // the collected-forms contact time to land first).
+        wp_schedule_single_event(
+            time() + 2 * MINUTE_IN_SECONDS,
+            'hashbox_sync_lead_attribution_to_hubspot',
+            array( $email, $utm )
+        );
+    }
+
     if ( $sent && $is_ai_form ) {
+        set_transient(
+            hashbox_ai_audit_lead_transient_key( $lead_ref ),
+            'sent',
+            6 * HOUR_IN_SECONDS
+        );
         $confirmation_queued = wp_schedule_single_event(
             time(),
             'hashbox_send_ai_confirmation_email',
@@ -2973,6 +3050,7 @@ function hashbox_handle_contact_submit() {
         wp_safe_redirect( add_query_arg( array(
             'contact'      => 'ai_sent',
             'lead_ref'     => $lead_ref,
+            'lead_sig'     => hashbox_ai_audit_lead_signature( $lead_ref ),
             'confirmation' => $confirmation_queued ? 'queued' : 'unavailable',
         ), $redirect_to ) );
         exit;
@@ -3001,6 +3079,121 @@ function hashbox_handle_contact_submit() {
 }
 add_action( 'admin_post_nopriv_hashbox_contact', 'hashbox_handle_contact_submit' );
 add_action( 'admin_post_hashbox_contact',        'hashbox_handle_contact_submit' );
+
+/**
+ * Server-side HubSpot attribution sync.
+ *
+ * HubSpot's collected-forms runtime captures the visible fields of the audit
+ * forms but ignores hidden inputs, so utm_* / gclid never reach the contact
+ * record. This scheduled handler writes them through the CRM API using a
+ * private-app token. Configure the token by defining HASHBOX_HUBSPOT_TOKEN in
+ * wp-config.php (preferred) or storing the hashbox_hubspot_token option; when
+ * no token is configured the sync is skipped silently.
+ */
+function hashbox_get_hubspot_private_app_token() {
+    if ( defined( 'HASHBOX_HUBSPOT_TOKEN' ) && HASHBOX_HUBSPOT_TOKEN ) {
+        return trim( (string) HASHBOX_HUBSPOT_TOKEN );
+    }
+
+    $token = get_option( 'hashbox_hubspot_token', '' );
+    return is_string( $token ) ? trim( $token ) : '';
+}
+
+function hashbox_sync_lead_attribution_to_hubspot( $email, $attribution ) {
+    $token = hashbox_get_hubspot_private_app_token();
+    if ( '' === $token || ! is_email( $email ) || ! is_array( $attribution ) ) {
+        return;
+    }
+
+    $property_map = array(
+        'utm_source'   => 'utm_source',
+        'utm_medium'   => 'utm_medium',
+        'utm_campaign' => 'utm_campaign',
+        'utm_content'  => 'utm_content',
+        'utm_term'     => 'utm_term',
+        'gclid'        => 'hs_google_click_id',
+    );
+
+    $properties = array();
+    foreach ( $property_map as $posted_key => $hubspot_property ) {
+        if ( isset( $attribution[ $posted_key ] ) && is_string( $attribution[ $posted_key ] ) && '' !== $attribution[ $posted_key ] ) {
+            $properties[ $hubspot_property ] = mb_substr( $attribution[ $posted_key ], 0, 250 );
+        }
+    }
+
+    if ( empty( $properties ) ) {
+        return;
+    }
+
+    $headers = array(
+        'Authorization' => 'Bearer ' . $token,
+        'Content-Type'  => 'application/json',
+    );
+
+    $search = wp_remote_post(
+        'https://api.hubapi.com/crm/v3/objects/contacts/search',
+        array(
+            'headers' => $headers,
+            'timeout' => 8,
+            'body'    => wp_json_encode( array(
+                'filterGroups' => array(
+                    array(
+                        'filters' => array(
+                            array(
+                                'propertyName' => 'email',
+                                'operator'     => 'EQ',
+                                'value'        => $email,
+                            ),
+                        ),
+                    ),
+                ),
+                'limit'      => 1,
+                'properties' => array( 'email' ),
+            ) ),
+        )
+    );
+
+    if ( is_wp_error( $search ) ) {
+        error_log( '[hashbox] HubSpot contact search failed: ' . $search->get_error_message() );
+        return;
+    }
+
+    $search_body = json_decode( (string) wp_remote_retrieve_body( $search ), true );
+    $contact_id  = isset( $search_body['results'][0]['id'] ) ? (string) $search_body['results'][0]['id'] : '';
+
+    if ( '' !== $contact_id ) {
+        $response = wp_remote_request(
+            'https://api.hubapi.com/crm/v3/objects/contacts/' . rawurlencode( $contact_id ),
+            array(
+                'method'  => 'PATCH',
+                'headers' => $headers,
+                'timeout' => 8,
+                'body'    => wp_json_encode( array( 'properties' => $properties ) ),
+            )
+        );
+    } else {
+        $properties['email'] = $email;
+        $response = wp_remote_post(
+            'https://api.hubapi.com/crm/v3/objects/contacts',
+            array(
+                'headers' => $headers,
+                'timeout' => 8,
+                'body'    => wp_json_encode( array( 'properties' => $properties ) ),
+            )
+        );
+    }
+
+    if ( is_wp_error( $response ) ) {
+        error_log( '[hashbox] HubSpot attribution sync failed: ' . $response->get_error_message() );
+        return;
+    }
+
+    $status_code = (int) wp_remote_retrieve_response_code( $response );
+    if ( $status_code < 200 || $status_code >= 300 ) {
+        error_log( '[hashbox] HubSpot attribution sync HTTP ' . $status_code . ': ' . mb_substr( (string) wp_remote_retrieve_body( $response ), 0, 300 ) );
+    }
+}
+add_action( 'hashbox_sync_lead_attribution_to_hubspot', 'hashbox_sync_lead_attribution_to_hubspot', 10, 2 );
 
 /**
  * V2 case-study renderer. Each /work/<slug>/ page template builds a $case
@@ -4049,9 +4242,12 @@ function hashbox_print_third_party_delay_loader() {
       var successParams = new URLSearchParams(window.location.search);
       var successLeadRef = successParams.get('lead_ref') || '';
       var successUuidPattern = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
+      var confirmedAiLeadMeta = document.querySelector('meta[name="hashbox-confirmed-ai-lead"]');
       var isConfirmedAiLead = document.querySelector('.hb-audit[data-audit-slug="ai-workflow-audit"]')
         && successParams.get('contact') === 'ai_sent'
-        && successUuidPattern.test(successLeadRef);
+        && successUuidPattern.test(successLeadRef)
+        && confirmedAiLeadMeta
+        && confirmedAiLeadMeta.getAttribute('content') === successLeadRef;
       var confirmedWebsiteLeadMeta = document.querySelector('meta[name="hashbox-confirmed-website-lead"]');
       var isConfirmedWebsiteLead = successParams.get('contact') === 'sent'
         && successUuidPattern.test(successLeadRef)

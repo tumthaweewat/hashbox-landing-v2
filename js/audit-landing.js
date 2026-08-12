@@ -167,6 +167,7 @@
     var cleanUrl = new URL(window.location.href);
     cleanUrl.searchParams.delete('contact');
     cleanUrl.searchParams.delete('lead_ref');
+    cleanUrl.searchParams.delete('lead_sig');
     cleanUrl.searchParams.delete('confirmation');
     window.history.replaceState({}, '', cleanUrl.pathname + (cleanUrl.searchParams.toString() ? '?' + cleanUrl.searchParams.toString() : '') + cleanUrl.hash);
   }
@@ -226,16 +227,25 @@
   function confirmedAiLeadRef(root) {
     if (!root || root.dataset.auditSlug !== 'ai-workflow-audit') return '';
 
+    // Only trust references the server confirmed by printing the signed meta
+    // tag (contact=ai_sent&lead_ref&lead_sig verified against the submit-time
+    // transient). A crafted success URL must never fire ad conversions.
+    var meta = document.querySelector('meta[name="hashbox-confirmed-ai-lead"]');
+    var confirmedRef = meta ? meta.getAttribute('content') || '' : '';
+    if (!isValidLeadRef(confirmedRef)) return '';
+
     var params = new URLSearchParams(window.location.search);
     var leadRef = params.get('contact') === 'ai_sent' ? params.get('lead_ref') || '' : '';
-    if (isValidLeadRef(leadRef)) return leadRef;
+    if (isValidLeadRef(leadRef)) {
+      return leadRef === confirmedRef ? confirmedRef : '';
+    }
 
     try {
       leadRef = window.sessionStorage.getItem(AI_PENDING_LEAD_KEY) || '';
     } catch (err) {
       leadRef = '';
     }
-    return isValidLeadRef(leadRef) ? leadRef : '';
+    return isValidLeadRef(leadRef) && leadRef === confirmedRef ? confirmedRef : '';
   }
 
   function trackConfirmedAiLead(root, leadRef, attempt) {
