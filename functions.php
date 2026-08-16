@@ -862,6 +862,57 @@ function hashbox_sync_website_development_rankmath_meta() {
 add_action( 'wp', 'hashbox_sync_website_development_rankmath_meta', 1 );
 
 /**
+ * One-shot Rank Math meta sync for pages/posts shipped 2026-08-16
+ * (SEO service, WordPress service, GEO article refresh) — same pattern as
+ * hashbox_sync_website_development_rankmath_meta() above.
+ */
+function hashbox_sync_new_service_pages_rankmath_meta() {
+    $sync_key = '20260816_seo_wp_geo_rankmath_meta_v1';
+    if ( $sync_key === get_option( 'hashbox_new_service_pages_rankmath_meta_version' ) ) {
+        return;
+    }
+
+    $targets = array(
+        array(
+            'path'  => 'services/seo',
+            'title' => 'รับทำ SEO สายเทคนิค วัดผลด้วยข้อมูลรายวัน | Hashbox',
+            'desc'  => 'บริการรับทำ SEO แบบ technical-first — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวันของเราเอง เริ่มจาก SEO Audit ฟรี',
+        ),
+        array(
+            'path'  => 'services/website-development/wordpress',
+            'title' => 'รับทำเว็บไซต์ WordPress ที่ Lighthouse 95+ | Hashbox',
+            'desc'  => 'รับทำเว็บไซต์ WordPress แบบ Custom Theme และ Headless (WP + Next.js) การันตี Lighthouse 95+ เมื่อไม่มี heavy plugin, AI Search Ready เริ่มจาก SEO Audit ฟรี',
+        ),
+    );
+
+    $done = true;
+    foreach ( $targets as $t ) {
+        $page = get_page_by_path( $t['path'], OBJECT, 'page' );
+        if ( ! $page ) {
+            $done = false;
+            continue;
+        }
+        update_post_meta( $page->ID, 'rank_math_title', $t['title'] );
+        update_post_meta( $page->ID, 'rank_math_description', $t['desc'] );
+        clean_post_cache( $page->ID );
+    }
+
+    $geo = get_page_by_path( 'geo-ai-search-optimization-2026', OBJECT, 'post' );
+    if ( $geo ) {
+        update_post_meta( $geo->ID, 'rank_math_title', 'GEO คืออะไร? Generative Engine Optimization ฉบับ 2026' );
+        update_post_meta( $geo->ID, 'rank_math_description', 'GEO คือการทำคอนเทนต์ให้ AI อย่าง Google AI Overview หยิบไปอ้างอิง สรุปต่างจาก SEO ตรงไหน 5 เทคนิค วิธีวัดผล จากทีมที่ track AI Overview รายวันเอง' );
+        clean_post_cache( $geo->ID );
+    } else {
+        $done = false;
+    }
+
+    if ( $done ) {
+        update_option( 'hashbox_new_service_pages_rankmath_meta_version', $sync_key, false );
+    }
+}
+add_action( 'wp', 'hashbox_sync_new_service_pages_rankmath_meta', 1 );
+
+/**
  * Default Open Graph image with an existing asset fallback.
  */
 function hashbox_default_og_image_url() {
