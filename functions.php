@@ -600,19 +600,61 @@ function portfolio_settings_page() {
  * ========================================================================= */
 
 /**
- * Force HTML lang="th" site-wide so crawlers classify the site as Thai.
+ * Is the page currently being rendered one of the English pages?
  *
- * The visible content is Thai-primary; the WP locale was previously en-US which
- * mis-signalled language to Google. Override at the language_attributes filter
- * level so this works regardless of WP Settings → General locale.
+ * Reads hashbox_hreflang_pairs() so the EN page list is declared exactly once.
+ * Add a pair there and every language signal below follows automatically —
+ * there is no second list that can silently drift out of sync.
  */
-function hashbox_force_thai_lang_attribute( $output ) {
+function hashbox_page_is_english() {
+    $path = hashbox_current_request_path();
+
+    foreach ( hashbox_hreflang_pairs() as $pair ) {
+        if ( $path === $pair['en'] ) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * The three language signals for the page being rendered: html lang,
+ * og:locale, and schema inLanguage.
+ *
+ * The site is Thai-primary, so Thai is the default and the /en/ pages are the
+ * deliberate exception. Until 2026-08 the lang attribute was hardcoded th-TH
+ * site-wide, which told Google that /en/ai-consulting/ was a Thai page: it
+ * then competed with the Thai pages on Thai queries instead of the English
+ * cluster it was written for. The signal has to follow the page, not the site
+ * default — and all three have to agree, or we just move the contradiction.
+ */
+function hashbox_page_lang_attribute() {
+    return hashbox_page_is_english() ? 'en' : 'th-TH';
+}
+
+function hashbox_page_og_locale() {
+    return hashbox_page_is_english() ? 'en_US' : 'th_TH';
+}
+
+function hashbox_page_in_language() {
+    return hashbox_page_is_english() ? 'en-US' : 'th-TH';
+}
+
+/**
+ * Set the HTML lang attribute from the page, not from the WP locale.
+ *
+ * WP Settings → General is en-US on this install, which mis-signalled every
+ * Thai page; this filter is what makes the declared language independent of
+ * it. Polylang/WPML own this filter when installed, so we stand down for them.
+ */
+function hashbox_language_attribute( $output ) {
     if ( function_exists( 'pll_current_language' ) || defined( 'ICL_SITEPRESS_VERSION' ) ) {
         return $output;
     }
-    return 'lang="th-TH"';
+    return 'lang="' . esc_attr( hashbox_page_lang_attribute() ) . '"';
 }
-add_filter( 'language_attributes', 'hashbox_force_thai_lang_attribute' );
+add_filter( 'language_attributes', 'hashbox_language_attribute' );
 
 /**
  * Detect Rank Math so the theme can stay a fallback instead of duplicating SEO output.
@@ -728,9 +770,16 @@ function hashbox_get_seo_metadata() {
                 'title'       => 'Digital Marketing Tools + CRO เพิ่ม Conversion | Hashbox',
                 'description' => 'ติดตั้ง GA4, GSC, Server-side GTM, Looker Studio, heatmap และ A/B testing พร้อมรัน CRO Sprint รายเดือนเพื่อเพิ่ม conversion จาก traffic เดิม',
             ),
+            // Commercial intent only. This page used to lead with "ปรึกษาทำระบบ
+            // AI Solution" — the exact phrase /ai-solution-consulting-guide-2026/
+            // ranks 3rd for and is cited in the AI Overview. With both pages
+            // saying it, Google kept picking the guide and left this one around
+            // position 67 on the same Thai queries. The guide answers "how does
+            // this work"; this page answers "who do I hire", and the title has
+            // to say so. Keep ที่ปรึกษา AI — that is the term buyers search.
             'ai-consulting' => array(
-                'title'       => 'ที่ปรึกษา AI สำหรับธุรกิจ | ปรึกษาทำระบบ AI Solution | Hashbox',
-                'description' => 'บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทย — ปรึกษาทำระบบ AI, LINE Chatbot, RAG Knowledge Base และ Workflow Automation · คุยประเมินโอกาสฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท',
+                'title'       => 'ที่ปรึกษา AI สำหรับธุรกิจ | รับวางระบบ AI ถึง Production | Hashbox',
+                'description' => 'จ้างที่ปรึกษา AI ที่ส่งงานถึง production จริง — LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Agent สำหรับธุรกิจไทย · คุยประเมินโอกาสฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท',
             ),
             'work' => array(
                 'title'       => 'Case Studies SEO, CRO, AI ที่วัดผลได้ | Hashbox',
@@ -912,6 +961,18 @@ function hashbox_sync_new_service_pages_rankmath_meta() {
 }
 add_action( 'wp', 'hashbox_sync_new_service_pages_rankmath_meta', 1 );
 
+/*
+ * No sync for /services/ai-consulting/ on purpose (2026-08-17).
+ *
+ * The two syncs above exist because a rank_math_title row beats the theme map
+ * — both title filters bail the moment one is present. This page has no such
+ * row: its live <title> is byte-for-byte the page_meta string, which can only
+ * reach the browser through the fallback branch. (Compare /services/seo/,
+ * which renders a title that appears nowhere in page_meta — that one IS a row.)
+ * So editing the map is enough here, and writing a row would only retire the
+ * map for this page and leave the title in two places that can drift apart.
+ */
+
 /**
  * Default Open Graph image with an existing asset fallback.
  */
@@ -1046,7 +1107,7 @@ function hashbox_homepage_meta_description() {
 
     echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
     echo '<link rel="canonical" href="' . esc_url( $url ) . '">' . "\n";
-    echo '<meta property="og:locale" content="th_TH">' . "\n";
+    echo '<meta property="og:locale" content="' . esc_attr( hashbox_page_og_locale() ) . '">' . "\n";
     echo '<meta property="og:type" content="' . esc_attr( $type ) . '">' . "\n";
     echo '<meta property="og:site_name" content="' . esc_attr( get_bloginfo( 'name' ) ) . '">' . "\n";
     echo '<meta property="og:title" content="' . esc_attr( $title ) . '">' . "\n";
@@ -2186,6 +2247,8 @@ function hashbox_rankmath_schema_website() {
         '@id'        => $home . '#website',
         'url'        => $home,
         'name'       => 'Hashbox Studio',
+        // Site node, not page node: the same @id is emitted on every URL
+        // including /en/, so this must not vary per request. The site is Thai.
         'inLanguage' => 'th-TH',
         'publisher'  => array( '@id' => $home . '#organization' ),
         'potentialAction' => array(
@@ -2277,14 +2340,21 @@ function hashbox_rankmath_json_ld( $data, $jsonld = null ) {
 
         if ( hashbox_schema_entity_has_type( $entity, array( 'WebPage', 'CollectionPage', 'SearchResultsPage' ) ) ) {
             $data[ $key ]['url']         = $current_url;
-            $data[ $key ]['inLanguage']  = 'th-TH';
+            $data[ $key ]['inLanguage']  = hashbox_page_in_language();
             $data[ $key ]['description'] = $description;
             $data[ $key ]['isPartOf']    = array( '@id' => $home . '#website' );
             $data[ $key ]['publisher']   = array( '@id' => $home . '#organization' );
         }
 
+        // KNOWN GAP, verified on production 2026-08-17: this branch does not
+        // reach Rank Math's own #richSnippet Article node. Live posts render
+        // WebPage inLanguage th-TH (set above) but BlogPosting inLanguage
+        // en-US — the WP locale — on the same page, so something adds that
+        // node after this filter has run. Pre-existing, not caused by the
+        // helper below; do not assume this line controls the Article node
+        // until you have re-checked the live JSON-LD.
         if ( is_singular( 'post' ) && hashbox_schema_entity_has_type( $entity, array( 'Article', 'BlogPosting', 'NewsArticle' ) ) ) {
-            $data[ $key ]['inLanguage'] = 'th-TH';
+            $data[ $key ]['inLanguage'] = hashbox_page_in_language();
             $data[ $key ]['publisher']  = array( '@id' => $home . '#organization' );
         }
     }
@@ -2343,7 +2413,7 @@ add_filter( 'rank_math/opengraph/facebook/image', 'hashbox_rankmath_og_image' );
 add_filter( 'rank_math/opengraph/twitter/image', 'hashbox_rankmath_og_image' );
 
 function hashbox_rankmath_og_locale( $locale ) {
-    return 'th_TH';
+    return hashbox_page_og_locale();
 }
 add_filter( 'rank_math/opengraph/facebook/og_locale', 'hashbox_rankmath_og_locale' );
 add_filter( 'rank_math/opengraph/facebook/locale', 'hashbox_rankmath_og_locale' );
@@ -2481,6 +2551,8 @@ function hashbox_inject_home_schema() {
                 '@id'        => $home . '#website',
                 'url'        => $home,
                 'name'       => 'Hashbox Studio',
+                // Site node — see hashbox_rankmath_schema_website(): stays Thai
+                // on every URL because it describes the site, not the page.
                 'inLanguage' => 'th-TH',
                 'publisher'  => array( '@id' => $home . '#organization' ),
                 'potentialAction' => array(
@@ -2563,11 +2635,18 @@ function hashbox_llms_txt_content() {
     $lines[] = '## Services';
     $lines[] = '';
     $lines[] = '- [SEO-Ready Website Build](' . home_url( '/services/website-development/' ) . '): รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่ launch · Lighthouse 100 · Schema ครบ · เริ่ม 80,000 บาท';
-    $lines[] = '- [ที่ปรึกษา AI สำหรับธุรกิจ](' . home_url( '/services/ai-consulting/' ) . '): บริการให้คำปรึกษาและปรึกษาทำระบบ AI Solution · LLM integration · automation · custom agent';
+    // Hiring intent, not the guide's phrase — same split as the <title>: this
+    // entry is who to hire, the Pillar Guides entry below is how it works.
+    $lines[] = '- [ที่ปรึกษา AI สำหรับธุรกิจ](' . home_url( '/services/ai-consulting/' ) . '): รับวางระบบ AI ให้ธุรกิจไทยถึง production · LLM integration · automation · custom agent';
     $lines[] = '- [Digital Marketing Tools](' . home_url( '/services/digital-marketing-tools/' ) . '): SEO + CRO + analytics tooling';
     $lines[] = '';
     $lines[] = '## Pillar Guides';
     $lines[] = '';
+    // The guide, not the service page, is what answers "ปรึกษาทำระบบ AI
+    // Solution" — it ranks 3rd for it and is the AI Overview citation. It was
+    // missing from this list entirely, so llms.txt pointed that phrase at the
+    // service page and never named the page that actually owns it.
+    $lines[] = '- [ปรึกษาทำระบบ AI Solution สำหรับธุรกิจ](' . home_url( '/ai-solution-consulting-guide-2026/' ) . '): AI consulting budgets, timelines and vendor checklist for Thai businesses';
     $lines[] = '- [Technical SEO คือ? คู่มือ 2026](' . home_url( '/technical-seo-guide/' ) . '): Technical SEO definition, audit checklist, common fixes';
     $lines[] = '- [GEO คืออะไร? Generative Engine Optimization](' . home_url( '/geo-ai-search-optimization-2026/' ) . '): GEO definition + optimization for ChatGPT, Perplexity, Google AI Overviews';
     $lines[] = '- [Next.js vs WordPress 2026](' . home_url( '/nextjs-vs-wordpress-2026/' ) . '): Stack comparison for SEO performance';
@@ -3413,6 +3492,8 @@ function hashbox_render_case_study( array $case ) {
         'description'    => $case['lede'],
         'url'            => $work_url,
         'datePublished'  => $case['year'] . '-01-01',
+        // Case studies are Thai-only copy rendered by this function; there is
+        // no /en/ counterpart to follow, so this stays a literal.
         'inLanguage'     => 'th-TH',
         'author'         => array( '@id' => home_url( '/#organization' ) ),
         'publisher'      => array( '@id' => home_url( '/#organization' ) ),
@@ -3512,6 +3593,18 @@ function hashbox_inject_heading_ids( $content ) {
     return $processed['content'];
 }
 add_filter( 'the_content', 'hashbox_inject_heading_ids', 20 );
+
+/*
+ * No theme-injected link from the AI Solution guide to the service page
+ * (considered and dropped 2026-08-17).
+ *
+ * The guide's body already links to /services/ai-consulting/ three times, and
+ * the first of those uses the exact anchor text a new link would want —
+ * "บริการที่ปรึกษา AI สำหรับธุรกิจ". Google attributes one anchor per target
+ * URL per page, so a fourth link adds no signal and would put a second copy of
+ * the same sentence at the end of the page that ranks 3rd and is cited in the
+ * AI Overview. The handoff already exists; leave the guide alone.
+ */
 
 /**
  * Related posts — same primary category, exclude current.
@@ -3736,7 +3829,7 @@ function hashbox_inject_post_schema() {
         'image'         => hashbox_og_image_url( $post_id ),
         'datePublished' => get_the_date( 'c', $post_id ),
         'dateModified'  => get_the_modified_date( 'c', $post_id ),
-        'inLanguage'    => 'th-TH',
+        'inLanguage'    => hashbox_page_in_language(),
         'author'        => hashbox_author_schema( get_post_field( 'post_author', $post_id ) ),
         'publisher'     => array( '@id' => home_url( '/#organization' ) ),
         'mainEntityOfPage' => array(
@@ -3787,7 +3880,7 @@ function hashbox_inject_archive_schema() {
         '@id'      => $url . '#collection',
         'name'     => $name,
         'url'      => $url,
-        'inLanguage' => 'th-TH',
+        'inLanguage' => hashbox_page_in_language(),
         'isPartOf' => array( '@id' => home_url( '/#website' ) ),
     ) );
 

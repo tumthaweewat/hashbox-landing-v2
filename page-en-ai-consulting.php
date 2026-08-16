@@ -292,7 +292,10 @@ hashbox_jsonld( array(
     'name'         => 'AI Consulting Bangkok',
     'description'  => $desc,
     'url'          => $page_url,
-    'inLanguage'   => 'en',
+    // Literal rather than hashbox_page_in_language(): this template is English
+    // by definition. Kept identical to what that helper returns so the page
+    // carries one language token across every node, not two spellings of it.
+    'inLanguage'   => 'en-US',
     'provider'     => array( '@id' => home_url( '/#organization' ) ),
     'areaServed'   => array(
         array( '@type' => 'City', 'name' => 'Bangkok' ),
@@ -326,7 +329,7 @@ hashbox_jsonld( array(
     '@context'   => 'https://schema.org',
     '@type'      => 'FAQPage',
     '@id'        => $page_url . '#faq',
-    'inLanguage' => 'en',
+    'inLanguage' => 'en-US',
     'mainEntity' => $faq_entities,
 ) );
 
