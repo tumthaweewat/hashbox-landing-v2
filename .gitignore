@@ -42,3 +42,7 @@ graphify-out/
 .tmp-ref/
 .audit-tmp/
 .playwright-mcp/
+
+# Local research exports
+tom-gaming-output/
+*_youtube_ideas.csv

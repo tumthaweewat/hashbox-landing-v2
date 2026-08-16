@@ -1,0 +1,17 @@
+{
+  "date": "2026-08-08",
+  "framework": "WordPress classic theme with a standalone static preview",
+  "fonts": ["DM Sans", "IBM Plex Sans Thai", "IBM Plex Mono"],
+  "palette": "dark zinc and indigo, translated to a light cobalt preview register",
+  "motion": "vanilla JavaScript with reduced-motion support",
+  "spacing": "4px token scale",
+  "preserve": [
+    "homepage SEO copy",
+    "one H1 and sequential H2/H3 hierarchy",
+    "service and case-study internal-link intent",
+    "existing self-hosted fonts",
+    "real evidence imagery in proof and case-study sections",
+    "Audit as the primary conversion action"
+  ],
+  "iteration": "consolidate standalone marketing and conversion optimization into SEO and AI Search; add section illustration system without changing production templates"
+}

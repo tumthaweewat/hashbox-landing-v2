@@ -14,13 +14,13 @@ mkdirSync(kitOut, { recursive: true });
 
 const routes = {
   ai_workforce: {
-    label: 'AI WORKFORCE AUDIT',
+    label: 'AI WORKFLOW AUDIT',
     service: 'AI Workforce',
-    headline: ['ลดงานซ้ำ', 'ด้วย AI ที่วัด ROI ได้'],
-    sub: 'LINE Bot • RAG • Workflow Automation',
-    chips: ['ROI Map', 'Use Case', 'Deploy Plan'],
-    cta: 'รับ AI Audit ฟรี',
-    micro: 'สำหรับทีม Sales, Support, Ops',
+    headline: ['งานซ้ำเยอะ?', 'ให้ AI ช่วยปิดงาน'],
+    sub: 'ตอบช้า หลุดแชต ทีมแบกงานซ้ำ โตต่อยาก',
+    chips: ['LINE Bot', 'RAG', 'Workflow'],
+    cta: 'คลิกลงทะเบียน',
+    micro: 'เราตรวจ Workflow ให้ฟรี',
     url: 'hashbox.co.th',
     metric: '-60%',
     metricLabel: 'support cost',
@@ -29,13 +29,13 @@ const routes = {
     accent2: '#7B5CFF',
   },
   seo_ready: {
-    label: 'SEO-READY WEBSITE',
+    label: 'FREE WEBSITE AUDIT',
     service: 'SEO-Ready Website',
-    headline: ['เว็บใหม่', 'ต้องพร้อมติด Google'],
-    sub: 'Technical SEO • Schema • Core Web Vitals',
-    chips: ['Lighthouse 100', 'Schema', 'GA4/GSC'],
-    cta: 'ขอ SEO Audit ฟรี',
-    micro: 'ตรวจ Build Gate ก่อน Deploy',
+    headline: ['ปรับเว็บไซต์', 'ให้ AI หาเจอ'],
+    sub: 'เว็บโหลดช้า อ่านยาก เสิร์ชไม่เจอ ขายไม่ได้',
+    chips: ['AI Search', 'SEO Ready', 'Core Web Vitals'],
+    cta: 'คลิกลงทะเบียน',
+    micro: 'เราตรวจเว็บให้ฟรี',
     url: 'hashbox.co.th',
     metric: '100',
     metricLabel: 'Lighthouse',
@@ -44,13 +44,13 @@ const routes = {
     accent2: '#25D9FF',
   },
   seo_recovery: {
-    label: 'TECHNICAL SEO AUDIT',
+    label: 'SEO RECOVERY AUDIT',
     service: 'Technical SEO',
-    headline: ['Traffic ตก?', 'ให้ทีมตรวจ SEO'],
-    sub: 'Indexation • CWV • Schema • Competitor Gap',
+    headline: ['Search ไม่เจอ?', 'Traffic หาย?'],
+    sub: 'อันดับตก Index หาย คู่แข่งแซง Lead ลด',
     chips: ['GSC Audit', 'Index Fix', 'Roadmap'],
-    cta: 'รับ Audit ฟรี',
-    micro: 'Case: Impressions +2,200%',
+    cta: 'คลิกลงทะเบียน',
+    micro: 'ให้ทีมตรวจ SEO ฟรี',
     url: 'hashbox.co.th',
     metric: '+2,200%',
     metricLabel: 'impressions',
@@ -59,13 +59,13 @@ const routes = {
     accent2: '#61F4B1',
   },
   cro_sprint: {
-    label: 'CRO + MARKETING TOOLS',
+    label: 'FREE FUNNEL AUDIT',
     service: 'CRO Sprint',
-    headline: ['มี Traffic', 'แต่ Lead ไม่มา?'],
-    sub: 'GA4 • GSC • Heatmap • A/B Test',
-    chips: ['Funnel', 'Heatmap', 'Test Plan'],
-    cta: 'ตรวจ Funnel ฟรี',
-    micro: 'หา Lead Leak ก่อนเพิ่มงบ',
+    headline: ['คนเข้าเว็บ', 'แต่ Lead ไม่มา?'],
+    sub: 'ฟอร์มยาว หน้าไม่ชัด โหลดช้า Lead หาย',
+    chips: ['Funnel', 'Heatmap', 'A/B Test'],
+    cta: 'คลิกลงทะเบียน',
+    micro: 'เราตรวจจุดรั่วให้ฟรี',
     url: 'hashbox.co.th',
     metric: '3x',
     metricLabel: 'conversion',
@@ -74,13 +74,13 @@ const routes = {
     accent2: '#FF7AD9',
   },
   growth_bundle: {
-    label: 'WEB + ADS + SEO + AI',
+    label: 'GROWTH AUDIT',
     service: 'Web + Marketing + AI',
-    headline: ['ทีมเดียวดูครบ', 'Traffic → Lead → AI'],
-    sub: 'Website • Performance • CRO • AI Workforce',
-    chips: ['One KPI', 'Dashboard', 'One Team'],
-    cta: 'เริ่มด้วย Audit ฟรี',
-    micro: 'ทีมเดียวรับผิดชอบ Growth KPI',
+    headline: ['ยิงแอดอยู่', 'แต่ Lead ยังแพง?'],
+    sub: 'เว็บ Ads SEO AI ไม่เชื่อมกัน เลยโตช้า',
+    chips: ['Website', 'Ads + SEO', 'AI Ops'],
+    cta: 'คลิกลงทะเบียน',
+    micro: 'ทีมเดียวช่วยหาแผนแก้ฟรี',
     url: 'hashbox.co.th',
     metric: '1 KPI',
     metricLabel: 'one growth team',
@@ -509,12 +509,13 @@ function html(routeKey, format) {
     left: ${box.headlineLeft}px;
     top: ${box.subTop}px;
     width: ${isWide ? 630 : 880}px;
-    color: #c8d5ee;
+    color: #FFE45C;
     font-family: ${uiFontStack};
     font-size: ${box.subSize}px;
-    font-weight: 500;
+    font-weight: 900;
     line-height: 1.28;
     white-space: nowrap;
+    text-shadow: 0 10px 30px rgba(0,0,0,.35);
   }
   .chips {
     position: absolute;
@@ -930,12 +931,13 @@ function html(routeKey, format) {
     position: absolute;
     left: ${box.microLeft || box.headlineLeft}px;
     top: ${box.microTop}px;
-    color: #aebcd7;
+    color: #f5f8ff;
     font-family: ${uiFontStack};
     font-size: ${microFont}px;
-    font-weight: 600;
+    font-weight: 850;
     line-height: 1.2;
     white-space: nowrap;
+    text-shadow: 0 10px 30px rgba(0,0,0,.35);
   }
   .url {
     position: absolute;
