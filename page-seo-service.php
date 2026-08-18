@@ -9,7 +9,14 @@
  * accordion and the FAQPage JSON-LD.
  *
  * Rank Math: Title=รับทำ SEO สายเทคนิค วัดผลด้วยข้อมูลรายวัน | Hashbox,
- * Description=บริการรับทำ SEO แบบ technical-first — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวันของเราเอง เริ่มจาก SEO Audit ฟรี
+ * Description=บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาท/เดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี
+ * (Title/description ตัวจริงเขียนลง rank_math_* post meta โดย
+ * hashbox_sync_new_service_pages_rankmath_meta() ใน functions.php —
+ * บล็อกนี้เป็น reference ต้องแก้ให้ตรงกันทั้งสองที่)
+ *
+ * ราคา: จุดเริ่มต้นที่เผยแพร่ต่อสาธารณะคือ 25,000 บาท/เดือน (ตัวเลขเดียว
+ * ที่ approve แล้ว) ปรากฏใน hero, answer box, ตารางเทียบ, section #pricing,
+ * FAQ ข้อแรก และ Offer ใน Service JSON-LD — แก้ต้องแก้ให้ครบทุกจุด
  *
  * @package Hashbox_Studio_V2
  */
@@ -18,7 +25,11 @@ get_header();
 
 $page_url     = get_permalink();
 $services_url = home_url( '/services/' );
-$desc         = 'บริการรับทำ SEO แบบ technical-first — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวันของเราเอง เริ่มจาก SEO Audit ฟรี';
+$desc         = 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาท/เดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี';
+
+// จุดเริ่มต้นราคาที่เผยแพร่ (retainer รายเดือน) — ใช้ร่วมกันระหว่างข้อความบนหน้าและ Offer schema.
+$price_from     = 25000;
+$price_from_txt = number_format( $price_from ) . ' บาท/เดือน';
 
 $author_name     = 'Tum Thaweewat';
 $author_role     = 'Head of Tech';
@@ -26,7 +37,7 @@ $author_linkedin = 'https://www.linkedin.com/in/tumthaweewat/';
 $author_bio      = '17 ปีประสบการณ์ Technical SEO + Performance Engineering · ผ่านโปรเจกต์ SEO migration 50+ เคส · Cert: Google Analytics, Search Console, Cloudflare Performance Engineer';
 
 $faqs = array(
-    array( 'q' => 'รับทำ SEO ราคาเท่าไหร่?', 'a' => 'ราคาขึ้นกับ scope จริงของแต่ละเว็บ — จำนวนหน้า สภาพ technical ปัจจุบัน ความยากของคีย์เวิร์ด และคู่แข่งในตลาด เราไม่ขายแพ็กเกจตายตัวเพราะเว็บแต่ละแบบต้องการงานไม่เท่ากัน วิธีที่แฟร์ที่สุดคือเริ่มจาก SEO Audit ฟรี แล้วเราเสนอราคาตามงานที่จำเป็นจริงๆ' ),
+    array( 'q' => 'รับทำ SEO ราคาเท่าไหร่?', 'a' => 'บริการรับทำ SEO ของ Hashbox เริ่มต้นที่ 25,000 บาท/เดือน สำหรับงาน SEO ต่อเนื่อง ครอบคลุมงานด้าน Technical SEO, Core Web Vitals, Schema Markup, Content/On-page และ GEO/AI Overview ตาม scope ที่ตกลงกันหลัง audit พร้อมข้อมูลอันดับและการถูกอ้างอิงใน AI Overview อัปเดตรายวัน ราคาจริงขึ้นกับ scope ของแต่ละเว็บ — จำนวนหน้า สภาพ technical ปัจจุบัน ความยากของคีย์เวิร์ด และคู่แข่งในตลาด เราไม่ขายแพ็กเกจตายตัวเพราะเว็บแต่ละแบบต้องการงานไม่เท่ากัน วิธีที่แฟร์ที่สุดคือเริ่มจาก SEO Audit ฟรี แล้วเราเสนอราคาตามงานที่จำเป็นจริงๆ' ),
     array( 'q' => 'ทำ SEO ให้ติดหน้าแรก Google ใช้เวลากี่เดือน?', 'a' => 'โดยทั่วไปวงการนี้บอก 6 เดือนขึ้นไป แต่สำหรับเว็บที่โครงสร้าง technical ถูกต้อง — เร็ว, Schema ครบ, โครงสร้างเนื้อหาชัด — เราเห็น time-to-rank ลดเหลือ 1-2 เดือนในหลายอุตสาหกรรม นี่คือเหตุผลที่เราแก้ technical ก่อนเสมอ ส่วนคีย์เวิร์ดที่แข่งสูงมากยังต้องใช้เวลาสะสม authority ซึ่งเราจะบอกตรงๆ ตั้งแต่ audit' ),
     array( 'q' => 'รับประกันอันดับ 1 ได้ไหม?', 'a' => 'ไม่ได้ และใครรับประกันได้ควรระวัง เพราะไม่มีใครควบคุมอัลกอริทึมของ Google ได้ สิ่งที่เรารับประกันคือคุณภาพงานที่วัดได้และกระบวนการโปร่งใส: ทุกงาน technical มีเกณฑ์ผ่านชัดเจน และคุณเห็นข้อมูลอันดับรายวันเองว่าเคลื่อนไปทางไหน' ),
     array( 'q' => 'GEO / AI Overview optimization คืออะไร ทำไมต้องสนใจ?', 'a' => 'GEO (Generative Engine Optimization) คือการทำให้ content ของคุณถูก AI อ้างอิงเวลา AI ตอบคำถาม เช่นใน Google AI Overview ตอนนี้หลาย query ผู้ใช้ได้คำตอบจาก AI ก่อนเห็นเว็บ 10 อันดับ ถ้าแบรนด์คุณไม่ถูกอ้างอิง ก็หายไปจากคำตอบนั้นเลย เราทั้ง optimize ระดับ passage และมีระบบ track การถูกอ้างอิงรายวันเพื่อวัดผลจริง' ),
@@ -58,7 +69,7 @@ $compare = array(
     array( 'AI Overview / GEO', 'ไม่ทำ หรือยังไม่มีวิธีวัด', 'Optimize ระดับ passage + track การถูกอ้างอิงรายวัน' ),
     array( 'เครื่องมือวัดผล', 'เช่า SaaS รายเดือน', 'ระบบ rank tracking + AI-citation ของเราเอง' ),
     array( 'รายงาน', 'PDF เดือนละครั้ง', 'ข้อมูลจริงรายวัน เก็บย้อนหลังทั้งหมด' ),
-    array( 'ราคา', 'แพ็กเกจตายตัว', 'ตาม scope จริง เริ่มจาก audit ฟรี' ),
+    array( 'ราคา', 'แพ็กเกจตายตัว', 'เริ่มต้น 25,000 บาท/เดือน · quote จริงหลัง audit ฟรี' ),
 );
 ?>
 
@@ -78,7 +89,7 @@ $compare = array(
             </nav>
             <span class="hb-eyebrow">SEO Service · วัดผลด้วยข้อมูลจริง</span>
             <h1 class="hb-hero__title">รับทำ SEO<br><em>แบบ Technical-First</em><br>วัดผลด้วยข้อมูลจริงรายวัน</h1>
-            <p class="hb-hero__sub">บริการรับทำ SEO ของ Hashbox ไม่ได้เริ่มจาก "เขียนบทความเดือนละ 4 ชิ้น" แต่เริ่มจากแก้โครงสร้างเว็บให้ Google อ่านได้เร็วและเข้าใจถูกต้องก่อน — Technical SEO, Core Web Vitals, Schema.org — แล้วต่อยอดด้วย content และ GEO เพื่อให้เว็บของคุณไม่ได้แค่ติดอันดับ แต่ถูก AI อ้างอิงด้วย</p>
+            <p class="hb-hero__sub">บริการรับทำ SEO ของ Hashbox ไม่ได้เริ่มจาก "เขียนบทความเดือนละ 4 ชิ้น" แต่เริ่มจากแก้โครงสร้างเว็บให้ Google อ่านได้เร็วและเข้าใจถูกต้องก่อน — Technical SEO, Core Web Vitals, Schema.org — แล้วต่อยอดด้วย content และ GEO เพื่อให้เว็บของคุณไม่ได้แค่ติดอันดับ แต่ถูก AI อ้างอิงด้วย · ค่าบริการเริ่มต้น 25,000 บาท/เดือน เริ่มจาก SEO Audit ฟรี</p>
             <div class="hb-hero__actions">
                 <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
                 <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงาน</a>
@@ -92,7 +103,7 @@ $compare = array(
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-surface-2,#1E1E2A);border-radius:var(--hb-radius-md,8px);">
             <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">สรุปสั้นๆ</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
-                <strong>Hashbox รับทำ SEO แบบ technical-first</strong> — แก้โครงสร้างเว็บ ความเร็ว และ Schema ให้ Google อ่านได้ถูกต้องก่อน แล้วค่อยต่อยอดด้วย content เรา optimize 2 สนามพร้อมกัน: อันดับบน Google และการถูกอ้างอิงใน AI Overview (GEO) ลูกค้าเห็นข้อมูลอันดับและ AI citation อัปเดตรายวันจากระบบ track ของเราเอง ไม่ใช่ PDF เดือนละครั้ง ราคาตาม scope จริง — เริ่มจาก SEO Audit ฟรี ไม่มีข้อผูกมัด
+                <strong>Hashbox รับทำ SEO แบบ technical-first เริ่มต้น <?php echo esc_html( $price_from_txt ); ?></strong> — แก้โครงสร้างเว็บ ความเร็ว และ Schema ให้ Google อ่านได้ถูกต้องก่อน แล้วค่อยต่อยอดด้วย content เรา optimize 2 สนามพร้อมกัน: อันดับบน Google และการถูกอ้างอิงใน AI Overview (GEO) ลูกค้าเห็นข้อมูลอันดับและ AI citation อัปเดตรายวันจากระบบ track ของเราเอง ไม่ใช่ PDF เดือนละครั้ง quote สุดท้ายออกตาม scope จริงหลัง SEO Audit ฟรี ไม่มีข้อผูกมัด
             </p>
         </div>
     </div>
@@ -211,7 +222,42 @@ $compare = array(
     </div>
 </section>
 
-<section class="hb-section">
+<section class="hb-section" id="pricing">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">ราคา</span>
+            <h2 class="hb-h2">ราคารับทำ SEO เริ่มต้น <?php echo esc_html( $price_from_txt ); ?></h2>
+            <p class="hb-section__sub">งาน SEO ต่อเนื่องของ Hashbox เริ่มต้นที่ <?php echo esc_html( $price_from_txt ); ?> ครอบคลุมงานด้าน Technical SEO, Core Web Vitals, Schema, Content/On-page และ GEO/AI Overview · เราไม่ขายแพ็กเกจตายตัว — quote สุดท้ายออกหลัง SEO Audit ฟรี ตาม scope จริงของเว็บคุณ</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--hb-space-4);">
+            <div class="hb-tier hb-tier--featured">
+                <span class="hb-tier__ribbon">ราคาเริ่มต้น</span>
+                <span class="hb-tier__name">SEO ต่อเนื่อง</span>
+                <div class="hb-tier__price"><?php echo esc_html( number_format( $price_from ) ); ?><span class="hb-tier__price-unit">บาท/เดือน</span></div>
+                <p class="hb-caption">ครอบคลุมงานทั้ง 6 ด้านด้านบน ตาม scope ที่ตกลงกันหลัง audit</p>
+                <ul class="hb-tier__features">
+                    <li>Technical SEO — crawlability, indexability, redirect, canonical, sitemap</li>
+                    <li>Core Web Vitals — LCP, INP, CLS ตามเกณฑ์ของ Google</li>
+                    <li>Schema Markup ครบ 8+ types ตามประเภทธุรกิจ</li>
+                    <li>Content &amp; On-page วางจาก search intent จริง</li>
+                    <li>GEO / AI Overview optimization ระดับ passage</li>
+                    <li>ข้อมูลอันดับ + การถูกอ้างอิงใน AI Overview อัปเดตรายวัน จากระบบของเราเอง</li>
+                </ul>
+                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient" style="margin-top:auto;">ขอใบเสนอราคา SEO</a>
+            </div>
+            <div class="hb-card">
+                <h3 class="hb-card__title">อะไรทำให้ราคาขยับจากจุดเริ่มต้น</h3>
+                <p class="hb-body" style="margin:0;"><strong>จำนวนหน้าและขนาดเว็บ</strong> — เว็บเล็กกับเว็บที่มีหลายร้อยหน้าใช้แรงต่อเดือนไม่เท่ากัน</p>
+                <p class="hb-body" style="margin:0;"><strong>สภาพ technical ปัจจุบัน</strong> — ถ้า Core Web Vitals ตกและ Schema ยังไม่มีเลย เดือนแรกๆ จะหนักไปทางแก้โครงสร้างก่อน</p>
+                <p class="hb-body" style="margin:0;"><strong>ความยากของคีย์เวิร์ดและคู่แข่ง</strong> — คีย์เวิร์ดที่แข่งสูงมากต้องใช้เวลาสะสม authority ซึ่งเราบอกตรงๆ ตั้งแต่ audit</p>
+                <p class="hb-body" style="margin:0;"><strong>ต้องรื้อฐานเว็บด้วยไหม</strong> — ส่วนใหญ่แก้บนเว็บเดิมได้ ถ้า audit พบว่าโครงสร้างเดิมเป็นคอขวดจริง เราจะเสนอทางเลือกพร้อมเหตุผล ซึ่งเป็นคนละงานกับ<a href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>">บริการทำเว็บไซต์</a></p>
+            </div>
+        </div>
+        <p class="hb-body" style="margin-top:var(--hb-space-6);color:var(--hb-text-muted);"><?php echo esc_html( $price_from_txt ); ?> คือจุดเริ่มต้น ไม่ใช่ราคาเหมาทุกเว็บ — เราเสนอราคาตามงานที่จำเป็นจริงหลัง SEO Audit ฟรี และคุณเห็นทั้งปัญหาและ scope ก่อนตัดสินใจว่าจะจ้างต่อหรือไม่</p>
+    </div>
+</section>
+
+<section class="hb-section hb-section--surface">
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">ผลลัพธ์</span>
@@ -239,7 +285,7 @@ $compare = array(
     </div>
 </section>
 
-<section class="hb-section hb-section--surface">
+<section class="hb-section">
     <div class="hb-container hb-container--md">
         <div style="padding:var(--hb-space-6);border:1px solid var(--hb-border);border-radius:var(--hb-radius-md,8px);background:var(--hb-surface-2,#1E1E2A);">
             <span class="hb-eyebrow">ดูแลโดย</span>
@@ -250,7 +296,7 @@ $compare = array(
     </div>
 </section>
 
-<section class="hb-section">
+<section class="hb-section hb-section--surface">
     <div class="hb-container hb-container--md">
         <div class="hb-section__head">
             <span class="hb-eyebrow">FAQ</span>
@@ -267,7 +313,7 @@ $compare = array(
     </div>
 </section>
 
-<section class="hb-section hb-section--surface">
+<section class="hb-section">
     <div class="hb-container hb-container--md" style="text-align:center;">
         <h2 class="hb-h2">พร้อมเริ่มไหม?</h2>
         <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">ส่ง URL เว็บมา เราตรวจ technical, content และโอกาสใน AI Overview แล้วนัดคุยผลแบบไม่มีข้อผูกมัด</p>
@@ -279,6 +325,29 @@ $compare = array(
 </section>
 
 <?php
+// Published entry price. Single tier on purpose — 25,000 บาท/เดือน is the only
+// figure we publish; everything above it is quoted per scope after the audit.
+$seo_offer = array(
+    '@type'              => 'Offer',
+    'name'               => 'บริการรับทำ SEO ต่อเนื่อง (รายเดือน)',
+    'price'              => (string) $price_from,
+    'priceCurrency'      => 'THB',
+    'priceSpecification' => array(
+        '@type'         => 'UnitPriceSpecification',
+        // minPrice is what makes this an "from / เริ่มต้น" price rather than a
+        // flat rate. schema.org Offer.price alone has no starting-from meaning,
+        // and every visible string on this page says เริ่มต้น.
+        'minPrice'      => (string) $price_from,
+        'price'         => (string) $price_from,
+        'priceCurrency' => 'THB',
+        'unitCode'      => 'MON',
+        'unitText'      => 'เดือน',
+    ),
+    'description'        => 'ราคาเริ่มต้นต่อเดือนสำหรับงาน SEO ต่อเนื่อง ครอบคลุมงานด้าน Technical SEO, Core Web Vitals, Schema Markup, Content/On-page และ GEO/AI Overview optimization พร้อมข้อมูลอันดับและการถูกอ้างอิงใน AI Overview รายวัน ขอบเขตงานจริงและราคาสุดท้ายกำหนดตาม scope หลัง SEO Audit ฟรี',
+    'availability'       => 'https://schema.org/InStock',
+    'areaServed'         => 'TH',
+    'url'                => $page_url . '#pricing',
+);
 hashbox_jsonld( array(
     '@context'         => 'https://schema.org',
     '@type'            => 'Service',
@@ -290,6 +359,12 @@ hashbox_jsonld( array(
     'inLanguage'       => 'th',
     'provider'         => array( '@id' => home_url( '/#organization' ) ),
     'areaServed'       => array( '@type' => 'Country', 'name' => 'Thailand' ),
+    'offers'           => $seo_offer,
+    'hasOfferCatalog'  => array(
+        '@type'           => 'OfferCatalog',
+        'name'            => 'ราคาบริการรับทำ SEO',
+        'itemListElement' => array( $seo_offer ),
+    ),
     'availableChannel' => array(
         '@type'             => 'ServiceChannel',
         'serviceUrl'        => home_url( '/#contact' ),

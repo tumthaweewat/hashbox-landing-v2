@@ -807,6 +807,25 @@ function hashbox_get_seo_metadata() {
         );
     }
 
+    /*
+     * /services/seo/ — keyed by PATH, not by the "seo" post_name, so it cannot
+     * collide with another page that happens to use that slug.
+     *
+     * A rank_math_* row exists for this page (written by
+     * hashbox_sync_new_service_pages_rankmath_meta), and that row owns <title>
+     * and <meta name="description">. This entry is NOT redundant with it: the
+     * og/twitter description filter and WebPage.description have no row check
+     * and read this map, and it is also the only source when Rank Math is off.
+     * Keep the strings byte-identical to the row and to $desc in
+     * page-seo-service.php — the published entry price lives in all three.
+     */
+    if ( 'services/seo' === hashbox_current_request_path() ) {
+        return array(
+            'title'       => 'รับทำ SEO สายเทคนิค วัดผลด้วยข้อมูลรายวัน | Hashbox',
+            'description' => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาท/เดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
+        );
+    }
+
     if ( is_singular() ) {
         $post_obj = get_queried_object();
         $title    = $post_obj instanceof WP_Post ? get_the_title( $post_obj ) . ' | Hashbox Studio' : $fallback['title'];
@@ -916,7 +935,18 @@ add_action( 'wp', 'hashbox_sync_website_development_rankmath_meta', 1 );
  * hashbox_sync_website_development_rankmath_meta() above.
  */
 function hashbox_sync_new_service_pages_rankmath_meta() {
-    $sync_key = '20260816_seo_wp_geo_rankmath_meta_v1';
+    // v2 (2026-08-18): /services/seo/ description now carries the published
+    // entry price. Bumping this key is what makes a description change reach
+    // production, because hashbox_rankmath_description() bails once a
+    // rank_math_description row exists.
+    //
+    // NOTE: only the <meta name="description"> filter bails on the row. The
+    // social filter hashbox_rankmath_social_description() has NO row check, so
+    // og/twitter descriptions — and WebPage.description via
+    // hashbox_rankmath_json_ld() — still resolve through
+    // hashbox_get_seo_metadata(). That is why /services/seo/ ALSO needs an
+    // entry in that map; the row alone does not reach those surfaces.
+    $sync_key = '20260818_seo_wp_geo_rankmath_meta_v2';
     if ( $sync_key === get_option( 'hashbox_new_service_pages_rankmath_meta_version' ) ) {
         return;
     }
@@ -925,7 +955,8 @@ function hashbox_sync_new_service_pages_rankmath_meta() {
         array(
             'path'  => 'services/seo',
             'title' => 'รับทำ SEO สายเทคนิค วัดผลด้วยข้อมูลรายวัน | Hashbox',
-            'desc'  => 'บริการรับทำ SEO แบบ technical-first — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวันของเราเอง เริ่มจาก SEO Audit ฟรี',
+            // Keep in sync with $desc in page-seo-service.php.
+            'desc'  => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาท/เดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
         ),
         array(
             'path'  => 'services/website-development/wordpress',
@@ -2635,6 +2666,8 @@ function hashbox_llms_txt_content() {
     $lines[] = '## Services';
     $lines[] = '';
     $lines[] = '- [SEO-Ready Website Build](' . home_url( '/services/website-development/' ) . '): รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่ launch · Lighthouse 100 · Schema ครบ · เริ่ม 80,000 บาท';
+    // Retainer service, priced per month — the only monthly line in this file.
+    $lines[] = '- [รับทำ SEO (technical-first)](' . home_url( '/services/seo/' ) . '): รับทำ SEO สายเทคนิค · Technical SEO · Core Web Vitals · Schema · GEO/AI Overview · track อันดับรายวัน · เริ่ม 25,000 บาท/เดือน';
     // Hiring intent, not the guide's phrase — same split as the <title>: this
     // entry is who to hire, the Pillar Guides entry below is how it works.
     $lines[] = '- [ที่ปรึกษา AI สำหรับธุรกิจ](' . home_url( '/services/ai-consulting/' ) . '): รับวางระบบ AI ให้ธุรกิจไทยถึง production · LLM integration · automation · custom agent';
@@ -2660,6 +2693,8 @@ function hashbox_llms_txt_content() {
     $lines[] = '- SEO-Ready Corporate Site: from 200,000 THB / 4-6 weeks';
     $lines[] = '- SEO-Ready E-commerce: from 350,000 THB / 6-10 weeks';
     $lines[] = '- SEO-Ready Enterprise: from 500,000 THB / 8-14 weeks';
+    // One-off build fees above; this one is a monthly retainer, hence the unit.
+    $lines[] = '- SEO retainer (technical-first, incl. GEO): from 25,000 THB / month';
     $lines[] = '';
     $lines[] = '## Contact';
     $lines[] = '';
