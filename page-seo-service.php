@@ -9,12 +9,12 @@
  * accordion and the FAQPage JSON-LD.
  *
  * Rank Math: Title=รับทำ SEO สายเทคนิค วัดผลด้วยข้อมูลรายวัน | Hashbox,
- * Description=บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาท/เดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี
+ * Description=บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี
  * (Title/description ตัวจริงเขียนลง rank_math_* post meta โดย
  * hashbox_sync_new_service_pages_rankmath_meta() ใน functions.php —
  * บล็อกนี้เป็น reference ต้องแก้ให้ตรงกันทั้งสองที่)
  *
- * ราคา: จุดเริ่มต้นที่เผยแพร่ต่อสาธารณะคือ 25,000 บาท/เดือน (ตัวเลขเดียว
+ * ราคา: จุดเริ่มต้นที่เผยแพร่ต่อสาธารณะคือ 25,000 บาทต่อเดือน (ตัวเลขเดียว
  * ที่ approve แล้ว) ปรากฏใน hero, answer box, ตารางเทียบ, section #pricing,
  * FAQ ข้อแรก และ Offer ใน Service JSON-LD — แก้ต้องแก้ให้ครบทุกจุด
  *
@@ -25,11 +25,11 @@ get_header();
 
 $page_url     = get_permalink();
 $services_url = home_url( '/services/' );
-$desc         = 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาท/เดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี';
+$desc         = 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี';
 
 // จุดเริ่มต้นราคาที่เผยแพร่ (retainer รายเดือน) — ใช้ร่วมกันระหว่างข้อความบนหน้าและ Offer schema.
 $price_from     = 25000;
-$price_from_txt = number_format( $price_from ) . ' บาท/เดือน';
+$price_from_txt = number_format( $price_from ) . ' บาทต่อเดือน';
 
 $author_name     = 'Tum Thaweewat';
 $author_role     = 'Head of Tech';
@@ -37,7 +37,7 @@ $author_linkedin = 'https://www.linkedin.com/in/tumthaweewat/';
 $author_bio      = '17 ปีประสบการณ์ Technical SEO + Performance Engineering · ผ่านโปรเจกต์ SEO migration 50+ เคส · Cert: Google Analytics, Search Console, Cloudflare Performance Engineer';
 
 $faqs = array(
-    array( 'q' => 'รับทำ SEO ราคาเท่าไหร่?', 'a' => 'บริการรับทำ SEO ของ Hashbox เริ่มต้นที่ 25,000 บาท/เดือน สำหรับงาน SEO ต่อเนื่อง ครอบคลุมงานด้าน Technical SEO, Core Web Vitals, Schema Markup, Content/On-page และ GEO/AI Overview ตาม scope ที่ตกลงกันหลัง audit พร้อมข้อมูลอันดับและการถูกอ้างอิงใน AI Overview อัปเดตรายวัน ราคาจริงขึ้นกับ scope ของแต่ละเว็บ — จำนวนหน้า สภาพ technical ปัจจุบัน ความยากของคีย์เวิร์ด และคู่แข่งในตลาด เราไม่ขายแพ็กเกจตายตัวเพราะเว็บแต่ละแบบต้องการงานไม่เท่ากัน วิธีที่แฟร์ที่สุดคือเริ่มจาก SEO Audit ฟรี แล้วเราเสนอราคาตามงานที่จำเป็นจริงๆ' ),
+    array( 'q' => 'รับทำ SEO ราคาเท่าไหร่?', 'a' => 'บริการรับทำ SEO ของ Hashbox เริ่มต้นที่ 25,000 บาทต่อเดือน สำหรับงาน SEO ต่อเนื่อง ครอบคลุมงานด้าน Technical SEO, Core Web Vitals, Schema Markup, Content/On-page และ GEO/AI Overview ตาม scope ที่ตกลงกันหลัง audit พร้อมข้อมูลอันดับและการถูกอ้างอิงใน AI Overview อัปเดตรายวัน ราคาจริงขึ้นกับ scope ของแต่ละเว็บ — จำนวนหน้า สภาพ technical ปัจจุบัน ความยากของคีย์เวิร์ด และคู่แข่งในตลาด เราไม่ขายแพ็กเกจตายตัวเพราะเว็บแต่ละแบบต้องการงานไม่เท่ากัน วิธีที่แฟร์ที่สุดคือเริ่มจาก SEO Audit ฟรี แล้วเราเสนอราคาตามงานที่จำเป็นจริงๆ' ),
     array( 'q' => 'ทำ SEO ให้ติดหน้าแรก Google ใช้เวลากี่เดือน?', 'a' => 'โดยทั่วไปวงการนี้บอก 6 เดือนขึ้นไป แต่สำหรับเว็บที่โครงสร้าง technical ถูกต้อง — เร็ว, Schema ครบ, โครงสร้างเนื้อหาชัด — เราเห็น time-to-rank ลดเหลือ 1-2 เดือนในหลายอุตสาหกรรม นี่คือเหตุผลที่เราแก้ technical ก่อนเสมอ ส่วนคีย์เวิร์ดที่แข่งสูงมากยังต้องใช้เวลาสะสม authority ซึ่งเราจะบอกตรงๆ ตั้งแต่ audit' ),
     array( 'q' => 'รับประกันอันดับ 1 ได้ไหม?', 'a' => 'ไม่ได้ และใครรับประกันได้ควรระวัง เพราะไม่มีใครควบคุมอัลกอริทึมของ Google ได้ สิ่งที่เรารับประกันคือคุณภาพงานที่วัดได้และกระบวนการโปร่งใส: ทุกงาน technical มีเกณฑ์ผ่านชัดเจน และคุณเห็นข้อมูลอันดับรายวันเองว่าเคลื่อนไปทางไหน' ),
     array( 'q' => 'GEO / AI Overview optimization คืออะไร ทำไมต้องสนใจ?', 'a' => 'GEO (Generative Engine Optimization) คือการทำให้ content ของคุณถูก AI อ้างอิงเวลา AI ตอบคำถาม เช่นใน Google AI Overview ตอนนี้หลาย query ผู้ใช้ได้คำตอบจาก AI ก่อนเห็นเว็บ 10 อันดับ ถ้าแบรนด์คุณไม่ถูกอ้างอิง ก็หายไปจากคำตอบนั้นเลย เราทั้ง optimize ระดับ passage และมีระบบ track การถูกอ้างอิงรายวันเพื่อวัดผลจริง' ),
@@ -69,7 +69,7 @@ $compare = array(
     array( 'AI Overview / GEO', 'ไม่ทำ หรือยังไม่มีวิธีวัด', 'Optimize ระดับ passage + track การถูกอ้างอิงรายวัน' ),
     array( 'เครื่องมือวัดผล', 'เช่า SaaS รายเดือน', 'ระบบ rank tracking + AI-citation ของเราเอง' ),
     array( 'รายงาน', 'PDF เดือนละครั้ง', 'ข้อมูลจริงรายวัน เก็บย้อนหลังทั้งหมด' ),
-    array( 'ราคา', 'แพ็กเกจตายตัว', 'เริ่มต้น 25,000 บาท/เดือน · quote จริงหลัง audit ฟรี' ),
+    array( 'ราคา', 'แพ็กเกจตายตัว', 'เริ่มต้น 25,000 บาทต่อเดือน · quote จริงหลัง audit ฟรี' ),
 );
 ?>
 
@@ -89,7 +89,7 @@ $compare = array(
             </nav>
             <span class="hb-eyebrow">SEO Service · วัดผลด้วยข้อมูลจริง</span>
             <h1 class="hb-hero__title">รับทำ SEO<br><em>แบบ Technical-First</em><br>วัดผลด้วยข้อมูลจริงรายวัน</h1>
-            <p class="hb-hero__sub">บริการรับทำ SEO ของ Hashbox ไม่ได้เริ่มจาก "เขียนบทความเดือนละ 4 ชิ้น" แต่เริ่มจากแก้โครงสร้างเว็บให้ Google อ่านได้เร็วและเข้าใจถูกต้องก่อน — Technical SEO, Core Web Vitals, Schema.org — แล้วต่อยอดด้วย content และ GEO เพื่อให้เว็บของคุณไม่ได้แค่ติดอันดับ แต่ถูก AI อ้างอิงด้วย · ค่าบริการเริ่มต้น 25,000 บาท/เดือน เริ่มจาก SEO Audit ฟรี</p>
+            <p class="hb-hero__sub">บริการรับทำ SEO ของ Hashbox ไม่ได้เริ่มจาก "เขียนบทความเดือนละ 4 ชิ้น" แต่เริ่มจากแก้โครงสร้างเว็บให้ Google อ่านได้เร็วและเข้าใจถูกต้องก่อน — Technical SEO, Core Web Vitals, Schema.org — แล้วต่อยอดด้วย content และ GEO เพื่อให้เว็บของคุณไม่ได้แค่ติดอันดับ แต่ถูก AI อ้างอิงด้วย · ค่าบริการเริ่มต้น 25,000 บาทต่อเดือน เริ่มจาก SEO Audit ฟรี</p>
             <div class="hb-hero__actions">
                 <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
                 <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงาน</a>
@@ -233,7 +233,7 @@ $compare = array(
             <div class="hb-tier hb-tier--featured">
                 <span class="hb-tier__ribbon">ราคาเริ่มต้น</span>
                 <span class="hb-tier__name">SEO ต่อเนื่อง</span>
-                <div class="hb-tier__price"><?php echo esc_html( number_format( $price_from ) ); ?><span class="hb-tier__price-unit">บาท/เดือน</span></div>
+                <div class="hb-tier__price"><?php echo esc_html( number_format( $price_from ) ); ?><span class="hb-tier__price-unit">บาทต่อเดือน</span></div>
                 <p class="hb-caption">ครอบคลุมงานทั้ง 6 ด้านด้านบน ตาม scope ที่ตกลงกันหลัง audit</p>
                 <ul class="hb-tier__features">
                     <li>Technical SEO — crawlability, indexability, redirect, canonical, sitemap</li>
@@ -325,7 +325,7 @@ $compare = array(
 </section>
 
 <?php
-// Published entry price. Single tier on purpose — 25,000 บาท/เดือน is the only
+// Published entry price. Single tier on purpose — 25,000 บาทต่อเดือน is the only
 // figure we publish; everything above it is quoted per scope after the audit.
 $seo_offer = array(
     '@type'              => 'Offer',

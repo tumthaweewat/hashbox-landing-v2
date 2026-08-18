@@ -822,7 +822,7 @@ function hashbox_get_seo_metadata() {
     if ( 'services/seo' === hashbox_current_request_path() ) {
         return array(
             'title'       => 'รับทำ SEO สายเทคนิค วัดผลด้วยข้อมูลรายวัน | Hashbox',
-            'description' => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาท/เดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
+            'description' => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
         );
     }
 
@@ -946,7 +946,7 @@ function hashbox_sync_new_service_pages_rankmath_meta() {
     // hashbox_rankmath_json_ld() — still resolve through
     // hashbox_get_seo_metadata(). That is why /services/seo/ ALSO needs an
     // entry in that map; the row alone does not reach those surfaces.
-    $sync_key = '20260818_seo_wp_geo_rankmath_meta_v2';
+    $sync_key = '20260818_seo_wp_geo_rankmath_meta_v3';
     if ( $sync_key === get_option( 'hashbox_new_service_pages_rankmath_meta_version' ) ) {
         return;
     }
@@ -956,7 +956,7 @@ function hashbox_sync_new_service_pages_rankmath_meta() {
             'path'  => 'services/seo',
             'title' => 'รับทำ SEO สายเทคนิค วัดผลด้วยข้อมูลรายวัน | Hashbox',
             // Keep in sync with $desc in page-seo-service.php.
-            'desc'  => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาท/เดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
+            'desc'  => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
         ),
         array(
             'path'  => 'services/website-development/wordpress',
@@ -2667,7 +2667,7 @@ function hashbox_llms_txt_content() {
     $lines[] = '';
     $lines[] = '- [SEO-Ready Website Build](' . home_url( '/services/website-development/' ) . '): รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่ launch · Lighthouse 100 · Schema ครบ · เริ่ม 80,000 บาท';
     // Retainer service, priced per month — the only monthly line in this file.
-    $lines[] = '- [รับทำ SEO (technical-first)](' . home_url( '/services/seo/' ) . '): รับทำ SEO สายเทคนิค · Technical SEO · Core Web Vitals · Schema · GEO/AI Overview · track อันดับรายวัน · เริ่ม 25,000 บาท/เดือน';
+    $lines[] = '- [รับทำ SEO (technical-first)](' . home_url( '/services/seo/' ) . '): รับทำ SEO สายเทคนิค · Technical SEO · Core Web Vitals · Schema · GEO/AI Overview · track อันดับรายวัน · เริ่มต้น 25,000 บาทต่อเดือน';
     // Hiring intent, not the guide's phrase — same split as the <title>: this
     // entry is who to hire, the Pillar Guides entry below is how it works.
     $lines[] = '- [ที่ปรึกษา AI สำหรับธุรกิจ](' . home_url( '/services/ai-consulting/' ) . '): รับวางระบบ AI ให้ธุรกิจไทยถึง production · LLM integration · automation · custom agent';
