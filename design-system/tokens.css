@@ -277,6 +277,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
   text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -284,6 +285,7 @@ html {
 
 body {
   margin: 0;
+  overflow-x: clip;
   background: var(--hb-bg);
   color: var(--hb-text);
   font-family: var(--hb-font-body);
@@ -298,8 +300,8 @@ body {
 }
 
 :focus-visible {
-  outline: none;
-  box-shadow: var(--hb-focus-ring);
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
   border-radius: var(--hb-radius-sm);
 }
 

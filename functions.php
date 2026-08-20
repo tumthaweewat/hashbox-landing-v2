@@ -108,12 +108,15 @@ function hashbox_enqueue_assets() {
     // Legacy theme stylesheet (loads last — kept so WP recognizes theme)
     wp_enqueue_style( 'hashbox-style', get_stylesheet_uri(), array( $prev ), $version );
 
-    // V2 script
+    // V2 script — use the file mtime so long-lived browser/CDN caches pick up
+    // interaction fixes without requiring a theme-version bump.
+    $v2_script = get_template_directory() . '/js/v2.js';
+    $v2_script_version = file_exists( $v2_script ) ? filemtime( $v2_script ) : $version;
     wp_enqueue_script(
         'hashbox-v2-script',
         $theme_uri . '/js/v2.js',
         array(),
-        $version,
+        $v2_script_version,
         array(
             'in_footer' => true,
             'strategy'  => 'defer',

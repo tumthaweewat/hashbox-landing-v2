@@ -71,6 +71,15 @@
   margin: 0;
 }
 
+.hb-card__title,
+.hb-service__title,
+.hb-case__name,
+.hb-insight__title,
+.hb-tier__name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 .hb-card__footer {
   display: flex;
   align-items: center;
@@ -136,8 +145,9 @@
   transform: translateY(0);
 }
 .hb-card--interactive:focus-visible {
-  outline: none;
-  box-shadow: var(--hb-shadow-md), var(--hb-focus-ring);
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  box-shadow: var(--hb-shadow-md);
 }
 
 /* Accent bar across top of card */
@@ -164,6 +174,8 @@
   max-width: var(--hb-container-lg);
   margin-inline: auto;
   padding-inline: var(--hb-section-x);
+  padding-inline-start: max(var(--hb-section-x), env(safe-area-inset-left, 0px));
+  padding-inline-end: max(var(--hb-section-x), env(safe-area-inset-right, 0px));
 }
 
 .hb-container--xs { max-width: var(--hb-container-xs); }
@@ -654,6 +666,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
+  white-space: nowrap;
   transition: gap 200ms;
 }
 .hb-section--light .hb-service:hover .hb-service__link {
@@ -1031,6 +1044,29 @@
   letter-spacing: 0.12em;
   border-radius: 0 0 8px 8px;
   font-weight: 600;
+}
+
+/* =========================================================================
+ * Contact section — resilient two-column layout with a mobile stack
+ * ========================================================================= */
+.hb-contact__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--hb-space-8);
+  align-items: start;
+  max-width: 64rem;
+  margin-inline: auto;
+}
+
+.hb-contact__grid > * {
+  min-width: 0;
+}
+
+@media (min-width: 40.0625rem) {
+  .hb-contact__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--hb-space-12);
+  }
 }
 
 /* =========================================================================
