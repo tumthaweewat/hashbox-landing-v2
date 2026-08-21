@@ -192,7 +192,7 @@ Google ยืนยันตั้งแต่ **มิถุนายน 2021**
 
 ปกติแก้ CWV แบบ piecemeal (แก้ทีละ symptom) จะได้ผลแค่ 30-50% ของศักยภาพ ทางที่ดีที่สุดคือ build เว็บใหม่บน stack ที่ออกแบบมาให้ CWV เขียวตั้งแต่ต้น เช่น Next.js + Vercel หรือ Astro + Cloudflare
 
-ที่ Hashbox เราใช้ [บริการรับทำเว็บไซต์ SEO-Ready](/services/seo-ready-website/) ที่บังคับ Core Web Vitals เขียวเป็น **Build Gate** ใน CI pipeline — ไม่ผ่านเกณฑ์ = ไม่ deploy การันตี Lighthouse 95+ Mobile / 100 Desktop ทุกโปรเจกต์
+ที่ Hashbox เราใช้ [บริการรับทำเว็บไซต์ SEO-Ready](/services/website-development/) ที่บังคับ Core Web Vitals เขียวเป็น **Build Gate** ใน CI pipeline — ไม่ผ่านเกณฑ์ = ไม่ deploy การันตี Lighthouse 95+ Mobile / 100 Desktop ทุกโปรเจกต์
 
 ดูเพิ่มเติม:
 - [Technical SEO คือ? คู่มือ 2026](/technical-seo-guide/)
@@ -221,7 +221,7 @@ CWV เป็น 1 ใน 200+ ranking signal ของ Google ผ่าน CWV 
 - **Audit + fix** โดยทีม: 30,000 - 80,000 บาท (CWV เหลือง → เขียว)
 - **Rebuild เว็บใหม่บน modern stack**: 80,000 บาท ขึ้นไป (CWV เขียวการันตี)
 
-ดูเพิ่ม: [บริการรับทำเว็บไซต์ SEO-Ready](/services/seo-ready-website/) เริ่ม 80,000 บาท CWV เขียวการันตี
+ดูเพิ่ม: [บริการรับทำเว็บไซต์ SEO-Ready](/services/website-development/) เริ่ม 80,000 บาท CWV เขียวการันตี
 
 ---
 

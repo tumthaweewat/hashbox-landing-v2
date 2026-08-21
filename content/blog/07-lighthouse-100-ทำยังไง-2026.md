@@ -186,7 +186,7 @@ Accessibility score วัด WCAG 2.1 AA compliance:
 
 การ retrofit เว็บเดิมให้ผ่าน 100 ทุกหมวดเป็นไปได้แต่ใช้เวลานาน วิธีที่ scalable ที่สุดคือ build บน stack ที่ออกแบบมาเพื่อ Lighthouse 100 ตั้งแต่ต้น (Next.js + Vercel หรือ Astro + Cloudflare)
 
-ที่ Hashbox เราใช้ [บริการรับทำเว็บไซต์ SEO-Ready](/services/seo-ready-website/) ที่บังคับ Lighthouse 95+ Mobile / 100 Desktop เป็น Build Gate ใน CI — ไม่ผ่าน = ไม่ deploy
+ที่ Hashbox เราใช้ [บริการรับทำเว็บไซต์ SEO-Ready](/services/website-development/) ที่บังคับ Lighthouse 95+ Mobile / 100 Desktop เป็น Build Gate ใน CI — ไม่ผ่าน = ไม่ deploy
 
 ดูเพิ่ม:
 - [LCP คือ? วิธีแก้](/lcp-คือ-วิธีแก้-2026/)
@@ -218,7 +218,7 @@ WordPress: TTFB ลด → LCP/TBT ดีขึ้น → Performance +15-25 poi
 ### ราคา service ทำให้ Lighthouse 100?
 - Audit + fix: 30,000-80,000 บาท
 - Rebuild ใหม่: 80,000+ บาท
-ดู [SEO-Ready pricing](/services/seo-ready-website/)
+ดู [SEO-Ready pricing](/services/website-development/)
 
 ---
 
