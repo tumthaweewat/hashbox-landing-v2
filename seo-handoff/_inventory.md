@@ -4,7 +4,7 @@
 > ใช้กัน **keyword cannibalization** — ก่อนเสนอหัวข้อใหม่ทุกครั้ง ต้องเช็คไฟล์นี้ก่อน
 >
 > **ต้องอัปเดตเมื่อ:** publish บทความใหม่ / เปลี่ยน focus keyword ของหน้าเดิม / หน้าตาย
-> **อัปเดตล่าสุด:** 2026-08-21
+> **อัปเดตล่าสุด:** 2026-08-21 (เพิ่ม 3 ดราฟต์จาก keyword-plan-2026-08)
 
 ---
 
@@ -31,6 +31,9 @@
 | `/ai-workforce-sme-thailand-2026/` | `ai workforce sme` | AI Automation | ใหม่ |
 | `/line-chatbot-ai-guide-2026/` | `line chatbot ai` | AI Automation | ใหม่ |
 | `/cro-thai-websites-2026/` | `cro คือ` | CRO | ใหม่ |
+| `/wordpress-ai-overview-2026/` | `ทำเว็บ wordpress ให้ติด ai overview` | AI Overview | drafted — `articles/wordpress-ai-overview-2026.md` |
+| `/chatgpt-company-data-security-2026/` | `พนักงานใช้ chatgpt ข้อมูลบริษัทรั่วไหม` | AI Governance | drafted — `articles/chatgpt-company-data-security-2026.md` |
+| `/why-not-in-ai-overview-2026/` | `ทำไมเว็บไม่ติด ai overview` | AI Overview | drafted — `articles/why-not-in-ai-overview-2026.md` |
 
 ## 2. Service page — Commercial (ปลายทางของ internal link)
 
@@ -61,6 +64,8 @@ technical seo คือ · schema markup คือ · core web vitals คือ 
 lighthouse 100 · local seo bangkok · next.js vs wordpress · cro คือ
 ปรึกษาทำระบบ ai solution · n8n คืออะไร · ai agent rag chatbot
 ai workforce sme · line chatbot ai · ai consultant bangkok
+ทำเว็บ wordpress ให้ติด ai overview · พนักงานใช้ chatgpt ข้อมูลบริษัทรั่วไหม
+ทำไมเว็บไม่ติด ai overview
 ```
 
 ## 5. Baseline ที่ใช้ตัดสินใจ (GSC 10 มี.ค. – 14 มิ.ย. 2026)
