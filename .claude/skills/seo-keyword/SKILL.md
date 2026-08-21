@@ -119,6 +119,24 @@ node tools/dataforseo.mjs plan seo-handoff/keyword-plan-2026-08.md   # เติ
 
 ---
 
+## STEP 6 — เขียนบทความ
+
+อ่าน `references/house-style.md` ก่อนเขียนทุกครั้ง สรุปกฎที่พลาดบ่อยที่สุด:
+
+- เขียนในฐานะ **สื่อที่เป็นกลาง** ไม่ใช่เอเจนซี่ที่ขายของ CTA อยู่ท้ายบทเท่านั้น
+- **ห้ามใช้เครื่องหมายคำพูดครอบคำเพื่อเน้น** ใช้ตัวหนาแทน
+- **ห้ามใช้ขีดคั่นกลางประโยค** (hyphen ในคำเทคนิคอังกฤษอย่าง `answer-first` ใช้ได้ เพราะเป็นส่วนหนึ่งของคำ)
+- **ห้ามใช้คำเปรียบเปรย** อธิบายสิ่งที่มันเป็นตรง ๆ
+- แปลศัพท์เฉพาะทางทุกคำตอนปรากฏครั้งแรก
+- แทรกความเห็นจากประสบการณ์จริงอย่างน้อย 2 จุด
+
+ตรวจก่อนส่งเสมอ:
+```bash
+node tools/check-house-style.mjs seo-handoff/articles/<ไฟล์>.md
+```
+
+บันทึกดราฟต์ที่ `seo-handoff/articles/<slug>.md` ตามฟอร์แมตเดิม (Meta Title → Meta Description → Slug → บทความ → Internal links → Schema)
+
 ## Output ที่ต้องส่งมอบ
 
 1. ตารางสรุป hero keyword ทั้งหมด: keyword / demand evidence / SERP verdict / service page ปลายทาง / unfair advantage
