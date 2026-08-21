@@ -95,7 +95,7 @@ node tools/dataforseo.mjs plan seo-handoff/keyword-plan-2026-08.md
 | 1 ✅ | **B1** WordPress + AI Overview | คู่แข่งไทย = ศูนย์ และเป็นความรู้ที่เราทำอยู่ทุกวัน → เขียนเร็วที่สุด ชนะง่ายที่สุด · ดราฟต์เสร็จ `articles/wordpress-ai-overview-2026.md` |
 | 2 ✅ | **C3** ChatGPT กับข้อมูลบริษัทรั่ว | intent สูงสุดในแผน คนค้นคือผู้บริหารที่กำลังตัดสินใจ · ดราฟต์เสร็จ `articles/chatgpt-company-data-security-2026.md` |
 | 3 ✅ | **A3** ทำไมเว็บไม่ติด AI Overview | ผูกกับ `/tools/geo-checker/` ที่มีอยู่แล้ว → ได้ทั้งบทความและทาง traffic เข้า tool · ดราฟต์เสร็จ `articles/why-not-in-ai-overview-2026.md` |
-| 4 | อัปเดต `/ai-agent-rag-chatbot-thailand-2026/` (§3) | งานเล็ก ผลเร็ว แทรกได้ระหว่างรอบ |
+| 4 ✅ | อัปเดต `/ai-agent-rag-chatbot-thailand-2026/` (§3) | งานเล็ก ผลเร็ว แทรกได้ระหว่างรอบ · เนื้อหาพร้อมวางแล้ว `ai-agent-vs-chatbot-insert.md` |
 | 5 | **A1** traffic ตกเพราะ AI Overview | ต้องรอ export GSC รอบใหม่มาทำกราฟ before/after ก่อน |
 | 6 | **C1** ทำไมโปรเจกต์ AI ล้ม | ต้องเก็บเคสจริงให้ครบก่อนเขียน |
 | 7–10 | B2 · B3 · C2 · A4 | A4 ตรวจ SERP ซ้ำก่อนเริ่มเสมอ |
