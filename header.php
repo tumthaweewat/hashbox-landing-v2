@@ -7,7 +7,7 @@ $hashbox_is_website_audit = is_page( 'website-audit' );
 <html <?php language_attributes(); ?>>
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0<?php echo $hashbox_is_ai_audit ? ', viewport-fit=cover' : ''; ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
     <link rel="icon" type="image/svg+xml" href="<?php echo get_template_directory_uri(); ?>/assets/favicons/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="<?php echo get_template_directory_uri(); ?>/assets/favicons/favicon-32x32.png">
@@ -54,9 +54,9 @@ $hashbox_is_website_audit = is_page( 'website-audit' );
                     <a href="#audit-form" class="hb-btn hb-btn--gradient hb-btn--sm hb-ai-button" data-track-event="ai_cta_click">ส่งโจทย์ AI</a>
                 <?php else : ?>
                     <span class="hb-nav__status">All systems live</span>
-                    <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--sm">รับ Audit ฟรี</a>
-                    <button class="hb-nav__burger" id="navBurger" aria-label="Open menu" aria-controls="navSheet" aria-expanded="false">
-                        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--sm hb-nav__cta--drawer-backed">รับ Audit ฟรี</a>
+                    <button type="button" class="hb-nav__burger" id="navBurger" aria-label="Open menu" aria-controls="navSheet" aria-expanded="false">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
                     </button>
                 <?php endif; ?>
             </div>
@@ -64,12 +64,12 @@ $hashbox_is_website_audit = is_page( 'website-audit' );
     </header>
 
     <?php if ( ! $hashbox_is_ai_audit && ! $hashbox_is_website_audit ) : ?>
-        <div class="hb-sheet-backdrop"></div>
-        <div class="hb-sheet" id="navSheet" role="dialog" aria-modal="true" aria-labelledby="navSheetTitle" aria-hidden="true">
+        <div class="hb-sheet-backdrop" data-open="false" aria-hidden="true"></div>
+        <div class="hb-sheet" id="navSheet" role="dialog" aria-modal="true" aria-labelledby="navSheetTitle" aria-hidden="true" data-open="false" tabindex="-1" inert>
             <div class="hb-sheet__head">
                 <span id="navSheetTitle" class="hb-eyebrow">Menu</span>
-                <button class="hb-sheet__close" aria-label="Close menu">
-                    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <button type="button" class="hb-sheet__close" aria-label="Close menu">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
             <nav>

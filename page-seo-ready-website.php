@@ -1070,6 +1070,12 @@ $checks = array(
                     <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
                         <strong>คือ เว็บไซต์ที่ผ่าน Build Gate กว่า 12 ขั้นตอนก่อน Deploy ขึ้น Production</strong> ครอบคลุมทั้ง Lighthouse Score 100, Core Web Vitals ระดับสีเขียวทุกค่า รวมถึงการติดตั้ง Schema.org Markup เพื่อช่วยให้ Search Engine เข้าใจเนื้อหาและธุรกิจได้ถูกต้องและแม่นยำ นอกจากนี้ยังมีการตั้งค่า Canonical, Robots.txt และ Sitemap พร้อม Auto Submit ไปยัง Google และ Bing รวมถึงรองรับ AI Crawlers จากแพลตฟอร์มที่กลุ่มเป้าหมายของทุกธุรกิจนิยมใช้อย่าง ChatGPT, Claude, Gemini, Google AI Overviews และ AI Mode
                     </p>
+                    <p class="hb-body" style="margin-top:var(--hb-space-4);">
+                        เลือกแพลตฟอร์มได้ตามโจทย์ — ถ้าทีมของคุณต้องแก้เนื้อหาเองเป็นหลัก
+                        ดู<a href="<?php echo esc_url( home_url( '/services/website-development/wordpress/' ) ); ?>">บริการรับทำเว็บไซต์ WordPress ที่ Lighthouse 95+</a>
+                        (ทั้งแบบ Custom Theme และ Headless WordPress + Next.js)
+                        · ถ้าเว็บมีอยู่แล้วและอยากดันอันดับอย่างเดียว ดู<a href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>">บริการรับทำ SEO</a>
+                    </p>
                 </div>
                 <blockquote class="hb-srw-card hb-srw-quote">
                     <div class="hb-srw-quote__mark" aria-hidden="true">&ldquo;</div>

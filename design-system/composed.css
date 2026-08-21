@@ -89,6 +89,8 @@
   letter-spacing: 0;
   color: var(--hb-text-strong);
   margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .hb-hero__title em {
@@ -453,16 +455,24 @@
 
 @media (max-width: 640px) {
   .hb-hero__visual {
-    min-height: 33rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--hb-space-5);
+    min-height: 0;
   }
 
   .hb-hero__creative-card {
+    position: relative;
+    inset: auto;
     width: 94%;
-    right: 0;
+    justify-self: end;
   }
 
   .hb-dashboard {
+    position: relative;
+    inset: auto;
     width: 96%;
+    justify-self: start;
   }
 
   .hb-dashboard__kpis {

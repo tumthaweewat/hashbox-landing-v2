@@ -1,0 +1,274 @@
+<!-- wp:paragraph -->
+<p><strong>GEO คือ</strong> (Generative Engine Optimization) การปรับคอนเทนต์และโครงสร้างเว็บไซต์ให้ AI search engine — Google AI Overview, ChatGPT, Perplexity — เลือกหยิบเนื้อหาของเราไป <strong>อ้างอิง (cite) ในคำตอบที่ AI สร้างขึ้น</strong> เป้าหมายไม่ใช่แค่ "ติดอันดับ" แต่คือ "ถูกอ้างถึง"</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>&gt; <strong>TL;DR</strong> &gt; &gt; - GEO คือการทำให้ AI อ้างอิงเว็บเรา ไม่ใช่แค่ให้ Google จัดอันดับหน้าเรา &gt; - หน่วยการแข่งขันเปลี่ยน: SEO แข่งกันเป็น "หน้า" GEO แข่งกันเป็น "passage" (ย่อหน้าที่ยกไปตอบได้ทันที) &gt; - เทคนิคหลักมี 5 ข้อ: Passage-Level Content, Citable Factoid, Schema Markup, llms.txt, Brand Mention &gt; - AI Overview ภาษาไทยโผล่กับ query เชิงบริการแล้ว เช่น "รับทำเว็บไซต์" — ขณะที่เว็บไทยส่วนใหญ่ยังไม่ทำ GEO นี่คือช่องว่าง &gt; - วัดผลด้วยการ track ว่าโดเมนเราถูก cite ใน AI Overview บ่อยแค่ไหน — ดู Google Search Console อย่างเดียวไม่พอ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>บทความนี้เขียนโดยทีม Hashbox ที่สร้าง<strong>ระบบ track อันดับ + การถูกอ้างอิงใน AI Overview ของเราเอง อัปเดตรายวัน</strong> (เก็บข้อมูล SERP และ AI Overview ทุกวัน ไม่ได้เช่า dashboard SaaS) สิ่งที่เขียนต่อจากนี้มาจากข้อมูลที่เราเห็นจริงในตลาดไทย ไม่ใช่แปลบทความฝรั่งมาเรียบเรียง</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">GEO คืออะไร? อธิบายแบบไม่อ้อม</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>GEO (Generative Engine Optimization) คือการ optimize เว็บไซต์เพื่อ "generative engine" — ระบบค้นหาที่ตอบผู้ใช้ด้วยคำตอบที่ AI เรียบเรียงขึ้นเอง แทนที่จะแสดงลิงก์ 10 อัน</strong> ตัวอย่าง generative engine ที่คนไทยเจอทุกวัน: Google AI Overview (กล่องคำตอบ AI บนสุดของผลค้นหา), ChatGPT Search และ Perplexity</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>จุดที่ต้องเข้าใจให้ตรง: AI พวกนี้ไม่ได้ "จัดอันดับ" เว็บแบบเดิม มันทำ 3 ขั้น</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"ordered":true} -->
+<ol class="wp-block-list"><!-- wp:list-item --><li><strong>Retrieve</strong> — ดึงหน้าเว็บที่เกี่ยวข้องกับคำถาม (ยังพึ่ง index ของ search engine เดิมอยู่มาก)</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>Extract</strong> — เลือก "ย่อหน้า" (passage) ที่ตอบคำถามได้ตรงที่สุดจากแต่ละหน้า</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>Generate + Cite</strong> — เรียบเรียงคำตอบ แล้วแปะลิงก์อ้างอิงกลับไปที่แหล่งที่มา</li><!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>งานของ GEO คือทำให้เว็บเราชนะในขั้นที่ 2 และ 3 — มี passage ที่ยกไปตอบได้ทันที และน่าเชื่อถือพอที่ AI จะกล้าแปะลิงก์กลับมา</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>ส่วน <strong>AI Overview คือ</strong> ฟีเจอร์ของ Google Search ที่แสดงคำตอบซึ่ง Gemini สร้างขึ้นไว้บนสุดของหน้าผลค้นหา พร้อมลิงก์อ้างอิงไปยังเว็บต้นทาง — นี่คือสนามหลักของ GEO ในไทยตอนนี้ เพราะคนไทยส่วนใหญ่ยังค้นผ่าน Google</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">GEO ต่างจาก SEO อย่างไร (GEO SEO เทียบชัดๆ)</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>คำตอบสั้น: SEO ทำให้หน้าเว็บติดอันดับเพื่อให้คนคลิก ส่วน GEO ทำให้เนื้อหาถูก AI หยิบไปตอบเพื่อให้แบรนด์ถูกอ้างถึง</strong> สองอย่างนี้ไม่ได้แทนกัน — GEO ต่อยอดจากฐาน SEO ที่แข็งแรง เพราะ AI ยังดึงหน้าจาก index เดิมก่อนจะเลือก passage</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>มุมมอง</th><th>SEO</th><th>GEO</th></tr></thead><tbody><tr><td>เป้าหมาย</td><td>ติดหน้า 1, ได้คลิก</td><td>ถูก cite ในคำตอบ AI</td></tr><tr><td>หน่วยที่แข่ง</td><td>ทั้งหน้า (page)</td><td>ย่อหน้า (passage)</td></tr><tr><td>ตัวชี้วัดหลัก</td><td>อันดับ, CTR, organic traffic</td><td>citation frequency, brand visibility ใน AI</td></tr><tr><td>สไตล์คอนเทนต์</td><td>ครอบคลุม keyword, ยาวได้</td><td>ตอบตรง กระชับ ยกไปอ้างได้ทั้งย่อหน้า</td></tr><tr><td>Technical</td><td>Core Web Vitals, index ได้</td><td>Schema ครบ, llms.txt, AI crawler เข้าถึงได้</td></tr><tr><td>ผลลัพธ์เมื่อสำเร็จ</td><td>traffic เข้าเว็บ</td><td>ถูกพูดถึงแม้ user ไม่คลิก</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>จุดที่ต้องเข้าใจ: อันดับ SEO ดีไม่ได้แปลว่าจะถูก cite เสมอไป — AI เลือกที่ passage ไม่ใช่ที่อันดับ หน้าที่อันดับต่ำกว่าแต่มี passage ที่ตอบตรงกว่าก็ถูก cite ได้ นี่คือเหตุผลที่ต้องวัดสองอย่างนี้แยกกัน</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>ถ้าฐาน technical SEO ยังไม่แน่น แนะนำอ่าน <a href="https://hashbox.co.th/technical-seo-guide/">คู่มือ Technical SEO</a> ก่อน เพราะเว็บที่ Google ยัง crawl ลำบาก AI ก็ดึงไปตอบไม่ได้เช่นกัน</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">ทำไม GEO ถึงสำคัญกับเว็บไทย "ตอนนี้"</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>เพราะ AI Overview ภาษาไทยไม่ใช่เรื่องอนาคตแล้ว — มันโผล่ใน query จริงที่มี intent เชิงธุรกิจแล้ววันนี้ ขณะที่เว็บไทยส่วนใหญ่ยังเขียนคอนเทนต์แบบเดิม</strong> ใครปรับก่อนได้เปรียบแบบไม่ต้องแย่งกับใคร</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>สิ่งที่เราเห็นจากระบบ track ของเราเอง (เก็บ SERP ไทยรายวัน): <strong>query เชิงบริการก็มี AI Overview แล้ว</strong> — ตัวอย่างจริง: "รับทำเว็บไซต์" ซึ่งเป็น query ที่ intent เป็นการหาผู้ให้บริการตรงๆ ก็มีกล่อง AI Overview ขึ้น ไม่ใช่แค่ query เชิงความรู้แบบ "X คืออะไร" อย่างที่หลายคนเข้าใจ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>และเมื่อมองสภาพคอนเทนต์ไทยโดยรวม:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>คอนเทนต์ไทยส่วนใหญ่ยังไม่เขียนแบบ citable</strong> — ทำให้ bar ของการถูก cite ยังต่ำ ใครเริ่มเขียนแบบตอบตรงก่อนมีโอกาสสูง</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>คู่แข่งส่วนใหญ่ยังไม่ทำ</strong> — คอนเทนต์ SEO ไทยจำนวนมากยังเปิดด้วย intro เกริ่นยาว คำตอบจริงอยู่กลางหน้า ซึ่งเป็นรูปแบบที่ AI ยกไปอ้างยากที่สุด</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>สรุปเป็นภาพเดียว: ตลาดไทยตอนนี้เหมือน SEO ยุคแรก — คนที่ทำถูกวิธีก่อน กินพื้นที่ citation ได้โดยไม่ต้องสู้กับใคร และพอคู่แข่งตามมา เราก็มีข้อมูลย้อนหลังและ brand signal สะสมไว้แล้ว</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">5 เทคนิคทำ GEO — ทำเว็บให้ติด AI Overview</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>ทั้ง 5 เทคนิคนี้ตอบโจทย์เดียวกัน: ทำให้ AI "หยิบง่าย เชื่อได้ อ้างสะดวก"</strong> เรียงจากที่แนะนำให้ทำก่อน ไม่ต้องทำครบทีเดียว แต่ข้อ 1 กับ 2 คือแกนที่ขาดไม่ได้</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">1. Passage-Level Content — เขียนให้ยกไปตอบได้ทั้งย่อหน้า</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>หลักการ: <strong>ทุก H2 ต้องเปิดด้วยคำตอบตรงใน 2-3 ประโยคแรก</strong> แล้วค่อยขยายรายละเอียด เพราะ AI เลือกอ้างเป็น passage ไม่ใช่ทั้งหน้า ย่อหน้าไหน "จบในตัว" — มีคำถาม (จาก H2) และคำตอบครบโดยไม่ต้องอ่านบริบทรอบข้าง — ย่อหน้านั้นถูกหยิบ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>รูปแบบที่ใช้ได้เลย:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li>H2 เป็นคำถามหรือ query จริงที่คนค้น</li><!-- /wp:list-item --><!-- wp:list-item --><li>ประโยคแรกใต้ H2 = คำตอบแบบ standalone (อ่านโดดๆ แล้วเข้าใจ)</li><!-- /wp:list-item --><!-- wp:list-item --><li>ตามด้วยเหตุผล / ตัวเลข / ขั้นตอน</li><!-- /wp:list-item --><!-- wp:list-item --><li>หนึ่งย่อหน้า หนึ่งประเด็น อย่ายัดหลายเรื่อง</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>บทความที่คุณกำลังอ่านอยู่นี้เขียนด้วยโครงนี้ทุก section — ดูวิธีเปิดแต่ละ H2 เป็นตัวอย่างได้เลย</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">2. Citable Factoid — ใส่ "ข้อเท็จจริงที่อ้างได้" ให้ AI หยิบ</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>AI ชอบอ้างสิ่งที่เป็นรูปธรรม: คำนิยาม ตัวเลข ขั้นตอน ตารางเปรียบเทียบ มากกว่าความเห็นลอยๆ ดังนั้นทุกบทความควรมี factoid อย่างน้อย 3-5 จุด เช่น</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li>คำนิยามชัดๆ 1 ประโยค ("GEO คือ...")</li><!-- /wp:list-item --><!-- wp:list-item --><li>ตารางเปรียบเทียบ (GEO vs SEO ด้านบน)</li><!-- /wp:list-item --><!-- wp:list-item --><li>ขั้นตอนเป็นตัวเลข (3 ขั้นของ generative engine)</li><!-- /wp:list-item --><!-- wp:list-item --><li>ข้อมูลจากประสบการณ์จริงที่คนอื่นไม่มี — ของเราคือสิ่งที่เห็นจากระบบ track รายวัน</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>ข้อควรระวัง: อย่าแต่งตัวเลขเพื่อให้ดูน่าอ้าง AI ยุคนี้ cross-check กับหลายแหล่ง ตัวเลขที่ไม่มีที่มาทำลาย trust ของทั้งโดเมน</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">3. Schema Markup — บอก AI ตรงๆ ว่าเนื้อหานี้คืออะไร</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Schema.org (structured data) คือวิธีบอก machine แบบไม่ต้องตีความว่าหน้านี้คือบทความ คำถาม-คำตอบ บริการ หรือองค์กร type ที่ควรมีสำหรับสาย GEO: <code>Article</code>, <code>FAQPage</code>, <code>HowTo</code>, <code>Organization</code>, <code>Service</code>, <code>BreadcrumbList</code></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>ตัวอย่าง FAQPage แบบสั้น:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;FAQPage&quot;,
+  &quot;mainEntity&quot;: [{
+    &quot;@type&quot;: &quot;Question&quot;,
+    &quot;name&quot;: &quot;GEO คืออะไร?&quot;,
+    &quot;acceptedAnswer&quot;: {
+      &quot;@type&quot;: &quot;Answer&quot;,
+      &quot;text&quot;: &quot;GEO (Generative Engine Optimization) คือการปรับคอนเทนต์ให้ AI search เช่น Google AI Overview หยิบไปอ้างอิงในคำตอบ&quot;
+    }
+  }]
+}</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:paragraph -->
+<p>รายละเอียดการติดตั้งทีละ type สำหรับเว็บไทย เราเขียนแยกไว้ที่ <a href="https://hashbox.co.th/schema-markup-thai-guide-2026/">คู่มือ Schema Markup ฉบับภาษาไทย 2026</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">4. llms.txt — แผนที่เว็บสำหรับ AI crawler</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><code>llms.txt</code> คือไฟล์ Markdown ที่วางไว้ root ของโดเมน (เหมือน robots.txt) เพื่อสรุปให้ LLM รู้ว่าเว็บนี้คือใคร มีเนื้อหาสำคัญอะไร อยู่ URL ไหน — ช่วยให้ AI ที่มา crawl เข้าใจโครงสร้างเว็บโดยไม่ต้องเดา</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code># Hashbox Studio
+&gt; Digital studio กรุงเทพฯ: รับทำเว็บไซต์ SEO-Ready,
+&gt; Digital Marketing/CRO และ AI Consulting
+
+## Services
+- [Website Development](https://hashbox.co.th/services/website-development/):
+  Next.js / WordPress, การันตี Lighthouse 95+ Mobile
+- [AI Consulting](https://hashbox.co.th/services/ai-consulting/):
+  LINE Chatbot AI, RAG, Workflow Automation
+
+## Guides
+- [Technical SEO Guide](https://hashbox.co.th/technical-seo-guide/)
+- [GEO / AI Search 2026](https://hashbox.co.th/geo-ai-search-optimization-2026/)</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:paragraph -->
+<p>ตามตรง: ยังไม่มี engine ไหนประกาศว่า llms.txt เป็น ranking factor แต่ต้นทุนการทำคือไฟล์เดียว 20 นาที ส่วน upside คือการเป็นแหล่งอ้างอิงที่ AI อ่านโครงสร้างได้ง่ายที่สุดในหมวดของเรา — trade-off แบบนี้ทำเถอะ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">5. Brand Mention — ถูกพูดถึงนอกเว็บตัวเอง</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Generative engine ประเมินความน่าเชื่อถือจากทั้ง ecosystem ไม่ใช่แค่ on-page ถ้าแบรนด์ถูกพูดถึงใน directory, รีวิว, บทความของคนอื่น, กระทู้ Q&amp;A — AI จะ "เห็น" แบรนด์เราเป็น entity ที่มีตัวตนจริง และกล้า cite มากขึ้น</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>สำหรับธุรกิจไทย จุดเริ่มที่คุ้มสุด: Google Business Profile ให้ครบ, ขึ้น directory ในอุตสาหกรรมตัวเอง, และทำให้ชื่อแบรนด์+บริการสะกดสม่ำเสมอทุกที่ (สำคัญกับ entity recognition มาก) ธุรกิจ B2B ในกรุงเทพฯ ดูแนวทางเต็มได้ที่ <a href="https://hashbox.co.th/local-seo-bangkok-b2b-2026/">Local SEO สำหรับ B2B Bangkok</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">วิธีวัดผล GEO — รู้ได้ยังไงว่าถูก AI อ้างอิง</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>วัดผล GEO ต้องดู 2 ชั้น: (1) เราถูก cite ใน AI Overview / AI search บ่อยแค่ไหน กับ query ไหน และ (2) traffic + conversion ที่ตามมา</strong> ปัญหาคือเครื่องมือฟรีตอบชั้นแรกไม่ได้ — Google Search Console ปัจจุบันยังไม่แยก report ว่า impression ไหนมาจาก AI Overview มันถูกนับรวมใน Search performance ปกติ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>วิธีที่ใช้ได้จริง เรียงจากง่ายไปยาก:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>วิธี</th><th>ได้อะไร</th><th>ข้อจำกัด</th></tr></thead><tbody><tr><td>ค้นเองด้วย query หลัก (incognito)</td><td>เห็นว่า AI Overview ขึ้นไหม ใครถูก cite</td><td>ทำมือ ไม่ scale, ผลผันผวนตามวัน</td></tr><tr><td>GSC ดู query ที่ impression ขึ้นแต่ CTR ร่วง</td><td>สัญญาณว่า AI Overview มากินคลิก</td><td>เดาทางอ้อม ไม่รู้ว่าถูก cite หรือเปล่า</td></tr><tr><td>ดู referral traffic จาก chatgpt.com / perplexity.ai ใน GA4</td><td>หลักฐานว่า AI ส่งคนมาจริง</td><td>เห็นเฉพาะคนที่คลิกทะลุมา</td></tr><tr><td>ระบบ track SERP + AI Overview รายวัน</td><td>รู้ชัดว่า query ไหนมี AI Overview, ใครถูก cite, เปลี่ยนแปลงเมื่อไหร่</td><td>ต้องมีระบบเก็บข้อมูลเอง</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>ที่ Hashbox เราเลือกทางสุดท้าย — สร้างระบบเก็บข้อมูล SERP และการอ้างอิงใน AI Overview ของเราเอง รันทุกวัน เก็บข้อมูลดิบไว้เป็น asset ระยะยาว ลูกค้า SEO ของเราจึงเห็นทั้งอันดับรายวันและสถานะการถูก cite จากระบบของเราเอง ไม่ใช่ dashboard SaaS ที่เช่ารายเดือน อยากเห็นข้อมูลของเว็บตัวเอง <a href="https://hashbox.co.th/#contact">รับ SEO Audit ฟรี</a> ได้ — เราดูให้ทั้งอันดับและสถานะใน AI Overview</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Checklist 7 ข้อ เริ่มทำ GEO สัปดาห์นี้</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>เริ่มจาก 7 ข้อนี้ได้ภายในสัปดาห์เดียว: ข้อ 1-4 เป็นงานคอนเทนต์ที่ทำเองได้ทันที ข้อ 5-7 เป็นงาน technical</strong> ไม่ต้องรอ redesign เว็บหรือรอเครื่องมือใหม่</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"ordered":true} -->
+<ol class="wp-block-list"><!-- wp:list-item --><li><strong>เปิดทุก H2 ด้วยคำตอบตรง 2-3 ประโยค</strong> — แก้บทความเก่าที่ traffic ดีสุด 5 บทความก่อน</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ใส่คำนิยาม 1 ประโยคใน 30-50 คำแรก</strong> ของทุกบทความประเภท "X คืออะไร"</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>เพิ่ม Citable Factoid อย่างน้อย 3 จุดต่อหน้า</strong> — นิยาม, ตัวเลขมีที่มา, ตาราง, ขั้นตอน</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ติด Schema ให้ตรง type</strong> — Article + FAQPage เป็นขั้นต่ำสำหรับบทความ</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>สร้าง llms.txt</strong> ที่ root โดเมน อัปเดตเมื่อมีคอนเทนต์หลักใหม่</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>เช็กว่า AI crawler ไม่โดน block</strong> — ดู robots.txt และ CDN/WAF ว่าไม่ได้ปิด user-agent ของ OpenAI, Anthropic, Perplexity โดยไม่ตั้งใจ</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>Track การถูก cite อย่างน้อยรายสัปดาห์</strong> — เริ่มจากค้นมือ 10 query หลักก็ยังดีกว่าไม่วัดเลย</li><!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>ถ้าเว็บมีปัญหาพื้นฐานอย่าง Core Web Vitals แดงอยู่ แนะนำแก้ก่อนตาม <a href="https://hashbox.co.th/core-web-vitals-thai-guide-2026/">คู่มือ Core Web Vitals ฉบับไทย</a> เพราะเว็บช้า crawl ยาก มีผลทั้ง SEO และ GEO</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">อัปเดต 2026-06: Agentic Web และ Entity-First</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>สรุป: ผู้ใช้เว็บกลุ่มใหม่คือ AI agent ที่เข้ามาอ่าน เทียบข้อมูล และตัดสินใจแทนคน — เว็บที่ machine อ่านเข้าใจง่ายจะได้เปรียบขึ้นเรื่อยๆ</strong> สองแนวโน้มที่ต้องรู้:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>Agentic Web</strong> — AI agent เริ่มทำงานแทนผู้ใช้แบบครบวงจร: หาข้อมูล เทียบตัวเลือก ไปจนถึงติดต่อสอบถาม เว็บที่ข้อมูลบริการ ราคา เงื่อนไข อยู่ในรูปแบบที่ machine อ่านได้ชัด (structured data, ตาราง, หน้าเฉพาะเรื่อง) จะถูก agent เลือกก่อนเว็บที่ข้อมูลฝังอยู่ในรูปภาพหรือไฟล์ PDF ใครสนใจฝั่ง build agent อ่านต่อได้ที่ <a href="https://hashbox.co.th/ai-agent-rag-chatbot-thailand-2026/">AI Agent &amp; RAG Chatbot ในไทย</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>Entity-First</strong> — AI มองโลกเป็น entity (แบรนด์, บุคคล, บริการ, สถานที่) ไม่ใช่ keyword งานสำคัญคือทำให้ entity ของแบรนด์ชัด: <code>Organization</code> schema พร้อม <code>sameAs</code> ชี้ไป social/directory ทุกแห่ง, ชื่อ-ที่อยู่-เบอร์ตรงกันทุกที่, และมีหน้า About ที่เล่าว่าเราคือใครทำอะไรแบบ machine-readable</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">อัปเดต 2026-08: AI Overview เข้า query ธุรกิจ และ AI Mode ภาษาไทยมาแล้ว</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>สรุป: AI Overview ภาษาไทยขยายเข้า query เชิง commercial แล้ว และ Google เปิด AI Mode ภาษาไทยแล้ว — สมมติฐานว่า "query ธุรกิจปลอดภัยจาก AI" ใช้ไม่ได้อีกต่อไป</strong> อัปเดตรอบนี้มีทั้งสิ่งที่เห็นจากระบบ track ของเราเองและความเคลื่อนไหวฝั่ง Google:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>Query เชิงบริการมี AI Overview แล้วจริง</strong> — เราเห็นจากระบบ track ของเราว่า AI Overview ขึ้นกับ query อย่าง "รับทำเว็บไซต์" ซึ่งเป็น query ที่ intent คือหา vendor ตรงๆ ความหมายเชิงกลยุทธ์: หน้า service ก็ต้องเขียนแบบ citable ไม่ใช่แค่หน้า blog</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>Google AI Mode รองรับภาษาไทยแล้ว</strong> — อัปเดตจากฝั่ง Google: ประสบการณ์ค้นหาแบบ conversational เต็มรูปแบบมาถึงตลาดไทย พฤติกรรม "ถามต่อเป็นบทสนทนา" จะทำให้ passage ที่ตอบคำถามเฉพาะเจาะจงยิ่งมีมูลค่า</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>แหล่งอ้างอิงใน AI Overview เปลี่ยนบ่อย</strong> — โดเมนที่ถูกอ้างใน AI Overview ของ query เดียวกันเปลี่ยนได้บ่อยกว่าอันดับ organic จึงควรวัดเป็น trend ต่อเนื่อง ไม่ใช่ snapshot ครั้งเดียวแล้วสรุป</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>แผนที่เราแนะนำลูกค้าตอนนี้: จัดกลุ่ม query เป็น (ก) มี AI Overview แล้ว — ทำ passage ให้ชนะ citation (ข) ยังไม่มี — ทำ SEO ปกติให้แข็งไว้ก่อนเพื่อชิงพื้นที่วันที่ AI Overview มาถึง ทั้งสองกลุ่มใช้โครงคอนเทนต์เดียวกันได้ ต่างกันแค่ลำดับความเร่ง</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">FAQ: คำถามที่เจอบ่อยเรื่อง GEO</h2>
+<!-- /wp:heading -->
+
+<!-- wp:rank-math/faq-block {"titleWrapper": "h3", "questions": [{"id": "faq-question-1", "title": "GEO คืออะไร ตอบสั้นที่สุด?", "content": "GEO (Generative Engine Optimization) คือการปรับคอนเทนต์และโครงสร้างเว็บให้ AI search เช่น Google AI Overview, ChatGPT, Perplexity เลือกหยิบเนื้อหาไปอ้างอิงในคำตอบ — เปลี่ยนเป้าจาก \"ติดอันดับ\" เป็น \"ถูกอ้างถึง\"", "visible": true}, {"id": "faq-question-2", "title": "AI Overview คืออะไร?", "content": "AI Overview คือกล่องคำตอบที่ Google สร้างด้วย AI แสดงบนสุดของหน้าผลค้นหา พร้อมลิงก์อ้างอิงไปยังเว็บต้นทาง ปัจจุบันแสดงผลกับ query ภาษาไทยแล้ว รวมถึง query เชิงบริการอย่าง \"รับทำเว็บไซต์\"", "visible": true}, {"id": "faq-question-3", "title": "GEO กับ SEO ต้องเลือกทำอย่างใดอย่างหนึ่งไหม?", "content": "ไม่ต้องเลือก — GEO สร้างบนฐาน SEO เพราะ AI ยังดึงหน้าเว็บจาก index ของ search engine ก่อนจะเลือก passage ไปตอบ เว็บที่ technical SEO พังจะไม่ถูก AI หยิบตั้งแต่ต้นทาง ทำ SEO ให้แน่นแล้วเสริม GEO ทับ", "visible": true}, {"id": "faq-question-4", "title": "GEO กับ AEO ต่างกันยังไง?", "content": "AEO (Answer Engine Optimization) เน้นการตอบคำถามให้ติด featured snippet และ answer box ยุคก่อน AI ส่วน GEO ครอบคลุมกว่า คือ optimize สำหรับ engine ที่ \"generate\" คำตอบใหม่จากหลายแหล่ง ในทางปฏิบัติปี 2026 สองคำนี้ถูกใช้แทนกันบ่อย และเทคนิคหลักซ้อนกันมาก", "visible": true}, {"id": "faq-question-5", "title": "ทำ GEO แล้วเห็นผลเมื่อไหร่?", "content": "ขึ้นกับสภาพเว็บเดิม — ถ้าโครง technical แข็งอยู่แล้ว การปรับ passage และ schema อาจเห็นการเปลี่ยนแปลงใน AI Overview ได้ในไม่กี่สัปดาห์เพราะ AI Overview อัปเดตแหล่งอ้างอิงบ่อยกว่าอันดับ organic แต่ถ้าเริ่มจากศูนย์ต้องนับเวลา build ฐาน SEO ก่อน สิ่งสำคัญกว่าคือมีระบบวัดต่อเนื่อง จะได้รู้ว่าอะไร work", "visible": true}, {"id": "faq-question-6", "title": "llms.txt จำเป็นต้องมีไหม?", "content": "ยังไม่มี engine ไหนยืนยันว่าเป็น ranking factor แต่ต้นทุนคือไฟล์ Markdown ไฟล์เดียว ใช้เวลาราว 20 นาที และช่วยให้ LLM เข้าใจโครงสร้างเว็บง่ายขึ้น เราจัดเป็นงาน \"ทำเถอะ แต่อย่าคาดหวังปาฏิหาริย์\" — แกนจริงคือ Passage-Level Content กับ Schema", "visible": true}, {"id": "faq-question-7", "title": "เว็บเล็กหรือ SME ไทยทำ GEO ได้ไหม?", "content": "ได้ และอาจได้เปรียบกว่าเว็บใหญ่ด้วยซ้ำ เพราะ GEO แข่งกันที่ระดับ passage ไม่ใช่ domain authority อย่างเดียว — เว็บเล็กที่ตอบคำถาม niche ได้ตรงและลึกกว่า มีโอกาสถูก cite แทนเว็บใหญ่ที่เขียนกว้างๆ จุดที่ SME ไทยเสียเปรียบจริงคือไม่มีระบบวัดผล ซึ่งแก้ได้", "visible": true}, {"id": "faq-question-8", "title": "วัดผล GEO ยังไงถ้ายังไม่มีเครื่องมือ?", "content": "เริ่มจากของฟรี: ค้น query หลัก 10 คำของธุรกิจใน incognito ทุกสัปดาห์ จดว่ามี AI Overview ไหมและใครถูก cite, ดู referral จาก chatgpt.com / perplexity.ai ใน GA4, และดู query ที่ impression เพิ่มแต่ CTR ตกใน Search Console เมื่อจริงจังขึ้นค่อยใช้ระบบ track อัตโนมัติรายวัน — หรือให้เราช่วยดูผ่าน <a href=\"https://hashbox.co.th/#contact\">SEO Audit ฟรี</a>", "visible": true}]} -->
+<div class="wp-block-rank-math-faq-block"><div class="rank-math-faq-item"><h3 class="rank-math-question">GEO คืออะไร ตอบสั้นที่สุด?</h3><div class="rank-math-answer">GEO (Generative Engine Optimization) คือการปรับคอนเทนต์และโครงสร้างเว็บให้ AI search เช่น Google AI Overview, ChatGPT, Perplexity เลือกหยิบเนื้อหาไปอ้างอิงในคำตอบ — เปลี่ยนเป้าจาก "ติดอันดับ" เป็น "ถูกอ้างถึง"</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">AI Overview คืออะไร?</h3><div class="rank-math-answer">AI Overview คือกล่องคำตอบที่ Google สร้างด้วย AI แสดงบนสุดของหน้าผลค้นหา พร้อมลิงก์อ้างอิงไปยังเว็บต้นทาง ปัจจุบันแสดงผลกับ query ภาษาไทยแล้ว รวมถึง query เชิงบริการอย่าง "รับทำเว็บไซต์"</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">GEO กับ SEO ต้องเลือกทำอย่างใดอย่างหนึ่งไหม?</h3><div class="rank-math-answer">ไม่ต้องเลือก — GEO สร้างบนฐาน SEO เพราะ AI ยังดึงหน้าเว็บจาก index ของ search engine ก่อนจะเลือก passage ไปตอบ เว็บที่ technical SEO พังจะไม่ถูก AI หยิบตั้งแต่ต้นทาง ทำ SEO ให้แน่นแล้วเสริม GEO ทับ</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">GEO กับ AEO ต่างกันยังไง?</h3><div class="rank-math-answer">AEO (Answer Engine Optimization) เน้นการตอบคำถามให้ติด featured snippet และ answer box ยุคก่อน AI ส่วน GEO ครอบคลุมกว่า คือ optimize สำหรับ engine ที่ "generate" คำตอบใหม่จากหลายแหล่ง ในทางปฏิบัติปี 2026 สองคำนี้ถูกใช้แทนกันบ่อย และเทคนิคหลักซ้อนกันมาก</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">ทำ GEO แล้วเห็นผลเมื่อไหร่?</h3><div class="rank-math-answer">ขึ้นกับสภาพเว็บเดิม — ถ้าโครง technical แข็งอยู่แล้ว การปรับ passage และ schema อาจเห็นการเปลี่ยนแปลงใน AI Overview ได้ในไม่กี่สัปดาห์เพราะ AI Overview อัปเดตแหล่งอ้างอิงบ่อยกว่าอันดับ organic แต่ถ้าเริ่มจากศูนย์ต้องนับเวลา build ฐาน SEO ก่อน สิ่งสำคัญกว่าคือมีระบบวัดต่อเนื่อง จะได้รู้ว่าอะไร work</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">llms.txt จำเป็นต้องมีไหม?</h3><div class="rank-math-answer">ยังไม่มี engine ไหนยืนยันว่าเป็น ranking factor แต่ต้นทุนคือไฟล์ Markdown ไฟล์เดียว ใช้เวลาราว 20 นาที และช่วยให้ LLM เข้าใจโครงสร้างเว็บง่ายขึ้น เราจัดเป็นงาน "ทำเถอะ แต่อย่าคาดหวังปาฏิหาริย์" — แกนจริงคือ Passage-Level Content กับ Schema</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">เว็บเล็กหรือ SME ไทยทำ GEO ได้ไหม?</h3><div class="rank-math-answer">ได้ และอาจได้เปรียบกว่าเว็บใหญ่ด้วยซ้ำ เพราะ GEO แข่งกันที่ระดับ passage ไม่ใช่ domain authority อย่างเดียว — เว็บเล็กที่ตอบคำถาม niche ได้ตรงและลึกกว่า มีโอกาสถูก cite แทนเว็บใหญ่ที่เขียนกว้างๆ จุดที่ SME ไทยเสียเปรียบจริงคือไม่มีระบบวัดผล ซึ่งแก้ได้</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">วัดผล GEO ยังไงถ้ายังไม่มีเครื่องมือ?</h3><div class="rank-math-answer">เริ่มจากของฟรี: ค้น query หลัก 10 คำของธุรกิจใน incognito ทุกสัปดาห์ จดว่ามี AI Overview ไหมและใครถูก cite, ดู referral จาก chatgpt.com / perplexity.ai ใน GA4, และดู query ที่ impression เพิ่มแต่ CTR ตกใน Search Console เมื่อจริงจังขึ้นค่อยใช้ระบบ track อัตโนมัติรายวัน — หรือให้เราช่วยดูผ่าน <a href="https://hashbox.co.th/#contact">SEO Audit ฟรี</a></div></div></div>
+<!-- /wp:rank-math/faq-block -->

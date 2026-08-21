@@ -1,5 +1,10 @@
 # GEO / AI Search Optimization — SEO Handoff
 
+> **อัปเดต 2026-08-16:** มีเวอร์ชัน refresh เต็มทั้งโพสต์แล้วที่
+> `articles/geo-main-refresh-2026-08.md` (แทนที่ทั้งบทความ — answer-first,
+> E-E-A-T opener, FAQ 8 ข้อ + JSON-LD, section อัปเดต 2026-08)
+> **ใช้ไฟล์นั้นเป็นหลัก** ไฟล์นี้เก็บไว้เป็นเวอร์ชัน patch เฉพาะจุดแบบเดิม
+
 URL: /geo-ai-search-optimization-2026/
 Primary query: "geo คือ" (site's biggest non-brand query — 156 impressions/period, position 77)
 Secondary: "geo คืออะไร", "geo seo", "geo"

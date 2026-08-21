@@ -39,6 +39,7 @@ $page_url = get_permalink();
                 <h2 class="hb-service__title">SEO-Ready Website</h2>
                 <p class="hb-service__desc">บริการรับทำเว็บไซต์ SEO-Ready สำหรับบริษัทที่ต้องการเว็บใหม่พร้อมติด Google ตั้งแต่วันเปิดตัว ผ่าน Build Gate, schema, sitemap และ Core Web Vitals ก่อน deploy</p>
                 <div class="hb-service__stack">Next.js · WordPress Headless · Lighthouse 100</div>
+                <div class="hb-service__stack" style="font-weight:600;">เริ่ม 80,000 บาท</div>
                 <span class="hb-service__link">ดูรายละเอียดรับทำเว็บไซต์ SEO-Ready &rarr;</span>
             </a>
 
@@ -48,6 +49,7 @@ $page_url = get_permalink();
                 <h2 class="hb-service__title">Digital Marketing + CRO</h2>
                 <p class="hb-service__desc">ติดตั้ง GA4, GSC, Server-side GTM, Looker Studio, heatmap และ A/B testing พร้อม CRO Sprint รายเดือนเพื่อเพิ่ม Conversion จาก Traffic เดิม</p>
                 <div class="hb-service__stack">GA4 · GSC · A/B Testing · CRO Sprint</div>
+                <div class="hb-service__stack" style="font-weight:600;">Setup เริ่ม 80,000 บาท · Retainer 50,000–150,000 บาทต่อเดือน</div>
                 <span class="hb-service__link">ดูรายละเอียด Digital Marketing + CRO &rarr;</span>
             </a>
 
@@ -57,7 +59,27 @@ $page_url = get_permalink();
                 <h2 class="hb-service__title">AI Expert Consulting</h2>
                 <p class="hb-service__desc">ที่ปรึกษา AI ที่ลงมือ implement จริง ออกแบบ LINE Bot, Sales GPT, RAG และ workflow automation ที่ลด Manual Work พร้อม ROI Framework และ Knowledge Transfer</p>
                 <div class="hb-service__stack">LINE Bot · Sales GPT + RAG · n8n Workflow Automation</div>
+                <div class="hb-service__stack" style="font-weight:600;">เริ่ม 60,000 บาท</div>
                 <span class="hb-service__link">ดูรายละเอียด AI Consulting &rarr;</span>
+            </a>
+
+            <a href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="amber" style="text-decoration:none;">
+                <span class="hb-service__num">04</span>
+                <span class="hb-service__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/><path d="M8 11h6M11 8v6"/></svg></span>
+                <h2 class="hb-service__title">รับทำ SEO</h2>
+                <p class="hb-service__desc">บริการ SEO สายเทคนิคสำหรับเว็บที่มีอยู่แล้ว ครอบคลุม Technical Audit, Core Web Vitals, Schema และ GEO/AI Overview พร้อมรายงานอันดับจากระบบ track ของเราเอง อัปเดตรายวัน</p>
+                <div class="hb-service__stack">Technical Audit · Core Web Vitals · GEO / AI Overview</div>
+                <div class="hb-service__stack" style="font-weight:600;">เริ่มต้น 25,000 บาทต่อเดือน</div>
+                <span class="hb-service__link">ดูรายละเอียดบริการรับทำ SEO &rarr;</span>
+            </a>
+
+            <a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="cyan" style="text-decoration:none;" hreflang="en">
+                <span class="hb-service__num">EN</span>
+                <span class="hb-service__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg></span>
+                <h2 class="hb-service__title">AI Consulting Bangkok (English)</h2>
+                <p class="hb-service__desc">For English-speaking teams operating in Thailand: production AI systems with LINE, PDPA and Thai-language context — ROI assessed before we build.</p>
+                <div class="hb-service__stack">English delivery · Public THB pricing · 100% source code</div>
+                <span class="hb-service__link">Read in English &rarr;</span>
             </a>
         </div>
     </div>

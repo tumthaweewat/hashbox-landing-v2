@@ -194,6 +194,9 @@ get_header();
                             <div class="hb-ai-engagements__copy">
                                 <h3><?php echo esc_html( $engagement['title'] ); ?></h3>
                                 <p><?php echo esc_html( $engagement['body'] ); ?></p>
+                                <?php if ( ! empty( $engagement['decision'] ) ) : ?>
+                                    <p class="hb-ai-engagements__decision"><strong>สิ่งที่คุณได้รับ:</strong> <?php echo esc_html( $engagement['decision'] ); ?></p>
+                                <?php endif; ?>
                             </div>
                             <dl class="hb-ai-engagements__meta">
                                 <div><dt>งบเริ่มต้น</dt><dd><?php echo esc_html( $engagement['price'] ); ?></dd></div>
@@ -312,7 +315,7 @@ get_header();
         </section>
     <?php endif; ?>
 
-    <section<?php if ( ! $is_ai_landing ) : ?> id="audit-form"<?php endif; ?> class="hb-audit-form-section">
+    <section id="audit-form" class="hb-audit-form-section">
         <div class="hb-container">
             <div class="hb-audit-form-layout">
                 <div class="hb-audit-form-copy"<?php if ( ! $is_ai_landing ) : ?> data-reveal<?php endif; ?>>
@@ -335,7 +338,7 @@ get_header();
                     </div>
                 </div>
 
-                <form<?php if ( $is_ai_landing ) : ?> id="audit-form"<?php endif; ?> class="hb-audit-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" data-audit-form<?php if ( ! $is_ai_landing ) : ?> data-reveal<?php endif; ?>>
+                <form class="hb-audit-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" data-audit-form<?php if ( ! $is_ai_landing ) : ?> data-reveal<?php endif; ?>>
                     <input type="hidden" name="action" value="hashbox_contact">
                     <input type="hidden" name="form_context" value="<?php echo esc_attr( $is_ai_landing ? 'ai_consulting' : 'audit_landing' ); ?>">
                     <input type="hidden" name="landing_slug" value="<?php echo esc_attr( $landing['slug'] ); ?>">

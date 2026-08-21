@@ -9,7 +9,7 @@
 | ไฟล์ | โพสต์ / URL | คำค้นเป้าหมาย | สถานะ |
 |------|-------------|---------------|--------|
 | `technical-seo-guide.md` | /technical-seo-guide/ | "technical seo คือ" | pos 27 → ดันขึ้นหน้า 1 |
-| `geo-ai-search-optimization.md` | /geo-ai-search-optimization-2026/ | "geo คือ" | pos 77, คำค้น non-brand ที่ใหญ่ที่สุด |
+| `articles/geo-main-refresh-2026-08.md` (refresh เต็ม — ใช้ตัวนี้) | /geo-ai-search-optimization-2026/ | "geo คือ" | pos 77, คำค้น non-brand ที่ใหญ่ที่สุด |
 | `schema-markup-thai-guide.md` | /schema-markup-thai-guide-2026/ | "schema markup คือ" | pos 11, ใกล้หน้า 1 |
 | `core-web-vitals-thai-guide.md` | /core-web-vitals-thai-guide-2026/ | "core web vitals คือ" | pos 55 |
 | `nextjs-vs-wordpress.md` | /nextjs-vs-wordpress-2026/ | "next.js vs wordpress" | ติด ~pos 10 แต่ CTR = 0 (แก้ที่ title/desc) |

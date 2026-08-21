@@ -38,27 +38,156 @@
    * 2. Mobile sheet — burger toggle + backdrop + ESC close + focus trap
    * -------------------------------------------------------------------- */
   const burger = document.querySelector('.hb-nav__burger');
+  const navBrand = document.querySelector('.hb-nav__brand[href]');
   const sheet = document.querySelector('.hb-sheet');
   const backdrop = document.querySelector('.hb-sheet-backdrop');
   const sheetClose = document.querySelector('.hb-sheet__close');
 
   if (burger && sheet && backdrop) {
-    const setSheetOpen = (open) => {
-      sheet.dataset.open = String(open);
-      backdrop.dataset.open = String(open);
-      sheet.setAttribute('aria-hidden', String(!open));
-      burger.setAttribute('aria-expanded', String(open));
-      document.body.style.overflow = open ? 'hidden' : '';
+    const focusableSelector = [
+      'a[href]',
+      'button:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])',
+    ].join(',');
+    const mobileNavQuery = window.matchMedia('(max-width: 48rem)');
+    let sheetIsOpen = false;
+    let previousActiveElement = null;
+    let previousBodyOverflow = '';
+    let backgroundInertState = [];
+
+    const getFocusableElements = () => Array.from(sheet.querySelectorAll(focusableSelector))
+      .filter((element) => element.getClientRects().length > 0);
+
+    const setBackgroundInert = (inert) => {
+      if (inert) {
+        backgroundInertState = Array.from(document.body.children)
+          .filter((element) => (
+            element !== sheet
+            && element !== backdrop
+            && !element.contains(sheet)
+            && !element.contains(backdrop)
+            && !['SCRIPT', 'STYLE', 'LINK'].includes(element.tagName)
+          ))
+          .map((element) => [element, element.hasAttribute('inert')]);
+
+        backgroundInertState.forEach(([element]) => element.setAttribute('inert', ''));
+        return;
+      }
+
+      backgroundInertState.forEach(([element, wasInert]) => {
+        if (!wasInert) element.removeAttribute('inert');
+      });
+      backgroundInertState = [];
     };
-    burger.addEventListener('click', () => setSheetOpen(true));
+
+    const setSheetOpen = (open) => {
+      if (open === sheetIsOpen) return;
+      sheetIsOpen = open;
+
+      if (open) {
+        previousActiveElement = document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : burger;
+        previousBodyOverflow = document.body.style.overflow;
+        sheet.removeAttribute('inert');
+        setBackgroundInert(true);
+      }
+
+      if (open) {
+        sheet.dataset.open = 'true';
+        backdrop.dataset.open = 'true';
+        sheet.setAttribute('aria-hidden', 'false');
+        burger.setAttribute('aria-expanded', 'true');
+        burger.setAttribute('aria-label', 'Close menu');
+        document.body.style.overflow = 'hidden';
+
+        window.requestAnimationFrame(() => {
+          if (!sheetIsOpen) return;
+          const firstMenuLink = sheet.querySelector('.hb-sheet__link');
+          (firstMenuLink || sheetClose || sheet).focus({ preventScroll: true });
+        });
+        return;
+      }
+
+      sheet.dataset.open = 'false';
+      backdrop.dataset.open = 'false';
+      burger.setAttribute('aria-expanded', 'false');
+      burger.setAttribute('aria-label', 'Open menu');
+      document.body.style.overflow = previousBodyOverflow;
+      setBackgroundInert(false);
+
+      const focusTarget = [previousActiveElement, burger, navBrand]
+        .find((element) => (
+          element
+          && element.isConnected
+          && element.getClientRects().length > 0
+          && typeof element.focus === 'function'
+        ));
+      if (focusTarget) {
+        focusTarget.focus({ preventScroll: true });
+      } else if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+
+      sheet.setAttribute('aria-hidden', 'true');
+      sheet.setAttribute('inert', '');
+      previousActiveElement = null;
+    };
+
+    sheet.setAttribute('inert', '');
+    burger.addEventListener('click', () => setSheetOpen(!sheetIsOpen));
     backdrop.addEventListener('click', () => setSheetOpen(false));
     sheetClose && sheetClose.addEventListener('click', () => setSheetOpen(false));
     sheet.addEventListener('click', (e) => {
-      if (e.target.closest('a')) setSheetOpen(false);
+      if (e.target instanceof Element && e.target.closest('a')) setSheetOpen(false);
     });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && sheet.dataset.open === 'true') setSheetOpen(false);
+      if (!sheetIsOpen) return;
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setSheetOpen(false);
+        return;
+      }
+
+      if (e.key !== 'Tab') return;
+      const focusableElements = getFocusableElements();
+      if (!focusableElements.length) {
+        e.preventDefault();
+        sheet.focus({ preventScroll: true });
+        return;
+      }
+
+      const firstFocusable = focusableElements[0];
+      const lastFocusable = focusableElements[focusableElements.length - 1];
+      const focusIsOutside = !sheet.contains(document.activeElement);
+
+      if (e.shiftKey && (document.activeElement === firstFocusable || focusIsOutside)) {
+        e.preventDefault();
+        lastFocusable.focus();
+      } else if (!e.shiftKey && (document.activeElement === lastFocusable || focusIsOutside)) {
+        e.preventDefault();
+        firstFocusable.focus();
+      }
     });
+
+    document.addEventListener('focusin', (e) => {
+      if (!sheetIsOpen || sheet.contains(e.target)) return;
+      const firstFocusable = getFocusableElements()[0] || sheet;
+      firstFocusable.focus({ preventScroll: true });
+    });
+
+    const closeSheetAtDesktop = (event) => {
+      if (!event.matches && sheetIsOpen) setSheetOpen(false);
+    };
+    if (typeof mobileNavQuery.addEventListener === 'function') {
+      mobileNavQuery.addEventListener('change', closeSheetAtDesktop);
+    } else {
+      mobileNavQuery.addListener(closeSheetAtDesktop);
+    }
   }
 
   /* ----------------------------------------------------------------------

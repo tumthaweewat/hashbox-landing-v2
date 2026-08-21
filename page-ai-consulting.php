@@ -2,12 +2,24 @@
 /**
  * Template Name: Service: AI Expert Consulting
  *
+ * The H1 targets hiring intent, not the informational phrase "ปรึกษาทำระบบ AI
+ * Solution" — that belongs to /ai-solution-consulting-guide-2026/, which ranks
+ * 3rd for it and is cited in Google's AI Overview. While this page repeated the
+ * phrase the two competed, Google picked the guide, and this page sat around
+ * position 67 on the same Thai queries. The <title> is kept in step in the
+ * $page_meta['ai-consulting'] entry inside hashbox_get_seo_metadata(); change
+ * both together or the page contradicts itself.
+ *
  * @package Hashbox_Studio_V2
  */
 
 get_header();
 $page_url = get_permalink();
-$desc = 'บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทย · ปรึกษาทำระบบ AI, LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Integration · คุยประเมินโอกาสเบื้องต้นฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท';
+// Feeds the Service schema description below. Same edit as the <title>: the
+// commercial lead ("บริการให้คำปรึกษา AI Solution", a query this page should
+// win) stays, the guide's head phrase goes — otherwise the machine-readable
+// description contradicts the title we just rewrote.
+$desc = 'บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทย · รับวางระบบ AI, LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Integration · คุยประเมินโอกาสเบื้องต้นฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท';
 
 $author_name      = 'Tum Thaweewat';
 $author_role      = 'Head of Tech';
@@ -95,7 +107,7 @@ $cases = array(
                 </ol>
             </nav>
             <span class="hb-eyebrow">Service 03 / 03 · Updated <?php echo esc_html( date_i18n( 'F Y' ) ); ?></span>
-            <h1 class="hb-hero__title">ที่ปรึกษา AI<br><em>สำหรับธุรกิจไทย</em><br>ปรึกษาทำระบบ AI Solution ถึง Production</h1>
+            <h1 class="hb-hero__title">ที่ปรึกษา AI<br><em>สำหรับธุรกิจไทย</em><br>รับวางระบบ AI ถึง Production</h1>
             <p class="hb-hero__sub">บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทยที่ต้องการ deploy AI ใน production จริง — LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Integration · เริ่มจากโจทย์ธุรกิจและข้อมูลที่มี · โปรเจกต์เริ่ม 60,000 บาท</p>
             <div class="hb-hero__actions">
                 <a href="<?php echo esc_url( home_url( '/ai-workflow-audit/#audit-form' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">นัดคุย AI ฟรี 30 นาที</a>
