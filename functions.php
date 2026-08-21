@@ -2296,6 +2296,106 @@ function hashbox_rankmath_schema_website() {
     );
 }
 
+/**
+ * Service catalogue with the prices already published on /services/.
+ *
+ * The visible pages state a starting price for every service, but nothing
+ * expressed those figures in a machine-readable form, so the only pricing
+ * signal in our schema was priceRange "฿฿฿". Price is one of the facts AI
+ * Overviews quote most often on commercial queries, which makes that a real
+ * gap rather than a cosmetic one.
+ *
+ * Keep these in step with page-services.php — it is the page a reader checks
+ * against, and a schema price that contradicts the visible one is worse than
+ * no schema price at all. Every figure here excludes VAT, matching what the
+ * service pages say.
+ */
+function hashbox_service_offer_catalog() {
+    $home = home_url( '/' );
+
+    // Minimum published price per service. Ranges use minPrice/maxPrice;
+    // recurring services carry the billing period so "per month" survives
+    // into the structured data instead of living only in the visible copy.
+    $services = array(
+        array(
+            'name'        => 'SEO-Ready Website Build',
+            'description' => 'Production-ready websites that pass Lighthouse 100, green Core Web Vitals, complete schema, and rank within 60-90 days.',
+            'url'         => $home . 'services/website-development/',
+            'price'       => 80000,
+        ),
+        array(
+            'name'        => 'Digital Marketing Tools + CRO',
+            'description' => 'GA4, GSC, Looker Studio, heatmaps, A/B testing, and monthly CRO sprints to compound conversion. Setup from 80,000 THB, then a monthly retainer.',
+            'url'         => $home . 'services/digital-marketing-tools/',
+            'min'         => 50000,
+            'max'         => 150000,
+            'period'      => 'MON',
+        ),
+        array(
+            'name'        => 'AI Expert Consulting',
+            'description' => 'LINE bot, sales GPT, RAG knowledge base, and workflow automation that ships to production.',
+            'url'         => $home . 'services/ai-consulting/',
+            'price'       => 60000,
+        ),
+        array(
+            'name'        => 'SEO Retainer',
+            'description' => 'Technical-first SEO: audit, Core Web Vitals, schema, on-page and GEO work for AI Overview citation, with daily rank tracking.',
+            'url'         => $home . 'services/seo/',
+            'price'       => 25000,
+            'period'      => 'MON',
+        ),
+    );
+
+    $offers = array();
+    foreach ( $services as $service ) {
+        $spec = array(
+            '@type'                 => isset( $service['period'] ) ? 'UnitPriceSpecification' : 'PriceSpecification',
+            'priceCurrency'         => 'THB',
+            'valueAddedTaxIncluded' => false,
+        );
+
+        if ( isset( $service['min'] ) ) {
+            $spec['minPrice'] = $service['min'];
+            $spec['maxPrice'] = $service['max'];
+        } else {
+            $spec['price'] = $service['price'];
+        }
+
+        if ( isset( $service['period'] ) ) {
+            $spec['billingIncrement']  = 1;
+            $spec['unitCode']          = $service['period'];
+            $spec['referenceQuantity'] = array(
+                '@type'    => 'QuantitativeValue',
+                'value'    => 1,
+                'unitCode' => $service['period'],
+            );
+        }
+
+        $offers[] = array(
+            '@type'            => 'Offer',
+            'url'              => $service['url'],
+            'availability'     => 'https://schema.org/InStock',
+            'areaServed'       => 'TH',
+            'priceCurrency'    => 'THB',
+            'priceSpecification' => $spec,
+            'itemOffered'      => array(
+                '@type'       => 'Service',
+                'name'        => $service['name'],
+                'description' => $service['description'],
+                'url'         => $service['url'],
+                'provider'    => array( '@id' => $home . '#organization' ),
+                'areaServed'  => 'Thailand',
+            ),
+        );
+    }
+
+    return array(
+        '@type'           => 'OfferCatalog',
+        'name'            => 'Services',
+        'itemListElement' => $offers,
+    );
+}
+
 function hashbox_rankmath_schema_service() {
     $home = home_url( '/' );
     return array(
@@ -2310,6 +2410,7 @@ function hashbox_rankmath_schema_service() {
         'priceRange'         => '฿฿฿',
         'areaServed'         => 'Thailand',
         'parentOrganization' => array( '@id' => $home . '#organization' ),
+        'hasOfferCatalog'    => hashbox_service_offer_catalog(),
         'address' => array(
             '@type'           => 'PostalAddress',
             'streetAddress'   => '139 Pan Rd, Si Lom',
@@ -2549,36 +2650,7 @@ function hashbox_inject_home_schema() {
                     'opens'     => '09:00',
                     'closes'    => '18:00',
                 ),
-                'hasOfferCatalog'    => array(
-                    '@type' => 'OfferCatalog',
-                    'name'  => 'Services',
-                    'itemListElement' => array(
-                        array(
-                            '@type'       => 'Offer',
-                            'itemOffered' => array(
-                                '@type'       => 'Service',
-                                'name'        => 'SEO-Ready Website Build',
-                                'description' => 'Production-ready websites that pass Lighthouse 100, green Core Web Vitals, complete schema, and rank within 60-90 days.',
-                            ),
-                        ),
-                        array(
-                            '@type'       => 'Offer',
-                            'itemOffered' => array(
-                                '@type'       => 'Service',
-                                'name'        => 'Digital Marketing Tools + CRO',
-                                'description' => 'GA4, GSC, Looker Studio, heatmaps, A/B testing, and monthly CRO sprints to compound conversion.',
-                            ),
-                        ),
-                        array(
-                            '@type'       => 'Offer',
-                            'itemOffered' => array(
-                                '@type'       => 'Service',
-                                'name'        => 'AI Expert Consulting',
-                                'description' => 'LINE bot, sales GPT, RAG knowledge base, and workflow automation that ships to production.',
-                            ),
-                        ),
-                    ),
-                ),
+                'hasOfferCatalog'    => hashbox_service_offer_catalog(),
             ),
             array(
                 '@type'      => 'WebSite',
