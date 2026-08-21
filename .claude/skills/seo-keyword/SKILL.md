@@ -54,12 +54,27 @@ volume ต่ำกว่ามาก แต่เราชนะได้ ถ�
 
 | ลำดับ | แหล่ง | ได้อะไร |
 |---|---|---|
-| 1 | **GSC export ของเราเอง** | impression จริง = หลักฐานว่ามีคนค้นและ Google เคยโชว์เรา — แม่นที่สุดสำหรับ long-tail ไทย |
-| 2 | Ahrefs MCP (ถ้าต่อไว้) | volume / KD / parent topic |
+| 1 | **DataForSEO** — `node tools/dataforseo.mjs` | volume · trend · competition · SERP จริง · **ตรวจว่า query นั้นมี AI Overview หรือไม่** |
+| 2 | **GSC export ของเราเอง** | impression จริง = หลักฐานว่ามีคนค้นและ Google เคยโชว์เรา |
 | 3 | Google autocomplete + PAA + related searches (WebSearch/WebFetch) | คำที่คนค้นจริงแต่ tool ยังไม่มี volume |
 | 4 | Pantip / YouTube / กลุ่ม Facebook สายการตลาด | คำที่กำลังจะมา ยังไม่มีใครเขียน |
 
-> Ahrefs มัก report volume ต่ำเกินจริงสำหรับภาษาไทย และ **แสดง 0 สำหรับ emerging keyword ทั้งหมด** — ถ้าโจทย์คือ "คำที่คนจะเริ่มเสิร์ชในอนาคต" ห้ามใช้ volume เป็นเกณฑ์ตัด ให้ใช้แหล่ง 3–4 แทน
+**คำสั่งที่ใช้บ่อย:**
+```bash
+node tools/dataforseo.mjs check                 # เช็ค credential + ยอดเงินคงเหลือ
+node tools/dataforseo.mjs ideas "ai overview"   # หา keyword ใหม่จาก seed
+node tools/dataforseo.mjs volume "kw1" "kw2"    # volume + trend
+node tools/dataforseo.mjs serp "kw"             # ใครยึดหน้า 1 + มี AI Overview ไหม
+node tools/dataforseo.mjs plan seo-handoff/keyword-plan-2026-08.md   # เติมตัวเลขทั้งแผนรวดเดียว
+```
+ต้องมี `DATAFORSEO_LOGIN` / `DATAFORSEO_PASSWORD` ใน environment (ห้าม commit)
+
+> **ระวังเรื่อง volume ภาษาไทย:** tool ทุกตัวรายงาน volume ต่ำเกินจริงสำหรับคำไทย และ **แสดง 0 สำหรับ emerging keyword แทบทั้งหมด**
+> ถ้าโจทย์คือ "คำที่คนจะเริ่มเสิร์ชในอนาคต" **ห้ามใช้ volume เป็นเกณฑ์ตัด** — ให้ดู `trend` (คอลัมน์เทียบ 3 เดือนล่าสุดกับ 3 เดือนก่อนหน้า) และแหล่ง 3–4 แทน
+> volume 0 ที่ trend เป็น `new` คือสัญญาณที่เราต้องการ ไม่ใช่สัญญาณให้ตัดทิ้ง
+
+**สิ่งที่ต้องบันทึกทุกครั้งจาก `serp`:** query นั้นมี AI Overview แล้วหรือยัง และ AI Overview อ้างอิงเว็บไหนอยู่
+ถ้ามี AI Overview แล้วและอ้างเว็บที่เราแข่งได้ → นั่นคือช่องที่เราจะแทรก ถ้ายังไม่มี → เขียนไว้ก่อนเพื่อเป็นแหล่งแรกที่ถูกหยิบตอนฟีเจอร์มาถึง
 
 **โครงผลลัพธ์:** hero keyword (หัวข้อที่จะเป็น 1 บทความ) + cluster keyword 3–6 คำต่อ hero (คำที่บทความเดียวกันควรติดด้วย → ใช้เป็น H2/H3 และ FAQ)
 
