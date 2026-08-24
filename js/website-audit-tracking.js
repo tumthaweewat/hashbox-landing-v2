@@ -20,9 +20,11 @@
   var CLICK_ID_KEYS = ['gclid', 'wbraid', 'gbraid'];
   var STORAGE_KEY = 'hashbox_attribution_v3_website_audit';
   var STORAGE_TTL_MS = 90 * 24 * 60 * 60 * 1000;
+  var ANALYTICS_STATE_PREFIX = 'hashbox_website_audit_analytics_';
   var CONVERSION_STATE_PREFIX = 'hashbox_website_audit_conversion_';
   var META_STATE_PREFIX = 'hashbox_website_audit_meta_';
   var UUID_V4_PATTERN = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
+  var WEB_CONVERSION_REF_PATTERN = /^HB-WEB-[0-9]{8}-[0-9]{9,40}$/;
   var config = window.hashboxWebsiteAuditTracking || {};
   var form = document.querySelector('form[data-hb5-form]');
 
@@ -195,6 +197,28 @@
     }
   }
 
+  function analyticsAlreadyQueued(leadRef) {
+    if (window.hashboxWebsiteAuditAnalyticsLeadRef === leadRef) return true;
+    try {
+      if (window.localStorage.getItem(ANALYTICS_STATE_PREFIX + leadRef) === 'queued') return true;
+    } catch (err) {}
+    try {
+      return window.sessionStorage.getItem(ANALYTICS_STATE_PREFIX + leadRef) === 'queued';
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function markAnalyticsQueued(leadRef) {
+    window.hashboxWebsiteAuditAnalyticsLeadRef = leadRef;
+    try {
+      window.localStorage.setItem(ANALYTICS_STATE_PREFIX + leadRef, 'queued');
+    } catch (err) {}
+    try {
+      window.sessionStorage.setItem(ANALYTICS_STATE_PREFIX + leadRef, 'queued');
+    } catch (err) {}
+  }
+
   function markConversionDelivered(leadRef) {
     try {
       window.localStorage.setItem(CONVERSION_STATE_PREFIX + leadRef, 'delivered');
@@ -245,20 +269,26 @@
     window.addEventListener('hashbox:third-party-ready', function () {
       finishConfirmedLead(leadRef);
     }, { once: true });
-    // Logged-in sessions do not use the delayed loader. This fallback also
-    // prevents a failed third-party request from leaving signed query data in
-    // the address bar indefinitely.
+    // Logged-in sessions do not use the delayed loader, so give Meta one more
+    // chance here. Google Ads still owns URL cleanup through its callback so a
+    // blocked request can retry the same deduped transaction on reload.
     window.setTimeout(function () { finishConfirmedLead(leadRef); }, 8000);
   }
 
-  function confirmedLeadRef() {
+  function confirmedLead() {
     var meta = document.querySelector('meta[name="hashbox-confirmed-website-lead"]');
     var params = new URLSearchParams(window.location.search);
     var leadRef = params.get('contact') === 'sent'
       ? params.get('lead_ref') || ''
       : window.hashboxConfirmedWebsiteLeadRef || '';
-    if (!meta || !UUID_V4_PATTERN.test(leadRef)) return '';
-    return meta.getAttribute('content') === leadRef ? leadRef : '';
+    if (!meta || !UUID_V4_PATTERN.test(leadRef) || meta.getAttribute('content') !== leadRef) return null;
+    var conversionRef = meta.getAttribute('data-conversion-ref') || '';
+    return {
+      leadRef: leadRef,
+      conversionRef: WEB_CONVERSION_REF_PATTERN.test(conversionRef) && conversionRef.length <= 64
+        ? conversionRef
+        : ''
+    };
   }
 
   function renderSuccessState() {
@@ -283,7 +313,7 @@
     }
   }
 
-  function queueConfirmedConversion(leadRef) {
+  function queueConfirmedConversion(leadRef, conversionRef) {
     // Claim the legacy page-builder conversion flag before DOMContentLoaded so
     // the unsigned contact=sent handler cannot send a duplicate event.
     window.hashboxGa4LeadSent = true;
@@ -298,14 +328,17 @@
     window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
 
     window.gtag('config', 'AW-18190672421');
-    window.gtag('event', 'generate_lead', {
-      currency: 'THB',
-      value: 1,
-      form_id: 'hashbox_contact',
-      form_name: 'Website Project Evaluation',
-      lead_source: 'website_audit',
-      transaction_id: leadRef
-    });
+    if (!analyticsAlreadyQueued(leadRef)) {
+      window.gtag('event', 'generate_lead', {
+        currency: 'THB',
+        value: 1,
+        form_id: 'hashbox_contact',
+        form_name: 'Website Project Evaluation',
+        lead_source: 'website_audit',
+        transaction_id: conversionRef
+      });
+      markAnalyticsQueued(leadRef);
+    }
     var deliveryRecorded = false;
     function recordDelivery() {
       if (deliveryRecorded) return;
@@ -317,7 +350,7 @@
       send_to: config.conversionDestination || 'AW-18190672421/zT9ACPe6ttocEKXE_uFD',
       currency: 'THB',
       value: 1,
-      transaction_id: leadRef,
+      transaction_id: conversionRef,
       event_callback: recordDelivery,
       event_timeout: 6000
     });
@@ -352,10 +385,18 @@
   });
 
   var params = new URLSearchParams(window.location.search);
-  var leadRef = confirmedLeadRef();
-  if (leadRef) {
+  var confirmation = confirmedLead();
+  if (confirmation) {
     renderSuccessState();
-    queueConfirmedConversion(leadRef);
+    if (confirmation.conversionRef) {
+      queueConfirmedConversion(confirmation.leadRef, confirmation.conversionRef);
+    } else {
+      // Preserve legacy signed success UX without reusing a UUID as Google's
+      // transaction ID or reviving an already-completed conversion.
+      window.hashboxGa4LeadSent = true;
+      window.hashboxWebsiteAuditMetaLeadSent = true;
+      cleanSuccessParams();
+    }
   } else if (params.get('contact') === 'sent') {
     // An unsigned success URL must not trigger the legacy Google or Meta lead
     // handlers even if the visitor interacts and delayed scripts later load.
