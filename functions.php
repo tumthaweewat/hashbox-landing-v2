@@ -833,6 +833,21 @@ function hashbox_get_seo_metadata() {
         );
     }
 
+    /*
+     * /services/n8n-automation/ — same three-place rule as /services/seo/ above:
+     * this map feeds og/twitter description and WebPage.description, which have
+     * no rank_math row check. Keep byte-identical to $desc in
+     * page-n8n-automation.php and to the sync target below.
+     *
+     * ราคาที่นี่เป็น **ต่อโปรเจกต์** ไม่ใช่รายเดือนเหมือน /services/seo/
+     */
+    if ( 'services/n8n-automation' === hashbox_current_request_path() ) {
+        return array(
+            'title'       => 'รับทำ n8n Automation วางระบบให้จบเป็นโปรเจกต์ | Hashbox',
+            'description' => 'รับทำ n8n automation เริ่มต้น 29,000 บาท — วางระบบอัตโนมัติให้จบเป็นโปรเจกต์ พร้อมส่งมอบ workflow ที่แก้เองต่อได้ ไม่ผูกขาดกับเรา',
+        );
+    }
+
     if ( is_singular() ) {
         $post_obj = get_queried_object();
         $title    = $post_obj instanceof WP_Post ? get_the_title( $post_obj ) . ' | Hashbox Studio' : $fallback['title'];
@@ -998,6 +1013,38 @@ function hashbox_sync_new_service_pages_rankmath_meta() {
     }
 }
 add_action( 'wp', 'hashbox_sync_new_service_pages_rankmath_meta', 1 );
+
+/**
+ * Rank Math meta sync for /services/n8n-automation/ (2026-08-24).
+ *
+ * แยกจาก hashbox_sync_new_service_pages_rankmath_meta() โดยเจตนา ไม่ใช่เพิ่ม
+ * เข้า $targets ของตัวนั้น: ฟังก์ชันนั้นเก็บ option ก็ต่อเมื่อ **ทุก** target
+ * มีอยู่จริง ถ้าเอาหน้าที่ยังไม่ได้สร้างใน WP ไปใส่ $done จะเป็น false ตลอด
+ * แล้ว update_post_meta() ของอีกสามหน้าจะถูกยิงซ้ำทุก request จนกว่าจะมีคน
+ * สร้างหน้า — เขียน DB ฟรีๆ บนเว็บ production
+ *
+ * ตัวนี้แตะหน้าเดียว: ก่อนหน้าจะถูกสร้าง มันเสีย get_page_by_path() หนึ่งครั้ง
+ * ต่อ request และ **ไม่เขียนอะไรเลย** พอสร้างหน้าแล้วมันซิงก์ให้เองรอบถัดไป
+ */
+function hashbox_sync_n8n_service_rankmath_meta() {
+    $sync_key = '20260824_n8n_automation_rankmath_meta_v1';
+    if ( $sync_key === get_option( 'hashbox_n8n_service_rankmath_meta_version' ) ) {
+        return;
+    }
+
+    $page = get_page_by_path( 'services/n8n-automation', OBJECT, 'page' );
+    if ( ! $page ) {
+        return; // ยังไม่ได้สร้างหน้าใน WP — ไม่ใช่ error รอบหน้าค่อยลองใหม่
+    }
+
+    // Keep in sync with $desc in page-n8n-automation.php and the meta map entry.
+    update_post_meta( $page->ID, 'rank_math_title', 'รับทำ n8n Automation วางระบบให้จบเป็นโปรเจกต์ | Hashbox' );
+    update_post_meta( $page->ID, 'rank_math_description', 'รับทำ n8n automation เริ่มต้น 29,000 บาท — วางระบบอัตโนมัติให้จบเป็นโปรเจกต์ พร้อมส่งมอบ workflow ที่แก้เองต่อได้ ไม่ผูกขาดกับเรา' );
+    clean_post_cache( $page->ID );
+
+    update_option( 'hashbox_n8n_service_rankmath_meta_version', $sync_key, false );
+}
+add_action( 'wp', 'hashbox_sync_n8n_service_rankmath_meta', 1 );
 
 /*
  * No sync for /services/ai-consulting/ on purpose (2026-08-17).
@@ -2729,12 +2776,22 @@ function hashbox_llms_txt_content() {
     $lines[] = '';
     $lines[] = '## Services';
     $lines[] = '';
-    $lines[] = '- [SEO-Ready Website Build](' . home_url( '/services/website-development/' ) . '): รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่ launch · Lighthouse 100 · Schema ครบ · เริ่ม 80,000 บาท';
+    $lines[] = '- [SEO-Ready Website Build](' . home_url( '/services/website-development/' ) . '): รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่ launch · Lighthouse 100 · Schema ครบ · เริ่ม 35,900 บาท';
     // Retainer service, priced per month — the only monthly line in this file.
     $lines[] = '- [รับทำ SEO (technical-first)](' . home_url( '/services/seo/' ) . '): รับทำ SEO สายเทคนิค · Technical SEO · Core Web Vitals · Schema · GEO/AI Overview · track อันดับรายวัน · เริ่มต้น 25,000 บาทต่อเดือน';
     // Hiring intent, not the guide's phrase — same split as the <title>: this
     // entry is who to hire, the Pillar Guides entry below is how it works.
     $lines[] = '- [ที่ปรึกษา AI สำหรับธุรกิจ](' . home_url( '/services/ai-consulting/' ) . '): รับวางระบบ AI ให้ธุรกิจไทยถึง production · LLM integration · automation · custom agent';
+    /*
+     * ลงใน llms.txt ก็ต่อเมื่อหน้ามีจริง — ไฟล์นี้อ่านโดย AI crawler โดยเฉพาะ
+     * การชี้ไปหน้า 404 แย่กว่าการไม่ลิสต์ (ธีม deploy ก่อน WP Page ถูกสร้าง)
+     * เช็คเดียวกันนี้คุมการ์ดบน /services/ ด้วย — ดู page-services.php
+     */
+    $hb_has_n8n_page = (bool) get_page_by_path( 'services/n8n-automation', OBJECT, 'page' );
+    if ( $hb_has_n8n_page ) {
+        // Project-priced, not monthly — unit differs from the SEO retainer line above.
+        $lines[] = '- [รับทำ n8n Automation](' . home_url( '/services/n8n-automation/' ) . '): วางระบบอัตโนมัติ n8n แบบ self-host บนเซิร์ฟเวอร์ลูกค้า · ส่งมอบ workflow + เอกสารให้แก้เองต่อได้ · เริ่มต้น 29,000 บาทต่อโปรเจกต์';
+    }
     $lines[] = '- [Digital Marketing Tools](' . home_url( '/services/digital-marketing-tools/' ) . '): SEO + CRO + analytics tooling';
     $lines[] = '';
     $lines[] = '## Pillar Guides';
@@ -2753,12 +2810,15 @@ function hashbox_llms_txt_content() {
     $lines[] = '';
     $lines[] = '## Pricing (THB, excl. VAT)';
     $lines[] = '';
-    $lines[] = '- SEO-Ready Landing Page: from 80,000 THB / 2-3 weeks';
+    $lines[] = '- SEO-Ready Landing Page: from 35,900 THB / 2-3 weeks';
     $lines[] = '- SEO-Ready Corporate Site: from 200,000 THB / 4-6 weeks';
     $lines[] = '- SEO-Ready E-commerce: from 350,000 THB / 6-10 weeks';
     $lines[] = '- SEO-Ready Enterprise: from 500,000 THB / 8-14 weeks';
     // One-off build fees above; this one is a monthly retainer, hence the unit.
     $lines[] = '- SEO retainer (technical-first, incl. GEO): from 25,000 THB / month';
+    if ( $hb_has_n8n_page ) {
+        $lines[] = '- n8n automation build (self-hosted, handover included): from 29,000 THB / project';
+    }
     $lines[] = '';
     $lines[] = '## Contact';
     $lines[] = '';
@@ -2837,7 +2897,7 @@ if ( ! function_exists( 'hashbox_get_home_faqs' ) ) {
             ),
             array(
                 'q' => 'ราคาเริ่มต้นเท่าไหร่?',
-                'a' => 'Landing Page เริ่มที่ 80,000 บาท Corporate Site เริ่มที่ 200,000 บาท E-commerce เริ่มที่ 350,000 บาท ส่วน AI Consulting Retainer เริ่มที่ 50,000 บาทต่อเดือน ทุกใบเสนอราคาจะออกหลังการ Audit ฟรีเสมอ เพื่อให้ลูกค้าเห็นภาพชัดก่อนตัดสินใจครับ',
+                'a' => 'Landing Page เริ่มที่ 35,900 บาท Corporate Site เริ่มที่ 200,000 บาท E-commerce เริ่มที่ 350,000 บาท ส่วน AI Consulting Retainer เริ่มที่ 50,000 บาทต่อเดือน ทุกใบเสนอราคาจะออกหลังการประเมิน Scope ฟรี เพื่อให้ลูกค้าเห็นภาพชัดก่อนตัดสินใจครับ',
             ),
             array(
                 'q' => 'มี Support หลังส่งมอบไหม?',
@@ -3116,6 +3176,7 @@ function hashbox_handle_contact_submit() {
     $phone              = isset( $_POST['phone'] )              ? sanitize_text_field( wp_unslash( $_POST['phone'] ) )              : '';
     $website            = isset( $_POST['website'] )            ? esc_url_raw( wp_unslash( $_POST['website'] ) )                    : '';
     $service            = isset( $_POST['service'] )            ? sanitize_text_field( wp_unslash( $_POST['service'] ) )            : '';
+    $project_type       = isset( $_POST['project_type'] )       ? sanitize_text_field( wp_unslash( $_POST['project_type'] ) )       : '';
     $message            = isset( $_POST['message'] )            ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) )        : '';
     $problem            = isset( $_POST['problem'] )            ? sanitize_textarea_field( wp_unslash( $_POST['problem'] ) )        : '';
     $budget             = isset( $_POST['budget'] )             ? sanitize_text_field( wp_unslash( $_POST['budget'] ) )             : '';
@@ -3146,7 +3207,7 @@ function hashbox_handle_contact_submit() {
     $invalid = ( $is_ai_route && ! $ai_nonce_ok ) || ( $is_ai_form
         ? ( $name === '' || $company === '' || $email === '' || ! is_email( $email ) || $message === '' || $invalid_ai_contact_preference || ( $needs_contact_detail && $contact_detail === '' ) || ! $pdpa )
         : ( $is_website_audit_form
-            ? ( $name === '' || $company === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || $budget === '' || $timeline === '' || 'phone-or-line' !== $contact_preference || $contact_detail === '' || $message === '' || ! $pdpa )
+            ? ( $name === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || $budget === '' || $timeline === '' || 'phone-or-line' !== $contact_preference || $contact_detail === '' || ! $pdpa )
             : ( $is_audit_form
                 ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
                 : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) ) ) );
@@ -3227,6 +3288,7 @@ function hashbox_handle_contact_submit() {
         'Phone: ' . $phone,
         'Website: ' . $website,
         'Service: ' . $service,
+        'Project type: ' . $project_type,
         'Budget: ' . $budget,
         'Timeline: ' . $timeline,
         'Preferred contact: ' . $contact_preference,

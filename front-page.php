@@ -511,7 +511,7 @@ get_header();
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--hb-space-4);">
             <div class="hb-tier">
                 <span class="hb-tier__name">Landing Page</span>
-                <div class="hb-tier__price">80,000<span class="hb-tier__price-unit">บาท+</span></div>
+                <div class="hb-tier__price">35,900<span class="hb-tier__price-unit">บาท+</span></div>
                 <p class="hb-caption">2-3 สัปดาห์</p>
                 <ul class="hb-tier__features">
                     <li>Next.js + Lighthouse 100</li>
@@ -519,7 +519,7 @@ get_header();
                     <li>GA4 + GSC setup</li>
                     <li>30 วัน support</li>
                 </ul>
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--outline" style="margin-top:auto;">ขอราคา Landing Page</a>
+                <a href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>" class="hb-btn hb-btn--outline" style="margin-top:auto;">ประเมิน Landing Page</a>
             </div>
             <div class="hb-tier hb-tier--featured">
                 <span class="hb-tier__ribbon">Most Popular</span>

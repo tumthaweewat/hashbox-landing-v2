@@ -15,7 +15,7 @@ $author_linkedin  = 'https://www.linkedin.com/in/tumthaweewat/';
 $author_bio       = '17 ปีประสบการณ์ Technical SEO + Performance Engineering · ผ่านโปรเจกต์ SEO migration 50+ เคส · Cert: Google Analytics, Search Console, Cloudflare Performance Engineer';
 
 $faqs = array(
-    array( 'q' => 'รับทำเว็บไซต์ SEO-Ready ราคาเริ่มต้นเท่าไหร่?', 'a' => 'Landing Page เริ่ม 80,000 บาท · Corporate Site 200,000 บาท · E-commerce 350,000 บาท · Enterprise 500,000+ บาท ทุก quote ออกหลัง Audit ฟรี' ),
+    array( 'q' => 'รับทำเว็บไซต์ SEO-Ready ราคาเริ่มต้นเท่าไหร่?', 'a' => 'Landing Page เริ่ม 35,900 บาท · Corporate Site 200,000 บาท · E-commerce 350,000 บาท · Enterprise 500,000+ บาท ทุก quote ออกหลังประเมิน Scope ฟรี' ),
     array( 'q' => 'ใช้เวลาทำเว็บไซต์ SEO-Ready นานเท่าไหร่?', 'a' => 'Landing Page 2-3 สัปดาห์ · Corporate Site 4-6 สัปดาห์ · E-commerce 6-10 สัปดาห์ · ระบบซับซ้อน 8-14 สัปดาห์ Discovery + Audit ฟรีก่อนเริ่มเสมอ' ),
     array( 'q' => 'ทำไมต้องเลือก SEO-Ready Website แทนเว็บทั่วไป?', 'a' => 'เว็บทั่วไปต้องทำ Technical SEO Audit หลังเปิดตัว 2-3 รอบกว่าจะติด Google ของเราผ่าน Build Gate ตั้งแต่ก่อน Deploy: Lighthouse 100, CWV เขียว, Schema ครบ Googlebot Index ได้ตั้งแต่ Crawl แรก ลด time-to-rank จาก 6 เดือนเหลือ 1-2 เดือนในหลายอุตสาหกรรม' ),
     array( 'q' => 'มาตรฐาน Lighthouse 100 ทำได้จริงทุกเคส?', 'a' => 'การันตี 95+ ทุกเคส และ 100/100/100/100 ในเคสที่ Stack ของเราควบคุมได้ (Next.js/Astro บน Vercel/Cloudflare) WordPress + Heavy Plugins อยู่ที่ 92-98 ขึ้นกับ Plugin Stack' ),
@@ -71,7 +71,7 @@ $process_icons = array(
 );
 
 $pricing = array(
-    array( 'tier' => 'Landing Page', 'price' => 80000, 'pages' => '1-3 หน้า', 'time' => '2-3 สัปดาห์', 'fit' => 'Product launch, campaign, lead-gen' ),
+    array( 'tier' => 'Landing Page', 'price' => 35900, 'pages' => '1-3 หน้า', 'time' => '2-3 สัปดาห์', 'fit' => 'Product launch, campaign, lead-gen' ),
     array( 'tier' => 'Corporate Site', 'price' => 200000, 'pages' => '5-15 หน้า', 'time' => '4-6 สัปดาห์', 'fit' => 'B2B, agency, professional service' ),
     array( 'tier' => 'E-commerce', 'price' => 350000, 'pages' => '20-100 หน้า', 'time' => '6-10 สัปดาห์', 'fit' => 'WooCommerce, Shopify, custom catalog' ),
     array( 'tier' => 'Enterprise', 'price' => 500000, 'pages' => '50+ หน้า · custom', 'time' => '8-14 สัปดาห์', 'fit' => 'Multi-language, headless, integration หนัก' ),
@@ -976,9 +976,9 @@ $checks = array(
                     </ol>
                 </nav>
                 <h1 class="hb-hero__title">รับทำเว็บไซต์<br><em>SEO-Ready</em><br>พัฒนาเว็บให้พร้อมติด Google</h1>
-                <p class="hb-hero__sub hb-srw-hero__sub"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="color:inherit;text-decoration:underline;text-decoration-color:var(--hb-accent-blue,#2563EB);text-underline-offset:0.18em;">Hashbox</a> รับทำเว็บไซต์ธุรกิจด้วยโครงสร้างที่รองรับการติดอันดับบน Google และติด AI Search ดูแลตั้งแต่ Website Performance, Technical SEO ไปจนถึง User Experience ทุกเว็บต้องผ่านมาตรฐาน Lighthouse 100 พร้อม Core Web Vitals ระดับสีเขียว และมีระบบ Sitemap Auto-Submit เพื่อให้ Google เข้าถึงและจัดอันดับเว็บไซต์ได้เร็วขึ้น เพราะการวางรากฐานเว็บไซต์ที่แข็งแรงและถูกต้องตั้งแต่ต้น คือปัจจัยสำคัญที่ช่วยให้การติด Google และ AI Search เป็นเรื่องง่ายและยั่งยืนกว่า</p>
+                <p class="hb-hero__sub hb-srw-hero__sub"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="color:inherit;text-decoration:underline;text-decoration-color:var(--hb-accent-blue,#2563EB);text-underline-offset:0.18em;">Hashbox</a> รับทำเว็บไซต์ธุรกิจด้วยโครงสร้างที่รองรับการติดอันดับบน Google และติด AI Search ดูแลตั้งแต่ Website Performance, Technical SEO ไปจนถึง User Experience ทุกเว็บต้องผ่านมาตรฐาน Lighthouse 100 พร้อม Core Web Vitals ระดับสีเขียว และมีระบบ Sitemap Auto-Submit เพื่อให้ Google เข้าถึงและจัดอันดับเว็บไซต์ได้เร็วขึ้น · แพ็กเกจ Landing Page สำหรับธุรกิจเริ่ม 35,900 บาท</p>
                 <div class="hb-hero__actions hb-srw-hero__actions">
-                    <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
+                    <a href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">ประเมินโปรเจกต์ฟรี</a>
                     <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงานที่ผ่านมา</a>
                 </div>
                 <div class="hb-srw-trustbar">
@@ -1270,7 +1270,7 @@ $checks = array(
                             array( 'ส่งมอบ source code', '✓', 'บางเคส', '✓', '✗ (locked)' ),
                             array( '301 Redirect Map (migration)', '✓', 'เพิ่ม fee', '✗', '✗' ),
                             array( 'Care plan + monitoring', '✓ (optional)', '✓ (mandatory)', '✗', '✗' ),
-                            array( 'ราคาเริ่มต้น', '80k บาท', '150k-500k', '30k-100k', '5k-20k' ),
+                            array( 'ราคาเริ่มต้น', '35.9k บาท', '150k-500k', '30k-100k', '5k-20k' ),
                             array( 'Time-to-rank (เฉลี่ย)', '4-8 สัปดาห์', '4-6 เดือน', '6-12 เดือน', 'ไม่การันตี' ),
                         );
                         foreach ( $rows as $r ) :
@@ -1415,10 +1415,10 @@ $checks = array(
         <div class="hb-container">
             <div class="hb-srw-card hb-srw-cta">
                 <div>
-                    <h2 class="hb-h2">เริ่มด้วย Audit ฟรี</h2>
-                    <p class="hb-lead" style="margin-top:var(--hb-space-4);">รับ SEO + Performance Audit Report 15-20 หน้า ภายใน 3 วันทำการ · ไม่มี commitment · ไม่มี up-sell</p>
+                    <h2 class="hb-h2">เริ่มด้วยการประเมินโปรเจกต์ฟรี</h2>
+                    <p class="hb-lead" style="margin-top:var(--hb-space-4);">บอกเป้าหมาย งบประมาณ และช่วงเวลาที่ต้องการเริ่ม ทีมจะเสนอ Scope ที่เหมาะสมสำหรับแพ็กเกจเริ่ม 35,900 บาท</p>
                 </div>
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ Audit ฟรี &rarr;</a>
+                <a href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">ขอประเมินโปรเจกต์ &rarr;</a>
             </div>
         </div>
     </section>
@@ -1599,12 +1599,12 @@ hashbox_jsonld( array(
         array(
             '@type'  => 'ContactAction',
             'name'   => 'Request Free SEO Audit',
-            'target' => home_url( '/#contact' ),
+            'target' => home_url( '/website-audit/' ),
         ),
         array(
             '@type'  => 'ReserveAction',
             'name'   => 'Book Discovery Call',
-            'target' => home_url( '/#contact' ),
+            'target' => home_url( '/website-audit/' ),
         ),
     ),
     'termsOfService' => home_url( '/privacy-policy/#terms' ),

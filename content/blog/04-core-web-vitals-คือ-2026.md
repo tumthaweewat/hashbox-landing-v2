@@ -221,7 +221,7 @@ CWV เป็น 1 ใน 200+ ranking signal ของ Google ผ่าน CWV 
 - **Audit + fix** โดยทีม: 30,000 - 80,000 บาท (CWV เหลือง → เขียว)
 - **Rebuild เว็บใหม่บน modern stack**: 80,000 บาท ขึ้นไป (CWV เขียวการันตี)
 
-ดูเพิ่ม: [บริการรับทำเว็บไซต์ SEO-Ready](/services/website-development/) เริ่ม 80,000 บาท CWV เขียวการันตี
+ดูเพิ่ม: [บริการรับทำเว็บไซต์ SEO-Ready](/services/website-development/) เริ่ม 35,900 บาท CWV เขียวการันตี
 
 ---
 

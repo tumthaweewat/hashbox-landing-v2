@@ -140,6 +140,20 @@
   flex-shrink: 0;
 }
 
+/* Keep the primary nav action chromatic in every interaction state. */
+.hb-nav__cta--drawer-backed {
+  --btn-fg: var(--hb-accent-ink);
+  --btn-bg: var(--hb-accent-blue);
+  --btn-bg-hover: var(--hb-accent-blue-strong);
+  --btn-border: var(--hb-accent-ink);
+  --btn-border-hover: var(--hb-accent-ink);
+  background: var(--btn-bg);
+  border-color: var(--btn-border);
+  box-shadow: var(--hb-shadow-sm);
+}
+
+.hb-nav__cta--drawer-backed::before { display: none; }
+
 /* Build status indicator (Linear-style) */
 .hb-nav__status {
   display: inline-flex;

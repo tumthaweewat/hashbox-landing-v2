@@ -31,7 +31,7 @@ $author_bio      = '17 ปีประสบการณ์ Technical SEO + Perf
 $faqs = array(
     array(
         'q' => 'รับทำเว็บไซต์ WordPress ราคาเท่าไหร่?',
-        'a' => 'ใช้แพ็กเกจเดียวกับบริการเว็บไซต์ SEO-Ready ของเรา: Landing Page เริ่ม 80,000 บาท · Corporate Site 200,000 บาท · E-commerce 350,000 บาท · Enterprise 500,000+ บาท ราคาสุดท้ายขึ้นกับ scope จริง — จำนวนหน้า ระบบที่ต้องมี การย้ายข้อมูล และรูปแบบ (Custom หรือ Headless) ทุก quote ออกหลัง SEO Audit ฟรี',
+        'a' => 'ใช้แพ็กเกจเดียวกับบริการเว็บไซต์ SEO-Ready ของเรา: Landing Page เริ่ม 35,900 บาท · Corporate Site 200,000 บาท · E-commerce 350,000 บาท · Enterprise 500,000+ บาท ราคาสุดท้ายขึ้นกับ scope จริง — จำนวนหน้า ระบบที่ต้องมี การย้ายข้อมูล และรูปแบบ (Custom หรือ Headless) ทุก quote ออกหลังประเมิน Scope ฟรี',
     ),
     array(
         'q' => 'ใช้ Elementor หรือ page builder ไหม?',
@@ -74,7 +74,7 @@ $compare_rows = array(
 
 // Published pricing of the parent SEO-Ready Website service (WordPress uses the same tiers).
 $pricing = array(
-    array( 'tier' => 'Landing Page', 'price' => 80000, 'label' => 'เริ่ม 80,000 บาท', 'pages' => '1-3 หน้า', 'time' => '2-3 สัปดาห์', 'fit' => 'Product launch, campaign, lead-gen' ),
+    array( 'tier' => 'Landing Page', 'price' => 35900, 'label' => 'เริ่ม 35,900 บาท', 'pages' => '1-3 หน้า', 'time' => '2-3 สัปดาห์', 'fit' => 'Product launch, campaign, lead-gen' ),
     array( 'tier' => 'Corporate Site', 'price' => 200000, 'label' => '200,000 บาท', 'pages' => '5-15 หน้า', 'time' => '4-6 สัปดาห์', 'fit' => 'B2B, agency, professional service' ),
     array( 'tier' => 'E-commerce', 'price' => 350000, 'label' => '350,000 บาท', 'pages' => '20-100 หน้า', 'time' => '6-10 สัปดาห์', 'fit' => 'WooCommerce, custom catalog' ),
     array( 'tier' => 'Enterprise', 'price' => 500000, 'label' => '500,000+ บาท', 'pages' => '50+ หน้า · custom', 'time' => '8-14 สัปดาห์', 'fit' => 'Multi-language, headless, integration หนัก' ),
@@ -113,7 +113,7 @@ $table_cell = 'padding:var(--hb-space-3) var(--hb-space-4);border-bottom:1px sol
             <h1 class="hb-hero__title">รับทำเว็บไซต์ WordPress<br><em>ที่วัดผลด้วย Lighthouse จริง</em><br>ไม่ใช่แค่ "เว็บสวย"</h1>
             <p class="hb-hero__sub">ตลาดรับทำเว็บไซต์ WordPress ในไทยเต็มไปด้วยเว็บ template ที่หน้าตาเหมือนกันหมด โหลดช้า และโครงสร้าง SEO พังตั้งแต่วันแรก เราทำต่างออกไป: เขียน theme เองหรือแยกหน้าบ้านเป็น Next.js ผ่าน Build Gate กว่า 12 ขั้นตอนก่อนขึ้น production — ทั้งหมดเป็นส่วนหนึ่งของบริการ<a href="<?php echo esc_url( $parent_url ); ?>" style="color:inherit;text-decoration:underline;text-decoration-color:var(--hb-accent-blue,#2563EB);text-underline-offset:0.18em;">รับทำเว็บไซต์ SEO-Ready</a>ของเรา</p>
             <div class="hb-hero__actions">
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
+                <a href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">ประเมินโปรเจกต์ฟรี</a>
                 <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงาน</a>
             </div>
         </div>
@@ -125,7 +125,7 @@ $table_cell = 'padding:var(--hb-space-3) var(--hb-space-4);border-bottom:1px sol
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-surface-1,#18181B);border-radius:var(--hb-radius-md,8px);">
             <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">สรุปสั้นๆ</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
-                <strong>Hashbox รับทำเว็บไซต์ WordPress 2 รูปแบบ</strong> — <strong>WordPress Custom</strong> (เขียน theme เอง ไม่พึ่ง page builder หนัก) และ <strong>Headless WordPress</strong> (WP เป็น CMS หลังบ้าน หน้าบ้าน Next.js บน Vercel/Cloudflare Pages) ทุกโปรเจกต์ผ่าน Build Gate กว่า 12 ขั้นตอนก่อนขึ้น production เรื่อง Lighthouse เราพูดตรงๆ: Custom ที่ไม่มี heavy plugin การันตี 95+ · Headless ทำได้ 95-100 · ส่วน WordPress ที่ลาก heavy plugin ตามจริงอยู่ที่ 92-98 ขึ้นกับ plugin stack — เราบอกก่อนเริ่มงาน ไม่ใช่หลังส่งมอบ แพ็กเกจเว็บไซต์เริ่ม 80,000 บาท เริ่มจาก SEO Audit ฟรี
+                <strong>Hashbox รับทำเว็บไซต์ WordPress 2 รูปแบบ</strong> — <strong>WordPress Custom</strong> (เขียน theme เอง ไม่พึ่ง page builder หนัก) และ <strong>Headless WordPress</strong> (WP เป็น CMS หลังบ้าน หน้าบ้าน Next.js บน Vercel/Cloudflare Pages) ทุกโปรเจกต์ผ่าน Build Gate กว่า 12 ขั้นตอนก่อนขึ้น production เรื่อง Lighthouse เราพูดตรงๆ: Custom ที่ไม่มี heavy plugin การันตี 95+ · Headless ทำได้ 95-100 · ส่วน WordPress ที่ลาก heavy plugin ตามจริงอยู่ที่ 92-98 ขึ้นกับ plugin stack — เราบอกก่อนเริ่มงาน ไม่ใช่หลังส่งมอบ แพ็กเกจเว็บไซต์เริ่ม 35,900 บาท เริ่มจากการประเมิน Scope ฟรี
             </p>
         </div>
     </div>
@@ -232,7 +232,7 @@ $table_cell = 'padding:var(--hb-space-3) var(--hb-space-4);border-bottom:1px sol
             </div>
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">อ่านต่อ</span>
-                <p class="hb-body">เราเขียนเทียบสองฝั่งไว้ละเอียดพร้อมเกณฑ์ตัดสินใจใน<a href="<?php echo esc_url( home_url( '/nextjs-vs-wordpress-2026/' ) ); ?>">บทความ Next.js vs WordPress</a> ถ้าอ่านแล้วยังไม่ชัวร์ <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">นัดคุยกันก่อนได้ ไม่มีค่าใช้จ่าย</a></p>
+                <p class="hb-body">เราเขียนเทียบสองฝั่งไว้ละเอียดพร้อมเกณฑ์ตัดสินใจใน<a href="<?php echo esc_url( home_url( '/nextjs-vs-wordpress-2026/' ) ); ?>">บทความ Next.js vs WordPress</a> ถ้าอ่านแล้วยังไม่ชัวร์ <a href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>">นัดคุยกันก่อนได้ ไม่มีค่าใช้จ่าย</a></p>
             </div>
         </div>
     </div>
@@ -344,7 +344,7 @@ $table_cell = 'padding:var(--hb-space-3) var(--hb-space-4);border-bottom:1px sol
         <h2 class="hb-h2">เริ่มจากตรวจเว็บปัจจุบันของคุณ — ฟรี</h2>
         <p class="hb-lead" style="margin:var(--hb-space-4) auto var(--hb-space-6);">ไม่ต้องเดาว่าเว็บ WordPress ของคุณมีปัญหาตรงไหน ส่ง URL มาแล้วเราตรวจให้: ความเร็ว, Core Web Vitals, โครงสร้าง SEO และความพร้อมสำหรับ AI Search พร้อมข้อเสนอ scope ที่ชัดเจนถ้าอยากไปต่อ</p>
         <div class="hb-hero__actions" style="justify-content:center;">
-            <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
+            <a href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">ประเมินโปรเจกต์ฟรี</a>
             <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงานที่ผ่านมา</a>
         </div>
     </div>
@@ -396,7 +396,7 @@ hashbox_jsonld( array(
     'potentialAction' => array(
         '@type'  => 'ContactAction',
         'name'   => 'Request Free SEO Audit',
-        'target' => home_url( '/#contact' ),
+        'target' => home_url( '/website-audit/' ),
     ),
     'isRelatedTo'     => array(
         array( '@type' => 'Service', 'name' => 'รับทำเว็บไซต์ SEO-Ready', 'url' => $parent_url ),
