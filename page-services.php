@@ -73,6 +73,27 @@ $page_url = get_permalink();
                 <span class="hb-service__link">ดูรายละเอียดบริการรับทำ SEO &rarr;</span>
             </a>
 
+            <?php
+            /*
+             * การ์ดนี้โผล่ก็ต่อเมื่อ WP Page /services/n8n-automation/ ถูกสร้างแล้ว
+             * ธีมถูก deploy ก่อนที่หน้าจะถูกสร้างใน wp-admin ถ้าเรนเดอร์ตลอด
+             * หน้า hub จะมีลิงก์ที่ 404 อยู่บนเว็บจริงจนกว่าจะมีคนไปกดสร้าง
+             * — ลิงก์เสียบนหน้าที่ Google เก็บ index อยู่ ไม่ใช่เรื่องเล็ก
+             * พอสร้างหน้าแล้วการ์ดขึ้นเองไม่ต้องแก้โค้ด
+             */
+            if ( get_page_by_path( 'services/n8n-automation', OBJECT, 'page' ) ) :
+            ?>
+            <a href="<?php echo esc_url( home_url( '/services/n8n-automation/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="violet" style="text-decoration:none;">
+                <span class="hb-service__num">05</span>
+                <span class="hb-service__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="6" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="12" r="2.5"/><path d="M7.5 6h4a2 2 0 0 1 2 2v2.2M7.5 18h4a2 2 0 0 0 2-2v-2.2M13.5 12h3"/></svg></span>
+                <h2 class="hb-service__title">รับทำ n8n Automation</h2>
+                <p class="hb-service__desc">วางระบบอัตโนมัติให้จบเป็นโปรเจกต์ รันบนเซิร์ฟเวอร์ของคุณเอง ข้อมูลไม่ออกนอกระบบ ส่งมอบพร้อมไฟล์ workflow และเอกสารที่ทีมคุณแก้เองต่อได้ ไม่ต้องจ้างเรากลับมาทุกครั้ง</p>
+                <div class="hb-service__stack">Self-host · เชื่อมหลายระบบ · ส่งมอบพร้อมเอกสาร</div>
+                <div class="hb-service__stack" style="font-weight:600;">เริ่มต้น 29,000 บาท</div>
+                <span class="hb-service__link">ดูรายละเอียดบริการรับทำ n8n &rarr;</span>
+            </a>
+            <?php endif; ?>
+
             <a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="cyan" style="text-decoration:none;" hreflang="en">
                 <span class="hb-service__num">EN</span>
                 <span class="hb-service__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg></span>
