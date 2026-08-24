@@ -31,7 +31,7 @@ $author_bio      = '17 ปีประสบการณ์ Technical SEO + Perf
 $faqs = array(
     array(
         'q' => 'รับทำเว็บไซต์ WordPress ราคาเท่าไหร่?',
-        'a' => 'ใช้แพ็กเกจเดียวกับบริการเว็บไซต์ SEO-Ready ของเรา: Landing Page เริ่ม 35,900 บาท · Corporate Site 200,000 บาท · E-commerce 350,000 บาท · Enterprise 500,000+ บาท ราคาสุดท้ายขึ้นกับ scope จริง — จำนวนหน้า ระบบที่ต้องมี การย้ายข้อมูล และรูปแบบ (Custom หรือ Headless) ทุก quote ออกหลังประเมิน Scope ฟรี',
+        'a' => 'ใช้แพ็กเกจเดียวกับบริการเว็บไซต์ SEO-Ready ของเรา: Landing Page เริ่ม 35,900 บาท · Corporate Site เริ่ม 80,000 บาท · E-commerce 350,000 บาท · Enterprise 500,000+ บาท ราคาสุดท้ายขึ้นกับ scope จริง — จำนวนหน้า ระบบที่ต้องมี การย้ายข้อมูล และรูปแบบ (Custom หรือ Headless) ทุก quote ออกหลังประเมิน Scope ฟรี',
     ),
     array(
         'q' => 'ใช้ Elementor หรือ page builder ไหม?',
@@ -51,7 +51,7 @@ $faqs = array(
     ),
     array(
         'q' => 'รับทำเว็บไซต์บริษัท (corporate website) ไหม?',
-        'a' => 'รับ — เว็บบริษัทที่ดีต้องทำหน้าที่มากกว่าโบรชัวร์ออนไลน์ คือต้องถูกค้นเจอ โหลดเร็วบนมือถือ และมีโครงสร้างที่ Google กับ AI search อ่านออก แพ็กเกจ Corporate Site เริ่ม 200,000 บาท (5-15 หน้า) ใช้เวลา 4-6 สัปดาห์ เหมาะกับธุรกิจ B2B, agency และ professional service',
+        'a' => 'รับ — เว็บบริษัทที่ดีต้องทำหน้าที่มากกว่าโบรชัวร์ออนไลน์ คือต้องถูกค้นเจอ โหลดเร็วบนมือถือ และมีโครงสร้างที่ Google กับ AI search อ่านออก แพ็กเกจ Corporate Site เริ่ม 80,000 บาท (5-15 หน้า) ใช้เวลา 4-6 สัปดาห์ เหมาะกับธุรกิจ B2B, agency และ professional service',
     ),
     array(
         'q' => 'ทำเว็บแล้วได้ SEO ด้วยเลยไหม?',
@@ -75,7 +75,7 @@ $compare_rows = array(
 // Published pricing of the parent SEO-Ready Website service (WordPress uses the same tiers).
 $pricing = array(
     array( 'tier' => 'Landing Page', 'price' => 35900, 'label' => 'เริ่ม 35,900 บาท', 'pages' => '1-3 หน้า', 'time' => '2-3 สัปดาห์', 'fit' => 'Product launch, campaign, lead-gen' ),
-    array( 'tier' => 'Corporate Site', 'price' => 200000, 'label' => '200,000 บาท', 'pages' => '5-15 หน้า', 'time' => '4-6 สัปดาห์', 'fit' => 'B2B, agency, professional service' ),
+    array( 'tier' => 'Corporate Site', 'price' => 80000, 'label' => 'เริ่ม 80,000 บาท', 'pages' => '5-15 หน้า', 'time' => '4-6 สัปดาห์', 'fit' => 'B2B, agency, professional service' ),
     array( 'tier' => 'E-commerce', 'price' => 350000, 'label' => '350,000 บาท', 'pages' => '20-100 หน้า', 'time' => '6-10 สัปดาห์', 'fit' => 'WooCommerce, custom catalog' ),
     array( 'tier' => 'Enterprise', 'price' => 500000, 'label' => '500,000+ บาท', 'pages' => '50+ หน้า · custom', 'time' => '8-14 สัปดาห์', 'fit' => 'Multi-language, headless, integration หนัก' ),
 );
