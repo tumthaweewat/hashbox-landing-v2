@@ -15,7 +15,7 @@ $author_linkedin  = 'https://www.linkedin.com/in/tumthaweewat/';
 $author_bio       = '17 ปีประสบการณ์ Technical SEO + Performance Engineering · ผ่านโปรเจกต์ SEO migration 50+ เคส · Cert: Google Analytics, Search Console, Cloudflare Performance Engineer';
 
 $faqs = array(
-    array( 'q' => 'รับทำเว็บไซต์ SEO-Ready ราคาเริ่มต้นเท่าไหร่?', 'a' => 'Landing Page เริ่ม 35,900 บาท · Corporate Site 200,000 บาท · E-commerce 350,000 บาท · Enterprise 500,000+ บาท ทุก quote ออกหลังประเมิน Scope ฟรี' ),
+    array( 'q' => 'รับทำเว็บไซต์ SEO-Ready ราคาเริ่มต้นเท่าไหร่?', 'a' => 'Landing Page เริ่ม 35,900 บาท · Corporate Site เริ่ม 80,000 บาท · E-commerce 350,000 บาท · Enterprise 500,000+ บาท ทุก quote ออกหลังประเมิน Scope ฟรี' ),
     array( 'q' => 'ใช้เวลาทำเว็บไซต์ SEO-Ready นานเท่าไหร่?', 'a' => 'Landing Page 2-3 สัปดาห์ · Corporate Site 4-6 สัปดาห์ · E-commerce 6-10 สัปดาห์ · ระบบซับซ้อน 8-14 สัปดาห์ Discovery + Audit ฟรีก่อนเริ่มเสมอ' ),
     array( 'q' => 'ทำไมต้องเลือก SEO-Ready Website แทนเว็บทั่วไป?', 'a' => 'เว็บทั่วไปต้องทำ Technical SEO Audit หลังเปิดตัว 2-3 รอบกว่าจะติด Google ของเราผ่าน Build Gate ตั้งแต่ก่อน Deploy: Lighthouse 100, CWV เขียว, Schema ครบ Googlebot Index ได้ตั้งแต่ Crawl แรก ลด time-to-rank จาก 6 เดือนเหลือ 1-2 เดือนในหลายอุตสาหกรรม' ),
     array( 'q' => 'มาตรฐาน Lighthouse 100 ทำได้จริงทุกเคส?', 'a' => 'การันตี 95+ ทุกเคส และ 100/100/100/100 ในเคสที่ Stack ของเราควบคุมได้ (Next.js/Astro บน Vercel/Cloudflare) WordPress + Heavy Plugins อยู่ที่ 92-98 ขึ้นกับ Plugin Stack' ),
@@ -72,7 +72,7 @@ $process_icons = array(
 
 $pricing = array(
     array( 'tier' => 'Landing Page', 'price' => 35900, 'pages' => '1-3 หน้า', 'time' => '2-3 สัปดาห์', 'fit' => 'Product launch, campaign, lead-gen' ),
-    array( 'tier' => 'Corporate Site', 'price' => 200000, 'pages' => '5-15 หน้า', 'time' => '4-6 สัปดาห์', 'fit' => 'B2B, agency, professional service' ),
+    array( 'tier' => 'Corporate Site', 'price' => 80000, 'pages' => '5-15 หน้า', 'time' => '4-6 สัปดาห์', 'fit' => 'B2B, agency, professional service' ),
     array( 'tier' => 'E-commerce', 'price' => 350000, 'pages' => '20-100 หน้า', 'time' => '6-10 สัปดาห์', 'fit' => 'WooCommerce, Shopify, custom catalog' ),
     array( 'tier' => 'Enterprise', 'price' => 500000, 'pages' => '50+ หน้า · custom', 'time' => '8-14 สัปดาห์', 'fit' => 'Multi-language, headless, integration หนัก' ),
 );

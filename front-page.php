@@ -524,7 +524,7 @@ get_header();
             <div class="hb-tier hb-tier--featured">
                 <span class="hb-tier__ribbon">Most Popular</span>
                 <span class="hb-tier__name">Corporate Site</span>
-                <div class="hb-tier__price">200,000<span class="hb-tier__price-unit">บาท+</span></div>
+                <div class="hb-tier__price">80,000<span class="hb-tier__price-unit">บาท+</span></div>
                 <p class="hb-caption">4-6 สัปดาห์</p>
                 <ul class="hb-tier__features">
                     <li>Headless WP + Next.js</li>
@@ -533,7 +533,7 @@ get_header();
                     <li>CRO setup 3 เดือนแรก</li>
                     <li>60 วัน support</li>
                 </ul>
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient" style="margin-top:auto;">ขอราคา Corporate Site</a>
+                <a href="<?php echo esc_url( home_url( '/website-audit/#project-form' ) ); ?>" class="hb-btn hb-btn--gradient" style="margin-top:auto;">ประเมิน Corporate Site</a>
             </div>
             <div class="hb-tier">
                 <span class="hb-tier__name">E-commerce</span>
