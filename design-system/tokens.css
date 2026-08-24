@@ -53,6 +53,7 @@
   --hb-accent-blue:     #4F46E5;   /* indigo 600 — PRIMARY brand */
   --hb-accent-blue-strong: #4338CA; /* indigo 700 — on white */
   --hb-accent-blue-soft:   #818CF8; /* indigo 400 — on dark hover */
+  --hb-accent-ink:      #F5F5F4;   /* AA text/border on primary indigo */
   --hb-accent-violet:   #6366F1;   /* indigo 500 — soft brand alias */
   --hb-accent-cyan:     #4F46E5;   /* alias to primary (deprecated cyan) */
   --hb-accent-emerald:  #059669;   /* emerald 600 — success only */
