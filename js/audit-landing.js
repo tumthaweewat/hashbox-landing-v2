@@ -13,6 +13,7 @@
   var AI_PENDING_LEAD_KEY = 'hashbox_ai_pending_lead_ref';
   var AI_LEAD_STORAGE_PREFIX = 'hashbox_ai_lead_v2_';
   var AI_LEAD_MEMORY_STATE = {};
+  var AI_CONVERSION_REF_PATTERN = /^HB-AI-[0-9]{8}-[0-9]{9,40}$/;
 
   function attributionStorageKey(scope) {
     return ATTRIBUTION_STORAGE_PREFIX + String(scope || 'site').replace(/[^a-z0-9_-]/gi, '_');
@@ -178,6 +179,10 @@
     return /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(leadRef || '');
   }
 
+  function isValidAiConversionRef(conversionRef) {
+    return AI_CONVERSION_REF_PATTERN.test(conversionRef || '') && conversionRef.length <= 64;
+  }
+
   function aiLeadStorageKey(leadRef) {
     return AI_LEAD_STORAGE_PREFIX + leadRef;
   }
@@ -283,32 +288,41 @@
     } catch (err) {}
   }
 
-  function confirmedAiLeadRef(root) {
-    if (!root || root.dataset.auditSlug !== 'ai-workflow-audit') return '';
+  function confirmedAiLead(root) {
+    if (!root || root.dataset.auditSlug !== 'ai-workflow-audit') return null;
 
     // Only trust references the server confirmed by printing the signed meta
     // tag (contact=ai_sent&lead_ref&lead_sig verified against the submit-time
     // transient). A crafted success URL must never fire ad conversions.
     var meta = document.querySelector('meta[name="hashbox-confirmed-ai-lead"]');
     var confirmedRef = meta ? meta.getAttribute('content') || '' : '';
-    if (!isValidLeadRef(confirmedRef)) return '';
+    if (!isValidLeadRef(confirmedRef)) return null;
 
     var params = new URLSearchParams(window.location.search);
     var leadRef = params.get('contact') === 'ai_sent' ? params.get('lead_ref') || '' : '';
     if (isValidLeadRef(leadRef)) {
-      return leadRef === confirmedRef ? confirmedRef : '';
+      if (leadRef !== confirmedRef) return null;
+    } else {
+      try {
+        leadRef = window.sessionStorage.getItem(AI_PENDING_LEAD_KEY) || '';
+      } catch (err) {
+        leadRef = '';
+      }
+      if (!isValidLeadRef(leadRef) || leadRef !== confirmedRef) return null;
     }
 
-    try {
-      leadRef = window.sessionStorage.getItem(AI_PENDING_LEAD_KEY) || '';
-    } catch (err) {
-      leadRef = '';
-    }
-    return isValidLeadRef(leadRef) && leadRef === confirmedRef ? confirmedRef : '';
+    var conversionRef = meta.getAttribute('data-conversion-ref') || '';
+    return {
+      leadRef: confirmedRef,
+      conversionRef: isValidAiConversionRef(conversionRef) ? conversionRef : ''
+    };
   }
 
-  function trackConfirmedAiLead(root, leadRef, attempt) {
-    if (!root || root.dataset.auditSlug !== 'ai-workflow-audit' || !isValidLeadRef(leadRef)) return;
+  function trackConfirmedAiLead(root, confirmation, attempt) {
+    if (!root || root.dataset.auditSlug !== 'ai-workflow-audit' || !confirmation) return;
+    var leadRef = confirmation.leadRef;
+    var conversionRef = confirmation.conversionRef;
+    if (!isValidLeadRef(leadRef) || !isValidAiConversionRef(conversionRef)) return;
 
     var state = readAiLeadState(leadRef);
 
@@ -322,7 +336,7 @@
           lead_source: 'ai_consulting',
           currency: 'THB',
           value: 1,
-          transaction_id: leadRef
+          transaction_id: conversionRef
         });
         state.analytics = true;
       }
@@ -330,7 +344,7 @@
       if (!state.ads) {
         window.gtag('event', 'conversion', {
           send_to: AI_CONVERSION_DESTINATION,
-          transaction_id: leadRef,
+          transaction_id: conversionRef,
           currency: 'THB',
           value: 1
         });
@@ -355,7 +369,7 @@
     if (state.analytics && state.ads && state.meta) return;
 
     if (attempt < 120) {
-      window.setTimeout(function () { trackConfirmedAiLead(root, leadRef, attempt + 1); }, 500);
+      window.setTimeout(function () { trackConfirmedAiLead(root, confirmation, attempt + 1); }, 500);
     }
   }
 
@@ -449,13 +463,23 @@
     if (root.dataset.auditSlug === 'ai-workflow-audit') {
       var retryConfirmedLead = function () {
         window.removeEventListener('hashbox:third-party-ready', retryConfirmedLead);
-        var pendingLeadRef = confirmedAiLeadRef(root);
-        if (pendingLeadRef) trackConfirmedAiLead(root, pendingLeadRef, 0);
+        var pendingLead = confirmedAiLead(root);
+        if (pendingLead && pendingLead.conversionRef) {
+          trackConfirmedAiLead(root, pendingLead, 0);
+        } else if (pendingLead) {
+          cleanSuccessParams();
+        }
       };
       window.addEventListener('hashbox:third-party-ready', retryConfirmedLead);
 
-      var leadRef = confirmedAiLeadRef(root);
-      if (leadRef) trackConfirmedAiLead(root, leadRef, 0);
+      var confirmedLead = confirmedAiLead(root);
+      if (confirmedLead && confirmedLead.conversionRef) {
+        trackConfirmedAiLead(root, confirmedLead, 0);
+      } else if (confirmedLead) {
+        // Legacy signed confirmations can still render success, but must not
+        // fall back to a UUID Google transaction ID.
+        cleanSuccessParams();
+      }
     }
     initAiStickyCta(root);
   }
