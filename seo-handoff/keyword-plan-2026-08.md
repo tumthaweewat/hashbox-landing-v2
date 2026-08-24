@@ -98,7 +98,9 @@ node tools/dataforseo.mjs plan seo-handoff/keyword-plan-2026-08.md
 | 4 ✅ | อัปเดต `/ai-agent-rag-chatbot-thailand-2026/` (§3) | งานเล็ก ผลเร็ว แทรกได้ระหว่างรอบ · เนื้อหาพร้อมวางแล้ว `ai-agent-vs-chatbot-insert.md` |
 | 5 | **A1** traffic ตกเพราะ AI Overview | ต้องรอ export GSC รอบใหม่มาทำกราฟ before/after ก่อน |
 | 6 | **C1** ทำไมโปรเจกต์ AI ล้ม | ต้องเก็บเคสจริงให้ครบก่อนเขียน |
-| 7–10 | B2 · B3 · C2 · A4 | A4 ตรวจ SERP ซ้ำก่อนเริ่มเสมอ |
+| 7 ✅ | **B2** เตรียมอะไรบ้างก่อนทำเว็บบริษัทใหม่ | ดราฟต์เสร็จ `articles/company-website-ai-ready-2026.md` |
+| 8 ✅ | **B3** ทำเว็บใหม่แล้วอันดับหาย | ดราฟต์เสร็จ `articles/website-migration-seo-2026.md` |
+| 9–10 | C2 · A4 | A4 ตรวจ SERP ซ้ำก่อนเริ่มเสมอ |
 
 ---
 

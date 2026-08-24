@@ -34,6 +34,8 @@
 | `/wordpress-ai-overview-2026/` | `ทำเว็บ wordpress ให้ติด ai overview` | AI Overview | drafted — `articles/wordpress-ai-overview-2026.md` |
 | `/chatgpt-company-data-security-2026/` | `พนักงานใช้ chatgpt ข้อมูลบริษัทรั่วไหม` | AI Governance | drafted — `articles/chatgpt-company-data-security-2026.md` |
 | `/why-not-in-ai-overview-2026/` | `ทำไมเว็บไม่ติด ai overview` | AI Overview | drafted — `articles/why-not-in-ai-overview-2026.md` |
+| `/company-website-ai-ready-2026/` | `ทำเว็บบริษัท เตรียมอะไรบ้าง` | Web Dev | drafted — `articles/company-website-ai-ready-2026.md` |
+| `/website-migration-seo-2026/` | `ทำเว็บใหม่แล้วอันดับหาย` | Web Dev | drafted — `articles/website-migration-seo-2026.md` |
 
 ## 2. Service page — Commercial (ปลายทางของ internal link)
 
@@ -65,7 +67,8 @@ lighthouse 100 · local seo bangkok · next.js vs wordpress · cro คือ
 ปรึกษาทำระบบ ai solution · n8n คืออะไร · ai agent rag chatbot
 ai workforce sme · line chatbot ai · ai consultant bangkok
 ทำเว็บ wordpress ให้ติด ai overview · พนักงานใช้ chatgpt ข้อมูลบริษัทรั่วไหม
-ทำไมเว็บไม่ติด ai overview
+ทำไมเว็บไม่ติด ai overview · ทำเว็บบริษัท เตรียมอะไรบ้าง
+ทำเว็บใหม่แล้วอันดับหาย
 ```
 
 ## 5. Baseline ที่ใช้ตัดสินใจ (GSC 10 มี.ค. – 14 มิ.ย. 2026)
