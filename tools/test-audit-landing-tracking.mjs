@@ -6,11 +6,39 @@ const scriptSource = await readFile(
   new URL('../js/audit-landing.js', import.meta.url),
   'utf8'
 );
+const functionsSource = await readFile(
+  new URL('../functions.php', import.meta.url),
+  'utf8'
+);
 
 const VALID_LEAD_REF = '11111111-1111-4111-8111-111111111111';
 const OTHER_LEAD_REF = '22222222-2222-4222-8222-222222222222';
 const AI_ADS_DESTINATION = 'AW-18190672421/qx_ICPKggN0cEKXE_uFD';
 
+const delayLoaderStart = functionsSource.indexOf(
+  'function hashbox_print_third_party_delay_loader()'
+);
+const delayLoaderEnd = functionsSource.indexOf(
+  "add_action( 'wp_footer', 'hashbox_print_third_party_delay_loader', 25 );",
+  delayLoaderStart
+);
+assert.ok(delayLoaderStart >= 0 && delayLoaderEnd > delayLoaderStart);
+const delayLoaderSource = functionsSource.slice(delayLoaderStart, delayLoaderEnd);
+assert.match(
+  delayLoaderSource,
+  /var confirmedAiLeadRef = confirmedAiLeadMeta \? confirmedAiLeadMeta\.getAttribute\('content'\) \|\| '' : '';/,
+  'AI auto-activation must use the server-confirmed meta content after URL cleanup'
+);
+assert.match(
+  delayLoaderSource,
+  /isConfirmedAiLead = document\.querySelector\('\.hb-audit\[data-audit-slug="ai-workflow-audit"\]'\)\s*&& successUuidPattern\.test\(confirmedAiLeadRef\);/,
+  'AI auto-activation must require the AI root and a UUID-v4 confirmed meta value'
+);
+assert.doesNotMatch(
+  delayLoaderSource,
+  /isConfirmedAiLead[\s\S]{0,300}successParams\.get\('contact'\) === 'ai_sent'/,
+  'AI auto-activation must not re-require signed query parameters that tracking already cleaned'
+);
 class MemoryStorage {
   constructor(initial = {}) {
     this.values = new Map(Object.entries(initial));

@@ -4487,11 +4487,12 @@ function hashbox_print_third_party_delay_loader() {
       var successLeadRef = successParams.get('lead_ref') || '';
       var successUuidPattern = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
       var confirmedAiLeadMeta = document.querySelector('meta[name="hashbox-confirmed-ai-lead"]');
+      var confirmedAiLeadRef = confirmedAiLeadMeta ? confirmedAiLeadMeta.getAttribute('content') || '' : '';
+      // audit-landing.js can clean the signed query before this footer loader
+      // runs. The meta tag is emitted only after the server validates the AI
+      // path, sent transient and HMAC, so it remains the stable confirmation.
       var isConfirmedAiLead = document.querySelector('.hb-audit[data-audit-slug="ai-workflow-audit"]')
-        && successParams.get('contact') === 'ai_sent'
-        && successUuidPattern.test(successLeadRef)
-        && confirmedAiLeadMeta
-        && confirmedAiLeadMeta.getAttribute('content') === successLeadRef;
+        && successUuidPattern.test(confirmedAiLeadRef);
       var confirmedWebsiteLeadMeta = document.querySelector('meta[name="hashbox-confirmed-website-lead"]');
       var isConfirmedWebsiteLead = successParams.get('contact') === 'sent'
         && successUuidPattern.test(successLeadRef)
