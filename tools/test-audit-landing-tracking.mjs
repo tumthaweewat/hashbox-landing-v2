@@ -39,7 +39,6 @@ assert.doesNotMatch(
   /isConfirmedAiLead[\s\S]{0,300}successParams\.get\('contact'\) === 'ai_sent'/,
   'AI auto-activation must not re-require signed query parameters that tracking already cleaned'
 );
-
 class MemoryStorage {
   constructor(initial = {}) {
     this.values = new Map(Object.entries(initial));
