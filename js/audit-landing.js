@@ -11,6 +11,8 @@
   var ATTRIBUTION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
   var AI_CONVERSION_DESTINATION = 'AW-18190672421/qx_ICPKggN0cEKXE_uFD';
   var AI_PENDING_LEAD_KEY = 'hashbox_ai_pending_lead_ref';
+  var AI_LEAD_STORAGE_PREFIX = 'hashbox_ai_lead_v2_';
+  var AI_LEAD_MEMORY_STATE = {};
 
   function attributionStorageKey(scope) {
     return ATTRIBUTION_STORAGE_PREFIX + String(scope || 'site').replace(/[^a-z0-9_-]/gi, '_');
@@ -177,16 +179,57 @@
   }
 
   function aiLeadStorageKey(leadRef) {
+    return AI_LEAD_STORAGE_PREFIX + leadRef;
+  }
+
+  function legacyAiLeadStorageKey(leadRef) {
     return 'hashbox_ai_lead_' + leadRef;
+  }
+
+  function migrateLegacyAiLeadState(leadRef) {
+    try {
+      var legacyKey = legacyAiLeadStorageKey(leadRef);
+      var raw = window.sessionStorage.getItem(legacyKey);
+      if (!raw) return null;
+
+      var stored = raw === '1' ? { ads: true, meta: true } : JSON.parse(raw);
+      var migrated = {
+        // The legacy analytics flag only proves ai_consultation_lead was queued.
+        // The canonical generate_lead event still needs to be sent once.
+        analytics: false,
+        ads: stored.ads === true,
+        meta: stored.meta === true
+      };
+
+      if (writeAiLeadState(leadRef, migrated)) {
+        window.sessionStorage.removeItem(legacyKey);
+      }
+      return migrated;
+    } catch (err) {
+      return null;
+    }
   }
 
   function readAiLeadState(leadRef) {
     var empty = { analytics: false, ads: false, meta: false };
+    var raw = null;
     try {
-      var raw = window.sessionStorage.getItem(aiLeadStorageKey(leadRef));
-      if (!raw) return empty;
-      if (raw === '1') return { analytics: true, ads: true, meta: true };
+      raw = window.localStorage.getItem(aiLeadStorageKey(leadRef));
+    } catch (err) {}
 
+    if (!raw) {
+      try {
+        raw = window.sessionStorage.getItem(aiLeadStorageKey(leadRef));
+      } catch (err) {}
+    }
+
+    if (!raw && AI_LEAD_MEMORY_STATE[leadRef]) {
+      return Object.assign({}, AI_LEAD_MEMORY_STATE[leadRef]);
+    }
+    if (!raw) return migrateLegacyAiLeadState(leadRef) || empty;
+    if (raw === '1') return { analytics: true, ads: true, meta: true };
+
+    try {
       var stored = JSON.parse(raw);
       return {
         analytics: stored.analytics === true,
@@ -194,17 +237,33 @@
         meta: stored.meta === true
       };
     } catch (err) {
-      return empty;
+      return AI_LEAD_MEMORY_STATE[leadRef]
+        ? Object.assign({}, AI_LEAD_MEMORY_STATE[leadRef])
+        : empty;
     }
   }
 
   function writeAiLeadState(leadRef, state) {
+    var key = aiLeadStorageKey(leadRef);
+    var serialized = JSON.stringify(state);
+    AI_LEAD_MEMORY_STATE[leadRef] = {
+      analytics: state.analytics === true,
+      ads: state.ads === true,
+      meta: state.meta === true
+    };
     try {
-      window.sessionStorage.setItem(aiLeadStorageKey(leadRef), JSON.stringify(state));
+      window.localStorage.setItem(key, serialized);
+      try { window.sessionStorage.removeItem(key); } catch (err) {}
       return true;
-    } catch (err) {
-      return false;
-    }
+    } catch (err) {}
+
+    // Storage-restricted browsers still need same-session protection so the
+    // retry loop cannot queue GA4/Ads repeatedly while waiting for Meta.
+    try {
+      window.sessionStorage.setItem(key, serialized);
+      return true;
+    } catch (err) {}
+    return false;
   }
 
   function rememberPendingAiLead(leadRef) {
@@ -255,7 +314,9 @@
 
     if (typeof window.gtag === 'function') {
       if (!state.analytics) {
-        window.gtag('event', 'ai_consultation_lead', {
+        // Use GA4's recommended lead-generation event so Website and AI
+        // submissions populate the same lead funnel and key-event reports.
+        window.gtag('event', 'generate_lead', {
           form_id: 'ai-workflow-audit',
           form_name: 'AI Opportunity Screening',
           lead_source: 'ai_consulting',
