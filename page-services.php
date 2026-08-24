@@ -39,7 +39,7 @@ $page_url = get_permalink();
                 <h2 class="hb-service__title">SEO-Ready Website</h2>
                 <p class="hb-service__desc">บริการรับทำเว็บไซต์ SEO-Ready สำหรับบริษัทที่ต้องการเว็บใหม่พร้อมติด Google ตั้งแต่วันเปิดตัว ผ่าน Build Gate, schema, sitemap และ Core Web Vitals ก่อน deploy</p>
                 <div class="hb-service__stack">Next.js · WordPress Headless · Lighthouse 100</div>
-                <div class="hb-service__stack" style="font-weight:600;">เริ่ม 80,000 บาท</div>
+                <div class="hb-service__stack" style="font-weight:600;">เริ่ม 35,900 บาท</div>
                 <span class="hb-service__link">ดูรายละเอียดรับทำเว็บไซต์ SEO-Ready &rarr;</span>
             </a>
 

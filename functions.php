@@ -2668,7 +2668,7 @@ function hashbox_llms_txt_content() {
     $lines[] = '';
     $lines[] = '## Services';
     $lines[] = '';
-    $lines[] = '- [SEO-Ready Website Build](' . home_url( '/services/website-development/' ) . '): รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่ launch · Lighthouse 100 · Schema ครบ · เริ่ม 80,000 บาท';
+    $lines[] = '- [SEO-Ready Website Build](' . home_url( '/services/website-development/' ) . '): รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่ launch · Lighthouse 100 · Schema ครบ · เริ่ม 35,900 บาท';
     // Retainer service, priced per month — the only monthly line in this file.
     $lines[] = '- [รับทำ SEO (technical-first)](' . home_url( '/services/seo/' ) . '): รับทำ SEO สายเทคนิค · Technical SEO · Core Web Vitals · Schema · GEO/AI Overview · track อันดับรายวัน · เริ่มต้น 25,000 บาทต่อเดือน';
     // Hiring intent, not the guide's phrase — same split as the <title>: this
@@ -2692,7 +2692,7 @@ function hashbox_llms_txt_content() {
     $lines[] = '';
     $lines[] = '## Pricing (THB, excl. VAT)';
     $lines[] = '';
-    $lines[] = '- SEO-Ready Landing Page: from 80,000 THB / 2-3 weeks';
+    $lines[] = '- SEO-Ready Landing Page: from 35,900 THB / 2-3 weeks';
     $lines[] = '- SEO-Ready Corporate Site: from 200,000 THB / 4-6 weeks';
     $lines[] = '- SEO-Ready E-commerce: from 350,000 THB / 6-10 weeks';
     $lines[] = '- SEO-Ready Enterprise: from 500,000 THB / 8-14 weeks';
@@ -2776,7 +2776,7 @@ if ( ! function_exists( 'hashbox_get_home_faqs' ) ) {
             ),
             array(
                 'q' => 'ราคาเริ่มต้นเท่าไหร่?',
-                'a' => 'Landing Page เริ่มที่ 80,000 บาท Corporate Site เริ่มที่ 200,000 บาท E-commerce เริ่มที่ 350,000 บาท ส่วน AI Consulting Retainer เริ่มที่ 50,000 บาทต่อเดือน ทุกใบเสนอราคาจะออกหลังการ Audit ฟรีเสมอ เพื่อให้ลูกค้าเห็นภาพชัดก่อนตัดสินใจครับ',
+                'a' => 'Landing Page เริ่มที่ 35,900 บาท Corporate Site เริ่มที่ 200,000 บาท E-commerce เริ่มที่ 350,000 บาท ส่วน AI Consulting Retainer เริ่มที่ 50,000 บาทต่อเดือน ทุกใบเสนอราคาจะออกหลังการประเมิน Scope ฟรี เพื่อให้ลูกค้าเห็นภาพชัดก่อนตัดสินใจครับ',
             ),
             array(
                 'q' => 'มี Support หลังส่งมอบไหม?',

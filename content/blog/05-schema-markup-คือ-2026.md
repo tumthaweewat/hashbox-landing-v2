@@ -165,11 +165,11 @@ trend ใหม่ปี 2026: **AI agents กำลังจะ execute action 
 ```json
 {
   "@type": "Offer",
-  "price": "80000",
+  "price": "35900",
   "priceCurrency": "THB",
   "priceSpecification": {
     "@type": "PriceSpecification",
-    "price": "80000",
+    "price": "35900",
     "priceCurrency": "THB",
     "valueAddedTaxIncluded": false
   },
@@ -324,7 +324,7 @@ JSON-LD อยู่ใน `<script>` ที่ browser parse แยก ไม�
 - DIY: 0 บาท
 - Plugin: 1,000-5,000 บาท/ปี
 - จ้าง freelance ติดตั้ง: 5,000-20,000 บาท/เว็บ
-- รวมในบริการ [SEO-Ready Website](/services/seo-ready-website/) — เริ่ม 80,000 บาท (schema 8+ types ครบ)
+- รวมในบริการ [SEO-Ready Website](/services/seo-ready-website/) — เริ่ม 35,900 บาท (schema 8+ types ครบ)
 
 ---
 
