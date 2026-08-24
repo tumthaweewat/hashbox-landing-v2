@@ -3055,6 +3055,7 @@ function hashbox_handle_contact_submit() {
     $phone              = isset( $_POST['phone'] )              ? sanitize_text_field( wp_unslash( $_POST['phone'] ) )              : '';
     $website            = isset( $_POST['website'] )            ? esc_url_raw( wp_unslash( $_POST['website'] ) )                    : '';
     $service            = isset( $_POST['service'] )            ? sanitize_text_field( wp_unslash( $_POST['service'] ) )            : '';
+    $project_type       = isset( $_POST['project_type'] )       ? sanitize_text_field( wp_unslash( $_POST['project_type'] ) )       : '';
     $message            = isset( $_POST['message'] )            ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) )        : '';
     $problem            = isset( $_POST['problem'] )            ? sanitize_textarea_field( wp_unslash( $_POST['problem'] ) )        : '';
     $budget             = isset( $_POST['budget'] )             ? sanitize_text_field( wp_unslash( $_POST['budget'] ) )             : '';
@@ -3085,7 +3086,7 @@ function hashbox_handle_contact_submit() {
     $invalid = ( $is_ai_route && ! $ai_nonce_ok ) || ( $is_ai_form
         ? ( $name === '' || $company === '' || $email === '' || ! is_email( $email ) || $message === '' || $invalid_ai_contact_preference || ( $needs_contact_detail && $contact_detail === '' ) || ! $pdpa )
         : ( $is_website_audit_form
-            ? ( $name === '' || $company === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || $budget === '' || $timeline === '' || 'phone-or-line' !== $contact_preference || $contact_detail === '' || $message === '' || ! $pdpa )
+            ? ( $name === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || $budget === '' || $timeline === '' || 'phone-or-line' !== $contact_preference || $contact_detail === '' || ! $pdpa )
             : ( $is_audit_form
                 ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
                 : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) ) ) );
@@ -3166,6 +3167,7 @@ function hashbox_handle_contact_submit() {
         'Phone: ' . $phone,
         'Website: ' . $website,
         'Service: ' . $service,
+        'Project type: ' . $project_type,
         'Budget: ' . $budget,
         'Timeline: ' . $timeline,
         'Preferred contact: ' . $contact_preference,
