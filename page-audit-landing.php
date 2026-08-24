@@ -21,10 +21,10 @@ $wide_image     = hashbox_audit_landing_asset_uri( $landing['wide_image'] );
 $portrait_image = hashbox_audit_landing_asset_uri( $landing['portrait_image'] );
 $proof_url      = home_url( $landing['proof']['href'] );
 $is_ai_landing  = 'ai-workflow-audit' === $landing['slug'];
-$lead_ref_param = isset( $_GET['lead_ref'] ) ? sanitize_text_field( wp_unslash( $_GET['lead_ref'] ) ) : '';
-$confirmed_ai_lead = $is_ai_landing
-    && 'ai_sent' === $contact_status
-    && 1 === preg_match( '/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i', $lead_ref_param );
+$confirmed_ai_lead_ref = $is_ai_landing && function_exists( 'hashbox_get_confirmed_ai_audit_lead_ref' )
+    ? hashbox_get_confirmed_ai_audit_lead_ref()
+    : '';
+$confirmed_ai_lead = '' !== $confirmed_ai_lead_ref;
 
 $service_options = $is_ai_landing
     ? array(

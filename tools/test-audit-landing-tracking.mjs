@@ -13,6 +13,7 @@ const functionsSource = await readFile(
 
 const VALID_LEAD_REF = '11111111-1111-4111-8111-111111111111';
 const OTHER_LEAD_REF = '22222222-2222-4222-8222-222222222222';
+const VALID_CONVERSION_REF = 'HB-AI-20260825-143015123456000000001';
 const AI_ADS_DESTINATION = 'AW-18190672421/qx_ICPKggN0cEKXE_uFD';
 
 const delayLoaderStart = functionsSource.indexOf(
@@ -31,12 +32,12 @@ assert.match(
 );
 assert.match(
   delayLoaderSource,
-  /isConfirmedAiLead = document\.querySelector\('\.hb-audit\[data-audit-slug="ai-workflow-audit"\]'\)\s*&& successUuidPattern\.test\(confirmedAiLeadRef\);/,
-  'AI auto-activation must require the AI root and a UUID-v4 confirmed meta value'
+  /isConfirmedAiLead = document\.querySelector\('\.hb-audit\[data-audit-slug="ai-workflow-audit"\]'\)[\s\S]{0,240}aiConversionRefPattern\.test\(confirmedAiConversionRef\)/,
+  'AI auto-activation must require the AI root, UUID and scoped conversion ref'
 );
 assert.doesNotMatch(
   delayLoaderSource,
-  /isConfirmedAiLead[\s\S]{0,300}successParams\.get\('contact'\) === 'ai_sent'/,
+  /isConfirmedAiLead[\s\S]{0,300}searchParams\.get\('contact'\) === 'ai_sent'/i,
   'AI auto-activation must not re-require signed query parameters that tracking already cleaned'
 );
 class MemoryStorage {
@@ -74,6 +75,7 @@ class ThrowingStorage {
 function runTracking({
   leadRef = VALID_LEAD_REF,
   confirmedRef = VALID_LEAD_REF,
+  conversionRef = VALID_CONVERSION_REF,
   localStorage = new MemoryStorage(),
   sessionStorage = new MemoryStorage(),
   hasFbq = true
@@ -103,9 +105,11 @@ function runTracking({
   };
 
   const meta = confirmedRef
-    ? {
+      ? {
         getAttribute(name) {
-          return name === 'content' ? confirmedRef : null;
+          if (name === 'content') return confirmedRef;
+          if (name === 'data-conversion-ref') return conversionRef;
+          return null;
         }
       }
     : null;
@@ -199,10 +203,11 @@ assert.equal(leadEvents.length, 1, 'AI success must emit one canonical generate_
 assert.equal(legacyLeadEvents.length, 0, 'AI success must not emit a second custom lead event');
 assert.equal(adsEvents.length, 1, 'AI success must emit one Google Ads conversion');
 assert.equal(leadEvents[0][2].lead_source, 'ai_consulting');
-assert.equal(leadEvents[0][2].transaction_id, VALID_LEAD_REF);
-assert.equal(adsEvents[0][2].transaction_id, VALID_LEAD_REF);
+assert.equal(leadEvents[0][2].transaction_id, VALID_CONVERSION_REF);
+assert.equal(adsEvents[0][2].transaction_id, VALID_CONVERSION_REF);
 assert.equal(adsEvents[0][2].send_to, AI_ADS_DESTINATION);
 assert.equal(firstRun.fbqCalls.length, 1, 'AI success must emit one Meta Lead event');
+assert.equal(firstRun.fbqCalls[0][3].eventID, VALID_LEAD_REF, 'Meta must retain the UUID eventID');
 assert.ok(
   firstRun.historyCalls.at(-1).includes('utm_source=tracking_test'),
   'success URL cleanup must preserve attribution'
@@ -328,5 +333,20 @@ assert.equal(mismatchedMetaRun.fbqCalls.length, 0, 'mismatched signed meta must 
 const malformedLeadRun = runTracking({ leadRef: 'not-a-uuid' });
 assert.equal(malformedLeadRun.gtagCalls.length, 0, 'malformed lead_ref must emit no Google events');
 assert.equal(malformedLeadRun.fbqCalls.length, 0, 'malformed lead_ref must emit no Meta event');
+
+for (const invalidConversionRef of ['', VALID_LEAD_REF, 'HB-WEB-20260825-000000001', 'HB-AI-20260825-1']) {
+  const invalidConversionRun = runTracking({ conversionRef: invalidConversionRef });
+  assert.equal(
+    invalidConversionRun.gtagCalls.length,
+    0,
+    `invalid AI conversion ref must emit no Google events: ${invalidConversionRef || '(missing)'}`
+  );
+  assert.equal(invalidConversionRun.fbqCalls.length, 0, 'invalid conversion ref must emit no Meta event');
+  assert.ok(
+    invalidConversionRun.historyCalls.length > 0 &&
+      !/[?&](contact|lead_ref|lead_sig|confirmation)=/.test(invalidConversionRun.historyCalls.at(-1)),
+    'a verified legacy confirmation must clean signed parameters while failing closed for tracking'
+  );
+}
 
 console.log('audit-landing tracking tests passed');
