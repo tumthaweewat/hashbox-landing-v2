@@ -3374,13 +3374,23 @@ function hashbox_handle_contact_submit() {
         && wp_verify_nonce( wp_unslash( $_POST['hashbox_ai_nonce'] ), 'hashbox_ai_contact' );
     $is_ai_form    = $is_ai_route && $ai_nonce_ok;
     $is_audit_form = is_array( $landing );
+    $website_project_type_labels = array(
+        'landing-page'      => 'Landing Page',
+        'corporate-website' => 'Corporate Website',
+        'website-redesign'  => 'Website Redesign',
+        'needs-assessment'  => 'ยังไม่แน่ใจ ต้องการให้ช่วยประเมิน',
+    );
+    $website_project_type_label = $is_website_audit_form && isset( $website_project_type_labels[ $project_type ] )
+        ? $website_project_type_labels[ $project_type ]
+        : '';
+    $invalid_website_project_type = $is_website_audit_form && '' === $website_project_type_label;
     $needs_contact_detail = $is_ai_form && in_array( $contact_preference, array( 'LINE', 'โทร' ), true );
     $invalid_ai_contact_preference = $is_ai_form && ! in_array( $contact_preference, array( '', 'LINE', 'โทร' ), true );
 
     $invalid = ( $is_ai_route && ! $ai_nonce_ok ) || ( $is_ai_form
         ? ( $name === '' || $company === '' || $email === '' || ! is_email( $email ) || $message === '' || $invalid_ai_contact_preference || ( $needs_contact_detail && $contact_detail === '' ) || ! $pdpa )
         : ( $is_website_audit_form
-            ? ( $name === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || $budget === '' || $timeline === '' || 'phone-or-line' !== $contact_preference || $contact_detail === '' || ! $pdpa )
+            ? ( $name === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || $invalid_website_project_type || $budget === '' || $timeline === '' || 'phone-or-line' !== $contact_preference || $contact_detail === '' || ! $pdpa )
             : ( $is_audit_form
                 ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
                 : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) ) ) );
@@ -3524,6 +3534,7 @@ function hashbox_handle_contact_submit() {
 
     if ( $sent && is_email( $email ) ) {
         $hubspot_attribution = array_merge( $utm, array(
+            'service'                      => $website_project_type_label,
             'lead_ref'                     => $lead_ref,
             'conversion_ref'               => $conversion_ref,
             'landing_slug'                 => $landing_slug,
@@ -3885,11 +3896,12 @@ function hashbox_patch_hubspot_contact_properties( $contact_id, $properties, $he
 }
 
 /**
- * Sync optional custom properties independently from the established UTM map.
+ * Sync isolated non-core properties independently from the established UTM map.
  *
  * A HubSpot PATCH fails atomically when one property does not exist. Batch the
  * happy path, then isolate fields only after a non-transient schema response so
- * the known UTM/GCLID write stays intact.
+ * the known UTM/GCLID write stays intact. The existing `service` property is
+ * always eligible; extended Hashbox properties remain behind their feature flag.
  */
 function hashbox_sync_optional_hubspot_contact_properties( $contact_id, $properties, $headers, $email, $attribution, $attempt ) {
     if ( empty( $properties ) ) {
@@ -3975,22 +3987,24 @@ function hashbox_sync_lead_attribution_to_hubspot( $email, $attribution ) {
         'utm_term'     => 'utm_term',
         'gclid'        => 'hs_google_click_id',
     );
-    $core_properties     = hashbox_prepare_hubspot_contact_properties( $attribution, $core_property_map );
-    $optional_properties = array();
+    $core_properties = hashbox_prepare_hubspot_contact_properties( $attribution, $core_property_map );
+    $optional_property_map = array(
+        'service' => 'service',
+    );
 
     // Custom fields are deliberately isolated and strictly opt-in so a portal
     // at its property quota makes no extended-property API requests.
     if ( hashbox_hubspot_extended_attribution_enabled() ) {
-        $optional_property_map = array(
+        $optional_property_map = array_merge( $optional_property_map, array(
             'wbraid'         => 'hashbox_wbraid',
             'gbraid'         => 'hashbox_gbraid',
             'lead_ref'       => 'hashbox_lead_ref',
             'conversion_ref' => 'hashbox_conversion_ref',
             'landing_slug'   => 'hashbox_landing_slug',
-        );
-
-        $optional_properties = hashbox_prepare_hubspot_contact_properties( $attribution, $optional_property_map );
+        ) );
     }
+
+    $optional_properties = hashbox_prepare_hubspot_contact_properties( $attribution, $optional_property_map );
 
     if ( empty( $core_properties ) && empty( $optional_properties ) ) {
         return;

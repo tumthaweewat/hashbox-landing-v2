@@ -23,6 +23,21 @@ for (const key of ['lead_ref', 'conversion_ref', 'landing_slug']) {
 }
 assert.match(
   submitHandler,
+  /\$website_project_type_labels\s*=\s*array\([\s\S]*?'landing-page'\s*=>\s*'Landing Page',[\s\S]*?'corporate-website'\s*=>\s*'Corporate Website',[\s\S]*?'website-redesign'\s*=>\s*'Website Redesign',[\s\S]*?'needs-assessment'\s*=>\s*'ยังไม่แน่ใจ ต้องการให้ช่วยประเมิน'[\s\S]*?\);/,
+  'Website project types must map to stable HubSpot service labels'
+);
+assert.match(
+  submitHandler,
+  /\$website_project_type_label\s*=\s*\$is_website_audit_form[\s\S]*?isset\( \$website_project_type_labels\[ \$project_type \] \)[\s\S]*?\$invalid_website_project_type\s*=\s*\$is_website_audit_form && '' === \$website_project_type_label;/,
+  'tampered or missing Website project types must fail closed'
+);
+assert.match(
+  submitHandler,
+  /'service'\s*=>\s*\$website_project_type_label/,
+  'the scheduled attribution payload must use the server-derived service label'
+);
+assert.match(
+  submitHandler,
   /\$hubspot_sync_args\s*=\s*array\(\s*\$email,\s*\$hubspot_attribution\s*\)/,
   'the scheduled HubSpot job must receive the extended payload'
 );
@@ -125,7 +140,15 @@ assert.doesNotMatch(
 );
 
 const hubspotSync = phpFunction('hashbox_sync_lead_attribution_to_hubspot', 'hashbox_render_case_study');
+const coreMapBody = hubspotSync.match(/\$core_property_map\s*=\s*array\(([\s\S]*?)\);/)?.[1] || '';
+assert.ok(coreMapBody, 'core HubSpot property map must exist');
+assert.doesNotMatch(
+  coreMapBody,
+  /'service'/,
+  'service must never share the atomic core UTM/GCLID PATCH'
+);
 const exactPropertyMappings = {
+  service: 'service',
   wbraid: 'hashbox_wbraid',
   gbraid: 'hashbox_gbraid',
   lead_ref: 'hashbox_lead_ref',
@@ -142,8 +165,8 @@ for (const [sourceKey, propertyName] of Object.entries(exactPropertyMappings)) {
 assert.match(hubspotSync, /\$core_properties\s*=\s*hashbox_prepare_hubspot_contact_properties/);
 assert.match(
   hubspotSync,
-  /\$core_properties\s*=\s*hashbox_prepare_hubspot_contact_properties\(\s*\$attribution,\s*\$core_property_map\s*\);[\s\S]*?\$optional_properties\s*=\s*array\(\);[\s\S]*?if \( hashbox_hubspot_extended_attribution_enabled\(\) \) \{[\s\S]*?\$optional_properties\s*=\s*hashbox_prepare_hubspot_contact_properties\(\s*\$attribution,\s*\$optional_property_map\s*\);[\s\S]*?\}/,
-  'core properties must be prepared unconditionally while extended properties stay behind the opt-in flag'
+  /\$core_properties\s*=\s*hashbox_prepare_hubspot_contact_properties\(\s*\$attribution,\s*\$core_property_map\s*\);[\s\S]*?\$optional_property_map\s*=\s*array\(\s*'service'\s*=>\s*'service',[\s\S]*?\);[\s\S]*?if \( hashbox_hubspot_extended_attribution_enabled\(\) \) \{[\s\S]*?\$optional_property_map\s*=\s*array_merge\( \$optional_property_map,[\s\S]*?\);[\s\S]*?\}[\s\S]*?\$optional_properties\s*=\s*hashbox_prepare_hubspot_contact_properties\(\s*\$attribution,\s*\$optional_property_map\s*\);/,
+  'service must be prepared outside the opt-in flag while extended custom properties remain behind it'
 );
 assert.match(
   hubspotSync,
@@ -152,8 +175,18 @@ assert.match(
 );
 assert.match(
   hubspotSync,
+  /if \( ! empty\( \$optional_properties \) \) \{[\s\S]*?hashbox_sync_optional_hubspot_contact_properties\(/,
+  'service must use the isolated PATCH flow so it cannot roll back the core UTM/GCLID write'
+);
+assert.ok(
+  hubspotSync.indexOf('hashbox_patch_hubspot_contact_properties( $contact_id, $core_properties, $headers )') <
+    hubspotSync.indexOf('hashbox_sync_optional_hubspot_contact_properties('),
+  'the core UTM/GCLID PATCH must be attempted before the isolated service PATCH'
+);
+assert.match(
+  hubspotSync,
   /if \( ! empty\( \$optional_properties \) \) \{[\s\S]*?hashbox_sync_optional_hubspot_contact_properties\([\s\S]*?\$contact_id,[\s\S]*?\$optional_properties,[\s\S]*?\$attempt[\s\S]*?\);[\s\S]*?\}/,
-  'the optional PATCH flow must be unreachable while the feature flag is off'
+  'the isolated PATCH flow must receive the prepared service and any enabled extended properties'
 );
 for (const context of ['contact_search', 'core_patch', 'contact_create', 'contact_id_missing']) {
   assert.match(hubspotSync, new RegExp(`'${context}'`), `missing retry/log context ${context}`);
