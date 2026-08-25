@@ -2302,6 +2302,50 @@ function hashbox_schema_entity_has_type( $entity, $needle_types ) {
     return false;
 }
 
+/**
+ * แพ็กภาพคำแบรนด์ — ทำไมต้องมี (วัดจริง 2026-08-25 จากระบบติดตามอันดับของเราเอง)
+ *
+ * Google Images ของคำค้น "hashbox" เป็นของคนอื่นทั้งหมด: us.hashbox.monster 45% ·
+ * amazon.de 23% · play.google.com 17% — เราถือ 0% ทั้งที่ติดอันดับ 1 organic
+ * เดิม Organization schema ประกาศ logo เป็น URL เปล่าและไม่มี image เลย Google จึงไม่มี
+ * ภาพที่ผูกกับ entity ของเราให้หยิบ ตอนนี้ logo/image เป็น ImageObject พร้อม caption
+ * ที่มีคำว่า Hashbox ทุกภาพ (ที่มา: hashbox-seo-stack docs/NEXT.md ข้อ 7 · v_media_owners)
+ */
+function hashbox_brand_image_object( $url, $width, $height, $caption ) {
+    return array(
+        '@type'      => 'ImageObject',
+        'url'        => $url,
+        'contentUrl' => $url,
+        'width'      => (int) $width,
+        'height'     => (int) $height,
+        'caption'    => $caption,
+        'name'       => $caption,
+    );
+}
+
+function hashbox_brand_logo_object() {
+    list( $w, $h ) = hashbox_default_og_image_dimensions();
+    return hashbox_brand_image_object( hashbox_default_og_image_url(), $w, $h, 'โลโก้ Hashbox Studio' );
+}
+
+function hashbox_brand_images() {
+    list( $w, $h ) = hashbox_default_og_image_dimensions();
+    $images = array(
+        hashbox_brand_image_object(
+            hashbox_default_og_image_url(), $w, $h,
+            'Hashbox Studio — รับทำเว็บไซต์ SEO-Ready และที่ปรึกษา AI สำหรับธุรกิจไทย'
+        ),
+    );
+    // ครีเอทีฟชุดเดียวกับที่หน้าแรกแสดงอยู่แล้ว (alt มีคำว่า Hashbox) — ไม่เพิ่มไฟล์ใหม่
+    foreach ( array(
+        array( 'linkedin_wide_seo_ready_v4.png',   1200, 1200, 627,  'Hashbox SEO-Ready Website — บริการรับทำเว็บไซต์ของ Hashbox Studio' ),
+        array( 'meta_square_ai_workforce_v4.png',  1080, 1080, 1080, 'Hashbox AI Workforce Audit — บริการที่ปรึกษา AI ของ Hashbox Studio' ),
+    ) as $ad ) {
+        $images[] = hashbox_brand_image_object( hashbox_ad_webp_uri( $ad[0], $ad[1] ), $ad[2], $ad[3], $ad[4] );
+    }
+    return $images;
+}
+
 function hashbox_rankmath_schema_organization() {
     $home = home_url( '/' );
     return array(
@@ -2309,12 +2353,8 @@ function hashbox_rankmath_schema_organization() {
         '@id'   => $home . '#organization',
         'name'  => 'Hashbox Studio',
         'url'   => $home,
-        'logo'  => array(
-            '@type'  => 'ImageObject',
-            'url'    => hashbox_logo_image_url(),
-            'width'  => 512,
-            'height' => 512,
-        ),
+        'logo'  => hashbox_brand_logo_object(),
+        'image' => hashbox_brand_images(),
         'sameAs' => array(
             'https://www.linkedin.com/company/hashbox-studio',
             'https://www.facebook.com/profile.php?id=61590390615650',
@@ -2394,7 +2434,7 @@ function hashbox_rankmath_schema_service() {
         'name'               => 'Hashbox Studio',
         'description'        => 'SEO-ready website builds, digital marketing tools, CRO, and AI consulting for Thai SMEs.',
         'url'                => $home,
-        'image'              => hashbox_default_og_image_url(),
+        'image'              => hashbox_brand_logo_object(),
         'telephone'          => '+66-62-516-9868',
         'email'              => 'business@hashbox.co.th',
         'priceRange'         => '฿฿฿',
@@ -2603,7 +2643,8 @@ function hashbox_inject_home_schema() {
                 '@id'   => $home . '#organization',
                 'name'  => 'Hashbox Studio',
                 'url'   => $home,
-                'logo'  => $logo,
+                'logo'  => hashbox_brand_logo_object(),
+                'image' => hashbox_brand_images(),
                 'sameAs' => array(
                     'https://www.linkedin.com/company/hashbox-studio',
                     'https://www.facebook.com/profile.php?id=61590390615650',
