@@ -133,3 +133,16 @@ AddType font/woff .woff
 Header set Cache-Control "public, max-age=31536000, immutable"
 </FilesMatch>
 </IfModule>
+
+# ---------------------------------------------------------------------------
+# ไฟล์ภายในของ repo ธีมที่ deploy ขึ้นไปด้วย แต่ไม่ควรเปิดสาธารณะ (2026-08-25)
+# พบว่า docs/*.md, seo-handoff/articles/*.md (บันทึกทีม/ต้นทุน) และ tools/ เข้าได้ตรงๆ
+# (เช่น .../hashbox-studio-v2/docs/directory-submission-kit.md ตอบ 200)
+# ไม่มีส่วนไหนของหน้าเว็บโหลดไฟล์เหล่านี้ผ่าน HTTP — PHP อ่านจากดิสก์เท่านั้น
+# ---------------------------------------------------------------------------
+<IfModule mod_alias.c>
+RedirectMatch 403 "/hashbox-studio-v2/(seo-handoff|docs|tools|previews|_to_delete)(/|$)"
+</IfModule>
+<FilesMatch "\.(md|py|mjs|sh|toml|lock|log)$">
+Require all denied
+</FilesMatch>

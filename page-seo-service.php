@@ -218,7 +218,7 @@ $compare = array(
                 </tbody>
             </table>
         </div>
-        <p class="hb-body" style="margin-top:var(--hb-space-5);color:var(--hb-text-muted);">จุดที่อยากขยายความคือเรื่องระบบวัดผล: agency ส่วนใหญ่เช่าเครื่องมือ SaaS แล้ว export รายงานให้ลูกค้า แต่ Hashbox สร้าง data pipeline ของตัวเอง เก็บอันดับคีย์เวิร์ดและการถูกอ้างอิงใน AI Overview ทุกวัน ข้อมูลดิบเก็บถาวร — เราจึงตอบได้เสมอว่า "อันดับขยับเพราะอะไร ตั้งแต่วันไหน" ด้วยหลักฐาน ไม่ใช่ความรู้สึก</p>
+        <p class="hb-body" style="margin-top:var(--hb-space-5);color:var(--hb-text-muted);">จุดที่อยากขยายความคือเรื่องระบบวัดผล: agency ส่วนใหญ่เช่าเครื่องมือ SaaS แล้ว export รายงานให้ลูกค้า แต่ Hashbox สร้าง data pipeline ของตัวเอง เก็บอันดับคีย์เวิร์ดและการถูกอ้างอิงใน AI Overview ทุกวัน ข้อมูลดิบเก็บถาวร — เราจึงตอบได้เสมอว่า "อันดับขยับเพราะอะไร ตั้งแต่วันไหน" ด้วยหลักฐาน ไม่ใช่ความรู้สึก และทั้งหมดนี้ทำแบบสายขาวเท่านั้น — ลิสต์ 6 สิ่งที่เราไม่ทำต่อให้ลูกค้าขอ อยู่ที่หน้า<a href="<?php echo esc_url( home_url( '/services/seo/white-hat/' ) ); ?>" style="color:var(--hb-accent-blue,#2563EB);">รับทำ SEO สายขาว</a></p>
     </div>
 </section>
 
