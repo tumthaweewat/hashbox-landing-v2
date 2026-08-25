@@ -3482,14 +3482,32 @@ function hashbox_handle_contact_submit() {
     $sent = wp_mail( $to, $subject, $body, $headers );
 
     if ( $sent && is_email( $email ) ) {
+        $hubspot_attribution = array_merge( $utm, array(
+            'lead_ref'                     => $lead_ref,
+            'conversion_ref'               => $conversion_ref,
+            'landing_slug'                 => $landing_slug,
+            '_hashbox_hubspot_sync_attempt' => 1,
+        ) );
+
         // HubSpot's collected-forms runtime drops hidden inputs, so campaign
-        // attribution is written through the CRM API two minutes later (gives
-        // the collected-forms contact time to land first).
-        wp_schedule_single_event(
+        // attribution and server-minted lead references are written through
+        // the CRM API two minutes later (gives the collected-forms contact time
+        // to land first).
+        $hubspot_sync_args = array( $email, $hubspot_attribution );
+        $hubspot_schedule  = wp_schedule_single_event(
             time() + 2 * MINUTE_IN_SECONDS,
             'hashbox_sync_lead_attribution_to_hubspot',
-            array( $email, $utm )
+            $hubspot_sync_args,
+            true
         );
+
+        if ( true !== $hubspot_schedule ) {
+            if ( wp_next_scheduled( 'hashbox_sync_lead_attribution_to_hubspot', $hubspot_sync_args ) ) {
+                hashbox_log_hubspot_sync_event( 'already_scheduled', 'initial_schedule', $hubspot_schedule, 1 );
+            } else {
+                hashbox_log_hubspot_sync_event( 'schedule_failed', 'initial_schedule', $hubspot_schedule, 1 );
+            }
+        }
     }
 
     if ( $sent && $is_ai_form ) {
@@ -3559,11 +3577,23 @@ add_action( 'admin_post_hashbox_contact',        'hashbox_handle_contact_submit'
  * Server-side HubSpot attribution sync.
  *
  * HubSpot's collected-forms runtime captures the visible fields of the audit
- * forms but ignores hidden inputs, so utm_* / gclid never reach the contact
- * record. This scheduled handler writes them through the CRM API using a
- * private-app token. Configure the token by defining HASHBOX_HUBSPOT_TOKEN in
- * wp-config.php (preferred) or storing the hashbox_hubspot_token option; when
- * no token is configured the sync is skipped silently.
+ * forms but ignores hidden inputs, so UTM/click IDs and server references do
+ * not reliably reach the contact record. This scheduled handler writes them
+ * through the CRM API using a private-app token.
+ *
+ * The established UTM fields and hs_google_click_id are always eligible for
+ * sync. Extended attribution is disabled by default because it requires five
+ * additional HubSpot contact properties. After those properties exist, opt in
+ * with `define( 'HASHBOX_HUBSPOT_EXTENDED_ATTRIBUTION', true );`.
+ *
+ * Expected extended-property internal names: hashbox_wbraid, hashbox_gbraid,
+ * hashbox_lead_ref, hashbox_conversion_ref and hashbox_landing_slug. When the
+ * feature is enabled, missing custom properties are logged and skipped
+ * independently after the established UTM/GCLID write.
+ *
+ * Configure the token by defining HASHBOX_HUBSPOT_TOKEN in wp-config.php
+ * (preferred) or storing the hashbox_hubspot_token option; when no token is
+ * configured the sync is skipped silently.
  */
 function hashbox_get_hubspot_private_app_token() {
     if ( defined( 'HASHBOX_HUBSPOT_TOKEN' ) && HASHBOX_HUBSPOT_TOKEN ) {
@@ -3574,13 +3604,329 @@ function hashbox_get_hubspot_private_app_token() {
     return is_string( $token ) ? trim( $token ) : '';
 }
 
+/**
+ * Extended custom-property writes require an explicit boolean opt-in.
+ *
+ * Keeping this false when the constant is undefined (or set to a non-boolean
+ * value) prevents unnecessary HubSpot PATCH requests on portals without the
+ * five custom contact properties.
+ */
+function hashbox_hubspot_extended_attribution_enabled() {
+    return defined( 'HASHBOX_HUBSPOT_EXTENDED_ATTRIBUTION' )
+        && true === HASHBOX_HUBSPOT_EXTENDED_ATTRIBUTION;
+}
+
+/**
+ * The initial run plus at most three delayed retries.
+ */
+function hashbox_hubspot_sync_max_attempts() {
+    return 4;
+}
+
+function hashbox_hubspot_sync_attempt( $attribution ) {
+    $attempt = isset( $attribution['_hashbox_hubspot_sync_attempt'] )
+        ? (int) $attribution['_hashbox_hubspot_sync_attempt']
+        : 1;
+
+    return max( 1, min( hashbox_hubspot_sync_max_attempts(), $attempt ) );
+}
+
+function hashbox_hubspot_response_status_code( $response ) {
+    return is_wp_error( $response ) || ! is_array( $response )
+        ? 0
+        : (int) wp_remote_retrieve_response_code( $response );
+}
+
+function hashbox_hubspot_response_is_success( $response ) {
+    $status_code = hashbox_hubspot_response_status_code( $response );
+    return ! is_wp_error( $response ) && $status_code >= 200 && $status_code < 300;
+}
+
+function hashbox_hubspot_response_is_transient( $response, $context = '' ) {
+    if ( is_wp_error( $response ) ) {
+        return true;
+    }
+
+    $status_code = hashbox_hubspot_response_status_code( $response );
+    return 0 === $status_code
+        || in_array( $status_code, array( 423, 429, 477 ), true )
+        || ( $status_code >= 500 && $status_code < 600 )
+        || ( 'contact_create' === $context && 409 === $status_code );
+}
+
+function hashbox_hubspot_response_is_schema_failure( $response ) {
+    if ( is_wp_error( $response ) ) {
+        return false;
+    }
+
+    return in_array( hashbox_hubspot_response_status_code( $response ), array( 400, 422 ), true );
+}
+
+function hashbox_hubspot_response_correlation_id( $response ) {
+    if ( is_wp_error( $response ) || ! is_array( $response ) ) {
+        return '';
+    }
+
+    foreach ( array( 'x-hubspot-correlation-id', 'x-hubspot-request-id', 'x-request-id', 'correlation-id' ) as $header_name ) {
+        $header_value = wp_remote_retrieve_header( $response, $header_name );
+        if ( is_array( $header_value ) ) {
+            $header_value = reset( $header_value );
+        }
+
+        $header_value = sanitize_text_field( (string) $header_value );
+        if ( '' !== $header_value ) {
+            return mb_substr( $header_value, 0, 100 );
+        }
+    }
+
+    return '';
+}
+
+/**
+ * Log operational metadata only. Never include request/response bodies, email,
+ * attribution values or transport error messages because they may contain PII.
+ */
+function hashbox_log_hubspot_sync_event( $outcome, $context, $response, $attempt, $property = '', $delay = 0 ) {
+    $status_code    = hashbox_hubspot_response_status_code( $response );
+    $correlation_id = hashbox_hubspot_response_correlation_id( $response );
+    $parts          = array(
+        '[hashbox] HubSpot sync',
+        'outcome=' . sanitize_key( $outcome ),
+        'context=' . sanitize_key( $context ),
+        'attempt=' . max( 1, (int) $attempt ),
+        'status=' . $status_code,
+    );
+
+    if ( is_wp_error( $response ) ) {
+        $error_code = sanitize_key( (string) $response->get_error_code() );
+        if ( '' !== $error_code ) {
+            $parts[] = 'error_code=' . $error_code;
+        }
+    }
+
+    if ( '' !== $correlation_id ) {
+        $parts[] = 'correlation_id=' . $correlation_id;
+    }
+
+    if ( '' !== $property ) {
+        $parts[] = 'property=' . sanitize_key( $property );
+    }
+
+    if ( $delay > 0 ) {
+        $parts[] = 'retry_after=' . (int) $delay;
+    }
+
+    error_log( implode( ' ', $parts ) . '.' );
+}
+
+/**
+ * Respect HubSpot Retry-After when present, with a bounded exponential fallback.
+ */
+function hashbox_hubspot_retry_delay( $response, $attempt ) {
+    $attempt        = max( 1, (int) $attempt );
+    $fallback_delay = (int) min( 3600, 60 * pow( 2, $attempt - 1 ) );
+    $retry_delay    = null;
+
+    if ( ! is_wp_error( $response ) ) {
+        $retry_after = wp_remote_retrieve_header( $response, 'retry-after' );
+        if ( is_array( $retry_after ) ) {
+            $retry_after = reset( $retry_after );
+        }
+        $retry_after = trim( (string) $retry_after );
+        if ( '' !== $retry_after ) {
+            if ( is_numeric( $retry_after ) ) {
+                $retry_delay = (int) ceil( (float) $retry_after );
+            } else {
+                $retry_at = strtotime( $retry_after );
+                if ( false !== $retry_at ) {
+                    $retry_delay = max( 0, $retry_at - time() );
+                }
+            }
+        }
+    }
+
+    if ( null === $retry_delay ) {
+        $retry_delay = $fallback_delay;
+    }
+
+    return max( 60, min( 3600, (int) $retry_delay ) );
+}
+
+/**
+ * Requeue the same two-argument cron payload without allowing an infinite loop.
+ */
+function hashbox_requeue_hubspot_attribution_sync( $email, $attribution, $attempt, $response, $context, $property = '' ) {
+    $max_attempts = hashbox_hubspot_sync_max_attempts();
+    if ( $attempt >= $max_attempts ) {
+        hashbox_log_hubspot_sync_event( 'retry_exhausted', $context, $response, $attempt, $property );
+        return false;
+    }
+
+    $delay = hashbox_hubspot_retry_delay( $response, $attempt );
+    $retry_attribution = $attribution;
+    $retry_attribution['_hashbox_hubspot_sync_attempt'] = $attempt + 1;
+    $args = array( $email, $retry_attribution );
+    $scheduled = wp_schedule_single_event(
+        time() + $delay,
+        'hashbox_sync_lead_attribution_to_hubspot',
+        $args
+    );
+
+    if ( false === $scheduled || is_wp_error( $scheduled ) ) {
+        if ( false === $scheduled && wp_next_scheduled( 'hashbox_sync_lead_attribution_to_hubspot', $args ) ) {
+            hashbox_log_hubspot_sync_event( 'retry_already_scheduled', $context, $response, $attempt + 1, $property, $delay );
+            return true;
+        }
+
+        hashbox_log_hubspot_sync_event( 'retry_schedule_failed', $context, $response, $attempt + 1, $property, $delay );
+        return false;
+    }
+
+    hashbox_log_hubspot_sync_event( 'retry_scheduled', $context, $response, $attempt + 1, $property, $delay );
+    return true;
+}
+
+/**
+ * Build a HubSpot property payload from trusted attribution keys.
+ *
+ * Older cron events contain only the UTM array, so every additional key stays
+ * optional. Server references are validated again at execution time because a
+ * scheduled event may outlive the request that created it.
+ */
+function hashbox_prepare_hubspot_contact_properties( $attribution, $property_map ) {
+    $properties = array();
+
+    foreach ( $property_map as $attribution_key => $hubspot_property ) {
+        if ( ! isset( $attribution[ $attribution_key ] ) || ! is_string( $attribution[ $attribution_key ] ) ) {
+            continue;
+        }
+
+        $property_value = sanitize_text_field( $attribution[ $attribution_key ] );
+        if ( '' === $property_value ) {
+            continue;
+        }
+
+        if ( 'lead_ref' === $attribution_key && ! hashbox_is_uuid_v4( $property_value ) ) {
+            continue;
+        }
+
+        if (
+            'conversion_ref' === $attribution_key
+            && ! hashbox_is_conversion_ref( $property_value, 'AI' )
+            && ! hashbox_is_conversion_ref( $property_value, 'WEB' )
+        ) {
+            continue;
+        }
+
+        if ( 'landing_slug' === $attribution_key ) {
+            $property_value = sanitize_key( $property_value );
+            if ( '' === $property_value ) {
+                continue;
+            }
+        }
+
+        $properties[ $hubspot_property ] = mb_substr( $property_value, 0, 250 );
+    }
+
+    return $properties;
+}
+
+function hashbox_patch_hubspot_contact_properties( $contact_id, $properties, $headers ) {
+    return wp_remote_request(
+        'https://api.hubapi.com/crm/v3/objects/contacts/' . rawurlencode( $contact_id ),
+        array(
+            'method'  => 'PATCH',
+            'headers' => $headers,
+            'timeout' => 8,
+            'body'    => wp_json_encode( array( 'properties' => $properties ) ),
+        )
+    );
+}
+
+/**
+ * Sync optional custom properties independently from the established UTM map.
+ *
+ * A HubSpot PATCH fails atomically when one property does not exist. Batch the
+ * happy path, then isolate fields only after a non-transient schema response so
+ * the known UTM/GCLID write stays intact.
+ */
+function hashbox_sync_optional_hubspot_contact_properties( $contact_id, $properties, $headers, $email, $attribution, $attempt ) {
+    if ( empty( $properties ) ) {
+        return true;
+    }
+
+    // Happy path: one atomic PATCH for every available optional field.
+    $batch_response = hashbox_patch_hubspot_contact_properties( $contact_id, $properties, $headers );
+    if ( hashbox_hubspot_response_is_success( $batch_response ) ) {
+        return true;
+    }
+
+    if ( hashbox_hubspot_response_is_transient( $batch_response, 'optional_batch' ) ) {
+        hashbox_requeue_hubspot_attribution_sync( $email, $attribution, $attempt, $batch_response, 'optional_batch' );
+        return false;
+    }
+
+    if ( ! hashbox_hubspot_response_is_schema_failure( $batch_response ) ) {
+        hashbox_log_hubspot_sync_event( 'failed', 'optional_batch', $batch_response, $attempt );
+        return false;
+    }
+
+    // A one-field batch is already the narrowest schema test available.
+    if ( 1 === count( $properties ) ) {
+        $property = (string) key( $properties );
+        hashbox_log_hubspot_sync_event( 'optional_unavailable', 'optional_property', $batch_response, $attempt, $property );
+        return true;
+    }
+
+    hashbox_log_hubspot_sync_event( 'schema_fallback', 'optional_batch', $batch_response, $attempt );
+
+    // A schema-level 400/422 may name one missing custom property. Retry each
+    // independently so valid fields survive, but stop immediately on a
+    // transient error to avoid hammering HubSpot.
+    foreach ( $properties as $hubspot_property => $property_value ) {
+        $response = hashbox_patch_hubspot_contact_properties(
+            $contact_id,
+            array( $hubspot_property => $property_value ),
+            $headers
+        );
+
+        if ( hashbox_hubspot_response_is_success( $response ) ) {
+            continue;
+        }
+
+        if ( hashbox_hubspot_response_is_transient( $response, 'optional_property' ) ) {
+            hashbox_requeue_hubspot_attribution_sync(
+                $email,
+                $attribution,
+                $attempt,
+                $response,
+                'optional_property',
+                $hubspot_property
+            );
+            return false;
+        }
+
+        if ( hashbox_hubspot_response_is_schema_failure( $response ) ) {
+            hashbox_log_hubspot_sync_event( 'optional_unavailable', 'optional_property', $response, $attempt, $hubspot_property );
+            continue;
+        }
+
+        hashbox_log_hubspot_sync_event( 'failed', 'optional_property', $response, $attempt, $hubspot_property );
+        return false;
+    }
+
+    return true;
+}
+
 function hashbox_sync_lead_attribution_to_hubspot( $email, $attribution ) {
     $token = hashbox_get_hubspot_private_app_token();
     if ( '' === $token || ! is_email( $email ) || ! is_array( $attribution ) ) {
         return;
     }
 
-    $property_map = array(
+    $attempt = hashbox_hubspot_sync_attempt( $attribution );
+
+    $core_property_map = array(
         'utm_source'   => 'utm_source',
         'utm_medium'   => 'utm_medium',
         'utm_campaign' => 'utm_campaign',
@@ -3588,15 +3934,24 @@ function hashbox_sync_lead_attribution_to_hubspot( $email, $attribution ) {
         'utm_term'     => 'utm_term',
         'gclid'        => 'hs_google_click_id',
     );
+    $core_properties     = hashbox_prepare_hubspot_contact_properties( $attribution, $core_property_map );
+    $optional_properties = array();
 
-    $properties = array();
-    foreach ( $property_map as $posted_key => $hubspot_property ) {
-        if ( isset( $attribution[ $posted_key ] ) && is_string( $attribution[ $posted_key ] ) && '' !== $attribution[ $posted_key ] ) {
-            $properties[ $hubspot_property ] = mb_substr( $attribution[ $posted_key ], 0, 250 );
-        }
+    // Custom fields are deliberately isolated and strictly opt-in so a portal
+    // at its property quota makes no extended-property API requests.
+    if ( hashbox_hubspot_extended_attribution_enabled() ) {
+        $optional_property_map = array(
+            'wbraid'         => 'hashbox_wbraid',
+            'gbraid'         => 'hashbox_gbraid',
+            'lead_ref'       => 'hashbox_lead_ref',
+            'conversion_ref' => 'hashbox_conversion_ref',
+            'landing_slug'   => 'hashbox_landing_slug',
+        );
+
+        $optional_properties = hashbox_prepare_hubspot_contact_properties( $attribution, $optional_property_map );
     }
 
-    if ( empty( $properties ) ) {
+    if ( empty( $core_properties ) && empty( $optional_properties ) ) {
         return;
     }
 
@@ -3628,44 +3983,75 @@ function hashbox_sync_lead_attribution_to_hubspot( $email, $attribution ) {
         )
     );
 
-    if ( is_wp_error( $search ) ) {
-        error_log( '[hashbox] HubSpot contact search failed: ' . $search->get_error_message() );
+    if ( ! hashbox_hubspot_response_is_success( $search ) ) {
+        if ( hashbox_hubspot_response_is_transient( $search, 'contact_search' ) ) {
+            hashbox_requeue_hubspot_attribution_sync( $email, $attribution, $attempt, $search, 'contact_search' );
+        } else {
+            hashbox_log_hubspot_sync_event( 'failed', 'contact_search', $search, $attempt );
+        }
         return;
     }
 
     $search_body = json_decode( (string) wp_remote_retrieve_body( $search ), true );
     $contact_id  = isset( $search_body['results'][0]['id'] ) ? (string) $search_body['results'][0]['id'] : '';
+    $response         = null;
+    $response_context = '';
 
     if ( '' !== $contact_id ) {
-        $response = wp_remote_request(
-            'https://api.hubapi.com/crm/v3/objects/contacts/' . rawurlencode( $contact_id ),
-            array(
-                'method'  => 'PATCH',
-                'headers' => $headers,
-                'timeout' => 8,
-                'body'    => wp_json_encode( array( 'properties' => $properties ) ),
-            )
-        );
+        if ( ! empty( $core_properties ) ) {
+            $response         = hashbox_patch_hubspot_contact_properties( $contact_id, $core_properties, $headers );
+            $response_context = 'core_patch';
+        }
     } else {
-        $properties['email'] = $email;
-        $response = wp_remote_post(
+        $create_properties          = $core_properties;
+        $create_properties['email'] = $email;
+        $response                   = wp_remote_post(
             'https://api.hubapi.com/crm/v3/objects/contacts',
             array(
                 'headers' => $headers,
                 'timeout' => 8,
-                'body'    => wp_json_encode( array( 'properties' => $properties ) ),
+                'body'    => wp_json_encode( array( 'properties' => $create_properties ) ),
             )
         );
+        $response_context = 'contact_create';
     }
 
-    if ( is_wp_error( $response ) ) {
-        error_log( '[hashbox] HubSpot attribution sync failed: ' . $response->get_error_message() );
+    if ( null !== $response ) {
+        if ( ! hashbox_hubspot_response_is_success( $response ) ) {
+            if ( hashbox_hubspot_response_is_transient( $response, $response_context ) ) {
+                hashbox_requeue_hubspot_attribution_sync(
+                    $email,
+                    $attribution,
+                    $attempt,
+                    $response,
+                    $response_context
+                );
+            } else {
+                hashbox_log_hubspot_sync_event( 'failed', $response_context, $response, $attempt );
+            }
+            return;
+        }
+
+        if ( '' === $contact_id ) {
+            $response_body = json_decode( (string) wp_remote_retrieve_body( $response ), true );
+            $contact_id    = isset( $response_body['id'] ) ? (string) $response_body['id'] : '';
+        }
+    }
+
+    if ( '' === $contact_id ) {
+        hashbox_requeue_hubspot_attribution_sync( $email, $attribution, $attempt, $response, 'contact_id_missing' );
         return;
     }
 
-    $status_code = (int) wp_remote_retrieve_response_code( $response );
-    if ( $status_code < 200 || $status_code >= 300 ) {
-        error_log( '[hashbox] HubSpot attribution sync HTTP ' . $status_code . ': ' . mb_substr( (string) wp_remote_retrieve_body( $response ), 0, 300 ) );
+    if ( ! empty( $optional_properties ) ) {
+        hashbox_sync_optional_hubspot_contact_properties(
+            $contact_id,
+            $optional_properties,
+            $headers,
+            $email,
+            $attribution,
+            $attempt
+        );
     }
 }
 add_action( 'hashbox_sync_lead_attribution_to_hubspot', 'hashbox_sync_lead_attribution_to_hubspot', 10, 2 );
