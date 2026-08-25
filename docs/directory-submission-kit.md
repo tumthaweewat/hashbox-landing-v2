@@ -72,7 +72,7 @@ Service focus split (Clutch ถาม %): AI Consulting 40% · Web Development 3
 | Min project size | $2,000 (≈ 60,000 บาท) |
 | Avg hourly rate | $50–99/hr |
 | Employees | 2–9 |
-| Founded | [เติมเอง — ปีจดทะเบียน/เริ่มกิจการจริง] |
+| Founded | 2024 (ยืนยันโดยเจ้าของ 2026-08-25 — ใช้ปีนี้ทุก directory) |
 | Client focus | Small business 60% · Midmarket 40% |
 | Industry focus | E-commerce, Business services, Retail, Real estate |
 | Key contact | Tum Thaweewat — Head of Tech (17 yrs software engineering) |
@@ -103,8 +103,8 @@ Service focus split (Clutch ถาม %): AI Consulting 40% · Web Development 3
 |---|---|---|---|
 | | GBP | | |
 | | Bing Places | | |
-| | Clutch | | |
-| | GoodFirms | | |
+| 2026-08-25 | Clutch | ✅ ส่งแล้ว (Free) — under review 7–10 วันทำการ · ปีก่อตั้ง 2024 · ต่อไป: ขอ review ลูกค้า | https://clutch.co/profile/hashbox-studio |
+| 2026-08-25 | GoodFirms | ✅ ส่งแล้ว — รอทีมงานตรวจ · หมวดหลัก AI / Web Development / Digital Marketing (ไม่มี SEO) | myaccount.goodfirms.co → Listing |
 | | DesignRush | | |
 | | Sortlist | | |
 | | TechBehemoths | | |
