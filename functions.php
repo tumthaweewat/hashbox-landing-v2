@@ -3520,10 +3520,15 @@ add_action( 'admin_post_hashbox_contact',        'hashbox_handle_contact_submit'
  * not reliably reach the contact record. This scheduled handler writes them
  * through the CRM API using a private-app token.
  *
- * Expected custom contact-property internal names:
- * hashbox_wbraid, hashbox_gbraid, hashbox_lead_ref,
- * hashbox_conversion_ref and hashbox_landing_slug. Missing custom properties
- * are logged and skipped independently after the established UTM/GCLID write.
+ * The established UTM fields and hs_google_click_id are always eligible for
+ * sync. Extended attribution is disabled by default because it requires five
+ * additional HubSpot contact properties. After those properties exist, opt in
+ * with `define( 'HASHBOX_HUBSPOT_EXTENDED_ATTRIBUTION', true );`.
+ *
+ * Expected extended-property internal names: hashbox_wbraid, hashbox_gbraid,
+ * hashbox_lead_ref, hashbox_conversion_ref and hashbox_landing_slug. When the
+ * feature is enabled, missing custom properties are logged and skipped
+ * independently after the established UTM/GCLID write.
  *
  * Configure the token by defining HASHBOX_HUBSPOT_TOKEN in wp-config.php
  * (preferred) or storing the hashbox_hubspot_token option; when no token is
@@ -3536,6 +3541,18 @@ function hashbox_get_hubspot_private_app_token() {
 
     $token = get_option( 'hashbox_hubspot_token', '' );
     return is_string( $token ) ? trim( $token ) : '';
+}
+
+/**
+ * Extended custom-property writes require an explicit boolean opt-in.
+ *
+ * Keeping this false when the constant is undefined (or set to a non-boolean
+ * value) prevents unnecessary HubSpot PATCH requests on portals without the
+ * five custom contact properties.
+ */
+function hashbox_hubspot_extended_attribution_enabled() {
+    return defined( 'HASHBOX_HUBSPOT_EXTENDED_ATTRIBUTION' )
+        && true === HASHBOX_HUBSPOT_EXTENDED_ATTRIBUTION;
 }
 
 /**
@@ -3856,18 +3873,22 @@ function hashbox_sync_lead_attribution_to_hubspot( $email, $attribution ) {
         'utm_term'     => 'utm_term',
         'gclid'        => 'hs_google_click_id',
     );
-    // These custom contact properties are deliberately isolated from the core
-    // write. They may be created later without requiring another code deploy.
-    $optional_property_map = array(
-        'wbraid'         => 'hashbox_wbraid',
-        'gbraid'         => 'hashbox_gbraid',
-        'lead_ref'       => 'hashbox_lead_ref',
-        'conversion_ref' => 'hashbox_conversion_ref',
-        'landing_slug'   => 'hashbox_landing_slug',
-    );
-
     $core_properties     = hashbox_prepare_hubspot_contact_properties( $attribution, $core_property_map );
-    $optional_properties = hashbox_prepare_hubspot_contact_properties( $attribution, $optional_property_map );
+    $optional_properties = array();
+
+    // Custom fields are deliberately isolated and strictly opt-in so a portal
+    // at its property quota makes no extended-property API requests.
+    if ( hashbox_hubspot_extended_attribution_enabled() ) {
+        $optional_property_map = array(
+            'wbraid'         => 'hashbox_wbraid',
+            'gbraid'         => 'hashbox_gbraid',
+            'lead_ref'       => 'hashbox_lead_ref',
+            'conversion_ref' => 'hashbox_conversion_ref',
+            'landing_slug'   => 'hashbox_landing_slug',
+        );
+
+        $optional_properties = hashbox_prepare_hubspot_contact_properties( $attribution, $optional_property_map );
+    }
 
     if ( empty( $core_properties ) && empty( $optional_properties ) ) {
         return;

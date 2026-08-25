@@ -48,6 +48,20 @@ const retryPolicy = phpFunction(
   'hashbox_hubspot_sync_max_attempts',
   'hashbox_prepare_hubspot_contact_properties'
 );
+const extendedAttributionFlag = phpFunction(
+  'hashbox_hubspot_extended_attribution_enabled',
+  'hashbox_hubspot_sync_max_attempts'
+);
+assert.match(
+  extendedAttributionFlag,
+  /defined\( 'HASHBOX_HUBSPOT_EXTENDED_ATTRIBUTION' \)/,
+  'extended attribution must remain disabled when its feature constant is undefined'
+);
+assert.match(
+  extendedAttributionFlag,
+  /true === HASHBOX_HUBSPOT_EXTENDED_ATTRIBUTION/,
+  'extended attribution must require a strict boolean true opt-in'
+);
 assert.match(retryPolicy, /function hashbox_hubspot_sync_max_attempts\(\)\s*{\s*return 4;/s);
 assert.match(retryPolicy, /'_hashbox_hubspot_sync_attempt'/);
 assert.match(retryPolicy, /in_array\( \$status_code, array\( 423, 429, 477 \), true \)/);
@@ -126,7 +140,11 @@ for (const [sourceKey, propertyName] of Object.entries(exactPropertyMappings)) {
   );
 }
 assert.match(hubspotSync, /\$core_properties\s*=\s*hashbox_prepare_hubspot_contact_properties/);
-assert.match(hubspotSync, /\$optional_properties\s*=\s*hashbox_prepare_hubspot_contact_properties/);
+assert.match(
+  hubspotSync,
+  /\$core_properties\s*=\s*hashbox_prepare_hubspot_contact_properties\(\s*\$attribution,\s*\$core_property_map\s*\);[\s\S]*?\$optional_properties\s*=\s*array\(\);[\s\S]*?if \( hashbox_hubspot_extended_attribution_enabled\(\) \) \{[\s\S]*?\$optional_properties\s*=\s*hashbox_prepare_hubspot_contact_properties\(\s*\$attribution,\s*\$optional_property_map\s*\);[\s\S]*?\}/,
+  'core properties must be prepared unconditionally while extended properties stay behind the opt-in flag'
+);
 assert.match(
   hubspotSync,
   /hashbox_patch_hubspot_contact_properties\( \$contact_id, \$core_properties, \$headers \)/,
@@ -134,7 +152,8 @@ assert.match(
 );
 assert.match(
   hubspotSync,
-  /hashbox_sync_optional_hubspot_contact_properties\([\s\S]*?\$contact_id,[\s\S]*?\$optional_properties,[\s\S]*?\$attempt[\s\S]*?\);/
+  /if \( ! empty\( \$optional_properties \) \) \{[\s\S]*?hashbox_sync_optional_hubspot_contact_properties\([\s\S]*?\$contact_id,[\s\S]*?\$optional_properties,[\s\S]*?\$attempt[\s\S]*?\);[\s\S]*?\}/,
+  'the optional PATCH flow must be unreachable while the feature flag is off'
 );
 for (const context of ['contact_search', 'core_patch', 'contact_create', 'contact_id_missing']) {
   assert.match(hubspotSync, new RegExp(`'${context}'`), `missing retry/log context ${context}`);
