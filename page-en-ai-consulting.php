@@ -28,6 +28,9 @@ $faqs = array(
     array( 'q' => 'Do you handle PDPA and data privacy?', 'a' => 'Yes. We choose the AI provider by data sensitivity: public LLMs for non-sensitive data, Azure OpenAI or AWS Bedrock for enterprise privacy, and self-hosted models when data cannot leave your premises. Data masking and audit logging are included.' ),
     array( 'q' => 'Can you integrate with our existing systems?', 'a' => 'Yes — Salesforce, HubSpot, Zoho, SAP, LINE OA, Microsoft Teams, Slack, Notion, Airtable, Google Workspace, Make/n8n and Zapier. Legacy systems connect via REST API or webhook.' ),
     array( 'q' => 'What happens if the ROI case does not hold up?', 'a' => 'You stop at the assessment stage with a clear written report — THB 60,000 spent instead of a six-figure build. We calculate ROI with your numbers before any build begins, and "do not build this yet" is a real possible outcome. That policy costs us some projects and wins us the right ones.' ),
+    array( 'q' => 'Which AI consulting companies in Bangkok are the right fit for an SME?', 'a' => 'Bangkok has three tiers. Global consultancies run transformation programs priced from roughly THB 500,000 to several million and are built for enterprises. Freelancers are cheap but you carry the delivery risk. Boutique studios like Hashbox sit in between: production systems for SMEs and mid-market companies from THB 60,000, with the ROI math done first. If you have one concrete process to automate and a budget under THB 1.5M, a studio is usually the right fit.' ),
+    array( 'q' => 'Do you work with companies outside Bangkok?', 'a' => 'Yes. Most of the work — discovery, architecture, builds, reviews — happens remotely in Thai or English, so companies anywhere in Thailand or Southeast Asia can work with us. We meet on-site in Bangkok when a project needs it, for example during launch or team training.' ),
+    array( 'q' => 'Can you work alongside our in-house IT team?', 'a' => 'Yes, and it usually goes better that way. Your team knows the systems; we bring the AI architecture, evaluation and guardrails. We build on your stack, document every decision, hand over the repository and train your team to run and extend the system — the goal is that you do not need us for day-to-day operation.' ),
 );
 ?>
 
@@ -199,6 +202,58 @@ $faqs = array(
     </div>
 </section>
 
+<section class="hb-section hb-section--surface">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">Choosing a partner</span>
+            <h2 class="hb-h2">How to choose an AI consulting company in Bangkok — 7 questions to ask</h2>
+            <p class="hb-section__sub">Most AI consulting companies in Bangkok and Thailand pitch the same slide deck. These seven questions separate the ones that ship from the ones that present — and we answer each for ourselves so you can compare directly.</p>
+        </div>
+        <div class="hb-bento">
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">01</span>
+                <h3 class="hb-h3">Will they show the ROI math before you pay for a build?</h3>
+                <p class="hb-body">Ask for the numbers behind the promise. Ours: a free 30-minute screening, then a written ROI assessment (THB 60,000) where &ldquo;do not build this yet&rdquo; is a real possible answer.</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">02</span>
+                <h3 class="hb-h3">Do they ship to production, or hand over a deck?</h3>
+                <p class="hb-body">Ask for something you can test today &mdash; a live LINE OA, a working agent. Our flagship case runs in production and cut a two-hour manual process to two minutes.</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">03</span>
+                <h3 class="hb-h3">Who owns the code, prompts and data pipelines?</h3>
+                <p class="hb-body">If the answer is &ldquo;our platform&rdquo;, you are renting. Everything we build is handed over as a Git repository you own &mdash; models, prompts, evaluation sets and integrations included.</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">04</span>
+                <h3 class="hb-h3">Where does your data actually go?</h3>
+                <p class="hb-body">Chat logs and uploaded documents fall under PDPA. Ask which provider, which region, and what is masked. We choose the model host by data sensitivity &mdash; public LLM, Azure OpenAI / AWS Bedrock, or self-hosted &mdash; and document the data flow for your legal team.</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">05</span>
+                <h3 class="hb-h3">Do they test in Thai and in mixed Thai&ndash;English?</h3>
+                <p class="hb-body">Thai has no spaces between words and real customers code-switch mid-sentence. Ask to see a test set built from real messages, not English demos. Ours are built from your actual conversations before launch.</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">06</span>
+                <h3 class="hb-h3">What happens when the model is wrong?</h3>
+                <p class="hb-body">Every LLM is wrong sometimes. Ask about fallbacks, human handoff and cost guardrails. Our systems ship with a hallucination guard, a handoff path into how your team already works, and hard limits on API spend.</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">07</span>
+                <h3 class="hb-h3">What does month two look like?</h3>
+                <p class="hb-body">Launch is the start. Ask who watches quality, cost and drift afterwards. We include 30 days of monitoring in every build and offer a retainer from THB 30,000 a month for prompt updates, cost monitoring and a monthly review.</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">TL;DR</span>
+                <h3 class="hb-h3">Compare the answers, not the logos</h3>
+                <p class="hb-body">Any AI consulting company in Bangkok can say &ldquo;production-ready&rdquo;. Seven concrete answers &mdash; in writing, before you sign &mdash; are the fastest way to tell who means it. Ours are on this page and in the <a href="#faq">FAQ</a> below.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="hb-section">
     <div class="hb-container">
         <div class="hb-section__head">
@@ -261,7 +316,7 @@ $faqs = array(
 
 <section class="hb-section">
     <div class="hb-container hb-container--md">
-        <div class="hb-section__head">
+        <div class="hb-section__head" id="faq">
             <span class="hb-eyebrow">FAQ</span>
             <h2 class="hb-h2">Frequently asked questions</h2>
         </div>
