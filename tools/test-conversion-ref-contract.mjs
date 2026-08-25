@@ -58,10 +58,10 @@ assert.match(
   /add_action\( 'hashbox_send_ai_confirmation_email', 'hashbox_send_ai_confirmation_email', 10, 4 \)/,
   'AI confirmation cron must accept conversion_ref as its fourth argument'
 );
-assert.doesNotMatch(
+assert.match(
   functionsSource,
-  /hashbox_conversion_ref['"]\s*=>/,
-  'unverified HubSpot custom properties must not be written yet'
+  /'conversion_ref'\s*=>\s*'hashbox_conversion_ref'/,
+  'server-minted conversion_ref must be prepared for isolated HubSpot custom-property sync'
 );
 
 console.log('conversion-ref contract tests passed');
