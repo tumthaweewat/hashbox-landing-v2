@@ -2,9 +2,15 @@
 <p><strong>GEO คือ</strong> (Generative Engine Optimization) การปรับคอนเทนต์และโครงสร้างเว็บไซต์ให้ AI search engine — Google AI Overview, ChatGPT, Perplexity — เลือกหยิบเนื้อหาของเราไป <strong>อ้างอิง (cite) ในคำตอบที่ AI สร้างขึ้น</strong> เป้าหมายไม่ใช่แค่ "ติดอันดับ" แต่คือ "ถูกอ้างถึง"</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph -->
-<p>&gt; <strong>TL;DR</strong> &gt; &gt; - GEO คือการทำให้ AI อ้างอิงเว็บเรา ไม่ใช่แค่ให้ Google จัดอันดับหน้าเรา &gt; - หน่วยการแข่งขันเปลี่ยน: SEO แข่งกันเป็น "หน้า" GEO แข่งกันเป็น "passage" (ย่อหน้าที่ยกไปตอบได้ทันที) &gt; - เทคนิคหลักมี 5 ข้อ: Passage-Level Content, Citable Factoid, Schema Markup, llms.txt, Brand Mention &gt; - AI Overview ภาษาไทยโผล่กับ query เชิงบริการแล้ว เช่น "รับทำเว็บไซต์" — ขณะที่เว็บไทยส่วนใหญ่ยังไม่ทำ GEO นี่คือช่องว่าง &gt; - วัดผลด้วยการ track ว่าโดเมนเราถูก cite ใน AI Overview บ่อยแค่ไหน — ดู Google Search Console อย่างเดียวไม่พอ</p>
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+<p><strong>TL;DR</strong></p>
 <!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li>GEO คือการทำให้ AI อ้างอิงเว็บเรา ไม่ใช่แค่ให้ Google จัดอันดับหน้าเรา</li><!-- /wp:list-item --><!-- wp:list-item --><li>หน่วยการแข่งขันเปลี่ยน: SEO แข่งกันเป็น "หน้า" GEO แข่งกันเป็น "passage" (ย่อหน้าที่ยกไปตอบได้ทันที)</li><!-- /wp:list-item --><!-- wp:list-item --><li>เทคนิคหลักมี 5 ข้อ: Passage-Level Content, Citable Factoid, Schema Markup, llms.txt, Brand Mention</li><!-- /wp:list-item --><!-- wp:list-item --><li>AI Overview ภาษาไทยโผล่กับ query เชิงบริการแล้ว เช่น "รับทำเว็บไซต์" — ขณะที่เว็บไทยส่วนใหญ่ยังไม่ทำ GEO นี่คือช่องว่าง</li><!-- /wp:list-item --><!-- wp:list-item --><li>วัดผลด้วยการ track ว่าโดเมนเราถูก cite ใน AI Overview บ่อยแค่ไหน — ดู Google Search Console อย่างเดียวไม่พอ</li><!-- /wp:list-item --></ul>
+<!-- /wp:list --></blockquote>
+<!-- /wp:quote -->
 
 <!-- wp:paragraph -->
 <p>บทความนี้เขียนโดยทีม Hashbox ที่สร้าง<strong>ระบบ track อันดับ + การถูกอ้างอิงใน AI Overview ของเราเอง อัปเดตรายวัน</strong> (เก็บข้อมูล SERP และ AI Overview ทุกวัน ไม่ได้เช่า dashboard SaaS) สิ่งที่เขียนต่อจากนี้มาจากข้อมูลที่เราเห็นจริงในตลาดไทย ไม่ใช่แปลบทความฝรั่งมาเรียบเรียง</p>
@@ -138,21 +144,6 @@
 <p>ตัวอย่าง FAQPage แบบสั้น:</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:code -->
-<pre class="wp-block-code"><code>{
-  &quot;@context&quot;: &quot;https://schema.org&quot;,
-  &quot;@type&quot;: &quot;FAQPage&quot;,
-  &quot;mainEntity&quot;: [{
-    &quot;@type&quot;: &quot;Question&quot;,
-    &quot;name&quot;: &quot;GEO คืออะไร?&quot;,
-    &quot;acceptedAnswer&quot;: {
-      &quot;@type&quot;: &quot;Answer&quot;,
-      &quot;text&quot;: &quot;GEO (Generative Engine Optimization) คือการปรับคอนเทนต์ให้ AI search เช่น Google AI Overview หยิบไปอ้างอิงในคำตอบ&quot;
-    }
-  }]
-}</code></pre>
-<!-- /wp:code -->
-
 <!-- wp:paragraph -->
 <p>รายละเอียดการติดตั้งทีละ type สำหรับเว็บไทย เราเขียนแยกไว้ที่ <a href="https://hashbox.co.th/schema-markup-thai-guide-2026/">คู่มือ Schema Markup ฉบับภาษาไทย 2026</a></p>
 <!-- /wp:paragraph -->
@@ -212,6 +203,10 @@
 <!-- wp:table -->
 <figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>วิธี</th><th>ได้อะไร</th><th>ข้อจำกัด</th></tr></thead><tbody><tr><td>ค้นเองด้วย query หลัก (incognito)</td><td>เห็นว่า AI Overview ขึ้นไหม ใครถูก cite</td><td>ทำมือ ไม่ scale, ผลผันผวนตามวัน</td></tr><tr><td>GSC ดู query ที่ impression ขึ้นแต่ CTR ร่วง</td><td>สัญญาณว่า AI Overview มากินคลิก</td><td>เดาทางอ้อม ไม่รู้ว่าถูก cite หรือเปล่า</td></tr><tr><td>ดู referral traffic จาก chatgpt.com / perplexity.ai ใน GA4</td><td>หลักฐานว่า AI ส่งคนมาจริง</td><td>เห็นเฉพาะคนที่คลิกทะลุมา</td></tr><tr><td>ระบบ track SERP + AI Overview รายวัน</td><td>รู้ชัดว่า query ไหนมี AI Overview, ใครถูก cite, เปลี่ยนแปลงเมื่อไหร่</td><td>ต้องมีระบบเก็บข้อมูลเอง</td></tr></tbody></table></figure>
 <!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p><strong>ตัวเลขจริงจากระบบของเรา (16–25 ส.ค. 2026 · คีย์เวิร์ดเชิงบริการไทย/อังกฤษ 48 คำ):</strong> วันล่าสุด AI Overview ขึ้นกับ 43 จาก 48 คำ (90%) เฉลี่ยอ้างอิง 5.9 แหล่งต่อกล่อง · 10 วันเห็น AI Overview 403 กล่อง อ้างอิงโดเมนต่างกัน 327 โดเมน · ถูกอ้างมากที่สุดคือ fastwork.co (155 ครั้ง / 19 คีย์เวิร์ด) รองลงมา makewebeasy.com 78 · facebook.com 75 · youtube.com 67 · datawow.io 56 · เว็บเราถูกอ้าง 76 กล่อง (19%) ส่วนใหญ่ในคำอังกฤษอย่าง "ai consulting bangkok" ที่หน้าเรายังอยู่อันดับ organic 12–19 — หลักฐานตรงว่า AI Overview ไม่ได้หยิบเฉพาะ 10 อันดับแรก · และ 2 วันจาก 10 ผู้ให้บริการข้อมูลส่งกล่องมาไม่ครบ (39–41%) ทำให้ตัวเลขการถูกอ้างดูตกจาก 11 เหลือ 3 ทั้งที่ไม่มีอะไรเปลี่ยน — ระบบวัดผลที่ไม่มีธงคุณภาพข้อมูลจะพาตัดสินใจผิด</p>
+<!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 <p>ที่ Hashbox เราเลือกทางสุดท้าย — สร้างระบบเก็บข้อมูล SERP และการอ้างอิงใน AI Overview ของเราเอง รันทุกวัน เก็บข้อมูลดิบไว้เป็น asset ระยะยาว ลูกค้า SEO ของเราจึงเห็นทั้งอันดับรายวันและสถานะการถูก cite จากระบบของเราเอง ไม่ใช่ dashboard SaaS ที่เช่ารายเดือน อยากเห็นข้อมูลของเว็บตัวเอง <a href="https://hashbox.co.th/#contact">รับ SEO Audit ฟรี</a> ได้ — เราดูให้ทั้งอันดับและสถานะใน AI Overview</p>
