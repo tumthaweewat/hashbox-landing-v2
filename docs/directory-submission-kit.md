@@ -104,7 +104,7 @@ Service focus split (Clutch ถาม %): AI Consulting 40% · Web Development 3
 | | GBP | | |
 | | Bing Places | | |
 | 2026-08-25 | Clutch | ✅ ส่งแล้ว (Free) — under review 7–10 วันทำการ · ปีก่อตั้ง 2024 · ต่อไป: ขอ review ลูกค้า | https://clutch.co/profile/hashbox-studio |
-| 2026-08-25 | GoodFirms | ✅ ส่งแล้ว — รอทีมงานตรวจ · หมวดหลัก AI / Web Development / Digital Marketing (ไม่มี SEO) | myaccount.goodfirms.co → Listing |
+| 2026-08-25 | GoodFirms | ✅ ส่งแล้ว — รอทีมงานตรวจ · หมวดหลัก AI / Web Development / Digital Marketing (ไม่มี SEO) | https://www.goodfirms.co/company/hashbox-studio (under review) |
 | | DesignRush | | |
 | | Sortlist | | |
 | | TechBehemoths | | |
