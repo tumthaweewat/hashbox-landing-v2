@@ -35,6 +35,7 @@
 | DesignRush | AI Agencies | Web Design, SEO Agencies |
 | Sortlist | Artificial Intelligence | Web Development |
 | TechBehemoths | AI Consulting | Web Development, SEO |
+| F6S | AI Consulting & Services | Web Development, SEO, Marketing Automation, Generative AI |
 | Yellow Pages TH | รับทำเว็บไซต์ / ที่ปรึกษาการตลาดดิจิทัล | — |
 
 ## 4. Descriptions
@@ -107,4 +108,5 @@ Service focus split (Clutch ถาม %): AI Consulting 40% · Web Development 3
 | | DesignRush | | |
 | | Sortlist | | |
 | | TechBehemoths | | |
+| 2026-08-25 | F6S | ✅ profile สร้างแล้ว 80% (เหลือ Founded date / จดทะเบียน / ทีม / รายได้ — เจ้าของเติมเอง) | https://www.f6s.com/hashbox-studio |
 | | Yellow Pages TH | | |
