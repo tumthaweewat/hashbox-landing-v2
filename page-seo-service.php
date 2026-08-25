@@ -125,7 +125,7 @@ $compare = array(
                 </div>
             <?php endforeach; ?>
         </div>
-        <p class="hb-lead" style="margin-top:var(--hb-space-6);text-align:center;">Hashbox ออกแบบบริการรับทำ SEO มาเพื่อแก้ทั้ง 4 ข้อนี้โดยตรง</p>
+        <p class="hb-lead" style="margin-top:var(--hb-space-6);text-align:center;">Hashbox ออกแบบบริการรับทำ SEO มาเพื่อแก้ทั้ง 4 ข้อนี้โดยตรง — ถ้ายังไม่แน่ใจว่า SEO ครอบคลุมอะไรบ้าง อ่านภาพรวมทั้งระบบก่อนที่ <a href="<?php echo esc_url( home_url( '/seo-thai-guide-2026/' ) ); ?>" style="color:var(--hb-accent-blue,#2563EB);">SEO คืออะไร? คู่มือฉบับ 2026</a></p>
     </div>
 </section>
 

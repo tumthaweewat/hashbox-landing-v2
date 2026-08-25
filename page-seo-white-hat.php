@@ -169,7 +169,7 @@ $measure = array(
         <div class="hb-section__head">
             <span class="hb-eyebrow">แล้วทำอะไร</span>
             <h2 class="hb-h2">SEO สายขาวทำอะไรถึงติดอันดับ — 5 งานที่เราทำจริงทุกเดือน</h2>
-            <p class="hb-section__sub">สายขาวไม่ได้แปลว่า "รอเฉยๆ ให้ Google รัก" มันคืองาน technical และคอนเทนต์ที่ทำซ้ำได้ วัดได้ และตรวจย้อนได้ทุกชิ้น</p>
+            <p class="hb-section__sub">สายขาวไม่ได้แปลว่า "รอเฉยๆ ให้ Google รัก" มันคืองาน technical และคอนเทนต์ที่ทำซ้ำได้ วัดได้ และตรวจย้อนได้ทุกชิ้น — ทั้ง 5 งานคือ 4 เสาของ SEO ที่อธิบายไว้ใน <a href="<?php echo esc_url( home_url( '/seo-thai-guide-2026/' ) ); ?>" style="color:var(--hb-accent-blue,#2563EB);">SEO คืออะไร? คู่มือฉบับ 2026</a></p>
         </div>
         <div class="hb-bento">
             <?php foreach ( $does as $d ) : ?>
