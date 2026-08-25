@@ -1075,6 +1075,7 @@ $checks = array(
                         ดู<a href="<?php echo esc_url( home_url( '/services/website-development/wordpress/' ) ); ?>">บริการรับทำเว็บไซต์ WordPress ที่ Lighthouse 95+</a>
                         (ทั้งแบบ Custom Theme และ Headless WordPress + Next.js)
                         · ถ้าเว็บมีอยู่แล้วและอยากดันอันดับอย่างเดียว ดู<a href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>">บริการรับทำ SEO</a>
+                        · ทำเว็บให้คลินิกหรือสถานพยาบาล ดู<a href="<?php echo esc_url( home_url( '/services/website-development/clinic/' ) ); ?>">บริการรับทำเว็บไซต์คลินิก</a> (ระบบนัด LINE OA, แผนที่, PDPA และกฎการโฆษณาสถานพยาบาล)
                     </p>
                 </div>
                 <blockquote class="hb-srw-card hb-srw-quote">
