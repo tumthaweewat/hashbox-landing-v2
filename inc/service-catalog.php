@@ -117,6 +117,7 @@ function hashbox_service_catalog() {
                 array( 'label' => 'GEO คืออะไร', 'path' => '/geo-ai-search-optimization-2026/' ),
                 array( 'label' => 'ChatGPT · Perplexity · Gemini' ),
                 array( 'label' => 'llms.txt · Citation tracking' ),
+                array( 'label' => 'GEO Checker ฟรี', 'path' => '/geo-checker/' ),
             ),
         ),
         'n8n' => array(
