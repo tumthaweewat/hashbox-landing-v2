@@ -792,6 +792,10 @@ function hashbox_get_seo_metadata() {
             // position 67 on the same Thai queries. The guide answers "how does
             // this work"; this page answers "who do I hire", and the title has
             // to say so. Keep ที่ปรึกษา AI — that is the term buyers search.
+            'ai-search' => array(
+                'title'       => 'รับทำ AI Search (GEO) ให้แบรนด์ถูก AI Overview, ChatGPT, Perplexity อ้างอิง | Hashbox',
+                'description' => 'รับทำ AI Search / GEO: audit, entity + Schema + llms.txt, answer-first content, citation ภายนอก วัดผลด้วย AI Visibility, Brand Mentions และ AI Overview citations จากระบบ track ของเราเอง — รวมใน SEO retainer เริ่ม 25,000 บาท/เดือน',
+            ),
             'ai-consulting' => array(
                 'title'       => 'ที่ปรึกษา AI สำหรับธุรกิจ | รับวางระบบ AI ถึง Production | Hashbox',
                 'description' => 'จ้างที่ปรึกษา AI ที่ส่งงานถึง production จริง — LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Agent สำหรับธุรกิจไทย · คุยประเมินโอกาสฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท',
