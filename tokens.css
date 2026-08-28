@@ -17,8 +17,8 @@
   --color-error: oklch(70% 0.17 25);
   --color-error-surface: oklch(23% 0.055 25);
 
-  --font-display: 'DM Sans', 'Noto Sans Thai', 'IBM Plex Sans Thai', sans-serif;
-  --font-body: 'Noto Sans Thai', 'IBM Plex Sans Thai', sans-serif;
+  --font-display: 'DM Sans', 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-body: 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --font-outlier: 'IBM Plex Mono', ui-monospace, monospace;
 
   --space-3xs: 0.125rem;

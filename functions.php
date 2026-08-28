@@ -129,20 +129,29 @@ function hashbox_enqueue_assets() {
     $is_ads_preview   = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
 
     if ( $is_audit_landing || $is_ads_preview ) {
-        $audit_fonts = get_template_directory() . '/css/audit-fonts.css';
-        wp_enqueue_style(
-            'hashbox-audit-v4-fonts',
-            $theme_uri . '/css/audit-fonts.css',
-            array(),
-            file_exists( $audit_fonts ) ? filemtime( $audit_fonts ) : $version
-        );
+        // Inter / Noto Sans Thai exist only for the ad-artwork preview page,
+        // whose PNG generator renders with that stack. Public audit landing
+        // pages use the brand CI fonts (DM Sans + IBM Plex Sans Thai) that the
+        // design-system bundle already self-hosts, so they must not pull the
+        // extra 30 @font-face declarations.
+        $audit_deps = array( 'hashbox-ds-composed' );
+        if ( $is_ads_preview ) {
+            $audit_fonts = get_template_directory() . '/css/audit-fonts.css';
+            wp_enqueue_style(
+                'hashbox-audit-v4-fonts',
+                $theme_uri . '/css/audit-fonts.css',
+                array(),
+                file_exists( $audit_fonts ) ? filemtime( $audit_fonts ) : $version
+            );
+            $audit_deps[] = 'hashbox-audit-v4-fonts';
+        }
 
         $audit_css = get_template_directory() . '/css/audit-landing.css';
         if ( file_exists( $audit_css ) ) {
             wp_enqueue_style(
                 'hashbox-audit-landing',
                 $theme_uri . '/css/audit-landing.css',
-                array( 'hashbox-ds-composed', 'hashbox-audit-v4-fonts' ),
+                $audit_deps,
                 filemtime( $audit_css )
             );
         }
@@ -246,26 +255,31 @@ function hashbox_preload_critical_fonts() {
     $is_ai     = is_array( $landing ) && 'ai-workflow-audit' === $landing['slug'];
     $is_ads    = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
 
-    $fonts = $is_ai
-        ? array(
-            'noto-sans-thai-thai-400.woff2',
-            'noto-sans-thai-thai-700.woff2',
-            'dm-sans-latin-700.woff2',
-            'ibm-plex-mono-latin-700.woff2',
-        )
-        : ( ( $is_audit || $is_ads )
-        ? array(
+    // Only the ad-artwork preview still renders with Inter / Noto Sans Thai;
+    // every public page (audit landings included) uses the brand CI stack.
+    if ( $is_ads ) {
+        $fonts = array(
             'noto-sans-thai-thai-400.woff2',
             'noto-sans-thai-thai-800.woff2',
             'inter-latin-400.woff2',
             'inter-latin-700.woff2',
-        )
-        : array(
+        );
+    } elseif ( $is_ai ) {
+        $fonts = array(
+            'ibm-plex-sans-thai-thai-400.woff2',
+            'ibm-plex-sans-thai-thai-700.woff2',
+            'dm-sans-latin-700.woff2',
+            'ibm-plex-mono-latin-700.woff2',
+        );
+    } else {
+        $fonts = array(
             'ibm-plex-sans-thai-thai-400.woff2',
             'ibm-plex-sans-thai-thai-700.woff2',
             'ibm-plex-sans-thai-latin-400.woff2',
             'dm-sans-latin-700.woff2',
-        ) );
+        );
+    }
+    unset( $is_audit );
 
     foreach ( $fonts as $file ) {
         if ( file_exists( get_template_directory() . '/assets/fonts/' . $file ) ) {
