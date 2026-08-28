@@ -13,6 +13,7 @@
 |---|---|---|---|
 | G1 non-brand clicks / เดือน | ~1 | 15 | 40 |
 | G2 keyword top-20 (จาก 64) | 8 | 14 | 20 |
+| G2b คลัสเตอร์ D long-tail ติด top-30 | 0/6 | 2 | 4 |
 | G3 AI เอ่ยถึง (20 prompt) | 6 | 8 | 10 |
 | G4 referring domains (Tum) | 0 | 5 | 10 |
 
@@ -24,9 +25,12 @@ Guard: PSI mobile ≥ 90 · H1 หน้าแรกคง "รับทำเ�
 | A | AI consulting TH + EN | ติดแล้ว ยกง่ายสุด — post 170 pos 3 แต่ 0 click; service page 14; EN 14–23 | post 170 · /services/ai-consulting/ · /en/ai-consulting/ |
 | B | AI Search (GEO) | มี authority เนื้อหา (`geo คือ` = query non-brand ใหญ่สุด) แต่ไม่มีหน้าขาย | /services/ai-search/ ใหม่ + post 66/208 |
 | C | SEO Audit + Local SEO | มี impr แล้ว: /seo-audit/ pos 31, post 92 pos 13 (27 impr/วัน) | /seo-audit/ · /services/seo/ · post 92 |
+| D | รับทำเว็บไซต์ — long-tail | บริการหลัก (แถว 1 หน้าแรก). ไล่ long-tail ที่ organic ยังชนะได้: `รับทำเว็บไซต์ seo` · `เว็บไซต์ seo ready` · `รับทำเว็บไซต์ wordpress` · `รับทำเว็บไซต์ ราคา` · `รับทำเว็บไซต์ ติดหน้าแรก google` · `เว็บโหลดช้า` | /services/website-development/ · /wordpress/ · /website-audit/ · C5 ราคา |
 | — | Foundation | ชื่อบริการ = keyword, footer/nav ส่ง link equity, ชั้น AI (llms/robots/entity) — ทุกคลัสเตอร์ได้ประโยชน์ | หน้าแรก, nav, footer, functions.php |
 
-**พักไว้ก่อน** (จนสัปดาห์ 5 หรือมี evidence): `รับทำเว็บไซต์*` head term (Map Pack 100%) · industry page · listicle · use-case page · de-slop หน้าแรก (ต้องมีเคสจริง)
+**Head term `รับทำเว็บไซต์` / `รับทำ seo` / `รับออกแบบเว็บไซต์`:** ไม่ใช่ตัด — SERP ถูก Map Pack ครอง 100% + คู่แข่ง 150,000 เว็บ/18 ปี. คันโยกจริงคือ **T1 GBP + รีวิว + G4 backlinks** ไม่ใช่โค้ด. หน้าเว็บเตรียมพร้อมใน Sprint 1 (B2) แล้วรอ off-site ดัน. ไม่สัญญา top-10 ใน 90 วัน.
+
+**พักไว้ก่อน** (จนสัปดาห์ 5 หรือมี evidence): industry page · listicle · use-case page · de-slop หน้าแรก (ต้องมีเคสจริง)
 
 ## Sprint 1 — สัปดาห์ 1–2 · Claude
 | # | งาน | ref |
@@ -38,14 +42,15 @@ Guard: PSI mobile ≥ 90 · H1 หน้าแรกคง "รับทำเ�
 | S1.5 | /services/seo/ template: H1 มี outcome, นิยาม 2 บรรทัดแรก, H2 variants (บริษัทรับทำ / สายขาว / Local SEO Bangkok / ราคา), H2 "วิธีวัดผล", section `#cro`, FAQ +3 | B1 |
 | S1.6 | /services/ai-consulting/ template + H2 variants (บริการให้คำปรึกษา AI / ผู้ให้บริการโซลูชัน AI / บริการ RAG / AI Tool) + ราคาเริ่มต้น (รอ T4) + ลิงก์ post 170/220/224/69 | B3 |
 | S1.7 | /en/ai-consulting/ answer-first list "AI consulting companies in Thailand" + H2 variants (AIO 25 แหล่ง ไม่มีเรา) | B5 |
-| S1.8 | Verify: `php -l`, contract tests, curl 301, `grep digital-marketing-tools` = 0, Rich Results, PSI mobile, GSC request index (T) | — |
+| S1.8 | /services/website-development/ template: H1 "รับทำเว็บไซต์ SEO-Ready … รองรับ AI Search", นิยาม, H2 variants (บริษัท / ราคา / SEO Ready / WordPress / ติดหน้าแรก Google / เว็บโหลดช้า), FAQ "ค่าใช้จ่ายเริ่มต้น → 35,900" ใน FAQPage, PSI proof จริง, ลิงก์ /website-audit/ | B2 |
+| S1.9 | Verify: `php -l`, contract tests, curl 301, `grep digital-marketing-tools` = 0, Rich Results, PSI mobile, GSC request index (T) | — |
 
 ## Sprint 2 — สัปดาห์ 3–4 · Claude
 | # | งาน | ref |
 |---|---|---|
 | S2.1 | `/services/ai-search/`: brief จาก TEMPLATE → draft 3 รอบ → publish. Anatomy: นิยาม → ทำไม 2026 → กระบวนการ 5 ขั้น → platform grid → KPI (AI Visibility / Mentions / Citations / SoV) → package + ราคา (T4) → **proof = Signal dashboard ของเราเอง** → FAQ 8 → /geo-checker/ | C1 |
 | S2.2 | post 66 / 208 answer-first + CTA → ai-search · CTA จาก 19 โพสต์ "X คือ" → หน้าบริการเจ้าของ keyword (REST) | A6 |
-| S2.3 | /services/website-development/ + /services/n8n-automation/ template (H1 outcome, นิยาม, variants: บริษัท / ราคา / WordPress · รับวางระบบ n8n / n8n ราคา / AI Automation) | B2, B4 |
+| S2.3 | /services/n8n-automation/ template (variants: รับวางระบบ n8n / n8n ราคา / AI Automation) · C5 "รับทำเว็บไซต์ ราคาเท่าไร 2026" (คลัสเตอร์ D) | B4, C5 |
 | S2.4 | ทุกหน้า: author box + credential, dateModified จริง, FAQ ฝังแบรนด์, trust strip ตัวเลขจริง (T4) | D4–D6 |
 | S2.5 | Friday loop ครั้งแรก · อัปเดต KEYWORD-DB · รายงานสัปดาห์ 4 เทียบ G1–G4 | — |
 
@@ -63,7 +68,7 @@ Guard: PSI mobile ≥ 90 · H1 หน้าแรกคง "รับทำเ�
 เทียบ G1–G4 · เลือก Sprint 3 จาก KEYWORD-DB score + Friday loop · **ถ้า T1–T2 ยังไม่เกิด → Sprint 3 = content คลัสเตอร์ A–C อย่างเดียว ไม่แตะ head term**
 
 ## Backlog สัปดาห์ 5–12 (เลือกตาม score, 3–5 งาน/sprint)
-C2 listicle TH "10 บริษัทรับทำ SEO ไทย 2026" · C3 listicle EN "AI consulting companies in Thailand" · C4 synonym posts (AEO / AI Mode / llms.txt คือ / เว็บไซต์รองรับ AI Search คืออะไร) · C5 "รับทำเว็บไซต์ ราคา 2026" · C6 case pages ×3 (T3) · C8 use-case ×3 (lead-qualify agent+CRM / RAG / LINE support — ต้องมี flow จริง) · W3 de-slop หน้าแรก (T3) · C7 industry page (เฉพาะมีเคส) · W7 hygiene (overflow-x, grid 768)
+C2 listicle TH "10 บริษัทรับทำ SEO ไทย 2026" · C3 listicle EN "AI consulting companies in Thailand" · C4 synonym posts (AEO / AI Mode / llms.txt คือ / เว็บไซต์รองรับ AI Search คืออะไร) · C6 case pages ×3 (T3) · C8 use-case ×3 (lead-qualify agent+CRM / RAG / LINE support — ต้องมี flow จริง) · W3 de-slop หน้าแรก (T3) · C7 industry page (เฉพาะมีเคส) · W7 hygiene (overflow-x, grid 768)
 
 ## กติกา
 1. Ownership map (REFERENCE §1): 1 keyword = 1 หน้า · post 170 ถือ "ปรึกษาทำระบบ ai solution" ห้ามย้าย · anchor ไปหน้าบริการ AI = "ที่ปรึกษา AI สำหรับธุรกิจ"
