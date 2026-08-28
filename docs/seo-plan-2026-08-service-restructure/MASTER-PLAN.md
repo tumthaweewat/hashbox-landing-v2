@@ -112,3 +112,8 @@
 | W5 Content | | ■ | ■ | ■ | ■ | ■ | | ■ | ■ | ■ | ■ | ■ |
 | W6 Measure | ■ | | | | ■ | | | | ■ | | | ■ |
 | Checkpoint | | | | ◆ | | | | ◆ | | | | ◆ |
+
+---
+## Addendum 2026-08-28 (late)
+- `WEBSITE-CHANGES.md` — รายการแก้ไขเว็บ 36 ข้อจาก GSC + Signal + teardown metier/anga/makewebeasy (A–F)
+- `CONTENT-OPS.md` + `KEYWORD-DB.csv` — Content OS: keyword scoring (64 คำ), Keyword Card, Publish Package, Review Gate, Friday loop; W5 เพิ่ม C8 use-case pages ×3 และ guide "เว็บไซต์รองรับ AI Search คืออะไร"
