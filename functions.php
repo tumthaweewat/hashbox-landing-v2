@@ -711,8 +711,8 @@ function hashbox_get_seo_metadata() {
 
     if ( is_front_page() ) {
         return array(
-            'title'       => 'รับทำเว็บไซต์ SEO + AI Consulting | Hashbox Studio',
-            'description' => 'Hashbox Studio รับทำเว็บไซต์ SEO-Ready ติดตั้ง Digital Marketing + CRO และที่ปรึกษา AI สำหรับ SME ไทย พร้อม Lighthouse 100, Core Web Vitals เขียว และผลลัพธ์ใน 60-90 วัน',
+            'title'       => 'รับทำเว็บไซต์ SEO-Ready · ที่ปรึกษา AI · รับทำ SEO และ AI Search | Hashbox Studio',
+            'description' => 'Hashbox Studio รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, AI Search (GEO) และ n8n Automation สำหรับธุรกิจไทย — ราคาเปิดเผย Lighthouse 100, Core Web Vitals เขียว วัดผลจากข้อมูลจริงรายวัน',
         );
     }
 
@@ -761,8 +761,8 @@ function hashbox_get_seo_metadata() {
     $en_path = hashbox_current_request_path();
     $en_meta = array(
         'en/ai-consulting' => array(
-            'title'       => 'AI Consulting Bangkok | Production AI for Thai Business',
-            'description' => 'AI consulting company in Bangkok, Thailand — LINE chatbots, Sales GPT, RAG & workflow automation shipped to production. ROI calculated first. From THB 60,000.',
+            'title'       => 'AI Consulting Company in Bangkok, Thailand — Production AI from THB 60,000 | Hashbox',
+            'description' => 'AI consulting in Bangkok for Thai and regional businesses: LINE chatbots, Sales GPT, RAG knowledge bases and workflow automation shipped to production. Public pricing from THB 60,000, ROI assessed first, 100% source code handover.',
         ),
     );
     if ( isset( $en_meta[ $en_path ] ) ) {
@@ -2900,6 +2900,9 @@ function hashbox_llms_full_txt_content() {
     $pillar_slugs = array(
         'services/website-development',
         'services/ai-consulting',
+        'services/seo',
+        'services/n8n-automation',
+        'ai-solution-consulting-guide-2026',
         'technical-seo-guide',
         'geo-ai-search-optimization-2026',
         'nextjs-vs-wordpress-2026',
