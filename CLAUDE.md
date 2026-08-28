@@ -81,3 +81,7 @@ This theme starts as a near-copy of V1 (state at 2026-05-11). Free to diverge:
 - Compare conversion / SEO performance against V1
 
 Keep `style.css` Theme Name unique (currently `Hashbox Studio V2`) so WordPress lists both themes separately in Appearance → Themes. PHP function names are shared with V1; only one theme is active at a time, so collisions don't occur in WP runtime, but rename if you ever need both loaded.
+
+## Current plan (2026-09 → 2026-11)
+
+`docs/seo-plan-2026-08-service-restructure/PLAN.md` is the single source of truth for SEO/AI-search work (sprints, owners, rules). `KEYWORD-DB.csv` holds keyword scores; `REFERENCE.md` holds the keyword ownership map — check it before creating any page (1 keyword = 1 page). Every content piece starts from `content/briefs/TEMPLATE.md`.
