@@ -19,7 +19,7 @@
 
 Guard: PSI mobile ≥ 90 · H1 หน้าแรกคง "รับทำเว็บไซต์ … SEO" · ไม่มี 404 ค้าง
 
-## โฟกัส (สัปดาห์ 1–4)
+## โฟกัส (สัปดาห์ 1–4) — 4 คลัสเตอร์
 | | คลัสเตอร์ | ทำไม | หน้า |
 |---|---|---|---|
 | A | AI consulting TH + EN | ติดแล้ว ยกง่ายสุด — post 170 pos 3 แต่ 0 click; service page 14; EN 14–23 | post 170 · /services/ai-consulting/ · /en/ai-consulting/ |
