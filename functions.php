@@ -2609,6 +2609,10 @@ function hashbox_rankmath_json_ld( $data, $jsonld = null ) {
         // Case-study pages emit their own Article + BreadcrumbList (see
         // hashbox_render_case_study), so drop Rank Math's BreadcrumbList to
         // avoid two BreadcrumbList graphs describing the same page.
+        if ( hashbox_schema_entity_has_type( $entity, 'BreadcrumbList' ) ) {
+            $GLOBALS['hashbox_rm_has_breadcrumb'] = true;
+        }
+
         if ( $is_case_study && hashbox_schema_entity_has_type( $entity, 'BreadcrumbList' ) ) {
             unset( $data[ $key ] );
             continue;
@@ -4637,14 +4641,31 @@ function hashbox_inject_post_schema() {
     if ( ! is_singular( 'post' ) ) {
         return;
     }
-    // Defer to Rank Math if its schema module is active.
-    if ( hashbox_rank_math_is_active() ) {
-        return;
-    }
     $post_id  = get_the_ID();
     $cats     = get_the_category( $post_id );
     $cat_name = ! empty( $cats ) ? $cats[0]->name : 'Insights';
     $cat_url  = ! empty( $cats ) ? get_category_link( $cats[0]->term_id ) : home_url( '/blog/' );
+
+    // Defer the Article node to Rank Math when active, but Rank Math only
+    // emits BreadcrumbList when its breadcrumb module is on (it is not here),
+    // so still emit ours unless Rank Math's graph already carried one
+    // (flag set in hashbox_rankmath_json_ld, which runs earlier in wp_head).
+    if ( hashbox_rank_math_is_active() ) {
+        if ( empty( $GLOBALS['hashbox_rm_has_breadcrumb'] ) ) {
+            hashbox_jsonld( array(
+                '@context'        => 'https://schema.org',
+                '@type'           => 'BreadcrumbList',
+                '@id'             => get_permalink( $post_id ) . '#breadcrumb',
+                'itemListElement' => array(
+                    array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
+                    array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Blog', 'item' => home_url( '/blog/' ) ),
+                    array( '@type' => 'ListItem', 'position' => 3, 'name' => $cat_name, 'item' => $cat_url ),
+                    array( '@type' => 'ListItem', 'position' => 4, 'name' => get_the_title( $post_id ), 'item' => get_permalink( $post_id ) ),
+                ),
+            ) );
+        }
+        return;
+    }
 
     hashbox_jsonld( array(
         '@context'      => 'https://schema.org',
