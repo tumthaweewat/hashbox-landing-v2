@@ -45,6 +45,11 @@ $faqs = array(
     array( 'q' => 'รายงานที่ได้เป็นแบบไหน?', 'a' => 'ข้อมูลอันดับคีย์เวิร์ดและการถูกอ้างอิงใน AI Overview อัปเดตรายวันจากระบบของเราเอง พร้อมสรุปสิ่งที่ทำและสิ่งที่จะทำต่อ คุณเห็นความเคลื่อนไหวได้ตลอด ไม่ต้องรอสรุปสิ้นเดือน และข้อมูลย้อนหลังเก็บไว้ทั้งหมดตั้งแต่วันแรกที่เริ่มงาน' ),
     array( 'q' => 'เว็บอยู่บน WordPress / Next.js / แพลตฟอร์มสำเร็จรูป ทำได้ไหม?', 'a' => 'ได้ เราทำงานกับ WordPress, Headless WordPress, Next.js และ Astro เป็นประจำ แพลตฟอร์มสำเร็จรูปบางตัวมีข้อจำกัดด้าน technical ที่แก้ไม่ได้ ซึ่งจะบอกตรงๆ ใน audit ว่าอะไรทำได้แค่ไหน' ),
     array( 'q' => 'เริ่มยังไง?', 'a' => 'เริ่มจากรับ SEO Audit ฟรี — ส่ง URL เว็บมาผ่านหน้า Contact เราตรวจ technical, content และโอกาสใน AI Overview แล้วนัดคุยผลแบบไม่มีข้อผูกมัด มีคำถามก่อนเริ่มก็ทักมาคุยได้เลย' ),
+    array( 'q' => 'รับทำ SEO สายขาว คืออะไร ต่างจากสายดำอย่างไร?', 'a' => 'SEO สายขาวคือการทำตามแนวทางที่ Google เผยแพร่ — แก้โครงสร้างเว็บ ความเร็ว Schema และเนื้อหาที่ตอบคำถามจริง ส่วนสายดำใช้ backlink ซื้อ เนื้อหาปั่น หรือซ่อนข้อความ ซึ่งได้ผลระยะสั้นแล้วโดนลงโทษ Hashbox รับทำ SEO สายขาวเท่านั้น: ทุกงานมีเกณฑ์ผ่านชัดเจน ตรวจย้อนได้ และคุณเห็นข้อมูลอันดับรายวันเอง' ),
+    array( 'q' => 'รับทำ Local SEO ในกรุงเทพให้ไหม?', 'a' => 'รับ — Local SEO Bangkok รวมอยู่ใน scope ได้: Google Business Profile ให้ครบทุก field, LocalBusiness schema, NAP ตรงกันทุกแพลตฟอร์ม, รีวิว และหน้าบริการที่ตอบ intent เฉพาะพื้นที่ เหมาะกับธุรกิจ B2B และบริการที่ลูกค้าค้นหาแบบระบุพื้นที่' ),
+    array( 'q' => 'CRO และ tracking รวมอยู่ในบริการรับทำ SEO ไหม?', 'a' => 'รวม — บริการ Digital Marketing + CRO เดิมถูกรวมเข้ามาในงาน SEO แล้ว เพราะ traffic ที่ไม่กลายเป็น lead ไม่มีความหมาย เราตั้งค่า GA4 + Search Console + lead event ให้ครบ ดู heatmap บนหน้าเงิน และรัน CRO sprint รายเดือนเมื่อ traffic มากพอ' ),
+    array( 'q' => 'Hashbox วัดผล SEO อย่างไร?', 'a' => 'ด้วย 8 ตัวชี้วัดที่คุณเห็นรายวัน: อันดับคีย์เวิร์ด Top 3/10/30, impressions + clicks + CTR จาก Search Console, AI Overview citations, AI mentions ใน ChatGPT/Claude/Gemini/Perplexity, Core Web Vitals pass rate, หน้าที่ index แล้ว, lead จาก organic และ referring domains — ทั้งหมดจากระบบ track ของเราเองและข้อมูล Google โดยตรง' ),
+
 );
 
 $pains = array(
@@ -88,7 +93,7 @@ $compare = array(
                 </ol>
             </nav>
             <span class="hb-eyebrow">SEO Service · วัดผลด้วยข้อมูลจริง</span>
-            <h1 class="hb-hero__title">รับทำ SEO<br><em>แบบ Technical-First</em><br>วัดผลด้วยข้อมูลจริงรายวัน</h1>
+            <h1 class="hb-hero__title">รับทำ SEO สายเทคนิค<br><em>ติดหน้าแรก Google และ AI Search</em><br>วัดผลด้วยข้อมูลจริงรายวัน</h1>
             <p class="hb-hero__sub">บริการรับทำ SEO ของ Hashbox ไม่ได้เริ่มจาก "เขียนบทความเดือนละ 4 ชิ้น" แต่เริ่มจากแก้โครงสร้างเว็บให้ Google อ่านได้เร็วและเข้าใจถูกต้องก่อน — Technical SEO, Core Web Vitals, Schema.org — แล้วต่อยอดด้วย content และ GEO เพื่อให้เว็บของคุณไม่ได้แค่ติดอันดับ แต่ถูก AI อ้างอิงด้วย · ค่าบริการเริ่มต้น 25,000 บาทต่อเดือน เริ่มจาก SEO Audit ฟรี</p>
             <div class="hb-hero__actions">
                 <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
@@ -103,7 +108,7 @@ $compare = array(
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-surface-2,#1E1E2A);border-radius:var(--hb-radius-md,8px);">
             <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">สรุปสั้นๆ</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
-                <strong>Hashbox รับทำ SEO แบบ technical-first เริ่มต้น <?php echo esc_html( $price_from_txt ); ?></strong> — แก้โครงสร้างเว็บ ความเร็ว และ Schema ให้ Google อ่านได้ถูกต้องก่อน แล้วค่อยต่อยอดด้วย content เรา optimize 2 สนามพร้อมกัน: อันดับบน Google และการถูกอ้างอิงใน AI Overview (GEO) ลูกค้าเห็นข้อมูลอันดับและ AI citation อัปเดตรายวันจากระบบ track ของเราเอง ไม่ใช่ PDF เดือนละครั้ง quote สุดท้ายออกตาม scope จริงหลัง SEO Audit ฟรี ไม่มีข้อผูกมัด
+                <strong>บริการรับทำ SEO ของ Hashbox คือ การปรับโครงสร้างเว็บ ความเร็ว Schema และเนื้อหา ให้ติดหน้าแรก Google และถูกอ้างอิงใน AI Search แบบสายขาว ตรวจย้อนได้ทุกขั้นตอน เริ่มต้น <?php echo esc_html( $price_from_txt ); ?></strong> — แก้โครงสร้างเว็บ ความเร็ว และ Schema ให้ Google อ่านได้ถูกต้องก่อน แล้วค่อยต่อยอดด้วย content เรา optimize 2 สนามพร้อมกัน: อันดับบน Google และการถูกอ้างอิงใน AI Overview (GEO) ลูกค้าเห็นข้อมูลอันดับและ AI citation อัปเดตรายวันจากระบบ track ของเราเอง ไม่ใช่ PDF เดือนละครั้ง quote สุดท้ายออกตาม scope จริงหลัง SEO Audit ฟรี ไม่มีข้อผูกมัด
             </p>
         </div>
     </div>
@@ -166,6 +171,16 @@ $compare = array(
                 <span class="hb-bento__label">06</span>
                 <h3 class="hb-h3">รายงานจากข้อมูลจริง รายวัน</h3>
                 <p class="hb-body">ข้อมูลอันดับ + การถูกอ้างอิงใน AI Overview จากระบบ data pipeline ของเราเอง เก็บทุกวัน เก็บย้อนหลังทั้งหมด และเป็นของโปรเจกต์คุณ พออันดับตกหรือ AI เปลี่ยนแหล่งอ้างอิง เราเห็นภายในวันนั้น ไม่ใช่ปลายเดือน</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">07</span>
+                <h3 class="hb-h3">Local SEO Bangkok</h3>
+                <p class="hb-body">ธุรกิจที่ลูกค้าค้นหาแบบ "ใกล้ฉัน" หรือระบุพื้นที่ — Google Business Profile, LocalBusiness schema, NAP ให้ตรงทุกแพลตฟอร์ม และหน้าบริการที่ตอบ intent เฉพาะพื้นที่ แนวทางอยู่ใน <a href="<?php echo esc_url( home_url( '/local-seo-bangkok-b2b-2026/' ) ); ?>">คู่มือ Local SEO สำหรับธุรกิจ B2B ในกรุงเทพ</a></p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">08</span>
+                <h3 class="hb-h3">SEO Recovery — traffic ตกแล้วกู้กลับ</h3>
+                <p class="hb-body">Traffic หายหลัง core update, ย้ายเว็บ หรือ redesign — ตรวจ indexation, redirect, CWV, backlink และ competitor gap แล้ววาง roadmap ว่าต้องแก้ technical หรือ content ก่อน เริ่มจาก <a href="<?php echo esc_url( home_url( '/seo-recovery-audit/' ) ); ?>">Technical SEO Audit ฟรี</a></p>
             </div>
         </div>
     </div>
@@ -251,6 +266,37 @@ $compare = array(
             </table>
         </div>
         <p class="hb-body" style="margin-top:var(--hb-space-5);color:var(--hb-text-muted);">จุดที่อยากขยายความคือเรื่องระบบวัดผล: agency ส่วนใหญ่เช่าเครื่องมือ SaaS แล้ว export รายงานให้ลูกค้า แต่ Hashbox สร้าง data pipeline ของตัวเอง เก็บอันดับคีย์เวิร์ดและการถูกอ้างอิงใน AI Overview ทุกวัน ข้อมูลดิบเก็บถาวร — เราจึงตอบได้เสมอว่า "อันดับขยับเพราะอะไร ตั้งแต่วันไหน" ด้วยหลักฐาน ไม่ใช่ความรู้สึก และทั้งหมดนี้ทำแบบสายขาวเท่านั้น — ลิสต์ 6 สิ่งที่เราไม่ทำต่อให้ลูกค้าขอ อยู่ที่หน้า<a href="<?php echo esc_url( home_url( '/services/seo/white-hat/' ) ); ?>" style="color:var(--hb-accent-blue,#2563EB);">รับทำ SEO สายขาว</a></p>
+    </div>
+</section>
+
+<section class="hb-section hb-section--surface" id="measure">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">วิธีวัดผล</span>
+            <h2 class="hb-h2">Hashbox วัดผลการรับทำ SEO อย่างไร — 8 ตัวชี้วัดที่คุณเห็นรายวัน</h2>
+            <p class="hb-section__sub">รับทำ SEO สายขาว หมายถึงทุกขั้นตอนตรวจย้อนได้และวัดด้วยตัวเลขเดียวกับที่ Google ให้ — ไม่มี backlink ซื้อ ไม่มี content ปั่น ไม่มีตัวเลขที่อธิบายที่มาไม่ได้</p>
+        </div>
+        <div class="hb-bento">
+            <?php
+            $hb_kpis = array(
+                array( 'อันดับคีย์เวิร์ด', 'จำนวนคำใน Top 3 / Top 10 / Top 30 เทียบรายวัน ไม่ใช่ค่าเฉลี่ยรายเดือน' ),
+                array( 'Impressions + Clicks + CTR', 'จาก Google Search Console — เห็นว่าอันดับที่ขึ้นกลายเป็นคนเข้าจริงหรือไม่' ),
+                array( 'AI Overview citations', 'คีย์เวิร์ดไหน Google แสดง AI Overview และหน้าไหนของคุณถูกอ้างอิง' ),
+                array( 'AI mentions', 'ChatGPT · Claude · Gemini · Perplexity เอ่ยถึงแบรนด์คุณกี่ครั้งจาก prompt ชุดเดียวกันทุกเดือน' ),
+                array( 'Core Web Vitals pass rate', 'สัดส่วน URL ที่ LCP / INP / CLS เขียว จาก field data จริง' ),
+                array( 'หน้าที่ index แล้ว', 'Indexed vs discovered — หน้าเงินทุกหน้าต้องอยู่ใน index' ),
+                array( 'Lead จาก organic', 'form · LINE · โทร ที่มาจาก search และ AI search แยกจากช่องทางอื่น' ),
+                array( 'Referring domains', 'จำนวนโดเมนที่ลิงก์มา — เพดานจริงของทุกคีย์เวิร์ดที่แข่งสูง' ),
+            );
+            foreach ( $hb_kpis as $hb_i => $hb_k ) :
+            ?>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label"><?php echo esc_html( str_pad( (string) ( $hb_i + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></span>
+                <h3 class="hb-h3"><?php echo esc_html( $hb_k[0] ); ?></h3>
+                <p class="hb-body"><?php echo esc_html( $hb_k[1] ); ?></p>
+            </div>
+            <?php endforeach; ?>
+        </div>
     </div>
 </section>
 

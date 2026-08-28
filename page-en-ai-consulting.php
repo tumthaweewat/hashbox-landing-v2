@@ -69,11 +69,43 @@ $faqs = array(
     </div>
 </section>
 
+<section class="hb-section" id="companies">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">The market</span>
+            <h2 class="hb-h2">AI consulting companies in Thailand — the three tiers, and where Hashbox fits</h2>
+            <p class="hb-section__sub">If you are comparing AI consulting companies in Bangkok, the list splits into three groups with very different price points and delivery models. Pick the tier that matches your budget and the size of the first process you want to automate.</p>
+        </div>
+        <div class="hb-bento">
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">Tier 1</span>
+                <h3 class="hb-h3">Global and Big-4 consultancies</h3>
+                <p class="hb-body">Accenture, Deloitte, PwC, KPMG and the large Thai SIs. Transformation programmes from roughly THB 2M upward, multi-quarter timelines, best for enterprises with an existing data team. Strategy-heavy; delivery is often subcontracted.</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">Tier 2</span>
+                <h3 class="hb-h3">Boutique AI studios (Hashbox is here)</h3>
+                <p class="hb-body">Small teams that design and ship production systems for SMEs and mid-market companies — LINE chatbots, RAG knowledge bases, sales agents, workflow automation. Projects from THB 60,000 to about THB 1.5M, 2–12 weeks, source code handed over. Hashbox publishes its prices and does the ROI assessment before any build.</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">Tier 3</span>
+                <h3 class="hb-h3">Freelancers and marketplaces</h3>
+                <p class="hb-body">Individual developers on Fastwork or Upwork from THB 10,000–100,000 per build. Cheapest option, but you own delivery risk, maintenance and PDPA compliance yourself, and there is rarely a written ROI case.</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">Compare</span>
+                <h3 class="hb-h3">What to ask any AI consultant in Bangkok</h3>
+                <p class="hb-body">Do they show the ROI maths before the build? Is pricing public? Who owns the source code? How do they handle PDPA and Thai-language data? Can they integrate with LINE OA and your CRM? The seven questions below are the checklist we answer for ourselves.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="hb-section">
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">Services</span>
-            <h2 class="hb-h2">What we build</h2>
+            <h2 class="hb-h2">AI solutions we build in Bangkok</h2>
             <p class="hb-section__sub">Six core services covering the AI use cases Thai B2B and SMB teams ask for most.</p>
         </div>
         <div class="hb-bento">

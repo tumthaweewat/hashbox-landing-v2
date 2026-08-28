@@ -27,6 +27,9 @@ $faqs = array(
     array( 'q' => 'Maintenance + monitoring หลังเปิดตัวรวมหรือไม่?', 'a' => 'รวม monitoring 30 วันแรก (CWV alerts, Search Console errors, uptime) · มี Care Plan รายเดือนเสริม 15,000-50,000 บาท/เดือน ครอบคลุม updates, monitoring, content updates, ranking reports' ),
     array( 'q' => 'รับประกัน Lighthouse 100 จริงหรือ ถ้าไม่ถึงคืนเงินหรือไม่?', 'a' => 'การันตี Lighthouse 95+ Mobile / 100 Desktop ถ้าไม่ถึงเป้าใน 14 วันหลัง launch refund 100% ของ Performance Engineering fee (~20-30% ของโปรเจกต์) เงื่อนไข: ใช้ Stack ที่เราแนะนำ + ไม่ติดตั้ง heavy 3rd-party plugin เพิ่ม' ),
     array( 'q' => 'ส่งมอบ source code ครบไหม สามารถย้ายเซิร์ฟเวอร์ได้ไหม?', 'a' => 'ส่งมอบ source code + Git repository + documentation ครบ · เป็นเจ้าของ 100% · ย้าย hosting ได้อิสระ · ไม่มี vendor lock-in · ไม่มี proprietary platform fee' ),
+    array( 'q' => 'รับทำเว็บไซต์ WordPress ด้วยไหม?', 'a' => 'รับ — ทั้ง Custom WordPress Theme ที่ Lighthouse 95+ และ Headless WordPress + Next.js สำหรับเว็บที่ต้องการ performance สูงสุด ทีมคุณยังแก้เนื้อหาเองผ่าน WordPress ได้เหมือนเดิม ดูรายละเอียดที่หน้าบริการรับทำเว็บไซต์ WordPress' ),
+    array( 'q' => 'เว็บโหลดช้า ต้องทำใหม่ทั้งหมดไหม?', 'a' => 'ส่วนใหญ่ไม่ต้อง — เว็บโหลดช้ามักแก้ได้ที่รูป, ฟอนต์, script และ hosting โดยไม่รื้อโครงสร้าง เริ่มจาก Website Audit ฟรี เราตรวจ Core Web Vitals จาก field data จริงแล้วบอกตรงๆ ว่าแก้บนเว็บเดิมได้แค่ไหน ถ้าโครงสร้างเดิมเป็นคอขวดจริงค่อยคุยเรื่องทำใหม่' ),
+
 );
 
 $deliverables = array(
@@ -975,7 +978,7 @@ $checks = array(
                         <li aria-current="page">SEO-Ready Website</li>
                     </ol>
                 </nav>
-                <h1 class="hb-hero__title">รับทำเว็บไซต์<br><em>SEO-Ready</em><br>พัฒนาเว็บให้พร้อมติด Google</h1>
+                <h1 class="hb-hero__title">รับทำเว็บไซต์<br><em>SEO-Ready</em><br>พร้อมติด Google และ AI Search ตั้งแต่วันเปิดตัว</h1>
                 <p class="hb-hero__sub hb-srw-hero__sub"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="color:inherit;text-decoration:underline;text-decoration-color:var(--hb-accent-blue,#2563EB);text-underline-offset:0.18em;">Hashbox</a> รับทำเว็บไซต์ธุรกิจด้วยโครงสร้างที่รองรับการติดอันดับบน Google และติด AI Search ดูแลตั้งแต่ Website Performance, Technical SEO ไปจนถึง User Experience ทุกเว็บต้องผ่านมาตรฐาน Lighthouse 100 พร้อม Core Web Vitals ระดับสีเขียว และมีระบบ Sitemap Auto-Submit เพื่อให้ Google เข้าถึงและจัดอันดับเว็บไซต์ได้เร็วขึ้น · แพ็กเกจ Landing Page สำหรับธุรกิจเริ่ม 35,900 บาท</p>
                 <div class="hb-hero__actions hb-srw-hero__actions">
                     <a href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">ประเมินโปรเจกต์ฟรี</a>
@@ -1034,7 +1037,7 @@ $checks = array(
     <section class="hb-srw-section hb-srw-section--surface">
         <div class="hb-container">
             <div class="hb-srw-head">
-                <h2 class="hb-h2">รับทำเว็บไซต์ธุรกิจทุกประเภท รองรับทุกการใช้งาน</h2>
+                <h2 class="hb-h2">รับทำเว็บไซต์บริษัท E-commerce และ Landing Page — ทุกประเภทธุรกิจ</h2>
                 <p class="hb-lead">3 เคสจาก 50+ โปรเจกต์ วัดผลจริงด้วย GSC, GA4, CrUX field data</p>
             </div>
             <div class="hb-srw-case-grid">
@@ -1290,11 +1293,38 @@ $checks = array(
         </div>
     </section>
 
+    <section class="hb-srw-section" id="rank">
+        <div class="hb-container">
+            <div class="hb-srw-head">
+                <span class="hb-eyebrow">ติดหน้าแรก Google</span>
+                <h2 class="hb-h2">รับทำเว็บไซต์ให้ติดหน้าแรก Google ได้จริงไหม — และทำไมเว็บโหลดช้าถึงไม่ติด</h2>
+                <p class="hb-lead">ไม่มีใครรับประกันอันดับ 1 ได้ แต่เว็บที่โครงสร้างถูกต้องตั้งแต่วันแรกเริ่มแข่งได้ตั้งแต่การ crawl ครั้งแรก — สิ่งที่เราควบคุมได้และวัดได้มี 3 อย่าง</p>
+            </div>
+            <div class="hb-srw-related-grid">
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/core-web-vitals-thai-guide-2026/' ) ); ?>" style="text-decoration:none;">
+                    <span class="hb-eyebrow">เว็บโหลดช้า</span>
+                    <h3 class="hb-card__title">Core Web Vitals เขียวทุก URL</h3>
+                    <p class="hb-card__body">เว็บโหลดช้า = LCP เกิน 2.5 วินาที = Google จัดอันดับต่ำกว่าคู่แข่งที่เนื้อหาเท่ากัน ทุกเว็บของเราต้องผ่านเกณฑ์ LCP / INP / CLS จาก field data ก่อน deploy</p>
+                </a>
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/schema-markup-thai-guide-2026/' ) ); ?>" style="text-decoration:none;">
+                    <span class="hb-eyebrow">Google อ่านออก</span>
+                    <h3 class="hb-card__title">Schema + โครงสร้างหน้าตาม search intent</h3>
+                    <p class="hb-card__body">หน้าบริการแต่ละหน้าถือคีย์เวิร์ดเดียว ชื่อหน้า = คำที่คนค้น, Schema ครบตามประเภทธุรกิจ, internal link ชี้ถูกหน้า — นี่คือสิ่งที่ทำให้เว็บใหม่ index และเริ่มติดใน 1–2 เดือนแทนที่จะเป็น 6</p>
+                </a>
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>" style="text-decoration:none;">
+                    <span class="hb-eyebrow">มีเว็บอยู่แล้ว?</span>
+                    <h3 class="hb-card__title">Website Audit ฟรี ก่อนตัดสินใจทำใหม่</h3>
+                    <p class="hb-card__body">ส่วนใหญ่เว็บโหลดช้าแก้ได้โดยไม่ต้องทำใหม่ทั้งหมด — ส่ง URL มา เราตรวจ Core Web Vitals, index, Schema แล้วบอกตรงๆ ว่าควรแก้หรือควรสร้างใหม่</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <section class="hb-srw-section hb-srw-section--surface" id="pricing">
         <div class="hb-container">
             <div class="hb-srw-head">
                 <span class="hb-eyebrow">Pricing</span>
-                <h2 class="hb-h2">ราคาบริการรับทำเว็บไซต์ SEO-Ready</h2>
+                <h2 class="hb-h2">รับทำเว็บไซต์ ราคาเท่าไร — แพ็กเกจ SEO-Ready เริ่ม 35,900 บาท</h2>
                 <p class="hb-lead">ราคาบริการรับทำเว็บไซต์ทุก Tier มาพร้อม Build Gate 12 ขั้นตอน และ Deliverables 20 รายการ มาตรฐานเดียวกันทุกโปรเจกต์ โดยราคาจะต่างกันตาม Scope งาน จำนวนหน้าเว็บไซต์ และระดับความซับซ้อนของระบบ</p>
             </div>
             <div class="hb-srw-price-grid">

@@ -778,12 +778,12 @@ function hashbox_get_seo_metadata() {
                 'description' => 'รวม 5 บริการในทีมเดียว: รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO, รับทำ AI Search (GEO) และ Workflow Automation n8n — ราคาโปร่งใส วัดผลจากข้อมูลจริงรายวัน',
             ),
             'seo-ready-website' => array(
-                'title'       => 'รับทำเว็บไซต์ ออกแบบเว็บไซต์ธุรกิจทุกประเภท พร้อมใช้งานทันที',
-                'description' => 'รับทำเว็บไซต์ครบวงจร ทั้งเว็บไซต์บริษัท เว็บแอปพลิเคชัน และระบบเชื่อมต่อฐานข้อมูล พร้อมวางโครงสร้างเว็บไซต์ให้พร้อมติด Google และ AI Search ตั้งแต่วันแรก',
+                'title'       => 'รับทำเว็บไซต์ SEO-Ready ติด Google และ AI Search ตั้งแต่วันเปิดตัว เริ่ม 35,900 บาท | Hashbox',
+                'description' => 'รับทำเว็บไซต์บริษัท E-commerce และ Landing Page แบบ SEO-Ready — Lighthouse 100, Core Web Vitals เขียว, Schema ครบ, รองรับ AI Search ส่งมอบพร้อม source code ราคาเริ่ม 35,900 บาท ประเมินโปรเจกต์ฟรี',
             ),
             'website-development' => array(
-                'title'       => 'รับทำเว็บไซต์ ออกแบบเว็บไซต์ธุรกิจทุกประเภท พร้อมใช้งานทันที',
-                'description' => 'รับทำเว็บไซต์ครบวงจร ทั้งเว็บไซต์บริษัท เว็บแอปพลิเคชัน และระบบเชื่อมต่อฐานข้อมูล พร้อมวางโครงสร้างเว็บไซต์ให้พร้อมติด Google และ AI Search ตั้งแต่วันแรก',
+                'title'       => 'รับทำเว็บไซต์ SEO-Ready ติด Google และ AI Search ตั้งแต่วันเปิดตัว เริ่ม 35,900 บาท | Hashbox',
+                'description' => 'รับทำเว็บไซต์บริษัท E-commerce และ Landing Page แบบ SEO-Ready — Lighthouse 100, Core Web Vitals เขียว, Schema ครบ, รองรับ AI Search ส่งมอบพร้อม source code ราคาเริ่ม 35,900 บาท ประเมินโปรเจกต์ฟรี',
             ),
             // Commercial intent only. This page used to lead with "ปรึกษาทำระบบ
             // AI Solution" — the exact phrase /ai-solution-consulting-guide-2026/
@@ -840,7 +840,7 @@ function hashbox_get_seo_metadata() {
      */
     if ( 'services/seo' === hashbox_current_request_path() ) {
         return array(
-            'title'       => 'รับทำ SEO สายเทคนิค วัดผลด้วยข้อมูลรายวัน | Hashbox',
+            'title'       => 'รับทำ SEO สายเทคนิค ติดหน้าแรก Google และ AI Search เริ่ม 25,000/เดือน | Hashbox',
             'description' => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
         );
     }
@@ -2798,6 +2798,15 @@ function hashbox_serve_llms_txt() {
         header( 'X-Robots-Tag: noindex' );
         header( 'Cache-Control: public, max-age=3600' );
         echo hashbox_llms_txt_content();
+        exit;
+    }
+
+    if ( '/landing-sitemap.xml' === $request_uri && function_exists( 'hashbox_landing_sitemap_entries' ) ) {
+        header( 'Content-Type: application/xml; charset=utf-8' );
+        header( 'X-Robots-Tag: noindex' );
+        header( 'Cache-Control: public, max-age=3600' );
+        echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . hashbox_rankmath_sitemap_landing_content() . '</urlset>';
         exit;
     }
 
