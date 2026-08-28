@@ -746,7 +746,7 @@ function hashbox_get_seo_metadata() {
     $en_meta = array(
         'en/ai-consulting' => array(
             'title'       => 'AI Consulting Bangkok | Production AI for Thai Business',
-            'description' => 'AI consulting company in Bangkok, Thailand — LINE chatbots, Sales GPT, RAG knowledge bases and workflow automation, shipped to production with ROI calculated before we build. From THB 60,000.',
+            'description' => 'AI consulting company in Bangkok, Thailand — LINE chatbots, Sales GPT, RAG & workflow automation shipped to production. ROI calculated first. From THB 60,000.',
         ),
     );
     if ( isset( $en_meta[ $en_path ] ) ) {
@@ -795,6 +795,10 @@ function hashbox_get_seo_metadata() {
             'portfolio' => array(
                 'title'       => 'Portfolio งาน Web, Mobile และ Digital | Hashbox Studio',
                 'description' => 'รวมผลงาน web design, mobile app, e-commerce และ digital product จากทีม Hashbox Studio ครอบคลุม Banking, Real Estate, E-commerce และ AI',
+            ),
+            'geo-checker' => array(
+                'title'       => 'GEO Readiness Checker — เว็บพร้อมถูก AI อ้างอิงไหม | Hashbox',
+                'description' => 'เครื่องมือฟรี ใส่ URL แล้วรู้คะแนน 0-100 ว่าหน้าเว็บพร้อมถูก ChatGPT, Perplexity และ Google AI Overviews อ้างอิงแค่ไหน พร้อมคำแนะนำที่ลงมือทำได้ทันที',
             ),
         );
 
@@ -1068,6 +1072,18 @@ function hashbox_default_og_image_url() {
 }
 
 /**
+ * Real square brand logo for schema Organization.logo (Google logo
+ * guidance prefers a near-square logo, not the 1200x630 OG banner).
+ * Falls back to the OG image only if the logo asset is missing.
+ */
+function hashbox_logo_image_url() {
+    if ( file_exists( get_template_directory() . '/assets/favicons/icon-512.png' ) ) {
+        return get_template_directory_uri() . '/assets/favicons/icon-512.png';
+    }
+    return hashbox_default_og_image_url();
+}
+
+/**
  * Return [width, height] of the default OG image so OpenGraph tags
  * include og:image:width/height. Social previews render with a
  * placeholder until both are present, so emitting them improves
@@ -1151,10 +1167,10 @@ function hashbox_current_public_url() {
         return get_permalink();
     }
     if ( is_category() ) {
-        return get_category_link( get_queried_object_id() );
+        return is_paged() ? get_pagenum_link( get_query_var( 'paged' ) ) : get_category_link( get_queried_object_id() );
     }
     if ( is_tag() ) {
-        return get_tag_link( get_queried_object_id() );
+        return is_paged() ? get_pagenum_link( get_query_var( 'paged' ) ) : get_tag_link( get_queried_object_id() );
     }
     if ( is_search() ) {
         return get_search_link();
@@ -1195,6 +1211,7 @@ function hashbox_homepage_meta_description() {
     echo '<meta property="og:description" content="' . esc_attr( $desc ) . '">' . "\n";
     echo '<meta property="og:url" content="' . esc_url( $url ) . '">' . "\n";
     echo '<meta property="og:image" content="' . esc_url( $image ) . '">' . "\n";
+    echo '<meta property="og:image:alt" content="' . esc_attr( $title ) . '">' . "\n";
     list( $img_w, $img_h ) = hashbox_og_image_dimensions( $image );
     if ( $img_w > 0 && $img_h > 0 ) {
         echo '<meta property="og:image:width" content="' . (int) $img_w . '">' . "\n";
@@ -1228,6 +1245,27 @@ function hashbox_seo_noindex_meta() {
     }
 }
 add_action( 'wp_head', 'hashbox_seo_noindex_meta', 1 );
+
+/**
+ * Rank Math delegates noindex to per-page settings, which are easy to forget.
+ * Force noindex on the password-gated portfolio template (and, defensively, on
+ * internal search + paginated archives) so a thin/gated page can't slip into
+ * the index when Rank Math is active. This filter only fires while Rank Math is
+ * active, complementing hashbox_seo_noindex_meta() which runs when it is not —
+ * so exactly one robots directive is emitted, never a duplicate.
+ */
+function hashbox_rankmath_force_noindex( $robots ) {
+    $should_noindex = is_search()
+        || is_page_template( 'page-portfolio.php' )
+        || ( is_paged() && ( is_category() || is_tag() || is_author() || is_date() ) );
+
+    if ( $should_noindex ) {
+        $robots['index']  = 'noindex';
+        $robots['follow'] = 'follow';
+    }
+    return $robots;
+}
+add_filter( 'rank_math/frontend/robots', 'hashbox_rankmath_force_noindex' );
 
 /**
  * Preload the LCP image so it starts downloading during HTML parse
@@ -2421,6 +2459,15 @@ function hashbox_rankmath_schema_service() {
             'opens'     => '09:00',
             'closes'    => '18:00',
         ),
+        'hasOfferCatalog' => array(
+            '@type'           => 'OfferCatalog',
+            'name'            => 'Services',
+            'itemListElement' => array(
+                array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'SEO-Ready Website Build', 'description' => 'Production-ready websites that pass Lighthouse 100, green Core Web Vitals, complete schema, and rank within 60-90 days.' ) ),
+                array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'Digital Marketing Tools + CRO', 'description' => 'GA4, GSC, Looker Studio, heatmaps, A/B testing, and monthly CRO sprints to compound conversion.' ) ),
+                array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'AI Expert Consulting', 'description' => 'LINE bot, sales GPT, RAG knowledge base, and workflow automation that ships to production.' ) ),
+            ),
+        ),
     );
 }
 
@@ -2432,12 +2479,21 @@ function hashbox_rankmath_json_ld( $data, $jsonld = null ) {
     $home        = home_url( '/' );
     $current_url = hashbox_current_public_url();
     $description = hashbox_get_meta_description();
-    $has_org     = false;
-    $has_website = false;
-    $has_service = false;
+    $has_org       = false;
+    $has_website   = false;
+    $has_service   = false;
+    $is_case_study = (bool) hashbox_current_case_study_slug();
 
     foreach ( $data as $key => $entity ) {
         if ( ! is_array( $entity ) ) {
+            continue;
+        }
+
+        // Case-study pages emit their own Article + BreadcrumbList (see
+        // hashbox_render_case_study), so drop Rank Math's BreadcrumbList to
+        // avoid two BreadcrumbList graphs describing the same page.
+        if ( $is_case_study && hashbox_schema_entity_has_type( $entity, 'BreadcrumbList' ) ) {
+            unset( $data[ $key ] );
             continue;
         }
 
@@ -2577,7 +2633,7 @@ function hashbox_inject_home_schema() {
     }
 
     $home   = home_url( '/' );
-    $logo   = get_template_directory_uri() . '/assets/favicons/apple-touch-icon.png';
+    $logo   = hashbox_logo_image_url();
 
     hashbox_jsonld( array(
         '@context' => 'https://schema.org',
@@ -4221,7 +4277,9 @@ function hashbox_render_case_study( array $case ) {
         'headline'       => $case['name'] . ' — ' . $case['headline'],
         'description'    => $case['lede'],
         'url'            => $work_url,
+        'image'          => hashbox_default_og_image_url(),
         'datePublished'  => $case['year'] . '-01-01',
+        'dateModified'   => get_post_modified_time( 'c', true, get_queried_object_id() ) ?: ( $case['year'] . '-01-01' ),
         // Case studies are Thai-only copy rendered by this function; there is
         // no /en/ counterpart to follow, so this stays a literal.
         'inLanguage'     => 'th-TH',

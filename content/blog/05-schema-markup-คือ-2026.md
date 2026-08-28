@@ -287,7 +287,7 @@ Schema **ไม่ใช่ ranking factor โดยตรง** ตาม Google
 - HowTo (guide)
 - Product + Review (e-commerce)
 
-ที่ Hashbox เราใช้ [บริการรับทำเว็บไซต์ SEO-Ready](/services/seo-ready-website/) ที่ install schema 8+ types ครบในทุกโปรเจกต์ validate ผ่าน Schema.org + Google Rich Results Test เป็นส่วนหนึ่งของ Build Gate ก่อน deploy
+ที่ Hashbox เราใช้ [บริการรับทำเว็บไซต์ SEO-Ready](/services/website-development/) ที่ install schema 8+ types ครบในทุกโปรเจกต์ validate ผ่าน Schema.org + Google Rich Results Test เป็นส่วนหนึ่งของ Build Gate ก่อน deploy
 
 ดูเพิ่ม:
 - [Technical SEO คือ? คู่มือ 2026](/technical-seo-guide/)
@@ -324,7 +324,7 @@ JSON-LD อยู่ใน `<script>` ที่ browser parse แยก ไม�
 - DIY: 0 บาท
 - Plugin: 1,000-5,000 บาท/ปี
 - จ้าง freelance ติดตั้ง: 5,000-20,000 บาท/เว็บ
-- รวมในบริการ [SEO-Ready Website](/services/seo-ready-website/) — เริ่ม 35,900 บาท (schema 8+ types ครบ)
+- รวมในบริการ [SEO-Ready Website](/services/website-development/) — เริ่ม 35,900 บาท (schema 8+ types ครบ)
 
 ---
 
