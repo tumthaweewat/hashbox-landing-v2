@@ -37,8 +37,8 @@ $service_options = $is_ai_landing
     : array(
         'SEO-Ready Website',
         'AI Tool / LINE Bot',
-        'Digital Marketing + CRO',
-        'Bundle ทั้ง 3 บริการ',
+        'รับทำ SEO + CRO',
+        'Bundle Web + SEO + AI',
         'ยังไม่แน่ใจ ขอ Audit ก่อน',
     );
 $budget_options = $is_ai_landing

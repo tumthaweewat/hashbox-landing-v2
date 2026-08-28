@@ -690,8 +690,8 @@ function hashbox_rank_math_is_active() {
  */
 function hashbox_get_seo_metadata() {
     $fallback = array(
-        'title'       => 'Hashbox Studio | Website, Marketing และ AI Consulting',
-        'description' => 'Hashbox Studio ช่วยธุรกิจไทยสร้างเว็บไซต์ SEO-Ready, วาง Digital Marketing + CRO และพัฒนา AI Workforce ที่ใช้งานจริง วัดผลผ่าน KPI เดียวกัน',
+        'title'       => 'Hashbox Studio | รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI, รับทำ SEO และ AI Search',
+        'description' => 'Hashbox Studio ช่วยธุรกิจไทยสร้างเว็บไซต์ SEO-Ready, ทำ SEO และ AI Search และวางระบบ AI ที่ใช้งานจริง วัดผลผ่าน KPI เดียวกัน',
     );
 
     $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
@@ -919,7 +919,7 @@ function hashbox_get_seo_metadata() {
     if ( is_404() ) {
         return array(
             'title'       => 'ไม่พบหน้าที่ต้องการ | Hashbox Studio',
-            'description' => 'หน้าที่คุณเปิดอาจถูกย้ายหรือลบแล้ว กลับไปที่ Hashbox Studio เพื่อดูบริการรับทำเว็บไซต์ SEO, Digital Marketing + CRO และ AI Consulting',
+            'description' => 'หน้าที่คุณเปิดอาจถูกย้ายหรือลบแล้ว กลับไปที่ Hashbox Studio เพื่อดูบริการรับทำเว็บไซต์ SEO-Ready, รับทำ SEO, AI Search และที่ปรึกษา AI',
         );
     }
 
@@ -1780,7 +1780,7 @@ function hashbox_audit_landing_pages() {
         'cro-funnel-audit' => array(
             'slug'             => 'cro-funnel-audit',
             'service_label'    => 'CRO Sprint',
-            'service_interest' => 'Digital Marketing + CRO',
+            'service_interest' => 'รับทำ SEO + CRO',
             'meta_title'       => 'CRO Funnel Audit ฟรี | Hashbox Studio',
             'meta_description' => 'มี traffic แต่ lead ไม่มา ตรวจ funnel ด้วย GA4, GSC, heatmap และ A/B test plan เพื่อเพิ่ม conversion จาก traffic เดิม',
             'hero_headline'    => 'มี Traffic แต่ Lead ไม่มา?',
@@ -2944,8 +2944,8 @@ if ( ! function_exists( 'hashbox_get_home_faqs' ) ) {
                 'a' => 'ขึ้นอยู่กับโจทย์ของแต่ละโปรเจกต์ ถ้าต้องการ Performance สูงสุด เราใช้ Next.js เชื่อมกับ Headless CMS แต่ถ้าทีมลูกค้าต้องการแก้เนื้อหาเองคล่อง ๆ เราเลือก WordPress พร้อม Custom Theme ส่วนระบบ Hosting จะวางบน Cloudflare หรือ Vercel ส่วน Analytics ใช้ GA4 ผูกกับ Search Console และ Looker Studio ทุกครั้งครับ',
             ),
             array(
-                'q' => 'Digital Marketing Tools และ CRO ทำอะไรบ้าง?',
-                'a' => 'นอกจากจะติดตั้งและ Config เครื่องมือ Tracking ครบวงจรให้แล้ว ทีมเรายังรัน CRO Sprint รายเดือนต่อเนื่อง เริ่มจากการตั้งสมมติฐานจาก Data จริง รัน A/B Test แล้ววัดผล ส่ง Report พร้อมคำแนะนำที่นำไป Ship ได้ทันที ลูกค้าจึงได้ทั้งเครื่องมือและ Insight ไม่ใช่แค่ติดตั้งทิ้งไว้แล้วจบครับ',
+                'q' => 'บริการรับทำ SEO และ AI Search (GEO) ของ Hashbox ทำอะไรบ้าง?',
+                'a' => 'รับทำ SEO สายเทคนิค: แก้โครงสร้างเว็บ Core Web Vitals และ Schema ก่อน แล้วต่อยอดด้วย content, Local SEO และ CRO + tracking ให้ traffic กลายเป็น lead ส่วน AI Search (GEO) คือการทำให้แบรนด์ถูกอ้างอิงใน Google AI Overview, ChatGPT, Perplexity และ Gemini — ทั้งสองวัดผลจากระบบ track อันดับและ AI citation ของเราเอง อัปเดตรายวัน เริ่มต้น 25,000 บาทต่อเดือน จาก SEO Audit ฟรีครับ',
             ),
             array(
                 'q' => 'AI Consulting ครอบคลุมอะไรบ้าง?',

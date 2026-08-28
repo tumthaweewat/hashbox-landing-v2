@@ -30,7 +30,7 @@ $categories = get_categories( array(
         <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
         <span class="hb-eyebrow">BLOG</span>
         <h1 class="hb-blog-hero__title">Blog SEO, Web Performance และ AI Automation</h1>
-        <p class="hb-blog-hero__lede">บทความ SEO, Core Web Vitals, Digital Marketing + CRO และ AI จากทีมที่ Code, Run Ads และ Implement ระบบจริง — เน้นกรณีศึกษาและขั้นตอนที่ลงมือทำได้</p>
+        <p class="hb-blog-hero__lede">บทความ SEO, Core Web Vitals, AI Search (GEO), CRO และ AI จากทีมที่ Code และ Implement ระบบจริง — เน้นกรณีศึกษาและขั้นตอนที่ลงมือทำได้</p>
 
         <?php if ( ! empty( $categories ) ) : ?>
             <nav class="hb-blog-cats" aria-label="Categories">
