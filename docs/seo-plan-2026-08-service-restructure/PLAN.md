@@ -48,7 +48,10 @@ Guard: PSI mobile ≥ 90 · H1 หน้าแรกคง "รับทำเ�
 | S1.8 | /services/website-development/ template: H1 "รับทำเว็บไซต์ SEO-Ready … รองรับ AI Search", นิยาม, H2 variants (บริษัท / ราคา / SEO Ready / WordPress / ติดหน้าแรก Google / เว็บโหลดช้า), FAQ "ค่าใช้จ่ายเริ่มต้น → 35,900" ใน FAQPage, PSI proof จริง, ลิงก์ /website-audit/ | B2 |
 | S1.9 | Verify: `php -l`, contract tests, curl 301, `grep digital-marketing-tools` = 0, Rich Results, PSI mobile, GSC request index (T) | — |
 
-## Sprint 2 — สัปดาห์ 3–4 · Claude
+## Sprint 2 — สัปดาห์ 3–4 · Claude — **ส่งแล้ว 2026-08-29** (commits 796c353 → 8688fdc)
+
+สถานะ: S2.1 ✅ `/services/ai-search/` (page 239, template page-ai-search.php, 9 FAQ, Service/FAQPage/Breadcrumb schema, proof = ข้อมูล Signal, ราคา = ข้อเท็จจริง "รวมใน SEO retainer 25,000 / quote แยกหลัง audit" — รอ T4 ถ้าจะใส่ตัวเลขแยก) + `/geo-checker/` publish (page 240) · S2.2 ✅ CTA post 66/208 → ai-search; CTA เพิ่มใน post 17/68/70/81/89/91 ที่ไม่มีลิงก์หน้าบริการเลย · S2.3 ✅ n8n section "รับวางระบบ n8n + AI Automation" + FAQ (website-dev ทำใน S1.8 แล้ว) · S2.4 ✅ theme มี author + วันที่อัปเดตอยู่แล้ว; FAQ ฝังแบรนด์ทำในทุกหน้าบริการ · S2.5 ⏳ Friday loop ครั้งแรก = ศุกร์ 4 ก.ย. (รอ GSC สะสม)
+รอ Tum: GSC request index `/services/ai-search/`, `/geo-checker/`, post 66, 208 + รายการจาก Sprint 1 · T1–T6 · **C5 "รับทำเว็บไซต์ ราคา" ยังไม่ได้ทำ (ต้องการตัวเลขราคาจริงต่อ tier จากคุณยืนยันก่อน) → Sprint 3**
 | # | งาน | ref |
 |---|---|---|
 | S2.1 | `/services/ai-search/`: brief จาก TEMPLATE → draft 3 รอบ → publish. Anatomy: นิยาม → ทำไม 2026 → กระบวนการ 5 ขั้น → platform grid → KPI (AI Visibility / Mentions / Citations / SoV) → package + ราคา (T4) → **proof = Signal dashboard ของเราเอง** → FAQ 8 → /geo-checker/ | C1 |

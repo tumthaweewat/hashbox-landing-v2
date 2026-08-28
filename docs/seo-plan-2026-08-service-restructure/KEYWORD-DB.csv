@@ -1,65 +1,65 @@
 score,group,keyword,lang,intent,cluster,rank_2026-08-28,landing_page,serp_owner,business_value,rank_opportunity,ai_gap,readiness,content_action,workstream,status
-49,Win,ai consulting bangkok,en,commercial,ai-consulting-en,14,/en/ai-consulting/,map 100%,5,5,5,4,B5 answer-first list + GBP,B5,todo
+49,Win,ai consulting bangkok,en,commercial,ai-consulting-en,14,/en/ai-consulting/,map 100%,5,5,5,4,B5 answer-first list + GBP,B5,onsite done 2026-08-29
 49,Win,ai consulting companies bangkok,en,commercial,ai-consulting-en,16,/en/ai-consulting/,map 100%,5,5,5,4,B5 + C3 listicle,C3,todo
-49,Win,ai consultant bangkok,en,commercial,ai-consulting-en,18,/en/ai-consulting/,map 100%,5,5,5,4,B5 + GBP,B5,todo
+49,Win,ai consultant bangkok,en,commercial,ai-consulting-en,18,/en/ai-consulting/,map 100%,5,5,5,4,B5 + GBP,B5,onsite done 2026-08-29
 49,Win,ai consulting companies thailand,en,commercial,ai-consulting-en,23,/en/ai-consulting/,map 100%,5,5,5,4,"C3 listicle (AIO 25 sources, none us)",C3,todo
-45,Defend,บริการให้คำปรึกษา ai solution,th,commercial,ai-consulting,9,/ai-solution-consulting-guide-2026/,organic,5,4,4,5,H2 variant on post 170 + link from service page,B3,todo
-45,Win,ที่ปรึกษา ai ไทย,th,commercial,ai-consulting,14,/services/ai-consulting/,organic,5,5,3,4,refresh service page template (B3) + footer/nav links,B3,todo
-44,Build,รับทำ seo technical audit,th,transactional,seo,31,/seo-audit/,-,5,5,3,3,sitemap + title 'รับทำ Technical SEO Audit',A7,todo
-43,Build,รับทำ n8n,th,transactional,n8n,-,/services/n8n-automation/,-,5,3,5,4,B4 + footer + A6 links from post 196,B4,todo
-43,Build,ai consulting thailand,en,commercial,ai-consulting-en,-,/en/ai-consulting/,map 33%,5,3,5,4,B5 H2 exact + C3,B5,todo
+45,Defend,บริการให้คำปรึกษา ai solution,th,commercial,ai-consulting,9,/ai-solution-consulting-guide-2026/,organic,5,4,4,5,H2 variant on post 170 + link from service page,B3,onsite done 2026-08-29
+45,Win,ที่ปรึกษา ai ไทย,th,commercial,ai-consulting,14,/services/ai-consulting/,organic,5,5,3,4,refresh service page template (B3) + footer/nav links,B3,onsite done 2026-08-29
+44,Build,รับทำ seo technical audit,th,transactional,seo,31,/seo-audit/,-,5,5,3,3,sitemap + title 'รับทำ Technical SEO Audit',A7,onsite done 2026-08-29
+43,Build,รับทำ n8n,th,transactional,n8n,-,/services/n8n-automation/,-,5,3,5,4,B4 + footer + A6 links from post 196,B4,onsite done 2026-08-29
+43,Build,ai consulting thailand,en,commercial,ai-consulting-en,-,/en/ai-consulting/,map 33%,5,3,5,4,B5 H2 exact + C3,B5,onsite done 2026-08-29
 43,Build,ai solutions bangkok,en,commercial,ai-consulting-en,-,/en/ai-consulting/,map 50%,5,3,5,4,B5 + C3 (AIO 17 sources),C3,todo
-42,Defend,ปรึกษาทำระบบ ai solution,th,commercial,ai-consulting,3,/ai-solution-consulting-guide-2026/,video 67%,5,3,4,5,CTR fix title/meta + proof + CTA,F1,todo
-42,Defend,ปรึกษาทำระบบ ai solution สำหรับธุรกิจ,th,commercial,ai-consulting,3,/ai-solution-consulting-guide-2026/,video 67%,5,3,4,5,CTR fix (same page),F1,todo
-41,Win,local seo bangkok,en,commercial,seo,13,/local-seo-bangkok-b2b-2026/,-,4,5,3,4,post 92 answer-first + Local SEO section on /services/seo/,A7,todo
-41,Build,รับทำ seo audit,th,transactional,seo,49,/seo-audit/,-,5,4,3,3,same as above,A7,todo
-41,Build,รับทำ ai search,th,transactional,ai-search,-,/services/ai-search/ (new),-,5,3,5,2,C1 new money page,C1,todo
-41,Build,ที่ปรึกษา ai สำหรับธุรกิจ,th,commercial,ai-consulting,-,/services/ai-consulting/,video 75%,5,3,4,4,B3 H1 exact + video,B3,todo
-41,Build,รับทำเว็บไซต์ seo,th,transactional,website,-,/services/website-development/,-,5,3,4,4,B2 H1 'รับทำเว็บไซต์ SEO-Ready…',B2,todo
+42,Defend,ปรึกษาทำระบบ ai solution,th,commercial,ai-consulting,3,/ai-solution-consulting-guide-2026/,video 67%,5,3,4,5,CTR fix title/meta + proof + CTA,F1,onsite done 2026-08-29
+42,Defend,ปรึกษาทำระบบ ai solution สำหรับธุรกิจ,th,commercial,ai-consulting,3,/ai-solution-consulting-guide-2026/,video 67%,5,3,4,5,CTR fix (same page),F1,onsite done 2026-08-29
+41,Win,local seo bangkok,en,commercial,seo,13,/local-seo-bangkok-b2b-2026/,-,4,5,3,4,post 92 answer-first + Local SEO section on /services/seo/,A7,onsite done 2026-08-29
+41,Build,รับทำ seo audit,th,transactional,seo,49,/seo-audit/,-,5,4,3,3,same as above,A7,onsite done 2026-08-29
+41,Build,รับทำ ai search,th,transactional,ai-search,-,/services/ai-search/,-,5,3,5,2,C1 new money page,C1,live 2026-08-29
+41,Build,ที่ปรึกษา ai สำหรับธุรกิจ,th,commercial,ai-consulting,-,/services/ai-consulting/,video 75%,5,3,4,4,B3 H1 exact + video,B3,onsite done 2026-08-29
+41,Build,รับทำเว็บไซต์ seo,th,transactional,website,-,/services/website-development/,-,5,3,4,4,B2 H1 'รับทำเว็บไซต์ SEO-Ready…',B2,onsite done 2026-08-29
 39,Build,รับทำเว็บไซต์ ราคา,th,commercial,website,-,C5 post (new),-,5,3,4,2,"C5 pricing guide + FAQ '35,900' in FAQPage",C5,todo
-39,Build,line chatbot ราคา,th,commercial,ai-consulting,-,post 69,-,4,4,3,5,"post 69 has 60,000 price — add FAQ 'ราคา' + title",F2,todo
-38,Build,รับทำเว็บไซต์ บริษัท,th,transactional,website,-,/services/website-development/,-,5,2,4,4,B2 H2 variant + GBP,B2,todo
-37,Build,ai seo,th,commercial,ai-search,-,/services/ai-search/ (new),-,4,3,5,2,C1,C1,todo
-37,Build,geo agency,en,commercial,ai-search,-,/services/ai-search/ (new),-,4,3,5,2,C1,C1,todo
-37,Build,บริการ n8n,th,commercial,n8n,-,/services/n8n-automation/,video 100%,4,3,4,4,B4 H2 variant + footer link + video,B4,todo
-37,Build,ปรึกษา ai transformation,th,commercial,ai-consulting,-,post 220,video 67%,4,3,4,4,post 220 CTA + B3 bullet,A6,todo
-37,Build,ผู้ให้บริการโซลูชัน ai,th,commercial,ai-consulting,-,/services/ai-consulting/,-,4,3,4,4,B3 H2 variant,B3,todo
-37,Build,รับทำ ai prototype,th,transactional,ai-consulting,-,post 224,video 67%,4,3,4,4,post 224 CTA + B3 bullet + video,A6,todo
-37,Build,รับทำ ai tool,th,transactional,ai-consulting,-,post 224,video 100%,4,3,4,4,same + video,E2,todo
-37,Build,รับทำ seo,th,transactional,seo,-,/services/seo/,map 100%,5,1,5,4,B1 template + footer + GBP; head term,B1,todo
-37,Build,รับวางระบบ n8n,th,transactional,n8n,-,/services/n8n-automation/,video 100%,4,3,4,4,B4 H2 + video,B4,todo
-37,Build,ให้คำปรึกษา ai,th,commercial,ai-consulting,-,/services/ai-consulting/,video 100%,4,3,4,4,B3 H2 variant + video,B3,todo
-37,Build,ai services bangkok,en,commercial,ai-consulting-en,-,/en/ai-consulting/,-,4,3,4,4,B5 H2 variant,B5,todo
-37,Build,geo คือ,th,informational,ai-search,-,/geo-ai-search-optimization-2026/,-,3,4,4,5,post 66 answer-first + CTA → C1 (156 impr/mo biggest non-brand),A6,todo
-37,Build,geo คืออะไร,th,informational,ai-search,-,/geo-ai-search-optimization-2026/,-,3,4,4,5,same,A6,todo
-37,Build,geo seo,th,commercial,ai-search,-,/services/ai-search/ (new),video 75%,4,3,5,2,C1 + video,C1,todo
+39,Build,line chatbot ราคา,th,commercial,ai-consulting,-,post 69,-,4,4,3,5,"post 69 has 60,000 price — add FAQ 'ราคา' + title",F2,onsite done 2026-08-29
+38,Build,รับทำเว็บไซต์ บริษัท,th,transactional,website,-,/services/website-development/,-,5,2,4,4,B2 H2 variant + GBP,B2,onsite done 2026-08-29
+37,Build,ai seo,th,commercial,ai-search,-,/services/ai-search/,-,4,3,5,2,C1,C1,live 2026-08-29
+37,Build,geo agency,en,commercial,ai-search,-,/services/ai-search/,-,4,3,5,2,C1,C1,live 2026-08-29
+37,Build,บริการ n8n,th,commercial,n8n,-,/services/n8n-automation/,video 100%,4,3,4,4,B4 H2 variant + footer link + video,B4,onsite done 2026-08-29
+37,Build,ปรึกษา ai transformation,th,commercial,ai-consulting,-,post 220,video 67%,4,3,4,4,post 220 CTA + B3 bullet,A6,onsite done 2026-08-29
+37,Build,ผู้ให้บริการโซลูชัน ai,th,commercial,ai-consulting,-,/services/ai-consulting/,-,4,3,4,4,B3 H2 variant,B3,onsite done 2026-08-29
+37,Build,รับทำ ai prototype,th,transactional,ai-consulting,-,post 224,video 67%,4,3,4,4,post 224 CTA + B3 bullet + video,A6,onsite done 2026-08-29
+37,Build,รับทำ ai tool,th,transactional,ai-consulting,-,post 224,video 100%,4,3,4,4,same + video,E2,onsite done 2026-08-29
+37,Build,รับทำ seo,th,transactional,seo,-,/services/seo/,map 100%,5,1,5,4,B1 template + footer + GBP; head term,B1,onsite done 2026-08-29
+37,Build,รับวางระบบ n8n,th,transactional,n8n,-,/services/n8n-automation/,video 100%,4,3,4,4,B4 H2 + video,B4,onsite done 2026-08-29
+37,Build,ให้คำปรึกษา ai,th,commercial,ai-consulting,-,/services/ai-consulting/,video 100%,4,3,4,4,B3 H2 variant + video,B3,onsite done 2026-08-29
+37,Build,ai services bangkok,en,commercial,ai-consulting-en,-,/en/ai-consulting/,-,4,3,4,4,B5 H2 variant,B5,onsite done 2026-08-29
+37,Build,geo คือ,th,informational,ai-search,-,/geo-ai-search-optimization-2026/,-,3,4,4,5,post 66 answer-first + CTA → C1 (156 impr/mo biggest non-brand),A6,onsite done 2026-08-29
+37,Build,geo คืออะไร,th,informational,ai-search,-,/geo-ai-search-optimization-2026/,-,3,4,4,5,same,A6,onsite done 2026-08-29
+37,Build,geo seo,th,commercial,ai-search,-,/services/ai-search/,video 75%,4,3,5,2,C1 + video,C1,live 2026-08-29
 36,Build,บริการ rag,th,commercial,ai-consulting,-,/ai-agent-rag-chatbot-thailand-2026/,video 100%,4,3,4,3,use-case page RAG + link from ai-consulting,C8,todo
 36,Build,ai solution provider,en,commercial,ai-consulting-en,-,/en/ai-consulting/,-,4,2,5,4,B5 + C3 (AIO 16 sources),C3,todo
-35,Build,ai optimization services bangkok,en,commercial,ai-search,80,/en/ai-consulting/,-,4,3,4,2,/services/ai-search/ EN section or /en/ai-search/,C1,todo
-35,Build,รับทำเว็บไซต์,th,transactional,website,-,/services/website-development/,map 100%,5,1,4,4,B2 template + GBP; head term — no top-10 promise,B2,todo
-35,Build,รับทำเว็บไซต์ ติดหน้าแรก google,th,transactional,website,-,/services/website-development/,-,4,3,3,4,B2 H2 variant,B2,todo
-35,Build,รับทำเว็บไซต์ wordpress,th,transactional,website,-,/services/website-development/wordpress/,-,4,3,3,4,bullet from home + footer link,A1,todo
-35,Build,รับทำ seo สายขาว,th,transactional,seo,-,/services/seo/,-,4,3,3,4,B1 H2 'รับทำ SEO สายขาว',B1,todo
-35,Build,เว็บไซต์ seo ready,th,commercial,website,-,/services/website-development/,video 100%,4,3,3,4,B2 + video 'SEO-Ready คืออะไร',E2,todo
-35,Build,n8n ราคา,th,commercial,n8n,-,/services/n8n-automation/,-,4,3,3,4,"B4 H2 'n8n ราคา' 29,000 + FAQ",B4,todo
-35,Build,n8n automation ราคา,th,commercial,n8n,-,/services/n8n-automation/,-,4,3,3,4,same,B4,todo
-35,Win,technical seo คือ,th,informational,seo,30,/technical-seo-guide/,-,3,4,3,5,same,A6,todo
-34,Build,n8n คือ,th,informational,n8n,46,/n8n-thai-guide-2026/,video 100%,3,4,3,4,refresh + video embed + link to n8n service,E2,todo
-34,Win,local seo bkk,en,commercial,seo,30,/local-seo-bangkok-b2b-2026/,-,3,4,3,4,same as above,A7,todo
-34,Build,รับทำ ai,th,transactional,ai-consulting,-,/services/ai-consulting/,-,4,2,4,4,B3 H2 variant,B3,todo
-32,Build,technical seo,en,informational,seo,49,/technical-seo-guide/,-,3,3,3,5,refresh + CTA → /seo-audit/,A6,todo
-31,Build,n8n workflow,th,informational,n8n,-,/n8n-thai-guide-2026/,video 100%,3,3,3,4,post 196 + video,E2,todo
+35,Build,ai optimization services bangkok,en,commercial,ai-search,80,/services/ai-search/,-,4,3,4,2,/services/ai-search/ EN section or /en/ai-search/,C1,live 2026-08-29
+35,Build,รับทำเว็บไซต์,th,transactional,website,-,/services/website-development/,map 100%,5,1,4,4,B2 template + GBP; head term — no top-10 promise,B2,onsite done 2026-08-29
+35,Build,รับทำเว็บไซต์ ติดหน้าแรก google,th,transactional,website,-,/services/website-development/,-,4,3,3,4,B2 H2 variant,B2,onsite done 2026-08-29
+35,Build,รับทำเว็บไซต์ wordpress,th,transactional,website,-,/services/website-development/wordpress/,-,4,3,3,4,bullet from home + footer link,A1,onsite done 2026-08-29
+35,Build,รับทำ seo สายขาว,th,transactional,seo,-,/services/seo/,-,4,3,3,4,B1 H2 'รับทำ SEO สายขาว',B1,onsite done 2026-08-29
+35,Build,เว็บไซต์ seo ready,th,commercial,website,-,/services/website-development/,video 100%,4,3,3,4,B2 + video 'SEO-Ready คืออะไร',E2,onsite done 2026-08-29
+35,Build,n8n ราคา,th,commercial,n8n,-,/services/n8n-automation/,-,4,3,3,4,"B4 H2 'n8n ราคา' 29,000 + FAQ",B4,onsite done 2026-08-29
+35,Build,n8n automation ราคา,th,commercial,n8n,-,/services/n8n-automation/,-,4,3,3,4,same,B4,onsite done 2026-08-29
+35,Win,technical seo คือ,th,informational,seo,30,/technical-seo-guide/,-,3,4,3,5,same,A6,onsite done 2026-08-29
+34,Build,n8n คือ,th,informational,n8n,46,/n8n-thai-guide-2026/,video 100%,3,4,3,4,refresh + video embed + link to n8n service,E2,onsite done 2026-08-29
+34,Win,local seo bkk,en,commercial,seo,30,/local-seo-bangkok-b2b-2026/,-,3,4,3,4,same as above,A7,onsite done 2026-08-29
+34,Build,รับทำ ai,th,transactional,ai-consulting,-,/services/ai-consulting/,-,4,2,4,4,B3 H2 variant,B3,onsite done 2026-08-29
+32,Build,technical seo,en,informational,seo,49,/technical-seo-guide/,-,3,3,3,5,refresh + CTA → /seo-audit/,A6,onsite done 2026-08-29
+31,Build,n8n workflow,th,informational,n8n,-,/n8n-thai-guide-2026/,video 100%,3,3,3,4,post 196 + video,E2,onsite done 2026-08-29
 31,Build,website development bangkok,en,transactional,website,-,(none EN page),map 100%,4,2,4,1,needs /en/website-development/ — Phase 3,P3,todo
 30,Build,ai consulting company,en,commercial,ai-consulting-en,-,/en/ai-consulting/,video 100%,3,2,4,4,B5 + C3,C3,todo
 29,Build,รับทำเว็บไซต์ คลินิก,th,transactional,website,-,(none),-,4,2,3,1,C7 industry page ONLY if real clinic case,C7,todo
-29,Build,รับออกแบบเว็บไซต์,th,transactional,website,-,/services/website-development/,map 100%,4,1,3,4,B2 H2 variant; head term,B2,todo
-29,Build,เว็บโหลดช้า,th,informational,website,-,/core-web-vitals-thai-guide-2026/,fb 33%,3,3,2,4,post CTA → /website-audit/,A6,todo
-28,Build,ai consultant,en,commercial,ai-consulting-en,-,/en/ai-consulting/,video 100%,3,2,3,4,B5; global term low chance,B5,todo
+29,Build,รับออกแบบเว็บไซต์,th,transactional,website,-,/services/website-development/,map 100%,4,1,3,4,B2 H2 variant; head term,B2,onsite done 2026-08-29
+29,Build,เว็บโหลดช้า,th,informational,website,-,/core-web-vitals-thai-guide-2026/,fb 33%,3,3,2,4,post CTA → /website-audit/,A6,onsite done 2026-08-29
+28,Build,ai consultant,en,commercial,ai-consulting-en,-,/en/ai-consulting/,video 100%,3,2,3,4,B5; global term low chance,B5,onsite done 2026-08-29
 27,Build,seo agency,en,commercial,seo,-,/services/seo/,map 100%,3,1,4,4,B1 H2 'SEO Agency' + C2 listicle,C2,todo
-26,Build,core web vitals คือ,th,informational,seo,-,/core-web-vitals-thai-guide-2026/,-,2,3,2,5,refresh + CTA,A6,todo
-25,Defend,hashbox,brand,navigational,brand,5,/,play.google 17%,3,2,1,5,Organization alternateName/sameAs,D3,todo
-25,Build,seo คือ,th,informational,seo,-,post 210 hub,-,2,2,3,5,hub exists; CTA → /services/seo/,A6,todo
-24,Build,ai overview,th,informational,ai-search,-,post 208,-,2,2,3,4,post 208 CTA → ai-search,A6,todo
+26,Build,core web vitals คือ,th,informational,seo,-,/core-web-vitals-thai-guide-2026/,-,2,3,2,5,refresh + CTA,A6,onsite done 2026-08-29
+25,Defend,hashbox,brand,navigational,brand,5,/,play.google 17%,3,2,1,5,Organization alternateName/sameAs,D3,onsite done 2026-08-29
+25,Build,seo คือ,th,informational,seo,-,post 210 hub,-,2,2,3,5,hub exists; CTA → /services/seo/,A6,onsite done 2026-08-29
+24,Build,ai overview,th,informational,ai-search,-,post 208,-,2,2,3,4,post 208 CTA → ai-search,A6,onsite done 2026-08-29
 24,Build,schema markup คือ,th,informational,seo,-,(none),-,2,3,3,1,C4 post 'Schema Markup คือ + ธุรกิจไทย' → /services/seo/,C4,todo
 24,Build,schema markup ธุรกิจไทย,th,informational,seo,-,(none),-,2,3,3,1,same post,C4,todo
 19,Build,javascript seo คือ,th,informational,seo,-,(none),-,2,2,2,1,C4 candidate low priority,C4,todo
