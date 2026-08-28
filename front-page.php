@@ -29,7 +29,7 @@ get_header();
                     <em>เพื่อผลลัพธ์ที่วัดได้จริง</em><span class="hb-hero__cursor"></span>
                 </h1>
                 <p class="hb-hero__sub">
-                    Hashbox Studio รับทำเว็บไซต์ SEO-Ready สำหรับธุรกิจไทยที่ต้องการมากกว่าเว็บสวย เราวางโครงสร้าง Technical SEO, Core Web Vitals, Schema, Digital Marketing + CRO และ AI Workforce ไว้ในระบบเดียวกัน เพื่อเพิ่ม Traffic, Conversion และลดงาน Manual — โดยลูกค้าจะเริ่มเห็นสัญญาณผลลัพธ์ภายใน <strong>60-90 วันแรก</strong>
+                    Hashbox Studio รับทำเว็บไซต์ SEO-Ready สำหรับธุรกิจไทยที่ต้องการมากกว่าเว็บสวย เราวางโครงสร้าง Technical SEO, Core Web Vitals, Schema, รับทำ SEO / AI Search และ AI Workforce ไว้ในระบบเดียวกัน เพื่อเพิ่ม Traffic, Conversion และลดงาน Manual — โดยลูกค้าจะเริ่มเห็นสัญญาณผลลัพธ์ภายใน <strong>60-90 วันแรก</strong>
                 </p>
                 <div class="hb-hero__actions">
                     <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี
