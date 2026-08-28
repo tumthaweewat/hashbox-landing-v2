@@ -32,7 +32,10 @@ Guard: PSI mobile ≥ 90 · H1 หน้าแรกคง "รับทำเ�
 
 **พักไว้ก่อน** (จนสัปดาห์ 5 หรือมี evidence): industry page · listicle · use-case page · de-slop หน้าแรก (ต้องมีเคสจริง)
 
-## Sprint 1 — สัปดาห์ 1–2 · Claude
+## Sprint 1 — สัปดาห์ 1–2 · Claude — **ส่งแล้ว 2026-08-29** (commits 13de293 → e507803)
+
+สถานะ: S1.1 ✅ (Rank Math title/desc post 170) · S1.2 ✅ · S1.3 ✅ (sameAs ยังไม่มี GBP/YouTube/GoodFirms — รอ T1/T2) · S1.4 ✅ (landing-sitemap.xml เข้า index, post 92 EN summary + CTA, ลบ H1 ซ้ำ) · S1.5 ✅ · S1.6 ✅ (ราคาเริ่มต้น 60,000 มีอยู่แล้ว) · S1.7 ✅ · S1.8 ✅ · S1.9 ✅ php -l / contract tests / 301 / JSON-LD parse / Lighthouse mobile SEO 100, a11y 96 — PSI performance ยังไม่ได้วัด (API quota) · DM page id 45 → draft · Rank Math meta ตั้งใหม่: pages 179, 43, 101 + post 92
+รอ Tum: GSC request index (/, /services/, /services/seo/, /services/website-development/, /en/ai-consulting/, post 170, post 92, landing-sitemap.xml) · T1–T6
 | # | งาน | ref |
 |---|---|---|
 | S1.1 | post 170: title ใส่ปี/งบ/checklist, meta answer-first, CTA → /services/ai-consulting/ (แก้ 0 click) | F1 |
