@@ -282,6 +282,8 @@ $kpis = array(
         <ul style="margin-top:var(--hb-space-4);display:grid;gap:var(--hb-space-3);list-style:none;padding:0;">
             <li><a href="<?php echo esc_url( home_url( '/geo-ai-search-optimization-2026/' ) ); ?>">GEO คืออะไร? Generative Engine Optimization ฉบับ 2026</a> — นิยาม, ต่างจาก SEO ตรงไหน, 5 เทคนิค</li>
             <li><a href="<?php echo esc_url( home_url( '/google-ai-overview-thailand-2026/' ) ); ?>">AI Overview ในไทย: ข้อมูลจริงปี 2026</a> — คำไหนมี AI Overview, ใครถูกอ้างอิง</li>
+            <li><a href="<?php echo esc_url( home_url( '/llms-txt-คืออะไร-2026/' ) ); ?>">llms.txt คืออะไร ทำยังไง</a> — ตัวอย่างไฟล์จริงของเรา + สิ่งที่ยังไม่แน่นอน</li>
+            <li><a href="<?php echo esc_url( home_url( '/เว็บไซต์รองรับ-ai-search-2026/' ) ); ?>">เว็บไซต์รองรับ AI Search คืออะไร — checklist 12 ข้อ</a> — ตรวจเว็บตัวเองใน 5 นาที</li>
             <li><a href="<?php echo esc_url( home_url( '/schema-markup-thai-guide-2026/' ) ); ?>">Schema Markup สำหรับเว็บไทย</a> — พื้นฐาน entity ที่ AI ต้องการ</li>
         </ul>
     </div>
