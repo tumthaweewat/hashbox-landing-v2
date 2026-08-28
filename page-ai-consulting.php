@@ -471,8 +471,9 @@ hashbox_jsonld( array(
     ),
     'termsOfService' => home_url( '/privacy-policy/#terms' ),
     'isRelatedTo' => array(
-        array( '@type' => 'Service', 'name' => 'SEO-Ready Website', 'url' => home_url( '/services/website-development/' ) ),
-        array( '@type' => 'Service', 'name' => 'Digital Marketing Tools', 'url' => home_url( '/services/digital-marketing-tools/' ) ),
+        array( '@type' => 'Service', 'name' => 'รับทำเว็บไซต์ SEO-Ready', 'url' => home_url( '/services/website-development/' ) ),
+        array( '@type' => 'Service', 'name' => 'รับทำ SEO', 'url' => home_url( '/services/seo/' ) ),
+        array( '@type' => 'Service', 'name' => 'รับทำ Workflow Automation (n8n)', 'url' => home_url( '/services/n8n-automation/' ) ),
     ),
 ) );
 

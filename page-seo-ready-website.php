@@ -1332,10 +1332,10 @@ $checks = array(
                     <h3 class="hb-card__title">เว็บมีสินค้า/บริการดี แต่ organic search ไม่โต</h3>
                     <p class="hb-card__body">ดู Rank Project case study ที่ technical SEO + content programme เพิ่ม impressions +2,200%</p>
                 </a>
-                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" style="text-decoration:none;">
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>" style="text-decoration:none;">
                     <span class="hb-eyebrow">Next step</span>
-                    <h3 class="hb-card__title">หลังเว็บพร้อม SEO แล้ว ควรวัด Conversion ต่อ</h3>
-                    <p class="hb-card__body">ต่อยอดด้วย Digital Marketing + CRO เพื่อติดตาม funnel, heatmap และทดสอบ landing page รายเดือน</p>
+                    <h3 class="hb-card__title">หลังเว็บพร้อมแล้ว ให้ SEO + CRO ทำงานต่อ</h3>
+                    <p class="hb-card__body">ต่อยอดด้วยบริการรับทำ SEO สายเทคนิค — Technical Audit, Local SEO, GEO/AI Overview พร้อม CRO + tracking รายเดือน</p>
                 </a>
                 <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/services/' ) ); ?>" style="text-decoration:none;">
                     <span class="hb-eyebrow">Full funnel</span>

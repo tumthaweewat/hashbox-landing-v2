@@ -171,6 +171,38 @@ $compare = array(
     </div>
 </section>
 
+<section class="hb-section" id="cro">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">CRO + Tracking</span>
+            <h2 class="hb-h2">CRO และ Tracking: เปลี่ยน traffic จาก SEO ให้เป็น lead</h2>
+            <p class="hb-section__sub">SEO พาคนเข้าเว็บ แต่ถ้า tracking ไม่ครบและหน้าไม่ convert ก็เสียของ — งาน CRO จึงรวมอยู่ใน retainer SEO ของเรา ไม่ต้องจ้างแยก (บริการ Digital Marketing + CRO เดิมรวมมาอยู่ที่นี่)</p>
+        </div>
+        <div class="hb-bento">
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">01</span>
+                <h3 class="hb-h3">GA4 + Search Console + Server-side tracking</h3>
+                <p class="hb-body">ตั้งค่า lead event ให้ครบทุกช่องทาง — form, LINE, โทร, อีเมล — และเชื่อม GA4 กับ GSC ให้เห็นว่าคีย์เวิร์ดไหนกลายเป็น lead จริง ไม่ใช่แค่ traffic</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">02</span>
+                <h3 class="hb-h3">Heatmap + Session recording</h3>
+                <p class="hb-body">ดูพฤติกรรมจริงบนหน้าเงินด้วย Microsoft Clarity — จุดที่คนเลื่อนผ่าน จุดที่กดแล้วไม่เกิดอะไร แล้วแก้ที่ต้นเหตุ</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">03</span>
+                <h3 class="hb-h3">A/B test และ CRO Sprint รายเดือน</h3>
+                <p class="hb-body">ทดสอบ headline, offer, form และ CTA ทีละสมมติฐาน เมื่อ traffic มากพอ ถ้ายังน้อย ใช้ heuristic review + tracking readiness ก่อน อ่านแนวทางใน <a href="<?php echo esc_url( home_url( '/cro-conversion-rate-optimization-thai-2026/' ) ); ?>">คู่มือ CRO สำหรับเว็บไทย</a></p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">04</span>
+                <h3 class="hb-h3">Looker Studio dashboard</h3>
+                <p class="hb-body">อันดับ, AI Overview citation, traffic, lead อยู่ใน dashboard เดียว อัปเดตรายวัน — คุณเห็นสิ่งเดียวกับที่เราเห็น</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="hb-section">
     <div class="hb-container hb-container--md">
         <div class="hb-section__head">

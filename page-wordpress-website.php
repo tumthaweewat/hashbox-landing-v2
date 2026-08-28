@@ -301,7 +301,7 @@ $table_cell = 'padding:var(--hb-space-3) var(--hb-space-4);border-bottom:1px sol
             </div>
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">ตลาดไทย</span>
-                <p class="hb-body">ตัดสินใจจากข้อมูลจริงของตลาดไทย ไม่ใช่ตัวเลขประมาณการจาก tool ต่างประเทศ — ต่อขยายจากบริการ <a href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>">Digital Marketing + CRO</a></p>
+                <p class="hb-body">ตัดสินใจจากข้อมูลจริงของตลาดไทย ไม่ใช่ตัวเลขประมาณการจาก tool ต่างประเทศ — ต่อขยายจากบริการ <a href="<?php echo esc_url( home_url( '/services/seo/#cro' ) ); ?>">รับทำ SEO + CRO</a></p>
             </div>
         </div>
     </div>

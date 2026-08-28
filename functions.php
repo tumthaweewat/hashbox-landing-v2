@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+require_once get_template_directory() . '/inc/service-catalog.php';
+
 /**
  * Theme setup
  */
@@ -772,8 +774,8 @@ function hashbox_get_seo_metadata() {
         $slug = $post instanceof WP_Post ? $post->post_name : '';
         $page_meta = array(
             'services' => array(
-                'title'       => 'บริการทำเว็บไซต์ SEO, CRO และ AI | Hashbox Studio',
-                'description' => 'รวมบริการทำเว็บไซต์ SEO-Ready, Digital Marketing + CRO และ AI Consulting ในทีมเดียว วาง KPI เดียวกัน ตั้งแต่เว็บพร้อมติด Google ไปจนถึงระบบ AI ลดงาน Manual',
+                'title'       => 'บริการรับทำเว็บไซต์ SEO-Ready, รับทำ SEO, AI Search และที่ปรึกษา AI | Hashbox Studio',
+                'description' => 'รวม 5 บริการในทีมเดียว: รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO, รับทำ AI Search (GEO) และ Workflow Automation n8n — ราคาโปร่งใส วัดผลจากข้อมูลจริงรายวัน',
             ),
             'seo-ready-website' => array(
                 'title'       => 'รับทำเว็บไซต์ ออกแบบเว็บไซต์ธุรกิจทุกประเภท พร้อมใช้งานทันที',
@@ -782,10 +784,6 @@ function hashbox_get_seo_metadata() {
             'website-development' => array(
                 'title'       => 'รับทำเว็บไซต์ ออกแบบเว็บไซต์ธุรกิจทุกประเภท พร้อมใช้งานทันที',
                 'description' => 'รับทำเว็บไซต์ครบวงจร ทั้งเว็บไซต์บริษัท เว็บแอปพลิเคชัน และระบบเชื่อมต่อฐานข้อมูล พร้อมวางโครงสร้างเว็บไซต์ให้พร้อมติด Google และ AI Search ตั้งแต่วันแรก',
-            ),
-            'digital-marketing-tools' => array(
-                'title'       => 'Digital Marketing Tools + CRO เพิ่ม Conversion | Hashbox',
-                'description' => 'ติดตั้ง GA4, GSC, Server-side GTM, Looker Studio, heatmap และ A/B testing พร้อมรัน CRO Sprint รายเดือนเพื่อเพิ่ม conversion จาก traffic เดิม',
             ),
             // Commercial intent only. This page used to lead with "ปรึกษาทำระบบ
             // AI Solution" — the exact phrase /ai-solution-consulting-guide-2026/
@@ -1695,9 +1693,9 @@ function hashbox_audit_landing_pages() {
             'slug'             => 'seo-audit',
             'service_label'    => 'SEO-Ready Website',
             'service_interest' => 'SEO-Ready Website',
-            'meta_title'       => 'SEO Audit ฟรีสำหรับเว็บใหม่ | Hashbox Studio',
-            'meta_description' => 'ตรวจแผนทำเว็บใหม่ให้พร้อมติด Google ตั้งแต่วันแรก ครอบคลุม Technical SEO, Core Web Vitals, Schema, GA4 และ GSC',
-            'hero_headline'    => 'ทำเว็บใหม่ให้พร้อมติด Google',
+            'meta_title'       => 'รับทำ SEO Audit ฟรี — Technical SEO Audit สำหรับเว็บใหม่ | Hashbox',
+            'meta_description' => 'รับทำ SEO Audit ฟรี: ตรวจแผนทำเว็บใหม่ให้พร้อมติด Google และ AI Search ตั้งแต่วันแรก ครอบคลุม Technical SEO, Core Web Vitals, Schema, GA4 และ GSC รายงาน 15–20 หน้าใน 3 วันทำการ',
+            'hero_headline'    => 'รับทำ SEO Audit ฟรี — ทำเว็บใหม่ให้พร้อมติด Google',
             'hero_subcopy'     => 'วาง Technical SEO, Core Web Vitals, Schema และ GA4/GSC ตั้งแต่วันแรก เพื่อให้เว็บใหม่ไม่เสียโอกาส organic traffic หลัง deploy',
             'primary_cta'      => 'ขอ SEO Audit ฟรี',
             'proof_line'       => '100 Lighthouse Score และ Core Web Vitals เขียวทุก URL ก่อน Deploy',
@@ -1739,9 +1737,9 @@ function hashbox_audit_landing_pages() {
             'slug'             => 'seo-recovery-audit',
             'service_label'    => 'Technical SEO',
             'service_interest' => 'SEO-Ready Website',
-            'meta_title'       => 'SEO Recovery Audit ฟรี | Hashbox Studio',
-            'meta_description' => 'Traffic ตกหรือ organic ไม่โต ให้ทีมตรวจ Core Web Vitals, indexation, schema, backlinks และ competitor gap พร้อม recovery roadmap',
-            'hero_headline'    => 'Traffic ตก? ให้ทีมตรวจระบบ SEO',
+            'meta_title'       => 'รับทำ Technical SEO Audit ฟรี — SEO Recovery สำหรับเว็บที่ Traffic ตก | Hashbox',
+            'meta_description' => 'รับทำ Technical SEO Audit ฟรี: Traffic ตกหรือ organic ไม่โต ให้ทีมตรวจ Core Web Vitals, indexation, schema, backlinks และ competitor gap พร้อม recovery roadmap ที่บอกว่าควรแก้อะไรก่อน',
+            'hero_headline'    => 'Technical SEO Audit ฟรี — Traffic ตก? ให้ทีมตรวจระบบ SEO',
             'hero_subcopy'     => 'เช็ก CWV, Indexation, Schema, Backlinks และ Competitor Gap พร้อม roadmap ที่บอกว่าควรแก้ technical หรือ content ก่อน',
             'primary_cta'      => 'รับ Audit ฟรี',
             'proof_line'       => '+2,200% Impressions จาก Technical SEO + Content Recovery',
@@ -1826,7 +1824,7 @@ function hashbox_audit_landing_pages() {
         'growth-audit' => array(
             'slug'             => 'growth-audit',
             'service_label'    => 'Web + Marketing + AI',
-            'service_interest' => 'Bundle ทั้ง 3 บริการ',
+            'service_interest' => 'Bundle Web + SEO + AI',
             'meta_title'       => 'Growth Audit ฟรี | Hashbox Studio',
             'meta_description' => 'ทีมเดียวดูครบ Web, Ads, SEO และ AI ลดปัญหาแยกหลายเอเจนซี พร้อม audit funnel ทั้ง customer journey',
             'hero_headline'    => 'ทีมเดียวดูครบ Web, Ads, SEO และ AI',
@@ -2210,6 +2208,72 @@ function hashbox_redirect_legacy_ai_guides() {
 }
 add_action( 'template_redirect', 'hashbox_redirect_legacy_ai_guides', 2 );
 
+/**
+ * Digital Marketing + CRO was folded into the SEO service (2026-08-28).
+ * 301 the old page to the CRO section of /services/seo/ and keep it out of
+ * the sitemap even if the WP Page is still published.
+ */
+function hashbox_redirect_legacy_digital_marketing() {
+    if ( is_admin() || wp_doing_ajax() || is_preview() ) {
+        return;
+    }
+    $path = hashbox_current_request_path();
+    if ( 'services/digital-marketing-tools' !== $path && 0 !== strpos( $path, 'services/digital-marketing-tools/' ) ) {
+        return;
+    }
+    wp_safe_redirect( home_url( '/services/seo/#cro' ), 301 );
+    exit;
+}
+add_action( 'template_redirect', 'hashbox_redirect_legacy_digital_marketing', 2 );
+
+function hashbox_rankmath_sitemap_exclude_legacy( $url, $type, $object ) {
+    if ( 'post' === $type && isset( $object->post_name ) && 'digital-marketing-tools' === $object->post_name ) {
+        return false;
+    }
+    return $url;
+}
+add_filter( 'rank_math/sitemap/entry', 'hashbox_rankmath_sitemap_exclude_legacy', 10, 3 );
+
+/**
+ * The audit landings (/seo-audit/, /seo-recovery-audit/, …) are virtual
+ * routes, not WP Pages, so Rank Math never lists them. Add a small
+ * `landing-sitemap.xml` to the index for every landing that is public.
+ */
+function hashbox_landing_sitemap_entries() {
+    if ( ! function_exists( 'hashbox_audit_landing_pages' ) ) {
+        return array();
+    }
+    $entries = array();
+    $lastmod = gmdate( 'c', (int) filemtime( get_template_directory() . '/page-audit-landing.php' ) );
+    $skip    = array( 'ads-preview' );
+    foreach ( hashbox_audit_landing_pages() as $slug => $landing ) {
+        if ( empty( $slug ) || in_array( $slug, $skip, true ) || ! empty( $landing['noindex'] ) ) {
+            continue;
+        }
+        $entries[] = array( 'loc' => home_url( '/' . $slug . '/' ), 'lastmod' => $lastmod );
+    }
+    return $entries;
+}
+
+function hashbox_rankmath_sitemap_index_landing( $xml ) {
+    $entries = hashbox_landing_sitemap_entries();
+    if ( empty( $entries ) ) {
+        return $xml;
+    }
+    $xml .= '<sitemap><loc>' . esc_url( home_url( '/landing-sitemap.xml' ) ) . '</loc><lastmod>' . esc_html( $entries[0]['lastmod'] ) . '</lastmod></sitemap>';
+    return $xml;
+}
+add_filter( 'rank_math/sitemap/index', 'hashbox_rankmath_sitemap_index_landing' );
+
+function hashbox_rankmath_sitemap_landing_content() {
+    $out = '';
+    foreach ( hashbox_landing_sitemap_entries() as $e ) {
+        $out .= '<url><loc>' . esc_url( $e['loc'] ) . '</loc><lastmod>' . esc_html( $e['lastmod'] ) . '</lastmod></url>';
+    }
+    return $out;
+}
+add_filter( 'rank_math/sitemap/landing_content', 'hashbox_rankmath_sitemap_landing_content' );
+
 function hashbox_case_study_redirect_canonical( $redirect_url, $requested_url ) {
     $requested_path = trim( (string) wp_parse_url( $requested_url, PHP_URL_PATH ), '/' );
     $slug           = hashbox_case_study_slug_from_path( $requested_path );
@@ -2370,22 +2434,43 @@ function hashbox_brand_images() {
     return $images;
 }
 
+/**
+ * Every public profile of the same entity. Add new directory/social URLs
+ * here only once they resolve — a dead sameAs hurts entity consolidation.
+ */
+function hashbox_organization_same_as() {
+    return array(
+        'https://www.linkedin.com/company/hashbox-studio',
+        'https://www.facebook.com/profile.php?id=61590390615650',
+        'https://www.instagram.com/hashbox.studio/',
+        'https://github.com/tumthaweewat',
+        'https://lin.ee/Xagx6i4',
+        'https://clutch.co/profile/hashbox-studio',
+        'https://www.f6s.com/hashbox-studio',
+    );
+}
+
 function hashbox_rankmath_schema_organization() {
     $home = home_url( '/' );
     return array(
         '@type' => 'Organization',
         '@id'   => $home . '#organization',
         'name'  => 'Hashbox Studio',
+        'alternateName' => array( 'Hashbox', 'แฮชบ็อกซ์ สตูดิโอ', 'Hashbox Studio Bangkok' ),
+        'legalName' => 'Hashbox Studio',
         'url'   => $home,
         'logo'  => hashbox_brand_logo_object(),
         'image' => hashbox_brand_images(),
-        'sameAs' => array(
-            'https://www.linkedin.com/company/hashbox-studio',
-            'https://www.facebook.com/profile.php?id=61590390615650',
-            'https://www.instagram.com/hashbox.studio/',
-            'https://github.com/tumthaweewat',
-            'https://lin.ee/Xagx6i4',
+        'foundingDate' => '2024',
+        'foundingLocation' => array( '@type' => 'Place', 'name' => 'Bangkok, Thailand' ),
+        'founder' => array(
+            '@type'  => 'Person',
+            'name'   => 'Thaweewat (Tum)',
+            'url'    => home_url( '/about/' ),
+            'sameAs' => array( 'https://www.linkedin.com/in/tumthaweewat/', 'https://github.com/tumthaweewat' ),
         ),
+        'slogan' => 'เว็บไซต์ SEO-Ready และระบบ AI ที่ใช้งานจริงใน production',
+        'sameAs' => hashbox_organization_same_as(),
         'contactPoint' => array(
             '@type'             => 'ContactPoint',
             'telephone'         => '+66-62-516-9868',
@@ -2411,6 +2496,10 @@ function hashbox_rankmath_schema_organization() {
             'Next.js',
             'WordPress',
             'AI Consulting',
+            'LINE Chatbot',
+            'Retrieval-Augmented Generation',
+            'n8n Workflow Automation',
+            'Local SEO',
             'CRO',
         ),
         'potentialAction' => array(
@@ -2456,7 +2545,8 @@ function hashbox_rankmath_schema_service() {
         '@type'              => array( 'ProfessionalService', 'LocalBusiness' ),
         '@id'                => $home . '#service',
         'name'               => 'Hashbox Studio',
-        'description'        => 'SEO-ready website builds, digital marketing tools, CRO, and AI consulting for Thai SMEs.',
+        'description'        => 'SEO-ready website development, technical-first SEO, AI Search (GEO) optimisation, AI consulting and n8n workflow automation for Thai businesses.',
+        'sameAs'             => hashbox_organization_same_as(),
         'url'                => $home,
         'image'              => hashbox_brand_logo_object(),
         'telephone'          => '+66-62-516-9868',
@@ -2483,15 +2573,7 @@ function hashbox_rankmath_schema_service() {
             'opens'     => '09:00',
             'closes'    => '18:00',
         ),
-        'hasOfferCatalog' => array(
-            '@type'           => 'OfferCatalog',
-            'name'            => 'Services',
-            'itemListElement' => array(
-                array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'SEO-Ready Website Build', 'description' => 'Production-ready websites that pass Lighthouse 100, green Core Web Vitals, complete schema, and rank within 60-90 days.' ) ),
-                array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'Digital Marketing Tools + CRO', 'description' => 'GA4, GSC, Looker Studio, heatmaps, A/B testing, and monthly CRO sprints to compound conversion.' ) ),
-                array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'AI Expert Consulting', 'description' => 'LINE bot, sales GPT, RAG knowledge base, and workflow automation that ships to production.' ) ),
-            ),
-        ),
+        'hasOfferCatalog' => hashbox_service_offer_catalog(),
     );
 }
 
@@ -2681,10 +2763,18 @@ function hashbox_robots_txt( $output, $public ) {
         return $output;
     }
 
-    $output  = "User-agent: *\n\n";
+    $output  = "User-agent: *\n";
     $output .= "Disallow: /wp-admin/\n";
     $output .= "Allow: /wp-admin/admin-ajax.php\n\n";
+    // AI search crawlers are welcome — GEO depends on it. Listed explicitly
+    // so the policy is unambiguous to each vendor.
+    foreach ( array( 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'anthropic-ai', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Bingbot', 'Applebot-Extended', 'CCBot' ) as $bot ) {
+        $output .= "User-agent: {$bot}\n";
+        $output .= "Allow: /\n\n";
+    }
     $output .= "Sitemap: " . home_url( '/sitemap_index.xml' ) . "\n";
+    $output .= "Sitemap: " . home_url( '/landing-sitemap.xml' ) . "\n";
+    $output .= "# llms: " . home_url( '/llms.txt' ) . "\n";
 
     return $output;
 }
@@ -2726,7 +2816,9 @@ function hashbox_llms_txt_content() {
     $lines = array();
     $lines[] = '# Hashbox Studio';
     $lines[] = '';
-    $lines[] = '> Hashbox Studio is a Bangkok-based digital studio building SEO-Ready websites, AI consulting services, and digital marketing tools for Thai businesses. Every website ships with Lighthouse 100, green Core Web Vitals, complete Schema.org markup, and AI Search (GEO) optimization opted in.';
+    $lines[] = '> Hashbox Studio (แฮชบ็อกซ์ สตูดิโอ) คือสตูดิโอในกรุงเทพฯ ก่อตั้งปี 2024 โดย Tum Thaweewat ให้บริการ รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, รับทำ AI Search (GEO) และ Workflow Automation ด้วย n8n สำหรับธุรกิจไทย ทุกเว็บไซต์ส่งมอบพร้อม Lighthouse 100, Core Web Vitals เขียว, Schema.org ครบ และ optimise สำหรับ AI Search ตั้งแต่วันเปิดตัว';
+    $lines[] = '';
+    $lines[] = '> Hashbox Studio is a Bangkok-based studio founded in 2024 by Tum Thaweewat. Services: SEO-Ready website development, AI consulting for Thai businesses, technical-first SEO, AI Search (GEO) optimisation and n8n workflow automation. Every website ships with Lighthouse 100, green Core Web Vitals, complete Schema.org markup and AI-search optimisation from launch. Prices are public (THB, excl. VAT).';
     $lines[] = '';
     $lines[] = '## About';
     $lines[] = '';
@@ -2736,23 +2828,15 @@ function hashbox_llms_txt_content() {
     $lines[] = '';
     $lines[] = '## Services';
     $lines[] = '';
-    $lines[] = '- [SEO-Ready Website Build](' . home_url( '/services/website-development/' ) . '): รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่ launch · Lighthouse 100 · Schema ครบ · เริ่ม 35,900 บาท';
-    // Retainer service, priced per month — the only monthly line in this file.
-    $lines[] = '- [รับทำ SEO (technical-first)](' . home_url( '/services/seo/' ) . '): รับทำ SEO สายเทคนิค · Technical SEO · Core Web Vitals · Schema · GEO/AI Overview · track อันดับรายวัน · เริ่มต้น 25,000 บาทต่อเดือน';
-    // Hiring intent, not the guide's phrase — same split as the <title>: this
-    // entry is who to hire, the Pillar Guides entry below is how it works.
-    $lines[] = '- [ที่ปรึกษา AI สำหรับธุรกิจ](' . home_url( '/services/ai-consulting/' ) . '): รับวางระบบ AI ให้ธุรกิจไทยถึง production · LLM integration · automation · custom agent';
     /*
      * ลงใน llms.txt ก็ต่อเมื่อหน้ามีจริง — ไฟล์นี้อ่านโดย AI crawler โดยเฉพาะ
-     * การชี้ไปหน้า 404 แย่กว่าการไม่ลิสต์ (ธีม deploy ก่อน WP Page ถูกสร้าง)
-     * เช็คเดียวกันนี้คุมการ์ดบน /services/ ด้วย — ดู page-services.php
+     * การชี้ไปหน้า 404 แย่กว่าการไม่ลิสต์ — hashbox_service_catalog_live()
+     * ซ่อนรายการที่ WP Page ยังไม่ถูกสร้าง
      */
-    $hb_has_n8n_page = (bool) get_page_by_path( 'services/n8n-automation', OBJECT, 'page' );
-    if ( $hb_has_n8n_page ) {
-        // Project-priced, not monthly — unit differs from the SEO retainer line above.
-        $lines[] = '- [รับทำ n8n Automation](' . home_url( '/services/n8n-automation/' ) . '): วางระบบอัตโนมัติ n8n แบบ self-host บนเซิร์ฟเวอร์ลูกค้า · ส่งมอบ workflow + เอกสารให้แก้เองต่อได้ · เริ่มต้น 29,000 บาทต่อโปรเจกต์';
+    foreach ( hashbox_service_catalog_live() as $svc ) {
+        $price = $svc['price'] ? ' · ' . $svc['price'] : '';
+        $lines[] = '- [' . $svc['name'] . '](' . hashbox_service_url( $svc ) . '): ' . $svc['desc'] . $price;
     }
-    $lines[] = '- [Digital Marketing Tools](' . home_url( '/services/digital-marketing-tools/' ) . '): SEO + CRO + analytics tooling';
     $lines[] = '';
     $lines[] = '## Pillar Guides';
     $lines[] = '';
@@ -2785,7 +2869,11 @@ function hashbox_llms_txt_content() {
     $lines[] = '- Email: business@hashbox.co.th';
     $lines[] = '- Phone: +66-62-516-9868';
     $lines[] = '- Address: 139 Pan Rd, Si Lom, Bang Rak, Bangkok 10500, Thailand';
+    $lines[] = '- LINE: https://lin.ee/Xagx6i4';
     $lines[] = '- LinkedIn: https://www.linkedin.com/company/hashbox-studio';
+    $lines[] = '- Facebook: https://www.facebook.com/profile.php?id=61590390615650';
+    $lines[] = '- Clutch: https://clutch.co/profile/hashbox-studio';
+    $lines[] = '- Founder: Tum Thaweewat — https://www.linkedin.com/in/tumthaweewat/';
     $lines[] = '';
     $lines[] = '## Optional';
     $lines[] = '';
@@ -4136,10 +4224,10 @@ function hashbox_render_case_study( array $case ) {
                         <h3 class="hb-card__title">รับทำเว็บไซต์ SEO-Ready</h3>
                         <p class="hb-card__body">เหมาะกับเว็บที่ต้องการ Core Web Vitals เขียว, schema ครบ, sitemap ถูกต้อง และพร้อม index ตั้งแต่วันเปิดตัว.</p>
                     </a>
-                    <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" style="text-decoration:none;">
-                        <span class="hb-eyebrow">Conversion</span>
-                        <h3 class="hb-card__title">Digital Marketing + CRO</h3>
-                        <p class="hb-card__body">เหมาะกับเว็บที่มี traffic แล้ว แต่ต้องการเพิ่ม lead, sales หรือ conversion rate จาก funnel เดิม.</p>
+                    <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>" style="text-decoration:none;">
+                        <span class="hb-eyebrow">SEO + CRO</span>
+                        <h3 class="hb-card__title">รับทำ SEO</h3>
+                        <p class="hb-card__body">เหมาะกับเว็บที่มีอยู่แล้ว ต้องการ traffic จาก Google และ AI Search เพิ่ม พร้อม CRO + tracking ให้ traffic กลายเป็น lead.</p>
                     </a>
                     <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>" style="text-decoration:none;">
                         <span class="hb-eyebrow">Automation</span>

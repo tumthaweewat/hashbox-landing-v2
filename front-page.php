@@ -135,54 +135,26 @@ get_header();
 <section id="services" class="hb-section hb-section--light">
     <div class="hb-container">
         <div class="hb-section__head">
-            <span class="hb-eyebrow">What we do</span>
-            <h2 class="hb-h2">3 บริการที่ออกแบบมาให้ทำงานร่วมกัน</h2>
-            <p class="hb-section__sub">ทุกบริการของเราสามารถจ้างแยกได้ แต่จะให้ผลลัพธ์สูงสุดเมื่อทำงานร่วมกันใต้ทีมเดียว เพราะ Web, Marketing และ AI ส่งผลถึงกันตลอด Customer Journey</p>
+            <span class="hb-eyebrow">บริการของเรา</span>
+            <h2 class="hb-h2">รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI, รับทำ SEO และ AI Search สำหรับธุรกิจไทย</h2>
+            <p class="hb-section__sub">ทุกบริการจ้างแยกได้ ราคาเปิดเผย และวัดผลจากข้อมูลจริงรายวัน — เริ่มจากเว็บไซต์หรือระบบ AI ก็ได้ แล้วขยายเป็นระบบเดียวกันเมื่อพร้อม</p>
         </div>
 
-        <div class="hb-bento">
-            <a href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="blue" style="text-decoration:none;">
-                <span class="hb-service__num">01</span>
-                <span class="hb-service__icon">
-                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="7 8 10 11 7 14"/><line x1="13" y1="14" x2="17" y2="14"/></svg>
-                </span>
-                <div class="hb-service__visual hb-service__visual--site" aria-hidden="true">
-                    <span></span><span></span><span></span>
+        <ol class="hb-svc-list">
+            <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>
+            <li class="hb-svc<?php echo ! empty( $svc['featured'] ) ? ' hb-svc--featured' : ''; ?>" data-accent="<?php echo esc_attr( $svc['accent'] ); ?>">
+                <div class="hb-svc__main">
+                    <h3 class="hb-svc__title"><a href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>"><?php echo esc_html( $svc['name'] ); ?></a></h3>
+                    <p class="hb-svc__desc"><?php echo esc_html( $svc['desc'] ); ?></p>
                 </div>
-                <h3 class="hb-service__title">SEO-Ready Website</h3>
-                <p class="hb-service__desc">เว็บไซต์ที่พร้อมติด Google ตั้งแต่วันเปิดตัว ผ่าน Build Gate: Lighthouse 100 ทั้ง 4 หมวด, CWV เขียวทุก URL, Schema ครบ ลูกค้าเห็นผล Ranking ขยับใน 60-90 วัน</p>
-                <div class="hb-service__stack">Next.js · Headless WordPress · Cloudflare · Vercel</div>
-                <span class="hb-service__link">ดูบริการเว็บไซต์ &rarr;</span>
-            </a>
-
-            <a href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="cyan" style="text-decoration:none;">
-                <span class="hb-service__num">02</span>
-                <span class="hb-service__icon">
-                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/><circle cx="20" cy="9" r="1.5"/></svg>
-                </span>
-                <div class="hb-service__visual hb-service__visual--growth" aria-hidden="true">
-                    <span></span><span></span><span></span>
+                <?php echo hashbox_service_bullets_html( $svc ); ?>
+                <div class="hb-svc__meta">
+                    <?php if ( ! empty( $svc['price'] ) ) : ?><span class="hb-svc__price"><?php echo esc_html( $svc['price'] ); ?></span><?php endif; ?>
+                    <a class="hb-svc__link" href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>" aria-label="ดูรายละเอียด <?php echo esc_attr( $svc['name'] ); ?>">รายละเอียด &rarr;</a>
                 </div>
-                <h3 class="hb-service__title">Digital Marketing + CRO</h3>
-                <p class="hb-service__desc">การมี Traffic เยอะแต่ Conversion ต่ำคือเสียโอกาส ติดตั้งและดูแลเครื่องมือ Marketing ครบวงจร พร้อม CRO Sprint รายเดือนเพิ่ม Conversion ต่อเนื่อง ดูผลผ่าน Looker Studio Real-time</p>
-                <div class="hb-service__stack">GA4 · GSC · GrowthBook · Microsoft Clarity</div>
-                <span class="hb-service__link">ดูบริการ Marketing &rarr;</span>
-            </a>
-
-            <a href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c4" data-accent="violet" style="text-decoration:none;">
-                <span class="hb-service__num">03</span>
-                <span class="hb-service__icon">
-                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/></svg>
-                </span>
-                <div class="hb-service__visual hb-service__visual--ai" aria-hidden="true">
-                    <span></span><span></span><span></span>
-                </div>
-                <h3 class="hb-service__title">AI Expert Consulting</h3>
-                <p class="hb-service__desc">ที่ปรึกษา AI ที่ลงมือเขียนโค้ดและ Deploy เอง ไม่ใช่จบที่ Slide ทุกโปรเจกต์เริ่มจากการคำนวณ AI ROI ถ้าผลตอบแทนคุ้มค่าจึงจะลงมือ Implement พร้อม Knowledge Transfer ให้ทีมลูกค้าดูแลต่อเองได้</p>
-                <div class="hb-service__stack">OpenAI · Claude · LangChain · LINE Messaging API · n8n · RAG</div>
-                <span class="hb-service__link">ดูบริการ AI &rarr;</span>
-            </a>
-        </div>
+            </li>
+            <?php endforeach; ?>
+        </ol>
     </div>
 </section>
 
@@ -229,10 +201,10 @@ get_header();
                 <h3 class="hb-card__title">ต้องการเว็บใหม่ที่พร้อมติด Google ตั้งแต่วันแรก</h3>
                 <p class="hb-card__body">เริ่มจากบริการรับทำเว็บไซต์ SEO-Ready พร้อม schema, sitemap, canonical, Core Web Vitals และ Lighthouse build gate.</p>
             </a>
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">Conversion</span>
-                <h3 class="hb-card__title">มี Traffic แล้ว แต่อัตราแปลงเป็นลูกค้ายังต่ำ</h3>
-                <p class="hb-card__body">ต่อยอดด้วย Digital Marketing + CRO เพื่อวัด funnel, heatmap, A/B test และเพิ่ม conversion จาก traffic เดิม.</p>
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">SEO + CRO</span>
+                <h3 class="hb-card__title">มีเว็บแล้ว แต่ traffic หรือ lead ยังไม่พอ</h3>
+                <p class="hb-card__body">ต่อยอดด้วยบริการรับทำ SEO สายเทคนิค พร้อม CRO + tracking ให้ traffic จาก Google และ AI Search กลายเป็น lead.</p>
             </a>
             <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">AI Automation</span>
@@ -597,10 +569,10 @@ get_header();
                     <label class="hb-label" for="contact-service">สนใจบริการ</label>
                     <select id="contact-service" class="hb-select" name="service">
                         <option value="">เลือกบริการ</option>
-                        <option value="seo-website">SEO-Ready Website</option>
-                        <option value="marketing-cro">Digital Marketing + CRO</option>
-                        <option value="ai-consulting">AI Expert Consulting</option>
-                        <option value="all">ทั้ง 3 บริการ Bundle</option>
+                        <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>
+                        <option value="<?php echo esc_attr( $svc['form_value'] ); ?>"><?php echo esc_html( $svc['name'] ); ?></option>
+                        <?php endforeach; ?>
+                        <option value="all">Bundle หลายบริการ</option>
                         <option value="audit-only">SEO Audit ฟรีก่อน</option>
                     </select>
                 </div>

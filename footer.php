@@ -48,7 +48,7 @@
                         HASHBOX<span class="hb-nav__brand-accent">.STUDIO</span>
                     </a>
                     <p class="hb-footer__desc">
-                        เอเจนซีที่รวม Web Development, Digital Marketing + CRO และ AI Consulting ไว้ในทีมเดียว ส่งมอบเว็บที่ผ่าน Lighthouse 100 และ AI Workforce ที่ใช้ได้จริง
+                        สตูดิโอที่รวม รับทำเว็บไซต์ SEO-Ready, รับทำ SEO / AI Search และที่ปรึกษา AI ไว้ในทีมเดียว ส่งมอบเว็บที่ผ่าน Lighthouse 100 และระบบ AI ที่ใช้งานจริงใน production
                     </p>
                     <div class="hb-footer__socials">
                         <a href="https://www.linkedin.com/in/tumthaweewat/" class="hb-footer__social" aria-label="LinkedIn LI" target="_blank" rel="me noopener noreferrer">LI</a>
@@ -59,12 +59,13 @@
                 </div>
 
                 <div class="hb-footer__col">
-                    <h3>Services</h3>
+                    <h3>บริการ</h3>
                     <ul>
-                        <li><a href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>">SEO-Ready Website</a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>">Marketing Tools + CRO</a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>">ที่ปรึกษา AI สำหรับธุรกิจ</a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">All Services</a></li>
+                        <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>
+                        <li><a href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>"><?php echo esc_html( $svc['name'] ); ?></a></li>
+                        <?php endforeach; ?>
+                        <li><a href="<?php echo esc_url( home_url( '/seo-audit/' ) ); ?>">SEO Audit ฟรี</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">บริการทั้งหมด</a></li>
                     </ul>
                 </div>
 

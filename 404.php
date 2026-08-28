@@ -49,17 +49,17 @@ get_header();
         <div class="hb-bento">
             <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">Service</span>
-                <h3 class="hb-card__title">SEO-Ready Website</h3>
+                <h3 class="hb-card__title">รับทำเว็บไซต์ SEO-Ready</h3>
                 <p class="hb-card__body">เว็บที่ผ่าน Lighthouse 100, Core Web Vitals เขียว และ schema ครบตั้งแต่วันเปิดตัว</p>
             </a>
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" style="text-decoration:none;">
+            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">Service</span>
-                <h3 class="hb-card__title">Digital Marketing + CRO</h3>
-                <p class="hb-card__body">GA4, GSC, heatmap และ A/B testing พร้อม CRO Sprint รายเดือน</p>
+                <h3 class="hb-card__title">รับทำ SEO</h3>
+                <p class="hb-card__body">Technical SEO, Core Web Vitals, Schema, Local SEO และ CRO + tracking — เริ่มจาก audit ฟรี</p>
             </a>
             <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">Service</span>
-                <h3 class="hb-card__title">AI Expert Consulting</h3>
+                <h3 class="hb-card__title">ที่ปรึกษา AI สำหรับธุรกิจ</h3>
                 <p class="hb-card__body">LINE Bot, Sales GPT, RAG และ workflow automation ที่ใช้งานจริงใน production</p>
             </a>
             <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" style="text-decoration:none;">
