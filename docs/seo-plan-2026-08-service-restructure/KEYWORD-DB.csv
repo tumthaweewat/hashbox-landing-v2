@@ -63,3 +63,5 @@ score,group,keyword,lang,intent,cluster,rank_2026-08-28,landing_page,serp_owner,
 24,Build,schema markup คือ,th,informational,seo,-,(none),-,2,3,3,1,C4 post 'Schema Markup คือ + ธุรกิจไทย' → /services/seo/,C4,todo
 24,Build,schema markup ธุรกิจไทย,th,informational,seo,-,(none),-,2,3,3,1,same post,C4,todo
 19,Build,javascript seo คือ,th,informational,seo,-,(none),-,2,2,2,1,C4 candidate low priority,C4,todo
+34,Build,llms.txt คือ,th,informational,ai-search,-,/llms-txt-คืออะไร-2026/,-,3,3,4,5,post 245 live; link from ai-search page,C4,live 2026-08-29
+38,Build,เว็บไซต์รองรับ ai search,th,commercial,ai-search,-,/เว็บไซต์รองรับ-ai-search-2026/,-,4,3,4,5,post 246 live; link from website-dev + ai-search,C4,live 2026-08-29

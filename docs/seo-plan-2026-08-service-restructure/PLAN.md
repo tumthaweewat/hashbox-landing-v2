@@ -70,6 +70,13 @@ Guard: PSI mobile ≥ 90 · H1 หน้าแรกคง "รับทำเ�
 | T5 | GSC export 28 วัน + 3 เดือน (Pages + Queries) | baseline จริงแทน 24 ชม. |
 | T6 | directory ที่เหลือจาก CITATION-KIT · Facebook page โพสต์บริการ 1/สัปดาห์ | G4, AI cite facebook |
 
+## Sprint 3 (เริ่มก่อนกำหนด 2026-08-29 — งาน on-site ที่ไม่ต้องรอ input)
+- ✅ BreadcrumbList บนโพสต์ทุกตัว (theme เดิม defer ให้ Rank Math ซึ่งปิด breadcrumb module) · stats grid 2 คอลัมน์ที่ tablet · html overflow-x ปิดอยู่แล้ว
+- ✅ C4 โพสต์ **llms.txt คืออะไร** (post 245) + **เว็บไซต์รองรับ AI Search คืออะไร — checklist 12 ข้อ** (post 246) · ลิงก์เข้า /services/ai-search/, geo-checker, website-dev · ลิงก์ขาเข้าจาก home row 4, ai-search page, post 66/208, website-dev FAQ · เข้า post-sitemap แล้ว
+- ✅ robots: Disallow feeds/search/emoji + ถอด feed_links (26/28 crawled-not-indexed = ขยะ)
+- publish path ใหม่: commit `content/blog/dist/NN.json` (md2wp) → JS ในหน้า admin fetch จาก theme URL → POST — เนื้อหาไม่ผ่าน tool boundary, ไม่โดน classifier
+- ⏳ PSI performance (API quota 429 ทั้งวัน) · ⏳ GSC request index รอบ 2 (30 ส.ค.): post 66 → 208 → n8n → 92 → 89 → 245 → 246
+
 ## Checkpoint สัปดาห์ 4 (≈ 26 ก.ย.)
 เทียบ G1–G4 · เลือก Sprint 3 จาก KEYWORD-DB score + Friday loop · **ถ้า T1–T2 ยังไม่เกิด → Sprint 3 = content คลัสเตอร์ A–C อย่างเดียว ไม่แตะ head term**
 
