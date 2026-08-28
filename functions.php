@@ -2324,6 +2324,16 @@ function hashbox_brand_image_object( $url, $width, $height, $caption ) {
 }
 
 function hashbox_brand_logo_object() {
+    // Google's logo guidance prefers a near-square image; use the real
+    // 512x512 mark when shipped and fall back to the OG banner otherwise.
+    // Shared by the Rank Math path and the no-Rank-Math fallback graph.
+    $logo_path = get_template_directory() . '/assets/favicons/icon-512.png';
+    if ( file_exists( $logo_path ) ) {
+        $size = @getimagesize( $logo_path );
+        $w    = ( $size && isset( $size[0] ) ) ? (int) $size[0] : 512;
+        $h    = ( $size && isset( $size[1] ) ) ? (int) $size[1] : 512;
+        return hashbox_brand_image_object( hashbox_logo_image_url(), $w, $h, 'โลโก้ Hashbox Studio' );
+    }
     list( $w, $h ) = hashbox_default_og_image_dimensions();
     return hashbox_brand_image_object( hashbox_default_og_image_url(), $w, $h, 'โลโก้ Hashbox Studio' );
 }
