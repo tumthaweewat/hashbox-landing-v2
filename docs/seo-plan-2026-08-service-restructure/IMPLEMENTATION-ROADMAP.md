@@ -11,7 +11,9 @@
 | 6 | Nav dropdown + mobile sheet 5 รายการ | header.php, navigation.css, v2.js | `<a href>` จริง, aria |
 | 7 | `/services/` ItemList/Service schema จาก array เดียวกับ `hasOfferCatalog` | functions.php | validate ด้วย Rich Results Test |
 | 8 | Rank Math title/desc หน้าแรก + /services/ ปรับให้มี 5 บริการ | REST updateMeta | — |
-| 9 | ตรวจ: php -l, contract tests, curl 301, Rich Results, PSI mobile ≥90 | — | — |
+| 9 | `/seo-audit/`, `/seo-recovery-audit/` เข้า sitemap + title/H1 มี "รับทำ SEO Audit / Technical SEO Audit" + ลิงก์จาก `/services/seo/` (GSC: `รับทำ seo technical audit` pos 31) | functions.php, page-audit-landing.php | ไม่ซ้ำ keyword `รับทำ seo` ของ `/services/seo/` |
+| 10 | post 92 Local SEO: EN answer-first + CTA; `/services/seo/` scope เพิ่ม Local SEO Bangkok (GSC: `local seo bangkok` 27 impr/วัน pos 13) | REST, page-seo-service.php | — |
+| 11 | ตรวจ: php -l, contract tests, curl 301, Rich Results, PSI mobile ≥90 | — | — |
 
 ## Phase 2 — AI Search page + intent split (สัปดาห์ 2–3)
 | # | งาน |

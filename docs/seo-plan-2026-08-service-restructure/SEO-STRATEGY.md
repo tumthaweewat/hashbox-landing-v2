@@ -149,3 +149,30 @@
 - Restructure = **บวก**ต่อ keyword ที่ติดแล้ว (ส่ง link เข้า post 170 / service pages มากขึ้น, ไม่มีการย้าย keyword ออกจากหน้าที่ติด)
 - ศูนย์ต่อ keyword ที่ยังไม่ติด (ต้องการ authority)
 - บวกต่อ AI search ผ่าน entity/schema/llms.txt แต่ตัวเลข "AI เอ่ยถึง" จะขยับจริงเมื่อมี citation ภายนอก (Phase 3)
+
+---
+
+## 7. GSC export 28 ส.ค. 2026 (Last 24 hours — 127 impr / 1 click / desktop 88 : mobile 20)
+
+> Sample 24 ชม. เล็ก — ใช้เป็น signal ไม่ใช่ baseline. ขอ export 28 วัน + 3 เดือนเพื่อเทียบ. แต่ pace 127 impr/วัน ≈ 3,800/เดือน = **4× ของ baseline ก.ค.–ส.ค. (950/เดือน)** → impressions กำลังขึ้นชัด clicks ยังไม่ตาม (CTR ต่ำเพราะ pos 10–30)
+
+### 7.1 Query ที่ tool ยังไม่ track แต่ GSC โชว์ (เพิ่มเข้า tracker)
+| Query | Impr (24h) | Pos | หน้า | Action |
+|---|---:|---:|---|---|
+| **local seo bangkok** | 27 (มากสุดของวัน) | 13.4 | post 92 (Thai guide) | query EN → หน้าไทย. เพิ่ม EN answer-first block + H2 "Local SEO Bangkok services" ใน post 92; ใส่ "Local SEO" เป็น sub-service ใน `/services/seo/` + bullet บนหน้าแรก; พิจารณา section EN บน `/en/ai-consulting/` หรือหน้า `/en/local-seo-bangkok/` ภายหลังถ้า impr ยืน |
+| local seo bkk | 3 | 30 | post 92 | รวมกับข้างบน |
+| **รับทำ seo technical audit** / รับทำ seo audit | 4 + 1 | 31 / 49 | `/services/seo/` | intent "audit" — `/seo-audit/` LP index ได้แต่**ไม่อยู่ใน sitemap** และ title "SEO Audit ฟรีสำหรับเว็บใหม่" ไม่มีคำ "รับทำ/technical" → ใส่ใน sitemap + title "รับทำ SEO Audit / Technical SEO Audit ฟรี" + ลิงก์จาก `/services/seo/` H2 "อะไรอยู่ใน SEO Audit ฟรี" |
+| ai optimization services bangkok | 2 | 80 | — | รองรับด้วย `/services/ai-search/` (EN section) |
+| techonseo | 2 | 27 | — | brand คู่แข่ง — ไม่ทำ |
+| บริการ rag | 1 | 21 | post 129 | ok |
+
+### 7.2 ยืนยัน ownership map (§6.2)
+- `ปรึกษาทำระบบ ai solution สำหรับธุรกิจ` 11 impr pos 14 (avg) / `บริการให้คำปรึกษา ai solution` 8 impr pos 19 → **post 170** (หน้า impr 23, pos 4.2) — ตรงกับ tool (#3 ณ จุดเช็ค)
+- `ai consulting bangkok` / `companies bangkok` pos 10 → `/en/ai-consulting/` (17 impr, pos 25 avg) — EN ไป /en/ ทั้งหมด ไม่มี cannibalization กับ `/services/ai-consulting/` (14 impr, ไทย)
+- click เดียวของวัน: `/services/website-development/` pos 3 (query ซ่อน) — หน้า service เว็บติดหน้า 1 ได้เมื่อ query long-tail
+
+### 7.3 สิ่งที่เพิ่มเข้า Roadmap Phase 1–2
+1. `/seo-audit/` + `/seo-recovery-audit/` → เข้า sitemap, title/H1 ใส่ "รับทำ SEO Audit / Technical SEO Audit", ลิงก์จาก `/services/seo/`
+2. post 92: EN answer-first + Local SEO service CTA; `/services/seo/` เพิ่ม "Local SEO Bangkok" ใน scope list; หน้าแรกแถว SEO bullet "Local SEO"
+3. Tracker: เพิ่ม `local seo bangkok`, `local seo bkk`, `รับทำ seo audit`, `รับทำ seo technical audit`, `ai optimization services bangkok`
+4. Desktop 81% ของ impr → B2B เวลางาน; mobile LCP ยังต้องดูแต่ไม่ใช่ตัวกด CTR หลัก — CTR ต่ำเพราะตำแหน่ง ไม่ใช่ device
