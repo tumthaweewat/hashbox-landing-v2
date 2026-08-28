@@ -12,6 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once get_template_directory() . '/inc/service-catalog.php';
 
+// No RSS/comment feed links in <head> and no emoji detection script —
+// both showed up as crawled-not-indexed URLs in GSC (2026-08-29).
+remove_action( 'wp_head', 'feed_links', 2 );
+remove_action( 'wp_head', 'feed_links_extra', 3 );
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+
 /**
  * Theme setup
  */
@@ -2769,7 +2776,15 @@ function hashbox_robots_txt( $output, $public ) {
 
     $output  = "User-agent: *\n";
     $output .= "Disallow: /wp-admin/\n";
-    $output .= "Allow: /wp-admin/admin-ajax.php\n\n";
+    $output .= "Allow: /wp-admin/admin-ajax.php\n";
+    // GSC (2026-08-29): 26 of 28 "crawled – not indexed" URLs were RSS feeds,
+    // the search feed and wp-emoji.js — crawl budget spent on nothing.
+    $output .= "Disallow: /feed/\n";
+    $output .= "Disallow: /*/feed/\n";
+    $output .= "Disallow: /*/feed/rss2/\n";
+    $output .= "Disallow: /search/\n";
+    $output .= "Disallow: /?s=\n";
+    $output .= "Disallow: /wp-includes/js/wp-emoji-release.min.js\n\n";
     // AI search crawlers are welcome — GEO depends on it. Listed explicitly
     // so the policy is unambiguous to each vendor.
     foreach ( array( 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'anthropic-ai', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Bingbot', 'Applebot-Extended', 'CCBot' ) as $bot ) {
