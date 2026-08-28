@@ -54,7 +54,7 @@ author: "Tum Thaweewat"
 | **3. Workflow-level** | AI ฝังเข้าไปใน process จริง มี automation เชื่อมระบบ ลดงานซ้ำเป็นระบบ | บอทดึงข้อมูลจาก LINE OA → สรุป → เข้า CRM อัตโนมัติ |
 | **4. Org-wide** | AI เป็นส่วนหนึ่งของกลยุทธ์ มี data platform, มี KPI, มี governance ทั้งองค์กร | ทุกแผนกมี AI use-case ที่วัด ROI ได้ มีทีมดูแล data + model |
 
-จุดที่ต้องระวัง: หลายองค์กรไทยติดอยู่ระหว่างระดับ 2 กับ 3 นาน — ซื้อ tool มาเยอะแต่ไม่เคยเชื่อมเข้า process จริง ทำให้รู้สึกว่า "ลงทุน AI ไปเยอะแต่ไม่เห็นผล" การขยับจาก tool-level ไป workflow-level คือช่วงที่ ROI เริ่มชัดที่สุด และมักเป็นจุดที่ต้องการที่ปรึกษาช่วยออกแบบระบบ ตัวอย่างการขยับจริงดูได้จากเคส [เปลี่ยนจาก spreadsheet เป็นระบบ digital workforce](/from-spreadsheets-to-systems-digital-workforce-story/) ที่ลดเวลาทำงานแมนนวลลงอย่างมีนัยสำคัญ
+จุดที่ต้องระวัง: หลายองค์กรไทยติดอยู่ระหว่างระดับ 2 กับ 3 นาน — ซื้อ tool มาเยอะแต่ไม่เคยเชื่อมเข้า process จริง ทำให้รู้สึกว่า "ลงทุน AI ไปเยอะแต่ไม่เห็นผล" การขยับจาก tool-level ไป workflow-level คือช่วงที่ ROI เริ่มชัดที่สุด และมักเป็นจุดที่ต้องการที่ปรึกษาช่วยออกแบบระบบ ตัวอย่างการขยับจริงดูได้จากเคส [AutoBot LINE — ย้ายงานตอบลูกค้าจากแอดมินไปเป็น AI ลด support cost 60%](/work/autobot-line/) ที่เริ่มจาก use-case เดียวแล้วฝังเข้า workflow จริง
 
 ## เริ่ม AI Transformation ในองค์กรไทยยังไง — 4 เสาหลัก {#start}
 
@@ -89,7 +89,7 @@ AI ดีแค่ไหนขึ้นกับข้อมูลที่ป�
 - เลือกสถาปัตยกรรมที่ต่อยอดได้ ไม่ล็อกกับ vendor เดียว
 - เริ่มจาก integration ที่เล็กและวัดผลได้ ก่อนขยาย
 
-อยากเห็นตัวอย่างรูปธรรมว่า AI เข้าไปช่วยแต่ละ process ยังไง ลองอ่าน [5 วิธีที่ AI ช่วยประหยัดเวลาทีม 20 ชั่วโมงต่อสัปดาห์](/5-ways-ai-save-team-20-hours-week/) ซึ่งยกกรณีใช้จริงที่เริ่มได้เร็ว
+อยากเห็นตัวอย่างรูปธรรมว่า AI เข้าไปช่วยแต่ละ process ยังไง ลองอ่าน [AI Workforce คืออะไร — คู่มือลด Manual Work 40% สำหรับ SME ไทย](/ai-workforce-sme-thailand-2026/) ซึ่งยกกรณีใช้จริงที่เริ่มได้เร็ว
 
 ## อุปสรรคที่ SME ไทยเจอบ่อย + วิธีข้าม {#pitfalls}
 
@@ -139,8 +139,8 @@ AI ดีแค่ไหนขึ้นกับข้อมูลที่ป�
 ดูเพิ่ม:
 - [รับ AI Audit ฟรี — บริการที่ปรึกษา AI สำหรับธุรกิจ](/services/ai-consulting/)
 - [ปรึกษาทำระบบ AI Solution เริ่มต้นยังไง](/ai-solution-consulting-guide-2026/)
-- [เคสจริง: เปลี่ยนจาก spreadsheet เป็นระบบ](/from-spreadsheets-to-systems-digital-workforce-story/)
-- [5 วิธีที่ AI ช่วยประหยัดเวลาทีม](/5-ways-ai-save-team-20-hours-week/)
+- [เคสจริง: AutoBot LINE — AI ลด Support Cost 60%](/work/autobot-line/)
+- [AI Workforce คืออะไร — ลด Manual Work 40% สำหรับ SME ไทย](/ai-workforce-sme-thailand-2026/)
 
 ## FAQ {#faq}
 

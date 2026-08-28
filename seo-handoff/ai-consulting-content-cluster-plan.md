@@ -66,7 +66,7 @@
 | บริการให้คำปรึกษา ai solution, ให้คำปรึกษา ai (TH) | `/services/ai-consulting/` | Commercial hub (TH) | ✅ | เพิ่ม answer-first intro + รับลิงก์จากทุก spoke |
 | **ปรึกษาทำระบบ ai solution สำหรับธุรกิจ** | `/ai-solution-consulting-guide-2026/` | **Spoke A1** (info→commercial) | ✅ | **live แล้ว** (post 170, 2026-08-08 — บทความ 09 `ai-solution-consulting-guide-2026.md`) |
 | **ai transformation คือ / ปรึกษา ai transformation** | `/blog/ai-transformation-คือ-2026/` | **Spoke A2** (info→commercial) | ❌ | **เขียนใหม่** (บทความ 10) |
-| **line chatbot ai / แชทบอท ai ธุรกิจ** | `/blog/line-chatbot-ai-ธุรกิจ-2026/` | **Spoke A3** (commercial) | ❌ | **เขียนใหม่** (บทความ 11) |
+| **line chatbot ai / แชทบอท ai ธุรกิจ** | `/line-chatbot-ai-guide-2026/` | **Spoke A3** (commercial) | ✅ | **live แล้ว** (post 69 — ร่าง "บทความ 11" ถูกตัดทิ้งตอน merge เพราะ keyword ซ้ำ; เนื้อหาอยู่ใน git history `c729d76` ใช้ refresh post 69 ได้) |
 | รับทำ ai tool / ai prototype | `/รับทำ-ai-tool-prototype-2026/` | **Spoke A4** (commercial) | ✅ | **เขียนแล้ว** (บทความ 12) |
 
 > **หลักการ mapping:** commercial-core keyword → **service page** (money page ปิดการขาย), long-tail/informational → **blog spoke** (ดัก demand ต้นทาง + ส่ง lead เข้า service page) ห้าม 2 หน้าเล็ง keyword เดียวกัน (cannibalization)
@@ -103,8 +103,8 @@
 - **Links OUT:** `/services/ai-consulting/`, A1, `/blog/from-spreadsheets-to-systems/`, `/blog/5-ways-ai-save-team-20-hours/`
 - **Links IN:** hub, A1, A3
 
-### Spoke A3 — LINE Chatbot AI สำหรับธุรกิจไทย ทำอย่างไร  → บทความ 11
-- **Slug:** `line-chatbot-ai-ธุรกิจ-2026`
+### Spoke A3 — LINE Chatbot AI สำหรับธุรกิจไทย  → post 69 (live)
+- **Slug:** `line-chatbot-ai-guide-2026` (มีอยู่แล้ว — ห้ามสร้างโพสต์ใหม่ keyword เดียวกัน; ถ้าจะเพิ่ม section "ต่างจาก auto-reply / สถาปัตยกรรม / PDPA" ให้แก้ใน post 69)
 - **Primary:** `line chatbot ai`
 - **Secondary:** `แชทบอท ai line`, `line oa ai`, `chatbot ai ธุรกิจไทย`, `ทำ chatbot line`
 - **Intent:** Commercial — ธุรกิจไทยที่ใช้ LINE OA อยู่แล้ว อยากเพิ่ม AI (vertical ที่ conversion ดีที่สุด)
@@ -153,13 +153,13 @@
 |---|---|
 | 1 | ปรับ hub `/services/ai-consulting/` เป็น answer-first + section ลิงก์ spoke |
 | 1–2 | **เผยแพร่ A1 (ปรึกษาทำระบบ AI Solution)** — long-tail ใหญ่สุด, ไม่มีคู่แข่งในเว็บ |
-| 3–4 | เผยแพร่ A3 (LINE Chatbot AI) — vertical conversion ดี + อัปเดตลิงก์ hub |
+| 3–4 | refresh A3 = post 69 (LINE Chatbot AI) ด้วยเนื้อหาจากร่างบทความ 11 (git `c729d76`) + อัปเดตลิงก์ hub |
 | 5–6 | เผยแพร่ A2 (AI Transformation) — ต้นทาง funnel |
 | 7–8 | เผยแพร่ A4 (AI Tool/Prototype) + ปิด cluster + ลิงก์ครบทุกทิศ |
 
 **บทความที่ควร publish ก่อน: A1** — เพราะ (1) รับ long-tail ที่ impr มากสุดในกลุ่มที่ยังไม่มีหน้าเจาะ (~68 impr) (2) commercial intent สูง = lead เร็ว (3) เป็นประตูส่งต่อไป spoke อื่นและ service page
 
-> บทความ 09/10/11 ในโฟลเดอร์ `content/blog/` คือ A1/A2/A3 (เขียนพร้อมใช้แล้ว) — นำเข้า WP ตาม `BLOG-SETUP.md §9`, ตั้ง Rank Math focus keyword + meta ตาม frontmatter, เปิด FAQ block จาก section FAQ
+> สถานะ 2026-08-28: A1 = post 170 (live), A2 = บทความ 10, A4 = บทความ 12 (publish 2026-08-28), A3 = post 69 (live, รอ refresh) — นำเข้า WP ตาม `BLOG-SETUP.md §9`, ตั้ง Rank Math focus keyword + meta ตาม frontmatter, เปิด FAQ block จาก section FAQ
 
 ---
 
