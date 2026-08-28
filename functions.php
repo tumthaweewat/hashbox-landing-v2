@@ -711,7 +711,7 @@ function hashbox_get_seo_metadata() {
 
     if ( is_front_page() ) {
         return array(
-            'title'       => 'รับทำเว็บไซต์ SEO-Ready · ที่ปรึกษา AI · รับทำ SEO และ AI Search | Hashbox Studio',
+            'title'       => 'รับทำเว็บไซต์ SEO-Ready · ที่ปรึกษา AI · รับทำ SEO | Hashbox Studio',
             'description' => 'Hashbox Studio รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, AI Search (GEO) และ n8n Automation สำหรับธุรกิจไทย — ราคาเปิดเผย Lighthouse 100, Core Web Vitals เขียว วัดผลจากข้อมูลจริงรายวัน',
         );
     }
@@ -761,7 +761,7 @@ function hashbox_get_seo_metadata() {
     $en_path = hashbox_current_request_path();
     $en_meta = array(
         'en/ai-consulting' => array(
-            'title'       => 'AI Consulting Company in Bangkok, Thailand — Production AI from THB 60,000 | Hashbox',
+            'title'       => 'AI Consulting Company in Bangkok, Thailand | Hashbox',
             'description' => 'AI consulting in Bangkok for Thai and regional businesses: LINE chatbots, Sales GPT, RAG knowledge bases and workflow automation shipped to production. Public pricing from THB 60,000, ROI assessed first, 100% source code handover.',
         ),
     );
@@ -778,11 +778,11 @@ function hashbox_get_seo_metadata() {
                 'description' => 'รวม 5 บริการในทีมเดียว: รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO, รับทำ AI Search (GEO) และ Workflow Automation n8n — ราคาโปร่งใส วัดผลจากข้อมูลจริงรายวัน',
             ),
             'seo-ready-website' => array(
-                'title'       => 'รับทำเว็บไซต์ SEO-Ready ติด Google และ AI Search ตั้งแต่วันเปิดตัว เริ่ม 35,900 บาท | Hashbox',
+                'title'       => 'รับทำเว็บไซต์ SEO-Ready ติด Google และ AI Search | Hashbox',
                 'description' => 'รับทำเว็บไซต์บริษัท E-commerce และ Landing Page แบบ SEO-Ready — Lighthouse 100, Core Web Vitals เขียว, Schema ครบ, รองรับ AI Search ส่งมอบพร้อม source code ราคาเริ่ม 35,900 บาท ประเมินโปรเจกต์ฟรี',
             ),
             'website-development' => array(
-                'title'       => 'รับทำเว็บไซต์ SEO-Ready ติด Google และ AI Search ตั้งแต่วันเปิดตัว เริ่ม 35,900 บาท | Hashbox',
+                'title'       => 'รับทำเว็บไซต์ SEO-Ready ติด Google และ AI Search | Hashbox',
                 'description' => 'รับทำเว็บไซต์บริษัท E-commerce และ Landing Page แบบ SEO-Ready — Lighthouse 100, Core Web Vitals เขียว, Schema ครบ, รองรับ AI Search ส่งมอบพร้อม source code ราคาเริ่ม 35,900 บาท ประเมินโปรเจกต์ฟรี',
             ),
             // Commercial intent only. This page used to lead with "ปรึกษาทำระบบ
@@ -793,7 +793,7 @@ function hashbox_get_seo_metadata() {
             // this work"; this page answers "who do I hire", and the title has
             // to say so. Keep ที่ปรึกษา AI — that is the term buyers search.
             'ai-search' => array(
-                'title'       => 'รับทำ AI Search (GEO) ให้แบรนด์ถูก AI Overview, ChatGPT, Perplexity อ้างอิง | Hashbox',
+                'title'       => 'รับทำ AI Search (GEO) ให้แบรนด์ถูก AI อ้างอิง | Hashbox',
                 'description' => 'รับทำ AI Search / GEO: audit, entity + Schema + llms.txt, answer-first content, citation ภายนอก วัดผลด้วย AI Visibility, Brand Mentions และ AI Overview citations จากระบบ track ของเราเอง — รวมใน SEO retainer เริ่ม 25,000 บาท/เดือน',
             ),
             'ai-consulting' => array(
@@ -844,7 +844,7 @@ function hashbox_get_seo_metadata() {
      */
     if ( 'services/seo' === hashbox_current_request_path() ) {
         return array(
-            'title'       => 'รับทำ SEO สายเทคนิค ติดหน้าแรก Google และ AI Search เริ่ม 25,000/เดือน | Hashbox',
+            'title'       => 'รับทำ SEO สายเทคนิค ติดหน้าแรก Google และ AI Search | Hashbox',
             'description' => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
         );
     }
@@ -4981,8 +4981,8 @@ function hashbox_geo_run_checks( $html, $llms_txt_found ) {
 
     $has_meta_desc = (bool) preg_match( '/<meta[^>]+name=["\']description["\'][^>]+content=["\'][^"\']{50,}/is', $html );
 
-    $h1_count = preg_match_all( '/<h1[\b>]/i', $html );
-    $h2_count = preg_match_all( '/<h2[\b>]/i', $html );
+    $h1_count = preg_match_all( '/<h1[\s>]/i', $html );
+    $h2_count = preg_match_all( '/<h2[\s>]/i', $html );
 
     // JSON-LD blocks.
     $jsonld = '';
