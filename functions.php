@@ -2642,121 +2642,16 @@ function hashbox_inject_home_schema() {
         return;
     }
 
-    $home   = home_url( '/' );
-    $logo   = hashbox_logo_image_url();
-
+    // Single source of truth: the same Organization / ProfessionalService /
+    // WebSite builders that feed the Rank Math graph. Keeping one builder
+    // per entity means sameAs, logo, offers, etc. can no longer drift between
+    // the Rank Math path (production) and this fallback.
     hashbox_jsonld( array(
         '@context' => 'https://schema.org',
         '@graph'   => array(
-            array(
-                '@type' => 'Organization',
-                '@id'   => $home . '#organization',
-                'name'  => 'Hashbox Studio',
-                'url'   => $home,
-                'logo'  => hashbox_brand_logo_object(),
-                'image' => hashbox_brand_images(),
-                'sameAs' => array(
-                    'https://www.linkedin.com/company/hashbox-studio',
-                    'https://www.facebook.com/profile.php?id=61590390615650',
-                    'https://www.instagram.com/hashbox.studio/',
-                ),
-                'contactPoint' => array(
-                    '@type'             => 'ContactPoint',
-                    'telephone'         => '+66-62-516-9868',
-                    'email'             => 'business@hashbox.co.th',
-                    'contactType'       => 'sales',
-                    'areaServed'        => 'TH',
-                    'availableLanguage' => array( 'th', 'en' ),
-                ),
-                'address' => array(
-                    '@type'           => 'PostalAddress',
-                    'streetAddress'   => '139 Pan Rd, Si Lom',
-                    'addressLocality' => 'Bang Rak',
-                    'addressRegion'   => 'Bangkok',
-                    'postalCode'      => '10500',
-                    'addressCountry'  => 'TH',
-                ),
-            ),
-            array(
-                '@type'              => array( 'ProfessionalService', 'LocalBusiness' ),
-                '@id'                => $home . '#service',
-                'name'               => 'Hashbox Studio',
-                'description'        => 'SEO-ready website builds, digital marketing tools, CRO, and AI consulting for Thai SMEs.',
-                'url'                => $home,
-                'image'              => $logo,
-                'telephone'          => '+66-62-516-9868',
-                'email'              => 'business@hashbox.co.th',
-                'priceRange'         => '฿฿฿',
-                'areaServed'         => 'Thailand',
-                'parentOrganization' => array( '@id' => $home . '#organization' ),
-                'address' => array(
-                    '@type'           => 'PostalAddress',
-                    'streetAddress'   => '139 Pan Rd, Si Lom',
-                    'addressLocality' => 'Bang Rak',
-                    'addressRegion'   => 'Bangkok',
-                    'postalCode'      => '10500',
-                    'addressCountry'  => 'TH',
-                ),
-                'geo' => array(
-                    '@type'     => 'GeoCoordinates',
-                    'latitude'  => 13.7263,
-                    'longitude' => 100.5270,
-                ),
-                'openingHoursSpecification' => array(
-                    '@type'     => 'OpeningHoursSpecification',
-                    'dayOfWeek' => array( 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ),
-                    'opens'     => '09:00',
-                    'closes'    => '18:00',
-                ),
-                'hasOfferCatalog'    => array(
-                    '@type' => 'OfferCatalog',
-                    'name'  => 'Services',
-                    'itemListElement' => array(
-                        array(
-                            '@type'       => 'Offer',
-                            'itemOffered' => array(
-                                '@type'       => 'Service',
-                                'name'        => 'SEO-Ready Website Build',
-                                'description' => 'Production-ready websites that pass Lighthouse 100, green Core Web Vitals, complete schema, and rank within 60-90 days.',
-                            ),
-                        ),
-                        array(
-                            '@type'       => 'Offer',
-                            'itemOffered' => array(
-                                '@type'       => 'Service',
-                                'name'        => 'Digital Marketing Tools + CRO',
-                                'description' => 'GA4, GSC, Looker Studio, heatmaps, A/B testing, and monthly CRO sprints to compound conversion.',
-                            ),
-                        ),
-                        array(
-                            '@type'       => 'Offer',
-                            'itemOffered' => array(
-                                '@type'       => 'Service',
-                                'name'        => 'AI Expert Consulting',
-                                'description' => 'LINE bot, sales GPT, RAG knowledge base, and workflow automation that ships to production.',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-            array(
-                '@type'      => 'WebSite',
-                '@id'        => $home . '#website',
-                'url'        => $home,
-                'name'       => 'Hashbox Studio',
-                // Site node — see hashbox_rankmath_schema_website(): stays Thai
-                // on every URL because it describes the site, not the page.
-                'inLanguage' => 'th-TH',
-                'publisher'  => array( '@id' => $home . '#organization' ),
-                'potentialAction' => array(
-                    '@type'       => 'SearchAction',
-                    'target'      => array(
-                        '@type'       => 'EntryPoint',
-                        'urlTemplate' => $home . '?s={search_term_string}',
-                    ),
-                    'query-input' => 'required name=search_term_string',
-                ),
-            ),
+            hashbox_rankmath_schema_organization(),
+            hashbox_rankmath_schema_service(),
+            hashbox_rankmath_schema_website(),
         ),
     ) );
 }
