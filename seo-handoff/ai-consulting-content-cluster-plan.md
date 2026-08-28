@@ -65,9 +65,9 @@
 | ai consulting/consultant bangkok (EN) | `/en/ai-consulting/` | Commercial hub (EN) | ✅ | ดัน + ป้อน link จาก spoke; ภาษา/locale = en (แก้ใน PR audit แล้ว) |
 | บริการให้คำปรึกษา ai solution, ให้คำปรึกษา ai (TH) | `/services/ai-consulting/` | Commercial hub (TH) | ✅ | เพิ่ม answer-first intro + รับลิงก์จากทุก spoke |
 | **ปรึกษาทำระบบ ai solution สำหรับธุรกิจ** | `/ai-solution-consulting-guide-2026/` | **Spoke A1** (info→commercial) | ✅ | **live แล้ว** (post 170, 2026-08-08 — บทความ 09 `ai-solution-consulting-guide-2026.md`) |
-| **ai transformation คือ / ปรึกษา ai transformation** | `/blog/ai-transformation-คือ-2026/` | **Spoke A2** (info→commercial) | ❌ | **เขียนใหม่** (บทความ 10) |
+| **ai transformation คือ / ปรึกษา ai transformation** | `/ai-transformation-คือ-2026/` | **Spoke A2** (info→commercial) | ✅ | **live** post 220 (2026-08-28, บทความ 10) |
 | **line chatbot ai / แชทบอท ai ธุรกิจ** | `/line-chatbot-ai-guide-2026/` | **Spoke A3** (commercial) | ✅ | **live แล้ว** (post 69 — ร่าง "บทความ 11" ถูกตัดทิ้งตอน merge เพราะ keyword ซ้ำ; เนื้อหาอยู่ใน git history `c729d76` ใช้ refresh post 69 ได้) |
-| รับทำ ai tool / ai prototype | `/รับทำ-ai-tool-prototype-2026/` | **Spoke A4** (commercial) | ✅ | **เขียนแล้ว** (บทความ 12) |
+| รับทำ ai tool / ai prototype | `/รับทำ-ai-tool-prototype-2026/` | **Spoke A4** (commercial) | ✅ | **live** post 224 (2026-08-28, บทความ 12) |
 
 > **หลักการ mapping:** commercial-core keyword → **service page** (money page ปิดการขาย), long-tail/informational → **blog spoke** (ดัก demand ต้นทาง + ส่ง lead เข้า service page) ห้าม 2 หน้าเล็ง keyword เดียวกัน (cannibalization)
 
@@ -159,7 +159,7 @@
 
 **บทความที่ควร publish ก่อน: A1** — เพราะ (1) รับ long-tail ที่ impr มากสุดในกลุ่มที่ยังไม่มีหน้าเจาะ (~68 impr) (2) commercial intent สูง = lead เร็ว (3) เป็นประตูส่งต่อไป spoke อื่นและ service page
 
-> สถานะ 2026-08-28: A1 = post 170 (live), A2 = บทความ 10, A4 = บทความ 12 (publish 2026-08-28), A3 = post 69 (live, รอ refresh) — นำเข้า WP ตาม `BLOG-SETUP.md §9`, ตั้ง Rank Math focus keyword + meta ตาม frontmatter, เปิด FAQ block จาก section FAQ
+> สถานะ 2026-08-28: A1 = post 170 (live), A2 = post 220 (live), A4 = post 224 (live), A3 = post 69 (live, รอ refresh) — cluster A hub-and-spoke ครบแล้ว — นำเข้า WP ตาม `BLOG-SETUP.md §9`, ตั้ง Rank Math focus keyword + meta ตาม frontmatter, เปิด FAQ block จาก section FAQ
 
 ---
 
