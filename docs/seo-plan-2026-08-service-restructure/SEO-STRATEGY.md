@@ -98,3 +98,54 @@
 | CWV mobile | 93 | ≥90 (หลังใส่รูปจริง) | ≥90 | ≥90 |
 
 > เตือน: ตัวเลข 3–12 เดือนสมมติว่า Phase 3 (backlink/citation) ถูกทำจริง — โครงสร้างอย่างเดียวขยับ impressions ได้ แต่ clicks ต้องการ authority.
+
+---
+
+## 6. Live data จาก Hashbox SEO stack (28 ส.ค. 2026) — สิ่งที่เปลี่ยนแผน
+
+### 6.1 อันดับปัจจุบัน (top-20 = 8/56 keyword)
+| Keyword | Pos | หน้าที่ติด | หมายเหตุ |
+|---|---:|---|---|
+| ปรึกษาทำระบบ ai solution | **3** | `/ai-solution-consulting-guide-2026/` (post 170) | ใหม่ — **บทความ**ถือ keyword ไม่ใช่ service page |
+| ปรึกษาทำระบบ ai solution สำหรับธุรกิจ | **3** | post 170 | ใหม่ |
+| บริการให้คำปรึกษา ai solution | 9 | post 170 | ใหม่ |
+| hashbox | 5 (−3) | `/` | brand ยังไม่ #1 (Hashbox Monster ชนชื่อ) |
+| ที่ปรึกษา ai ไทย | 14 (+5) | `/services/ai-consulting/` | service page |
+| ai consulting bangkok / companies bangkok / consultant bangkok / companies thailand | 14–23 | `/en/ai-consulting/` | EN cannibalization แก้แล้ว — ไป /en/ หมด |
+| n8n คือ | 46 | `/n8n-thai-guide-2026/` | ใหม่ |
+| **รับทำเว็บไซต์ (ทุก variant), รับทำ seo, รับทำ n8n, geo คือ, ai overview, technical seo…** | — | ไม่ติด top 20 | ดู 6.3 |
+
+### 6.2 Keyword ownership map (กติกา: 1 keyword = 1 หน้า — anchor บนหน้าแรก/nav ต้องชี้ตามนี้)
+| Keyword | หน้าเจ้าของ | anchor ที่ใช้บนหน้าแรก/nav |
+|---|---|---|
+| ปรึกษาทำระบบ ai solution (สำหรับธุรกิจ) | **post 170** (pos 3 — อย่าย้าย) | bullet ในแถว AI: "ปรึกษาทำระบบ AI Solution → คู่มือ" ชี้ post 170 |
+| ที่ปรึกษา ai (ไทย/สำหรับธุรกิจ), บริการให้คำปรึกษา ai | `/services/ai-consulting/` | **แถว 2 ของ service list = "ที่ปรึกษา AI สำหรับธุรกิจ — วางระบบ AI Solution ถึง production"** ชี้ service page (ไม่ใช้วลี "ปรึกษาทำระบบ ai solution" เป็น anchor ไปหน้า service เพื่อไม่แย่ง post 170) |
+| ai consulting bangkok/thailand (EN) | `/en/ai-consulting/` | nav/footer EN link |
+| รับทำเว็บไซต์ + variants | `/services/website-development/` | แถว 1 "รับทำเว็บไซต์ SEO-Ready" |
+| รับทำเว็บไซต์ wordpress | `/services/website-development/wordpress/` | bullet |
+| รับทำ seo (+สายขาว) | `/services/seo/` | แถว 3 "รับทำ SEO" |
+| geo คือ / geo seo | post 66 | bullet ในแถว AI Search → post 66 |
+| รับทำ ai search / ai seo / geo agency | `/services/ai-search/` (ใหม่) | แถว 4 |
+| รับทำ n8n / รับวางระบบ n8n | `/services/n8n-automation/` | แถว 5 |
+| n8n คือ / n8n ราคา | post 196 | bullet |
+| รับทำ ai tool / prototype | post 224 | bullet ในแถว AI |
+| ปรึกษา ai transformation | post 220 | bullet ในแถว AI |
+
+> ผลของ restructure ต่อ post 170: **บวก** — หน้าแรก/nav ส่ง link เข้า post 170 ด้วย anchor ตรง keyword จากทุกหน้า (ตอนนี้ post 170 ได้ link จากหน้าแรกเฉพาะตอนอยู่ใน "บทความล่าสุด"). ห้ามใส่ H2/anchor "ปรึกษาทำระบบ ai solution" บนหน้า service เพิ่มอีก (ตอนนี้มี H2 "บริการปรึกษาและทำระบบ AI Solution" 1 จุด — พอ).
+
+### 6.3 ทำไม "รับทำเว็บไซต์*" ยังไม่ติด แม้ service page ทำครบ
+- ผู้ครอง SERP/AI Overview ของกลุ่มนี้: **google.com (Local Pack/แผนที่) 100%, YouTube (วิดีโอ), fastwork.co, makewebeasy** → เป็น query ที่ Google ตอบด้วย **local + marketplace + วิดีโอ** ไม่ใช่หน้า service ของเอเจนซีเดี่ยว
+- นัย: restructure ช่วย on-page แต่ **ไม่พอ** — ต้อง (1) GBP ครบ + รีวิว (Local Pack), (2) วิดีโอ YouTube สั้น "รับทำเว็บไซต์ SEO-Ready คืออะไร" (3) backlink/citation. ใส่ใน Roadmap Phase 3 แล้ว
+- ตั้งความคาดหวัง: `รับทำเว็บไซต์` head term = 12 เดือน; long-tail (`รับทำเว็บไซต์ seo`, `เว็บไซต์ seo ready`, `รับทำเว็บไซต์ บริษัท`) = 3–6 เดือน หลังมี 5–10 referring domains
+
+### 6.4 AI Search visibility ตอนนี้
+- AI Overview ที่เราปรากฏ: **11/51 keyword** (+4 ใน 7 วัน) — ดีขึ้น
+- AI (ChatGPT/Claude/Gemini/Perplexity) เอ่ยถึงเรา: **6/20 prompt** — เฉพาะ brand + "ที่ปรึกษา ai ไทย"; `รับทำ seo`, `รับทำ n8n`, `รับทำเว็บไซต์ บริษัท` = 0
+- แหล่งที่ AI cite มากสุด: fastwork.co (174), facebook (85), makewebeasy (85), youtube (77), datawow.io (72), anga.co.th (69) → **AI ดึงจาก marketplace/social/วิดีโอ/เอเจนซีใหญ่** — เราต้องอยู่ในแหล่งพวกนั้น: Facebook page เนื้อหาบริการ, YouTube, profile บน fastwork? (พิจารณา), Clutch/GoodFirms (ทำแล้ว)
+- "ai consulting companies thailand / ai solutions bangkok / ai solution provider" → AI Overview มี 14–25 แหล่ง ไม่มีเรา → หน้า `/en/ai-consulting/` ต้องมี answer-first list "AI consulting companies in Thailand" + ถูก cite จาก directory
+- หน้า `/services/ai-search/` จะเพิ่ม prompt coverage กลุ่ม "รับทำ ai search / geo" ที่ตอนนี้ 0
+
+### 6.5 สรุปผลกระทบสุทธิ (อัปเดต)
+- Restructure = **บวก**ต่อ keyword ที่ติดแล้ว (ส่ง link เข้า post 170 / service pages มากขึ้น, ไม่มีการย้าย keyword ออกจากหน้าที่ติด)
+- ศูนย์ต่อ keyword ที่ยังไม่ติด (ต้องการ authority)
+- บวกต่อ AI search ผ่าน entity/schema/llms.txt แต่ตัวเลข "AI เอ่ยถึง" จะขยับจริงเมื่อมี citation ภายนอก (Phase 3)
