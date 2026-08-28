@@ -86,3 +86,9 @@ C2 listicle TH "10 บริษัทรับทำ SEO ไทย 2026" · C3 l
 
 ## Stack
 Claude Code + Hashbox Signal + GSC + Tum. ไม่ซื้อเครื่องมือเพิ่ม (ไม่ต้อง Ahrefs / Surfer / ChatGPT / Notion).
+
+## GSC indexing log
+- **2026-08-29** Request indexing ส่งแล้ว 9 URL (quota 10/วัน): /services/ai-search/ · /geo-checker/ · / · /services/ · /services/seo/ · /services/website-development/ · /en/ai-consulting/ · post 170 · (post 92 ติด quota) · submit `landing-sitemap.xml`
+- **สถานะที่เจอ (สำคัญ):** post 66 `geo-ai-search-optimization-2026` = *crawled, ยังไม่ index* (query non-brand ใหญ่สุด!) · post 208 `google-ai-overview-thailand-2026` = *Google ไม่รู้จัก URL* · /services/n8n-automation/ = *discovered, ยังไม่ index* · ai-consulting, home, services, seo, website-dev, en, post 170, post 92 = indexed
+- **พรุ่งนี้ (30 ส.ค.) ขอ index ตามลำดับ:** post 66 → post 208 → /services/n8n-automation/ → post 92 → /services/ai-consulting/ → post 224, 220 (เช็คสถานะก่อน) → /website-audit/
+- Friday loop: ตรวจ "หน้า" report ใน GSC หา Crawled/Discovered-not-indexed ทั้งหมด — ถ้าเยอะ = สัญญาณคุณภาพ/internal link ต้องแก้ก่อน content ใหม่
