@@ -76,6 +76,10 @@ $faqs = array(
         'q' => 'เริ่มยังไง?',
         'a' => 'ทักมาคุยผ่านหน้า Contact เล่าให้ฟังว่างานอะไรที่ทีมทำซ้ำทุกวันหรือทุกสัปดาห์ เราคุยกันก่อนว่างานนั้นควรทำเป็นระบบอัตโนมัติจริงไหม บางงานทำแล้วไม่คุ้มเพราะรันเดือนละครั้ง บางงานควรแก้ที่ process ก่อนไม่ใช่เอาเครื่องมือมาครอบ ถ้าคุยแล้วเห็นตรงกันว่าคุ้ม เราถึงเสนอ scope และราคา',
     ),
+    array(
+        'q' => 'รับทำ AI Automation / AI Workflow ที่ไม่ใช่ n8n ด้วยไหม?',
+        'a' => 'รับ — n8n เป็นเครื่องมือหลักเพราะ self-host ได้และทีมลูกค้าแก้เองต่อได้ แต่ถ้าโจทย์ต้องการ LLM เป็นแกน (RAG, agent ที่ตัดสินใจหลายขั้น) หรือต้องเขียนโค้ดเชื่อมระบบเฉพาะ เราทำเป็นโปรเจกต์ AI ภายใต้บริการที่ปรึกษา AI สำหรับธุรกิจ โดยใช้ n8n เป็นตัวเชื่อมเมื่อเหมาะ ราคาเริ่มต้น 60,000 บาทสำหรับ ROI Assessment',
+    ),
 );
 
 $pains = array(
@@ -175,6 +179,38 @@ $compare = array(
                     <p class="hb-body"><?php echo esc_html( $s['d'] ); ?></p>
                 </div>
             <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<section class="hb-section" id="ai-automation">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">รับวางระบบ n8n + AI Automation</span>
+            <h2 class="hb-h2">รับวางระบบ n8n และ AI Automation — เชื่อม LINE OA, CRM, Google Sheet, Notion และ LLM</h2>
+            <p class="hb-section__sub">งานที่ลูกค้าให้เราวางระบบบ่อยที่สุด 4 แบบ — ทุกแบบรันบนเซิร์ฟเวอร์ของคุณ ส่งมอบพร้อมไฟล์ workflow และเอกสาร</p>
+        </div>
+        <div class="hb-bento">
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">LINE OA</span>
+                <h3 class="hb-h3">รับข้อความ LINE → คัดกรอง → เข้า CRM / แจ้งทีม</h3>
+                <p class="hb-body">ข้อความจากลูกค้าเข้า n8n, ให้ LLM สรุปและติด tag ตามประเภท, สร้าง lead ใน CRM แล้วแจ้งทีมขายใน LINE/Slack — ต่อยอดเป็น <a href="<?php echo esc_url( home_url( '/line-chatbot-ai-guide-2026/' ) ); ?>">LINE Chatbot AI</a> ได้เมื่อพร้อม</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">CRM sync</span>
+                <h3 class="hb-h3">ฟอร์มเว็บ · โฆษณา · อีเมล → CRM เดียว</h3>
+                <p class="hb-body">Lead จากทุกช่องทางเข้า HubSpot / Pipedrive / Google Sheet ที่เดียว ไม่ต้องคัดลอกมือ พร้อม dedupe และ assign ตามกติกาที่ตกลง</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">Sheet / Notion</span>
+                <h3 class="hb-h3">รายงานอัตโนมัติจาก Sheet, Notion, GA4, Search Console</h3>
+                <p class="hb-body">ดึงตัวเลขทุกเช้า สรุปเป็นข้อความหรือ dashboard ส่งเข้า LINE/อีเมล — ทีมไม่ต้องเปิด 5 ระบบเพื่อรู้ว่าเมื่อวานเป็นยังไง</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">AI Automation</span>
+                <h3 class="hb-h3">ใส่ LLM ใน workflow: สรุป จัดหมวด ร่างตอบ</h3>
+                <p class="hb-body">OpenAI / Claude / Gemini ใน n8n node — อ่านอีเมลหรือเอกสารแล้วสรุป, จัดหมวดคำร้อง, ร่างคำตอบให้คนตรวจก่อนส่ง ถ้าโจทย์ใหญ่กว่า workflow ดู<a href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>">บริการที่ปรึกษา AI สำหรับธุรกิจ</a></p>
+            </div>
         </div>
     </div>
 </section>
