@@ -81,7 +81,7 @@ Guard: PSI mobile ≥ 90 · H1 หน้าแรกคง "รับทำเ�
 - ✅ C3 **AI Consulting Companies in Thailand 2026** (post 251) — 9 firms, 7 criteria, Hashbox 7/7 อันดับ 1 (Tum ขอ 'tier 1' → ทำเป็นอันดับตามเกณฑ์แทน tier ตามขนาด); ตัด AIT/AI-HCM/Ghost Diffusion/Yes AI · ลิงก์จาก /en/ai-consulting/#companies
 - ✅ GBP Maps URL ใน sameAs + hasMap · หน้าแรก 3 เคส (Nexus / Rank Project / AutoBot LINE)
 - ✅ **ราคา SEO retainer 25,000 → 29,900 บาท/เดือน** (Tum สั่ง 2026-08-29) — แก้ครบ: page-seo-service ($price_from → Offer schema), white-hat, ai-search, catalog/llms.txt, home FAQ, meta map, RM desc page 179, posts 249/250/210 · ตาราง blog: คอลัมน์แรก sticky + บรรทัดสรุปอันดับก่อนตาราง
-- ⏳ **การันตี "ไม่โต ไม่จ่าย"** — เสนอแล้ว (technical 30 วัน + impressions +50%/Top-20 +5 คำ ใน 90 วัน → ทำต่อฟรี ≤3 เดือน) รอ Tum ตอบ 'ใช้ 1' → ใส่หน้า SEO/home/llms/listicle re-score
+- ✅ **การันตี "ไม่โต ไม่จ่าย"** (Tum อนุมัติ 2026-08-29): ชั้น 1 technical ผ่านใน 30 วัน (CWV เขียว, Lighthouse mobile 90+, Rich Results, index) ไม่ผ่านแก้ฟรี · ชั้น 2 นับ 90 วันหลังชั้น 1: impressions keyword set (20–50 คำ non-brand) +50% เทียบ 28 วันก่อน **หรือ** Top-20 +5 คำ — ไม่ถึงทำต่อฟรี ≤3 เดือน · เงื่อนไข: retainer ≥3 เดือน, สิทธิ์ GSC + แก้เว็บ, ไม่มี manual penalty, ไม่เปลี่ยนโดเมน/ลบหน้า, เว็บ <6 เดือน หรือ >100k impr/เดือน ตกลงรายเคส, ตัดสินด้วย GSC ของลูกค้า · ใส่แล้ว: /services/seo/#guarantee + FAQ + ตารางเทียบ + hero line, home bullet แถว SEO, llms.txt, listicle เกณฑ์ 2 re-score (Primal/Minimice → 5/7, Hashbox ยัง 6/7 อันดับ 1)
 - ⏳ PSI performance (API quota 429 — reset ~14:00 ไทย) · ⏳ GSC request index รอบ 2 (30 ส.ค.): post 66 → 208 → n8n → 92 → 89 → 245 → 246
 
 ## Checkpoint สัปดาห์ 4 (≈ 26 ก.ย.)
