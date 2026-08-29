@@ -254,7 +254,7 @@ $compare = array(
                     <tr>
                         <th scope="col" style="text-align:left;padding:var(--hb-space-3) var(--hb-space-4);border-bottom:1px solid var(--hb-border);color:var(--hb-text-muted);font-weight:600;">หัวข้อ</th>
                         <th scope="col" style="text-align:left;padding:var(--hb-space-3) var(--hb-space-4);border-bottom:1px solid var(--hb-border);color:var(--hb-text-muted);font-weight:600;">Agency ทั่วไป</th>
-                        <th scope="col" style="text-align:left;padding:var(--hb-space-3) var(--hb-space-4);border-bottom:1px solid var(--hb-border);color:var(--hb-accent-blue,#2563EB);font-weight:600;">Hashbox</th>
+                        <th scope="col" style="text-align:left;padding:var(--hb-space-3) var(--hb-space-4);border-bottom:1px solid var(--hb-border);color:var(--hb-accent-blue-soft,#818CF8);font-weight:600;">Hashbox</th>
                     </tr>
                 </thead>
                 <tbody>
