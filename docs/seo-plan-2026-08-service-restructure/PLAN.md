@@ -84,6 +84,8 @@ Guard: PSI mobile ≥ 90 · H1 หน้าแรกคง "รับทำเ�
 - ✅ **การันตี "ไม่โต ไม่จ่าย"** (Tum อนุมัติ 2026-08-29): ชั้น 1 technical ผ่านใน 30 วัน (CWV เขียว, Lighthouse mobile 90+, Rich Results, index) ไม่ผ่านแก้ฟรี · ชั้น 2 นับ 90 วันหลังชั้น 1: impressions keyword set (20–50 คำ non-brand) +50% เทียบ 28 วันก่อน **หรือ** Top-20 +5 คำ — ไม่ถึงทำต่อฟรี ≤3 เดือน · เงื่อนไข: retainer ≥3 เดือน, สิทธิ์ GSC + แก้เว็บ, ไม่มี manual penalty, ไม่เปลี่ยนโดเมน/ลบหน้า, เว็บ <6 เดือน หรือ >100k impr/เดือน ตกลงรายเคส, ตัดสินด้วย GSC ของลูกค้า · ใส่แล้ว: /services/seo/#guarantee + FAQ + ตารางเทียบ + hero line, home bullet แถว SEO, llms.txt, listicle เกณฑ์ 2 re-score (Primal/Minimice → 5/7, Hashbox ยัง 6/7 อันดับ 1)
 - ⏳ PSI performance (API quota 429 — reset ~14:00 ไทย) · ⏳ GSC request index รอบ 2 (30 ส.ค.): post 66 → 208 → n8n → 92 → 89 → 245 → 246
 
+- ✅ **Typography 2026-08-29 (กฎถาวรของ Tum):** ฟอนต์เดียว IBM Plex Sans Thai ทั้งเว็บ (display/body/mono tokens ชี้ stack เดียว, ตัด DM Sans + Plex Mono preload), scale เล็กลงอิง anga: H1 hero 28 มือถือ / 46–52 desktop, H2 36, H3 28, body 16; form controls inherit font; page 136 inline CSS แก้แล้ว · hero หน้าแรก copy 5 บริการ + ตัวเลขจริงแทน KPI สมมติ · กฎอยู่ใน CLAUDE.md "Design rules" + TEMPLATE.md Design gate + memory
+
 ## Checkpoint สัปดาห์ 4 (≈ 26 ก.ย.)
 เทียบ G1–G4 · เลือก Sprint 3 จาก KEYWORD-DB score + Friday loop · **ถ้า T1–T2 ยังไม่เกิด → Sprint 3 = content คลัสเตอร์ A–C อย่างเดียว ไม่แตะ head term**
 
