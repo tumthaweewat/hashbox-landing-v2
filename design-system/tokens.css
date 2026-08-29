@@ -285,6 +285,13 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Form controls do not inherit fonts by default (Arial/Times leak) — one family everywhere. */
+button, input, select, textarea, optgroup {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
 body {
   margin: 0;
   overflow-x: clip;
