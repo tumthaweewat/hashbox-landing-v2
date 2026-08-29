@@ -20,7 +20,7 @@ score,group,keyword,lang,intent,cluster,rank_2026-08-28,landing_page,serp_owner,
 39,Build,line chatbot ราคา,th,commercial,ai-consulting,-,post 69,-,4,4,3,5,"post 69 has 60,000 price — add FAQ 'ราคา' + title",F2,onsite done 2026-08-29,,
 38,Build,รับทำเว็บไซต์ บริษัท,th,transactional,website,-,/services/website-development/,-,5,2,4,4,B2 H2 variant + GBP,B2,onsite done 2026-08-29,,
 37,Build,ai seo,th,commercial,ai-search,-,/services/ai-search/,-,4,3,5,2,C1,C1,live 2026-08-29,,
-37,Build,geo agency,en,commercial,ai-search,-,/services/ai-search/,-,4,3,5,2,C1,C1,live 2026-08-29,,
+37,Build,geo agency,en,commercial,ai-search,-,/en/ai-search/,-,4,3,5,2,C1,C1,EN page live 2026-08-29 (page 261),,
 37,Build,บริการ n8n,th,commercial,n8n,-,/services/n8n-automation/,video 100%,4,3,4,4,B4 H2 variant + footer link + video,B4,onsite done 2026-08-29,,
 37,Build,ปรึกษา ai transformation,th,commercial,ai-consulting,-,post 220,video 67%,4,3,4,4,post 220 CTA + B3 bullet,A6,onsite done 2026-08-29,29,63.7
 37,Build,ผู้ให้บริการโซลูชัน ai,th,commercial,ai-consulting,-,/services/ai-consulting/,-,4,3,4,4,B3 H2 variant,B3,onsite done 2026-08-29,,
@@ -35,7 +35,7 @@ score,group,keyword,lang,intent,cluster,rank_2026-08-28,landing_page,serp_owner,
 37,Build,geo seo,th,commercial,ai-search,-,/services/ai-search/,video 75%,4,3,5,2,C1 + video,C1,live 2026-08-29,,
 36,Build,บริการ rag,th,commercial,ai-consulting,-,/ai-agent-rag-chatbot-thailand-2026/,video 100%,4,3,4,3,use-case page RAG + link from ai-consulting,C8,todo,31,27.4
 36,Build,ai solution provider,en,commercial,ai-consulting-en,-,/en/ai-consulting/,-,4,2,5,4,B5 + C3 (AIO 16 sources) | listicle post 251 live,C3,todo,,
-35,Build,ai optimization services bangkok,en,commercial,ai-search,80,/services/ai-search/,-,4,3,4,2,/services/ai-search/ EN section or /en/ai-search/,C1,live 2026-08-29,7,79.7
+35,Build,ai optimization services bangkok,en,commercial,ai-search,80,/en/ai-search/,-,4,3,4,2,/en/ai-search/ (done),C1,EN page live 2026-08-29 (page 261),7,79.7
 35,Build,รับทำเว็บไซต์,th,transactional,website,-,/services/website-development/,map 100%,5,1,4,4,B2 template + GBP; head term — no top-10 promise,B2,onsite done 2026-08-29,,
 35,Build,รับทำเว็บไซต์ ติดหน้าแรก google,th,transactional,website,-,/services/website-development/,-,4,3,3,4,B2 H2 variant,B2,onsite done 2026-08-29,,
 35,Build,รับทำเว็บไซต์ wordpress,th,transactional,website,-,/services/website-development/wordpress/,-,4,3,3,4,bullet from home + footer link,A1,onsite done 2026-08-29,,
@@ -47,7 +47,7 @@ score,group,keyword,lang,intent,cluster,rank_2026-08-28,landing_page,serp_owner,
 34,Build,n8n คือ,th,informational,n8n,46,/n8n-thai-guide-2026/,video 100%,3,4,3,4,refresh + video embed + link to n8n service,E2,onsite done 2026-08-29,4,40.2
 34,Win,local seo bkk,en,commercial,seo,30,/local-seo-bangkok-b2b-2026/,-,3,4,3,4,same as above,A7,onsite done 2026-08-29,12,41.0
 34,Build,รับทำ ai,th,transactional,ai-consulting,-,/services/ai-consulting/,-,4,2,4,4,B3 H2 variant,B3,onsite done 2026-08-29,1,37.0
-32,Build,technical seo,en,informational,seo,49,/technical-seo-guide/,-,3,3,3,5,refresh + CTA → /seo-audit/,A6,onsite done 2026-08-29,53,60.7
+32,Build,technical seo,en,informational,seo,49,/technical-seo-guide/,-,3,3,3,5,refresh + CTA → /seo-audit/ + link /en/seo/,A6,onsite done 2026-08-29,53,60.7
 31,Build,n8n workflow,th,informational,n8n,-,/n8n-thai-guide-2026/,video 100%,3,3,3,4,post 196 + video,E2,onsite done 2026-08-29,,
 31,Build,website development bangkok,en,transactional,website,-,(none EN page),map 100%,4,2,4,1,needs /en/website-development/ — Phase 3,P3,todo,,
 30,Build,ai consulting company,en,commercial,ai-consulting-en,-,/en/ai-consulting/,video 100%,3,2,4,4,B5 + C3 | listicle post 251 live,C3,todo,12,55.4
@@ -55,7 +55,7 @@ score,group,keyword,lang,intent,cluster,rank_2026-08-28,landing_page,serp_owner,
 29,Build,รับออกแบบเว็บไซต์,th,transactional,website,-,/services/website-development/,map 100%,4,1,3,4,B2 H2 variant; head term,B2,onsite done 2026-08-29,,
 29,Build,เว็บโหลดช้า,th,informational,website,-,/core-web-vitals-thai-guide-2026/,fb 33%,3,3,2,4,post CTA → /website-audit/,A6,onsite done 2026-08-29,,
 28,Build,ai consultant,en,commercial,ai-consulting-en,-,/en/ai-consulting/,video 100%,3,2,3,4,B5; global term low chance,B5,onsite done 2026-08-29,28,76.4
-27,Build,seo agency,en,commercial,seo,-,/บริษัทรับทำ-seo-ไทย-2026/,map 100%,3,1,4,4,B1 H2 'SEO Agency' + C2 listicle,C2,live 2026-08-29 (post 250),,
+27,Build,seo agency,en,commercial,seo,-,/en/seo/,map 100%,3,1,4,4,/en/seo/ money page + C2 listicle (post 250) as support,C2,EN page live 2026-08-29 (page 260),,
 26,Build,core web vitals คือ,th,informational,seo,-,/core-web-vitals-thai-guide-2026/,-,2,3,2,5,refresh + CTA,A6,onsite done 2026-08-29,,
 25,Defend,hashbox,brand,navigational,brand,5,/,play.google 17%,3,2,1,5,Organization alternateName/sameAs,D3,onsite done 2026-08-29,17,3.3
 25,Build,seo คือ,th,informational,seo,-,post 210 hub,-,2,2,3,5,hub exists; CTA → /services/seo/,A6,onsite done 2026-08-29,,
@@ -66,3 +66,5 @@ score,group,keyword,lang,intent,cluster,rank_2026-08-28,landing_page,serp_owner,
 34,Build,llms.txt คือ,th,informational,ai-search,-,/llms-txt-คืออะไร-2026/,-,3,3,4,5,post 245 live; link from ai-search page,C4,live 2026-08-29,,
 38,Build,เว็บไซต์รองรับ ai search,th,commercial,ai-search,-,/เว็บไซต์รองรับ-ai-search-2026/,-,4,3,4,5,post 246 live; link from website-dev + ai-search,C4,live 2026-08-29,,
 38,Build,บริษัทรับทำ seo,th,commercial,seo,-,/บริษัทรับทำ-seo-ไทย-2026/,-,4,3,4,5,listicle post 250; CTA → /seo-audit/,C2,live 2026-08-29,,
+40,Build,seo agency bangkok,en,commercial,seo,-,/en/seo/,map 100%,4,3,4,4,/en/seo/ money page + GBP + Clutch,C,EN page live 2026-08-29 (page 260),,
+36,Build,technical seo agency thailand,en,commercial,seo,-,/en/seo/,-,4,3,3,4,/en/seo/ H1 Technical-first SEO agency + guide post link,C,EN page live 2026-08-29 (page 260),,
