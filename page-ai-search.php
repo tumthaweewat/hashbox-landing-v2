@@ -92,6 +92,7 @@ $kpis = array(
                 <a href="<?php echo esc_url( home_url( '/geo-ai-search-optimization-2026/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">อ่าน GEO คืออะไร</a>
                 <?php endif; ?>
             </div>
+            <p class="hb-hero__sub" lang="en" style="margin-top:var(--hb-space-5);font-size:var(--hb-text-sm);">Read this page in English: <a href="<?php echo esc_url( home_url( '/en/ai-search/' ) ); ?>">AI Search optimization (GEO) in Bangkok</a></p>
         </div>
     </div>
 </section>

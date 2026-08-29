@@ -101,6 +101,7 @@ $compare = array(
                 <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงาน</a>
             </div>
             <p class="hb-body" style="margin-top:var(--hb-space-5);color:var(--hb-text-muted);"><a href="#guarantee" style="color:var(--hb-accent-emerald,#10B981);font-weight:600;text-decoration:none;">&#10003; การันตี "ไม่โต ไม่จ่าย"</a> — impressions ไม่โต 50% ใน 90 วัน เราทำต่อฟรี · วัดจาก Search Console ของคุณ</p>
+            <p class="hb-hero__sub" lang="en" style="margin-top:var(--hb-space-5);font-size:var(--hb-text-sm);">Read this page in English: <a href="<?php echo esc_url( home_url( '/en/seo/' ) ); ?>">Technical-first SEO agency in Bangkok</a></p>
         </div>
     </div>
 </section>

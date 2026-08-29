@@ -766,6 +766,14 @@ function hashbox_get_seo_metadata() {
     // collision returning the Thai metadata.
     $en_path = hashbox_current_request_path();
     $en_meta = array(
+        'en/seo' => array(
+            'title'       => 'SEO Agency Bangkok — Technical-first SEO, from THB 29,900 | Hashbox',
+            'description' => 'Technical-first SEO agency in Bangkok: Core Web Vitals, schema, local SEO and AI Search (GEO) with daily rank and AI-citation tracking. From THB 29,900/month with a written "no growth, no pay" guarantee.',
+        ),
+        'en/ai-search' => array(
+            'title'       => 'AI Search Optimization (GEO) Agency in Bangkok | Hashbox',
+            'description' => 'Get cited by Google AI Overviews, ChatGPT, Perplexity and Gemini: AI-specific audit, entity schema + llms.txt, answer-first content, external citations, measured daily with our own AI-visibility tracker. Bangkok, Thailand.',
+        ),
         'en/ai-consulting' => array(
             'title'       => 'AI Consulting Company in Bangkok, Thailand | Hashbox',
             'description' => 'AI consulting in Bangkok for Thai and regional businesses: LINE chatbots, Sales GPT, RAG knowledge bases and workflow automation shipped to production. Public pricing from THB 60,000, ROI assessed first, 100% source code handover.',
@@ -1334,6 +1342,14 @@ function hashbox_hreflang_pairs() {
         array(
             'th' => 'services/ai-consulting',
             'en' => 'en/ai-consulting',
+        ),
+        array(
+            'th' => 'services/seo',
+            'en' => 'en/seo',
+        ),
+        array(
+            'th' => 'services/ai-search',
+            'en' => 'en/ai-search',
         ),
     );
 }

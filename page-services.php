@@ -47,8 +47,8 @@ $page_url = get_permalink();
             <a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="cyan" style="text-decoration:none;" hreflang="en">
                 <span class="hb-service__num">EN</span>
                 <span class="hb-service__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg></span>
-                <h2 class="hb-service__title">AI Consulting Bangkok (English)</h2>
-                <p class="hb-service__desc">For English-speaking teams operating in Thailand: production AI systems with LINE, PDPA and Thai-language context — ROI assessed before we build.</p>
+                <h2 class="hb-service__title">English: AI Consulting · SEO · AI Search</h2>
+                <p class="hb-service__desc">For English-speaking teams in Thailand — <a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>" style="color:inherit;text-decoration:underline;">AI consulting in Bangkok</a>, <a href="<?php echo esc_url( home_url( '/en/seo/' ) ); ?>" style="color:inherit;text-decoration:underline;">technical-first SEO agency</a> and <a href="<?php echo esc_url( home_url( '/en/ai-search/' ) ); ?>" style="color:inherit;text-decoration:underline;">AI Search (GEO)</a> — same prices, PDPA, LINE and Thai-language context.</p>
                 <div class="hb-service__stack">English delivery · Public THB pricing · 100% source code</div>
                 <span class="hb-service__link">Read in English &rarr;</span>
             </a>
