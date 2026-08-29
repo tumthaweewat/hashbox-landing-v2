@@ -130,7 +130,7 @@ $cases = array(
 <section class="hb-section hb-section--surface" id="answer">
     <div class="hb-container hb-container--md">
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);">
-            <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">คำตอบสั้น</span>
+            <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">คำตอบสั้น</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
                 <strong>Hashbox ให้บริการที่ปรึกษา AI — รับปรึกษาและทำระบบ AI Solution สำหรับธุรกิจไทย</strong> ครอบคลุม LINE Chatbot, RAG Knowledge Base, AI Workforce Agent และ Workflow Automation · เริ่มด้วย AI Opportunity Screening ฟรี 30 นาที ส่วน ROI Assessment Report แบบลงรายละเอียดเริ่ม 60,000 บาท · เลือก model ตามโจทย์และความไวของข้อมูล · ส่งมอบ source code ตามขอบเขตที่ตกลง
             </p>

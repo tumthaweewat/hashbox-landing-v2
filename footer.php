@@ -1,3 +1,4 @@
+<?php $hb_en = function_exists( 'hashbox_page_is_english' ) && hashbox_page_is_english(); ?>
     </main>
 
     <?php
@@ -59,10 +60,10 @@
                 </div>
 
                 <div class="hb-footer__col">
-                    <h3>บริการ</h3>
+                    <h3><?php echo $hb_en ? 'Services' : 'บริการ'; ?></h3>
                     <ul>
                         <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>
-                        <li><a href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>"><?php echo esc_html( $svc['name'] ); ?></a></li>
+                        <li><a href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>"><?php echo esc_html( $hb_en && ! empty( $svc['en_name'] ) ? $svc['en_name'] : $svc['name'] ); ?></a></li>
                         <?php endforeach; ?>
                         <li><a href="<?php echo esc_url( home_url( '/seo-audit/' ) ); ?>">SEO Audit ฟรี</a></li>
                         <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">บริการทั้งหมด</a></li>

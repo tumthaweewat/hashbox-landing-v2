@@ -123,7 +123,7 @@ $table_cell = 'padding:var(--hb-space-3) var(--hb-space-4);border-bottom:1px sol
 <section class="hb-section hb-section--surface" id="answer">
     <div class="hb-container hb-container--md">
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-surface-1,#18181B);border-radius:var(--hb-radius-md,8px);">
-            <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">สรุปสั้นๆ</span>
+            <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">สรุปสั้นๆ</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
                 <strong>Hashbox รับทำเว็บไซต์ WordPress 2 รูปแบบ</strong> — <strong>WordPress Custom</strong> (เขียน theme เอง ไม่พึ่ง page builder หนัก) และ <strong>Headless WordPress</strong> (WP เป็น CMS หลังบ้าน หน้าบ้าน Next.js บน Vercel/Cloudflare Pages) ทุกโปรเจกต์ผ่าน Build Gate กว่า 12 ขั้นตอนก่อนขึ้น production เรื่อง Lighthouse เราพูดตรงๆ: Custom ที่ไม่มี heavy plugin การันตี 95+ · Headless ทำได้ 95-100 · ส่วน WordPress ที่ลาก heavy plugin ตามจริงอยู่ที่ 92-98 ขึ้นกับ plugin stack — เราบอกก่อนเริ่มงาน ไม่ใช่หลังส่งมอบ แพ็กเกจเว็บไซต์เริ่ม 35,900 บาท เริ่มจากการประเมิน Scope ฟรี
             </p>

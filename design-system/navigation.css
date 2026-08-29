@@ -87,7 +87,7 @@
 }
 
 .hb-nav__brand-accent {
-  color: var(--hb-accent-cyan);
+  color: var(--hb-accent-blue-soft); /* indigo 400 — 600 failed contrast on dark (Lighthouse) */
   font-weight: var(--hb-weight-medium);
 }
 

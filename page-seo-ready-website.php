@@ -1258,7 +1258,7 @@ $checks = array(
                     <thead>
                         <tr>
                             <th>รายการ</th>
-                            <th style="color:var(--hb-accent-blue,#2563EB);">Hashbox</th>
+                            <th style="color:var(--hb-accent-blue-soft,#818CF8);">Hashbox</th>
                             <th>Agency ทั่วไป</th>
                             <th>Freelance</th>
                             <th>Template สำเร็จรูป</th>

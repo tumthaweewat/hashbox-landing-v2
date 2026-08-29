@@ -100,7 +100,7 @@ $kpis = array(
 <section class="hb-section hb-section--surface" id="answer">
     <div class="hb-container hb-container--md">
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-surface-2,#1E1E2A);border-radius:var(--hb-radius-md,8px);">
-            <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">สรุปสั้นๆ</span>
+            <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">สรุปสั้นๆ</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
                 <strong>รับทำ AI Search (Generative Engine Optimization) คือ การทำให้ Google AI Overview, ChatGPT, Perplexity และ Gemini อ้างอิงแบรนด์ของคุณเวลาตอบคำถามลูกค้า</strong> — Hashbox ทำ 5 ขั้น: AI-specific audit → entity + Schema + llms.txt → answer-first content → citation จากแหล่งภายนอก → track รายวัน ด้วยระบบของเราเองที่ใช้กับเว็บตัวเองด้วย (บทความของเราถูก AI Overview อ้างอิงในคำที่เอเจนซีใหญ่แข่ง) · รวมใน SEO retainer เริ่มต้น 29,900 บาทต่อเดือน หรือ quote แยกหลัง GEO Audit ฟรี
             </p>

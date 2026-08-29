@@ -109,7 +109,7 @@ $compare = array(
 <section class="hb-section hb-section--surface" id="answer">
     <div class="hb-container hb-container--md">
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-surface-2,#1E1E2A);border-radius:var(--hb-radius-md,8px);">
-            <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">สรุปสั้นๆ</span>
+            <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">สรุปสั้นๆ</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
                 <strong>บริการรับทำ SEO ของ Hashbox คือ การปรับโครงสร้างเว็บ ความเร็ว Schema และเนื้อหา ให้ติดหน้าแรก Google และถูกอ้างอิงใน AI Search แบบสายขาว ตรวจย้อนได้ทุกขั้นตอน เริ่มต้น <?php echo esc_html( $price_from_txt ); ?></strong> — แก้โครงสร้างเว็บ ความเร็ว และ Schema ให้ Google อ่านได้ถูกต้องก่อน แล้วค่อยต่อยอดด้วย content เรา optimize 2 สนามพร้อมกัน: อันดับบน Google และการถูกอ้างอิงใน AI Overview (GEO) ลูกค้าเห็นข้อมูลอันดับและ AI citation อัปเดตรายวันจากระบบ track ของเราเอง ไม่ใช่ PDF เดือนละครั้ง quote สุดท้ายออกตาม scope จริงหลัง SEO Audit ฟรี ไม่มีข้อผูกมัด
             </p>
@@ -133,7 +133,7 @@ $compare = array(
                 </div>
             <?php endforeach; ?>
         </div>
-        <p class="hb-lead" style="margin-top:var(--hb-space-6);text-align:center;">Hashbox ออกแบบบริการรับทำ SEO มาเพื่อแก้ทั้ง 4 ข้อนี้โดยตรง — ถ้ายังไม่แน่ใจว่า SEO ครอบคลุมอะไรบ้าง อ่านภาพรวมทั้งระบบก่อนที่ <a href="<?php echo esc_url( home_url( '/seo-thai-guide-2026/' ) ); ?>" style="color:var(--hb-accent-blue,#2563EB);">SEO คืออะไร? คู่มือฉบับ 2026</a></p>
+        <p class="hb-lead" style="margin-top:var(--hb-space-6);text-align:center;">Hashbox ออกแบบบริการรับทำ SEO มาเพื่อแก้ทั้ง 4 ข้อนี้โดยตรง — ถ้ายังไม่แน่ใจว่า SEO ครอบคลุมอะไรบ้าง อ่านภาพรวมทั้งระบบก่อนที่ <a href="<?php echo esc_url( home_url( '/seo-thai-guide-2026/' ) ); ?>" style="color:var(--hb-accent-blue-soft,#818CF8);">SEO คืออะไร? คู่มือฉบับ 2026</a></p>
     </div>
 </section>
 
@@ -268,7 +268,7 @@ $compare = array(
                 </tbody>
             </table>
         </div>
-        <p class="hb-body" style="margin-top:var(--hb-space-5);color:var(--hb-text-muted);">จุดที่อยากขยายความคือเรื่องระบบวัดผล: agency ส่วนใหญ่เช่าเครื่องมือ SaaS แล้ว export รายงานให้ลูกค้า แต่ Hashbox สร้าง data pipeline ของตัวเอง เก็บอันดับคีย์เวิร์ดและการถูกอ้างอิงใน AI Overview ทุกวัน ข้อมูลดิบเก็บถาวร — เราจึงตอบได้เสมอว่า "อันดับขยับเพราะอะไร ตั้งแต่วันไหน" ด้วยหลักฐาน ไม่ใช่ความรู้สึก และทั้งหมดนี้ทำแบบสายขาวเท่านั้น — ลิสต์ 6 สิ่งที่เราไม่ทำต่อให้ลูกค้าขอ อยู่ที่หน้า<a href="<?php echo esc_url( home_url( '/services/seo/white-hat/' ) ); ?>" style="color:var(--hb-accent-blue,#2563EB);">รับทำ SEO สายขาว</a></p>
+        <p class="hb-body" style="margin-top:var(--hb-space-5);color:var(--hb-text-muted);">จุดที่อยากขยายความคือเรื่องระบบวัดผล: agency ส่วนใหญ่เช่าเครื่องมือ SaaS แล้ว export รายงานให้ลูกค้า แต่ Hashbox สร้าง data pipeline ของตัวเอง เก็บอันดับคีย์เวิร์ดและการถูกอ้างอิงใน AI Overview ทุกวัน ข้อมูลดิบเก็บถาวร — เราจึงตอบได้เสมอว่า "อันดับขยับเพราะอะไร ตั้งแต่วันไหน" ด้วยหลักฐาน ไม่ใช่ความรู้สึก และทั้งหมดนี้ทำแบบสายขาวเท่านั้น — ลิสต์ 6 สิ่งที่เราไม่ทำต่อให้ลูกค้าขอ อยู่ที่หน้า<a href="<?php echo esc_url( home_url( '/services/seo/white-hat/' ) ); ?>" style="color:var(--hb-accent-blue-soft,#818CF8);">รับทำ SEO สายขาว</a></p>
     </div>
 </section>
 

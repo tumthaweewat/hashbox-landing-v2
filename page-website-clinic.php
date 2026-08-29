@@ -118,7 +118,7 @@ $pricing = array(
 <section class="hb-section hb-section--surface" id="answer">
     <div class="hb-container hb-container--md">
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-surface-1,#18181B);border-radius:var(--hb-radius-md,8px);">
-            <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">สรุปสั้นๆ</span>
+            <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">สรุปสั้นๆ</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
                 <strong>Hashbox รับทำเว็บไซต์คลินิกแบบ SEO-Ready</strong> — หน้าบริการต่อหัตถการ โปรไฟล์แพทย์พร้อม Schema ระบบนัดผ่าน LINE OA/ฟอร์ม/โทร แผนที่ที่เชื่อมกับ Google Business Profile โครงสร้าง PDPA สำหรับข้อมูลคนไข้ และเนื้อหาที่แยกส่วนที่ต้องผ่านกฎการโฆษณาสถานพยาบาลไว้ชัดเจน ทุกโปรเจกต์ผ่าน Build Gate กว่า 12 ขั้นตอนและ Lighthouse 95+ บนมือถือ แพ็กเกจเริ่ม 35,900 บาท (หน้าเดียว) และ 80,000 บาท (เว็บคลินิกเต็มรูปแบบ) เริ่มจากประเมิน scope ฟรี
             </p>
@@ -199,7 +199,7 @@ $pricing = array(
                 </div>
             <?php endforeach; ?>
         </div>
-        <p class="hb-body" style="margin-top:var(--hb-space-6);text-align:center;">ดูแลต่อเนื่องหลังเปิด: Care Plan รายเดือน 15,000-50,000 บาท (updates, monitoring, แก้เนื้อหา, รายงาน) · งาน SEO ต่อเนื่องดูที่<a href="<?php echo esc_url( $seo_url ); ?>" style="color:var(--hb-accent-blue,#2563EB);">บริการรับทำ SEO</a></p>
+        <p class="hb-body" style="margin-top:var(--hb-space-6);text-align:center;">ดูแลต่อเนื่องหลังเปิด: Care Plan รายเดือน 15,000-50,000 บาท (updates, monitoring, แก้เนื้อหา, รายงาน) · งาน SEO ต่อเนื่องดูที่<a href="<?php echo esc_url( $seo_url ); ?>" style="color:var(--hb-accent-blue-soft,#818CF8);">บริการรับทำ SEO</a></p>
     </div>
 </section>
 

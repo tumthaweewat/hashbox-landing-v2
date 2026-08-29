@@ -118,7 +118,7 @@ $measure = array(
 <section class="hb-section hb-section--surface" id="answer">
     <div class="hb-container hb-container--md">
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-surface-1,#18181B);border-radius:var(--hb-radius-md,8px);">
-            <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">สรุปสั้นๆ</span>
+            <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">สรุปสั้นๆ</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
                 <strong>รับทำ SEO สายขาว คือบริการทำ SEO ตามแนวทางของ Google ทั้งหมด</strong> — Hashbox แก้โครงสร้าง technical ให้ Google อ่านเว็บได้ถูกต้องก่อน แล้วต่อด้วยคอนเทนต์ที่ตอบเจตนาของคำค้น ลิงก์ภายใน และ GEO เพื่อให้ถูก AI Overview อ้างอิง เราไม่ซื้อลิงก์ ไม่ใช้ PBN ไม่ปั่นบทความ ไม่ cloaking และไม่การันตีอันดับ 1 สิ่งที่คุณได้แทนคือทุกงานตรวจย้อนได้จากข้อมูลอันดับรายวันของระบบเราเอง ราคาเดียวกับบริการรับทำ SEO ปกติ เริ่มต้น <?php echo esc_html( $price_from_txt ); ?> เริ่มจาก SEO Audit ฟรี
             </p>
@@ -169,7 +169,7 @@ $measure = array(
         <div class="hb-section__head">
             <span class="hb-eyebrow">แล้วทำอะไร</span>
             <h2 class="hb-h2">SEO สายขาวทำอะไรถึงติดอันดับ — 5 งานที่เราทำจริงทุกเดือน</h2>
-            <p class="hb-section__sub">สายขาวไม่ได้แปลว่า "รอเฉยๆ ให้ Google รัก" มันคืองาน technical และคอนเทนต์ที่ทำซ้ำได้ วัดได้ และตรวจย้อนได้ทุกชิ้น — ทั้ง 5 งานคือ 4 เสาของ SEO ที่อธิบายไว้ใน <a href="<?php echo esc_url( home_url( '/seo-thai-guide-2026/' ) ); ?>" style="color:var(--hb-accent-blue,#2563EB);">SEO คืออะไร? คู่มือฉบับ 2026</a></p>
+            <p class="hb-section__sub">สายขาวไม่ได้แปลว่า "รอเฉยๆ ให้ Google รัก" มันคืองาน technical และคอนเทนต์ที่ทำซ้ำได้ วัดได้ และตรวจย้อนได้ทุกชิ้น — ทั้ง 5 งานคือ 4 เสาของ SEO ที่อธิบายไว้ใน <a href="<?php echo esc_url( home_url( '/seo-thai-guide-2026/' ) ); ?>" style="color:var(--hb-accent-blue-soft,#818CF8);">SEO คืออะไร? คู่มือฉบับ 2026</a></p>
         </div>
         <div class="hb-bento">
             <?php foreach ( $does as $d ) : ?>
@@ -204,7 +204,7 @@ $measure = array(
     <div class="hb-container hb-container--md" style="text-align:center;">
         <span class="hb-eyebrow">ราคา</span>
         <h2 class="hb-h2">ราคาเดียวกับบริการรับทำ SEO — เริ่มต้น <?php echo esc_html( $price_from_txt ); ?></h2>
-        <p class="hb-lead" style="margin:var(--hb-space-4) auto var(--hb-space-6);">สายขาวไม่ใช่แพ็กเกจพิเศษ แต่คือวิธีเดียวที่เรารับทำ ราคาไม่รวม VAT 7% · quote สุดท้ายออกตาม scope จริงหลัง SEO Audit ฟรี · รายละเอียดขอบเขตงานและสิ่งที่อยู่ใน audit อยู่ที่หน้า<a href="<?php echo esc_url( $parent_url ); ?>" style="color:var(--hb-accent-blue,#2563EB);">บริการรับทำ SEO</a></p>
+        <p class="hb-lead" style="margin:var(--hb-space-4) auto var(--hb-space-6);">สายขาวไม่ใช่แพ็กเกจพิเศษ แต่คือวิธีเดียวที่เรารับทำ ราคาไม่รวม VAT 7% · quote สุดท้ายออกตาม scope จริงหลัง SEO Audit ฟรี · รายละเอียดขอบเขตงานและสิ่งที่อยู่ใน audit อยู่ที่หน้า<a href="<?php echo esc_url( $parent_url ); ?>" style="color:var(--hb-accent-blue-soft,#818CF8);">บริการรับทำ SEO</a></p>
         <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
     </div>
 </section>

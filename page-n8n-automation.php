@@ -136,7 +136,7 @@ $compare = array(
 <section class="hb-section hb-section--surface" id="answer">
     <div class="hb-container hb-container--md">
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-surface-2,#1E1E2A);border-radius:var(--hb-radius-md,8px);">
-            <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">สรุปสั้นๆ</span>
+            <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">สรุปสั้นๆ</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
                 <strong>Hashbox รับวางระบบ n8n automation เริ่มต้น <?php echo esc_html( $price_from_txt ); ?> ต่อโปรเจกต์</strong> (ไม่ใช่รายเดือน) — คุย process จริงก่อน ออกแบบ workflow ติดตั้งบนเซิร์ฟเวอร์ของคุณเอง ทดสอบกับข้อมูลจริงรวมถึงเคสที่ผิดปกติ แล้วส่งมอบพร้อมไฟล์ workflow ทุกตัวและเอกสารอธิบายทุก node เพื่อให้ทีมคุณแก้เองต่อได้ ถ้าคุยแล้วพบว่าเคสของคุณไม่ควรใช้ n8n เราบอกตรงๆ — เราเคยวาง n8n สำหรับระบบของตัวเองแล้วเลือกย้ายออกมาแล้ว ราคาไม่รวม VAT 7%
             </p>

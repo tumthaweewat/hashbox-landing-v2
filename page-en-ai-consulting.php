@@ -61,7 +61,7 @@ $faqs = array(
 <section class="hb-section hb-section--surface" id="answer">
     <div class="hb-container hb-container--md">
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);">
-            <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">In short</span>
+            <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">In short</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
                 <strong>Hashbox is an AI consulting company in Bangkok</strong> that designs and ships production-grade AI for Thai and regional businesses — LINE chatbots, Sales GPT, RAG knowledge bases, AI workforce agents and workflow automation. Every engagement starts with a free 30-minute ROI assessment. We use OpenAI, Claude, Gemini or open-source models per use case, stay PDPA-compliant, and hand over 100% of the source code with no vendor lock-in. Pricing starts at THB 60,000.
             </p>

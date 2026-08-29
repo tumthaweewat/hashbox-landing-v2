@@ -84,7 +84,7 @@ $kpis = array(
 <section class="hb-section hb-section--surface" id="answer">
     <div class="hb-container hb-container--md">
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-surface-2,#1E1E2A);border-radius:var(--hb-radius-md,8px);">
-            <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">In short</span>
+            <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">In short</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
                 <strong>AI Search optimization (Generative Engine Optimization) is the work of getting Google AI Overviews, ChatGPT, Perplexity and Gemini to cite your brand when they answer a buyer.</strong> Hashbox does it in five steps — AI-specific audit → entity, schema and llms.txt → answer-first content → external citations → daily tracking — with a tracker we built and run on our own site. Included in the SEO retainer from THB 29,900/month, or quoted standalone after a free GEO audit.
             </p>
