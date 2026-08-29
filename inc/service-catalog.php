@@ -46,6 +46,7 @@ function hashbox_service_catalog() {
                 array( 'label' => 'เว็บไซต์ WordPress', 'path' => '/services/website-development/wordpress/' ),
                 array( 'label' => 'Headless WordPress + Next.js', 'path' => '/nextjs-vs-wordpress-2026/' ),
                 array( 'label' => 'เว็บไซต์บริษัท · E-commerce · Landing Page' ),
+                array( 'label' => 'รับทำเว็บไซต์ ราคาเท่าไร', 'path' => '/รับทำเว็บไซต์-ราคา-2026/' ),
                 array( 'label' => 'Website Audit ฟรี', 'path' => '/website-audit/' ),
             ),
         ),

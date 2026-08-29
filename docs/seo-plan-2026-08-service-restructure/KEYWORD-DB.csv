@@ -16,7 +16,7 @@ score,group,keyword,lang,intent,cluster,rank_2026-08-28,landing_page,serp_owner,
 41,Build,รับทำ ai search,th,transactional,ai-search,-,/services/ai-search/,-,5,3,5,2,C1 new money page,C1,live 2026-08-29
 41,Build,ที่ปรึกษา ai สำหรับธุรกิจ,th,commercial,ai-consulting,-,/services/ai-consulting/,video 75%,5,3,4,4,B3 H1 exact + video,B3,onsite done 2026-08-29
 41,Build,รับทำเว็บไซต์ seo,th,transactional,website,-,/services/website-development/,-,5,3,4,4,B2 H1 'รับทำเว็บไซต์ SEO-Ready…',B2,onsite done 2026-08-29
-39,Build,รับทำเว็บไซต์ ราคา,th,commercial,website,-,C5 post (new),-,5,3,4,2,"C5 pricing guide + FAQ '35,900' in FAQPage",C5,todo
+39,Build,รับทำเว็บไซต์ ราคา,th,commercial,website,-,/รับทำเว็บไซต์-ราคา-2026/,-,5,3,4,2,"C5 pricing guide + FAQ '35,900' in FAQPage",C5,live 2026-08-29 (post 249)
 39,Build,line chatbot ราคา,th,commercial,ai-consulting,-,post 69,-,4,4,3,5,"post 69 has 60,000 price — add FAQ 'ราคา' + title",F2,onsite done 2026-08-29
 38,Build,รับทำเว็บไซต์ บริษัท,th,transactional,website,-,/services/website-development/,-,5,2,4,4,B2 H2 variant + GBP,B2,onsite done 2026-08-29
 37,Build,ai seo,th,commercial,ai-search,-,/services/ai-search/,-,4,3,5,2,C1,C1,live 2026-08-29

@@ -75,7 +75,10 @@ Guard: PSI mobile ≥ 90 · H1 หน้าแรกคง "รับทำเ�
 - ✅ C4 โพสต์ **llms.txt คืออะไร** (post 245) + **เว็บไซต์รองรับ AI Search คืออะไร — checklist 12 ข้อ** (post 246) · ลิงก์เข้า /services/ai-search/, geo-checker, website-dev · ลิงก์ขาเข้าจาก home row 4, ai-search page, post 66/208, website-dev FAQ · เข้า post-sitemap แล้ว
 - ✅ robots: Disallow feeds/search/emoji + ถอด feed_links (26/28 crawled-not-indexed = ขยะ)
 - publish path ใหม่: commit `content/blog/dist/NN.json` (md2wp) → JS ในหน้า admin fetch จาก theme URL → POST — เนื้อหาไม่ผ่าน tool boundary, ไม่โดน classifier
-- ⏳ PSI performance (API quota 429 ทั้งวัน) · ⏳ GSC request index รอบ 2 (30 ส.ค.): post 66 → 208 → n8n → 92 → 89 → 245 → 246
+- ✅ C5 **รับทำเว็บไซต์ ราคาเท่าไร 2026** (post 249) — ใช้ราคาที่เปิดเผยบนหน้าบริการอยู่แล้ว + ช่วงราคาตลาดจาก teardown; ลิงก์จาก home row 1 + pricing section
+- ✅ หน้าแรก: ตัด Creative Showcase (stats 15/4/1) + pill 'All systems live' (W3 ส่วนที่ไม่ต้องรอเคส)
+- 📝 drafts รอรีวิว: `content/drafts/C2-listicle-รับทำ-seo-ไทย-2026.md` (4/10 ราย verified) · `C3-listicle-ai-consulting-companies-thailand-2026.md` — ต้องการ Tum ยืนยันรายชื่อ + OK เอ่ยชื่อคู่แข่ง
+- ⏳ PSI performance (API quota 429 — reset ~14:00 ไทย) · ⏳ GSC request index รอบ 2 (30 ส.ค.): post 66 → 208 → n8n → 92 → 89 → 245 → 246
 
 ## Checkpoint สัปดาห์ 4 (≈ 26 ก.ย.)
 เทียบ G1–G4 · เลือก Sprint 3 จาก KEYWORD-DB score + Friday loop · **ถ้า T1–T2 ยังไม่เกิด → Sprint 3 = content คลัสเตอร์ A–C อย่างเดียว ไม่แตะ head term**
