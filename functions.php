@@ -140,7 +140,7 @@ function hashbox_enqueue_assets() {
     if ( $is_audit_landing || $is_ads_preview ) {
         // Inter / Noto Sans Thai exist only for the ad-artwork preview page,
         // whose PNG generator renders with that stack. Public audit landing
-        // pages use the brand CI fonts (DM Sans + IBM Plex Sans Thai) that the
+        // pages use the brand CI font (IBM Plex Sans Thai, single family) that the
         // design-system bundle already self-hosts, so they must not pull the
         // extra 30 @font-face declarations.
         $audit_deps = array( 'hashbox-ds-composed' );
@@ -277,15 +277,14 @@ function hashbox_preload_critical_fonts() {
         $fonts = array(
             'ibm-plex-sans-thai-thai-400.woff2',
             'ibm-plex-sans-thai-thai-700.woff2',
-            'dm-sans-latin-700.woff2',
-            'ibm-plex-mono-latin-700.woff2',
+            'ibm-plex-sans-thai-latin-400.woff2',
         );
     } else {
         $fonts = array(
             'ibm-plex-sans-thai-thai-400.woff2',
             'ibm-plex-sans-thai-thai-700.woff2',
             'ibm-plex-sans-thai-latin-400.woff2',
-            'dm-sans-latin-700.woff2',
+            'ibm-plex-sans-thai-latin-700.woff2',
         );
     }
     unset( $is_audit );

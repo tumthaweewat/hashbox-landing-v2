@@ -75,14 +75,15 @@
 
   /* -----------------------------------------------------------------------
    * TYPOGRAPHY
-   * Display: DM Sans for headings/title, with IBM Plex Sans Thai fallback
+   * Single family site-wide (2026-08-29, Tum): IBM Plex Sans Thai for display,
+   * body and 'mono' roles alike — no second font loads.
    * Body:    IBM Plex Sans Thai + IBM Plex Sans (Latin fallback)
-   * Mono:    IBM Plex Mono (stats, code, badges)
+   * Mono:    same family (token kept so existing rules keep working)
    * --------------------------------------------------------------------- */
 
-  --hb-font-display: 'DM Sans', 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --hb-font-display: 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --hb-font-body:    'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
-  --hb-font-mono:    'IBM Plex Mono', 'SF Mono', ui-monospace, Menlo, monospace;
+  --hb-font-mono:    'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
 
   /* Type scale (fluid clamp for responsive)
    * Trimmed ~20% from prior baseline — old max values (96/72/52/
@@ -90,16 +91,16 @@
    * landing + blog. New ceiling matches calmer typography of
    * Thai consultancy sites. xs/sm/base unchanged (body legibility).
    */
-  --hb-text-xs:    clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
-  --hb-text-sm:    clamp(0.875rem, 0.84rem + 0.18vw, 0.9375rem);
-  --hb-text-base:  clamp(1rem, 0.95rem + 0.2vw, 1.0625rem);
-  --hb-text-lg:    clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
-  --hb-text-xl:    clamp(1.125rem, 1.05rem + 0.5vw, 1.375rem);
-  --hb-text-2xl:   clamp(1.25rem, 1.1rem + 0.75vw, 1.625rem);
-  --hb-text-3xl:   clamp(1.5rem, 1.25rem + 1.2vw, 2rem);
-  --hb-text-4xl:   clamp(1.875rem, 1.5rem + 1.6vw, 2.625rem);
-  --hb-text-5xl:   clamp(2.25rem, 1.75rem + 2.5vw, 3.5rem);
-  --hb-text-6xl:   clamp(2.75rem, 2rem + 3.5vw, 4.75rem);
+  --hb-text-xs:    0.75rem;
+  --hb-text-sm:    0.875rem;
+  --hb-text-base:  1rem;
+  --hb-text-lg:    clamp(1rem, 0.95rem + 0.2vw, 1.0625rem);
+  --hb-text-xl:    clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  --hb-text-2xl:   clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem);
+  --hb-text-3xl:   clamp(1.375rem, 1.15rem + 0.8vw, 1.75rem);
+  --hb-text-4xl:   clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem);
+  --hb-text-5xl:   clamp(2rem, 1.5rem + 1.6vw, 2.75rem);
+  --hb-text-6xl:   clamp(2.25rem, 1.75rem + 2vw, 3.25rem);
 
   /* Weight scale */
   --hb-weight-light:    300;
