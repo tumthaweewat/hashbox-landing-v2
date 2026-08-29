@@ -158,35 +158,6 @@ get_header();
     </div>
 </section>
 
-<!-- ============ CREATIVE SHOWCASE ============ -->
-<section class="hb-section hb-showcase">
-    <div class="hb-container">
-        <div class="hb-showcase__grid">
-            <div class="hb-showcase__copy">
-                <span class="hb-eyebrow">Launch system</span>
-                <h2 class="hb-h2">เว็บหนึ่งโปรเจกต์ แต่พร้อมใช้ต่อทั้ง SEO, Ads และ AI Workflow</h2>
-                <p class="hb-section__sub">เราวางหน้าเว็บ, tracking, content structure และ creative routes ให้เป็นระบบเดียวกันตั้งแต่ต้น งานจึงไม่ได้จบที่ดีไซน์สวย แต่พร้อมต่อยอดเป็น campaign, dashboard และ automation ได้ทันทีหลัง launch</p>
-                <div class="hb-showcase__stats">
-                    <div><strong>15</strong><span>ad-ready creatives</span></div>
-                    <div><strong>4</strong><span>measurement layers</span></div>
-                    <div><strong>1</strong><span>growth system</span></div>
-                </div>
-            </div>
-            <div class="hb-showcase__gallery" aria-label="ตัวอย่าง visual routes ของ Hashbox">
-                <figure class="hb-showcase__image hb-showcase__image--square">
-                    <img src="<?php echo esc_url( hashbox_ad_webp_uri( 'meta_square_seo_ready_v4.png', 1080 ) ); ?>" srcset="<?php echo esc_attr( hashbox_ad_webp_srcset( 'meta_square_seo_ready_v4.png', array( 540, 1080 ) ) ); ?>" sizes="(min-width: 900px) 420px, 90vw" width="1080" height="1080" alt="ครีเอทีฟ SEO-Ready Website สำหรับแคมเปญ Hashbox" loading="lazy" decoding="async">
-                </figure>
-                <figure class="hb-showcase__image hb-showcase__image--square hb-showcase__image--offset">
-                    <img src="<?php echo esc_url( hashbox_ad_webp_uri( 'meta_square_ai_workforce_v4.png', 1080 ) ); ?>" srcset="<?php echo esc_attr( hashbox_ad_webp_srcset( 'meta_square_ai_workforce_v4.png', array( 540, 1080 ) ) ); ?>" sizes="(min-width: 900px) 420px, 90vw" width="1080" height="1080" alt="ครีเอทีฟ AI Workforce Audit สำหรับแคมเปญ Hashbox" loading="lazy" decoding="async">
-                </figure>
-                <figure class="hb-showcase__image hb-showcase__image--wide">
-                    <img src="<?php echo esc_url( hashbox_ad_webp_uri( 'linkedin_wide_growth_bundle_v4.png', 1200 ) ); ?>" srcset="<?php echo esc_attr( hashbox_ad_webp_srcset( 'linkedin_wide_growth_bundle_v4.png', array( 640, 1200 ) ) ); ?>" sizes="(min-width: 900px) 640px, 100vw" width="1200" height="627" alt="ครีเอทีฟ Growth Bundle สำหรับ LinkedIn ของ Hashbox" loading="lazy" decoding="async">
-                </figure>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- ============ SEO ENTRY POINTS ============ -->
 <section class="hb-section">
     <div class="hb-container">
