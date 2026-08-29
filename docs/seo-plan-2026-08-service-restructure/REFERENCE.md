@@ -308,3 +308,56 @@
 - เนื้อหา GEO/Technical SEO ลึกกว่า (post 66/208/17/81) → ใช้เป็น spoke ป้อนหน้า `/services/ai-search/` และ `/services/seo/`
 - CWV + schema ครบ = หลักฐาน "SEO-Ready" ของจริง (PSI report บนหน้าแรก)
 - AI consulting cluster ~480 impr ที่ Metier ไม่มีบริการนี้เลย
+
+---
+
+# §6 GSC baseline 28 วัน (30 ก.ค. – 26 ส.ค. 2026, อ่าน 29 ส.ค. 14:20)
+
+**รวม: clicks 26 · impressions 2,070 · CTR 1.3% · avg position 30.4** (60 query; brand 'hashbox' = 1 click เดียวที่มี CTR)
+
+อ่านค่า: ทุก non-brand query = 0 click ทั้งเดือน → ปัญหาคือ CTR/อันดับ ไม่ใช่ impressions (2k/เดือน มีแล้ว) · คลัสเตอร์ AI consulting กิน 70% ของ impressions · `ปรึกษาทำระบบ ai solution สำหรับธุรกิจ` 291 impr แต่ pos เฉลี่ย 29 (ไม่ใช่ 3 — อันดับ 3 คือวันที่ดีที่สุด) · EN cluster pos 10–13
+
+| query | clicks | impr | CTR | pos |
+|---|---|---|---|---|
+| hashbox | 1 | 17 | 5.9% | 3.3 |
+| ปรึกษาทำระบบ ai solution สำหรับธุรกิจ | 0 | 291 | 0% | 29.4 |
+| บริการให้คำปรึกษา ai solution | 0 | 254 | 0% | 35.3 |
+| ai consultant bangkok | 0 | 101 | 0% | 13.4 |
+| ai consulting bangkok | 0 | 95 | 0% | 9.8 |
+| ที่ปรึกษา ai สำหรับธุรกิจ | 0 | 93 | 0% | 27.2 |
+| ai consulting companies bangkok | 0 | 86 | 0% | 13.0 |
+| ปรึกษาทำระบบ ai solution | 0 | 85 | 0% | 25.7 |
+| ai services bangkok | 0 | 61 | 0% | 41.6 |
+| technical seo | 0 | 53 | 0% | 60.7 |
+| ai consulting companies thailand | 0 | 52 | 0% | 44.5 |
+| ai solutions bangkok | 0 | 49 | 0% | 54.9 |
+| techonseo | 0 | 35 | 0% | 23.6 |
+| technical seo คือ | 0 | 35 | 0% | 38.6 |
+| บริการ rag | 0 | 31 | 0% | 27.4 |
+| รับทำ ai tool | 0 | 31 | 0% | 44.5 |
+| ปรึกษา ai transformation | 0 | 29 | 0% | 63.7 |
+| ai consultant | 0 | 28 | 0% | 76.4 |
+| local seo bangkok | 0 | 26 | 0% | 49.3 |
+| ที่ปรึกษา erp dynamics d365 ai consultant | 0 | 26 | 0% | 63.2 |
+| รับทำ seo technical audit | 0 | 14 | 0% | 36.5 |
+| technical seo thailand | 0 | 13 | 0% | 56.8 |
+| ที่ปรึกษา ai ไทย | 0 | 12 | 0% | 15.2 |
+| local seo bkk | 0 | 12 | 0% | 41.0 |
+| ai consulting company | 0 | 12 | 0% | 55.4 |
+| ai consulting thailand | 0 | 10 | 0% | 4.3 |
+| ให้คำปรึกษา ai | 0 | 10 | 0% | 45.9 |
+| ai consult | 0 | 7 | 0% | 47.1 |
+| ai optimization services bangkok | 0 | 7 | 0% | 79.7 |
+| ai knowledge base thailand | 0 | 5 | 0% | 21.6 |
+| brand case | 0 | 4 | 0% | 9.2 |
+| รับทำ technical seo | 0 | 4 | 0% | 27.2 |
+| ai consulting | 0 | 4 | 0% | 30.0 |
+| google business profile consultant bangkok | 0 | 4 | 0% | 37.5 |
+| n8n คือ | 0 | 4 | 0% | 40.2 |
+| รับทำ seo audit | 0 | 4 | 0% | 53.8 |
+| รับทำ custom website | 0 | 4 | 0% | 63.2 |
+| ai knowledge base ไทย | 0 | 2 | 0% | 18.0 |
+| javascript seo คือ | 0 | 2 | 0% | 52.0 |
+| schema markup ธุรกิจไทย | 0 | 2 | 0% | 88.5 |
+| รับทำ ai | 0 | 1 | 0% | 37.0 |
+| รับทำเว็บไซต์ wordpress cms | 0 | 1 | 0% | 47.0 |
