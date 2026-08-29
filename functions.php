@@ -810,6 +810,10 @@ function hashbox_get_seo_metadata() {
                 'title'       => 'รับทำ AI Search (GEO) ให้แบรนด์ถูก AI อ้างอิง | Hashbox',
                 'description' => 'รับทำ AI Search / GEO: audit, entity + Schema + llms.txt, answer-first content, citation ภายนอก วัดผลด้วย AI Visibility, Brand Mentions และ AI Overview citations จากระบบ track ของเราเอง — รวมใน SEO retainer เริ่ม 29,900 บาท/เดือน',
             ),
+            'guarantee-terms' => array(
+                'title'       => 'เงื่อนไขการันตี "ไม่โต ไม่จ่าย" บริการรับทำ SEO | Hashbox',
+                'description' => 'เงื่อนไขฉบับเต็ม: ชั้น 1 งานเทคนิคผ่านใน 30 วัน ไม่ผ่านแก้ฟรี · ชั้น 2 impressions +50% หรือ Top-20 +5 คำใน 90 วัน ไม่ถึงทำต่อฟรีสูงสุด 3 เดือน · วัดจาก Search Console ของลูกค้า พร้อมนิยาม วิธีนับ ข้อยกเว้น',
+            ),
             'ai-consulting' => array(
                 'title'       => 'ที่ปรึกษา AI สำหรับธุรกิจ · บริการให้คำปรึกษา AI Solution | Hashbox',
                 'description' => 'บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทย — ที่ปรึกษา AI ที่ส่งงานถึง production: LINE Chatbot, RAG Knowledge Base, AI Agent, Workflow Automation · คุยประเมินโอกาสฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท',

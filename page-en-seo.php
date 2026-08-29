@@ -124,7 +124,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
             </div>
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">Conditions</span>
-                <p class="hb-body" style="font-size:var(--hb-text-sm);">3-month minimum · Search Console access and permission to change the site (or let us) · keyword set agreed after the audit · excludes manual penalties, domain changes or deletion of in-scope pages · sites under 6 months old or above 100,000 impressions/month get a case-by-case KPI · the judge is your Search Console data on day 90.</p>
+                <p class="hb-body" style="font-size:var(--hb-text-sm);">3-month minimum · Search Console access and permission to change the site (or let us) · keyword set agreed after the audit · excludes manual penalties, domain changes or deletion of in-scope pages · sites under 6 months old or above 100,000 impressions/month get a case-by-case KPI · the judge is your Search Console data on day 90. <a href="<?php echo esc_url( home_url( '/services/seo/guarantee-terms/' ) ); ?>" lang="th">Full terms (Thai)</a>.</p>
             </div>
         </div>
     </div>

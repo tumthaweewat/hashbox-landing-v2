@@ -362,7 +362,7 @@ $compare = array(
             </div>
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">เงื่อนไข</span>
-                <p class="hb-body" style="font-size:var(--hb-text-sm);">retainer ขั้นต่ำ 3 เดือน · ให้สิทธิ์ Search Console และแก้เว็บ (หรือให้เราแก้) · คีย์เวิร์ดตกลงร่วมกันหลัง audit · ยกเว้นเว็บที่มี manual penalty, เปลี่ยนโดเมน/ลบหน้าใน scope ระหว่างทาง · เว็บอายุต่ำกว่า 6 เดือน หรือ baseline เกิน 100,000 impressions/เดือน ตกลง KPI รายเคส · ตัวตัดสิน = ข้อมูล Search Console ของคุณ ณ วันครบกำหนด</p>
+                <p class="hb-body" style="font-size:var(--hb-text-sm);">retainer ขั้นต่ำ 3 เดือน · ให้สิทธิ์ Search Console และแก้เว็บ (หรือให้เราแก้) · คีย์เวิร์ดตกลงร่วมกันหลัง audit · ยกเว้นเว็บที่มี manual penalty, เปลี่ยนโดเมน/ลบหน้าใน scope ระหว่างทาง · เว็บอายุต่ำกว่า 6 เดือน หรือ baseline เกิน 100,000 impressions/เดือน ตกลง KPI รายเคส · ตัวตัดสิน = ข้อมูล Search Console ของคุณ ณ วันครบกำหนด · <a href="<?php echo esc_url( home_url( '/services/seo/guarantee-terms/' ) ); ?>">อ่านเงื่อนไขฉบับเต็ม (นิยาม วิธีนับ ข้อยกเว้น)</a></p>
             </div>
         </div>
     </div>
