@@ -811,8 +811,8 @@ function hashbox_get_seo_metadata() {
                 'description' => 'รับทำ AI Search / GEO: audit, entity + Schema + llms.txt, answer-first content, citation ภายนอก วัดผลด้วย AI Visibility, Brand Mentions และ AI Overview citations จากระบบ track ของเราเอง — รวมใน SEO retainer เริ่ม 29,900 บาท/เดือน',
             ),
             'ai-consulting' => array(
-                'title'       => 'ที่ปรึกษา AI สำหรับธุรกิจ | รับวางระบบ AI ถึง Production | Hashbox',
-                'description' => 'จ้างที่ปรึกษา AI ที่ส่งงานถึง production จริง — LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Agent สำหรับธุรกิจไทย · คุยประเมินโอกาสฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท',
+                'title'       => 'ที่ปรึกษา AI สำหรับธุรกิจ · บริการให้คำปรึกษา AI Solution | Hashbox',
+                'description' => 'บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทย — ที่ปรึกษา AI ที่ส่งงานถึง production: LINE Chatbot, RAG Knowledge Base, AI Agent, Workflow Automation · คุยประเมินโอกาสฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท',
             ),
             'work' => array(
                 'title'       => 'Case Studies SEO, CRO, AI ที่วัดผลได้ | Hashbox',

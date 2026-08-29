@@ -110,12 +110,13 @@ $cases = array(
                 </ol>
             </nav>
             <span class="hb-eyebrow">Service 03 / 03 · Updated <?php echo esc_html( date_i18n( 'F Y' ) ); ?></span>
-            <h1 class="hb-hero__title">ที่ปรึกษา AI<br><em>สำหรับธุรกิจไทย</em><br>รับวางระบบ AI ถึง Production</h1>
+            <h1 class="hb-hero__title">ที่ปรึกษา AI สำหรับธุรกิจ<br><em>บริการให้คำปรึกษา AI Solution</em><br>วางระบบถึง Production</h1>
             <p class="hb-hero__sub">บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทยที่ต้องการ deploy AI ใน production จริง — LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Integration · เริ่มจากโจทย์ธุรกิจและข้อมูลที่มี · โปรเจกต์เริ่ม 60,000 บาท</p>
             <div class="hb-hero__actions">
                 <a href="<?php echo esc_url( home_url( '/ai-workflow-audit/#audit-form' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">นัดคุย AI ฟรี 30 นาที</a>
                 <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดู AI Case Studies</a>
             </div>
+            <p class="hb-hero__sub" lang="en" style="margin-top:var(--hb-space-5);font-size:var(--hb-text-sm);">Read this page in English: <a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>">AI consulting company in Bangkok</a></p>
             <div class="hb-trustbar" style="margin-top:var(--hb-space-8);display:flex;flex-wrap:wrap;gap:var(--hb-space-5);align-items:center;color:var(--hb-text-muted,#a1a1aa);font-size:var(--hb-text-sm);">
                 <span>✓ ROI calculation ก่อนเริ่ม</span>
                 <span>✓ เริ่มจาก Use Case + ROI</span>
@@ -132,7 +133,7 @@ $cases = array(
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);">
             <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">คำตอบสั้น</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
-                <strong>Hashbox ให้บริการที่ปรึกษา AI — รับปรึกษาและทำระบบ AI Solution สำหรับธุรกิจไทย</strong> ครอบคลุม LINE Chatbot, RAG Knowledge Base, AI Workforce Agent และ Workflow Automation · เริ่มด้วย AI Opportunity Screening ฟรี 30 นาที ส่วน ROI Assessment Report แบบลงรายละเอียดเริ่ม 60,000 บาท · เลือก model ตามโจทย์และความไวของข้อมูล · ส่งมอบ source code ตามขอบเขตที่ตกลง
+                <strong>บริการให้คำปรึกษา AI Solution ของ Hashbox คือบริการที่ปรึกษา AI สำหรับธุรกิจไทยที่รับตั้งแต่ประเมินโจทย์ คำนวณ ROI ไปจนถึงวางระบบใช้จริงใน production</strong> ครอบคลุม LINE Chatbot, RAG Knowledge Base, AI Workforce Agent และ Workflow Automation · เริ่มด้วย AI Opportunity Screening ฟรี 30 นาที ส่วน ROI Assessment Report แบบลงรายละเอียดเริ่ม 60,000 บาท · เลือก model ตามโจทย์และความไวของข้อมูล · ส่งมอบ source code ตามขอบเขตที่ตกลง
             </p>
         </div>
     </div>
@@ -324,7 +325,7 @@ $cases = array(
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">Best fit</span>
-            <h2 class="hb-h2">บริการ AI Consulting เหมาะกับใคร</h2>
+            <h2 class="hb-h2">บริการให้คำปรึกษา AI Solution เหมาะกับใคร — ตั้งแต่ AI tool ชิ้นแรกถึง AI Transformation</h2>
         </div>
         <div class="hb-bento">
             <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/line-chatbot-ai-guide-2026/' ) ); ?>" style="text-decoration:none;">
