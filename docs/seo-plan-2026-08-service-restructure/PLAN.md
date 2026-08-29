@@ -61,6 +61,7 @@ Guard: PSI mobile ≥ 90 · H1 หน้าแรกคง "รับทำเ�
 | S2.5 | Friday loop ครั้งแรก · อัปเดต KEYWORD-DB · รายงานสัปดาห์ 4 เทียบ G1–G4 | — |
 
 ## Tum — สัปดาห์ 1–4 ขนาน (Claude ทำแทนไม่ได้)
+- ✅ **Signal tracker (2026-08-30):** EN keyword ครบแล้ว — ai consulting bangkok/consultant/companies (id 55/57/59), seo agency bangkok (555), technical seo agency thailand (556), ai search optimization bangkok (557), website development bangkok (285), local seo bangkok (559 เพิ่งเพิ่ม) · รวม **61 คำ (16 EN + 45 TH)**, commit f14acfc ใน hashbox-seo-stack · ตัวเลข '56' บนเว็บแก้เป็น 61 แล้ว (home hero, ai-search FAQ TH/EN) · หมายเหตุ: GSC pos 13 ของ local seo bangkok ≠ SERP organic desktop (ไม่ติด top 50) — GSC เฉลี่ยรวม local pack/personalized · **Friday loop เพิ่ม:** ดู `v_ranking_latest.url` ใน seo-stack ว่าคำ EN 1–3 สลับจากหน้า TH มาโชว์ /en/ หรือยัง
 - ✅ **T7 ปิดแล้ว 2026-08-30** (Tum login Cloudflare, Claude toggle Email Address Obfuscation = Off) — `email-decode.min.js` หายจากทุกหน้าทันที (ตรวจ / seo / en-seo / ai-search) · เดิม block render 480ms
 | # | งาน | ปลดล็อก |
 |---|---|---|

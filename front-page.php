@@ -69,7 +69,7 @@ get_header();
                             </div>
                             <div>
                                 <span>Track รายวัน</span>
-                                <strong>56</strong>
+                                <strong>61</strong>
                                 <small>คีย์เวิร์ด + 20 AI prompt</small>
                             </div>
                         </div>
