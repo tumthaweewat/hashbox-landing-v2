@@ -2458,6 +2458,8 @@ function hashbox_organization_same_as() {
         'https://lin.ee/Xagx6i4',
         'https://clutch.co/profile/hashbox-studio',
         'https://www.f6s.com/hashbox-studio',
+        // Google Business Profile (Maps place, KG /g/11z8h8p_m7) — 2026-08-29
+        'https://www.google.com/maps?cid=18343802282355714646',
     );
 }
 
@@ -2578,6 +2580,7 @@ function hashbox_rankmath_schema_service() {
             'latitude'  => 13.7263,
             'longitude' => 100.5270,
         ),
+        'hasMap'             => 'https://www.google.com/maps?cid=18343802282355714646',
         'openingHoursSpecification' => array(
             '@type'     => 'OpeningHoursSpecification',
             'dayOfWeek' => array( 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ),

@@ -1543,3 +1543,16 @@ main > .hb-section {
 }
 .hb-service__subs a { color: inherit; text-decoration: none; }
 .hb-service__subs a:hover { color: var(--hb-accent-blue); }
+
+
+/* Homepage featured cases: 1 wide + 2 */
+.hb-case-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--hb-space-4);
+}
+.hb-case--wide { grid-column: 1 / -1; }
+.hb-case--wide .hb-case__metric { font-size: var(--hb-text-5xl); }
+@media (max-width: 760px) {
+  .hb-case-grid { grid-template-columns: 1fr; }
+}

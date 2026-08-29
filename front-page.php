@@ -273,63 +273,36 @@ get_header();
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">Selected work</span>
-            <h2 class="hb-h2">งานจริงที่ผลลัพธ์วัดได้ทุกตัวเลข</h2>
-            <p class="hb-section__sub">ทุกเคสคัดจากงานจริงในอุตสาหกรรม HR-Tech, E-commerce, On-demand Service และ SaaS ผลลัพธ์ทั้งหมดมาจาก GA4 + GSC จริง</p>
+            <h2 class="hb-h2">3 เคส 3 บริการ — ผลลัพธ์จาก GA4 และ Search Console</h2>
+            <p class="hb-section__sub">เว็บไซต์ · SEO · AI — เคสละหนึ่ง เลือกจากงานที่ตัวเลขตรวจย้อนได้ ดูทั้ง 6 เคสได้ที่หน้าผลงาน</p>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--hb-space-4);">
-            <a href="<?php echo esc_url( home_url( '/work/nexus-corp/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #4338CA, #4F46E5);">
-                <div class="hb-case__head"><span class="hb-case__industry">Enterprise · 2025</span><span class="hb-badge hb-badge--blue">Corporate</span></div>
+        <div class="hb-case-grid">
+            <a href="<?php echo esc_url( home_url( '/work/nexus-corp/' ) ); ?>" class="hb-case hb-case--wide" style="--case-bg: linear-gradient(135deg, #4338CA, #4F46E5);">
+                <div class="hb-case__head"><span class="hb-case__industry">Enterprise · 2025</span><span class="hb-badge hb-badge--blue">รับทำเว็บไซต์ + SEO</span></div>
                 <div class="hb-case__media hb-case__media--enterprise" aria-hidden="true"></div>
                 <h3 class="hb-case__name">Nexus Corp</h3>
                 <p class="hb-case__metric">+540%</p>
-                <p class="hb-case__desc">Headless WordPress + Next.js corporate site กับ SEO recovery ครบใน 12 เดือน Users เพิ่ม 540%</p>
-                <div class="hb-case__cta"><span>อ่าน SEO case study</span><span class="hb-case__cta-arrow">→</span></div>
-            </a>
-
-            <a href="<?php echo esc_url( home_url( '/work/flow-store/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #3730A3, #6366F1);">
-                <div class="hb-case__head"><span class="hb-case__industry">E-commerce · 2025</span><span class="hb-badge hb-badge--cyan">CRO</span></div>
-                <div class="hb-case__media hb-case__media--commerce" aria-hidden="true"></div>
-                <h3 class="hb-case__name">Flow Store</h3>
-                <p class="hb-case__metric">3×</p>
-                <p class="hb-case__desc">Storefront ใหม่บน Next.js + CRO Sprint 4 เดือน Conversion Rate 3 เท่า ใน 6 เดือน</p>
-                <div class="hb-case__cta"><span>อ่าน CRO case study</span><span class="hb-case__cta-arrow">→</span></div>
+                <p class="hb-case__desc">ย้ายจาก legacy WordPress เป็น Headless WordPress + Next.js พร้อม SEO recovery — Users เพิ่ม 540% ใน 12 เดือน จาก GA4 + Search Console</p>
+                <div class="hb-case__cta"><span>อ่าน case study</span><span class="hb-case__cta-arrow">→</span></div>
             </a>
 
             <a href="<?php echo esc_url( home_url( '/work/rank-project/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #312E81, #4F46E5);">
-                <div class="hb-case__head"><span class="hb-case__industry">HR-Tech · 2024</span><span class="hb-badge hb-badge--blue">SEO Recovery</span></div>
+                <div class="hb-case__head"><span class="hb-case__industry">HR-Tech · 2024</span><span class="hb-badge hb-badge--blue">รับทำ SEO</span></div>
                 <div class="hb-case__media hb-case__media--seo" aria-hidden="true"></div>
                 <h3 class="hb-case__name">Rank Project</h3>
                 <p class="hb-case__metric">+2,200%</p>
-                <p class="hb-case__desc">Technical SEO overhaul + 12-month content programme — Impressions เพิ่ม 22 เท่า, Traffic +700%</p>
-                <div class="hb-case__cta"><span>อ่าน Technical SEO case study</span><span class="hb-case__cta-arrow">→</span></div>
+                <p class="hb-case__desc">Technical SEO overhaul + content programme 12 เดือน — Impressions เพิ่ม 22 เท่า, Traffic +700%</p>
+                <div class="hb-case__cta"><span>อ่าน case study</span><span class="hb-case__cta-arrow">→</span></div>
             </a>
 
             <a href="<?php echo esc_url( home_url( '/work/autobot-line/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #064E3B, #059669);">
-                <div class="hb-case__head"><span class="hb-case__industry">On-demand · 2025</span><span class="hb-badge hb-badge--emerald">AI Workforce</span></div>
+                <div class="hb-case__head"><span class="hb-case__industry">On-demand · 2025</span><span class="hb-badge hb-badge--emerald">ที่ปรึกษา AI</span></div>
                 <div class="hb-case__media hb-case__media--ai" aria-hidden="true"></div>
                 <h3 class="hb-case__name">AutoBot LINE</h3>
                 <p class="hb-case__metric">−60%</p>
-                <p class="hb-case__desc">LINE Bot + OpenAI + RAG ตอบลูกค้าไทย 24/7 ลด Support Cost 60% ใน 8 สัปดาห์</p>
-                <div class="hb-case__cta"><span>อ่าน AI Workforce case study</span><span class="hb-case__cta-arrow">→</span></div>
-            </a>
-
-            <a href="<?php echo esc_url( home_url( '/work/gold-brand/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #7C2D12, #C2410C);">
-                <div class="hb-case__head"><span class="hb-case__industry">Luxury · 2024</span><span class="hb-badge hb-badge--amber">Brand + Web</span></div>
-                <div class="hb-case__media hb-case__media--brand" aria-hidden="true"></div>
-                <h3 class="hb-case__name">Gold Brand</h3>
-                <p class="hb-case__metric">+180%</p>
-                <p class="hb-case__desc">Brand refresh + Performance site บน Next.js Branded Search เพิ่ม 180% ใน 5 เดือน</p>
-                <div class="hb-case__cta"><span>อ่าน Brand + Web case study</span><span class="hb-case__cta-arrow">→</span></div>
-            </a>
-
-            <a href="<?php echo esc_url( home_url( '/work/pitch-deck/' ) ); ?>" class="hb-case" style="--case-bg: linear-gradient(135deg, #312E81, #7C3AED);">
-                <div class="hb-case__head"><span class="hb-case__industry">SaaS · 2025</span><span class="hb-badge hb-badge--violet">Investor Web</span></div>
-                <div class="hb-case__media hb-case__media--saas" aria-hidden="true"></div>
-                <h3 class="hb-case__name">Pitch Deck Microsite</h3>
-                <p class="hb-case__metric">Series A</p>
-                <p class="hb-case__desc">Investor Microsite + Live Metrics Dashboard ใน 3 สัปดาห์ ปิด Series A ที่ Valuation 1.4×</p>
-                <div class="hb-case__cta"><span>อ่าน Investor Microsite case study</span><span class="hb-case__cta-arrow">→</span></div>
+                <p class="hb-case__desc">LINE Bot + OpenAI + RAG ตอบลูกค้า 24/7 — Response time 2 ชม. → 2 นาที, Support cost −60% ใน 8 สัปดาห์</p>
+                <div class="hb-case__cta"><span>อ่าน case study</span><span class="hb-case__cta-arrow">→</span></div>
             </a>
         </div>
 
