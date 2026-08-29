@@ -61,7 +61,7 @@ Guard: PSI mobile ≥ 90 · H1 หน้าแรกคง "รับทำเ�
 | S2.5 | Friday loop ครั้งแรก · อัปเดต KEYWORD-DB · รายงานสัปดาห์ 4 เทียบ G1–G4 | — |
 
 ## Tum — สัปดาห์ 1–4 ขนาน (Claude ทำแทนไม่ได้)
-- **T7 (ใหม่ 2026-08-29, 2 นาที):** Cloudflare dashboard → hashbox.co.th → Scrape Shield → ปิด *Email Address Obfuscation* — script `email-decode.min.js` block render 480ms ทุกหน้า (PSI flag) · อีเมลบนเว็บมีแค่ business@ ซึ่งตั้งใจเปิดเผยอยู่แล้ว
+- ✅ **T7 ปิดแล้ว 2026-08-30** (Tum login Cloudflare, Claude toggle Email Address Obfuscation = Off) — `email-decode.min.js` หายจากทุกหน้าทันที (ตรวจ / seo / en-seo / ai-search) · เดิม block render 480ms
 | # | งาน | ปลดล็อก |
 |---|---|---|
 | T1 | GBP ครบทุก field/บริการ + โพสต์ 2/สัปดาห์ (Claude ร่าง) + ขอรีวิว 5 จากลูกค้าเก่า | Map Pack — SERP ของ `รับทำ seo / รับทำเว็บไซต์ / ai consulting bangkok` |
