@@ -198,18 +198,7 @@ $faqs = array(
 </section>
 
 <?php
-hashbox_jsonld( array(
-    '@context'      => 'https://schema.org',
-    '@type'         => 'WebPage',
-    '@id'           => $page_url . '#webpage',
-    'name'          => 'เงื่อนไขการันตี "ไม่โต ไม่จ่าย" — บริการรับทำ SEO Hashbox',
-    'description'   => $desc,
-    'url'           => $page_url,
-    'inLanguage'    => 'th-TH',
-    'dateModified'  => get_the_modified_date( 'c' ),
-    'isPartOf'      => array( '@id' => home_url( '/#website' ) ),
-    'about'         => array( '@id' => $seo_url . '#service' ),
-) );
+// WebPage entity comes from Rank Math (rank-math-schema); theme adds only Breadcrumb + FAQ here.
 hashbox_jsonld( array(
     '@context'        => 'https://schema.org',
     '@type'           => 'BreadcrumbList',
