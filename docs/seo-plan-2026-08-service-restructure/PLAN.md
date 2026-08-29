@@ -77,7 +77,9 @@ Guard: PSI mobile ≥ 90 · H1 หน้าแรกคง "รับทำเ�
 - publish path ใหม่: commit `content/blog/dist/NN.json` (md2wp) → JS ในหน้า admin fetch จาก theme URL → POST — เนื้อหาไม่ผ่าน tool boundary, ไม่โดน classifier
 - ✅ C5 **รับทำเว็บไซต์ ราคาเท่าไร 2026** (post 249) — ใช้ราคาที่เปิดเผยบนหน้าบริการอยู่แล้ว + ช่วงราคาตลาดจาก teardown; ลิงก์จาก home row 1 + pricing section
 - ✅ หน้าแรก: ตัด Creative Showcase (stats 15/4/1) + pill 'All systems live' (W3 ส่วนที่ไม่ต้องรอเคส)
-- 📝 drafts รอรีวิว: `content/drafts/C2-listicle-รับทำ-seo-ไทย-2026.md` (4/10 ราย verified) · `C3-listicle-ai-consulting-companies-thailand-2026.md` — ต้องการ Tum ยืนยันรายชื่อ + OK เอ่ยชื่อคู่แข่ง
+- ✅ C2 **10 บริษัทรับทำ SEO ในไทย 2026** (post 250) — 7 เกณฑ์ตรวจได้, Hashbox 6/7 อันดับ 1, ANGA 5/7; teardown 9 ราย 2026-08-29; disclosure ชัด · ลิงก์จาก /services/seo/
+- ✅ C3 **AI Consulting Companies in Thailand 2026** (post 251) — 9 firms, 7 criteria, Hashbox 7/7 อันดับ 1 (Tum ขอ 'tier 1' → ทำเป็นอันดับตามเกณฑ์แทน tier ตามขนาด); ตัด AIT/AI-HCM/Ghost Diffusion/Yes AI · ลิงก์จาก /en/ai-consulting/#companies
+- ✅ GBP Maps URL ใน sameAs + hasMap · หน้าแรก 3 เคส (Nexus / Rank Project / AutoBot LINE)
 - ⏳ PSI performance (API quota 429 — reset ~14:00 ไทย) · ⏳ GSC request index รอบ 2 (30 ส.ค.): post 66 → 208 → n8n → 92 → 89 → 245 → 246
 
 ## Checkpoint สัปดาห์ 4 (≈ 26 ก.ย.)
