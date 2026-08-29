@@ -20,16 +20,16 @@ get_header();
             <div class="hb-hero__copy">
                 <span class="hb-hero__pill">
                     <span class="hb-hero__pill-mark">H</span>
-                    Website Craft · Performance Marketing · AI Workforce
+                    รับทำเว็บไซต์ · SEO / AI Search · ที่ปรึกษา AI
                 </span>
                 <h1 class="hb-hero__title">
                     รับทำเว็บไซต์ SEO&#8209;Ready<br>
-                    <em>พร้อม Marketing + AI</em><br>
+                    <em>พร้อม SEO, AI Search และที่ปรึกษา AI</em><br>
                     ไว้ในทีมเดียว<br>
-                    <em>เพื่อผลลัพธ์ที่วัดได้จริง</em><span class="hb-hero__cursor"></span>
+                    <em>วัดผลจาก Search Console ของคุณ</em>
                 </h1>
                 <p class="hb-hero__sub">
-                    Hashbox Studio รับทำเว็บไซต์ SEO-Ready สำหรับธุรกิจไทยที่ต้องการมากกว่าเว็บสวย เราวางโครงสร้าง Technical SEO, Core Web Vitals, Schema, รับทำ SEO / AI Search และ AI Workforce ไว้ในระบบเดียวกัน เพื่อเพิ่ม Traffic, Conversion และลดงาน Manual — โดยลูกค้าจะเริ่มเห็นสัญญาณผลลัพธ์ภายใน <strong>60-90 วันแรก</strong>
+                    Hashbox Studio รับทำเว็บไซต์ SEO-Ready สำหรับธุรกิจไทยที่ต้องการมากกว่าเว็บสวย เราวางโครงสร้าง Technical SEO, Core Web Vitals, Schema, รับทำ SEO / AI Search และระบบ AI สำหรับธุรกิจไว้ในทีมเดียว ราคาเปิดเผยทุกบริการ และการันตี <strong>"ไม่โต ไม่จ่าย"</strong> — impressions ไม่โต 50% ใน 90 วัน เราทำต่อฟรี
                 </p>
                 <div class="hb-hero__actions">
                     <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี
@@ -45,32 +45,32 @@ get_header();
                 </div>
             </div>
 
-            <aside class="hb-hero__visual" aria-label="ตัวอย่างระบบ Growth OS ของ Hashbox">
+            <aside class="hb-hero__visual" aria-label="ตัวเลขจริงของ hashbox.co.th">
                 <figure class="hb-hero__creative-card">
                     <img src="<?php echo esc_url( hashbox_ad_webp_uri( 'linkedin_wide_seo_ready_v4.png', 1200 ) ); ?>" srcset="<?php echo esc_attr( hashbox_ad_webp_srcset( 'linkedin_wide_seo_ready_v4.png', array( 640, 1200 ) ) ); ?>" sizes="(min-width: 900px) 640px, 100vw" width="1200" height="627" alt="ตัวอย่างครีเอทีฟ SEO-Ready Website ของ Hashbox Studio" loading="eager" fetchpriority="high" decoding="async">
                 </figure>
                 <div class="hb-dashboard">
                     <div class="hb-dashboard__bar">
                         <span class="hb-dashboard__dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                        <span>Hashbox Growth OS</span>
-                        <strong>LIVE</strong>
+                        <span>hashbox.co.th — ตัวเลขจริง</span>
+                        <strong>ส.ค. 2026</strong>
                     </div>
                     <div class="hb-dashboard__body">
                         <div class="hb-dashboard__kpis">
                             <div>
-                                <span>SEO score</span>
-                                <strong>100</strong>
-                                <small>Build gate</small>
+                                <span>Lighthouse mobile</span>
+                                <strong>98</strong>
+                                <small>PageSpeed Insights</small>
                             </div>
                             <div>
-                                <span>Conversion</span>
-                                <strong>3×</strong>
-                                <small>CRO sprint</small>
+                                <span>AI Overview</span>
+                                <strong>อ้างอิง</strong>
+                                <small>คู่มือ AI Solution อันดับ 3</small>
                             </div>
                             <div>
-                                <span>AI saved</span>
-                                <strong>20h</strong>
-                                <small>per week</small>
+                                <span>Track รายวัน</span>
+                                <strong>56</strong>
+                                <small>คีย์เวิร์ด + 20 AI prompt</small>
                             </div>
                         </div>
                         <div class="hb-dashboard__chart" aria-hidden="true">
@@ -82,12 +82,12 @@ get_header();
                             <span style="--h: 84%;"></span>
                             <span style="--h: 93%;"></span>
                         </div>
-                        <div class="hb-dashboard__flow" aria-label="Website to marketing to AI workflow">
-                            <span>Website</span>
+                        <div class="hb-dashboard__flow" aria-label="Website to SEO and AI Search to AI systems">
+                            <span>เว็บไซต์</span>
                             <i aria-hidden="true"></i>
-                            <span>Marketing</span>
+                            <span>SEO / AI Search</span>
                             <i aria-hidden="true"></i>
-                            <span>AI Workforce</span>
+                            <span>ระบบ AI</span>
                         </div>
                     </div>
                 </div>
@@ -107,7 +107,7 @@ get_header();
                 <span>GA4</span>
                 <span>GSC</span>
                 <span>Schema</span>
-                <span>AI Workflow</span>
+                <span>llms.txt</span>
             </div>
             <div class="hb-proof-strip__score">
                 <strong>60-90</strong>
