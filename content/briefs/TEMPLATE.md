@@ -47,6 +47,7 @@
 - Facebook post 1 · LinkedIn post 1 · script วิดีโอ 60–90 วิ 1 · GBP post 1
 
 ## 6. Review Gate (ผ่านครบก่อน publish)
+- [ ] **Design gate (กฎ Tum 2026-08-29):** ฟอนต์เดียว IBM Plex Sans Thai ผ่าน token เท่านั้น (ไม่มี font-family / font-size inline) · ขนาดตาม `--hb-text-*` (H1 ≈ 28 มือถือ / 46–52 desktop, H2 26–36, body 16) · ไม่มี fake stats / testimonial ไม่มีชื่อ / gradient blob / icon ทุกการ์ด / eyebrow mono ทุกที่ · ตารางกว้างมี sticky คอลัมน์แรก · เช็คมือถือ 390px ก่อน publish · CTA เดียวต่อ section
 - [ ] **Accuracy (Tum):** claim / ราคา / process / tool / เคส ยืนยันแล้ว
 - [ ] **SEO (Claude):** intent ครบ · internal links ครบ · title/meta/slug/schema · indexable · ไม่ cannibal (§6.2) · Rich Results Test ผ่าน
 - [ ] **Conversion:** CTA เดียว · form/LINE ทำงาน · tracking ยิง

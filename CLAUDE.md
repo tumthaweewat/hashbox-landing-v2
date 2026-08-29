@@ -85,3 +85,14 @@ Keep `style.css` Theme Name unique (currently `Hashbox Studio V2`) so WordPress 
 ## Current plan (2026-09 → 2026-11)
 
 `docs/seo-plan-2026-08-service-restructure/PLAN.md` is the single source of truth for SEO/AI-search work (sprints, owners, rules). `KEYWORD-DB.csv` holds keyword scores; `REFERENCE.md` holds the keyword ownership map — check it before creating any page (1 keyword = 1 page). Every content piece starts from `content/briefs/TEMPLATE.md`.
+
+## Design rules (mandatory — set by Tum 2026-08-29)
+
+Apply to **every new page, post, template, section or component**, no exceptions:
+
+1. **One font family only**: `IBM Plex Sans Thai` for headings, body, eyebrows, stats, badges, code. Never add DM Sans, Plex Mono, Inter, Noto, Anuphan or any Google Fonts link. Use the tokens (`--hb-font-display/body/mono` all resolve to the same stack) — never hardcode a `font-family`.
+2. **One type scale**: use `--hb-text-*` tokens only (base 16px; hero H1 ≈ 28px mobile / 46–52px desktop; section H2 `--hb-text-4xl` ≈ 26–36px; H3 `--hb-text-3xl` ≈ 22–28px). No inline `font-size` in px/rem, no sizes above `--hb-text-6xl`. Reference: anga.co.th (body 16, headings small and dense).
+3. **UX/UI, not AI slop**: no gradient blobs, no fake stats, no unnamed testimonials, no decorative icons in every card, no mono/uppercase eyebrows on everything, no "All systems live"-style pills. Real numbers with a source, real names or none, one CTA per section, rows/tables over card grids where content is comparative, sticky first column on wide tables, mobile checked at 390px before publish.
+4. Content pages: answer-first paragraph, H2 = question or keyword phrase, FAQ = FAQPage schema from the same array, BreadcrumbList, dateModified real.
+
+Checklist lives in `content/briefs/TEMPLATE.md` §6 — run it before every publish.
