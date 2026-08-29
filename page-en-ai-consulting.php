@@ -74,7 +74,7 @@ $faqs = array(
         <div class="hb-section__head">
             <span class="hb-eyebrow">The market</span>
             <h2 class="hb-h2">AI consulting companies in Thailand — the three tiers, and where Hashbox fits</h2>
-            <p class="hb-section__sub">If you are comparing AI consulting companies in Bangkok, the list splits into three groups with very different price points and delivery models. Pick the tier that matches your budget and the size of the first process you want to automate.</p>
+            <p class="hb-section__sub">If you are comparing AI consulting companies in Bangkok, the list splits into three groups with very different price points and delivery models. Pick the tier that matches your budget and the size of the first process you want to automate — or see the full comparison: <a href="<?php echo esc_url( home_url( '/ai-consulting-companies-thailand-2026/' ) ); ?>">9 AI consulting companies in Thailand scored on 7 verifiable criteria</a>.</p>
         </div>
         <div class="hb-bento">
             <div class="hb-bento__cell hb-bento__cell--c2">
