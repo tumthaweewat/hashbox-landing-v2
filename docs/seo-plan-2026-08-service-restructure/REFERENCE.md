@@ -361,3 +361,19 @@
 | schema markup ธุรกิจไทย | 0 | 2 | 0% | 88.5 |
 | รับทำ ai | 0 | 1 | 0% | 37.0 |
 | รับทำเว็บไซต์ wordpress cms | 0 | 1 | 0% | 47.0 |
+
+## §6.1 Pages 28 วัน (top 10 จาก 31)
+| page | clicks | impr | CTR | pos |
+|---|---|---|---|---|
+| / | 11 | 118 | 9.3% | 5.8 |
+| /ai-agent-rag-chatbot-thailand-2026/ | 7 | 102 | 6.9% | 13.1 |
+| /services/ai-consulting/ | 2 | **889** | 0.2% | **44.0** |
+| /ai-solution-consulting-guide-2026/ (post 170) | 1 | 386 | 0.3% | 5.3 |
+| /en/ai-consulting/ | 1 | 364 | 0.3% | 20.7 |
+| /technical-seo-guide/ | 1 | 169 | 0.6% | 48.4 |
+| /about/ | 1 | 90 | 1.1% | 5.3 |
+| /n8n-thai-guide-2026/ | 1 | 20 | 5% | 15.8 |
+| academy.hashbox.co.th/ai-website-growth-kit/ | 1 | 8 | 12.5% | 19.2 |
+| /services/ | 0 | 73 | 0% | 12.5 |
+
+อ่านค่า: `/services/ai-consulting/` ได้ impressions มากสุด (889) แต่ pos 44 → คำที่ Google จับหน้านี้คือ EN/long-tail ที่ยังไม่ติด — ตรงกับ B3 ที่ทำ H2 variants แล้ว รอ re-crawl · โพสต์ RAG (post 129) ทำ click ได้มากสุดในกลุ่มบทความ (7) ทั้งที่ impr แค่ 102 → intent ตรง ควรทำ use-case page RAG (C8) · post 170 ได้ 1 click จาก 386 impr แม้ pos 5.3 → title ใหม่ (29 ส.ค.) วัดผลอีก 2 สัปดาห์
