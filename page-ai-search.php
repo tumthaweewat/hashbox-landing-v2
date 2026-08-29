@@ -286,6 +286,8 @@ $kpis = array(
             <li><a href="<?php echo esc_url( home_url( '/llms-txt-คืออะไร-2026/' ) ); ?>">llms.txt คืออะไร ทำยังไง</a> — ตัวอย่างไฟล์จริงของเรา + สิ่งที่ยังไม่แน่นอน</li>
             <li><a href="<?php echo esc_url( home_url( '/เว็บไซต์รองรับ-ai-search-2026/' ) ); ?>">เว็บไซต์รองรับ AI Search คืออะไร — checklist 12 ข้อ</a> — ตรวจเว็บตัวเองใน 5 นาที</li>
             <li><a href="<?php echo esc_url( home_url( '/schema-markup-thai-guide-2026/' ) ); ?>">Schema Markup สำหรับเว็บไทย</a> — พื้นฐาน entity ที่ AI ต้องการ</li>
+            <li><a href="<?php echo esc_url( home_url( '/google-ai-mode-คืออะไร-2026/' ) ); ?>">Google AI Mode คืออะไร ต่างจาก AI Overview ยังไง</a> — timeline ภาษาไทย, query fan-out, วัดผล</li>
+            <li><a href="<?php echo esc_url( home_url( '/aeo-คืออะไร-2026/' ) ); ?>">AEO คืออะไร? ต่างจาก SEO และ GEO ตรงไหน</a> — ตารางเทียบ 3 แนวทาง + 7 รูปแบบที่ AI ยกไปตอบ</li>
         </ul>
     </div>
 </section>
