@@ -19,7 +19,7 @@ hashbox_render_case_study( array(
 
     // ตัวเลขที่ลูกค้าอนุญาตให้เปิดเผย (Tum 2026-08-29) — เกณฑ์เดียวกับการันตี
     'proof' => array(
-        array( 'value' => '90+', 'label' => 'Lighthouse mobile ทุก URL', 'note' => 'build gate ก่อน deploy — ตรวจซ้ำได้ทุกวัน' ),
+        array( 'value' => '100', 'label' => 'Lighthouse Performance/SEO ทุก URL', 'note' => 'build gate 90+ ก่อน deploy — ผลจริงหลัง launch 100' ),
         array( 'value' => '20+', 'label' => 'keyword หน้าแรก Google', 'note' => 'non-brand · นับจาก Search Console' ),
         array( 'value' => '90 วัน', 'label' => 'ถึงผลลัพธ์ชุดแรกหลัง migrate', 'note' => 'ระยะเดียวกับการันตีชั้น 2' ),
     ),
