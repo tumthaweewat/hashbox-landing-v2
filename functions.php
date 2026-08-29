@@ -766,6 +766,10 @@ function hashbox_get_seo_metadata() {
     // collision returning the Thai metadata.
     $en_path = hashbox_current_request_path();
     $en_meta = array(
+        'en/website-development' => array(
+            'title'       => 'Website Development Company in Bangkok — SEO-Ready, from THB 35,900 | Hashbox',
+            'description' => 'Bangkok web development company building SEO-ready sites: Next.js or WordPress, Lighthouse 95+ guaranteed, green Core Web Vitals, full schema, Thai/English, LINE + PDPA. Landing from THB 35,900, corporate from 80,000, e-commerce from 350,000. Source code handed over.',
+        ),
         'en/seo' => array(
             'title'       => 'SEO Agency Bangkok — Technical-first SEO, from THB 29,900 | Hashbox',
             'description' => 'Technical-first SEO agency in Bangkok: Core Web Vitals, schema, local SEO and AI Search (GEO) with daily rank and AI-citation tracking. From THB 29,900/month with a written "no growth, no pay" guarantee.',
@@ -1354,6 +1358,10 @@ function hashbox_hreflang_pairs() {
         array(
             'th' => 'services/ai-search',
             'en' => 'en/ai-search',
+        ),
+        array(
+            'th' => 'services/website-development',
+            'en' => 'en/website-development',
         ),
     );
 }

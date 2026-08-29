@@ -174,7 +174,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
                 <p class="hb-body" style="margin:0;"><strong>Site size</strong> — 15 pages and 500 pages are different monthly workloads.</p>
                 <p class="hb-body" style="margin:0;"><strong>Technical state at the start</strong> — a site with failing Core Web Vitals and no schema spends the first months on foundation.</p>
                 <p class="hb-body" style="margin:0;"><strong>Keyword difficulty</strong> — head terms against large agencies need authority we will tell you honestly how long takes.</p>
-                <p class="hb-body" style="margin:0;"><strong>Rebuild needed?</strong> — usually not; if the audit says the structure is the bottleneck, that is a separate <a href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>">website build</a>.</p>
+                <p class="hb-body" style="margin:0;"><strong>Rebuild needed?</strong> — usually not; if the audit says the structure is the bottleneck, that is a separate <a href="<?php echo esc_url( home_url( '/en/website-development/' ) ); ?>">website build</a>.</p>
             </div>
         </div>
     </div>

@@ -124,7 +124,7 @@ $kpis = array(
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">+</span>
                 <h3 class="hb-h3">Built on SEO and the site</h3>
-                <p class="hb-body">GEO stands on the same foundation as our <a href="<?php echo esc_url( home_url( '/en/seo/' ) ); ?>">technical SEO service</a>, and every site we build is <a href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>">AI-search ready from launch</a>.</p>
+                <p class="hb-body">GEO stands on the same foundation as our <a href="<?php echo esc_url( home_url( '/en/seo/' ) ); ?>">technical SEO service</a>, and every site we build is <a href="<?php echo esc_url( home_url( '/en/website-development/' ) ); ?>">AI-search ready from launch</a>.</p>
             </div>
         </div>
     </div>

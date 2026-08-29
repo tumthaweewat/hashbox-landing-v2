@@ -981,6 +981,7 @@ $checks = array(
                 </nav>
                 <h1 class="hb-hero__title">รับทำเว็บไซต์<br><em>SEO-Ready</em><br>พร้อมติด Google และ AI Search ตั้งแต่วันเปิดตัว</h1>
                 <p class="hb-hero__sub hb-srw-hero__sub"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="color:inherit;text-decoration:underline;text-decoration-color:var(--hb-accent-blue,#2563EB);text-underline-offset:0.18em;">Hashbox</a> รับทำเว็บไซต์ธุรกิจด้วยโครงสร้างที่รองรับการติดอันดับบน Google และติด AI Search ดูแลตั้งแต่ Website Performance, Technical SEO ไปจนถึง User Experience ทุกเว็บต้องผ่านมาตรฐาน Lighthouse 100 พร้อม Core Web Vitals ระดับสีเขียว และมีระบบ Sitemap Auto-Submit เพื่อให้ Google เข้าถึงและจัดอันดับเว็บไซต์ได้เร็วขึ้น · แพ็กเกจ Landing Page สำหรับธุรกิจเริ่ม 35,900 บาท</p>
+                <p class="hb-hero__sub" lang="en" style="margin-top:var(--hb-space-5);font-size:var(--hb-text-sm);">Read this page in English: <a href="<?php echo esc_url( home_url( '/en/website-development/' ) ); ?>">Website development company in Bangkok</a></p>
                 <div class="hb-hero__actions hb-srw-hero__actions">
                     <a href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">ประเมินโปรเจกต์ฟรี</a>
                     <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงานที่ผ่านมา</a>
