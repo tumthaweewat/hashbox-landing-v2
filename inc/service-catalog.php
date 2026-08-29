@@ -80,8 +80,8 @@ function hashbox_service_catalog() {
             'short'        => 'รับทำ SEO',
             'en_name'      => 'SEO Services (technical-first)',
             'path'         => '/services/seo/',
-            'desc'         => 'SEO สายเทคนิคสำหรับเว็บที่มีอยู่แล้ว — Technical Audit, Core Web Vitals, Schema, Local SEO, CRO และ GEO/AI Overview — ติดตามอันดับจากระบบของเราเองรายวัน',
-            'en_desc'      => 'Technical-first SEO retainer: technical audit, Core Web Vitals, schema, local SEO, CRO tracking and GEO/AI Overview optimisation with daily rank tracking.',
+            'desc'         => 'SEO สายเทคนิคสำหรับเว็บที่มีอยู่แล้ว — Technical Audit, Core Web Vitals, Schema, Local SEO, CRO และ GEO/AI Overview — ติดตามอันดับรายวัน การันตี "ไม่โต ไม่จ่าย": impressions ไม่โต 50% ใน 90 วัน ทำต่อฟรี',
+            'en_desc'      => 'Technical-first SEO retainer: technical audit, Core Web Vitals, schema, local SEO, CRO tracking and GEO/AI Overview optimisation with daily rank tracking. Guarantee: if impressions do not grow 50% in 90 days, we keep working for free.',
             'service_type' => 'SEO',
             'stack'        => 'Technical Audit · Core Web Vitals · Local SEO · CRO',
             'price'        => 'เริ่มต้น 29,900 บาท/เดือน',
@@ -95,6 +95,7 @@ function hashbox_service_catalog() {
                 array( 'label' => 'SEO Recovery', 'path' => '/seo-recovery-audit/' ),
                 array( 'label' => 'Schema & Core Web Vitals', 'path' => '/technical-seo-guide/' ),
                 array( 'label' => 'CRO + Tracking', 'path' => '/services/seo/#cro' ),
+                array( 'label' => 'การันตี "ไม่โต ไม่จ่าย"', 'path' => '/services/seo/#guarantee' ),
             ),
         ),
         'ai-search' => array(

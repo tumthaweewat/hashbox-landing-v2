@@ -39,7 +39,7 @@ $author_bio      = '17 ปีประสบการณ์ Technical SEO + Perf
 $faqs = array(
     array( 'q' => 'รับทำ SEO ราคาเท่าไหร่?', 'a' => 'บริการรับทำ SEO ของ Hashbox เริ่มต้นที่ 29,900 บาทต่อเดือน สำหรับงาน SEO ต่อเนื่อง ครอบคลุมงานด้าน Technical SEO, Core Web Vitals, Schema Markup, Content/On-page และ GEO/AI Overview ตาม scope ที่ตกลงกันหลัง audit พร้อมข้อมูลอันดับและการถูกอ้างอิงใน AI Overview อัปเดตรายวัน ราคาไม่รวม VAT 7% · ราคาจริงขึ้นกับ scope ของแต่ละเว็บ — จำนวนหน้า สภาพ technical ปัจจุบัน ความยากของคีย์เวิร์ด และคู่แข่งในตลาด เราไม่ขายแพ็กเกจตายตัวเพราะเว็บแต่ละแบบต้องการงานไม่เท่ากัน วิธีที่แฟร์ที่สุดคือเริ่มจาก SEO Audit ฟรี แล้วเราเสนอราคาตามงานที่จำเป็นจริงๆ' ),
     array( 'q' => 'ทำ SEO ให้ติดหน้าแรก Google ใช้เวลากี่เดือน?', 'a' => 'โดยทั่วไปวงการนี้บอก 6 เดือนขึ้นไป แต่สำหรับเว็บที่โครงสร้าง technical ถูกต้อง — เร็ว, Schema ครบ, โครงสร้างเนื้อหาชัด — เราเห็น time-to-rank ลดเหลือ 1-2 เดือนในหลายอุตสาหกรรม นี่คือเหตุผลที่เราแก้ technical ก่อนเสมอ ส่วนคีย์เวิร์ดที่แข่งสูงมากยังต้องใช้เวลาสะสม authority ซึ่งเราจะบอกตรงๆ ตั้งแต่ audit' ),
-    array( 'q' => 'รับประกันอันดับ 1 ได้ไหม?', 'a' => 'ไม่ได้ และใครรับประกันได้ควรระวัง เพราะไม่มีใครควบคุมอัลกอริทึมของ Google ได้ สิ่งที่เรารับประกันคือคุณภาพงานที่วัดได้และกระบวนการโปร่งใส: ทุกงาน technical มีเกณฑ์ผ่านชัดเจน และคุณเห็นข้อมูลอันดับรายวันเองว่าเคลื่อนไปทางไหน' ),
+    array( 'q' => 'การันตี "ไม่โต ไม่จ่าย" หมายความว่าอะไร?', 'a' => 'เราไม่การันตีอันดับ 1 เพราะไม่มีใครควบคุม Google ได้ (และแนะนำให้ระวังใครที่การันตี) แต่การันตี 2 อย่างที่คุณเปิดดูเองได้ใน Search Console: (1) งานเทคนิคผ่านใน 30 วัน — Core Web Vitals เขียว, Lighthouse mobile 90+, Schema ผ่าน Rich Results Test, หน้าเงิน index ครบ ไม่ผ่านแก้ฟรีจนผ่าน (2) หลังจากนั้นนับ 90 วัน ถ้า impressions ของคีย์เวิร์ดที่ตกลงกัน (20–50 คำ ไม่นับชื่อแบรนด์) ไม่เพิ่ม 50% เทียบ 28 วันก่อนเริ่ม และคำใน Top-20 ไม่เพิ่ม 5 คำ เราทำต่อให้ฟรีเดือนต่อเดือนจนถึง สูงสุด 3 เดือน เงื่อนไข: retainer ขั้นต่ำ 3 เดือน, ให้สิทธิ์ GSC และแก้เว็บ, ไม่มี manual penalty, ไม่เปลี่ยนโดเมนหรือลบหน้าใน scope, เว็บอายุต่ำกว่า 6 เดือนหรือ baseline เกิน 100,000 impressions/เดือน ตกลง KPI รายเคส ตัวตัดสินคือข้อมูล GSC ของคุณ ณ วันครบกำหนด' ),
     array( 'q' => 'GEO / AI Overview optimization คืออะไร ทำไมต้องสนใจ?', 'a' => 'GEO (Generative Engine Optimization) คือการทำให้ content ของคุณถูก AI อ้างอิงเวลา AI ตอบคำถาม เช่นใน Google AI Overview ตอนนี้หลาย query ผู้ใช้ได้คำตอบจาก AI ก่อนเห็นเว็บ 10 อันดับ ถ้าแบรนด์คุณไม่ถูกอ้างอิง ก็หายไปจากคำตอบนั้นเลย เราทั้ง optimize ระดับ passage และมีระบบ track การถูกอ้างอิงรายวันเพื่อวัดผลจริง' ),
     array( 'q' => 'ต้องทำเว็บใหม่ไหมถึงจะทำ SEO ได้?', 'a' => 'ไม่จำเป็น ส่วนใหญ่เราแก้บนเว็บเดิมได้ — WordPress, Next.js หรือ stack อื่น ถ้า audit แล้วพบว่าโครงสร้างเดิมเป็นคอขวดจริงๆ (เช่นแก้ความเร็วยังไงก็ไม่ผ่านเกณฑ์) เราจะเสนอทางเลือกพร้อมเหตุผล ซึ่งทีมเรารับพัฒนาเว็บ SEO-Ready เองอยู่แล้ว ตัดสินใจจากข้อมูล ไม่ใช่จากการอยากขายงานเพิ่ม' ),
     array( 'q' => 'รายงานที่ได้เป็นแบบไหน?', 'a' => 'ข้อมูลอันดับคีย์เวิร์ดและการถูกอ้างอิงใน AI Overview อัปเดตรายวันจากระบบของเราเอง พร้อมสรุปสิ่งที่ทำและสิ่งที่จะทำต่อ คุณเห็นความเคลื่อนไหวได้ตลอด ไม่ต้องรอสรุปสิ้นเดือน และข้อมูลย้อนหลังเก็บไว้ทั้งหมดตั้งแต่วันแรกที่เริ่มงาน' ),
@@ -74,6 +74,7 @@ $compare = array(
     array( 'AI Overview / GEO', 'ไม่ทำ หรือยังไม่มีวิธีวัด', 'Optimize ระดับ passage + track การถูกอ้างอิงรายวัน' ),
     array( 'เครื่องมือวัดผล', 'เช่า SaaS รายเดือน', 'ระบบ rank tracking + AI-citation ของเราเอง' ),
     array( 'รายงาน', 'PDF เดือนละครั้ง', 'ข้อมูลจริงรายวัน เก็บย้อนหลังทั้งหมด' ),
+    array( 'การันตี', '"ติดหน้าแรก" (นิยามหลวม ไม่มีเงื่อนไข)', '"ไม่โต ไม่จ่าย" — KPI จาก Search Console ของคุณ ไม่ถึงใน 90 วัน ทำต่อฟรี' ),
     array( 'ราคา', 'แพ็กเกจตายตัว', 'เริ่มต้น 29,900 บาทต่อเดือน · quote จริงหลัง audit ฟรี' ),
 );
 ?>
@@ -99,6 +100,7 @@ $compare = array(
                 <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
                 <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงาน</a>
             </div>
+            <p class="hb-body" style="margin-top:var(--hb-space-5);color:var(--hb-text-muted);"><a href="#guarantee" style="color:var(--hb-accent-emerald,#10B981);font-weight:600;text-decoration:none;">&#10003; การันตี "ไม่โต ไม่จ่าย"</a> — impressions ไม่โต 50% ใน 90 วัน เราทำต่อฟรี · วัดจาก Search Console ของคุณ</p>
         </div>
     </div>
 </section>
@@ -332,6 +334,36 @@ $compare = array(
             </div>
         </div>
         <p class="hb-body" style="margin-top:var(--hb-space-6);color:var(--hb-text-muted);"><?php echo esc_html( $price_from_txt ); ?> คือจุดเริ่มต้น ไม่ใช่ราคาเหมาทุกเว็บ — เราเสนอราคาตามงานที่จำเป็นจริงหลัง SEO Audit ฟรี และคุณเห็นทั้งปัญหาและ scope ก่อนตัดสินใจว่าจะจ้างต่อหรือไม่ · ราคาไม่รวม VAT 7%</p>
+    </div>
+</section>
+
+<section class="hb-section" id="guarantee">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">การันตี</span>
+            <h2 class="hb-h2">การันตี "ไม่โต ไม่จ่าย" — impressions ไม่โต 50% ใน 90 วัน เราทำต่อฟรี</h2>
+            <p class="hb-section__sub">เราไม่การันตีอันดับ 1 เพราะไม่มีใครควบคุม Google ได้ — แต่การันตีสิ่งที่คุณเปิดดูเองได้ใน Search Console: งานเทคนิคผ่านใน 30 วัน และ impressions โต 50% ใน 90 วัน ไม่ถึง ทำต่อฟรีจนถึง</p>
+        </div>
+        <div class="hb-bento">
+            <div class="hb-bento__cell hb-bento__cell--c2 hb-bento__cell--feature">
+                <span class="hb-bento__label">ชั้นที่ 1 · 30 วัน</span>
+                <h3 class="hb-h3">งานเทคนิคผ่าน — ไม่ผ่าน แก้ฟรีจนผ่าน</h3>
+                <p class="hb-body">Core Web Vitals เขียวทุก URL ใน scope · Lighthouse mobile 90+ (95+ ถ้าเราสร้างเว็บ) · Schema ผ่าน Rich Results Test · หน้าเงินทุกหน้าอยู่ใน index — ตรวจได้เองด้วย PageSpeed Insights, Rich Results Test และ Search Console</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2 hb-bento__cell--feature">
+                <span class="hb-bento__label">ชั้นที่ 2 · 90 วัน</span>
+                <h3 class="hb-h3">Impressions โต 50% — ไม่ถึง ทำต่อฟรี</h3>
+                <p class="hb-body">นับ 90 วันหลังชั้นที่ 1 ผ่าน: impressions ของคีย์เวิร์ดที่ตกลงกัน (20–50 คำ ไม่นับชื่อแบรนด์) เพิ่ม ≥ 50% เทียบ 28 วันก่อนเริ่ม <strong>หรือ</strong> คำใน Top-20 เพิ่ม ≥ 5 คำ — ถึงอย่างใดอย่างหนึ่ง ถ้าไม่ถึง เราทำเดือนต่อไปให้ฟรีจนถึง สูงสุด 3 เดือน</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">ทำไมเชื่อได้</span>
+                <p class="hb-body">&#10003; วัดจากตัวเลขของ Google ในบัญชีของคุณ — ไม่ใช่รายงานที่เราทำเอง<br>&#10003; เห็นความคืบหน้ารายวันในระบบ track ของเรา ไม่ต้องรอสิ้นเดือน<br>&#10003; ไม่ถึงเป้า = เราทำงานเดือนต่อไปฟรี ไม่ใช่แค่ "ขออภัย"</p>
+            </div>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-bento__label">เงื่อนไข</span>
+                <p class="hb-body" style="font-size:var(--hb-text-sm);">retainer ขั้นต่ำ 3 เดือน · ให้สิทธิ์ Search Console และแก้เว็บ (หรือให้เราแก้) · คีย์เวิร์ดตกลงร่วมกันหลัง audit · ยกเว้นเว็บที่มี manual penalty, เปลี่ยนโดเมน/ลบหน้าใน scope ระหว่างทาง · เว็บอายุต่ำกว่า 6 เดือน หรือ baseline เกิน 100,000 impressions/เดือน ตกลง KPI รายเคส · ตัวตัดสิน = ข้อมูล Search Console ของคุณ ณ วันครบกำหนด</p>
+            </div>
+        </div>
     </div>
 </section>
 
