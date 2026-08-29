@@ -42,6 +42,8 @@ author: "Tum Thaweewat"
 
 ## Ranking table {#ranking}
 
+**Ranking at a glance (score out of 7):** 1. Hashbox Studio — 7/7 · 2. DBot — 5/7 · 3. Botnoi — 4/7 · 4. Data Wow — 3/7 · 5. Amity Solutions — 3/7 · 6. Deloitte Thailand — 3/7 · 7. Sertis — 2/7 · 8. Adastra Thailand — 2/7 · 9. Accenture Thailand — 2/7 — criterion-by-criterion detail in the table below (scrolls sideways; the company column stays pinned).
+
 | Rank | Company | Public price | ROI first | Ships to prod | Source code | Thai context | Named cases | SME entry | Score |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | Hashbox Studio | ✓ from THB 60,000 | ✓ free screening → paid ROI assessment | ✓ | ✓ 100% handover | ✓ LINE · PDPA · Thai | ✓ numbers published, client names by agreement | ✓ | **7/7** |
