@@ -801,7 +801,7 @@ function hashbox_get_seo_metadata() {
             // to say so. Keep ที่ปรึกษา AI — that is the term buyers search.
             'ai-search' => array(
                 'title'       => 'รับทำ AI Search (GEO) ให้แบรนด์ถูก AI อ้างอิง | Hashbox',
-                'description' => 'รับทำ AI Search / GEO: audit, entity + Schema + llms.txt, answer-first content, citation ภายนอก วัดผลด้วย AI Visibility, Brand Mentions และ AI Overview citations จากระบบ track ของเราเอง — รวมใน SEO retainer เริ่ม 25,000 บาท/เดือน',
+                'description' => 'รับทำ AI Search / GEO: audit, entity + Schema + llms.txt, answer-first content, citation ภายนอก วัดผลด้วย AI Visibility, Brand Mentions และ AI Overview citations จากระบบ track ของเราเอง — รวมใน SEO retainer เริ่ม 29,900 บาท/เดือน',
             ),
             'ai-consulting' => array(
                 'title'       => 'ที่ปรึกษา AI สำหรับธุรกิจ | รับวางระบบ AI ถึง Production | Hashbox',
@@ -852,7 +852,7 @@ function hashbox_get_seo_metadata() {
     if ( 'services/seo' === hashbox_current_request_path() ) {
         return array(
             'title'       => 'รับทำ SEO สายเทคนิค ติดหน้าแรก Google และ AI Search | Hashbox',
-            'description' => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
+            'description' => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 29,900 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
         );
     }
 
@@ -1001,7 +1001,7 @@ function hashbox_sync_new_service_pages_rankmath_meta() {
             'path'  => 'services/seo',
             'title' => 'รับทำ SEO สายเทคนิค วัดผลด้วยข้อมูลรายวัน | Hashbox',
             // Keep in sync with $desc in page-seo-service.php.
-            'desc'  => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
+            'desc'  => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 29,900 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
         ),
         array(
             'path'  => 'services/website-development/wordpress',
@@ -2894,7 +2894,7 @@ function hashbox_llms_txt_content() {
     $lines[] = '- SEO-Ready E-commerce: from 350,000 THB / 6-10 weeks';
     $lines[] = '- SEO-Ready Enterprise: from 500,000 THB / 8-14 weeks';
     // One-off build fees above; this one is a monthly retainer, hence the unit.
-    $lines[] = '- SEO retainer (technical-first, incl. GEO): from 25,000 THB / month';
+    $lines[] = '- SEO retainer (technical-first, incl. GEO): from 29,900 THB / month';
     if ( $hb_has_n8n_page ) {
         $lines[] = '- n8n automation build (self-hosted, handover included): from 29,000 THB / project';
     }
@@ -2971,7 +2971,7 @@ if ( ! function_exists( 'hashbox_get_home_faqs' ) ) {
             ),
             array(
                 'q' => 'บริการรับทำ SEO และ AI Search (GEO) ของ Hashbox ทำอะไรบ้าง?',
-                'a' => 'รับทำ SEO สายเทคนิค: แก้โครงสร้างเว็บ Core Web Vitals และ Schema ก่อน แล้วต่อยอดด้วย content, Local SEO และ CRO + tracking ให้ traffic กลายเป็น lead ส่วน AI Search (GEO) คือการทำให้แบรนด์ถูกอ้างอิงใน Google AI Overview, ChatGPT, Perplexity และ Gemini — ทั้งสองวัดผลจากระบบ track อันดับและ AI citation ของเราเอง อัปเดตรายวัน เริ่มต้น 25,000 บาทต่อเดือน จาก SEO Audit ฟรีครับ',
+                'a' => 'รับทำ SEO สายเทคนิค: แก้โครงสร้างเว็บ Core Web Vitals และ Schema ก่อน แล้วต่อยอดด้วย content, Local SEO และ CRO + tracking ให้ traffic กลายเป็น lead ส่วน AI Search (GEO) คือการทำให้แบรนด์ถูกอ้างอิงใน Google AI Overview, ChatGPT, Perplexity และ Gemini — ทั้งสองวัดผลจากระบบ track อันดับและ AI citation ของเราเอง อัปเดตรายวัน เริ่มต้น 29,900 บาทต่อเดือน จาก SEO Audit ฟรีครับ',
             ),
             array(
                 'q' => 'AI Consulting ครอบคลุมอะไรบ้าง?',

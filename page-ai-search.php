@@ -9,7 +9,7 @@
  *
  * FAQ array = single source for the accordion and FAQPage JSON-LD.
  * Pricing: no standalone number approved yet — page states the two facts
- * that are true (GEO is inside the SEO retainer from 25,000/month; a
+ * that are true (GEO is inside the SEO retainer from 29,900/month; a
  * standalone scope is quoted after the free GEO audit). Brief:
  * content/briefs/ai-search.md
  *
@@ -35,7 +35,7 @@ $faqs = array(
     array( 'q' => 'ทำ AI Search ใช้เวลานานแค่ไหนถึงเห็นผล?', 'a' => 'AI Overview ของ Google เปลี่ยนแหล่งอ้างอิงได้ภายในไม่กี่วันหลัง Google re-crawl หน้าที่แก้ — เราเห็นการเปลี่ยนแปลงในระบบ track รายวัน ส่วน ChatGPT และ Perplexity ดึงจากดัชนีค้นหาและแหล่งภายนอก จึงขยับช้ากว่า มักเห็นผลใน 4–8 สัปดาห์หลังเนื้อหาและ citation ครบ คีย์เวิร์ดที่แข่งสูงต้องสะสมการถูกพูดถึงจากภายนอกซึ่งเราจะบอกตรงๆ ตั้งแต่ audit' ),
     array( 'q' => 'Hashbox วัดผล AI Search อย่างไร?', 'a' => 'ด้วย 6 ตัวชี้วัดจากระบบ track ของเราเอง: AI Visibility (แบรนด์ปรากฏในคำตอบกี่ % ของ prompt ชุดเดียวกันทุกเดือน), Brand Mentions แยกตาม ChatGPT / Claude / Gemini / Perplexity, AI Overview Citations ของคีย์เวิร์ดเป้าหมายรายวัน, AI Share of Voice เทียบคู่แข่ง, แหล่งที่ AI อ้างอิงแทนเรา และ LLM traffic ใน GA4 (referrer chatgpt.com, perplexity.ai) — คุณเห็นข้อมูลชุดเดียวกับที่เราเห็น' ),
     array( 'q' => 'ต้องทำ SEO ก่อนไหมถึงจะทำ AI Search ได้?', 'a' => 'พื้นฐานต้องผ่านก่อน: เว็บต้อง crawl ได้ เร็วพอ และมี Schema ถูกต้อง เพราะ AI ดึงจากดัชนีเดียวกับ Google ถ้าเว็บยังไม่ผ่านตรงนี้ เราจะแก้ใน 2–4 สัปดาห์แรกก่อนเริ่มงาน AI Search ส่วนเว็บที่ SEO ดีอยู่แล้วเริ่มงาน GEO ได้ทันที' ),
-    array( 'q' => 'รับทำ AI Search ราคาเท่าไหร่?', 'a' => 'GEO / AI Overview optimization รวมอยู่ในบริการรับทำ SEO ของ Hashbox ซึ่งเริ่มต้น 25,000 บาทต่อเดือน สำหรับลูกค้าที่ต้องการเฉพาะงาน AI Search แยกจาก SEO เราเสนอราคาตาม scope จริงหลัง GEO Audit ฟรี (จำนวนคีย์เวิร์ด/prompt ที่ต้อง track, จำนวนหน้าที่ต้องแก้ และ citation ภายนอกที่ต้องสร้าง) ราคาไม่รวม VAT 7%' ),
+    array( 'q' => 'รับทำ AI Search ราคาเท่าไหร่?', 'a' => 'GEO / AI Overview optimization รวมอยู่ในบริการรับทำ SEO ของ Hashbox ซึ่งเริ่มต้น 29,900 บาทต่อเดือน สำหรับลูกค้าที่ต้องการเฉพาะงาน AI Search แยกจาก SEO เราเสนอราคาตาม scope จริงหลัง GEO Audit ฟรี (จำนวนคีย์เวิร์ด/prompt ที่ต้อง track, จำนวนหน้าที่ต้องแก้ และ citation ภายนอกที่ต้องสร้าง) ราคาไม่รวม VAT 7%' ),
     array( 'q' => 'ChatGPT และ Perplexity ดึงข้อมูลแบรนด์จากไหน?', 'a' => 'จากข้อมูลที่เราเห็นในระบบ track ปี 2026 AI ดึงจากแหล่งที่มีข้อเท็จจริงและตัวเลขชัด: เว็บของแบรนด์เอง (ถ้ามีประโยคนิยาม ราคา และ FAQ), directory เช่น Clutch, marketplace, Facebook page, วิดีโอ YouTube และบทความเปรียบเทียบ — คำในกลุ่มบริการไทยหลายคำ AI อ้างอิง Facebook และ YouTube มากกว่าเว็บบริษัท จึงเป็นเหตุผลที่บริการนี้ทำ citation ภายนอกควบคู่กับเว็บ' ),
     array( 'q' => 'llms.txt คืออะไร จำเป็นไหม?', 'a' => 'llms.txt คือไฟล์ข้อความที่ root ของเว็บ สรุปว่าแบรนด์คือใคร ขายอะไร ราคาเท่าไร และหน้าสำคัญอยู่ที่ไหน ในรูปแบบที่ AI crawler อ่านง่าย (เหมือน robots.txt สำหรับ AI) ยังไม่ใช่มาตรฐานที่ทุก AI ใช้ แต่ต้นทุนต่ำและไม่มีข้อเสีย Hashbox ทำ llms.txt + llms-full.txt ให้ทุกเว็บที่ดูแล และทำให้เว็บตัวเองด้วย — ดูได้ที่ hashbox.co.th/llms.txt' ),
     array( 'q' => 'Hashbox ทำ AI Search ให้ตัวเองได้ผลจริงไหม?', 'a' => 'เราใช้ระบบเดียวกันกับเว็บตัวเอง: track 56 คีย์เวิร์ด, AI Overview 51 คำ และ 20 prompt × 4 AI ทุกเดือน บทความ "ปรึกษาทำระบบ AI Solution สำหรับธุรกิจ" ของเราติดอันดับ 3 บน Google และถูก AI Overview อ้างอิงในคำที่มีเอเจนซีใหญ่แข่งอยู่ — เราเปิดตัวเลขทั้งที่ได้และยังไม่ได้ให้ดูตอนคุยกัน' ),
@@ -83,7 +83,7 @@ $kpis = array(
             </nav>
             <span class="hb-eyebrow">AI Search · GEO · AEO</span>
             <h1 class="hb-hero__title">รับทำ AI Search (GEO)<br><em>ให้แบรนด์เป็นคำตอบของ AI</em><br>ใน Google AI Overview, ChatGPT, Perplexity</h1>
-            <p class="hb-hero__sub">บริการรับทำ AI Search ของ Hashbox คือการทำให้ AI หยิบแบรนด์ของคุณไปตอบผู้ใช้ — ไม่ใช่แค่ติดอันดับในผลค้นหา 10 ลิงก์ เราตรวจว่า AI ดึงข้อมูลจากไหนตอนนี้ แก้ entity, Schema, llms.txt และเนื้อหาแบบ answer-first แล้วสร้างการถูกพูดถึงจากแหล่งภายนอกที่ AI เชื่อ วัดผลด้วยระบบ track AI Overview และ AI mention ของเราเอง · GEO รวมอยู่ใน SEO retainer เริ่มต้น 25,000 บาทต่อเดือน</p>
+            <p class="hb-hero__sub">บริการรับทำ AI Search ของ Hashbox คือการทำให้ AI หยิบแบรนด์ของคุณไปตอบผู้ใช้ — ไม่ใช่แค่ติดอันดับในผลค้นหา 10 ลิงก์ เราตรวจว่า AI ดึงข้อมูลจากไหนตอนนี้ แก้ entity, Schema, llms.txt และเนื้อหาแบบ answer-first แล้วสร้างการถูกพูดถึงจากแหล่งภายนอกที่ AI เชื่อ วัดผลด้วยระบบ track AI Overview และ AI mention ของเราเอง · GEO รวมอยู่ใน SEO retainer เริ่มต้น 29,900 บาทต่อเดือน</p>
             <div class="hb-hero__actions">
                 <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">ขอ GEO Audit ฟรี</a>
                 <?php if ( $has_checker ) : ?>
@@ -101,7 +101,7 @@ $kpis = array(
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-surface-2,#1E1E2A);border-radius:var(--hb-radius-md,8px);">
             <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">สรุปสั้นๆ</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
-                <strong>รับทำ AI Search (Generative Engine Optimization) คือ การทำให้ Google AI Overview, ChatGPT, Perplexity และ Gemini อ้างอิงแบรนด์ของคุณเวลาตอบคำถามลูกค้า</strong> — Hashbox ทำ 5 ขั้น: AI-specific audit → entity + Schema + llms.txt → answer-first content → citation จากแหล่งภายนอก → track รายวัน ด้วยระบบของเราเองที่ใช้กับเว็บตัวเองด้วย (บทความของเราถูก AI Overview อ้างอิงในคำที่เอเจนซีใหญ่แข่ง) · รวมใน SEO retainer เริ่มต้น 25,000 บาทต่อเดือน หรือ quote แยกหลัง GEO Audit ฟรี
+                <strong>รับทำ AI Search (Generative Engine Optimization) คือ การทำให้ Google AI Overview, ChatGPT, Perplexity และ Gemini อ้างอิงแบรนด์ของคุณเวลาตอบคำถามลูกค้า</strong> — Hashbox ทำ 5 ขั้น: AI-specific audit → entity + Schema + llms.txt → answer-first content → citation จากแหล่งภายนอก → track รายวัน ด้วยระบบของเราเองที่ใช้กับเว็บตัวเองด้วย (บทความของเราถูก AI Overview อ้างอิงในคำที่เอเจนซีใหญ่แข่ง) · รวมใน SEO retainer เริ่มต้น 29,900 บาทต่อเดือน หรือ quote แยกหลัง GEO Audit ฟรี
             </p>
         </div>
     </div>
@@ -225,7 +225,7 @@ $kpis = array(
             <div class="hb-tier hb-tier--featured">
                 <span class="hb-tier__ribbon">เริ่มตรงนี้</span>
                 <span class="hb-tier__name">รวมใน SEO retainer</span>
-                <div class="hb-tier__price">25,000<span class="hb-tier__price-unit">บาทต่อเดือน เริ่มต้น</span></div>
+                <div class="hb-tier__price">29,900<span class="hb-tier__price-unit">บาทต่อเดือน เริ่มต้น</span></div>
                 <p class="hb-caption">GEO / AI Overview optimization เป็นส่วนหนึ่งของ<a href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>">บริการรับทำ SEO</a>อยู่แล้ว</p>
                 <ul class="hb-tier__features">
                     <li>Technical SEO + Core Web Vitals + Schema (พื้นฐานที่ AI ต้องการ)</li>
