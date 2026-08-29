@@ -4218,6 +4218,25 @@ function hashbox_render_case_study( array $case ) {
             </div>
         </section>
 
+        <?php if ( ! empty( $case['proof'] ) ) : ?>
+        <section class="hb-section" id="proof" style="padding-block: var(--hb-space-10);">
+            <div class="hb-container hb-container--md">
+                <span class="hb-eyebrow">ตัวเลขที่ยืนยันได้</span>
+                <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">เกณฑ์เดียวกับที่เราการันตีให้ลูกค้าทุกราย</h2>
+                <p class="hb-section__sub">ตัวเลขชุดนี้คือสิ่งที่ลูกค้าอนุญาตให้เปิดเผยและตรวจย้อนได้จาก Search Console / Lighthouse ของโปรเจกต์ — เป็นเกณฑ์เดียวกับ <a href="<?php echo esc_url( home_url( '/services/seo/#guarantee' ) ); ?>">การันตี "ไม่โต ไม่จ่าย"</a> ของเรา</p>
+                <div class="hb-stats__grid hb-stats__grid--divided" style="margin-top: var(--hb-space-6);">
+                    <?php foreach ( $case['proof'] as $p ) : ?>
+                    <div class="hb-stat">
+                        <span class="hb-stat__value"><?php echo esc_html( $p['value'] ); ?></span>
+                        <p class="hb-stat__label"><?php echo esc_html( $p['label'] ); ?></p>
+                        <?php if ( ! empty( $p['note'] ) ) : ?><p class="hb-stat__caption"><?php echo esc_html( $p['note'] ); ?></p><?php endif; ?>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+        <?php endif; ?>
+
         <section class="hb-section">
             <div class="hb-container hb-container--md">
                 <h2 class="hb-h2">โจทย์ที่ลูกค้าเข้ามา</h2>

@@ -105,7 +105,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
         <div class="hb-section__head">
             <span class="hb-eyebrow">Guarantee</span>
             <h2 class="hb-h2">"No growth, no pay" — if impressions do not grow 50% in 90 days, we keep working for free</h2>
-            <p class="hb-section__sub">We do not guarantee rankings; nobody controls Google. We guarantee two things you can verify yourself in Search Console.</p>
+            <p class="hb-section__sub">Cases delivered to these criteria: <a href="<?php echo esc_url( home_url( '/work/rank-project/#proof' ) ); ?>">Rank Project</a> (20+ keywords on page one within 90 days) · <a href="<?php echo esc_url( home_url( '/work/nexus-corp/#proof' ) ); ?>">Nexus Corp</a> (Lighthouse 90+ on every URL). We do not guarantee rankings; nobody controls Google. We guarantee two things you can verify yourself in Search Console.</p>
         </div>
         <div class="hb-bento">
             <div class="hb-bento__cell hb-bento__cell--c2 hb-bento__cell--feature">

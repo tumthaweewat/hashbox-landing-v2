@@ -343,7 +343,7 @@ $compare = array(
         <div class="hb-section__head">
             <span class="hb-eyebrow">การันตี</span>
             <h2 class="hb-h2">การันตี "ไม่โต ไม่จ่าย" — impressions ไม่โต 50% ใน 90 วัน เราทำต่อฟรี</h2>
-            <p class="hb-section__sub">เราไม่การันตีอันดับ 1 เพราะไม่มีใครควบคุม Google ได้ — แต่การันตีสิ่งที่คุณเปิดดูเองได้ใน Search Console: งานเทคนิคผ่านใน 30 วัน และ impressions โต 50% ใน 90 วัน ไม่ถึง ทำต่อฟรีจนถึง</p>
+            <p class="hb-section__sub">เคสที่ทำตามเกณฑ์นี้: <a href="<?php echo esc_url( home_url( '/work/rank-project/#proof' ) ); ?>">Rank Project</a> (20+ keyword หน้าแรกใน 90 วัน) · <a href="<?php echo esc_url( home_url( '/work/nexus-corp/#proof' ) ); ?>">Nexus Corp</a> (Lighthouse 90+ ทุก URL) — เราไม่การันตีอันดับ 1 เพราะไม่มีใครควบคุม Google ได้ — แต่การันตีสิ่งที่คุณเปิดดูเองได้ใน Search Console: งานเทคนิคผ่านใน 30 วัน และ impressions โต 50% ใน 90 วัน ไม่ถึง ทำต่อฟรีจนถึง</p>
         </div>
         <div class="hb-bento">
             <div class="hb-bento__cell hb-bento__cell--c2 hb-bento__cell--feature">
