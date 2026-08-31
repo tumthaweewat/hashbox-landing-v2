@@ -5200,10 +5200,35 @@ add_action( 'wp_ajax_nopriv_hb_geo_check', 'hashbox_geo_check_handler' );
  * and re-activate them (in order) on the first interaction. Our own
  * code guards every gtag()/fbq() call with typeof checks, and the
  * inline gtag bootstrap keeps queueing into dataLayer meanwhile.
+ *
+ * The GTM container (gtm.js) is deliberately NOT delayed: it owns the
+ * Google tag for AW-18190672421 + the Conversion Linker, and Google Ads
+ * marks the conversion action "Misconfigured" when its tag is absent on a
+ * plain page load. Only the standalone gtag.js loader stays delayed.
  * ---------------------------------------------------------------------- */
 
 function hashbox_delay_third_party_scripts( $html ) {
-    $hosts = 'googletagmanager\.com|connect\.facebook\.net|hs-scripts\.com|hs-analytics\.net|hscollectedforms\.net|hs-banner\.com|hsadspixel\.net';
+    // GTM owns GA4: strip the legacy standalone Google tag for G-WQ4CG18QQT
+    // (injected by a header-snippet plugin) so the GA4 base tag is emitted
+    // only by GTM-5G2P48V2. Prevents duplicate config/page_view after the
+    // GTM vNext version is live. Remove the plugin snippet itself when
+    // convenient; this filter keeps production single-tagged either way.
+    $html = preg_replace(
+        '#<script[^>]*\ssrc=["\'][^"\']*googletagmanager\.com/gtag/js\?id=G-WQ4CG18QQT[^"\']*["\'][^>]*>\s*</script>#i',
+        '<!-- standalone GA4 loader removed: GTM-5G2P48V2 owns Google tagging -->',
+        $html
+    );
+    $html = preg_replace_callback(
+        '#<script(?![^>]*\ssrc=)[^>]*>(.*?)</script>#is',
+        function ( $m ) {
+            return false !== strpos( $m[1], "gtag('config', 'G-WQ4CG18QQT')" )
+                ? '<!-- standalone GA4 config removed: GTM-5G2P48V2 owns Google tagging -->'
+                : $m[0];
+        },
+        $html
+    );
+
+    $hosts = 'googletagmanager\.com/gtag/|connect\.facebook\.net|hs-scripts\.com|hs-analytics\.net|hscollectedforms\.net|hs-banner\.com|hsadspixel\.net';
 
     // External scripts from the ad/analytics hosts.
     $html = preg_replace(
@@ -5213,12 +5238,12 @@ function hashbox_delay_third_party_scripts( $html ) {
     );
 
     // Inline bootstraps that self-inject their libraries: the Meta-pixel
-    // stub (fbevents.js) and the GTM container snippet (gtm.js). The plain
-    // gtag config snippet stays live — it only queues into dataLayer.
+    // stub (fbevents.js). The GTM container snippet (gtm.js) and the plain
+    // gtag config snippet stay live — GTM is the Google tagging owner.
     $html = preg_replace_callback(
         '#<script(?![^>]*\ssrc=)([^>]*)>(.*?)</script>#is',
         function ( $m ) {
-            if ( false !== strpos( $m[0], 'data-hb-delay' ) || ! preg_match( '#fbq\s*\(|googletagmanager\.com/gtm\.js#', $m[2] ) ) {
+            if ( false !== strpos( $m[0], 'data-hb-delay' ) || ! preg_match( '#fbq\s*\(#', $m[2] ) ) {
                 return $m[0];
             }
             return '<script type="text/plain" data-hb-delay' . $m[1] . '>' . $m[2] . '</script>';
@@ -5228,6 +5253,40 @@ function hashbox_delay_third_party_scripts( $html ) {
 
     return $html;
 }
+
+/* -------------------------------------------------------------------------
+ * GOOGLE CONSENT MODE v2 — DEFAULTS
+ * Must run before the GTM container and any gtag() config. Denied by
+ * default only in regions where consent is required (EEA + UK + CH);
+ * everywhere else the Google defaults (granted) apply. A CMP/banner can
+ * later call gtag('consent','update', …) to grant per user.
+ * ---------------------------------------------------------------------- */
+
+function hashbox_print_consent_mode_defaults() {
+    if ( is_admin() || is_feed() ) {
+        return;
+    }
+    $regions = array(
+        'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT',
+        'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE',
+        'IS', 'LI', 'NO', 'GB', 'CH',
+    );
+    ?>
+    <script id="hashbox-consent-defaults">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      region: <?php echo wp_json_encode( $regions ); ?>,
+      wait_for_update: 500
+    });
+    </script>
+    <?php
+}
+add_action( 'wp_head', 'hashbox_print_consent_mode_defaults', 0 );
 
 function hashbox_start_third_party_delay_buffer() {
     if ( is_admin() || is_feed() || is_user_logged_in() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {

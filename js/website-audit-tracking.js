@@ -324,21 +324,29 @@
       return;
     }
 
+    // GTM (GTM-5G2P48V2) owns Google tagging. This runtime only pushes two
+    // namespaced dataLayer events for the signed success state:
+    //   hb_web_ga4_lead_v1 — GA4 generate_lead, queued once per lead
+    //   hb_web_ads_lead_v1 — Ads conversion, retried on reload until GTM
+    //                        confirms delivery through eventCallback
+    // No PII and no UUID lead_ref ever enter the dataLayer; Google receives
+    // only the scoped HB-WEB-* transaction id.
     window.dataLayer = window.dataLayer || [];
-    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    var payload = {
+      hb_schema_version: 1,
+      hb_transaction_id: conversionRef,
+      hb_value: 1,
+      hb_currency: 'THB',
+      hb_form_id: 'hashbox_contact',
+      hb_form_name: 'Website Project Evaluation',
+      hb_lead_source: 'website_audit'
+    };
 
-    window.gtag('config', 'AW-18190672421');
     if (!analyticsAlreadyQueued(leadRef)) {
-      window.gtag('event', 'generate_lead', {
-        currency: 'THB',
-        value: 1,
-        form_id: 'hashbox_contact',
-        form_name: 'Website Project Evaluation',
-        lead_source: 'website_audit',
-        transaction_id: conversionRef
-      });
+      window.dataLayer.push(assign({ event: 'hb_web_ga4_lead_v1' }, payload));
       markAnalyticsQueued(leadRef);
     }
+
     var deliveryRecorded = false;
     function recordDelivery() {
       if (deliveryRecorded) return;
@@ -346,16 +354,20 @@
       markConversionDelivered(leadRef);
       cleanSuccessParams();
     }
-    window.gtag('event', 'conversion', {
-      send_to: config.conversionDestination || 'AW-18190672421/zT9ACPe6ttocEKXE_uFD',
-      currency: 'THB',
-      value: 1,
-      transaction_id: conversionRef,
-      event_callback: recordDelivery,
-      event_timeout: 6000
-    });
+    window.dataLayer.push(assign({
+      event: 'hb_web_ads_lead_v1',
+      eventCallback: recordDelivery,
+      eventTimeout: 6000
+    }, payload));
 
     scheduleConfirmedLeadFinish(leadRef);
+  }
+
+  function assign(target, source) {
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) target[key] = source[key];
+    }
+    return target;
   }
 
   var attribution = captureAttribution();
