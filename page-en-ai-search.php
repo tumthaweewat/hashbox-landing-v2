@@ -212,7 +212,7 @@ $kpis = array(
 <section class="hb-section">
     <div class="hb-container hb-container--md" style="text-align:center;">
         <h2 class="hb-h2">Want to know who AI names instead of you?</h2>
-        <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">Send your brand and five keywords. We reply with who Google AI Overviews, ChatGPT and Perplexity cite today and what to fix first — free, no commitment. Related: <a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>">AI consulting in Bangkok</a> · <a href="<?php echo esc_url( home_url( '/ai-consulting-companies-thailand-2026/' ) ); ?>">AI consulting companies in Thailand compared</a>.</p>
+        <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">Send your brand and five keywords. We reply with who Google AI Overviews, ChatGPT and Perplexity cite today and what to fix first — free, no commitment. Related: <a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>">AI consulting in Bangkok</a> · <a href="<?php echo esc_url( home_url( '/en/ai-consulting-companies-thailand-2026/' ) ); ?>">AI consulting companies in Thailand compared</a>.</p>
         <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">Get the free GEO audit &rarr;</a>
     </div>
 </section>

@@ -778,6 +778,10 @@ function hashbox_get_seo_metadata() {
             'title'       => 'AI Search Optimization (GEO) Agency in Bangkok | Hashbox',
             'description' => 'Get cited by Google AI Overviews, ChatGPT, Perplexity and Gemini: AI-specific audit, entity schema + llms.txt, answer-first content, external citations, measured daily with our own AI-visibility tracker. Bangkok, Thailand.',
         ),
+        'en/ai-consulting-companies-thailand-2026' => array(
+            'title'       => 'AI Consulting Companies in Thailand 2026: 9 Firms Compared | Hashbox',
+            'description' => 'AI consulting companies in Thailand compared on 7 criteria you can verify on each firm\'s own website — public pricing, ROI assessment before build, ships to production, source-code handover, Thai context, named cases, SME entry. Hashbox 7/7, DBot 5/7, Botnoi 4/7.',
+        ),
         'en/ai-consulting' => array(
             'title'       => 'AI Consulting Company in Bangkok, Thailand | Hashbox',
             'description' => 'AI consulting in Bangkok for Thai and regional businesses: LINE chatbots, Sales GPT, RAG knowledge bases and workflow automation shipped to production. Public pricing from THB 60,000, ROI assessed first, 100% source code handover.',
@@ -2232,8 +2236,11 @@ function hashbox_redirect_legacy_ai_guides() {
     }
 
     $redirects = array(
-        'line-chatbot-ai-thailand' => '/line-chatbot-ai-guide-2026/',
-        'ai-workforce-thai-sme'    => '/ai-workforce-sme-thailand-2026/',
+        'line-chatbot-ai-thailand'             => '/line-chatbot-ai-guide-2026/',
+        'ai-workforce-thai-sme'                => '/ai-workforce-sme-thailand-2026/',
+        // EN listicle moved from a root post to a page under /en/ (2026-08-31)
+        // so every English URL lives in the /en/ tree. Old URL was never indexed.
+        'ai-consulting-companies-thailand-2026' => '/en/ai-consulting-companies-thailand-2026/',
     );
     $path      = hashbox_current_request_path();
 
