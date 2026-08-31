@@ -8,7 +8,7 @@
     ?>
 
     <?php if ( $hashbox_is_website_audit ) : ?>
-        <footer class="hb-footer" style="margin-top: 0; padding-block: var(--hb-space-6);">
+        <footer class="hb-footer hb5-site-footer" style="margin-top: 0; padding-block: var(--hb-space-6);">
             <div class="hb-container">
                 <div class="hb-footer__bottom" style="margin-top: 0; padding-top: 0; border-top: 0;">
                     <span class="hb-footer__brand-mark">
@@ -16,9 +16,21 @@
                         HASHBOX<span class="hb-nav__brand-accent">.STUDIO</span>
                     </span>
                     <span>&copy; <?php echo esc_html( date( 'Y' ) ); ?> Hashbox Studio</span>
-                    <nav class="hb-footer__legal" aria-label="ช่องทางติดต่อและข้อมูลส่วนบุคคล">
-                        <a href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer">LINE</a>
-                        <a href="mailto:business@hashbox.co.th">business@hashbox.co.th</a>
+                    <nav class="hb-footer__legal hb5-footer-contact" aria-label="ช่องทางติดต่อและข้อมูลส่วนบุคคล">
+                        <a class="hb5-footer-contact__link" href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer" data-track-event="line_click" aria-label="ติดต่อ Hashbox ทาง LINE">
+                            <svg class="hb5-footer-contact__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.8 9.8 0 0 1-3.8-.8L3 21l1.7-4.6A8.2 8.2 0 0 1 3 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z" />
+                                <path d="M8 12h.01M12 12h.01M16 12h.01" />
+                            </svg>
+                            <span>LINE <small>@hashboxstudio</small></span>
+                        </a>
+                        <a class="hb5-footer-contact__link" href="mailto:business@hashbox.co.th" data-track-event="email_click" aria-label="ส่งอีเมลถึง business@hashbox.co.th">
+                            <svg class="hb5-footer-contact__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <rect x="3" y="5" width="18" height="14" rx="2" />
+                                <path d="m3 7 9 6 9-6" />
+                            </svg>
+                            <span>อีเมล <small>business@hashbox.co.th</small></span>
+                        </a>
                         <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Privacy / PDPA</a>
                     </nav>
                 </div>

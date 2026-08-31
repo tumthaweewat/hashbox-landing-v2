@@ -138,11 +138,10 @@ function hashbox_enqueue_assets() {
     $is_ads_preview   = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
 
     if ( $is_audit_landing || $is_ads_preview ) {
-        // Inter / Noto Sans Thai exist only for the ad-artwork preview page,
-        // whose PNG generator renders with that stack. Public audit landing
-        // pages use the brand CI font (IBM Plex Sans Thai, single family) that the
-        // design-system bundle already self-hosts, so they must not pull the
-        // extra 30 @font-face declarations.
+        // Inter / Noto Sans Thai are loaded here only for the ad-artwork preview.
+        // Website Audit opts into the same self-hosted Noto definitions below;
+        // the remaining public audit pages keep the brand CI font from the
+        // design-system bundle and avoid the extra @font-face declarations.
         $audit_deps = array( 'hashbox-ds-composed' );
         if ( $is_ads_preview ) {
             $audit_fonts = get_template_directory() . '/css/audit-fonts.css';
@@ -198,12 +197,24 @@ function hashbox_enqueue_assets() {
     }
 
     if ( is_page( 'website-audit' ) ) {
+        $website_audit_fonts_css = get_template_directory() . '/css/audit-fonts.css';
+        $website_audit_cro_deps  = array( 'hashbox-ds-composed' );
+        if ( file_exists( $website_audit_fonts_css ) ) {
+            wp_enqueue_style(
+                'hashbox-website-audit-fonts',
+                $theme_uri . '/css/audit-fonts.css',
+                array( 'hashbox-ds-composed' ),
+                filemtime( $website_audit_fonts_css )
+            );
+            $website_audit_cro_deps[] = 'hashbox-website-audit-fonts';
+        }
+
         $website_audit_cro_css = get_template_directory() . '/css/website-audit-cro.css';
         if ( file_exists( $website_audit_cro_css ) ) {
             wp_enqueue_style(
                 'hashbox-website-audit-cro',
                 $theme_uri . '/css/website-audit-cro.css',
-                array( 'hashbox-ds-composed' ),
+                $website_audit_cro_deps,
                 filemtime( $website_audit_cro_css )
             );
         }
@@ -273,15 +284,23 @@ function hashbox_preload_critical_fonts() {
     $is_audit  = (bool) $landing;
     $is_ai     = is_array( $landing ) && 'ai-workflow-audit' === $landing['slug'];
     $is_ads    = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
+    $is_website_audit = is_page( 'website-audit' );
 
-    // Only the ad-artwork preview still renders with Inter / Noto Sans Thai;
-    // every public page (audit landings included) uses the brand CI stack.
+    // The ad-artwork preview and Website Audit use self-hosted Noto Sans Thai;
+    // other public pages keep the brand CI stack.
     if ( $is_ads ) {
         $fonts = array(
             'noto-sans-thai-thai-400.woff2',
             'noto-sans-thai-thai-800.woff2',
             'inter-latin-400.woff2',
             'inter-latin-700.woff2',
+        );
+    } elseif ( $is_website_audit ) {
+        $fonts = array(
+            'noto-sans-thai-thai-400.woff2',
+            'noto-sans-thai-thai-600.woff2',
+            'noto-sans-thai-thai-700.woff2',
+            'noto-sans-thai-latin-400.woff2',
         );
     } elseif ( $is_ai ) {
         $fonts = array(
