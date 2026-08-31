@@ -3469,14 +3469,19 @@ function hashbox_handle_contact_submit() {
     $website_project_type_label = $is_website_audit_form && isset( $website_project_type_labels[ $project_type ] )
         ? $website_project_type_labels[ $project_type ]
         : '';
-    $invalid_website_project_type = $is_website_audit_form && '' === $website_project_type_label;
+    // Funnel V2: project_type is optional. Only reject values outside the
+    // allow-list; an empty value means the visitor skipped the optional field.
+    $invalid_website_project_type = $is_website_audit_form && '' !== $project_type && '' === $website_project_type_label;
     $needs_contact_detail = $is_ai_form && in_array( $contact_preference, array( 'LINE', 'โทร' ), true );
     $invalid_ai_contact_preference = $is_ai_form && ! in_array( $contact_preference, array( '', 'LINE', 'โทร' ), true );
 
     $invalid = ( $is_ai_route && ! $ai_nonce_ok ) || ( $is_ai_form
         ? ( $name === '' || $company === '' || $email === '' || ! is_email( $email ) || $message === '' || $invalid_ai_contact_preference || ( $needs_contact_detail && $contact_detail === '' ) || ! $pdpa )
         : ( $is_website_audit_form
-            ? ( $name === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || $invalid_website_project_type || $budget === '' || $timeline === '' || 'phone-or-line' !== $contact_preference || $contact_detail === '' || ! $pdpa )
+            // Funnel V2 required set: name, email, contact_detail, pdpa (+ the
+            // hidden service/contact_preference markers the page always posts).
+            // project_type/budget/timeline are optional qualification fields.
+            ? ( $name === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || $invalid_website_project_type || 'phone-or-line' !== $contact_preference || $contact_detail === '' || ! $pdpa )
             : ( $is_audit_form
                 ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
                 : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) ) ) );
@@ -3585,14 +3590,22 @@ function hashbox_handle_contact_submit() {
     if ( ( $is_ai_form || $is_website_audit_form ) && '' !== $conversion_ref ) {
         $body_lines[] = 'Conversion reference: ' . $conversion_ref;
     }
+    $optional_detail_lines = array();
+    foreach ( array(
+        'Phone'        => $phone,
+        'Website'      => $website,
+        'Project type' => $project_type,
+        'Budget'       => $budget,
+        'Timeline'     => $timeline,
+    ) as $optional_label => $optional_value ) {
+        if ( '' !== $optional_value ) {
+            $optional_detail_lines[] = $optional_label . ': ' . $optional_value;
+        }
+    }
     $body_lines   = array_merge( $body_lines, array(
         'Email: ' . $email,
-        'Phone: ' . $phone,
-        'Website: ' . $website,
         'Service: ' . $service,
-        'Project type: ' . $project_type,
-        'Budget: ' . $budget,
-        'Timeline: ' . $timeline,
+    ), $optional_detail_lines, array(
         'Preferred contact: ' . $contact_preference,
         'Contact detail: ' . $contact_detail,
         'Landing page: ' . $landing_slug,
@@ -3620,7 +3633,9 @@ function hashbox_handle_contact_submit() {
 
     if ( $sent && is_email( $email ) ) {
         $hubspot_attribution = array_merge( $utm, array(
-            'service'                      => $website_project_type_label,
+            // Funnel V2: omit the mapped service when the visitor skipped the
+            // optional project_type — never send a fabricated placeholder.
+            'service'                      => '' !== $website_project_type_label ? $website_project_type_label : '',
             'lead_ref'                     => $lead_ref,
             'conversion_ref'               => $conversion_ref,
             'landing_slug'                 => $landing_slug,

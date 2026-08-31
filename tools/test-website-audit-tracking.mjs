@@ -366,18 +366,33 @@ assert.match(
 );
 assert.match(
   scriptSource,
-  /var requiredNames = \['project_type', 'budget', 'timeline'\]/,
-  'step one must retain the three lead-qualification fields'
-);
-assert.match(
-  scriptSource,
   /var contactNames = \['name', 'email', 'contact_detail'\]/,
-  'step two must retain the required contact fields'
+  'single-step form must keep only contact essentials required'
 );
 assert.match(
   scriptSource,
-  /var optionalNames = \['company', 'website', 'message'\]/,
-  'optional project context must remain available behind disclosure'
+  /var optionalNames = \['project_type', 'budget', 'timeline', 'company', 'website', 'message'\]/,
+  'qualification fields must move behind the optional disclosure'
+);
+assert.match(
+  scriptSource,
+  /control\.required = false;/,
+  'client-side required flags on optional fields must be cleared'
+);
+assert.match(
+  functionsSource,
+  /'' !== \$project_type && '' === \$website_project_type_label/,
+  'server must accept an empty optional project_type but reject unknown values'
+);
+assert.doesNotMatch(
+  functionsSource,
+  /\$invalid_website_project_type \|\| \$budget === '' \|\| \$timeline === ''/,
+  'server must not require budget/timeline for the website-audit form'
+);
+assert.match(
+  functionsSource,
+  /'' !== \$website_project_type_label \? \$website_project_type_label : ''/,
+  'HubSpot service mapping must omit fabricated values when project_type is skipped'
 );
 assert.match(
   scriptSource,
@@ -387,8 +402,8 @@ assert.match(
 for (const eventName of [
   'hb_web_cta_click_v1',
   'hb_web_line_click_v1',
+  'hb_web_phone_click_v1',
   'hb_web_form_start_v1',
-  'hb_web_form_step_complete_v1',
   'hb_web_form_validation_error_v1',
   'hb_web_form_submit_attempt_v1'
 ]) {
@@ -399,9 +414,20 @@ assert.doesNotMatch(
   /pushDiagnosticEvent\([^)]*\{[^}]*(email|phone|contact_detail|company|website)\s*:/s,
   'diagnostic events must not include contact values or company data'
 );
-assert.ok(
-  (scriptSource.match(/if \(event\.defaultPrevented\) return;/g) || []).length >= 2,
-  'step-one interception must not trigger final-submit tracking or lock the form'
+assert.doesNotMatch(
+  scriptSource,
+  /hb_web_form_step_complete_v1/,
+  'retired step-complete event must not be emitted by the single-step form'
+);
+assert.match(
+  scriptSource,
+  /eventTimeout: 400/,
+  'outbound LINE/phone clicks must flush through GTM with a bounded timeout'
+);
+assert.match(
+  scriptSource,
+  /hb_web_phone_click_v1/,
+  'phone clicks must be tracked as their own diagnostic event'
 );
 assert.match(
   croCssSource,
