@@ -123,6 +123,233 @@
     });
   }
 
+  function pushDiagnosticEvent(eventName, fields) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(assign({
+      event: eventName,
+      hb_schema_version: 1,
+      hb_lead_source: 'website_audit'
+    }, fields || {}));
+  }
+
+  function closestFormField(control) {
+    var node = control;
+    while (node && node !== form) {
+      if ((' ' + (node.className || '') + ' ').indexOf(' hb5-field ') !== -1) return node;
+      node = node.parentNode;
+    }
+    return null;
+  }
+
+  function initDiagnosticEvents() {
+    var formStarted = false;
+    var validationReported = false;
+
+    function markFormStart() {
+      if (formStarted) return;
+      formStarted = true;
+      pushDiagnosticEvent('hb_web_form_start_v1', { hb_form_step: 1 });
+    }
+
+    form.addEventListener('input', markFormStart, { once: true });
+    form.addEventListener('change', markFormStart, { once: true });
+    form.addEventListener('invalid', function (event) {
+      if (validationReported) return;
+      validationReported = true;
+      pushDiagnosticEvent('hb_web_form_validation_error_v1', {
+        hb_field_name: event && event.target && event.target.name
+          ? String(event.target.name)
+          : 'unknown'
+      });
+      window.setTimeout(function () { validationReported = false; }, 1000);
+    }, true);
+    form.addEventListener('submit', function (event) {
+      if (event.defaultPrevented) return;
+      pushDiagnosticEvent('hb_web_form_submit_attempt_v1', { hb_form_step: 2 });
+    });
+
+    if (typeof document.querySelectorAll !== 'function') return;
+    Array.prototype.forEach.call(document.querySelectorAll('a[href*="#project-form"]'), function (link) {
+      link.addEventListener('click', function () {
+        pushDiagnosticEvent('hb_web_cta_click_v1', {
+          hb_cta_location: link.closest && link.closest('.hb5-mobile') ? 'mobile_sticky' : 'page'
+        });
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.hb5 a[href*="lin.ee"]'), function (link) {
+      link.addEventListener('click', function () {
+        pushDiagnosticEvent('hb_web_line_click_v1', { hb_cta_location: 'page' });
+      });
+    });
+  }
+
+  function initConversionForm() {
+    var grid = form.querySelector('.hb5-form-grid');
+    if (!grid || grid.getAttribute('data-hb5-cro-ready') === '1') return;
+
+    var requiredNames = ['project_type', 'budget', 'timeline'];
+    var contactNames = ['name', 'email', 'contact_detail'];
+    var optionalNames = ['company', 'website', 'message'];
+    var firstStepFields = [];
+    var secondStepFields = [];
+    var optionalFields = [];
+
+    function fieldFor(name) {
+      var control = form.querySelector('[name="' + name + '"]');
+      return control ? closestFormField(control) : null;
+    }
+
+    requiredNames.forEach(function (name) {
+      var field = fieldFor(name);
+      if (field) firstStepFields.push(field);
+    });
+    contactNames.forEach(function (name) {
+      var field = fieldFor(name);
+      if (field) secondStepFields.push(field);
+    });
+    optionalNames.forEach(function (name) {
+      var field = fieldFor(name);
+      if (field) optionalFields.push(field);
+    });
+
+    var consent = form.querySelector('.hb5-consent');
+    var status = form.querySelector('[data-hb5-status]');
+    var submit = form.querySelector('[data-hb5-submit]');
+    if (firstStepFields.length !== requiredNames.length ||
+        secondStepFields.length !== contactNames.length ||
+        optionalFields.length !== optionalNames.length ||
+        !consent || !status || !submit) {
+      return;
+    }
+
+    var emailLabel = form.querySelector('label[for="hb5-email"]');
+    if (emailLabel) emailLabel.textContent = 'อีเมลที่สะดวกให้ติดต่อกลับ *';
+    submit.textContent = 'รับ Scope + ราคาฟรี';
+
+    var progress = document.createElement('div');
+    progress.className = 'hb5-form-progress';
+    progress.setAttribute('data-step', '1');
+    progress.setAttribute('role', 'status');
+    progress.setAttribute('aria-live', 'polite');
+
+    var progressCopy = document.createElement('div');
+    progressCopy.className = 'hb5-form-progress__copy';
+    var progressTitle = document.createElement('strong');
+    progressTitle.textContent = 'ขั้นที่ 1 จาก 2';
+    var progressHint = document.createElement('span');
+    progressHint.textContent = 'เลือกกรอบโปรเจกต์';
+    progressCopy.appendChild(progressTitle);
+    progressCopy.appendChild(progressHint);
+
+    var progressTrack = document.createElement('span');
+    progressTrack.className = 'hb5-form-progress__track';
+    progressTrack.setAttribute('aria-hidden', 'true');
+    var progressBar = document.createElement('span');
+    progressBar.className = 'hb5-form-progress__bar';
+    progressTrack.appendChild(progressBar);
+    progress.appendChild(progressCopy);
+    progress.appendChild(progressTrack);
+
+    function createStep(legendText) {
+      var step = document.createElement('fieldset');
+      step.className = 'hb5-form-step';
+      var legend = document.createElement('legend');
+      legend.className = 'hb5-form-step__legend';
+      legend.textContent = legendText;
+      step.appendChild(legend);
+      return step;
+    }
+
+    var stepOne = createStep('โปรเจกต์ของคุณ');
+    var stepTwo = createStep('ข้อมูลสำหรับติดต่อกลับ');
+    firstStepFields.forEach(function (field) { stepOne.appendChild(field); });
+    secondStepFields.forEach(function (field) { stepTwo.appendChild(field); });
+
+    var optional = document.createElement('details');
+    optional.className = 'hb5-optional';
+    var optionalSummary = document.createElement('summary');
+    optionalSummary.textContent = 'เพิ่มข้อมูลโปรเจกต์ (ไม่บังคับ)';
+    var optionalBody = document.createElement('div');
+    optionalBody.className = 'hb5-optional__fields';
+    optionalFields.forEach(function (field) { optionalBody.appendChild(field); });
+    optional.appendChild(optionalSummary);
+    optional.appendChild(optionalBody);
+    stepTwo.appendChild(optional);
+    stepTwo.appendChild(consent);
+    stepTwo.appendChild(status);
+
+    var nextActions = document.createElement('div');
+    nextActions.className = 'hb5-step-actions';
+    var nextButton = document.createElement('button');
+    nextButton.type = 'button';
+    nextButton.className = 'hb5-btn hb5-btn--primary';
+    nextButton.textContent = 'ต่อไป: ข้อมูลติดต่อ';
+    nextActions.appendChild(nextButton);
+    stepOne.appendChild(nextActions);
+
+    var submitActions = document.createElement('div');
+    submitActions.className = 'hb5-step-actions hb5-step-actions--submit';
+    var backButton = document.createElement('button');
+    backButton.type = 'button';
+    backButton.className = 'hb5-btn hb5-btn--secondary';
+    backButton.textContent = 'ย้อนกลับ';
+    submitActions.appendChild(backButton);
+    submitActions.appendChild(submit);
+    stepTwo.appendChild(submitActions);
+
+    grid.insertBefore(progress, grid.firstChild);
+    grid.appendChild(stepOne);
+    grid.appendChild(stepTwo);
+    grid.setAttribute('data-hb5-cro-ready', '1');
+
+    var currentStep = 1;
+    function showStep(stepNumber, focusTarget) {
+      currentStep = stepNumber;
+      stepOne.hidden = stepNumber !== 1;
+      stepTwo.hidden = stepNumber !== 2;
+      stepTwo.disabled = stepNumber !== 2;
+      progress.setAttribute('data-step', String(stepNumber));
+      progressTitle.textContent = 'ขั้นที่ ' + stepNumber + ' จาก 2';
+      progressHint.textContent = stepNumber === 1 ? 'เลือกกรอบโปรเจกต์' : 'ใช้เวลาไม่ถึง 1 นาที';
+      if (focusTarget && typeof focusTarget.focus === 'function') focusTarget.focus();
+    }
+
+    function validateStepOne() {
+      var invalid = null;
+      requiredNames.some(function (name) {
+        var control = form.querySelector('[name="' + name + '"]');
+        if (control && !control.checkValidity()) {
+          invalid = control;
+          return true;
+        }
+        return false;
+      });
+      if (invalid) {
+        invalid.reportValidity();
+        return false;
+      }
+      return true;
+    }
+
+    nextButton.addEventListener('click', function () {
+      if (!validateStepOne()) return;
+      pushDiagnosticEvent('hb_web_form_step_complete_v1', { hb_form_step: 1 });
+      showStep(2, form.querySelector('[name="name"]'));
+    });
+    backButton.addEventListener('click', function () {
+      showStep(1, form.querySelector('[name="project_type"]'));
+    });
+    form.addEventListener('submit', function (event) {
+      if (currentStep !== 1) return;
+      event.preventDefault();
+      if (!validateStepOne()) return;
+      pushDiagnosticEvent('hb_web_form_step_complete_v1', { hb_form_step: 1 });
+      showStep(2, form.querySelector('[name="name"]'));
+    }, true);
+
+    showStep(1);
+  }
+
   function setFormReady(nonceValue, message) {
     var nonce = form.querySelector('input[name="hashbox_nonce"]');
     var submit = form.querySelector('[data-hb5-submit]');
@@ -375,6 +602,7 @@
 
   var submitting = false;
   form.addEventListener('submit', function (event) {
+    if (event.defaultPrevented) return;
     applyAttribution(captureAttribution());
     var preparedLead = form.querySelector('input[name="lead_ref"]');
     if (!preparedLead || !UUID_V4_PATTERN.test(preparedLead.value || '')) {
@@ -398,6 +626,8 @@
 
   var params = new URLSearchParams(window.location.search);
   var confirmation = confirmedLead();
+  initDiagnosticEvents();
+  if (!confirmation) initConversionForm();
   if (confirmation) {
     renderSuccessState();
     if (confirmation.conversionRef) {
