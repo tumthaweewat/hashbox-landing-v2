@@ -14,6 +14,10 @@ const croCssSource = await readFile(
   new URL('../css/website-audit-cro.css', import.meta.url),
   'utf8'
 );
+const footerSource = await readFile(
+  new URL('../footer.php', import.meta.url),
+  'utf8'
+);
 
 const VALID_LEAD_REF = '11111111-1111-4111-8111-111111111111';
 const OTHER_LEAD_REF = '22222222-2222-4222-8222-222222222222';
@@ -413,6 +417,50 @@ assert.match(
   croCssSource,
   /\.hb5 \.hb5-form-step\[hidden\]\s*\{\s*display:\s*none;/,
   'inactive form step must be visually hidden'
+);
+assert.match(
+  functionsSource,
+  /'hashbox-website-audit-fonts'[\s\S]{0,180}audit-fonts\.css/,
+  'Website Audit must load the existing self-hosted Noto Sans Thai definitions'
+);
+assert.match(
+  functionsSource,
+  /\$is_website_audit[\s\S]{0,500}noto-sans-thai-thai-400\.woff2[\s\S]{0,180}noto-sans-thai-thai-600\.woff2[\s\S]{0,180}noto-sans-thai-thai-700\.woff2/,
+  'Website Audit must preload its Thai body and heading font weights'
+);
+assert.match(
+  croCssSource,
+  /--hb5-font-display:\s*'Noto Sans Thai'/,
+  'Website Audit display typography must visibly switch to Noto Sans Thai'
+);
+assert.match(
+  croCssSource,
+  /--font-body:\s*var\(--hb5-font-body\)/,
+  'Website Audit body typography must consume the scoped font token'
+);
+assert.match(
+  footerSource,
+  /class="hb-footer hb5-site-footer"/,
+  'Website Audit footer must expose a scoped styling hook'
+);
+assert.match(
+  footerSource,
+  /data-track-event="line_click"[\s\S]{0,500}data-track-event="email_click"/,
+  'footer must expose distinct LINE and email tracking hooks'
+);
+assert.ok(
+  (footerSource.match(/class="hb5-footer-contact__icon"/g) || []).length === 2,
+  'footer must render one accessible icon for LINE and one for email'
+);
+assert.match(
+  footerSource,
+  /aria-label="ติดต่อ Hashbox ทาง LINE"/,
+  'LINE icon link must have an accessible name'
+);
+assert.match(
+  footerSource,
+  /aria-label="ส่งอีเมลถึง business@hashbox\.co\.th"/,
+  'email icon link must have an accessible name'
 );
 
 console.log('website-audit tracking tests passed');
