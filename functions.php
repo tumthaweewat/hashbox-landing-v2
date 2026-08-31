@@ -198,6 +198,16 @@ function hashbox_enqueue_assets() {
     }
 
     if ( is_page( 'website-audit' ) ) {
+        $website_audit_cro_css = get_template_directory() . '/css/website-audit-cro.css';
+        if ( file_exists( $website_audit_cro_css ) ) {
+            wp_enqueue_style(
+                'hashbox-website-audit-cro',
+                $theme_uri . '/css/website-audit-cro.css',
+                array( 'hashbox-ds-composed' ),
+                filemtime( $website_audit_cro_css )
+            );
+        }
+
         $website_audit_js = get_template_directory() . '/js/website-audit-tracking.js';
         if ( file_exists( $website_audit_js ) ) {
             wp_enqueue_script(

@@ -10,6 +10,10 @@ const functionsSource = await readFile(
   new URL('../functions.php', import.meta.url),
   'utf8'
 );
+const croCssSource = await readFile(
+  new URL('../css/website-audit-cro.css', import.meta.url),
+  'utf8'
+);
 
 const VALID_LEAD_REF = '11111111-1111-4111-8111-111111111111';
 const OTHER_LEAD_REF = '22222222-2222-4222-8222-222222222222';
@@ -347,6 +351,68 @@ assert.doesNotMatch(
   delayLoaderSource,
   /isConfirmedWebsiteLead[\s\S]{0,220}searchParams\.get\('contact'\)/i,
   'Website loader activation must survive signed URL cleanup'
+);
+
+// 6. CRO contracts: preserve qualification, reduce visual friction, and keep
+// diagnostic events free of contact values.
+assert.match(
+  functionsSource,
+  /wp_enqueue_style\([\s\S]{0,160}'hashbox-website-audit-cro'[\s\S]{0,220}website-audit-cro\.css/,
+  'Website Audit must enqueue its scoped CRO stylesheet'
+);
+assert.match(
+  scriptSource,
+  /var requiredNames = \['project_type', 'budget', 'timeline'\]/,
+  'step one must retain the three lead-qualification fields'
+);
+assert.match(
+  scriptSource,
+  /var contactNames = \['name', 'email', 'contact_detail'\]/,
+  'step two must retain the required contact fields'
+);
+assert.match(
+  scriptSource,
+  /var optionalNames = \['company', 'website', 'message'\]/,
+  'optional project context must remain available behind disclosure'
+);
+assert.match(
+  scriptSource,
+  /อีเมลที่สะดวกให้ติดต่อกลับ \*/,
+  'email label must accept the visitor\'s practical contact email'
+);
+for (const eventName of [
+  'hb_web_cta_click_v1',
+  'hb_web_line_click_v1',
+  'hb_web_form_start_v1',
+  'hb_web_form_step_complete_v1',
+  'hb_web_form_validation_error_v1',
+  'hb_web_form_submit_attempt_v1'
+]) {
+  assert.match(scriptSource, new RegExp(eventName), `diagnostic event ${eventName} must be present`);
+}
+assert.doesNotMatch(
+  scriptSource,
+  /pushDiagnosticEvent\([^)]*\{[^}]*(email|phone|contact_detail|company|website)\s*:/s,
+  'diagnostic events must not include contact values or company data'
+);
+assert.ok(
+  (scriptSource.match(/if \(event\.defaultPrevented\) return;/g) || []).length >= 2,
+  'step-one interception must not trigger final-submit tracking or lock the form'
+);
+assert.match(
+  croCssSource,
+  /\.hb5 \.hb5-btn--primary[\s\S]{0,120}\{[\s\S]*background:\s*var\(--color-accent\)/,
+  'primary CTA must use the existing accent token'
+);
+assert.match(
+  croCssSource,
+  /@media \(max-width: 26rem\)[\s\S]*font-size:\s*var\(--text-sm\)/,
+  'small-screen CTA copy must not regress to the old 12px size'
+);
+assert.match(
+  croCssSource,
+  /\.hb5 \.hb5-form-step\[hidden\]\s*\{\s*display:\s*none;/,
+  'inactive form step must be visually hidden'
 );
 
 console.log('website-audit tracking tests passed');
