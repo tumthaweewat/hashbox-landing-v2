@@ -125,10 +125,15 @@
 
   function pushDiagnosticEvent(eventName, fields) {
     window.dataLayer = window.dataLayer || [];
+    // Reset per-event keys explicitly so GTM's data-layer recall does not
+    // carry a previous event's value (e.g. hb_field_name) onto later events.
     window.dataLayer.push(assign({
       event: eventName,
       hb_schema_version: 1,
-      hb_lead_source: 'website_audit'
+      hb_lead_source: 'website_audit',
+      hb_cta_location: undefined,
+      hb_field_name: undefined,
+      hb_form_step: undefined
     }, fields || {}));
   }
 
