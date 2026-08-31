@@ -418,20 +418,20 @@ assert.match(
   /\.hb5 \.hb5-form-step\[hidden\]\s*\{\s*display:\s*none;/,
   'inactive form step must be visually hidden'
 );
-assert.match(
+assert.doesNotMatch(
   functionsSource,
-  /'hashbox-website-audit-fonts'[\s\S]{0,180}audit-fonts\.css/,
-  'Website Audit must load the existing self-hosted Noto Sans Thai definitions'
-);
-assert.match(
-  functionsSource,
-  /\$is_website_audit[\s\S]{0,500}noto-sans-thai-thai-400\.woff2[\s\S]{0,180}noto-sans-thai-thai-600\.woff2[\s\S]{0,180}noto-sans-thai-thai-700\.woff2/,
-  'Website Audit must preload its Thai body and heading font weights'
+  /'hashbox-website-audit-fonts'/,
+  'Website Audit must not load the Noto-only audit font bundle on top of the homepage design system'
 );
 assert.match(
   croCssSource,
-  /--hb5-font-display:\s*'Noto Sans Thai'/,
-  'Website Audit display typography must visibly switch to Noto Sans Thai'
+  /--hb5-font-display:\s*var\(--hb-font-display\)/,
+  'Website Audit display typography must inherit the homepage design-system token'
+);
+assert.match(
+  croCssSource,
+  /--hb5-font-body:\s*var\(--hb-font-body\)/,
+  'Website Audit body typography must inherit the homepage design-system token'
 );
 assert.match(
   croCssSource,
