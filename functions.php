@@ -197,24 +197,12 @@ function hashbox_enqueue_assets() {
     }
 
     if ( is_page( 'website-audit' ) ) {
-        $website_audit_fonts_css = get_template_directory() . '/css/audit-fonts.css';
-        $website_audit_cro_deps  = array( 'hashbox-ds-composed' );
-        if ( file_exists( $website_audit_fonts_css ) ) {
-            wp_enqueue_style(
-                'hashbox-website-audit-fonts',
-                $theme_uri . '/css/audit-fonts.css',
-                array( 'hashbox-ds-composed' ),
-                filemtime( $website_audit_fonts_css )
-            );
-            $website_audit_cro_deps[] = 'hashbox-website-audit-fonts';
-        }
-
         $website_audit_cro_css = get_template_directory() . '/css/website-audit-cro.css';
         if ( file_exists( $website_audit_cro_css ) ) {
             wp_enqueue_style(
                 'hashbox-website-audit-cro',
                 $theme_uri . '/css/website-audit-cro.css',
-                $website_audit_cro_deps,
+                array( 'hashbox-ds-composed' ),
                 filemtime( $website_audit_cro_css )
             );
         }
@@ -284,23 +272,15 @@ function hashbox_preload_critical_fonts() {
     $is_audit  = (bool) $landing;
     $is_ai     = is_array( $landing ) && 'ai-workflow-audit' === $landing['slug'];
     $is_ads    = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
-    $is_website_audit = is_page( 'website-audit' );
 
-    // The ad-artwork preview and Website Audit use self-hosted Noto Sans Thai;
-    // other public pages keep the brand CI stack.
+    // The ad-artwork preview uses Noto/Inter; public pages use the site-wide
+    // IBM Plex Sans Thai brand stack from the design-system bundle.
     if ( $is_ads ) {
         $fonts = array(
             'noto-sans-thai-thai-400.woff2',
             'noto-sans-thai-thai-800.woff2',
             'inter-latin-400.woff2',
             'inter-latin-700.woff2',
-        );
-    } elseif ( $is_website_audit ) {
-        $fonts = array(
-            'noto-sans-thai-thai-400.woff2',
-            'noto-sans-thai-thai-600.woff2',
-            'noto-sans-thai-thai-700.woff2',
-            'noto-sans-thai-latin-400.woff2',
         );
     } elseif ( $is_ai ) {
         $fonts = array(

@@ -5,8 +5,8 @@
  */
 
 :root {
-  --hb5-font-display: 'Noto Sans Thai', 'IBM Plex Sans Thai', system-ui, sans-serif;
-  --hb5-font-body: 'Noto Sans Thai', 'IBM Plex Sans Thai', system-ui, sans-serif;
+  --hb5-font-display: var(--hb-font-display);
+  --hb5-font-body: var(--hb-font-body);
 }
 
 .hb5 {
