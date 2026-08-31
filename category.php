@@ -27,6 +27,7 @@ $cat_count = (int) $cat->count;
 <section class="hb-blog-grid-section">
     <div class="hb-container hb-container--md">
         <?php if ( have_posts() ) : ?>
+            <h2 class="screen-reader-text">บทความในหมวดนี้</h2>
             <div class="hb-blog-grid">
                 <?php while ( have_posts() ) : the_post(); ?>
                     <?php get_template_part( 'template-parts/post-card', null, array( 'variant' => 'standard' ) ); ?>

@@ -15,7 +15,7 @@ $author_linkedin  = 'https://www.linkedin.com/in/tumthaweewat/';
 $author_bio       = '17 ปีประสบการณ์ Technical SEO + Performance Engineering · ผ่านโปรเจกต์ SEO migration 50+ เคส · Cert: Google Analytics, Search Console, Cloudflare Performance Engineer';
 
 $faqs = array(
-    array( 'q' => 'รับทำเว็บไซต์ SEO-Ready ราคาเริ่มต้นเท่าไหร่?', 'a' => 'Landing Page เริ่ม 80,000 บาท · Corporate Site 200,000 บาท · E-commerce 350,000 บาท · Enterprise 500,000+ บาท ทุก quote ออกหลัง Audit ฟรี' ),
+    array( 'q' => 'รับทำเว็บไซต์ SEO-Ready ราคาเริ่มต้นเท่าไหร่?', 'a' => 'Landing Page เริ่ม 35,900 บาท · Corporate Site เริ่ม 80,000 บาท · E-commerce 350,000 บาท · Enterprise 500,000+ บาท ทุก quote ออกหลังประเมิน Scope ฟรี' ),
     array( 'q' => 'ใช้เวลาทำเว็บไซต์ SEO-Ready นานเท่าไหร่?', 'a' => 'Landing Page 2-3 สัปดาห์ · Corporate Site 4-6 สัปดาห์ · E-commerce 6-10 สัปดาห์ · ระบบซับซ้อน 8-14 สัปดาห์ Discovery + Audit ฟรีก่อนเริ่มเสมอ' ),
     array( 'q' => 'ทำไมต้องเลือก SEO-Ready Website แทนเว็บทั่วไป?', 'a' => 'เว็บทั่วไปต้องทำ Technical SEO Audit หลังเปิดตัว 2-3 รอบกว่าจะติด Google ของเราผ่าน Build Gate ตั้งแต่ก่อน Deploy: Lighthouse 100, CWV เขียว, Schema ครบ Googlebot Index ได้ตั้งแต่ Crawl แรก ลด time-to-rank จาก 6 เดือนเหลือ 1-2 เดือนในหลายอุตสาหกรรม' ),
     array( 'q' => 'มาตรฐาน Lighthouse 100 ทำได้จริงทุกเคส?', 'a' => 'การันตี 95+ ทุกเคส และ 100/100/100/100 ในเคสที่ Stack ของเราควบคุมได้ (Next.js/Astro บน Vercel/Cloudflare) WordPress + Heavy Plugins อยู่ที่ 92-98 ขึ้นกับ Plugin Stack' ),
@@ -27,6 +27,10 @@ $faqs = array(
     array( 'q' => 'Maintenance + monitoring หลังเปิดตัวรวมหรือไม่?', 'a' => 'รวม monitoring 30 วันแรก (CWV alerts, Search Console errors, uptime) · มี Care Plan รายเดือนเสริม 15,000-50,000 บาท/เดือน ครอบคลุม updates, monitoring, content updates, ranking reports' ),
     array( 'q' => 'รับประกัน Lighthouse 100 จริงหรือ ถ้าไม่ถึงคืนเงินหรือไม่?', 'a' => 'การันตี Lighthouse 95+ Mobile / 100 Desktop ถ้าไม่ถึงเป้าใน 14 วันหลัง launch refund 100% ของ Performance Engineering fee (~20-30% ของโปรเจกต์) เงื่อนไข: ใช้ Stack ที่เราแนะนำ + ไม่ติดตั้ง heavy 3rd-party plugin เพิ่ม' ),
     array( 'q' => 'ส่งมอบ source code ครบไหม สามารถย้ายเซิร์ฟเวอร์ได้ไหม?', 'a' => 'ส่งมอบ source code + Git repository + documentation ครบ · เป็นเจ้าของ 100% · ย้าย hosting ได้อิสระ · ไม่มี vendor lock-in · ไม่มี proprietary platform fee' ),
+    array( 'q' => 'รับทำเว็บไซต์ WordPress ด้วยไหม?', 'a' => 'รับ — ทั้ง Custom WordPress Theme ที่ Lighthouse 95+ และ Headless WordPress + Next.js สำหรับเว็บที่ต้องการ performance สูงสุด ทีมคุณยังแก้เนื้อหาเองผ่าน WordPress ได้เหมือนเดิม ดูรายละเอียดที่หน้าบริการรับทำเว็บไซต์ WordPress' ),
+    array( 'q' => 'เว็บไซต์รองรับ AI Search คืออะไร ต่างจากเว็บ SEO ปกติไหม?', 'a' => 'คือเว็บที่ AI crawler เข้าถึงได้ (robots เปิด GPTBot/ClaudeBot, เร็ว, เนื้อหาใน HTML), AI เข้าใจว่าคุณคือใคร (Organization/Service schema, llms.txt, ข้อมูลตรงกันทุกแหล่ง) และมีประโยคที่ AI ยกไปตอบได้ (นิยาม, ตาราง, FAQ, ตัวเลข) — เว็บ SEO ปกติมักผ่านแค่ชั้นแรก ทุกเว็บจาก Hashbox ผ่านทั้ง 12 ข้อใน Build Gate ก่อน deploy อ่าน checklist เต็มในบทความ เว็บไซต์รองรับ AI Search คืออะไร' ),
+    array( 'q' => 'เว็บโหลดช้า ต้องทำใหม่ทั้งหมดไหม?', 'a' => 'ส่วนใหญ่ไม่ต้อง — เว็บโหลดช้ามักแก้ได้ที่รูป, ฟอนต์, script และ hosting โดยไม่รื้อโครงสร้าง เริ่มจาก Website Audit ฟรี เราตรวจ Core Web Vitals จาก field data จริงแล้วบอกตรงๆ ว่าแก้บนเว็บเดิมได้แค่ไหน ถ้าโครงสร้างเดิมเป็นคอขวดจริงค่อยคุยเรื่องทำใหม่' ),
+
 );
 
 $deliverables = array(
@@ -71,8 +75,8 @@ $process_icons = array(
 );
 
 $pricing = array(
-    array( 'tier' => 'Landing Page', 'price' => 80000, 'pages' => '1-3 หน้า', 'time' => '2-3 สัปดาห์', 'fit' => 'Product launch, campaign, lead-gen' ),
-    array( 'tier' => 'Corporate Site', 'price' => 200000, 'pages' => '5-15 หน้า', 'time' => '4-6 สัปดาห์', 'fit' => 'B2B, agency, professional service' ),
+    array( 'tier' => 'Landing Page', 'price' => 35900, 'pages' => '1-3 หน้า', 'time' => '2-3 สัปดาห์', 'fit' => 'Product launch, campaign, lead-gen' ),
+    array( 'tier' => 'Corporate Site', 'price' => 80000, 'pages' => '5-15 หน้า', 'time' => '4-6 สัปดาห์', 'fit' => 'B2B, agency, professional service' ),
     array( 'tier' => 'E-commerce', 'price' => 350000, 'pages' => '20-100 หน้า', 'time' => '6-10 สัปดาห์', 'fit' => 'WooCommerce, Shopify, custom catalog' ),
     array( 'tier' => 'Enterprise', 'price' => 500000, 'pages' => '50+ หน้า · custom', 'time' => '8-14 สัปดาห์', 'fit' => 'Multi-language, headless, integration หนัก' ),
 );
@@ -966,7 +970,7 @@ $checks = array(
     <section class="hb-srw-hero">
         <div class="hb-container hb-srw-hero__inner">
             <div class="hb-srw-hero__copy">
-                <nav class="hb-breadcrumb">
+                <nav class="hb-breadcrumb" aria-label="Breadcrumb">
                     <ol class="hb-breadcrumb__list">
                         <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
                         <li><span class="hb-breadcrumb__sep">/</span></li>
@@ -975,10 +979,11 @@ $checks = array(
                         <li aria-current="page">SEO-Ready Website</li>
                     </ol>
                 </nav>
-                <h1 class="hb-hero__title">รับทำเว็บไซต์<br><em>SEO-Ready</em><br>พัฒนาเว็บให้พร้อมติด Google</h1>
-                <p class="hb-hero__sub hb-srw-hero__sub"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="color:inherit;text-decoration:underline;text-decoration-color:var(--hb-accent-blue,#2563EB);text-underline-offset:0.18em;">Hashbox</a> รับทำเว็บไซต์ธุรกิจด้วยโครงสร้างที่รองรับการติดอันดับบน Google และติด AI Search ดูแลตั้งแต่ Website Performance, Technical SEO ไปจนถึง User Experience ทุกเว็บต้องผ่านมาตรฐาน Lighthouse 100 พร้อม Core Web Vitals ระดับสีเขียว และมีระบบ Sitemap Auto-Submit เพื่อให้ Google เข้าถึงและจัดอันดับเว็บไซต์ได้เร็วขึ้น เพราะการวางรากฐานเว็บไซต์ที่แข็งแรงและถูกต้องตั้งแต่ต้น คือปัจจัยสำคัญที่ช่วยให้การติด Google และ AI Search เป็นเรื่องง่ายและยั่งยืนกว่า</p>
+                <h1 class="hb-hero__title">รับทำเว็บไซต์<br><em>SEO-Ready</em><br>พร้อมติด Google และ AI Search ตั้งแต่วันเปิดตัว</h1>
+                <p class="hb-hero__sub hb-srw-hero__sub"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="color:inherit;text-decoration:underline;text-decoration-color:var(--hb-accent-blue,#2563EB);text-underline-offset:0.18em;">Hashbox</a> รับทำเว็บไซต์ธุรกิจด้วยโครงสร้างที่รองรับการติดอันดับบน Google และติด AI Search ดูแลตั้งแต่ Website Performance, Technical SEO ไปจนถึง User Experience ทุกเว็บต้องผ่านมาตรฐาน Lighthouse 100 พร้อม Core Web Vitals ระดับสีเขียว และมีระบบ Sitemap Auto-Submit เพื่อให้ Google เข้าถึงและจัดอันดับเว็บไซต์ได้เร็วขึ้น · แพ็กเกจ Landing Page สำหรับธุรกิจเริ่ม 35,900 บาท</p>
+                <p class="hb-hero__sub" lang="en" style="margin-top:var(--hb-space-5);font-size:var(--hb-text-sm);">Read this page in English: <a href="<?php echo esc_url( home_url( '/en/website-development/' ) ); ?>">Website development company in Bangkok</a></p>
                 <div class="hb-hero__actions hb-srw-hero__actions">
-                    <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
+                    <a href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">ประเมินโปรเจกต์ฟรี</a>
                     <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงานที่ผ่านมา</a>
                 </div>
                 <div class="hb-srw-trustbar">
@@ -1012,17 +1017,17 @@ $checks = array(
                 </div>
                 <div class="hb-srw-flow">
                     <div class="hb-srw-flow__row">
-                        <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+                        <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
                         <span>Schema.org Validator</span>
                         <strong>ผ่านทุก Type</strong>
                     </div>
                     <div class="hb-srw-flow__row">
-                        <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+                        <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
                         <span>robots.txt + Sitemap.xml</span>
                         <strong>auto-submit GSC + Bing</strong>
                     </div>
                     <div class="hb-srw-flow__row">
-                        <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+                        <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
                         <span>Security Headers</span>
                         <strong>เกรด A+</strong>
                     </div>
@@ -1034,7 +1039,7 @@ $checks = array(
     <section class="hb-srw-section hb-srw-section--surface">
         <div class="hb-container">
             <div class="hb-srw-head">
-                <h2 class="hb-h2">รับทำเว็บไซต์ธุรกิจทุกประเภท รองรับทุกการใช้งาน</h2>
+                <h2 class="hb-h2">รับทำเว็บไซต์บริษัท E-commerce และ Landing Page — ทุกประเภทธุรกิจ</h2>
                 <p class="hb-lead">3 เคสจาก 50+ โปรเจกต์ วัดผลจริงด้วย GSC, GA4, CrUX field data</p>
             </div>
             <div class="hb-srw-case-grid">
@@ -1075,6 +1080,7 @@ $checks = array(
                         ดู<a href="<?php echo esc_url( home_url( '/services/website-development/wordpress/' ) ); ?>">บริการรับทำเว็บไซต์ WordPress ที่ Lighthouse 95+</a>
                         (ทั้งแบบ Custom Theme และ Headless WordPress + Next.js)
                         · ถ้าเว็บมีอยู่แล้วและอยากดันอันดับอย่างเดียว ดู<a href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>">บริการรับทำ SEO</a>
+                        · ทำเว็บให้คลินิกหรือสถานพยาบาล ดู<a href="<?php echo esc_url( home_url( '/services/website-development/clinic/' ) ); ?>">บริการรับทำเว็บไซต์คลินิก</a> (ระบบนัด LINE OA, แผนที่, PDPA และกฎการโฆษณาสถานพยาบาล)
                     </p>
                 </div>
                 <blockquote class="hb-srw-card hb-srw-quote">
@@ -1106,7 +1112,7 @@ $checks = array(
                 <div class="hb-srw-check-grid">
                     <?php foreach ( $checks as $check ) : ?>
                         <div class="hb-srw-card hb-srw-check">
-                            <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+                            <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
                             <p class="hb-body"><?php echo esc_html( $check ); ?></p>
                         </div>
                     <?php endforeach; ?>
@@ -1124,25 +1130,25 @@ $checks = array(
             </div>
             <div class="hb-srw-problem-grid">
                 <div class="hb-srw-card hb-srw-problem">
-                    <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h10"/></svg>
+                    <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h10"/></svg>
                     <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Indexation</span>
                     <h3 class="hb-card__title">Google Index หน้าเว็บได้ไม่ครบ</h3>
                     <p class="hb-card__body">robots.txt ผิด, ไม่ส่ง Sitemap หรือใช้ JS-rendered content โครงสร้างที่ Google อ่านยากทำให้หน้าเว็บ Index ได้แค่ 30-50%</p>
                 </div>
                 <div class="hb-srw-card hb-srw-problem">
-                    <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m13 2-2 9h7l-8 11 2-9H5l8-11Z"/></svg>
+                    <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m13 2-2 9h7l-8 11 2-9H5l8-11Z"/></svg>
                     <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Core Web Vitals</span>
                     <h3 class="hb-card__title">เว็บโหลดช้า กระทบอันดับ SEO</h3>
                     <p class="hb-card__body">ใช้ Plugin หนัก โหลดไฟล์ CSS/JS มากเกิน หรือไม่มี Image Preload ทำให้ Core Web Vitals ไม่ผ่านเกณฑ์ LCP เกิน 2.5s และ INP เกิน 200ms</p>
                 </div>
                 <div class="hb-srw-card hb-srw-problem">
-                    <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/><path d="m13 7-2 10"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>
+                    <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/><path d="m13 7-2 10"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>
                     <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">Schema</span>
                     <h3 class="hb-card__title">Schema ไม่มี / ผิด Validation</h3>
                     <p class="hb-card__body">ไม่มี Schema สำคัญ เช่น Organization, Service, FAQ หรือ Breadcrumb ทำให้ Google ไม่แสดง Rich Snippets จนเสีย CTR 30-40%</p>
                 </div>
                 <div class="hb-srw-card hb-srw-problem">
-                    <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+                    <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
                     <span class="hb-eyebrow" style="color:var(--hb-accent-amber,#F59E0B);">AI Search</span>
                     <h3 class="hb-card__title">เว็บไซต์ไม่รองรับ AI Search</h3>
                     <p class="hb-card__body">ไม่มีการตั้งค่ารองรับ AI Crawlers, ไม่มี llms.txt และ Schema ไม่ครบ Passage-level Citation ทำให้พลาดทราฟฟิกจาก AI Search ที่กำลังโตเร็ว</p>
@@ -1161,7 +1167,7 @@ $checks = array(
             <ul class="hb-srw-deliverables">
                 <?php foreach ( $deliverables as $d ) : ?>
                     <li>
-                        <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+                        <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
                         <span><?php echo esc_html( $d ); ?></span>
                     </li>
                 <?php endforeach; ?>
@@ -1178,7 +1184,7 @@ $checks = array(
             <div class="hb-srw-stack-grid">
                 <div class="hb-srw-card hb-srw-stack-card">
                     <div class="hb-srw-stack-title">
-                        <span class="hb-srw-stack-icon"><svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10Z"/></svg></span>
+                        <span class="hb-srw-stack-icon"><svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10Z"/></svg></span>
                         <h3 class="hb-card__title">Frontend</h3>
                     </div>
                     <ul>
@@ -1189,7 +1195,7 @@ $checks = array(
                 </div>
                 <div class="hb-srw-card hb-srw-stack-card">
                     <div class="hb-srw-stack-title">
-                        <span class="hb-srw-stack-icon"><svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h10"/></svg></span>
+                        <span class="hb-srw-stack-icon"><svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h10"/></svg></span>
                         <h3 class="hb-card__title">CMS</h3>
                     </div>
                     <ul>
@@ -1201,7 +1207,7 @@ $checks = array(
                 </div>
                 <div class="hb-srw-card hb-srw-stack-card">
                     <div class="hb-srw-stack-title">
-                        <span class="hb-srw-stack-icon"><svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"/><path d="m17 5-5-3-5 3"/><path d="m17 19-5 3-5-3"/></svg></span>
+                        <span class="hb-srw-stack-icon"><svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"/><path d="m17 5-5-3-5 3"/><path d="m17 19-5 3-5-3"/></svg></span>
                         <h3 class="hb-card__title">Hosting / Edge</h3>
                     </div>
                     <ul>
@@ -1228,7 +1234,7 @@ $checks = array(
                             <div class="hb-srw-step__meta">
                                 <span class="hb-srw-step__number"><?php echo (int) ( $i + 1 ); ?></span>
                                 <span class="hb-srw-step__icon" aria-hidden="true">
-                                    <svg class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><?php echo $process_icons[ $i ]; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></svg>
+                                    <svg aria-hidden="true" class="hb-srw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><?php echo $process_icons[ $i ]; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></svg>
                                 </span>
                             </div>
                             <span class="hb-eyebrow" style="color:var(--hb-accent-cyan,#06B6D4);"><?php echo esc_html( $p['time'] ); ?></span>
@@ -1253,7 +1259,7 @@ $checks = array(
                     <thead>
                         <tr>
                             <th>รายการ</th>
-                            <th style="color:var(--hb-accent-blue,#2563EB);">Hashbox</th>
+                            <th style="color:var(--hb-accent-blue-soft,#818CF8);">Hashbox</th>
                             <th>Agency ทั่วไป</th>
                             <th>Freelance</th>
                             <th>Template สำเร็จรูป</th>
@@ -1270,7 +1276,7 @@ $checks = array(
                             array( 'ส่งมอบ source code', '✓', 'บางเคส', '✓', '✗ (locked)' ),
                             array( '301 Redirect Map (migration)', '✓', 'เพิ่ม fee', '✗', '✗' ),
                             array( 'Care plan + monitoring', '✓ (optional)', '✓ (mandatory)', '✗', '✗' ),
-                            array( 'ราคาเริ่มต้น', '80k บาท', '150k-500k', '30k-100k', '5k-20k' ),
+                            array( 'ราคาเริ่มต้น', '35.9k บาท', '150k-500k', '30k-100k', '5k-20k' ),
                             array( 'Time-to-rank (เฉลี่ย)', '4-8 สัปดาห์', '4-6 เดือน', '6-12 เดือน', 'ไม่การันตี' ),
                         );
                         foreach ( $rows as $r ) :
@@ -1289,12 +1295,39 @@ $checks = array(
         </div>
     </section>
 
+    <section class="hb-srw-section" id="rank">
+        <div class="hb-container">
+            <div class="hb-srw-head">
+                <span class="hb-eyebrow">ติดหน้าแรก Google</span>
+                <h2 class="hb-h2">รับทำเว็บไซต์ให้ติดหน้าแรก Google ได้จริงไหม — และทำไมเว็บโหลดช้าถึงไม่ติด</h2>
+                <p class="hb-lead">ไม่มีใครรับประกันอันดับ 1 ได้ แต่เว็บที่โครงสร้างถูกต้องตั้งแต่วันแรกเริ่มแข่งได้ตั้งแต่การ crawl ครั้งแรก — สิ่งที่เราควบคุมได้และวัดได้มี 3 อย่าง</p>
+            </div>
+            <div class="hb-srw-related-grid">
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/core-web-vitals-thai-guide-2026/' ) ); ?>" style="text-decoration:none;">
+                    <span class="hb-eyebrow">เว็บโหลดช้า</span>
+                    <h3 class="hb-card__title">Core Web Vitals เขียวทุก URL</h3>
+                    <p class="hb-card__body">เว็บโหลดช้า = LCP เกิน 2.5 วินาที = Google จัดอันดับต่ำกว่าคู่แข่งที่เนื้อหาเท่ากัน ทุกเว็บของเราต้องผ่านเกณฑ์ LCP / INP / CLS จาก field data ก่อน deploy</p>
+                </a>
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/schema-markup-thai-guide-2026/' ) ); ?>" style="text-decoration:none;">
+                    <span class="hb-eyebrow">Google อ่านออก</span>
+                    <h3 class="hb-card__title">Schema + โครงสร้างหน้าตาม search intent</h3>
+                    <p class="hb-card__body">หน้าบริการแต่ละหน้าถือคีย์เวิร์ดเดียว ชื่อหน้า = คำที่คนค้น, Schema ครบตามประเภทธุรกิจ, internal link ชี้ถูกหน้า — นี่คือสิ่งที่ทำให้เว็บใหม่ index และเริ่มติดใน 1–2 เดือนแทนที่จะเป็น 6</p>
+                </a>
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>" style="text-decoration:none;">
+                    <span class="hb-eyebrow">มีเว็บอยู่แล้ว?</span>
+                    <h3 class="hb-card__title">Website Audit ฟรี ก่อนตัดสินใจทำใหม่</h3>
+                    <p class="hb-card__body">ส่วนใหญ่เว็บโหลดช้าแก้ได้โดยไม่ต้องทำใหม่ทั้งหมด — ส่ง URL มา เราตรวจ Core Web Vitals, index, Schema แล้วบอกตรงๆ ว่าควรแก้หรือควรสร้างใหม่</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <section class="hb-srw-section hb-srw-section--surface" id="pricing">
         <div class="hb-container">
             <div class="hb-srw-head">
                 <span class="hb-eyebrow">Pricing</span>
-                <h2 class="hb-h2">ราคาบริการรับทำเว็บไซต์ SEO-Ready</h2>
-                <p class="hb-lead">ราคาบริการรับทำเว็บไซต์ทุก Tier มาพร้อม Build Gate 12 ขั้นตอน และ Deliverables 20 รายการ มาตรฐานเดียวกันทุกโปรเจกต์ โดยราคาจะต่างกันตาม Scope งาน จำนวนหน้าเว็บไซต์ และระดับความซับซ้อนของระบบ</p>
+                <h2 class="hb-h2">รับทำเว็บไซต์ ราคาเท่าไร — แพ็กเกจ SEO-Ready เริ่ม 35,900 บาท</h2>
+                <p class="hb-lead">ราคาบริการรับทำเว็บไซต์ทุก Tier มาพร้อม Build Gate 12 ขั้นตอน และ Deliverables 20 รายการ มาตรฐานเดียวกันทุกโปรเจกต์ โดยราคาจะต่างกันตาม Scope งาน จำนวนหน้าเว็บไซต์ และระดับความซับซ้อนของระบบ — เทียบกับราคาตลาดไทย 4 ระดับและค่าใช้จ่ายซ่อนได้ใน <a href="<?php echo esc_url( home_url( '/รับทำเว็บไซต์-ราคา-2026/' ) ); ?>">รับทำเว็บไซต์ ราคาเท่าไร? ตารางราคาจริง 2026</a></p>
             </div>
             <div class="hb-srw-price-grid">
                 <?php foreach ( $pricing as $p ) : ?>
@@ -1331,10 +1364,10 @@ $checks = array(
                     <h3 class="hb-card__title">เว็บมีสินค้า/บริการดี แต่ organic search ไม่โต</h3>
                     <p class="hb-card__body">ดู Rank Project case study ที่ technical SEO + content programme เพิ่ม impressions +2,200%</p>
                 </a>
-                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" style="text-decoration:none;">
+                <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>" style="text-decoration:none;">
                     <span class="hb-eyebrow">Next step</span>
-                    <h3 class="hb-card__title">หลังเว็บพร้อม SEO แล้ว ควรวัด Conversion ต่อ</h3>
-                    <p class="hb-card__body">ต่อยอดด้วย Digital Marketing + CRO เพื่อติดตาม funnel, heatmap และทดสอบ landing page รายเดือน</p>
+                    <h3 class="hb-card__title">หลังเว็บพร้อมแล้ว ให้ SEO + CRO ทำงานต่อ</h3>
+                    <p class="hb-card__body">ต่อยอดด้วยบริการรับทำ SEO สายเทคนิค — Technical Audit, Local SEO, GEO/AI Overview พร้อม CRO + tracking รายเดือน</p>
                 </a>
                 <a class="hb-srw-card" href="<?php echo esc_url( home_url( '/services/' ) ); ?>" style="text-decoration:none;">
                     <span class="hb-eyebrow">Full funnel</span>
@@ -1415,10 +1448,10 @@ $checks = array(
         <div class="hb-container">
             <div class="hb-srw-card hb-srw-cta">
                 <div>
-                    <h2 class="hb-h2">เริ่มด้วย Audit ฟรี</h2>
-                    <p class="hb-lead" style="margin-top:var(--hb-space-4);">รับ SEO + Performance Audit Report 15-20 หน้า ภายใน 3 วันทำการ · ไม่มี commitment · ไม่มี up-sell</p>
+                    <h2 class="hb-h2">เริ่มด้วยการประเมินโปรเจกต์ฟรี</h2>
+                    <p class="hb-lead" style="margin-top:var(--hb-space-4);">บอกเป้าหมาย งบประมาณ และช่วงเวลาที่ต้องการเริ่ม ทีมจะเสนอ Scope ที่เหมาะสมสำหรับแพ็กเกจเริ่ม 35,900 บาท</p>
                 </div>
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ Audit ฟรี &rarr;</a>
+                <a href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">ขอประเมินโปรเจกต์ &rarr;</a>
             </div>
         </div>
     </section>
@@ -1599,12 +1632,12 @@ hashbox_jsonld( array(
         array(
             '@type'  => 'ContactAction',
             'name'   => 'Request Free SEO Audit',
-            'target' => home_url( '/#contact' ),
+            'target' => home_url( '/website-audit/' ),
         ),
         array(
             '@type'  => 'ReserveAction',
             'name'   => 'Book Discovery Call',
-            'target' => home_url( '/#contact' ),
+            'target' => home_url( '/website-audit/' ),
         ),
     ),
     'termsOfService' => home_url( '/privacy-policy/#terms' ),

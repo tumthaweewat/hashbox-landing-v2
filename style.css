@@ -34,10 +34,10 @@ Tags: one-page, dark, agency, custom-menu, translation-ready
     --color-text-muted:    #A1A1AA;
     --color-text-dim:      #71717A;
 
-    /* Typography — DM Sans for headings/title, IBM Plex Sans Thai for body */
-    --font-display: 'DM Sans', 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, sans-serif;
+    /* Typography — single family: IBM Plex Sans Thai (2026-08-29) */
+    --font-display: 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, sans-serif;
     --font-body:    'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, sans-serif;
-    --font-mono:    'IBM Plex Mono', ui-monospace, monospace;
+    --font-mono:    'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, sans-serif;
 
     /* Spacing */
     --container-width: 1200px;

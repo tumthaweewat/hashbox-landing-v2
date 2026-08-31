@@ -17,6 +17,13 @@ hashbox_render_case_study( array(
     'headline'  => 'Headless WordPress + Next.js แทน Legacy Corporate Site',
     'lede'      => 'เปลี่ยน Corporate Site เดิมที่ PageSpeed 28/100 และ Index ไม่ได้ครึ่งหนึ่งของ URL เป็น Headless WordPress + Next.js ที่ Lighthouse 100, CWV เขียวทุก URL และ Index ครบใน Crawl แรก',
 
+    // ตัวเลขที่ลูกค้าอนุญาตให้เปิดเผย (Tum 2026-08-29) — เกณฑ์เดียวกับการันตี
+    'proof' => array(
+        array( 'value' => '100', 'label' => 'Lighthouse Performance/SEO ทุก URL', 'note' => 'build gate 90+ ก่อน deploy — ผลจริงหลัง launch 100' ),
+        array( 'value' => '20+', 'label' => 'keyword หน้าแรก Google', 'note' => 'non-brand · นับจาก Search Console' ),
+        array( 'value' => '90 วัน', 'label' => 'ถึงผลลัพธ์ชุดแรกหลัง migrate', 'note' => 'ระยะเดียวกับการันตีชั้น 2' ),
+    ),
+
     'snapshot' => array(
         array( 'value' => '+540%', 'label' => 'Users (12 เดือน)' ),
         array( 'value' => '100',   'label' => 'Lighthouse Score' ),

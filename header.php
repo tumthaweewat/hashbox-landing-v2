@@ -2,6 +2,7 @@
 $hashbox_header_landing   = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
 $hashbox_is_ai_audit      = is_array( $hashbox_header_landing ) && 'ai-workflow-audit' === $hashbox_header_landing['slug'];
 $hashbox_is_website_audit = is_page( 'website-audit' );
+$hb_en = function_exists( 'hashbox_page_is_english' ) && hashbox_page_is_english();
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -37,12 +38,22 @@ $hashbox_is_website_audit = is_page( 'website-audit' );
             <?php endif; ?>
 
             <?php if ( ! $hashbox_is_ai_audit && ! $hashbox_is_website_audit ) : ?>
-                <ul class="hb-nav__menu">
-                    <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-nav__link">Services</a></li>
-                    <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-nav__link">Work</a></li>
-                    <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="hb-nav__link">Blog</a></li>
-                    <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="hb-nav__link">About</a></li>
-                </ul>
+                <nav class="hb-nav__primary" aria-label="Primary">
+                    <ul class="hb-nav__menu">
+                        <li class="hb-nav__item hb-nav__item--has-sub" data-open="false">
+                            <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-nav__link hb-nav__link--sub" aria-haspopup="true" aria-expanded="false" aria-controls="navServicesSub"><?php echo $hb_en ? 'Services' : 'บริการ'; ?> <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></a>
+                            <ul class="hb-nav__sub" id="navServicesSub" aria-label="<?php echo $hb_en ? 'All services' : 'บริการทั้งหมด'; ?>">
+                                <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>
+                                <li><a class="hb-nav__sub-link" href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>"><span class="hb-nav__sub-name"><?php echo esc_html( $hb_en && ! empty( $svc['en_name'] ) ? $svc['en_name'] : $svc['name'] ); ?></span><span class="hb-nav__sub-stack"><?php echo esc_html( $svc['stack'] ); ?></span></a></li>
+                                <?php endforeach; ?>
+                                <li class="hb-nav__sub-all"><a class="hb-nav__sub-link" href="<?php echo esc_url( home_url( '/services/' ) ); ?>"><span class="hb-nav__sub-name"><?php echo $hb_en ? 'All services' : 'ดูบริการทั้งหมด'; ?> &rarr;</span></a></li>
+                            </ul>
+                        </li>
+                        <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-nav__link">Work</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="hb-nav__link">Blog</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="hb-nav__link">About</a></li>
+                    </ul>
+                </nav>
             <?php endif; ?>
 
             <div class="hb-nav__actions">
@@ -51,8 +62,7 @@ $hashbox_is_website_audit = is_page( 'website-audit' );
                 <?php elseif ( $hashbox_is_ai_audit ) : ?>
                     <a href="#audit-form" class="hb-btn hb-btn--gradient hb-btn--sm hb-ai-button" data-track-event="ai_cta_click">ส่งโจทย์ AI</a>
                 <?php else : ?>
-                    <span class="hb-nav__status">All systems live</span>
-                    <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--sm hb-nav__cta--drawer-backed">รับ Audit ฟรี</a>
+                    <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--sm hb-nav__cta--drawer-backed"><?php echo $hb_en ? 'Free audit' : 'รับ Audit ฟรี'; ?></a>
                     <button type="button" class="hb-nav__burger" id="navBurger" aria-label="Open menu" aria-controls="navSheet" aria-expanded="false">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
                     </button>
@@ -72,7 +82,14 @@ $hashbox_is_website_audit = is_page( 'website-audit' );
             </div>
             <nav>
                 <ul class="hb-sheet__menu">
-                    <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-sheet__link">Services</a></li>
+                    <li>
+                        <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-sheet__link"><?php echo $hb_en ? 'Services' : 'บริการ'; ?></a>
+                        <ul class="hb-sheet__sub">
+                            <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>
+                            <li><a class="hb-sheet__sub-link" href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>"><?php echo esc_html( $hb_en && ! empty( $svc['en_name'] ) ? $svc['en_name'] : $svc['name'] ); ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </li>
                     <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-sheet__link">Work</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="hb-sheet__link">Blog</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="hb-sheet__link">About</a></li>
@@ -80,8 +97,8 @@ $hashbox_is_website_audit = is_page( 'website-audit' );
                 </ul>
             </nav>
             <div class="hb-sheet__footer">
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ Audit ฟรี</a>
-                <a href="https://lin.ee/Xagx6i4" class="hb-btn hb-btn--outline" target="_blank" rel="noopener noreferrer">คุยทาง LINE</a>
+                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg"><?php echo $hb_en ? 'Get a free audit' : 'รับ Audit ฟรี'; ?></a>
+                <a href="https://lin.ee/Xagx6i4" class="hb-btn hb-btn--outline" target="_blank" rel="noopener noreferrer"><?php echo $hb_en ? 'Chat on LINE' : 'คุยทาง LINE'; ?></a>
             </div>
         </div>
     <?php endif; ?>

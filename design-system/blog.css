@@ -2159,6 +2159,36 @@
   border-bottom: 0;
 }
 
+/* Wide comparison tables: keep the first column (name) pinned while the
+ * rest scrolls — on mobile a 10-column table otherwise scrolls the label
+ * away and the ✓/✗ cells become meaningless. */
+.hb-blog-single .hb-post__content.hb-prose th:first-child,
+.hb-blog-single .hb-post__content.hb-prose td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: #ffffff;
+  box-shadow: 2px 0 0 #ecece7;
+  max-width: 11rem;
+  white-space: normal;
+}
+.hb-blog-single .hb-post__content.hb-prose th:first-child {
+  background: #f8f8f5;
+  z-index: 2;
+}
+/* Rank tables put the rank number first and the name second — pin both */
+.hb-blog-single .hb-post__content.hb-prose table.hb-table--rank th:nth-child(2),
+.hb-blog-single .hb-post__content.hb-prose table.hb-table--rank td:nth-child(2) {
+  position: sticky;
+  left: 3.2rem;
+  z-index: 1;
+  background: #ffffff;
+  box-shadow: 2px 0 0 #ecece7;
+}
+.hb-blog-single .hb-post__content.hb-prose table.hb-table--rank th:nth-child(2) { background: #f8f8f5; z-index: 2; }
+.hb-blog-single .hb-post__content.hb-prose table.hb-table--rank th:first-child,
+.hb-blog-single .hb-post__content.hb-prose table.hb-table--rank td:first-child { max-width: 3.2rem; min-width: 3.2rem; width: 3.2rem; padding-right: 0.25rem; }
+
 .hb-blog-single .hb-post-toc,
 .hb-blog-single .hb-post-share,
 .hb-blog-single .hb-post-service {

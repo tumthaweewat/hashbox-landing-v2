@@ -20,9 +20,11 @@
   var CLICK_ID_KEYS = ['gclid', 'wbraid', 'gbraid'];
   var STORAGE_KEY = 'hashbox_attribution_v3_website_audit';
   var STORAGE_TTL_MS = 90 * 24 * 60 * 60 * 1000;
+  var ANALYTICS_STATE_PREFIX = 'hashbox_website_audit_analytics_';
   var CONVERSION_STATE_PREFIX = 'hashbox_website_audit_conversion_';
   var META_STATE_PREFIX = 'hashbox_website_audit_meta_';
   var UUID_V4_PATTERN = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
+  var WEB_CONVERSION_REF_PATTERN = /^HB-WEB-[0-9]{8}-[0-9]{9,40}$/;
   var config = window.hashboxWebsiteAuditTracking || {};
   var form = document.querySelector('form[data-hb5-form]');
 
@@ -121,6 +123,233 @@
     });
   }
 
+  function pushDiagnosticEvent(eventName, fields) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(assign({
+      event: eventName,
+      hb_schema_version: 1,
+      hb_lead_source: 'website_audit'
+    }, fields || {}));
+  }
+
+  function closestFormField(control) {
+    var node = control;
+    while (node && node !== form) {
+      if ((' ' + (node.className || '') + ' ').indexOf(' hb5-field ') !== -1) return node;
+      node = node.parentNode;
+    }
+    return null;
+  }
+
+  function initDiagnosticEvents() {
+    var formStarted = false;
+    var validationReported = false;
+
+    function markFormStart() {
+      if (formStarted) return;
+      formStarted = true;
+      pushDiagnosticEvent('hb_web_form_start_v1', { hb_form_step: 1 });
+    }
+
+    form.addEventListener('input', markFormStart, { once: true });
+    form.addEventListener('change', markFormStart, { once: true });
+    form.addEventListener('invalid', function (event) {
+      if (validationReported) return;
+      validationReported = true;
+      pushDiagnosticEvent('hb_web_form_validation_error_v1', {
+        hb_field_name: event && event.target && event.target.name
+          ? String(event.target.name)
+          : 'unknown'
+      });
+      window.setTimeout(function () { validationReported = false; }, 1000);
+    }, true);
+    form.addEventListener('submit', function (event) {
+      if (event.defaultPrevented) return;
+      pushDiagnosticEvent('hb_web_form_submit_attempt_v1', { hb_form_step: 2 });
+    });
+
+    if (typeof document.querySelectorAll !== 'function') return;
+    Array.prototype.forEach.call(document.querySelectorAll('a[href*="#project-form"]'), function (link) {
+      link.addEventListener('click', function () {
+        pushDiagnosticEvent('hb_web_cta_click_v1', {
+          hb_cta_location: link.closest && link.closest('.hb5-mobile') ? 'mobile_sticky' : 'page'
+        });
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.hb5 a[href*="lin.ee"]'), function (link) {
+      link.addEventListener('click', function () {
+        pushDiagnosticEvent('hb_web_line_click_v1', { hb_cta_location: 'page' });
+      });
+    });
+  }
+
+  function initConversionForm() {
+    var grid = form.querySelector('.hb5-form-grid');
+    if (!grid || grid.getAttribute('data-hb5-cro-ready') === '1') return;
+
+    var requiredNames = ['project_type', 'budget', 'timeline'];
+    var contactNames = ['name', 'email', 'contact_detail'];
+    var optionalNames = ['company', 'website', 'message'];
+    var firstStepFields = [];
+    var secondStepFields = [];
+    var optionalFields = [];
+
+    function fieldFor(name) {
+      var control = form.querySelector('[name="' + name + '"]');
+      return control ? closestFormField(control) : null;
+    }
+
+    requiredNames.forEach(function (name) {
+      var field = fieldFor(name);
+      if (field) firstStepFields.push(field);
+    });
+    contactNames.forEach(function (name) {
+      var field = fieldFor(name);
+      if (field) secondStepFields.push(field);
+    });
+    optionalNames.forEach(function (name) {
+      var field = fieldFor(name);
+      if (field) optionalFields.push(field);
+    });
+
+    var consent = form.querySelector('.hb5-consent');
+    var status = form.querySelector('[data-hb5-status]');
+    var submit = form.querySelector('[data-hb5-submit]');
+    if (firstStepFields.length !== requiredNames.length ||
+        secondStepFields.length !== contactNames.length ||
+        optionalFields.length !== optionalNames.length ||
+        !consent || !status || !submit) {
+      return;
+    }
+
+    var emailLabel = form.querySelector('label[for="hb5-email"]');
+    if (emailLabel) emailLabel.textContent = 'อีเมลที่สะดวกให้ติดต่อกลับ *';
+    submit.textContent = 'รับ Scope + ราคาฟรี';
+
+    var progress = document.createElement('div');
+    progress.className = 'hb5-form-progress';
+    progress.setAttribute('data-step', '1');
+    progress.setAttribute('role', 'status');
+    progress.setAttribute('aria-live', 'polite');
+
+    var progressCopy = document.createElement('div');
+    progressCopy.className = 'hb5-form-progress__copy';
+    var progressTitle = document.createElement('strong');
+    progressTitle.textContent = 'ขั้นที่ 1 จาก 2';
+    var progressHint = document.createElement('span');
+    progressHint.textContent = 'เลือกกรอบโปรเจกต์';
+    progressCopy.appendChild(progressTitle);
+    progressCopy.appendChild(progressHint);
+
+    var progressTrack = document.createElement('span');
+    progressTrack.className = 'hb5-form-progress__track';
+    progressTrack.setAttribute('aria-hidden', 'true');
+    var progressBar = document.createElement('span');
+    progressBar.className = 'hb5-form-progress__bar';
+    progressTrack.appendChild(progressBar);
+    progress.appendChild(progressCopy);
+    progress.appendChild(progressTrack);
+
+    function createStep(legendText) {
+      var step = document.createElement('fieldset');
+      step.className = 'hb5-form-step';
+      var legend = document.createElement('legend');
+      legend.className = 'hb5-form-step__legend';
+      legend.textContent = legendText;
+      step.appendChild(legend);
+      return step;
+    }
+
+    var stepOne = createStep('โปรเจกต์ของคุณ');
+    var stepTwo = createStep('ข้อมูลสำหรับติดต่อกลับ');
+    firstStepFields.forEach(function (field) { stepOne.appendChild(field); });
+    secondStepFields.forEach(function (field) { stepTwo.appendChild(field); });
+
+    var optional = document.createElement('details');
+    optional.className = 'hb5-optional';
+    var optionalSummary = document.createElement('summary');
+    optionalSummary.textContent = 'เพิ่มข้อมูลโปรเจกต์ (ไม่บังคับ)';
+    var optionalBody = document.createElement('div');
+    optionalBody.className = 'hb5-optional__fields';
+    optionalFields.forEach(function (field) { optionalBody.appendChild(field); });
+    optional.appendChild(optionalSummary);
+    optional.appendChild(optionalBody);
+    stepTwo.appendChild(optional);
+    stepTwo.appendChild(consent);
+    stepTwo.appendChild(status);
+
+    var nextActions = document.createElement('div');
+    nextActions.className = 'hb5-step-actions';
+    var nextButton = document.createElement('button');
+    nextButton.type = 'button';
+    nextButton.className = 'hb5-btn hb5-btn--primary';
+    nextButton.textContent = 'ต่อไป: ข้อมูลติดต่อ';
+    nextActions.appendChild(nextButton);
+    stepOne.appendChild(nextActions);
+
+    var submitActions = document.createElement('div');
+    submitActions.className = 'hb5-step-actions hb5-step-actions--submit';
+    var backButton = document.createElement('button');
+    backButton.type = 'button';
+    backButton.className = 'hb5-btn hb5-btn--secondary';
+    backButton.textContent = 'ย้อนกลับ';
+    submitActions.appendChild(backButton);
+    submitActions.appendChild(submit);
+    stepTwo.appendChild(submitActions);
+
+    grid.insertBefore(progress, grid.firstChild);
+    grid.appendChild(stepOne);
+    grid.appendChild(stepTwo);
+    grid.setAttribute('data-hb5-cro-ready', '1');
+
+    var currentStep = 1;
+    function showStep(stepNumber, focusTarget) {
+      currentStep = stepNumber;
+      stepOne.hidden = stepNumber !== 1;
+      stepTwo.hidden = stepNumber !== 2;
+      stepTwo.disabled = stepNumber !== 2;
+      progress.setAttribute('data-step', String(stepNumber));
+      progressTitle.textContent = 'ขั้นที่ ' + stepNumber + ' จาก 2';
+      progressHint.textContent = stepNumber === 1 ? 'เลือกกรอบโปรเจกต์' : 'ใช้เวลาไม่ถึง 1 นาที';
+      if (focusTarget && typeof focusTarget.focus === 'function') focusTarget.focus();
+    }
+
+    function validateStepOne() {
+      var invalid = null;
+      requiredNames.some(function (name) {
+        var control = form.querySelector('[name="' + name + '"]');
+        if (control && !control.checkValidity()) {
+          invalid = control;
+          return true;
+        }
+        return false;
+      });
+      if (invalid) {
+        invalid.reportValidity();
+        return false;
+      }
+      return true;
+    }
+
+    nextButton.addEventListener('click', function () {
+      if (!validateStepOne()) return;
+      pushDiagnosticEvent('hb_web_form_step_complete_v1', { hb_form_step: 1 });
+      showStep(2, form.querySelector('[name="name"]'));
+    });
+    backButton.addEventListener('click', function () {
+      showStep(1, form.querySelector('[name="project_type"]'));
+    });
+    form.addEventListener('submit', function (event) {
+      if (currentStep !== 1) return;
+      event.preventDefault();
+      if (!validateStepOne()) return;
+      pushDiagnosticEvent('hb_web_form_step_complete_v1', { hb_form_step: 1 });
+      showStep(2, form.querySelector('[name="name"]'));
+    }, true);
+
+    showStep(1);
+  }
+
   function setFormReady(nonceValue, message) {
     var nonce = form.querySelector('input[name="hashbox_nonce"]');
     var submit = form.querySelector('[data-hb5-submit]');
@@ -195,6 +424,28 @@
     }
   }
 
+  function analyticsAlreadyQueued(leadRef) {
+    if (window.hashboxWebsiteAuditAnalyticsLeadRef === leadRef) return true;
+    try {
+      if (window.localStorage.getItem(ANALYTICS_STATE_PREFIX + leadRef) === 'queued') return true;
+    } catch (err) {}
+    try {
+      return window.sessionStorage.getItem(ANALYTICS_STATE_PREFIX + leadRef) === 'queued';
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function markAnalyticsQueued(leadRef) {
+    window.hashboxWebsiteAuditAnalyticsLeadRef = leadRef;
+    try {
+      window.localStorage.setItem(ANALYTICS_STATE_PREFIX + leadRef, 'queued');
+    } catch (err) {}
+    try {
+      window.sessionStorage.setItem(ANALYTICS_STATE_PREFIX + leadRef, 'queued');
+    } catch (err) {}
+  }
+
   function markConversionDelivered(leadRef) {
     try {
       window.localStorage.setItem(CONVERSION_STATE_PREFIX + leadRef, 'delivered');
@@ -245,20 +496,26 @@
     window.addEventListener('hashbox:third-party-ready', function () {
       finishConfirmedLead(leadRef);
     }, { once: true });
-    // Logged-in sessions do not use the delayed loader. This fallback also
-    // prevents a failed third-party request from leaving signed query data in
-    // the address bar indefinitely.
+    // Logged-in sessions do not use the delayed loader, so give Meta one more
+    // chance here. Google Ads still owns URL cleanup through its callback so a
+    // blocked request can retry the same deduped transaction on reload.
     window.setTimeout(function () { finishConfirmedLead(leadRef); }, 8000);
   }
 
-  function confirmedLeadRef() {
+  function confirmedLead() {
     var meta = document.querySelector('meta[name="hashbox-confirmed-website-lead"]');
     var params = new URLSearchParams(window.location.search);
     var leadRef = params.get('contact') === 'sent'
       ? params.get('lead_ref') || ''
       : window.hashboxConfirmedWebsiteLeadRef || '';
-    if (!meta || !UUID_V4_PATTERN.test(leadRef)) return '';
-    return meta.getAttribute('content') === leadRef ? leadRef : '';
+    if (!meta || !UUID_V4_PATTERN.test(leadRef) || meta.getAttribute('content') !== leadRef) return null;
+    var conversionRef = meta.getAttribute('data-conversion-ref') || '';
+    return {
+      leadRef: leadRef,
+      conversionRef: WEB_CONVERSION_REF_PATTERN.test(conversionRef) && conversionRef.length <= 64
+        ? conversionRef
+        : ''
+    };
   }
 
   function renderSuccessState() {
@@ -283,7 +540,7 @@
     }
   }
 
-  function queueConfirmedConversion(leadRef) {
+  function queueConfirmedConversion(leadRef, conversionRef) {
     // Claim the legacy page-builder conversion flag before DOMContentLoaded so
     // the unsigned contact=sent handler cannot send a duplicate event.
     window.hashboxGa4LeadSent = true;
@@ -294,18 +551,29 @@
       return;
     }
 
+    // GTM (GTM-5G2P48V2) owns Google tagging. This runtime only pushes two
+    // namespaced dataLayer events for the signed success state:
+    //   hb_web_ga4_lead_v1 — GA4 generate_lead, queued once per lead
+    //   hb_web_ads_lead_v1 — Ads conversion, retried on reload until GTM
+    //                        confirms delivery through eventCallback
+    // No PII and no UUID lead_ref ever enter the dataLayer; Google receives
+    // only the scoped HB-WEB-* transaction id.
     window.dataLayer = window.dataLayer || [];
-    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    var payload = {
+      hb_schema_version: 1,
+      hb_transaction_id: conversionRef,
+      hb_value: 1,
+      hb_currency: 'THB',
+      hb_form_id: 'hashbox_contact',
+      hb_form_name: 'Website Project Evaluation',
+      hb_lead_source: 'website_audit'
+    };
 
-    window.gtag('config', 'AW-18190672421');
-    window.gtag('event', 'generate_lead', {
-      currency: 'THB',
-      value: 1,
-      form_id: 'hashbox_contact',
-      form_name: 'Website Project Evaluation',
-      lead_source: 'website_audit',
-      transaction_id: leadRef
-    });
+    if (!analyticsAlreadyQueued(leadRef)) {
+      window.dataLayer.push(assign({ event: 'hb_web_ga4_lead_v1' }, payload));
+      markAnalyticsQueued(leadRef);
+    }
+
     var deliveryRecorded = false;
     function recordDelivery() {
       if (deliveryRecorded) return;
@@ -313,16 +581,20 @@
       markConversionDelivered(leadRef);
       cleanSuccessParams();
     }
-    window.gtag('event', 'conversion', {
-      send_to: config.conversionDestination || 'AW-18190672421/zT9ACPe6ttocEKXE_uFD',
-      currency: 'THB',
-      value: 1,
-      transaction_id: leadRef,
-      event_callback: recordDelivery,
-      event_timeout: 6000
-    });
+    window.dataLayer.push(assign({
+      event: 'hb_web_ads_lead_v1',
+      eventCallback: recordDelivery,
+      eventTimeout: 6000
+    }, payload));
 
     scheduleConfirmedLeadFinish(leadRef);
+  }
+
+  function assign(target, source) {
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) target[key] = source[key];
+    }
+    return target;
   }
 
   var attribution = captureAttribution();
@@ -330,6 +602,7 @@
 
   var submitting = false;
   form.addEventListener('submit', function (event) {
+    if (event.defaultPrevented) return;
     applyAttribution(captureAttribution());
     var preparedLead = form.querySelector('input[name="lead_ref"]');
     if (!preparedLead || !UUID_V4_PATTERN.test(preparedLead.value || '')) {
@@ -352,10 +625,20 @@
   });
 
   var params = new URLSearchParams(window.location.search);
-  var leadRef = confirmedLeadRef();
-  if (leadRef) {
+  var confirmation = confirmedLead();
+  initDiagnosticEvents();
+  if (!confirmation) initConversionForm();
+  if (confirmation) {
     renderSuccessState();
-    queueConfirmedConversion(leadRef);
+    if (confirmation.conversionRef) {
+      queueConfirmedConversion(confirmation.leadRef, confirmation.conversionRef);
+    } else {
+      // Preserve legacy signed success UX without reusing a UUID as Google's
+      // transaction ID or reviving an already-completed conversion.
+      window.hashboxGa4LeadSent = true;
+      window.hashboxWebsiteAuditMetaLeadSent = true;
+      cleanSuccessParams();
+    }
   } else if (params.get('contact') === 'sent') {
     // An unsigned success URL must not trigger the legacy Google or Meta lead
     // handlers even if the visitor interacts and delayed scripts later load.

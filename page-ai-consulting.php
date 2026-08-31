@@ -39,6 +39,9 @@ $faqs = array(
     array( 'q' => 'มี ongoing maintenance + monitoring ไหม?', 'a' => 'มี Care Plan รายเดือนเริ่ม 30,000 บาท ครอบคลุม API cost monitoring, performance tracking, prompt engineering updates, hallucination guard, security patches, monthly performance review' ),
     array( 'q' => 'รับ integration กับระบบเดิมไหม? (CRM, ERP, LINE)', 'a' => 'รับ integration กับ Salesforce, HubSpot, Zoho, Pipedrive, SAP, LINE OA, Microsoft Teams, Slack, Notion, Airtable, Google Workspace, Make/n8n, Zapier เว็บ legacy ใช้ REST API หรือ webhook' ),
     array( 'q' => 'ทำในไทย vs จ้าง offshore (อินเดีย, ฟิลิปปินส์) ต่างกันยังไง?', 'a' => 'Offshore ราคาถูกกว่า 40-60% แต่เจอ problem ใหญ่: ไม่เข้าใจ business context ไทย, ไม่รู้ LINE ecosystem, sync time zone ยาก, PDPA compliance ไม่ชัด · Hashbox in-house ไทยทำให้ deploy เร็วและ relevant กับ Thai market' ),
+    array( 'q' => 'รับทำ AI Prototype หรือ AI Tool เล็กๆ ก่อนลงทุนเต็มได้ไหม?', 'a' => 'ได้ — PoC + Validation เริ่ม 200,000 บาท สำหรับ 1 use case end-to-end หรือถ้าโจทย์เล็กกว่านั้น เช่น internal tool ที่ใช้ LLM ตัวเดียว ทำเป็นโปรเจกต์สั้น 2–3 สัปดาห์ได้ อ่านแนวทางและราคาใน บทความรับทำ AI Tool / Prototype' ),
+    array( 'q' => 'ปรึกษา AI Transformation ระดับองค์กรได้ไหม?', 'a' => 'ได้ — tier AI Workforce Enterprise เริ่ม 1,200,000 บาท ครอบคลุม multi-agent + multi-integration 12–20 สัปดาห์ แต่ทุกโปรเจกต์เริ่มจาก ROI Assessment ก่อนเสมอ เพื่อให้เห็นว่า use case ไหนควรทำก่อนและคุ้มจริง อ่านกรอบคิดใน บทความ AI Transformation คืออะไร' ),
+
 );
 
 $services_offered = array(
@@ -97,7 +100,7 @@ $cases = array(
     <div class="hb-hero__grid"></div>
     <div class="hb-container">
         <div class="hb-hero__inner">
-            <nav class="hb-breadcrumb">
+            <nav class="hb-breadcrumb" aria-label="Breadcrumb">
                 <ol class="hb-breadcrumb__list">
                     <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
                     <li><span class="hb-breadcrumb__sep">/</span></li>
@@ -107,12 +110,13 @@ $cases = array(
                 </ol>
             </nav>
             <span class="hb-eyebrow">Service 03 / 03 · Updated <?php echo esc_html( date_i18n( 'F Y' ) ); ?></span>
-            <h1 class="hb-hero__title">ที่ปรึกษา AI<br><em>สำหรับธุรกิจไทย</em><br>รับวางระบบ AI ถึง Production</h1>
+            <h1 class="hb-hero__title">ที่ปรึกษา AI สำหรับธุรกิจ<br><em>บริการให้คำปรึกษา AI Solution</em><br>วางระบบถึง Production</h1>
             <p class="hb-hero__sub">บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทยที่ต้องการ deploy AI ใน production จริง — LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Integration · เริ่มจากโจทย์ธุรกิจและข้อมูลที่มี · โปรเจกต์เริ่ม 60,000 บาท</p>
             <div class="hb-hero__actions">
                 <a href="<?php echo esc_url( home_url( '/ai-workflow-audit/#audit-form' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">นัดคุย AI ฟรี 30 นาที</a>
                 <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดู AI Case Studies</a>
             </div>
+            <p class="hb-hero__sub" lang="en" style="margin-top:var(--hb-space-5);font-size:var(--hb-text-sm);">Read this page in English: <a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>">AI consulting company in Bangkok</a></p>
             <div class="hb-trustbar" style="margin-top:var(--hb-space-8);display:flex;flex-wrap:wrap;gap:var(--hb-space-5);align-items:center;color:var(--hb-text-muted,#a1a1aa);font-size:var(--hb-text-sm);">
                 <span>✓ ROI calculation ก่อนเริ่ม</span>
                 <span>✓ เริ่มจาก Use Case + ROI</span>
@@ -127,9 +131,9 @@ $cases = array(
 <section class="hb-section hb-section--surface" id="answer">
     <div class="hb-container hb-container--md">
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);">
-            <span class="hb-eyebrow" style="color:var(--hb-accent-blue,#2563EB);">คำตอบสั้น</span>
+            <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">คำตอบสั้น</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
-                <strong>Hashbox ให้บริการที่ปรึกษา AI — รับปรึกษาและทำระบบ AI Solution สำหรับธุรกิจไทย</strong> ครอบคลุม LINE Chatbot, RAG Knowledge Base, AI Workforce Agent และ Workflow Automation · เริ่มด้วย AI Opportunity Screening ฟรี 30 นาที ส่วน ROI Assessment Report แบบลงรายละเอียดเริ่ม 60,000 บาท · เลือก model ตามโจทย์และความไวของข้อมูล · ส่งมอบ source code ตามขอบเขตที่ตกลง
+                <strong>บริการให้คำปรึกษา AI Solution ของ Hashbox คือบริการที่ปรึกษา AI สำหรับธุรกิจไทยที่รับตั้งแต่ประเมินโจทย์ คำนวณ ROI ไปจนถึงวางระบบใช้จริงใน production</strong> ครอบคลุม LINE Chatbot, RAG Knowledge Base, AI Workforce Agent และ Workflow Automation · เริ่มด้วย AI Opportunity Screening ฟรี 30 นาที ส่วน ROI Assessment Report แบบลงรายละเอียดเริ่ม 60,000 บาท · เลือก model ตามโจทย์และความไวของข้อมูล · ส่งมอบ source code ตามขอบเขตที่ตกลง
             </p>
         </div>
     </div>
@@ -169,8 +173,9 @@ $cases = array(
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">Services</span>
-            <h2 class="hb-h2">บริการปรึกษาและทำระบบ AI Solution</h2>
+            <h2 class="hb-h2">บริการที่ปรึกษา AI: ผู้ให้บริการโซลูชัน AI ที่รับทำ AI ถึง production</h2>
             <p class="hb-lead" style="margin-top:var(--hb-space-4);">6 บริการหลัก ครอบคลุม use case ที่พบบ่อยที่สุดใน Thai B2B + SMB</p>
+            <p class="hb-body" style="margin-top:var(--hb-space-3);color:var(--hb-text-muted);">ยังอยู่ในขั้นศึกษา? อ่านคู่มือก่อน: <a href="<?php echo esc_url( home_url( '/ai-solution-consulting-guide-2026/' ) ); ?>">ปรึกษาทำระบบ AI Solution — งบ ระยะเวลา และ checklist เลือกผู้ให้บริการ</a> · <a href="<?php echo esc_url( home_url( '/ai-transformation-คือ-2026/' ) ); ?>">AI Transformation คืออะไร</a> · <a href="<?php echo esc_url( home_url( '/รับทำ-ai-tool-prototype-2026/' ) ); ?>">รับทำ AI Tool / Prototype</a> · <a href="<?php echo esc_url( home_url( '/line-chatbot-ai-guide-2026/' ) ); ?>">LINE Chatbot AI</a> · <a href="<?php echo esc_url( home_url( '/ai-agent-rag-chatbot-thailand-2026/' ) ); ?>">AI Agent + RAG</a></p>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--hb-space-4);">
             <?php foreach ( $services_offered as $s ) : ?>
@@ -191,7 +196,7 @@ $cases = array(
         <ul style="margin-top:var(--hb-space-6);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--hb-space-3);list-style:none;padding:0;">
             <?php foreach ( $deliverables as $d ) : ?>
                 <li style="display:flex;gap:var(--hb-space-3);align-items:flex-start;font-size:var(--hb-text-sm);">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--hb-accent-emerald)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--hb-accent-emerald)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
                     <span><?php echo esc_html( $d ); ?></span>
                 </li>
             <?php endforeach; ?>
@@ -320,7 +325,7 @@ $cases = array(
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">Best fit</span>
-            <h2 class="hb-h2">บริการ AI Consulting เหมาะกับใคร</h2>
+            <h2 class="hb-h2">บริการให้คำปรึกษา AI Solution เหมาะกับใคร — ตั้งแต่ AI tool ชิ้นแรกถึง AI Transformation</h2>
         </div>
         <div class="hb-bento">
             <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/line-chatbot-ai-guide-2026/' ) ); ?>" style="text-decoration:none;">
@@ -471,8 +476,9 @@ hashbox_jsonld( array(
     ),
     'termsOfService' => home_url( '/privacy-policy/#terms' ),
     'isRelatedTo' => array(
-        array( '@type' => 'Service', 'name' => 'SEO-Ready Website', 'url' => home_url( '/services/website-development/' ) ),
-        array( '@type' => 'Service', 'name' => 'Digital Marketing Tools', 'url' => home_url( '/services/digital-marketing-tools/' ) ),
+        array( '@type' => 'Service', 'name' => 'รับทำเว็บไซต์ SEO-Ready', 'url' => home_url( '/services/website-development/' ) ),
+        array( '@type' => 'Service', 'name' => 'รับทำ SEO', 'url' => home_url( '/services/seo/' ) ),
+        array( '@type' => 'Service', 'name' => 'รับทำ Workflow Automation (n8n)', 'url' => home_url( '/services/n8n-automation/' ) ),
     ),
 ) );
 

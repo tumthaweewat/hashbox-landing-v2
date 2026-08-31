@@ -386,7 +386,9 @@
   border-right: 1px solid var(--hb-border);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  /* auto-fit gave 3+1 orphan at tablet widths — force 2 columns */
+  .hb-stats__grid { grid-template-columns: repeat(2, 1fr); }
   .hb-stats__grid--divided > .hb-stat { padding-right: 0; border-right: none; }
 }
 

@@ -10,6 +10,15 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+require_once get_template_directory() . '/inc/service-catalog.php';
+
+// No RSS/comment feed links in <head> and no emoji detection script —
+// both showed up as crawled-not-indexed URLs in GSC (2026-08-29).
+remove_action( 'wp_head', 'feed_links', 2 );
+remove_action( 'wp_head', 'feed_links_extra', 3 );
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+
 /**
  * Theme setup
  */
@@ -129,20 +138,28 @@ function hashbox_enqueue_assets() {
     $is_ads_preview   = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
 
     if ( $is_audit_landing || $is_ads_preview ) {
-        $audit_fonts = get_template_directory() . '/css/audit-fonts.css';
-        wp_enqueue_style(
-            'hashbox-audit-v4-fonts',
-            $theme_uri . '/css/audit-fonts.css',
-            array(),
-            file_exists( $audit_fonts ) ? filemtime( $audit_fonts ) : $version
-        );
+        // Inter / Noto Sans Thai are loaded here only for the ad-artwork preview.
+        // Website Audit opts into the same self-hosted Noto definitions below;
+        // the remaining public audit pages keep the brand CI font from the
+        // design-system bundle and avoid the extra @font-face declarations.
+        $audit_deps = array( 'hashbox-ds-composed' );
+        if ( $is_ads_preview ) {
+            $audit_fonts = get_template_directory() . '/css/audit-fonts.css';
+            wp_enqueue_style(
+                'hashbox-audit-v4-fonts',
+                $theme_uri . '/css/audit-fonts.css',
+                array(),
+                file_exists( $audit_fonts ) ? filemtime( $audit_fonts ) : $version
+            );
+            $audit_deps[] = 'hashbox-audit-v4-fonts';
+        }
 
         $audit_css = get_template_directory() . '/css/audit-landing.css';
         if ( file_exists( $audit_css ) ) {
             wp_enqueue_style(
                 'hashbox-audit-landing',
                 $theme_uri . '/css/audit-landing.css',
-                array( 'hashbox-ds-composed', 'hashbox-audit-v4-fonts' ),
+                $audit_deps,
                 filemtime( $audit_css )
             );
         }
@@ -180,6 +197,28 @@ function hashbox_enqueue_assets() {
     }
 
     if ( is_page( 'website-audit' ) ) {
+        $website_audit_fonts_css = get_template_directory() . '/css/audit-fonts.css';
+        $website_audit_cro_deps  = array( 'hashbox-ds-composed' );
+        if ( file_exists( $website_audit_fonts_css ) ) {
+            wp_enqueue_style(
+                'hashbox-website-audit-fonts',
+                $theme_uri . '/css/audit-fonts.css',
+                array( 'hashbox-ds-composed' ),
+                filemtime( $website_audit_fonts_css )
+            );
+            $website_audit_cro_deps[] = 'hashbox-website-audit-fonts';
+        }
+
+        $website_audit_cro_css = get_template_directory() . '/css/website-audit-cro.css';
+        if ( file_exists( $website_audit_cro_css ) ) {
+            wp_enqueue_style(
+                'hashbox-website-audit-cro',
+                $theme_uri . '/css/website-audit-cro.css',
+                $website_audit_cro_deps,
+                filemtime( $website_audit_cro_css )
+            );
+        }
+
         $website_audit_js = get_template_directory() . '/js/website-audit-tracking.js';
         if ( file_exists( $website_audit_js ) ) {
             wp_enqueue_script(
@@ -245,27 +284,39 @@ function hashbox_preload_critical_fonts() {
     $is_audit  = (bool) $landing;
     $is_ai     = is_array( $landing ) && 'ai-workflow-audit' === $landing['slug'];
     $is_ads    = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
+    $is_website_audit = is_page( 'website-audit' );
 
-    $fonts = $is_ai
-        ? array(
-            'noto-sans-thai-thai-400.woff2',
-            'noto-sans-thai-thai-700.woff2',
-            'dm-sans-latin-700.woff2',
-            'ibm-plex-mono-latin-700.woff2',
-        )
-        : ( ( $is_audit || $is_ads )
-        ? array(
+    // The ad-artwork preview and Website Audit use self-hosted Noto Sans Thai;
+    // other public pages keep the brand CI stack.
+    if ( $is_ads ) {
+        $fonts = array(
             'noto-sans-thai-thai-400.woff2',
             'noto-sans-thai-thai-800.woff2',
             'inter-latin-400.woff2',
             'inter-latin-700.woff2',
-        )
-        : array(
+        );
+    } elseif ( $is_website_audit ) {
+        $fonts = array(
+            'noto-sans-thai-thai-400.woff2',
+            'noto-sans-thai-thai-600.woff2',
+            'noto-sans-thai-thai-700.woff2',
+            'noto-sans-thai-latin-400.woff2',
+        );
+    } elseif ( $is_ai ) {
+        $fonts = array(
             'ibm-plex-sans-thai-thai-400.woff2',
             'ibm-plex-sans-thai-thai-700.woff2',
             'ibm-plex-sans-thai-latin-400.woff2',
-            'dm-sans-latin-700.woff2',
-        ) );
+        );
+    } else {
+        $fonts = array(
+            'ibm-plex-sans-thai-thai-400.woff2',
+            'ibm-plex-sans-thai-thai-700.woff2',
+            'ibm-plex-sans-thai-latin-400.woff2',
+            'ibm-plex-sans-thai-latin-700.woff2',
+        );
+    }
+    unset( $is_audit );
 
     foreach ( $fonts as $file ) {
         if ( file_exists( get_template_directory() . '/assets/fonts/' . $file ) ) {
@@ -612,13 +663,11 @@ function portfolio_settings_page() {
 function hashbox_page_is_english() {
     $path = hashbox_current_request_path();
 
-    foreach ( hashbox_hreflang_pairs() as $pair ) {
-        if ( $path === $pair['en'] ) {
-            return true;
-        }
-    }
-
-    return false;
+    // Everything under /en/ is English by design (service pages, listicles,
+    // the /en/ index itself) — a prefix check keeps future EN pages from
+    // silently rendering with Thai nav + lang="th-TH" the way exact-match
+    // against hashbox_hreflang_pairs() did.
+    return 'en' === $path || 0 === strpos( $path, 'en/' );
 }
 
 /**
@@ -674,8 +723,8 @@ function hashbox_rank_math_is_active() {
  */
 function hashbox_get_seo_metadata() {
     $fallback = array(
-        'title'       => 'Hashbox Studio | Website, Marketing และ AI Consulting',
-        'description' => 'Hashbox Studio ช่วยธุรกิจไทยสร้างเว็บไซต์ SEO-Ready, วาง Digital Marketing + CRO และพัฒนา AI Workforce ที่ใช้งานจริง วัดผลผ่าน KPI เดียวกัน',
+        'title'       => 'Hashbox Studio | รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI, รับทำ SEO และ AI Search',
+        'description' => 'Hashbox Studio ช่วยธุรกิจไทยสร้างเว็บไซต์ SEO-Ready, ทำ SEO และ AI Search และวางระบบ AI ที่ใช้งานจริง วัดผลผ่าน KPI เดียวกัน',
     );
 
     $audit_landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
@@ -695,8 +744,8 @@ function hashbox_get_seo_metadata() {
 
     if ( is_front_page() ) {
         return array(
-            'title'       => 'รับทำเว็บไซต์ SEO + AI Consulting | Hashbox Studio',
-            'description' => 'Hashbox Studio รับทำเว็บไซต์ SEO-Ready ติดตั้ง Digital Marketing + CRO และที่ปรึกษา AI สำหรับ SME ไทย พร้อม Lighthouse 100, Core Web Vitals เขียว และผลลัพธ์ใน 60-90 วัน',
+            'title'       => 'รับทำเว็บไซต์ SEO-Ready · ที่ปรึกษา AI · รับทำ SEO | Hashbox Studio',
+            'description' => 'Hashbox Studio รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, AI Search (GEO) และ n8n Automation สำหรับธุรกิจไทย — ราคาเปิดเผย Lighthouse 100, Core Web Vitals เขียว วัดผลจากข้อมูลจริงรายวัน',
         );
     }
 
@@ -744,9 +793,25 @@ function hashbox_get_seo_metadata() {
     // collision returning the Thai metadata.
     $en_path = hashbox_current_request_path();
     $en_meta = array(
+        'en/website-development' => array(
+            'title'       => 'Website Development Company in Bangkok — SEO-Ready, from THB 35,900 | Hashbox',
+            'description' => 'Bangkok web development company building SEO-ready sites: Next.js or WordPress, Lighthouse 95+ guaranteed, green Core Web Vitals, full schema, Thai/English, LINE + PDPA. Landing from THB 35,900, corporate from 80,000, e-commerce from 350,000. Source code handed over.',
+        ),
+        'en/seo' => array(
+            'title'       => 'SEO Agency Bangkok — Technical-first SEO, from THB 29,900 | Hashbox',
+            'description' => 'Technical-first SEO agency in Bangkok: Core Web Vitals, schema, local SEO and AI Search (GEO) with daily rank and AI-citation tracking. From THB 29,900/month with a written "no growth, no pay" guarantee.',
+        ),
+        'en/ai-search' => array(
+            'title'       => 'AI Search Optimization (GEO) Agency in Bangkok | Hashbox',
+            'description' => 'Get cited by Google AI Overviews, ChatGPT, Perplexity and Gemini: AI-specific audit, entity schema + llms.txt, answer-first content, external citations, measured daily with our own AI-visibility tracker. Bangkok, Thailand.',
+        ),
+        'en/ai-consulting-companies-thailand-2026' => array(
+            'title'       => 'AI Consulting Companies in Thailand 2026: 9 Firms Compared | Hashbox',
+            'description' => 'AI consulting companies in Thailand compared on 7 criteria you can verify on each firm\'s own website — public pricing, ROI assessment before build, ships to production, source-code handover, Thai context, named cases, SME entry. Hashbox 7/7, DBot 5/7, Botnoi 4/7.',
+        ),
         'en/ai-consulting' => array(
-            'title'       => 'AI Consulting Bangkok | Production AI for Thai Business',
-            'description' => 'AI consulting company in Bangkok, Thailand — LINE chatbots, Sales GPT, RAG knowledge bases and workflow automation, shipped to production with ROI calculated before we build. From THB 60,000.',
+            'title'       => 'AI Consulting Company in Bangkok, Thailand | Hashbox',
+            'description' => 'AI consulting in Bangkok for Thai and regional businesses: LINE chatbots, Sales GPT, RAG knowledge bases and workflow automation shipped to production. Public pricing from THB 60,000, ROI assessed first, 100% source code handover.',
         ),
     );
     if ( isset( $en_meta[ $en_path ] ) ) {
@@ -758,20 +823,16 @@ function hashbox_get_seo_metadata() {
         $slug = $post instanceof WP_Post ? $post->post_name : '';
         $page_meta = array(
             'services' => array(
-                'title'       => 'บริการทำเว็บไซต์ SEO, CRO และ AI | Hashbox Studio',
-                'description' => 'รวมบริการทำเว็บไซต์ SEO-Ready, Digital Marketing + CRO และ AI Consulting ในทีมเดียว วาง KPI เดียวกัน ตั้งแต่เว็บพร้อมติด Google ไปจนถึงระบบ AI ลดงาน Manual',
+                'title'       => 'บริการรับทำเว็บไซต์ SEO-Ready, รับทำ SEO, AI Search และที่ปรึกษา AI | Hashbox Studio',
+                'description' => 'รวม 5 บริการในทีมเดียว: รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO, รับทำ AI Search (GEO) และ Workflow Automation n8n — ราคาโปร่งใส วัดผลจากข้อมูลจริงรายวัน',
             ),
             'seo-ready-website' => array(
-                'title'       => 'รับทำเว็บไซต์ ออกแบบเว็บไซต์ธุรกิจทุกประเภท พร้อมใช้งานทันที',
-                'description' => 'รับทำเว็บไซต์ครบวงจร ทั้งเว็บไซต์บริษัท เว็บแอปพลิเคชัน และระบบเชื่อมต่อฐานข้อมูล พร้อมวางโครงสร้างเว็บไซต์ให้พร้อมติด Google และ AI Search ตั้งแต่วันแรก',
+                'title'       => 'รับทำเว็บไซต์ SEO-Ready ติด Google และ AI Search | Hashbox',
+                'description' => 'รับทำเว็บไซต์บริษัท E-commerce และ Landing Page แบบ SEO-Ready — Lighthouse 100, Core Web Vitals เขียว, Schema ครบ, รองรับ AI Search ส่งมอบพร้อม source code ราคาเริ่ม 35,900 บาท ประเมินโปรเจกต์ฟรี',
             ),
             'website-development' => array(
-                'title'       => 'รับทำเว็บไซต์ ออกแบบเว็บไซต์ธุรกิจทุกประเภท พร้อมใช้งานทันที',
-                'description' => 'รับทำเว็บไซต์ครบวงจร ทั้งเว็บไซต์บริษัท เว็บแอปพลิเคชัน และระบบเชื่อมต่อฐานข้อมูล พร้อมวางโครงสร้างเว็บไซต์ให้พร้อมติด Google และ AI Search ตั้งแต่วันแรก',
-            ),
-            'digital-marketing-tools' => array(
-                'title'       => 'Digital Marketing Tools + CRO เพิ่ม Conversion | Hashbox',
-                'description' => 'ติดตั้ง GA4, GSC, Server-side GTM, Looker Studio, heatmap และ A/B testing พร้อมรัน CRO Sprint รายเดือนเพื่อเพิ่ม conversion จาก traffic เดิม',
+                'title'       => 'รับทำเว็บไซต์ SEO-Ready ติด Google และ AI Search | Hashbox',
+                'description' => 'รับทำเว็บไซต์บริษัท E-commerce และ Landing Page แบบ SEO-Ready — Lighthouse 100, Core Web Vitals เขียว, Schema ครบ, รองรับ AI Search ส่งมอบพร้อม source code ราคาเริ่ม 35,900 บาท ประเมินโปรเจกต์ฟรี',
             ),
             // Commercial intent only. This page used to lead with "ปรึกษาทำระบบ
             // AI Solution" — the exact phrase /ai-solution-consulting-guide-2026/
@@ -780,9 +841,17 @@ function hashbox_get_seo_metadata() {
             // position 67 on the same Thai queries. The guide answers "how does
             // this work"; this page answers "who do I hire", and the title has
             // to say so. Keep ที่ปรึกษา AI — that is the term buyers search.
+            'ai-search' => array(
+                'title'       => 'รับทำ AI Search (GEO) ให้แบรนด์ถูก AI อ้างอิง | Hashbox',
+                'description' => 'รับทำ AI Search / GEO: audit, entity + Schema + llms.txt, answer-first content, citation ภายนอก วัดผลด้วย AI Visibility, Brand Mentions และ AI Overview citations จากระบบ track ของเราเอง — รวมใน SEO retainer เริ่ม 29,900 บาท/เดือน',
+            ),
+            'guarantee-terms' => array(
+                'title'       => 'เงื่อนไขการันตี "ไม่โต ไม่จ่าย" บริการรับทำ SEO | Hashbox',
+                'description' => 'เงื่อนไขฉบับเต็ม: ชั้น 1 งานเทคนิคผ่านใน 30 วัน ไม่ผ่านแก้ฟรี · ชั้น 2 impressions +50% หรือ Top-20 +5 คำใน 90 วัน ไม่ถึงทำต่อฟรีสูงสุด 3 เดือน · วัดจาก Search Console ของลูกค้า พร้อมนิยาม วิธีนับ ข้อยกเว้น',
+            ),
             'ai-consulting' => array(
-                'title'       => 'ที่ปรึกษา AI สำหรับธุรกิจ | รับวางระบบ AI ถึง Production | Hashbox',
-                'description' => 'จ้างที่ปรึกษา AI ที่ส่งงานถึง production จริง — LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Agent สำหรับธุรกิจไทย · คุยประเมินโอกาสฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท',
+                'title'       => 'ที่ปรึกษา AI สำหรับธุรกิจ · บริการให้คำปรึกษา AI Solution | Hashbox',
+                'description' => 'บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทย — ที่ปรึกษา AI ที่ส่งงานถึง production: LINE Chatbot, RAG Knowledge Base, AI Agent, Workflow Automation · คุยประเมินโอกาสฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท',
             ),
             'work' => array(
                 'title'       => 'Case Studies SEO, CRO, AI ที่วัดผลได้ | Hashbox',
@@ -795,6 +864,10 @@ function hashbox_get_seo_metadata() {
             'portfolio' => array(
                 'title'       => 'Portfolio งาน Web, Mobile และ Digital | Hashbox Studio',
                 'description' => 'รวมผลงาน web design, mobile app, e-commerce และ digital product จากทีม Hashbox Studio ครอบคลุม Banking, Real Estate, E-commerce และ AI',
+            ),
+            'geo-checker' => array(
+                'title'       => 'GEO Readiness Checker — เว็บพร้อมถูก AI อ้างอิงไหม | Hashbox',
+                'description' => 'เครื่องมือฟรี ใส่ URL แล้วรู้คะแนน 0-100 ว่าหน้าเว็บพร้อมถูก ChatGPT, Perplexity และ Google AI Overviews อ้างอิงแค่ไหน พร้อมคำแนะนำที่ลงมือทำได้ทันที',
             ),
         );
 
@@ -824,8 +897,23 @@ function hashbox_get_seo_metadata() {
      */
     if ( 'services/seo' === hashbox_current_request_path() ) {
         return array(
-            'title'       => 'รับทำ SEO สายเทคนิค วัดผลด้วยข้อมูลรายวัน | Hashbox',
-            'description' => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
+            'title'       => 'รับทำ SEO สายเทคนิค ติดหน้าแรก Google และ AI Search | Hashbox',
+            'description' => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 29,900 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
+        );
+    }
+
+    /*
+     * /services/n8n-automation/ — same three-place rule as /services/seo/ above:
+     * this map feeds og/twitter description and WebPage.description, which have
+     * no rank_math row check. Keep byte-identical to $desc in
+     * page-n8n-automation.php and to the sync target below.
+     *
+     * ราคาที่นี่เป็น **ต่อโปรเจกต์** ไม่ใช่รายเดือนเหมือน /services/seo/
+     */
+    if ( 'services/n8n-automation' === hashbox_current_request_path() ) {
+        return array(
+            'title'       => 'รับทำ n8n Automation วางระบบให้จบเป็นโปรเจกต์ | Hashbox',
+            'description' => 'รับทำ n8n automation เริ่มต้น 29,000 บาท — วางระบบอัตโนมัติให้จบเป็นโปรเจกต์ พร้อมส่งมอบ workflow ที่แก้เองต่อได้ ไม่ผูกขาดกับเรา',
         );
     }
 
@@ -888,7 +976,7 @@ function hashbox_get_seo_metadata() {
     if ( is_404() ) {
         return array(
             'title'       => 'ไม่พบหน้าที่ต้องการ | Hashbox Studio',
-            'description' => 'หน้าที่คุณเปิดอาจถูกย้ายหรือลบแล้ว กลับไปที่ Hashbox Studio เพื่อดูบริการรับทำเว็บไซต์ SEO, Digital Marketing + CRO และ AI Consulting',
+            'description' => 'หน้าที่คุณเปิดอาจถูกย้ายหรือลบแล้ว กลับไปที่ Hashbox Studio เพื่อดูบริการรับทำเว็บไซต์ SEO-Ready, รับทำ SEO, AI Search และที่ปรึกษา AI',
         );
     }
 
@@ -959,7 +1047,7 @@ function hashbox_sync_new_service_pages_rankmath_meta() {
             'path'  => 'services/seo',
             'title' => 'รับทำ SEO สายเทคนิค วัดผลด้วยข้อมูลรายวัน | Hashbox',
             // Keep in sync with $desc in page-seo-service.php.
-            'desc'  => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 25,000 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
+            'desc'  => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 29,900 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
         ),
         array(
             'path'  => 'services/website-development/wordpress',
@@ -995,6 +1083,38 @@ function hashbox_sync_new_service_pages_rankmath_meta() {
 }
 add_action( 'wp', 'hashbox_sync_new_service_pages_rankmath_meta', 1 );
 
+/**
+ * Rank Math meta sync for /services/n8n-automation/ (2026-08-24).
+ *
+ * แยกจาก hashbox_sync_new_service_pages_rankmath_meta() โดยเจตนา ไม่ใช่เพิ่ม
+ * เข้า $targets ของตัวนั้น: ฟังก์ชันนั้นเก็บ option ก็ต่อเมื่อ **ทุก** target
+ * มีอยู่จริง ถ้าเอาหน้าที่ยังไม่ได้สร้างใน WP ไปใส่ $done จะเป็น false ตลอด
+ * แล้ว update_post_meta() ของอีกสามหน้าจะถูกยิงซ้ำทุก request จนกว่าจะมีคน
+ * สร้างหน้า — เขียน DB ฟรีๆ บนเว็บ production
+ *
+ * ตัวนี้แตะหน้าเดียว: ก่อนหน้าจะถูกสร้าง มันเสีย get_page_by_path() หนึ่งครั้ง
+ * ต่อ request และ **ไม่เขียนอะไรเลย** พอสร้างหน้าแล้วมันซิงก์ให้เองรอบถัดไป
+ */
+function hashbox_sync_n8n_service_rankmath_meta() {
+    $sync_key = '20260824_n8n_automation_rankmath_meta_v1';
+    if ( $sync_key === get_option( 'hashbox_n8n_service_rankmath_meta_version' ) ) {
+        return;
+    }
+
+    $page = get_page_by_path( 'services/n8n-automation', OBJECT, 'page' );
+    if ( ! $page ) {
+        return; // ยังไม่ได้สร้างหน้าใน WP — ไม่ใช่ error รอบหน้าค่อยลองใหม่
+    }
+
+    // Keep in sync with $desc in page-n8n-automation.php and the meta map entry.
+    update_post_meta( $page->ID, 'rank_math_title', 'รับทำ n8n Automation วางระบบให้จบเป็นโปรเจกต์ | Hashbox' );
+    update_post_meta( $page->ID, 'rank_math_description', 'รับทำ n8n automation เริ่มต้น 29,000 บาท — วางระบบอัตโนมัติให้จบเป็นโปรเจกต์ พร้อมส่งมอบ workflow ที่แก้เองต่อได้ ไม่ผูกขาดกับเรา' );
+    clean_post_cache( $page->ID );
+
+    update_option( 'hashbox_n8n_service_rankmath_meta_version', $sync_key, false );
+}
+add_action( 'wp', 'hashbox_sync_n8n_service_rankmath_meta', 1 );
+
 /*
  * No sync for /services/ai-consulting/ on purpose (2026-08-17).
  *
@@ -1018,6 +1138,18 @@ function hashbox_default_og_image_url() {
         return get_template_directory_uri() . '/screenshot.jpg';
     }
     return get_template_directory_uri() . '/assets/favicons/apple-touch-icon.png';
+}
+
+/**
+ * Real square brand logo for schema Organization.logo (Google logo
+ * guidance prefers a near-square logo, not the 1200x630 OG banner).
+ * Falls back to the OG image only if the logo asset is missing.
+ */
+function hashbox_logo_image_url() {
+    if ( file_exists( get_template_directory() . '/assets/favicons/icon-512.png' ) ) {
+        return get_template_directory_uri() . '/assets/favicons/icon-512.png';
+    }
+    return hashbox_default_og_image_url();
 }
 
 /**
@@ -1104,10 +1236,10 @@ function hashbox_current_public_url() {
         return get_permalink();
     }
     if ( is_category() ) {
-        return get_category_link( get_queried_object_id() );
+        return is_paged() ? get_pagenum_link( get_query_var( 'paged' ) ) : get_category_link( get_queried_object_id() );
     }
     if ( is_tag() ) {
-        return get_tag_link( get_queried_object_id() );
+        return is_paged() ? get_pagenum_link( get_query_var( 'paged' ) ) : get_tag_link( get_queried_object_id() );
     }
     if ( is_search() ) {
         return get_search_link();
@@ -1148,6 +1280,7 @@ function hashbox_homepage_meta_description() {
     echo '<meta property="og:description" content="' . esc_attr( $desc ) . '">' . "\n";
     echo '<meta property="og:url" content="' . esc_url( $url ) . '">' . "\n";
     echo '<meta property="og:image" content="' . esc_url( $image ) . '">' . "\n";
+    echo '<meta property="og:image:alt" content="' . esc_attr( $title ) . '">' . "\n";
     list( $img_w, $img_h ) = hashbox_og_image_dimensions( $image );
     if ( $img_w > 0 && $img_h > 0 ) {
         echo '<meta property="og:image:width" content="' . (int) $img_w . '">' . "\n";
@@ -1181,6 +1314,27 @@ function hashbox_seo_noindex_meta() {
     }
 }
 add_action( 'wp_head', 'hashbox_seo_noindex_meta', 1 );
+
+/**
+ * Rank Math delegates noindex to per-page settings, which are easy to forget.
+ * Force noindex on the password-gated portfolio template (and, defensively, on
+ * internal search + paginated archives) so a thin/gated page can't slip into
+ * the index when Rank Math is active. This filter only fires while Rank Math is
+ * active, complementing hashbox_seo_noindex_meta() which runs when it is not —
+ * so exactly one robots directive is emitted, never a duplicate.
+ */
+function hashbox_rankmath_force_noindex( $robots ) {
+    $should_noindex = is_search()
+        || is_page_template( 'page-portfolio.php' )
+        || ( is_paged() && ( is_category() || is_tag() || is_author() || is_date() ) );
+
+    if ( $should_noindex ) {
+        $robots['index']  = 'noindex';
+        $robots['follow'] = 'follow';
+    }
+    return $robots;
+}
+add_filter( 'rank_math/frontend/robots', 'hashbox_rankmath_force_noindex' );
 
 /**
  * Preload the LCP image so it starts downloading during HTML parse
@@ -1227,6 +1381,18 @@ function hashbox_hreflang_pairs() {
         array(
             'th' => 'services/ai-consulting',
             'en' => 'en/ai-consulting',
+        ),
+        array(
+            'th' => 'services/seo',
+            'en' => 'en/seo',
+        ),
+        array(
+            'th' => 'services/ai-search',
+            'en' => 'en/ai-search',
+        ),
+        array(
+            'th' => 'services/website-development',
+            'en' => 'en/website-development',
         ),
     );
 }
@@ -1596,9 +1762,9 @@ function hashbox_audit_landing_pages() {
             'slug'             => 'seo-audit',
             'service_label'    => 'SEO-Ready Website',
             'service_interest' => 'SEO-Ready Website',
-            'meta_title'       => 'SEO Audit ฟรีสำหรับเว็บใหม่ | Hashbox Studio',
-            'meta_description' => 'ตรวจแผนทำเว็บใหม่ให้พร้อมติด Google ตั้งแต่วันแรก ครอบคลุม Technical SEO, Core Web Vitals, Schema, GA4 และ GSC',
-            'hero_headline'    => 'ทำเว็บใหม่ให้พร้อมติด Google',
+            'meta_title'       => 'รับทำ SEO Audit ฟรี — Technical SEO Audit สำหรับเว็บใหม่ | Hashbox',
+            'meta_description' => 'รับทำ SEO Audit ฟรี: ตรวจแผนทำเว็บใหม่ให้พร้อมติด Google และ AI Search ตั้งแต่วันแรก ครอบคลุม Technical SEO, Core Web Vitals, Schema, GA4 และ GSC รายงาน 15–20 หน้าใน 3 วันทำการ',
+            'hero_headline'    => 'รับทำ SEO Audit ฟรี — ทำเว็บใหม่ให้พร้อมติด Google',
             'hero_subcopy'     => 'วาง Technical SEO, Core Web Vitals, Schema และ GA4/GSC ตั้งแต่วันแรก เพื่อให้เว็บใหม่ไม่เสียโอกาส organic traffic หลัง deploy',
             'primary_cta'      => 'ขอ SEO Audit ฟรี',
             'proof_line'       => '100 Lighthouse Score และ Core Web Vitals เขียวทุก URL ก่อน Deploy',
@@ -1640,9 +1806,9 @@ function hashbox_audit_landing_pages() {
             'slug'             => 'seo-recovery-audit',
             'service_label'    => 'Technical SEO',
             'service_interest' => 'SEO-Ready Website',
-            'meta_title'       => 'SEO Recovery Audit ฟรี | Hashbox Studio',
-            'meta_description' => 'Traffic ตกหรือ organic ไม่โต ให้ทีมตรวจ Core Web Vitals, indexation, schema, backlinks และ competitor gap พร้อม recovery roadmap',
-            'hero_headline'    => 'Traffic ตก? ให้ทีมตรวจระบบ SEO',
+            'meta_title'       => 'รับทำ Technical SEO Audit ฟรี — SEO Recovery สำหรับเว็บที่ Traffic ตก | Hashbox',
+            'meta_description' => 'รับทำ Technical SEO Audit ฟรี: Traffic ตกหรือ organic ไม่โต ให้ทีมตรวจ Core Web Vitals, indexation, schema, backlinks และ competitor gap พร้อม recovery roadmap ที่บอกว่าควรแก้อะไรก่อน',
+            'hero_headline'    => 'Technical SEO Audit ฟรี — Traffic ตก? ให้ทีมตรวจระบบ SEO',
             'hero_subcopy'     => 'เช็ก CWV, Indexation, Schema, Backlinks และ Competitor Gap พร้อม roadmap ที่บอกว่าควรแก้ technical หรือ content ก่อน',
             'primary_cta'      => 'รับ Audit ฟรี',
             'proof_line'       => '+2,200% Impressions จาก Technical SEO + Content Recovery',
@@ -1683,7 +1849,7 @@ function hashbox_audit_landing_pages() {
         'cro-funnel-audit' => array(
             'slug'             => 'cro-funnel-audit',
             'service_label'    => 'CRO Sprint',
-            'service_interest' => 'Digital Marketing + CRO',
+            'service_interest' => 'รับทำ SEO + CRO',
             'meta_title'       => 'CRO Funnel Audit ฟรี | Hashbox Studio',
             'meta_description' => 'มี traffic แต่ lead ไม่มา ตรวจ funnel ด้วย GA4, GSC, heatmap และ A/B test plan เพื่อเพิ่ม conversion จาก traffic เดิม',
             'hero_headline'    => 'มี Traffic แต่ Lead ไม่มา?',
@@ -1727,7 +1893,7 @@ function hashbox_audit_landing_pages() {
         'growth-audit' => array(
             'slug'             => 'growth-audit',
             'service_label'    => 'Web + Marketing + AI',
-            'service_interest' => 'Bundle ทั้ง 3 บริการ',
+            'service_interest' => 'Bundle Web + SEO + AI',
             'meta_title'       => 'Growth Audit ฟรี | Hashbox Studio',
             'meta_description' => 'ทีมเดียวดูครบ Web, Ads, SEO และ AI ลดปัญหาแยกหลายเอเจนซี พร้อม audit funnel ทั้ง customer journey',
             'hero_headline'    => 'ทีมเดียวดูครบ Web, Ads, SEO และ AI',
@@ -2097,8 +2263,11 @@ function hashbox_redirect_legacy_ai_guides() {
     }
 
     $redirects = array(
-        'line-chatbot-ai-thailand' => '/line-chatbot-ai-guide-2026/',
-        'ai-workforce-thai-sme'    => '/ai-workforce-sme-thailand-2026/',
+        'line-chatbot-ai-thailand'             => '/line-chatbot-ai-guide-2026/',
+        'ai-workforce-thai-sme'                => '/ai-workforce-sme-thailand-2026/',
+        // EN listicle moved from a root post to a page under /en/ (2026-08-31)
+        // so every English URL lives in the /en/ tree. Old URL was never indexed.
+        'ai-consulting-companies-thailand-2026' => '/en/ai-consulting-companies-thailand-2026/',
     );
     $path      = hashbox_current_request_path();
 
@@ -2110,6 +2279,72 @@ function hashbox_redirect_legacy_ai_guides() {
     exit;
 }
 add_action( 'template_redirect', 'hashbox_redirect_legacy_ai_guides', 2 );
+
+/**
+ * Digital Marketing + CRO was folded into the SEO service (2026-08-28).
+ * 301 the old page to the CRO section of /services/seo/ and keep it out of
+ * the sitemap even if the WP Page is still published.
+ */
+function hashbox_redirect_legacy_digital_marketing() {
+    if ( is_admin() || wp_doing_ajax() || is_preview() ) {
+        return;
+    }
+    $path = hashbox_current_request_path();
+    if ( 'services/digital-marketing-tools' !== $path && 0 !== strpos( $path, 'services/digital-marketing-tools/' ) ) {
+        return;
+    }
+    wp_safe_redirect( home_url( '/services/seo/#cro' ), 301 );
+    exit;
+}
+add_action( 'template_redirect', 'hashbox_redirect_legacy_digital_marketing', 2 );
+
+function hashbox_rankmath_sitemap_exclude_legacy( $url, $type, $object ) {
+    if ( 'post' === $type && isset( $object->post_name ) && 'digital-marketing-tools' === $object->post_name ) {
+        return false;
+    }
+    return $url;
+}
+add_filter( 'rank_math/sitemap/entry', 'hashbox_rankmath_sitemap_exclude_legacy', 10, 3 );
+
+/**
+ * The audit landings (/seo-audit/, /seo-recovery-audit/, …) are virtual
+ * routes, not WP Pages, so Rank Math never lists them. Add a small
+ * `landing-sitemap.xml` to the index for every landing that is public.
+ */
+function hashbox_landing_sitemap_entries() {
+    if ( ! function_exists( 'hashbox_audit_landing_pages' ) ) {
+        return array();
+    }
+    $entries = array();
+    $lastmod = gmdate( 'c', (int) filemtime( get_template_directory() . '/page-audit-landing.php' ) );
+    $skip    = array( 'ads-preview' );
+    foreach ( hashbox_audit_landing_pages() as $slug => $landing ) {
+        if ( empty( $slug ) || in_array( $slug, $skip, true ) || ! empty( $landing['noindex'] ) ) {
+            continue;
+        }
+        $entries[] = array( 'loc' => home_url( '/' . $slug . '/' ), 'lastmod' => $lastmod );
+    }
+    return $entries;
+}
+
+function hashbox_rankmath_sitemap_index_landing( $xml ) {
+    $entries = hashbox_landing_sitemap_entries();
+    if ( empty( $entries ) ) {
+        return $xml;
+    }
+    $xml .= '<sitemap><loc>' . esc_url( home_url( '/landing-sitemap.xml' ) ) . '</loc><lastmod>' . esc_html( $entries[0]['lastmod'] ) . '</lastmod></sitemap>';
+    return $xml;
+}
+add_filter( 'rank_math/sitemap/index', 'hashbox_rankmath_sitemap_index_landing' );
+
+function hashbox_rankmath_sitemap_landing_content() {
+    $out = '';
+    foreach ( hashbox_landing_sitemap_entries() as $e ) {
+        $out .= '<url><loc>' . esc_url( $e['loc'] ) . '</loc><lastmod>' . esc_html( $e['lastmod'] ) . '</lastmod></url>';
+    }
+    return $out;
+}
+add_filter( 'rank_math/sitemap/landing_content', 'hashbox_rankmath_sitemap_landing_content' );
 
 function hashbox_case_study_redirect_canonical( $redirect_url, $requested_url ) {
     $requested_path = trim( (string) wp_parse_url( $requested_url, PHP_URL_PATH ), '/' );
@@ -2217,21 +2452,99 @@ function hashbox_schema_entity_has_type( $entity, $needle_types ) {
     return false;
 }
 
+/**
+ * แพ็กภาพคำแบรนด์ — ทำไมต้องมี (วัดจริง 2026-08-25 จากระบบติดตามอันดับของเราเอง)
+ *
+ * Google Images ของคำค้น "hashbox" เป็นของคนอื่นทั้งหมด: us.hashbox.monster 45% ·
+ * amazon.de 23% · play.google.com 17% — เราถือ 0% ทั้งที่ติดอันดับ 1 organic
+ * เดิม Organization schema ประกาศ logo เป็น URL เปล่าและไม่มี image เลย Google จึงไม่มี
+ * ภาพที่ผูกกับ entity ของเราให้หยิบ ตอนนี้ logo/image เป็น ImageObject พร้อม caption
+ * ที่มีคำว่า Hashbox ทุกภาพ (ที่มา: hashbox-seo-stack docs/NEXT.md ข้อ 7 · v_media_owners)
+ */
+function hashbox_brand_image_object( $url, $width, $height, $caption ) {
+    return array(
+        '@type'      => 'ImageObject',
+        'url'        => $url,
+        'contentUrl' => $url,
+        'width'      => (int) $width,
+        'height'     => (int) $height,
+        'caption'    => $caption,
+        'name'       => $caption,
+    );
+}
+
+function hashbox_brand_logo_object() {
+    // Google's logo guidance prefers a near-square image; use the real
+    // 512x512 mark when shipped and fall back to the OG banner otherwise.
+    // Shared by the Rank Math path and the no-Rank-Math fallback graph.
+    $logo_path = get_template_directory() . '/assets/favicons/icon-512.png';
+    if ( file_exists( $logo_path ) ) {
+        $size = @getimagesize( $logo_path );
+        $w    = ( $size && isset( $size[0] ) ) ? (int) $size[0] : 512;
+        $h    = ( $size && isset( $size[1] ) ) ? (int) $size[1] : 512;
+        return hashbox_brand_image_object( hashbox_logo_image_url(), $w, $h, 'โลโก้ Hashbox Studio' );
+    }
+    list( $w, $h ) = hashbox_default_og_image_dimensions();
+    return hashbox_brand_image_object( hashbox_default_og_image_url(), $w, $h, 'โลโก้ Hashbox Studio' );
+}
+
+function hashbox_brand_images() {
+    list( $w, $h ) = hashbox_default_og_image_dimensions();
+    $images = array(
+        hashbox_brand_image_object(
+            hashbox_default_og_image_url(), $w, $h,
+            'Hashbox Studio — รับทำเว็บไซต์ SEO-Ready และที่ปรึกษา AI สำหรับธุรกิจไทย'
+        ),
+    );
+    // ครีเอทีฟชุดเดียวกับที่หน้าแรกแสดงอยู่แล้ว (alt มีคำว่า Hashbox) — ไม่เพิ่มไฟล์ใหม่
+    foreach ( array(
+        array( 'linkedin_wide_seo_ready_v4.png',   1200, 1200, 627,  'Hashbox SEO-Ready Website — บริการรับทำเว็บไซต์ของ Hashbox Studio' ),
+        array( 'meta_square_ai_workforce_v4.png',  1080, 1080, 1080, 'Hashbox AI Workforce Audit — บริการที่ปรึกษา AI ของ Hashbox Studio' ),
+    ) as $ad ) {
+        $images[] = hashbox_brand_image_object( hashbox_ad_webp_uri( $ad[0], $ad[1] ), $ad[2], $ad[3], $ad[4] );
+    }
+    return $images;
+}
+
+/**
+ * Every public profile of the same entity. Add new directory/social URLs
+ * here only once they resolve — a dead sameAs hurts entity consolidation.
+ */
+function hashbox_organization_same_as() {
+    return array(
+        'https://www.linkedin.com/company/hashbox-studio',
+        'https://www.facebook.com/profile.php?id=61590390615650',
+        'https://www.instagram.com/hashbox.studio/',
+        'https://github.com/tumthaweewat',
+        'https://lin.ee/Xagx6i4',
+        'https://clutch.co/profile/hashbox-studio',
+        'https://www.f6s.com/hashbox-studio',
+        // Google Business Profile (Maps place, KG /g/11z8h8p_m7) — 2026-08-29
+        'https://www.google.com/maps?cid=18343802282355714646',
+    );
+}
+
 function hashbox_rankmath_schema_organization() {
     $home = home_url( '/' );
     return array(
         '@type' => 'Organization',
         '@id'   => $home . '#organization',
         'name'  => 'Hashbox Studio',
+        'alternateName' => array( 'Hashbox', 'แฮชบ็อกซ์ สตูดิโอ', 'Hashbox Studio Bangkok' ),
+        'legalName' => 'Hashbox Studio',
         'url'   => $home,
-        'logo'  => hashbox_default_og_image_url(),
-        'sameAs' => array(
-            'https://www.linkedin.com/company/hashbox-studio',
-            'https://www.facebook.com/profile.php?id=61590390615650',
-            'https://www.instagram.com/hashbox.studio/',
-            'https://github.com/tumthaweewat',
-            'https://lin.ee/Xagx6i4',
+        'logo'  => hashbox_brand_logo_object(),
+        'image' => hashbox_brand_images(),
+        'foundingDate' => '2024',
+        'foundingLocation' => array( '@type' => 'Place', 'name' => 'Bangkok, Thailand' ),
+        'founder' => array(
+            '@type'  => 'Person',
+            'name'   => 'Thaweewat (Tum)',
+            'url'    => home_url( '/about/' ),
+            'sameAs' => array( 'https://www.linkedin.com/in/tumthaweewat/', 'https://github.com/tumthaweewat' ),
         ),
+        'slogan' => 'เว็บไซต์ SEO-Ready และระบบ AI ที่ใช้งานจริงใน production',
+        'sameAs' => hashbox_organization_same_as(),
         'contactPoint' => array(
             '@type'             => 'ContactPoint',
             'telephone'         => '+66-62-516-9868',
@@ -2257,6 +2570,10 @@ function hashbox_rankmath_schema_organization() {
             'Next.js',
             'WordPress',
             'AI Consulting',
+            'LINE Chatbot',
+            'Retrieval-Augmented Generation',
+            'n8n Workflow Automation',
+            'Local SEO',
             'CRO',
         ),
         'potentialAction' => array(
@@ -2296,121 +2613,21 @@ function hashbox_rankmath_schema_website() {
     );
 }
 
-/**
- * Service catalogue with the prices already published on /services/.
- *
- * The visible pages state a starting price for every service, but nothing
- * expressed those figures in a machine-readable form, so the only pricing
- * signal in our schema was priceRange "฿฿฿". Price is one of the facts AI
- * Overviews quote most often on commercial queries, which makes that a real
- * gap rather than a cosmetic one.
- *
- * Keep these in step with page-services.php — it is the page a reader checks
- * against, and a schema price that contradicts the visible one is worse than
- * no schema price at all. Every figure here excludes VAT, matching what the
- * service pages say.
- */
-function hashbox_service_offer_catalog() {
-    $home = home_url( '/' );
-
-    // Minimum published price per service. Ranges use minPrice/maxPrice;
-    // recurring services carry the billing period so "per month" survives
-    // into the structured data instead of living only in the visible copy.
-    $services = array(
-        array(
-            'name'        => 'SEO-Ready Website Build',
-            'description' => 'Production-ready websites that pass Lighthouse 100, green Core Web Vitals, complete schema, and rank within 60-90 days.',
-            'url'         => $home . 'services/website-development/',
-            'price'       => 80000,
-        ),
-        array(
-            'name'        => 'Digital Marketing Tools + CRO',
-            'description' => 'GA4, GSC, Looker Studio, heatmaps, A/B testing, and monthly CRO sprints to compound conversion. Setup from 80,000 THB, then a monthly retainer.',
-            'url'         => $home . 'services/digital-marketing-tools/',
-            'min'         => 50000,
-            'max'         => 150000,
-            'period'      => 'MON',
-        ),
-        array(
-            'name'        => 'AI Expert Consulting',
-            'description' => 'LINE bot, sales GPT, RAG knowledge base, and workflow automation that ships to production.',
-            'url'         => $home . 'services/ai-consulting/',
-            'price'       => 60000,
-        ),
-        array(
-            'name'        => 'SEO Retainer',
-            'description' => 'Technical-first SEO: audit, Core Web Vitals, schema, on-page and GEO work for AI Overview citation, with daily rank tracking.',
-            'url'         => $home . 'services/seo/',
-            'price'       => 25000,
-            'period'      => 'MON',
-        ),
-    );
-
-    $offers = array();
-    foreach ( $services as $service ) {
-        $spec = array(
-            '@type'                 => isset( $service['period'] ) ? 'UnitPriceSpecification' : 'PriceSpecification',
-            'priceCurrency'         => 'THB',
-            'valueAddedTaxIncluded' => false,
-        );
-
-        if ( isset( $service['min'] ) ) {
-            $spec['minPrice'] = $service['min'];
-            $spec['maxPrice'] = $service['max'];
-        } else {
-            $spec['price'] = $service['price'];
-        }
-
-        if ( isset( $service['period'] ) ) {
-            $spec['billingIncrement']  = 1;
-            $spec['unitCode']          = $service['period'];
-            $spec['referenceQuantity'] = array(
-                '@type'    => 'QuantitativeValue',
-                'value'    => 1,
-                'unitCode' => $service['period'],
-            );
-        }
-
-        $offers[] = array(
-            '@type'            => 'Offer',
-            'url'              => $service['url'],
-            'availability'     => 'https://schema.org/InStock',
-            'areaServed'       => 'TH',
-            'priceCurrency'    => 'THB',
-            'priceSpecification' => $spec,
-            'itemOffered'      => array(
-                '@type'       => 'Service',
-                'name'        => $service['name'],
-                'description' => $service['description'],
-                'url'         => $service['url'],
-                'provider'    => array( '@id' => $home . '#organization' ),
-                'areaServed'  => 'Thailand',
-            ),
-        );
-    }
-
-    return array(
-        '@type'           => 'OfferCatalog',
-        'name'            => 'Services',
-        'itemListElement' => $offers,
-    );
-}
-
 function hashbox_rankmath_schema_service() {
     $home = home_url( '/' );
     return array(
         '@type'              => array( 'ProfessionalService', 'LocalBusiness' ),
         '@id'                => $home . '#service',
         'name'               => 'Hashbox Studio',
-        'description'        => 'SEO-ready website builds, digital marketing tools, CRO, and AI consulting for Thai SMEs.',
+        'description'        => 'SEO-ready website development, technical-first SEO, AI Search (GEO) optimisation, AI consulting and n8n workflow automation for Thai businesses.',
+        'sameAs'             => hashbox_organization_same_as(),
         'url'                => $home,
-        'image'              => hashbox_default_og_image_url(),
+        'image'              => hashbox_brand_logo_object(),
         'telephone'          => '+66-62-516-9868',
         'email'              => 'business@hashbox.co.th',
         'priceRange'         => '฿฿฿',
         'areaServed'         => 'Thailand',
         'parentOrganization' => array( '@id' => $home . '#organization' ),
-        'hasOfferCatalog'    => hashbox_service_offer_catalog(),
         'address' => array(
             '@type'           => 'PostalAddress',
             'streetAddress'   => '139 Pan Rd, Si Lom',
@@ -2424,12 +2641,14 @@ function hashbox_rankmath_schema_service() {
             'latitude'  => 13.7263,
             'longitude' => 100.5270,
         ),
+        'hasMap'             => 'https://www.google.com/maps?cid=18343802282355714646',
         'openingHoursSpecification' => array(
             '@type'     => 'OpeningHoursSpecification',
             'dayOfWeek' => array( 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ),
             'opens'     => '09:00',
             'closes'    => '18:00',
         ),
+        'hasOfferCatalog' => hashbox_service_offer_catalog(),
     );
 }
 
@@ -2441,12 +2660,25 @@ function hashbox_rankmath_json_ld( $data, $jsonld = null ) {
     $home        = home_url( '/' );
     $current_url = hashbox_current_public_url();
     $description = hashbox_get_meta_description();
-    $has_org     = false;
-    $has_website = false;
-    $has_service = false;
+    $has_org       = false;
+    $has_website   = false;
+    $has_service   = false;
+    $is_case_study = (bool) hashbox_current_case_study_slug();
 
     foreach ( $data as $key => $entity ) {
         if ( ! is_array( $entity ) ) {
+            continue;
+        }
+
+        // Case-study pages emit their own Article + BreadcrumbList (see
+        // hashbox_render_case_study), so drop Rank Math's BreadcrumbList to
+        // avoid two BreadcrumbList graphs describing the same page.
+        if ( hashbox_schema_entity_has_type( $entity, 'BreadcrumbList' ) ) {
+            $GLOBALS['hashbox_rm_has_breadcrumb'] = true;
+        }
+
+        if ( $is_case_study && hashbox_schema_entity_has_type( $entity, 'BreadcrumbList' ) ) {
+            unset( $data[ $key ] );
             continue;
         }
 
@@ -2585,91 +2817,16 @@ function hashbox_inject_home_schema() {
         return;
     }
 
-    $home   = home_url( '/' );
-    $logo   = get_template_directory_uri() . '/assets/favicons/apple-touch-icon.png';
-
+    // Single source of truth: the same Organization / ProfessionalService /
+    // WebSite builders that feed the Rank Math graph. Keeping one builder
+    // per entity means sameAs, logo, offers, etc. can no longer drift between
+    // the Rank Math path (production) and this fallback.
     hashbox_jsonld( array(
         '@context' => 'https://schema.org',
         '@graph'   => array(
-            array(
-                '@type' => 'Organization',
-                '@id'   => $home . '#organization',
-                'name'  => 'Hashbox Studio',
-                'url'   => $home,
-                'logo'  => $logo,
-                'sameAs' => array(
-                    'https://www.linkedin.com/company/hashbox-studio',
-                    'https://www.facebook.com/profile.php?id=61590390615650',
-                    'https://www.instagram.com/hashbox.studio/',
-                ),
-                'contactPoint' => array(
-                    '@type'             => 'ContactPoint',
-                    'telephone'         => '+66-62-516-9868',
-                    'email'             => 'business@hashbox.co.th',
-                    'contactType'       => 'sales',
-                    'areaServed'        => 'TH',
-                    'availableLanguage' => array( 'th', 'en' ),
-                ),
-                'address' => array(
-                    '@type'           => 'PostalAddress',
-                    'streetAddress'   => '139 Pan Rd, Si Lom',
-                    'addressLocality' => 'Bang Rak',
-                    'addressRegion'   => 'Bangkok',
-                    'postalCode'      => '10500',
-                    'addressCountry'  => 'TH',
-                ),
-            ),
-            array(
-                '@type'              => array( 'ProfessionalService', 'LocalBusiness' ),
-                '@id'                => $home . '#service',
-                'name'               => 'Hashbox Studio',
-                'description'        => 'SEO-ready website builds, digital marketing tools, CRO, and AI consulting for Thai SMEs.',
-                'url'                => $home,
-                'image'              => $logo,
-                'telephone'          => '+66-62-516-9868',
-                'email'              => 'business@hashbox.co.th',
-                'priceRange'         => '฿฿฿',
-                'areaServed'         => 'Thailand',
-                'parentOrganization' => array( '@id' => $home . '#organization' ),
-                'address' => array(
-                    '@type'           => 'PostalAddress',
-                    'streetAddress'   => '139 Pan Rd, Si Lom',
-                    'addressLocality' => 'Bang Rak',
-                    'addressRegion'   => 'Bangkok',
-                    'postalCode'      => '10500',
-                    'addressCountry'  => 'TH',
-                ),
-                'geo' => array(
-                    '@type'     => 'GeoCoordinates',
-                    'latitude'  => 13.7263,
-                    'longitude' => 100.5270,
-                ),
-                'openingHoursSpecification' => array(
-                    '@type'     => 'OpeningHoursSpecification',
-                    'dayOfWeek' => array( 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ),
-                    'opens'     => '09:00',
-                    'closes'    => '18:00',
-                ),
-                'hasOfferCatalog'    => hashbox_service_offer_catalog(),
-            ),
-            array(
-                '@type'      => 'WebSite',
-                '@id'        => $home . '#website',
-                'url'        => $home,
-                'name'       => 'Hashbox Studio',
-                // Site node — see hashbox_rankmath_schema_website(): stays Thai
-                // on every URL because it describes the site, not the page.
-                'inLanguage' => 'th-TH',
-                'publisher'  => array( '@id' => $home . '#organization' ),
-                'potentialAction' => array(
-                    '@type'       => 'SearchAction',
-                    'target'      => array(
-                        '@type'       => 'EntryPoint',
-                        'urlTemplate' => $home . '?s={search_term_string}',
-                    ),
-                    'query-input' => 'required name=search_term_string',
-                ),
-            ),
+            hashbox_rankmath_schema_organization(),
+            hashbox_rankmath_schema_service(),
+            hashbox_rankmath_schema_website(),
         ),
     ) );
 }
@@ -2685,10 +2842,26 @@ function hashbox_robots_txt( $output, $public ) {
         return $output;
     }
 
-    $output  = "User-agent: *\n\n";
+    $output  = "User-agent: *\n";
     $output .= "Disallow: /wp-admin/\n";
-    $output .= "Allow: /wp-admin/admin-ajax.php\n\n";
+    $output .= "Allow: /wp-admin/admin-ajax.php\n";
+    // GSC (2026-08-29): 26 of 28 "crawled – not indexed" URLs were RSS feeds,
+    // the search feed and wp-emoji.js — crawl budget spent on nothing.
+    $output .= "Disallow: /feed/\n";
+    $output .= "Disallow: /*/feed/\n";
+    $output .= "Disallow: /*/feed/rss2/\n";
+    $output .= "Disallow: /search/\n";
+    $output .= "Disallow: /?s=\n";
+    $output .= "Disallow: /wp-includes/js/wp-emoji-release.min.js\n\n";
+    // AI search crawlers are welcome — GEO depends on it. Listed explicitly
+    // so the policy is unambiguous to each vendor.
+    foreach ( array( 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'anthropic-ai', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Bingbot', 'Applebot-Extended', 'CCBot' ) as $bot ) {
+        $output .= "User-agent: {$bot}\n";
+        $output .= "Allow: /\n\n";
+    }
     $output .= "Sitemap: " . home_url( '/sitemap_index.xml' ) . "\n";
+    $output .= "Sitemap: " . home_url( '/landing-sitemap.xml' ) . "\n";
+    $output .= "# llms: " . home_url( '/llms.txt' ) . "\n";
 
     return $output;
 }
@@ -2715,6 +2888,15 @@ function hashbox_serve_llms_txt() {
         exit;
     }
 
+    if ( '/landing-sitemap.xml' === $request_uri && function_exists( 'hashbox_landing_sitemap_entries' ) ) {
+        header( 'Content-Type: application/xml; charset=utf-8' );
+        header( 'X-Robots-Tag: noindex' );
+        header( 'Cache-Control: public, max-age=3600' );
+        echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . hashbox_rankmath_sitemap_landing_content() . '</urlset>';
+        exit;
+    }
+
     if ( '/llms-full.txt' === $request_uri ) {
         header( 'Content-Type: text/plain; charset=utf-8' );
         header( 'X-Robots-Tag: noindex' );
@@ -2730,7 +2912,9 @@ function hashbox_llms_txt_content() {
     $lines = array();
     $lines[] = '# Hashbox Studio';
     $lines[] = '';
-    $lines[] = '> Hashbox Studio is a Bangkok-based digital studio building SEO-Ready websites, AI consulting services, and digital marketing tools for Thai businesses. Every website ships with Lighthouse 100, green Core Web Vitals, complete Schema.org markup, and AI Search (GEO) optimization opted in.';
+    $lines[] = '> Hashbox Studio (แฮชบ็อกซ์ สตูดิโอ) คือสตูดิโอในกรุงเทพฯ ก่อตั้งปี 2024 โดย Tum Thaweewat ให้บริการ รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, รับทำ AI Search (GEO) และ Workflow Automation ด้วย n8n สำหรับธุรกิจไทย ทุกเว็บไซต์ส่งมอบพร้อม Lighthouse 100, Core Web Vitals เขียว, Schema.org ครบ และ optimise สำหรับ AI Search ตั้งแต่วันเปิดตัว';
+    $lines[] = '';
+    $lines[] = '> Hashbox Studio is a Bangkok-based studio founded in 2024 by Tum Thaweewat. Services: SEO-Ready website development, AI consulting for Thai businesses, technical-first SEO, AI Search (GEO) optimisation and n8n workflow automation. Every website ships with Lighthouse 100, green Core Web Vitals, complete Schema.org markup and AI-search optimisation from launch. Prices are public (THB, excl. VAT).';
     $lines[] = '';
     $lines[] = '## About';
     $lines[] = '';
@@ -2740,13 +2924,15 @@ function hashbox_llms_txt_content() {
     $lines[] = '';
     $lines[] = '## Services';
     $lines[] = '';
-    $lines[] = '- [SEO-Ready Website Build](' . home_url( '/services/website-development/' ) . '): รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่ launch · Lighthouse 100 · Schema ครบ · เริ่ม 80,000 บาท';
-    // Retainer service, priced per month — the only monthly line in this file.
-    $lines[] = '- [รับทำ SEO (technical-first)](' . home_url( '/services/seo/' ) . '): รับทำ SEO สายเทคนิค · Technical SEO · Core Web Vitals · Schema · GEO/AI Overview · track อันดับรายวัน · เริ่มต้น 25,000 บาทต่อเดือน';
-    // Hiring intent, not the guide's phrase — same split as the <title>: this
-    // entry is who to hire, the Pillar Guides entry below is how it works.
-    $lines[] = '- [ที่ปรึกษา AI สำหรับธุรกิจ](' . home_url( '/services/ai-consulting/' ) . '): รับวางระบบ AI ให้ธุรกิจไทยถึง production · LLM integration · automation · custom agent';
-    $lines[] = '- [Digital Marketing Tools](' . home_url( '/services/digital-marketing-tools/' ) . '): SEO + CRO + analytics tooling';
+    /*
+     * ลงใน llms.txt ก็ต่อเมื่อหน้ามีจริง — ไฟล์นี้อ่านโดย AI crawler โดยเฉพาะ
+     * การชี้ไปหน้า 404 แย่กว่าการไม่ลิสต์ — hashbox_service_catalog_live()
+     * ซ่อนรายการที่ WP Page ยังไม่ถูกสร้าง
+     */
+    foreach ( hashbox_service_catalog_live() as $svc ) {
+        $price = $svc['price'] ? ' · ' . $svc['price'] : '';
+        $lines[] = '- [' . $svc['name'] . '](' . hashbox_service_url( $svc ) . '): ' . $svc['desc'] . $price;
+    }
     $lines[] = '';
     $lines[] = '## Pillar Guides';
     $lines[] = '';
@@ -2764,19 +2950,26 @@ function hashbox_llms_txt_content() {
     $lines[] = '';
     $lines[] = '## Pricing (THB, excl. VAT)';
     $lines[] = '';
-    $lines[] = '- SEO-Ready Landing Page: from 80,000 THB / 2-3 weeks';
-    $lines[] = '- SEO-Ready Corporate Site: from 200,000 THB / 4-6 weeks';
+    $lines[] = '- SEO-Ready Landing Page: from 35,900 THB / 2-3 weeks';
+    $lines[] = '- SEO-Ready Corporate Site: from 80,000 THB / 4-6 weeks';
     $lines[] = '- SEO-Ready E-commerce: from 350,000 THB / 6-10 weeks';
     $lines[] = '- SEO-Ready Enterprise: from 500,000 THB / 8-14 weeks';
     // One-off build fees above; this one is a monthly retainer, hence the unit.
-    $lines[] = '- SEO retainer (technical-first, incl. GEO): from 25,000 THB / month';
+    $lines[] = '- SEO retainer (technical-first, incl. GEO): from 29,900 THB / month — guarantee: technical pass in 30 days; if impressions do not grow 50% in 90 days we keep working free (max 3 months)';
+    if ( $hb_has_n8n_page ) {
+        $lines[] = '- n8n automation build (self-hosted, handover included): from 29,000 THB / project';
+    }
     $lines[] = '';
     $lines[] = '## Contact';
     $lines[] = '';
     $lines[] = '- Email: business@hashbox.co.th';
     $lines[] = '- Phone: +66-62-516-9868';
     $lines[] = '- Address: 139 Pan Rd, Si Lom, Bang Rak, Bangkok 10500, Thailand';
+    $lines[] = '- LINE: https://lin.ee/Xagx6i4';
     $lines[] = '- LinkedIn: https://www.linkedin.com/company/hashbox-studio';
+    $lines[] = '- Facebook: https://www.facebook.com/profile.php?id=61590390615650';
+    $lines[] = '- Clutch: https://clutch.co/profile/hashbox-studio';
+    $lines[] = '- Founder: Tum Thaweewat — https://www.linkedin.com/in/tumthaweewat/';
     $lines[] = '';
     $lines[] = '## Optional';
     $lines[] = '';
@@ -2794,6 +2987,9 @@ function hashbox_llms_full_txt_content() {
     $pillar_slugs = array(
         'services/website-development',
         'services/ai-consulting',
+        'services/seo',
+        'services/n8n-automation',
+        'ai-solution-consulting-guide-2026',
         'technical-seo-guide',
         'geo-ai-search-optimization-2026',
         'nextjs-vs-wordpress-2026',
@@ -2835,8 +3031,8 @@ if ( ! function_exists( 'hashbox_get_home_faqs' ) ) {
                 'a' => 'ขึ้นอยู่กับโจทย์ของแต่ละโปรเจกต์ ถ้าต้องการ Performance สูงสุด เราใช้ Next.js เชื่อมกับ Headless CMS แต่ถ้าทีมลูกค้าต้องการแก้เนื้อหาเองคล่อง ๆ เราเลือก WordPress พร้อม Custom Theme ส่วนระบบ Hosting จะวางบน Cloudflare หรือ Vercel ส่วน Analytics ใช้ GA4 ผูกกับ Search Console และ Looker Studio ทุกครั้งครับ',
             ),
             array(
-                'q' => 'Digital Marketing Tools และ CRO ทำอะไรบ้าง?',
-                'a' => 'นอกจากจะติดตั้งและ Config เครื่องมือ Tracking ครบวงจรให้แล้ว ทีมเรายังรัน CRO Sprint รายเดือนต่อเนื่อง เริ่มจากการตั้งสมมติฐานจาก Data จริง รัน A/B Test แล้ววัดผล ส่ง Report พร้อมคำแนะนำที่นำไป Ship ได้ทันที ลูกค้าจึงได้ทั้งเครื่องมือและ Insight ไม่ใช่แค่ติดตั้งทิ้งไว้แล้วจบครับ',
+                'q' => 'บริการรับทำ SEO และ AI Search (GEO) ของ Hashbox ทำอะไรบ้าง?',
+                'a' => 'รับทำ SEO สายเทคนิค: แก้โครงสร้างเว็บ Core Web Vitals และ Schema ก่อน แล้วต่อยอดด้วย content, Local SEO และ CRO + tracking ให้ traffic กลายเป็น lead ส่วน AI Search (GEO) คือการทำให้แบรนด์ถูกอ้างอิงใน Google AI Overview, ChatGPT, Perplexity และ Gemini — ทั้งสองวัดผลจากระบบ track อันดับและ AI citation ของเราเอง อัปเดตรายวัน เริ่มต้น 29,900 บาทต่อเดือน พร้อมการันตี "ไม่โต ไม่จ่าย" — impressions ไม่โต 50% ใน 90 วัน เราทำต่อฟรี เริ่มจาก SEO Audit ฟรีครับ',
             ),
             array(
                 'q' => 'AI Consulting ครอบคลุมอะไรบ้าง?',
@@ -2848,7 +3044,7 @@ if ( ! function_exists( 'hashbox_get_home_faqs' ) ) {
             ),
             array(
                 'q' => 'ราคาเริ่มต้นเท่าไหร่?',
-                'a' => 'Landing Page เริ่มที่ 80,000 บาท Corporate Site เริ่มที่ 200,000 บาท E-commerce เริ่มที่ 350,000 บาท ส่วน AI Consulting Retainer เริ่มที่ 50,000 บาทต่อเดือน ทุกใบเสนอราคาจะออกหลังการ Audit ฟรีเสมอ เพื่อให้ลูกค้าเห็นภาพชัดก่อนตัดสินใจครับ',
+                'a' => 'Landing Page เริ่มที่ 35,900 บาท Corporate Site เริ่มที่ 80,000 บาท E-commerce เริ่มที่ 350,000 บาท ส่วน AI Consulting Retainer เริ่มที่ 50,000 บาทต่อเดือน ทุกใบเสนอราคาจะออกหลังการประเมิน Scope ฟรี เพื่อให้ลูกค้าเห็นภาพชัดก่อนตัดสินใจครับ',
             ),
             array(
                 'q' => 'มี Support หลังส่งมอบไหม?',
@@ -2908,6 +3104,101 @@ function hashbox_is_uuid_v4( $value ) {
         && 1 === preg_match( '/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i', $value );
 }
 
+/**
+ * Validate the non-PII, order-like reference sent to Google as transaction_id.
+ */
+function hashbox_is_conversion_ref( $value, $scope = '' ) {
+    if ( ! is_string( $value ) || strlen( $value ) > 64 ) {
+        return false;
+    }
+
+    $scope = strtoupper( (string) $scope );
+    if ( ! in_array( $scope, array( '', 'AI', 'WEB' ), true ) ) {
+        return false;
+    }
+
+    $pattern = '' === $scope
+        ? '/^HB-(?:AI|WEB)-[0-9]{8}-[0-9]{9,40}$/'
+        : '/^HB-' . preg_quote( $scope, '/' ) . '-[0-9]{8}-[0-9]{9,40}$/';
+
+    return 1 === preg_match( $pattern, $value );
+}
+
+/**
+ * Mint an order-like conversion reference from one global atomic sequence.
+ * LAST_INSERT_ID(expr) is connection-scoped, so concurrent requests cannot
+ * receive the same numeric value.
+ */
+function hashbox_generate_conversion_ref( $scope ) {
+    global $wpdb;
+
+    $scope = strtoupper( (string) $scope );
+    if ( ! in_array( $scope, array( 'AI', 'WEB' ), true ) ) {
+        return '';
+    }
+
+    $option_name = 'hashbox_conversion_sequence';
+    add_option( $option_name, '0', '', false );
+
+    $updated = $wpdb->query(
+        $wpdb->prepare(
+            "UPDATE {$wpdb->options} SET option_value = LAST_INSERT_ID(CAST(option_value AS UNSIGNED) + 1) WHERE option_name = %s AND option_value REGEXP '^[0-9]{1,15}$'",
+            $option_name
+        )
+    );
+    $sequence = 1 === $updated ? (int) $wpdb->get_var( 'SELECT LAST_INSERT_ID()' ) : 0;
+    wp_cache_delete( $option_name, 'options' );
+    if ( $sequence < 1 ) {
+        // Keep collecting genuine enquiries if the counter is unavailable.
+        // Server time + a CSPRNG numeric suffix remains order-like, non-PII
+        // and collision-resistant without falling back to a UUID/hash value.
+        error_log( '[hashbox] Conversion sequence unavailable; using numeric fallback.' );
+        try {
+            $sequence = random_int( 0, 999999999 );
+        } catch ( Exception $exception ) {
+            $sequence = wp_rand( 0, 999999999 );
+        }
+    }
+
+    $now              = microtime( true );
+    $timestamp        = wp_date( 'YmdHis', (int) $now );
+    $microseconds     = sprintf( '%06d', (int) ( ( $now - floor( $now ) ) * 1000000 ) );
+    $conversion_ref   = sprintf(
+        'HB-%s-%s-%s%s%09d',
+        $scope,
+        substr( $timestamp, 0, 8 ),
+        substr( $timestamp, 8, 6 ),
+        $microseconds,
+        $sequence
+    );
+    return hashbox_is_conversion_ref( $conversion_ref, $scope ) ? $conversion_ref : '';
+}
+
+function hashbox_lead_transient_status( $state ) {
+    if ( is_string( $state ) ) {
+        return sanitize_key( $state );
+    }
+
+    return is_array( $state ) && isset( $state['status'] ) && is_string( $state['status'] )
+        ? sanitize_key( $state['status'] )
+        : '';
+}
+
+function hashbox_lead_transient_conversion_ref( $state, $scope ) {
+    $conversion_ref = is_array( $state ) && isset( $state['conversion_ref'] ) && is_string( $state['conversion_ref'] )
+        ? $state['conversion_ref']
+        : '';
+
+    return hashbox_is_conversion_ref( $conversion_ref, $scope ) ? $conversion_ref : '';
+}
+
+function hashbox_lead_transient_state( $status, $conversion_ref = '' ) {
+    return array(
+        'status'         => sanitize_key( $status ),
+        'conversion_ref' => is_string( $conversion_ref ) ? $conversion_ref : '',
+    );
+}
+
 function hashbox_website_audit_lead_transient_key( $lead_ref ) {
     return 'hb_website_lead_' . md5( (string) $lead_ref );
 }
@@ -2921,9 +3212,9 @@ function hashbox_website_audit_lead_signature( $lead_ref ) {
 }
 
 /**
- * Prepare a correlation ID and contact nonce before the Website Audit form is
- * submitted. The UUID is copied into HubSpot by the collected-form runtime and
- * is reused by the success email and Google Ads transaction ID.
+ * Prepare an unguessable correlation ID and contact nonce before the Website
+ * Audit form is submitted. The UUID remains the capability, replay key and
+ * Meta event ID; Google receives a separate server-generated conversion ref.
  */
 function hashbox_prepare_website_audit_lead() {
     $ip       = isset( $_SERVER['REMOTE_ADDR'] ) ? preg_replace( '/[^0-9a-f:.]/i', '', wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : 'unknown';
@@ -2935,11 +3226,15 @@ function hashbox_prepare_website_audit_lead() {
     set_transient( $rate_key, $hits + 1, 30 * MINUTE_IN_SECONDS );
 
     $lead_ref = wp_generate_uuid4();
-    set_transient(
+    $prepared_stored = set_transient(
         hashbox_website_audit_lead_transient_key( $lead_ref ),
-        'prepared',
+        hashbox_lead_transient_state( 'prepared' ),
         6 * HOUR_IN_SECONDS
     );
+    if ( ! $prepared_stored ) {
+        error_log( '[hashbox] Could not persist Website lead preparation state.' );
+        wp_send_json_error( array( 'message' => 'Unable to prepare the form.' ), 500 );
+    }
 
     wp_send_json_success( array(
         'lead_ref' => $lead_ref,
@@ -2950,11 +3245,11 @@ add_action( 'wp_ajax_nopriv_hashbox_prepare_website_audit_lead', 'hashbox_prepar
 add_action( 'wp_ajax_hashbox_prepare_website_audit_lead', 'hashbox_prepare_website_audit_lead' );
 
 /**
- * Return the verified Website Audit lead reference for a success page.
+ * Return the verified Website Audit lead record for a success page.
  */
-function hashbox_get_confirmed_website_audit_lead_ref() {
+function hashbox_get_confirmed_website_audit_lead() {
     if ( ! is_page( 'website-audit' ) ) {
-        return '';
+        return array();
     }
 
     $contact  = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_GET['contact'] ) ) : '';
@@ -2962,24 +3257,40 @@ function hashbox_get_confirmed_website_audit_lead_ref() {
     $lead_sig = isset( $_GET['lead_sig'] ) ? sanitize_text_field( wp_unslash( $_GET['lead_sig'] ) ) : '';
 
     if ( 'sent' !== $contact || ! hashbox_is_uuid_v4( $lead_ref ) || ! preg_match( '/^[a-f0-9]{64}$/i', $lead_sig ) ) {
-        return '';
+        return array();
     }
 
-    if ( 'sent' !== get_transient( hashbox_website_audit_lead_transient_key( $lead_ref ) ) ) {
-        return '';
+    $state = get_transient( hashbox_website_audit_lead_transient_key( $lead_ref ) );
+    if ( 'sent' !== hashbox_lead_transient_status( $state ) ) {
+        return array();
     }
 
     $expected = hashbox_website_audit_lead_signature( $lead_ref );
-    return hash_equals( $expected, strtolower( $lead_sig ) ) ? $lead_ref : '';
+    if ( ! hash_equals( $expected, strtolower( $lead_sig ) ) ) {
+        return array();
+    }
+
+    return array(
+        'lead_ref'       => $lead_ref,
+        'conversion_ref' => hashbox_lead_transient_conversion_ref( $state, 'WEB' ),
+    );
+}
+
+function hashbox_get_confirmed_website_audit_lead_ref() {
+    $lead = hashbox_get_confirmed_website_audit_lead();
+    return isset( $lead['lead_ref'] ) ? $lead['lead_ref'] : '';
 }
 
 function hashbox_print_website_audit_confirmation_meta() {
-    $lead_ref = hashbox_get_confirmed_website_audit_lead_ref();
-    if ( '' === $lead_ref ) {
+    $lead = hashbox_get_confirmed_website_audit_lead();
+    if ( empty( $lead['lead_ref'] ) ) {
         return;
     }
 
-    echo '<meta name="hashbox-confirmed-website-lead" content="' . esc_attr( $lead_ref ) . '">' . "\n";
+    $conversion_attr = empty( $lead['conversion_ref'] )
+        ? ''
+        : ' data-conversion-ref="' . esc_attr( $lead['conversion_ref'] ) . '"';
+    echo '<meta name="hashbox-confirmed-website-lead" content="' . esc_attr( $lead['lead_ref'] ) . '"' . $conversion_attr . '>' . "\n";
 }
 add_action( 'wp_head', 'hashbox_print_website_audit_confirmation_meta', 2 );
 
@@ -3011,10 +3322,10 @@ function hashbox_ai_audit_lead_signature( $lead_ref ) {
     return hash_hmac( 'sha256', 'ai-workflow-audit|' . (string) $lead_ref, wp_salt( 'auth' ) );
 }
 
-function hashbox_get_confirmed_ai_audit_lead_ref() {
+function hashbox_get_confirmed_ai_audit_lead() {
     $landing = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
     if ( ! is_array( $landing ) || ! isset( $landing['slug'] ) || 'ai-workflow-audit' !== $landing['slug'] ) {
-        return '';
+        return array();
     }
 
     $contact  = isset( $_GET['contact'] ) ? sanitize_key( wp_unslash( $_GET['contact'] ) ) : '';
@@ -3022,24 +3333,40 @@ function hashbox_get_confirmed_ai_audit_lead_ref() {
     $lead_sig = isset( $_GET['lead_sig'] ) ? sanitize_text_field( wp_unslash( $_GET['lead_sig'] ) ) : '';
 
     if ( 'ai_sent' !== $contact || ! hashbox_is_uuid_v4( $lead_ref ) || ! preg_match( '/^[a-f0-9]{64}$/i', $lead_sig ) ) {
-        return '';
+        return array();
     }
 
-    if ( 'sent' !== get_transient( hashbox_ai_audit_lead_transient_key( $lead_ref ) ) ) {
-        return '';
+    $state = get_transient( hashbox_ai_audit_lead_transient_key( $lead_ref ) );
+    if ( 'sent' !== hashbox_lead_transient_status( $state ) ) {
+        return array();
     }
 
     $expected = hashbox_ai_audit_lead_signature( $lead_ref );
-    return hash_equals( $expected, strtolower( $lead_sig ) ) ? $lead_ref : '';
+    if ( ! hash_equals( $expected, strtolower( $lead_sig ) ) ) {
+        return array();
+    }
+
+    return array(
+        'lead_ref'       => $lead_ref,
+        'conversion_ref' => hashbox_lead_transient_conversion_ref( $state, 'AI' ),
+    );
+}
+
+function hashbox_get_confirmed_ai_audit_lead_ref() {
+    $lead = hashbox_get_confirmed_ai_audit_lead();
+    return isset( $lead['lead_ref'] ) ? $lead['lead_ref'] : '';
 }
 
 function hashbox_print_ai_audit_confirmation_meta() {
-    $lead_ref = hashbox_get_confirmed_ai_audit_lead_ref();
-    if ( '' === $lead_ref ) {
+    $lead = hashbox_get_confirmed_ai_audit_lead();
+    if ( empty( $lead['lead_ref'] ) ) {
         return;
     }
 
-    echo '<meta name="hashbox-confirmed-ai-lead" content="' . esc_attr( $lead_ref ) . '">' . "\n";
+    $conversion_attr = empty( $lead['conversion_ref'] )
+        ? ''
+        : ' data-conversion-ref="' . esc_attr( $lead['conversion_ref'] ) . '"';
+    echo '<meta name="hashbox-confirmed-ai-lead" content="' . esc_attr( $lead['lead_ref'] ) . '"' . $conversion_attr . '>' . "\n";
 }
 add_action( 'wp_head', 'hashbox_print_ai_audit_confirmation_meta', 2 );
 
@@ -3076,10 +3403,11 @@ function hashbox_get_audit_landing_for_return_url( $url ) {
 /**
  * Send the AI lead acknowledgement outside the conversion-critical redirect.
  */
-function hashbox_send_ai_confirmation_email( $email, $name, $lead_ref ) {
-    $email    = sanitize_email( $email );
-    $name     = sanitize_text_field( $name );
-    $lead_ref = sanitize_text_field( $lead_ref );
+function hashbox_send_ai_confirmation_email( $email, $name, $lead_ref, $conversion_ref = '' ) {
+    $email          = sanitize_email( $email );
+    $name           = sanitize_text_field( $name );
+    $lead_ref       = sanitize_text_field( $lead_ref );
+    $conversion_ref = sanitize_text_field( $conversion_ref );
 
     if ( ! is_email( $email ) || ! preg_match( '/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i', $lead_ref ) ) {
         return;
@@ -3099,7 +3427,7 @@ function hashbox_send_ai_confirmation_email( $email, $name, $lead_ref ) {
         '',
         'ถ้าต้องการส่งข้อมูลเพิ่มเติม คุยกับทีมทาง LINE: https://lin.ee/Xagx6i4',
         '',
-        'เลขอ้างอิง: ' . $lead_ref,
+        'เลขอ้างอิง: ' . ( hashbox_is_conversion_ref( $conversion_ref, 'AI' ) ? $conversion_ref : $lead_ref ),
         '',
         'Hashbox Studio',
     ) );
@@ -3114,7 +3442,7 @@ function hashbox_send_ai_confirmation_email( $email, $name, $lead_ref ) {
         )
     );
 }
-add_action( 'hashbox_send_ai_confirmation_email', 'hashbox_send_ai_confirmation_email', 10, 3 );
+add_action( 'hashbox_send_ai_confirmation_email', 'hashbox_send_ai_confirmation_email', 10, 4 );
 
 function hashbox_handle_contact_submit() {
     if ( ! isset( $_POST['hashbox_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['hashbox_nonce'] ), 'hashbox_contact' ) ) {
@@ -3127,6 +3455,7 @@ function hashbox_handle_contact_submit() {
     $phone              = isset( $_POST['phone'] )              ? sanitize_text_field( wp_unslash( $_POST['phone'] ) )              : '';
     $website            = isset( $_POST['website'] )            ? esc_url_raw( wp_unslash( $_POST['website'] ) )                    : '';
     $service            = isset( $_POST['service'] )            ? sanitize_text_field( wp_unslash( $_POST['service'] ) )            : '';
+    $project_type       = isset( $_POST['project_type'] )       ? sanitize_text_field( wp_unslash( $_POST['project_type'] ) )       : '';
     $message            = isset( $_POST['message'] )            ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) )        : '';
     $problem            = isset( $_POST['problem'] )            ? sanitize_textarea_field( wp_unslash( $_POST['problem'] ) )        : '';
     $budget             = isset( $_POST['budget'] )             ? sanitize_text_field( wp_unslash( $_POST['budget'] ) )             : '';
@@ -3151,13 +3480,23 @@ function hashbox_handle_contact_submit() {
         && wp_verify_nonce( wp_unslash( $_POST['hashbox_ai_nonce'] ), 'hashbox_ai_contact' );
     $is_ai_form    = $is_ai_route && $ai_nonce_ok;
     $is_audit_form = is_array( $landing );
+    $website_project_type_labels = array(
+        'landing-page'      => 'Landing Page',
+        'corporate-website' => 'Corporate Website',
+        'website-redesign'  => 'Website Redesign',
+        'needs-assessment'  => 'ยังไม่แน่ใจ ต้องการให้ช่วยประเมิน',
+    );
+    $website_project_type_label = $is_website_audit_form && isset( $website_project_type_labels[ $project_type ] )
+        ? $website_project_type_labels[ $project_type ]
+        : '';
+    $invalid_website_project_type = $is_website_audit_form && '' === $website_project_type_label;
     $needs_contact_detail = $is_ai_form && in_array( $contact_preference, array( 'LINE', 'โทร' ), true );
     $invalid_ai_contact_preference = $is_ai_form && ! in_array( $contact_preference, array( '', 'LINE', 'โทร' ), true );
 
     $invalid = ( $is_ai_route && ! $ai_nonce_ok ) || ( $is_ai_form
         ? ( $name === '' || $company === '' || $email === '' || ! is_email( $email ) || $message === '' || $invalid_ai_contact_preference || ( $needs_contact_detail && $contact_detail === '' ) || ! $pdpa )
         : ( $is_website_audit_form
-            ? ( $name === '' || $company === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || $budget === '' || $timeline === '' || 'phone-or-line' !== $contact_preference || $contact_detail === '' || $message === '' || ! $pdpa )
+            ? ( $name === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || $invalid_website_project_type || $budget === '' || $timeline === '' || 'phone-or-line' !== $contact_preference || $contact_detail === '' || ! $pdpa )
             : ( $is_audit_form
                 ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
                 : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) ) ) );
@@ -3183,6 +3522,7 @@ function hashbox_handle_contact_submit() {
         : ( $is_website_audit_form ? 'Website project evaluation' : ( $is_audit_form ? 'Audit request' : 'New enquiry' ) );
     $subject      = sprintf( '[Hashbox V2] %s from %s — %s', $request_type, $name, $service ?: 'unspecified' );
     $lead_ref     = $is_ai_form ? wp_generate_uuid4() : '';
+    $conversion_ref = $is_ai_form ? hashbox_generate_conversion_ref( 'AI' ) : '';
     $prepared_website_lead = false;
     $prepared_lead_claim_key = '';
 
@@ -3192,8 +3532,12 @@ function hashbox_handle_contact_submit() {
             ? hashbox_website_audit_lead_transient_key( $prepared_lead_ref )
             : '';
         $prepared_lead_state = $prepared_lead_key ? get_transient( $prepared_lead_key ) : false;
+        $prepared_lead_claim_key = hashbox_is_uuid_v4( $prepared_lead_ref )
+            ? hashbox_website_audit_lead_claim_key( $prepared_lead_ref )
+            : '';
 
-        if ( 'sent' === $prepared_lead_state ) {
+        $prepared_lead_status = hashbox_lead_transient_status( $prepared_lead_state );
+        if ( 'sent' === $prepared_lead_status ) {
             wp_safe_redirect( add_query_arg( array(
                 'contact'  => 'sent',
                 'lead_ref' => $prepared_lead_ref,
@@ -3202,13 +3546,21 @@ function hashbox_handle_contact_submit() {
             exit;
         }
 
-        if ( 'prepared' !== $prepared_lead_state ) {
+        if ( 'claimed' === $prepared_lead_status ) {
+            // Fail closed after the state has been claimed. A process may have
+            // sent the email before crashing, so replaying it could duplicate
+            // the lead even when the claim lock itself looks stale.
+            wp_safe_redirect( add_query_arg( 'contact', 'processing', $redirect_to ) );
+            exit;
+        }
+
+        if ( 'prepared' !== $prepared_lead_status ) {
             wp_safe_redirect( add_query_arg( 'contact', 'invalid', $redirect_to ) );
             exit;
         }
 
         $lead_ref = $prepared_lead_ref;
-        $prepared_lead_claim_key = hashbox_website_audit_lead_claim_key( $lead_ref );
+        $conversion_ref = hashbox_lead_transient_conversion_ref( $prepared_lead_state, 'WEB' );
         $claim_acquired = add_option( $prepared_lead_claim_key, time(), '', false );
         if ( ! $claim_acquired ) {
             $claimed_at = (int) get_option( $prepared_lead_claim_key, 0 );
@@ -3222,10 +3574,27 @@ function hashbox_handle_contact_submit() {
             exit;
         }
 
+        if ( '' === $conversion_ref ) {
+            $conversion_ref = hashbox_generate_conversion_ref( 'WEB' );
+        }
+
         $prepared_website_lead = true;
         // Claim before sending email so the same prepared reference cannot
         // mint another conversion through a replayed form submission.
-        set_transient( $prepared_lead_key, 'claimed', 6 * HOUR_IN_SECONDS );
+        $claimed_state_stored = set_transient(
+            $prepared_lead_key,
+            hashbox_lead_transient_state( 'claimed', $conversion_ref ),
+            6 * HOUR_IN_SECONDS
+        );
+        if ( ! $claimed_state_stored ) {
+            error_log( '[hashbox] Could not persist Website lead claim state.' );
+            wp_safe_redirect( add_query_arg( 'contact', 'processing', $redirect_to ) );
+            exit;
+        }
+    }
+
+    if ( ( $is_ai_form || $is_website_audit_form ) && '' === $conversion_ref ) {
+        error_log( '[hashbox] Could not mint Google conversion reference for ' . ( $is_ai_form ? 'AI' : 'Website' ) . ' lead.' );
     }
 
     $body_lines = $is_ai_form
@@ -3233,11 +3602,15 @@ function hashbox_handle_contact_submit() {
         : ( $is_website_audit_form
             ? array( 'Name: ' . $name, 'Company: ' . $company, 'Lead reference: ' . $lead_ref )
             : array( 'Name / Company: ' . $name ) );
+    if ( ( $is_ai_form || $is_website_audit_form ) && '' !== $conversion_ref ) {
+        $body_lines[] = 'Conversion reference: ' . $conversion_ref;
+    }
     $body_lines   = array_merge( $body_lines, array(
         'Email: ' . $email,
         'Phone: ' . $phone,
         'Website: ' . $website,
         'Service: ' . $service,
+        'Project type: ' . $project_type,
         'Budget: ' . $budget,
         'Timeline: ' . $timeline,
         'Preferred contact: ' . $contact_preference,
@@ -3266,26 +3639,48 @@ function hashbox_handle_contact_submit() {
     $sent = wp_mail( $to, $subject, $body, $headers );
 
     if ( $sent && is_email( $email ) ) {
+        $hubspot_attribution = array_merge( $utm, array(
+            'service'                      => $website_project_type_label,
+            'lead_ref'                     => $lead_ref,
+            'conversion_ref'               => $conversion_ref,
+            'landing_slug'                 => $landing_slug,
+            '_hashbox_hubspot_sync_attempt' => 1,
+        ) );
+
         // HubSpot's collected-forms runtime drops hidden inputs, so campaign
-        // attribution is written through the CRM API two minutes later (gives
-        // the collected-forms contact time to land first).
-        wp_schedule_single_event(
+        // attribution and server-minted lead references are written through
+        // the CRM API two minutes later (gives the collected-forms contact time
+        // to land first).
+        $hubspot_sync_args = array( $email, $hubspot_attribution );
+        $hubspot_schedule  = wp_schedule_single_event(
             time() + 2 * MINUTE_IN_SECONDS,
             'hashbox_sync_lead_attribution_to_hubspot',
-            array( $email, $utm )
+            $hubspot_sync_args,
+            true
         );
+
+        if ( true !== $hubspot_schedule ) {
+            if ( wp_next_scheduled( 'hashbox_sync_lead_attribution_to_hubspot', $hubspot_sync_args ) ) {
+                hashbox_log_hubspot_sync_event( 'already_scheduled', 'initial_schedule', $hubspot_schedule, 1 );
+            } else {
+                hashbox_log_hubspot_sync_event( 'schedule_failed', 'initial_schedule', $hubspot_schedule, 1 );
+            }
+        }
     }
 
     if ( $sent && $is_ai_form ) {
-        set_transient(
+        $ai_state_stored = set_transient(
             hashbox_ai_audit_lead_transient_key( $lead_ref ),
-            'sent',
+            hashbox_lead_transient_state( 'sent', $conversion_ref ),
             6 * HOUR_IN_SECONDS
         );
+        if ( ! $ai_state_stored ) {
+            error_log( '[hashbox] Could not persist AI lead sent state; conversion tracking will fail closed.' );
+        }
         $confirmation_queued = wp_schedule_single_event(
             time(),
             'hashbox_send_ai_confirmation_email',
-            array( $email, $name, $lead_ref )
+            array( $email, $name, $lead_ref, $conversion_ref )
         );
         wp_safe_redirect( add_query_arg( array(
             'contact'      => 'ai_sent',
@@ -3298,8 +3693,16 @@ function hashbox_handle_contact_submit() {
 
     if ( $sent && $is_website_audit_form ) {
         if ( $prepared_website_lead ) {
-            set_transient( hashbox_website_audit_lead_transient_key( $lead_ref ), 'sent', 6 * HOUR_IN_SECONDS );
-            delete_option( $prepared_lead_claim_key );
+            $website_state_stored = set_transient(
+                hashbox_website_audit_lead_transient_key( $lead_ref ),
+                hashbox_lead_transient_state( 'sent', $conversion_ref ),
+                6 * HOUR_IN_SECONDS
+            );
+            if ( $website_state_stored ) {
+                delete_option( $prepared_lead_claim_key );
+            } else {
+                error_log( '[hashbox] Could not persist Website lead sent state; claim retained to prevent replay.' );
+            }
         }
         wp_safe_redirect( add_query_arg( array(
             'contact'  => 'sent',
@@ -3310,8 +3713,16 @@ function hashbox_handle_contact_submit() {
     }
 
     if ( ! $sent && $prepared_website_lead ) {
-        set_transient( hashbox_website_audit_lead_transient_key( $lead_ref ), 'failed', 10 * MINUTE_IN_SECONDS );
-        delete_option( $prepared_lead_claim_key );
+        $failed_state_stored = set_transient(
+            hashbox_website_audit_lead_transient_key( $lead_ref ),
+            hashbox_lead_transient_state( 'failed', $conversion_ref ),
+            10 * MINUTE_IN_SECONDS
+        );
+        if ( $failed_state_stored ) {
+            delete_option( $prepared_lead_claim_key );
+        } else {
+            error_log( '[hashbox] Could not persist Website lead failure state; claim retained.' );
+        }
     }
 
     wp_safe_redirect( add_query_arg( 'contact', $sent ? 'sent' : 'error', $redirect_to ) );
@@ -3324,11 +3735,23 @@ add_action( 'admin_post_hashbox_contact',        'hashbox_handle_contact_submit'
  * Server-side HubSpot attribution sync.
  *
  * HubSpot's collected-forms runtime captures the visible fields of the audit
- * forms but ignores hidden inputs, so utm_* / gclid never reach the contact
- * record. This scheduled handler writes them through the CRM API using a
- * private-app token. Configure the token by defining HASHBOX_HUBSPOT_TOKEN in
- * wp-config.php (preferred) or storing the hashbox_hubspot_token option; when
- * no token is configured the sync is skipped silently.
+ * forms but ignores hidden inputs, so UTM/click IDs and server references do
+ * not reliably reach the contact record. This scheduled handler writes them
+ * through the CRM API using a private-app token.
+ *
+ * The established UTM fields and hs_google_click_id are always eligible for
+ * sync. Extended attribution is disabled by default because it requires five
+ * additional HubSpot contact properties. After those properties exist, opt in
+ * with `define( 'HASHBOX_HUBSPOT_EXTENDED_ATTRIBUTION', true );`.
+ *
+ * Expected extended-property internal names: hashbox_wbraid, hashbox_gbraid,
+ * hashbox_lead_ref, hashbox_conversion_ref and hashbox_landing_slug. When the
+ * feature is enabled, missing custom properties are logged and skipped
+ * independently after the established UTM/GCLID write.
+ *
+ * Configure the token by defining HASHBOX_HUBSPOT_TOKEN in wp-config.php
+ * (preferred) or storing the hashbox_hubspot_token option; when no token is
+ * configured the sync is skipped silently.
  */
 function hashbox_get_hubspot_private_app_token() {
     if ( defined( 'HASHBOX_HUBSPOT_TOKEN' ) && HASHBOX_HUBSPOT_TOKEN ) {
@@ -3339,13 +3762,330 @@ function hashbox_get_hubspot_private_app_token() {
     return is_string( $token ) ? trim( $token ) : '';
 }
 
+/**
+ * Extended custom-property writes require an explicit boolean opt-in.
+ *
+ * Keeping this false when the constant is undefined (or set to a non-boolean
+ * value) prevents unnecessary HubSpot PATCH requests on portals without the
+ * five custom contact properties.
+ */
+function hashbox_hubspot_extended_attribution_enabled() {
+    return defined( 'HASHBOX_HUBSPOT_EXTENDED_ATTRIBUTION' )
+        && true === HASHBOX_HUBSPOT_EXTENDED_ATTRIBUTION;
+}
+
+/**
+ * The initial run plus at most three delayed retries.
+ */
+function hashbox_hubspot_sync_max_attempts() {
+    return 4;
+}
+
+function hashbox_hubspot_sync_attempt( $attribution ) {
+    $attempt = isset( $attribution['_hashbox_hubspot_sync_attempt'] )
+        ? (int) $attribution['_hashbox_hubspot_sync_attempt']
+        : 1;
+
+    return max( 1, min( hashbox_hubspot_sync_max_attempts(), $attempt ) );
+}
+
+function hashbox_hubspot_response_status_code( $response ) {
+    return is_wp_error( $response ) || ! is_array( $response )
+        ? 0
+        : (int) wp_remote_retrieve_response_code( $response );
+}
+
+function hashbox_hubspot_response_is_success( $response ) {
+    $status_code = hashbox_hubspot_response_status_code( $response );
+    return ! is_wp_error( $response ) && $status_code >= 200 && $status_code < 300;
+}
+
+function hashbox_hubspot_response_is_transient( $response, $context = '' ) {
+    if ( is_wp_error( $response ) ) {
+        return true;
+    }
+
+    $status_code = hashbox_hubspot_response_status_code( $response );
+    return 0 === $status_code
+        || in_array( $status_code, array( 423, 429, 477 ), true )
+        || ( $status_code >= 500 && $status_code < 600 )
+        || ( 'contact_create' === $context && 409 === $status_code );
+}
+
+function hashbox_hubspot_response_is_schema_failure( $response ) {
+    if ( is_wp_error( $response ) ) {
+        return false;
+    }
+
+    return in_array( hashbox_hubspot_response_status_code( $response ), array( 400, 422 ), true );
+}
+
+function hashbox_hubspot_response_correlation_id( $response ) {
+    if ( is_wp_error( $response ) || ! is_array( $response ) ) {
+        return '';
+    }
+
+    foreach ( array( 'x-hubspot-correlation-id', 'x-hubspot-request-id', 'x-request-id', 'correlation-id' ) as $header_name ) {
+        $header_value = wp_remote_retrieve_header( $response, $header_name );
+        if ( is_array( $header_value ) ) {
+            $header_value = reset( $header_value );
+        }
+
+        $header_value = sanitize_text_field( (string) $header_value );
+        if ( '' !== $header_value ) {
+            return mb_substr( $header_value, 0, 100 );
+        }
+    }
+
+    return '';
+}
+
+/**
+ * Log operational metadata only. Never include request/response bodies, email,
+ * attribution values or transport error messages because they may contain PII.
+ */
+function hashbox_log_hubspot_sync_event( $outcome, $context, $response, $attempt, $property = '', $delay = 0 ) {
+    $status_code    = hashbox_hubspot_response_status_code( $response );
+    $correlation_id = hashbox_hubspot_response_correlation_id( $response );
+    $parts          = array(
+        '[hashbox] HubSpot sync',
+        'outcome=' . sanitize_key( $outcome ),
+        'context=' . sanitize_key( $context ),
+        'attempt=' . max( 1, (int) $attempt ),
+        'status=' . $status_code,
+    );
+
+    if ( is_wp_error( $response ) ) {
+        $error_code = sanitize_key( (string) $response->get_error_code() );
+        if ( '' !== $error_code ) {
+            $parts[] = 'error_code=' . $error_code;
+        }
+    }
+
+    if ( '' !== $correlation_id ) {
+        $parts[] = 'correlation_id=' . $correlation_id;
+    }
+
+    if ( '' !== $property ) {
+        $parts[] = 'property=' . sanitize_key( $property );
+    }
+
+    if ( $delay > 0 ) {
+        $parts[] = 'retry_after=' . (int) $delay;
+    }
+
+    error_log( implode( ' ', $parts ) . '.' );
+}
+
+/**
+ * Respect HubSpot Retry-After when present, with a bounded exponential fallback.
+ */
+function hashbox_hubspot_retry_delay( $response, $attempt ) {
+    $attempt        = max( 1, (int) $attempt );
+    $fallback_delay = (int) min( 3600, 60 * pow( 2, $attempt - 1 ) );
+    $retry_delay    = null;
+
+    if ( ! is_wp_error( $response ) ) {
+        $retry_after = wp_remote_retrieve_header( $response, 'retry-after' );
+        if ( is_array( $retry_after ) ) {
+            $retry_after = reset( $retry_after );
+        }
+        $retry_after = trim( (string) $retry_after );
+        if ( '' !== $retry_after ) {
+            if ( is_numeric( $retry_after ) ) {
+                $retry_delay = (int) ceil( (float) $retry_after );
+            } else {
+                $retry_at = strtotime( $retry_after );
+                if ( false !== $retry_at ) {
+                    $retry_delay = max( 0, $retry_at - time() );
+                }
+            }
+        }
+    }
+
+    if ( null === $retry_delay ) {
+        $retry_delay = $fallback_delay;
+    }
+
+    return max( 60, min( 3600, (int) $retry_delay ) );
+}
+
+/**
+ * Requeue the same two-argument cron payload without allowing an infinite loop.
+ */
+function hashbox_requeue_hubspot_attribution_sync( $email, $attribution, $attempt, $response, $context, $property = '' ) {
+    $max_attempts = hashbox_hubspot_sync_max_attempts();
+    if ( $attempt >= $max_attempts ) {
+        hashbox_log_hubspot_sync_event( 'retry_exhausted', $context, $response, $attempt, $property );
+        return false;
+    }
+
+    $delay = hashbox_hubspot_retry_delay( $response, $attempt );
+    $retry_attribution = $attribution;
+    $retry_attribution['_hashbox_hubspot_sync_attempt'] = $attempt + 1;
+    $args = array( $email, $retry_attribution );
+    $scheduled = wp_schedule_single_event(
+        time() + $delay,
+        'hashbox_sync_lead_attribution_to_hubspot',
+        $args
+    );
+
+    if ( false === $scheduled || is_wp_error( $scheduled ) ) {
+        if ( false === $scheduled && wp_next_scheduled( 'hashbox_sync_lead_attribution_to_hubspot', $args ) ) {
+            hashbox_log_hubspot_sync_event( 'retry_already_scheduled', $context, $response, $attempt + 1, $property, $delay );
+            return true;
+        }
+
+        hashbox_log_hubspot_sync_event( 'retry_schedule_failed', $context, $response, $attempt + 1, $property, $delay );
+        return false;
+    }
+
+    hashbox_log_hubspot_sync_event( 'retry_scheduled', $context, $response, $attempt + 1, $property, $delay );
+    return true;
+}
+
+/**
+ * Build a HubSpot property payload from trusted attribution keys.
+ *
+ * Older cron events contain only the UTM array, so every additional key stays
+ * optional. Server references are validated again at execution time because a
+ * scheduled event may outlive the request that created it.
+ */
+function hashbox_prepare_hubspot_contact_properties( $attribution, $property_map ) {
+    $properties = array();
+
+    foreach ( $property_map as $attribution_key => $hubspot_property ) {
+        if ( ! isset( $attribution[ $attribution_key ] ) || ! is_string( $attribution[ $attribution_key ] ) ) {
+            continue;
+        }
+
+        $property_value = sanitize_text_field( $attribution[ $attribution_key ] );
+        if ( '' === $property_value ) {
+            continue;
+        }
+
+        if ( 'lead_ref' === $attribution_key && ! hashbox_is_uuid_v4( $property_value ) ) {
+            continue;
+        }
+
+        if (
+            'conversion_ref' === $attribution_key
+            && ! hashbox_is_conversion_ref( $property_value, 'AI' )
+            && ! hashbox_is_conversion_ref( $property_value, 'WEB' )
+        ) {
+            continue;
+        }
+
+        if ( 'landing_slug' === $attribution_key ) {
+            $property_value = sanitize_key( $property_value );
+            if ( '' === $property_value ) {
+                continue;
+            }
+        }
+
+        $properties[ $hubspot_property ] = mb_substr( $property_value, 0, 250 );
+    }
+
+    return $properties;
+}
+
+function hashbox_patch_hubspot_contact_properties( $contact_id, $properties, $headers ) {
+    return wp_remote_request(
+        'https://api.hubapi.com/crm/v3/objects/contacts/' . rawurlencode( $contact_id ),
+        array(
+            'method'  => 'PATCH',
+            'headers' => $headers,
+            'timeout' => 8,
+            'body'    => wp_json_encode( array( 'properties' => $properties ) ),
+        )
+    );
+}
+
+/**
+ * Sync isolated non-core properties independently from the established UTM map.
+ *
+ * A HubSpot PATCH fails atomically when one property does not exist. Batch the
+ * happy path, then isolate fields only after a non-transient schema response so
+ * the known UTM/GCLID write stays intact. The existing `service` property is
+ * always eligible; extended Hashbox properties remain behind their feature flag.
+ */
+function hashbox_sync_optional_hubspot_contact_properties( $contact_id, $properties, $headers, $email, $attribution, $attempt ) {
+    if ( empty( $properties ) ) {
+        return true;
+    }
+
+    // Happy path: one atomic PATCH for every available optional field.
+    $batch_response = hashbox_patch_hubspot_contact_properties( $contact_id, $properties, $headers );
+    if ( hashbox_hubspot_response_is_success( $batch_response ) ) {
+        return true;
+    }
+
+    if ( hashbox_hubspot_response_is_transient( $batch_response, 'optional_batch' ) ) {
+        hashbox_requeue_hubspot_attribution_sync( $email, $attribution, $attempt, $batch_response, 'optional_batch' );
+        return false;
+    }
+
+    if ( ! hashbox_hubspot_response_is_schema_failure( $batch_response ) ) {
+        hashbox_log_hubspot_sync_event( 'failed', 'optional_batch', $batch_response, $attempt );
+        return false;
+    }
+
+    // A one-field batch is already the narrowest schema test available.
+    if ( 1 === count( $properties ) ) {
+        $property = (string) key( $properties );
+        hashbox_log_hubspot_sync_event( 'optional_unavailable', 'optional_property', $batch_response, $attempt, $property );
+        return true;
+    }
+
+    hashbox_log_hubspot_sync_event( 'schema_fallback', 'optional_batch', $batch_response, $attempt );
+
+    // A schema-level 400/422 may name one missing custom property. Retry each
+    // independently so valid fields survive, but stop immediately on a
+    // transient error to avoid hammering HubSpot.
+    foreach ( $properties as $hubspot_property => $property_value ) {
+        $response = hashbox_patch_hubspot_contact_properties(
+            $contact_id,
+            array( $hubspot_property => $property_value ),
+            $headers
+        );
+
+        if ( hashbox_hubspot_response_is_success( $response ) ) {
+            continue;
+        }
+
+        if ( hashbox_hubspot_response_is_transient( $response, 'optional_property' ) ) {
+            hashbox_requeue_hubspot_attribution_sync(
+                $email,
+                $attribution,
+                $attempt,
+                $response,
+                'optional_property',
+                $hubspot_property
+            );
+            return false;
+        }
+
+        if ( hashbox_hubspot_response_is_schema_failure( $response ) ) {
+            hashbox_log_hubspot_sync_event( 'optional_unavailable', 'optional_property', $response, $attempt, $hubspot_property );
+            continue;
+        }
+
+        hashbox_log_hubspot_sync_event( 'failed', 'optional_property', $response, $attempt, $hubspot_property );
+        return false;
+    }
+
+    return true;
+}
+
 function hashbox_sync_lead_attribution_to_hubspot( $email, $attribution ) {
     $token = hashbox_get_hubspot_private_app_token();
     if ( '' === $token || ! is_email( $email ) || ! is_array( $attribution ) ) {
         return;
     }
 
-    $property_map = array(
+    $attempt = hashbox_hubspot_sync_attempt( $attribution );
+
+    $core_property_map = array(
         'utm_source'   => 'utm_source',
         'utm_medium'   => 'utm_medium',
         'utm_campaign' => 'utm_campaign',
@@ -3353,15 +4093,26 @@ function hashbox_sync_lead_attribution_to_hubspot( $email, $attribution ) {
         'utm_term'     => 'utm_term',
         'gclid'        => 'hs_google_click_id',
     );
+    $core_properties = hashbox_prepare_hubspot_contact_properties( $attribution, $core_property_map );
+    $optional_property_map = array(
+        'service' => 'service',
+    );
 
-    $properties = array();
-    foreach ( $property_map as $posted_key => $hubspot_property ) {
-        if ( isset( $attribution[ $posted_key ] ) && is_string( $attribution[ $posted_key ] ) && '' !== $attribution[ $posted_key ] ) {
-            $properties[ $hubspot_property ] = mb_substr( $attribution[ $posted_key ], 0, 250 );
-        }
+    // Custom fields are deliberately isolated and strictly opt-in so a portal
+    // at its property quota makes no extended-property API requests.
+    if ( hashbox_hubspot_extended_attribution_enabled() ) {
+        $optional_property_map = array_merge( $optional_property_map, array(
+            'wbraid'         => 'hashbox_wbraid',
+            'gbraid'         => 'hashbox_gbraid',
+            'lead_ref'       => 'hashbox_lead_ref',
+            'conversion_ref' => 'hashbox_conversion_ref',
+            'landing_slug'   => 'hashbox_landing_slug',
+        ) );
     }
 
-    if ( empty( $properties ) ) {
+    $optional_properties = hashbox_prepare_hubspot_contact_properties( $attribution, $optional_property_map );
+
+    if ( empty( $core_properties ) && empty( $optional_properties ) ) {
         return;
     }
 
@@ -3393,44 +4144,75 @@ function hashbox_sync_lead_attribution_to_hubspot( $email, $attribution ) {
         )
     );
 
-    if ( is_wp_error( $search ) ) {
-        error_log( '[hashbox] HubSpot contact search failed: ' . $search->get_error_message() );
+    if ( ! hashbox_hubspot_response_is_success( $search ) ) {
+        if ( hashbox_hubspot_response_is_transient( $search, 'contact_search' ) ) {
+            hashbox_requeue_hubspot_attribution_sync( $email, $attribution, $attempt, $search, 'contact_search' );
+        } else {
+            hashbox_log_hubspot_sync_event( 'failed', 'contact_search', $search, $attempt );
+        }
         return;
     }
 
     $search_body = json_decode( (string) wp_remote_retrieve_body( $search ), true );
     $contact_id  = isset( $search_body['results'][0]['id'] ) ? (string) $search_body['results'][0]['id'] : '';
+    $response         = null;
+    $response_context = '';
 
     if ( '' !== $contact_id ) {
-        $response = wp_remote_request(
-            'https://api.hubapi.com/crm/v3/objects/contacts/' . rawurlencode( $contact_id ),
-            array(
-                'method'  => 'PATCH',
-                'headers' => $headers,
-                'timeout' => 8,
-                'body'    => wp_json_encode( array( 'properties' => $properties ) ),
-            )
-        );
+        if ( ! empty( $core_properties ) ) {
+            $response         = hashbox_patch_hubspot_contact_properties( $contact_id, $core_properties, $headers );
+            $response_context = 'core_patch';
+        }
     } else {
-        $properties['email'] = $email;
-        $response = wp_remote_post(
+        $create_properties          = $core_properties;
+        $create_properties['email'] = $email;
+        $response                   = wp_remote_post(
             'https://api.hubapi.com/crm/v3/objects/contacts',
             array(
                 'headers' => $headers,
                 'timeout' => 8,
-                'body'    => wp_json_encode( array( 'properties' => $properties ) ),
+                'body'    => wp_json_encode( array( 'properties' => $create_properties ) ),
             )
         );
+        $response_context = 'contact_create';
     }
 
-    if ( is_wp_error( $response ) ) {
-        error_log( '[hashbox] HubSpot attribution sync failed: ' . $response->get_error_message() );
+    if ( null !== $response ) {
+        if ( ! hashbox_hubspot_response_is_success( $response ) ) {
+            if ( hashbox_hubspot_response_is_transient( $response, $response_context ) ) {
+                hashbox_requeue_hubspot_attribution_sync(
+                    $email,
+                    $attribution,
+                    $attempt,
+                    $response,
+                    $response_context
+                );
+            } else {
+                hashbox_log_hubspot_sync_event( 'failed', $response_context, $response, $attempt );
+            }
+            return;
+        }
+
+        if ( '' === $contact_id ) {
+            $response_body = json_decode( (string) wp_remote_retrieve_body( $response ), true );
+            $contact_id    = isset( $response_body['id'] ) ? (string) $response_body['id'] : '';
+        }
+    }
+
+    if ( '' === $contact_id ) {
+        hashbox_requeue_hubspot_attribution_sync( $email, $attribution, $attempt, $response, 'contact_id_missing' );
         return;
     }
 
-    $status_code = (int) wp_remote_retrieve_response_code( $response );
-    if ( $status_code < 200 || $status_code >= 300 ) {
-        error_log( '[hashbox] HubSpot attribution sync HTTP ' . $status_code . ': ' . mb_substr( (string) wp_remote_retrieve_body( $response ), 0, 300 ) );
+    if ( ! empty( $optional_properties ) ) {
+        hashbox_sync_optional_hubspot_contact_properties(
+            $contact_id,
+            $optional_properties,
+            $headers,
+            $email,
+            $attribution,
+            $attempt
+        );
     }
 }
 add_action( 'hashbox_sync_lead_attribution_to_hubspot', 'hashbox_sync_lead_attribution_to_hubspot', 10, 2 );
@@ -3481,6 +4263,25 @@ function hashbox_render_case_study( array $case ) {
                 </p>
             </div>
         </section>
+
+        <?php if ( ! empty( $case['proof'] ) ) : ?>
+        <section class="hb-section" id="proof" style="padding-block: var(--hb-space-10);">
+            <div class="hb-container hb-container--md">
+                <span class="hb-eyebrow">ตัวเลขที่ยืนยันได้</span>
+                <h2 class="hb-h2" style="margin-top: var(--hb-space-3);">เกณฑ์เดียวกับที่เราการันตีให้ลูกค้าทุกราย</h2>
+                <p class="hb-section__sub">ตัวเลขชุดนี้คือสิ่งที่ลูกค้าอนุญาตให้เปิดเผยและตรวจย้อนได้จาก Search Console / Lighthouse ของโปรเจกต์ — เป็นเกณฑ์เดียวกับ <a href="<?php echo esc_url( home_url( '/services/seo/#guarantee' ) ); ?>">การันตี "ไม่โต ไม่จ่าย"</a> ของเรา</p>
+                <div class="hb-stats__grid hb-stats__grid--divided" style="margin-top: var(--hb-space-6);">
+                    <?php foreach ( $case['proof'] as $p ) : ?>
+                    <div class="hb-stat">
+                        <span class="hb-stat__value"><?php echo esc_html( $p['value'] ); ?></span>
+                        <p class="hb-stat__label"><?php echo esc_html( $p['label'] ); ?></p>
+                        <?php if ( ! empty( $p['note'] ) ) : ?><p class="hb-stat__caption"><?php echo esc_html( $p['note'] ); ?></p><?php endif; ?>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+        <?php endif; ?>
 
         <section class="hb-section">
             <div class="hb-container hb-container--md">
@@ -3541,10 +4342,10 @@ function hashbox_render_case_study( array $case ) {
                         <h3 class="hb-card__title">รับทำเว็บไซต์ SEO-Ready</h3>
                         <p class="hb-card__body">เหมาะกับเว็บที่ต้องการ Core Web Vitals เขียว, schema ครบ, sitemap ถูกต้อง และพร้อม index ตั้งแต่วันเปิดตัว.</p>
                     </a>
-                    <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/digital-marketing-tools/' ) ); ?>" style="text-decoration:none;">
-                        <span class="hb-eyebrow">Conversion</span>
-                        <h3 class="hb-card__title">Digital Marketing + CRO</h3>
-                        <p class="hb-card__body">เหมาะกับเว็บที่มี traffic แล้ว แต่ต้องการเพิ่ม lead, sales หรือ conversion rate จาก funnel เดิม.</p>
+                    <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>" style="text-decoration:none;">
+                        <span class="hb-eyebrow">SEO + CRO</span>
+                        <h3 class="hb-card__title">รับทำ SEO</h3>
+                        <p class="hb-card__body">เหมาะกับเว็บที่มีอยู่แล้ว ต้องการ traffic จาก Google และ AI Search เพิ่ม พร้อม CRO + tracking ให้ traffic กลายเป็น lead.</p>
                     </a>
                     <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>" style="text-decoration:none;">
                         <span class="hb-eyebrow">Automation</span>
@@ -3601,7 +4402,9 @@ function hashbox_render_case_study( array $case ) {
         'headline'       => $case['name'] . ' — ' . $case['headline'],
         'description'    => $case['lede'],
         'url'            => $work_url,
+        'image'          => hashbox_default_og_image_url(),
         'datePublished'  => $case['year'] . '-01-01',
+        'dateModified'   => get_post_modified_time( 'c', true, get_queried_object_id() ) ?: ( $case['year'] . '-01-01' ),
         // Case studies are Thai-only copy rendered by this function; there is
         // no /en/ counterpart to follow, so this stays a literal.
         'inLanguage'     => 'th-TH',
@@ -3921,14 +4724,31 @@ function hashbox_inject_post_schema() {
     if ( ! is_singular( 'post' ) ) {
         return;
     }
-    // Defer to Rank Math if its schema module is active.
-    if ( hashbox_rank_math_is_active() ) {
-        return;
-    }
     $post_id  = get_the_ID();
     $cats     = get_the_category( $post_id );
     $cat_name = ! empty( $cats ) ? $cats[0]->name : 'Insights';
     $cat_url  = ! empty( $cats ) ? get_category_link( $cats[0]->term_id ) : home_url( '/blog/' );
+
+    // Defer the Article node to Rank Math when active, but Rank Math only
+    // emits BreadcrumbList when its breadcrumb module is on (it is not here),
+    // so still emit ours unless Rank Math's graph already carried one
+    // (flag set in hashbox_rankmath_json_ld, which runs earlier in wp_head).
+    if ( hashbox_rank_math_is_active() ) {
+        if ( empty( $GLOBALS['hashbox_rm_has_breadcrumb'] ) ) {
+            hashbox_jsonld( array(
+                '@context'        => 'https://schema.org',
+                '@type'           => 'BreadcrumbList',
+                '@id'             => get_permalink( $post_id ) . '#breadcrumb',
+                'itemListElement' => array(
+                    array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
+                    array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Blog', 'item' => home_url( '/blog/' ) ),
+                    array( '@type' => 'ListItem', 'position' => 3, 'name' => $cat_name, 'item' => $cat_url ),
+                    array( '@type' => 'ListItem', 'position' => 4, 'name' => get_the_title( $post_id ), 'item' => get_permalink( $post_id ) ),
+                ),
+            ) );
+        }
+        return;
+    }
 
     hashbox_jsonld( array(
         '@context'      => 'https://schema.org',
@@ -4280,8 +5100,8 @@ function hashbox_geo_run_checks( $html, $llms_txt_found ) {
 
     $has_meta_desc = (bool) preg_match( '/<meta[^>]+name=["\']description["\'][^>]+content=["\'][^"\']{50,}/is', $html );
 
-    $h1_count = preg_match_all( '/<h1[\b>]/i', $html );
-    $h2_count = preg_match_all( '/<h2[\b>]/i', $html );
+    $h1_count = preg_match_all( '/<h1[\s>]/i', $html );
+    $h2_count = preg_match_all( '/<h2[\s>]/i', $html );
 
     // JSON-LD blocks.
     $jsonld = '';
@@ -4409,10 +5229,35 @@ add_action( 'wp_ajax_nopriv_hb_geo_check', 'hashbox_geo_check_handler' );
  * and re-activate them (in order) on the first interaction. Our own
  * code guards every gtag()/fbq() call with typeof checks, and the
  * inline gtag bootstrap keeps queueing into dataLayer meanwhile.
+ *
+ * The GTM container (gtm.js) is deliberately NOT delayed: it owns the
+ * Google tag for AW-18190672421 + the Conversion Linker, and Google Ads
+ * marks the conversion action "Misconfigured" when its tag is absent on a
+ * plain page load. Only the standalone gtag.js loader stays delayed.
  * ---------------------------------------------------------------------- */
 
 function hashbox_delay_third_party_scripts( $html ) {
-    $hosts = 'googletagmanager\.com|connect\.facebook\.net|hs-scripts\.com|hs-analytics\.net|hscollectedforms\.net|hs-banner\.com|hsadspixel\.net';
+    // GTM owns GA4: strip the legacy standalone Google tag for G-WQ4CG18QQT
+    // (injected by a header-snippet plugin) so the GA4 base tag is emitted
+    // only by GTM-5G2P48V2. Prevents duplicate config/page_view after the
+    // GTM vNext version is live. Remove the plugin snippet itself when
+    // convenient; this filter keeps production single-tagged either way.
+    $html = preg_replace(
+        '#<script[^>]*\ssrc=["\'][^"\']*googletagmanager\.com/gtag/js\?id=G-WQ4CG18QQT[^"\']*["\'][^>]*>\s*</script>#i',
+        '<!-- standalone GA4 loader removed: GTM-5G2P48V2 owns Google tagging -->',
+        $html
+    );
+    $html = preg_replace_callback(
+        '#<script(?![^>]*\ssrc=)[^>]*>(.*?)</script>#is',
+        function ( $m ) {
+            return false !== strpos( $m[1], "gtag('config', 'G-WQ4CG18QQT')" )
+                ? '<!-- standalone GA4 config removed: GTM-5G2P48V2 owns Google tagging -->'
+                : $m[0];
+        },
+        $html
+    );
+
+    $hosts = 'googletagmanager\.com/gtag/|connect\.facebook\.net|hs-scripts\.com|hs-analytics\.net|hscollectedforms\.net|hs-banner\.com|hsadspixel\.net';
 
     // External scripts from the ad/analytics hosts.
     $html = preg_replace(
@@ -4422,12 +5267,12 @@ function hashbox_delay_third_party_scripts( $html ) {
     );
 
     // Inline bootstraps that self-inject their libraries: the Meta-pixel
-    // stub (fbevents.js) and the GTM container snippet (gtm.js). The plain
-    // gtag config snippet stays live — it only queues into dataLayer.
+    // stub (fbevents.js). The GTM container snippet (gtm.js) and the plain
+    // gtag config snippet stay live — GTM is the Google tagging owner.
     $html = preg_replace_callback(
         '#<script(?![^>]*\ssrc=)([^>]*)>(.*?)</script>#is',
         function ( $m ) {
-            if ( false !== strpos( $m[0], 'data-hb-delay' ) || ! preg_match( '#fbq\s*\(|googletagmanager\.com/gtm\.js#', $m[2] ) ) {
+            if ( false !== strpos( $m[0], 'data-hb-delay' ) || ! preg_match( '#fbq\s*\(#', $m[2] ) ) {
                 return $m[0];
             }
             return '<script type="text/plain" data-hb-delay' . $m[1] . '>' . $m[2] . '</script>';
@@ -4437,6 +5282,40 @@ function hashbox_delay_third_party_scripts( $html ) {
 
     return $html;
 }
+
+/* -------------------------------------------------------------------------
+ * GOOGLE CONSENT MODE v2 — DEFAULTS
+ * Must run before the GTM container and any gtag() config. Denied by
+ * default only in regions where consent is required (EEA + UK + CH);
+ * everywhere else the Google defaults (granted) apply. A CMP/banner can
+ * later call gtag('consent','update', …) to grant per user.
+ * ---------------------------------------------------------------------- */
+
+function hashbox_print_consent_mode_defaults() {
+    if ( is_admin() || is_feed() ) {
+        return;
+    }
+    $regions = array(
+        'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT',
+        'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE',
+        'IS', 'LI', 'NO', 'GB', 'CH',
+    );
+    ?>
+    <script id="hashbox-consent-defaults">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      region: <?php echo wp_json_encode( $regions ); ?>,
+      wait_for_update: 500
+    });
+    </script>
+    <?php
+}
+add_action( 'wp_head', 'hashbox_print_consent_mode_defaults', 0 );
 
 function hashbox_start_third_party_delay_buffer() {
     if ( is_admin() || is_feed() || is_user_logged_in() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
@@ -4493,21 +5372,26 @@ function hashbox_print_third_party_delay_loader() {
         })();
       }
       events.forEach(function (ev) { window.addEventListener(ev, activate, { passive: true }); });
-      var successParams = new URLSearchParams(window.location.search);
-      var successLeadRef = successParams.get('lead_ref') || '';
       var successUuidPattern = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
+      var aiConversionRefPattern = /^HB-AI-[0-9]{8}-[0-9]{9,40}$/;
+      var websiteConversionRefPattern = /^HB-WEB-[0-9]{8}-[0-9]{9,40}$/;
       var confirmedAiLeadMeta = document.querySelector('meta[name="hashbox-confirmed-ai-lead"]');
+      var confirmedAiLeadRef = confirmedAiLeadMeta ? confirmedAiLeadMeta.getAttribute('content') || '' : '';
+      var confirmedAiConversionRef = confirmedAiLeadMeta ? confirmedAiLeadMeta.getAttribute('data-conversion-ref') || '' : '';
+      // audit-landing.js can clean the signed query before this footer loader
+      // runs. The meta tag is emitted only after the server validates the AI
+      // path, sent transient and HMAC, so it remains the stable confirmation.
       var isConfirmedAiLead = document.querySelector('.hb-audit[data-audit-slug="ai-workflow-audit"]')
-        && successParams.get('contact') === 'ai_sent'
-        && successUuidPattern.test(successLeadRef)
-        && confirmedAiLeadMeta
-        && confirmedAiLeadMeta.getAttribute('content') === successLeadRef;
+        && successUuidPattern.test(confirmedAiLeadRef)
+        && aiConversionRefPattern.test(confirmedAiConversionRef)
+        && confirmedAiConversionRef.length <= 64;
       var confirmedWebsiteLeadMeta = document.querySelector('meta[name="hashbox-confirmed-website-lead"]');
-      var isConfirmedWebsiteLead = successParams.get('contact') === 'sent'
-        && successUuidPattern.test(successLeadRef)
-        && confirmedWebsiteLeadMeta
-        && confirmedWebsiteLeadMeta.getAttribute('content') === successLeadRef;
-      if (isConfirmedWebsiteLead) { window.hashboxConfirmedWebsiteLeadRef = successLeadRef; }
+      var confirmedWebsiteLeadRef = confirmedWebsiteLeadMeta ? confirmedWebsiteLeadMeta.getAttribute('content') || '' : '';
+      var confirmedWebsiteConversionRef = confirmedWebsiteLeadMeta ? confirmedWebsiteLeadMeta.getAttribute('data-conversion-ref') || '' : '';
+      var isConfirmedWebsiteLead = successUuidPattern.test(confirmedWebsiteLeadRef)
+        && websiteConversionRefPattern.test(confirmedWebsiteConversionRef)
+        && confirmedWebsiteConversionRef.length <= 64;
+      if (isConfirmedWebsiteLead) { window.hashboxConfirmedWebsiteLeadRef = confirmedWebsiteLeadRef; }
       if (isConfirmedAiLead || isConfirmedWebsiteLead) { window.setTimeout(activate, 0); }
     })();
     </script>

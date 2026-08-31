@@ -87,7 +87,7 @@
 }
 
 .hb-nav__brand-accent {
-  color: var(--hb-accent-cyan);
+  color: var(--hb-accent-blue-soft); /* indigo 400 — 600 failed contrast on dark (Lighthouse) */
   font-weight: var(--hb-weight-medium);
 }
 
@@ -139,6 +139,20 @@
   gap: var(--hb-space-2);
   flex-shrink: 0;
 }
+
+/* Keep the primary nav action chromatic in every interaction state. */
+.hb-nav__cta--drawer-backed {
+  --btn-fg: var(--hb-accent-ink);
+  --btn-bg: var(--hb-accent-blue);
+  --btn-bg-hover: var(--hb-accent-blue-strong);
+  --btn-border: var(--hb-accent-ink);
+  --btn-border-hover: var(--hb-accent-ink);
+  background: var(--btn-bg);
+  border-color: var(--btn-border);
+  box-shadow: var(--hb-shadow-sm);
+}
+
+.hb-nav__cta--drawer-backed::before { display: none; }
 
 /* Build status indicator (Linear-style) */
 .hb-nav__status {
@@ -532,3 +546,128 @@
   font-size: var(--hb-text-xs);
 }
 .hb-footer__legal a:hover { color: var(--hb-text); }
+
+/* -------------------------------------------------------------------------
+ * 17. Services dropdown (desktop) + nested list (mobile sheet)
+ * Real <a href> links in the DOM — crawlable without JS.
+ * ----------------------------------------------------------------------- */
+
+.hb-nav__item--has-sub {
+  position: relative;
+}
+
+.hb-nav__link--sub svg {
+  transition: transform var(--hb-duration-fast) var(--hb-ease-out);
+}
+
+.hb-nav__item--has-sub:hover .hb-nav__link--sub svg,
+.hb-nav__item--has-sub[data-open="true"] .hb-nav__link--sub svg {
+  transform: rotate(180deg);
+}
+
+.hb-nav__sub {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  min-width: 20rem;
+  margin: 0;
+  padding: var(--hb-space-2);
+  list-style: none;
+  background: var(--hb-surface-1);
+  border: 1px solid var(--hb-border-strong);
+  border-radius: var(--hb-radius-lg);
+  box-shadow: var(--hb-shadow-lg);
+  z-index: var(--hb-z-dropdown);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity var(--hb-duration-fast) var(--hb-ease-out),
+              transform var(--hb-duration-fast) var(--hb-ease-out),
+              visibility 0s linear var(--hb-duration-fast);
+}
+
+/* invisible bridge so the pointer can travel from link to panel */
+.hb-nav__sub::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: -0.5rem;
+  height: 0.5rem;
+}
+
+.hb-nav__item--has-sub:hover .hb-nav__sub,
+.hb-nav__item--has-sub:focus-within .hb-nav__sub,
+.hb-nav__item--has-sub[data-open="true"] .hb-nav__sub {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.hb-nav__sub li { display: block; }
+
+.hb-nav__sub-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: var(--hb-space-2) var(--hb-space-3);
+  border-radius: var(--hb-radius-sm);
+  text-decoration: none;
+  color: var(--hb-text);
+}
+
+.hb-nav__sub-link:hover,
+.hb-nav__sub-link:focus-visible {
+  background: var(--hb-surface-2);
+  color: var(--hb-text-strong);
+}
+
+.hb-nav__sub-name {
+  font-size: var(--hb-text-sm);
+  font-weight: var(--hb-weight-semibold);
+}
+
+.hb-nav__sub-stack {
+  font-size: var(--hb-text-xs);
+  color: var(--hb-text-muted);
+}
+
+.hb-nav__sub-all {
+  margin-top: var(--hb-space-1);
+  padding-top: var(--hb-space-1);
+  border-top: 1px solid var(--hb-border);
+}
+
+.hb-nav__sub-all .hb-nav__sub-name {
+  color: var(--hb-accent-blue);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-nav__sub,
+  .hb-nav__link--sub svg { transition: none; }
+}
+
+.hb-sheet__sub {
+  list-style: none;
+  margin: 0 0 var(--hb-space-2);
+  padding: 0 0 0 var(--hb-space-4);
+  display: flex;
+  flex-direction: column;
+}
+
+.hb-sheet__sub-link {
+  display: flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: var(--hb-space-1) var(--hb-space-4);
+  font-size: var(--hb-text-sm);
+  color: var(--hb-text-muted);
+  text-decoration: none;
+  border-left: 1px solid var(--hb-border);
+}
+
+.hb-sheet__sub-link:hover,
+.hb-sheet__sub-link:focus-visible {
+  color: var(--hb-text-strong);
+  border-left-color: var(--hb-accent-blue);
+}

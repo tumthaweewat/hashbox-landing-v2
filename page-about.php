@@ -28,7 +28,7 @@ $page_url = get_permalink();
                 และ AI <em>ที่วัดผลได้จริง</em>
             </h1>
             <p class="hb-hero__sub">
-                Hashbox Studio ตั้งขึ้นจากความเชื่อว่าธุรกิจไทยไม่ควรต้องจ้าง 3 บริษัทแยกกันเพื่อทำเว็บ ทำ marketing และวาง AI เราจึงรวม Technical Web Development, Digital Marketing + CRO และ AI Workforce Consulting ไว้ในทีมเดียว ใต้ KPI ชุดเดียวกัน เพื่อให้ลูกค้าเห็นผลลัพธ์ที่จับต้องและวัดได้จริง
+                Hashbox Studio ตั้งขึ้นจากความเชื่อว่าธุรกิจไทยไม่ควรต้องจ้าง 3 บริษัทแยกกันเพื่อทำเว็บ ทำ SEO และวาง AI เราจึงรวม รับทำเว็บไซต์ SEO-Ready, รับทำ SEO / AI Search และที่ปรึกษา AI ไว้ในทีมเดียว ใต้ KPI ชุดเดียวกัน เพื่อให้ลูกค้าเห็นผลลัพธ์ที่จับต้องและวัดได้จริง
             </p>
         </div>
     </div>
@@ -45,12 +45,12 @@ $page_url = get_permalink();
             <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" style="text-decoration:none;" data-accent="blue">
                 <span class="hb-eyebrow">Flagship Service</span>
                 <h3 class="hb-card__title">รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่วันเปิดตัว</h3>
-                <p class="hb-card__body">บริการหลักของ Hashbox — Build Gate 12 ข้อ, Lighthouse 100, Schema ครบ, AI Search ready · เริ่ม 80,000 บาท.</p>
+                <p class="hb-card__body">บริการหลักของ Hashbox — Build Gate 12 ข้อ, Lighthouse 100, Schema ครบ, AI Search ready · เริ่ม 35,900 บาท</p>
             </a>
             <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">All Services</span>
-                <h3 class="hb-card__title">บริการ Web, CRO และ AI Consulting</h3>
-                <p class="hb-card__body">ดูภาพรวมทั้งหมด — SEO-Ready Website, Digital Marketing Tools, AI Consulting Bangkok.</p>
+                <h3 class="hb-card__title">บริการ Web, SEO และ AI Consulting</h3>
+                <p class="hb-card__body">ดูภาพรวมทั้งหมด — รับทำเว็บไซต์ SEO-Ready, รับทำ SEO, AI Search (GEO), ที่ปรึกษา AI และ n8n Automation.</p>
             </a>
             <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/work/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">Proof</span>

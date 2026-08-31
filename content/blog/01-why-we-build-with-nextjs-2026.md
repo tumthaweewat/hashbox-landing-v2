@@ -86,4 +86,4 @@ But for 80% of our projects — corporate websites, e-commerce platforms, SaaS m
 
 If your current website feels slow, doesn't rank well, or isn't converting visitors into customers, it might be time for a modern rebuild. We'd love to chat about how Next.js can transform your online presence.
 
-[Contact us →](#contact)
+[Contact us →](/#contact)

@@ -21,8 +21,9 @@ body.hb-ads-preview-page {
   --hb-accent-cyan: #25D9FF;
   --hb-accent-emerald: #61F4B1;
   --hb-grad-primary: linear-gradient(135deg, #2A68FF 0%, #2355DA 56%, #25D9FF 100%);
-  --hb-font-display: 'Inter', 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
-  --hb-font-body: 'Noto Sans Thai', 'Inter', system-ui, -apple-system, sans-serif;
+  /* Brand CI: single family, same as design-system/tokens.css. */
+  --hb-font-display: 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --hb-font-body: 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   color: var(--hb-text);
   font-family: var(--hb-font-body);
   background:

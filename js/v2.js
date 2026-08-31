@@ -365,4 +365,48 @@
     }, { threshold: 0.5 });
     counters.forEach((el) => io.observe(el));
   }
+  /* ----------------------------------------------------------------------
+   * 9. Services dropdown — hover/focus handled in CSS; JS adds touch toggle
+   *    (first tap opens, second tap follows the link), ArrowDown/Escape and
+   *    keeps aria-expanded honest.
+   * -------------------------------------------------------------------- */
+  const subItem = document.querySelector('.hb-nav__item--has-sub');
+  if (subItem) {
+    const trigger = subItem.querySelector('.hb-nav__link--sub');
+    const setOpen = (open) => {
+      subItem.dataset.open = open ? 'true' : 'false';
+      if (trigger) trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    const isCoarse = window.matchMedia && window.matchMedia('(hover: none)').matches;
+    if (trigger) {
+      trigger.addEventListener('click', (e) => {
+        if (isCoarse && subItem.dataset.open !== 'true') {
+          e.preventDefault();
+          setOpen(true);
+        }
+      });
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          setOpen(true);
+          const first = subItem.querySelector('.hb-nav__sub-link');
+          if (first) first.focus();
+        }
+      });
+    }
+    subItem.addEventListener('mouseenter', () => setOpen(true));
+    subItem.addEventListener('mouseleave', () => setOpen(false));
+    subItem.addEventListener('focusout', (e) => {
+      if (!subItem.contains(e.relatedTarget)) setOpen(false);
+    });
+    subItem.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        if (trigger) trigger.focus();
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!subItem.contains(e.target)) setOpen(false);
+    });
+  }
 })();

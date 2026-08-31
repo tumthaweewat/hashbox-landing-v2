@@ -33,7 +33,9 @@ volume ต่ำกว่ามาก แต่เราชนะได้ ถ�
 
 1. **ห้ามแต่งตัวเลข** — volume / KD / position ใส่ได้เฉพาะที่มาจาก tool หรือ GSC export จริง
    ถ้าดึงไม่ได้ ให้เขียน `N/A (ไม่มี tool)` แล้วอธิบายว่าใช้อะไรตัดสินใจแทน
-2. **ห้ามเสนอ keyword ที่จองแล้ว** — เช็ค `seo-handoff/_inventory.md` §4 ก่อนเสมอ
+2. **ห้ามเสนอ keyword ที่จองแล้ว** — เช็ค **2 ไฟล์** ก่อนเสมอ
+   `docs/seo-plan-2026-08-service-restructure/KEYWORD-DB.csv` (คำที่ทีมติดตามและ publish แล้ว ถือเป็นตัวจริง)
+   และ `seo-handoff/_inventory.md` §4 (ดราฟต์ที่ยังไม่ขึ้น ยังไม่เข้า DB)
    ถ้าหัวข้อใหม่ใกล้ของเดิม ให้เสนอเป็น *"อัปเดตหน้าเดิม"* แทนการเขียนหน้าใหม่
 3. **ทุก keyword ต้องมีหน้าปลายทาง** — ระบุ service page ที่จะส่ง traffic ไป ถ้าระบุไม่ได้ = ตัดทิ้ง
    (traffic ที่ไม่มีหน้าให้ลงจอด ไม่ใช่ผลงาน)
@@ -42,8 +44,9 @@ volume ต่ำกว่ามาก แต่เราชนะได้ ถ�
 
 ## STEP 0 — โหลด context (ทำก่อนเสมอ)
 
-อ่าน 2 ไฟล์นี้ก่อนเริ่มคิด keyword:
-- `seo-handoff/_inventory.md` — หน้าที่มีแล้ว + keyword ที่จองแล้ว + baseline GSC
+อ่าน 3 ไฟล์นี้ก่อนเริ่มคิด keyword:
+- `docs/seo-plan-2026-08-service-restructure/KEYWORD-DB.csv` — ทะเบียนตัวจริง: คำที่ track อยู่ หน้าปลายทาง สถานะ publish และ impr/pos ล่าสุด
+- `seo-handoff/_inventory.md` — ดราฟต์ใน `seo-handoff/` ที่ยังไม่เข้า DB + first-party asset ที่ใช้อ้างได้
 - `seo-handoff/keyword-research.md` — cluster analysis + content gap ที่ระบุไว้แล้ว
 
 **สรุปกลับมาให้ user เห็น 3 บรรทัด** ก่อนไป step ถัดไป: baseline ปัจจุบัน / keyword ที่จองแล้วกี่คำ / gap ที่เอกสารเดิมชี้ไว้

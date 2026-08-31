@@ -17,6 +17,13 @@ hashbox_render_case_study( array(
     'headline'  => '+2,200% Search Impressions ภายใน 12 เดือนด้วย Technical SEO + Content Programme',
     'lede'      => 'HR-Tech Platform ที่มี Product ที่ดีแต่ Organic Discovery ใกล้ศูนย์ Search Impressions เฉลี่ย 800/วัน ติด Branded Search อย่างเดียว เราทำ Technical SEO Overhaul + 12-month Content Programme ผลคือ +2,200% Impressions, +700% Traffic',
 
+    // ตัวเลขที่ลูกค้าอนุญาตให้เปิดเผย (Tum 2026-08-29) — เกณฑ์เดียวกับการันตี
+    'proof' => array(
+        array( 'value' => '20+', 'label' => 'keyword หน้าแรก Google ใน 90 วันแรก', 'note' => 'non-brand · Search Console ของลูกค้า' ),
+        array( 'value' => '90+', 'label' => 'Lighthouse mobile หลัง CWV overhaul', 'note' => 'จาก React SPA → Next.js SSR' ),
+        array( 'value' => '90 วัน', 'label' => 'ก่อนเริ่ม content programme เต็มรูปแบบ', 'note' => 'technical ผ่านก่อน แล้วค่อยต่อยอด' ),
+    ),
+
     'snapshot' => array(
         array( 'value' => '+2,200%', 'label' => 'Search Impressions' ),
         array( 'value' => '+700%',   'label' => 'Organic Traffic' ),

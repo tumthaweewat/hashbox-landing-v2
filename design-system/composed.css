@@ -83,7 +83,7 @@
 
 .hb-hero__title {
   font-family: var(--hb-font-display);
-  font-size: clamp(2.25rem, 4.2vw, 4rem);
+  font-size: clamp(1.75rem, 1.25rem + 2.2vw, 3.25rem);
   font-weight: var(--hb-weight-bold);
   line-height: var(--hb-leading-tight);
   letter-spacing: 0;
@@ -1386,4 +1386,173 @@ main > .hb-section {
 
 .hb-proof-strip__report-caption a:hover {
   text-decoration: underline;
+}
+
+/* -------------------------------------------------------------------------
+ * 26. SERVICE LIST (homepage "บริการของเรา") — keyword rows, not cards
+ * ----------------------------------------------------------------------- */
+
+.hb-svc-list {
+  list-style: none;
+  margin: var(--hb-space-8) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--hb-border-strong);
+}
+
+.hb-svc {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) auto;
+  gap: var(--hb-space-4) var(--hb-space-8);
+  align-items: start;
+  padding: var(--hb-space-6) 0;
+  border-bottom: 1px solid var(--hb-border);
+}
+
+.hb-svc--featured {
+  padding: var(--hb-space-8) 0;
+}
+
+.hb-svc__title {
+  font-family: var(--hb-font-display);
+  font-size: var(--hb-text-xl);
+  font-weight: var(--hb-weight-bold);
+  line-height: var(--hb-leading-snug);
+  letter-spacing: var(--hb-tracking-tight);
+  margin: 0 0 var(--hb-space-2);
+  text-wrap: balance;
+}
+
+.hb-svc--featured .hb-svc__title {
+  font-size: var(--hb-text-2xl);
+}
+
+.hb-svc__title a {
+  color: var(--hb-text-strong);
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size var(--hb-duration-normal) var(--hb-ease-out-expo), color var(--hb-duration-fast) var(--hb-ease-out);
+}
+
+.hb-svc__title a:hover,
+.hb-svc__title a:focus-visible {
+  color: var(--hb-accent-blue);
+  background-size: 100% 2px;
+}
+
+.hb-svc__desc {
+  margin: 0;
+  color: var(--hb-text-muted);
+  font-size: var(--hb-text-base);
+  line-height: var(--hb-leading-relaxed);
+  max-width: 52ch;
+}
+
+.hb-svc__subs {
+  list-style: none;
+  margin: 0;
+  padding: var(--hb-space-1) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hb-space-2);
+  align-content: start;
+}
+
+.hb-svc__subs li {
+  font-size: var(--hb-text-sm);
+  color: var(--hb-text-muted);
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--hb-border);
+  border-radius: var(--hb-radius-full);
+  line-height: 1.3;
+}
+
+.hb-svc__subs a {
+  color: var(--hb-text);
+  text-decoration: none;
+}
+
+.hb-svc__subs li:has(a):hover {
+  border-color: var(--hb-accent-blue);
+}
+
+.hb-svc__subs a:hover,
+.hb-svc__subs a:focus-visible {
+  color: var(--hb-accent-blue);
+}
+
+.hb-svc__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--hb-space-2);
+  white-space: nowrap;
+  padding-top: var(--hb-space-1);
+}
+
+.hb-svc__price {
+  font-family: var(--hb-font-mono);
+  font-size: var(--hb-text-sm);
+  color: var(--hb-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.hb-svc__link {
+  font-size: var(--hb-text-sm);
+  font-weight: var(--hb-weight-semibold);
+  color: var(--hb-accent-blue);
+  text-decoration: none;
+}
+
+.hb-svc__link:hover,
+.hb-svc__link:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .hb-svc {
+    grid-template-columns: 1fr;
+    gap: var(--hb-space-3);
+  }
+  .hb-svc__meta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    white-space: normal;
+  }
+}
+
+/* Sub-service chips inside /services/ hub cards */
+.hb-service__subs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hb-space-2);
+}
+.hb-service__subs li {
+  font-size: var(--hb-text-xs);
+  color: var(--hb-text-muted);
+  padding: 0.25rem 0.55rem;
+  border: 1px solid var(--hb-border);
+  border-radius: var(--hb-radius-full);
+}
+.hb-service__subs a { color: inherit; text-decoration: none; }
+.hb-service__subs a:hover { color: var(--hb-accent-blue); }
+
+
+/* Homepage featured cases: 1 wide + 2 */
+.hb-case-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--hb-space-4);
+}
+.hb-case--wide { grid-column: 1 / -1; }
+.hb-case--wide .hb-case__metric { font-size: var(--hb-text-5xl); }
+@media (max-width: 760px) {
+  .hb-case-grid { grid-template-columns: 1fr; }
 }

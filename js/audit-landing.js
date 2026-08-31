@@ -11,6 +11,9 @@
   var ATTRIBUTION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
   var AI_CONVERSION_DESTINATION = 'AW-18190672421/qx_ICPKggN0cEKXE_uFD';
   var AI_PENDING_LEAD_KEY = 'hashbox_ai_pending_lead_ref';
+  var AI_LEAD_STORAGE_PREFIX = 'hashbox_ai_lead_v2_';
+  var AI_LEAD_MEMORY_STATE = {};
+  var AI_CONVERSION_REF_PATTERN = /^HB-AI-[0-9]{8}-[0-9]{9,40}$/;
 
   function attributionStorageKey(scope) {
     return ATTRIBUTION_STORAGE_PREFIX + String(scope || 'site').replace(/[^a-z0-9_-]/gi, '_');
@@ -176,17 +179,62 @@
     return /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(leadRef || '');
   }
 
+  function isValidAiConversionRef(conversionRef) {
+    return AI_CONVERSION_REF_PATTERN.test(conversionRef || '') && conversionRef.length <= 64;
+  }
+
   function aiLeadStorageKey(leadRef) {
+    return AI_LEAD_STORAGE_PREFIX + leadRef;
+  }
+
+  function legacyAiLeadStorageKey(leadRef) {
     return 'hashbox_ai_lead_' + leadRef;
+  }
+
+  function migrateLegacyAiLeadState(leadRef) {
+    try {
+      var legacyKey = legacyAiLeadStorageKey(leadRef);
+      var raw = window.sessionStorage.getItem(legacyKey);
+      if (!raw) return null;
+
+      var stored = raw === '1' ? { ads: true, meta: true } : JSON.parse(raw);
+      var migrated = {
+        // The legacy analytics flag only proves ai_consultation_lead was queued.
+        // The canonical generate_lead event still needs to be sent once.
+        analytics: false,
+        ads: stored.ads === true,
+        meta: stored.meta === true
+      };
+
+      if (writeAiLeadState(leadRef, migrated)) {
+        window.sessionStorage.removeItem(legacyKey);
+      }
+      return migrated;
+    } catch (err) {
+      return null;
+    }
   }
 
   function readAiLeadState(leadRef) {
     var empty = { analytics: false, ads: false, meta: false };
+    var raw = null;
     try {
-      var raw = window.sessionStorage.getItem(aiLeadStorageKey(leadRef));
-      if (!raw) return empty;
-      if (raw === '1') return { analytics: true, ads: true, meta: true };
+      raw = window.localStorage.getItem(aiLeadStorageKey(leadRef));
+    } catch (err) {}
 
+    if (!raw) {
+      try {
+        raw = window.sessionStorage.getItem(aiLeadStorageKey(leadRef));
+      } catch (err) {}
+    }
+
+    if (!raw && AI_LEAD_MEMORY_STATE[leadRef]) {
+      return Object.assign({}, AI_LEAD_MEMORY_STATE[leadRef]);
+    }
+    if (!raw) return migrateLegacyAiLeadState(leadRef) || empty;
+    if (raw === '1') return { analytics: true, ads: true, meta: true };
+
+    try {
       var stored = JSON.parse(raw);
       return {
         analytics: stored.analytics === true,
@@ -194,17 +242,33 @@
         meta: stored.meta === true
       };
     } catch (err) {
-      return empty;
+      return AI_LEAD_MEMORY_STATE[leadRef]
+        ? Object.assign({}, AI_LEAD_MEMORY_STATE[leadRef])
+        : empty;
     }
   }
 
   function writeAiLeadState(leadRef, state) {
+    var key = aiLeadStorageKey(leadRef);
+    var serialized = JSON.stringify(state);
+    AI_LEAD_MEMORY_STATE[leadRef] = {
+      analytics: state.analytics === true,
+      ads: state.ads === true,
+      meta: state.meta === true
+    };
     try {
-      window.sessionStorage.setItem(aiLeadStorageKey(leadRef), JSON.stringify(state));
+      window.localStorage.setItem(key, serialized);
+      try { window.sessionStorage.removeItem(key); } catch (err) {}
       return true;
-    } catch (err) {
-      return false;
-    }
+    } catch (err) {}
+
+    // Storage-restricted browsers still need same-session protection so the
+    // retry loop cannot queue GA4/Ads repeatedly while waiting for Meta.
+    try {
+      window.sessionStorage.setItem(key, serialized);
+      return true;
+    } catch (err) {}
+    return false;
   }
 
   function rememberPendingAiLead(leadRef) {
@@ -224,44 +288,55 @@
     } catch (err) {}
   }
 
-  function confirmedAiLeadRef(root) {
-    if (!root || root.dataset.auditSlug !== 'ai-workflow-audit') return '';
+  function confirmedAiLead(root) {
+    if (!root || root.dataset.auditSlug !== 'ai-workflow-audit') return null;
 
     // Only trust references the server confirmed by printing the signed meta
     // tag (contact=ai_sent&lead_ref&lead_sig verified against the submit-time
     // transient). A crafted success URL must never fire ad conversions.
     var meta = document.querySelector('meta[name="hashbox-confirmed-ai-lead"]');
     var confirmedRef = meta ? meta.getAttribute('content') || '' : '';
-    if (!isValidLeadRef(confirmedRef)) return '';
+    if (!isValidLeadRef(confirmedRef)) return null;
 
     var params = new URLSearchParams(window.location.search);
     var leadRef = params.get('contact') === 'ai_sent' ? params.get('lead_ref') || '' : '';
     if (isValidLeadRef(leadRef)) {
-      return leadRef === confirmedRef ? confirmedRef : '';
+      if (leadRef !== confirmedRef) return null;
+    } else {
+      try {
+        leadRef = window.sessionStorage.getItem(AI_PENDING_LEAD_KEY) || '';
+      } catch (err) {
+        leadRef = '';
+      }
+      if (!isValidLeadRef(leadRef) || leadRef !== confirmedRef) return null;
     }
 
-    try {
-      leadRef = window.sessionStorage.getItem(AI_PENDING_LEAD_KEY) || '';
-    } catch (err) {
-      leadRef = '';
-    }
-    return isValidLeadRef(leadRef) && leadRef === confirmedRef ? confirmedRef : '';
+    var conversionRef = meta.getAttribute('data-conversion-ref') || '';
+    return {
+      leadRef: confirmedRef,
+      conversionRef: isValidAiConversionRef(conversionRef) ? conversionRef : ''
+    };
   }
 
-  function trackConfirmedAiLead(root, leadRef, attempt) {
-    if (!root || root.dataset.auditSlug !== 'ai-workflow-audit' || !isValidLeadRef(leadRef)) return;
+  function trackConfirmedAiLead(root, confirmation, attempt) {
+    if (!root || root.dataset.auditSlug !== 'ai-workflow-audit' || !confirmation) return;
+    var leadRef = confirmation.leadRef;
+    var conversionRef = confirmation.conversionRef;
+    if (!isValidLeadRef(leadRef) || !isValidAiConversionRef(conversionRef)) return;
 
     var state = readAiLeadState(leadRef);
 
     if (typeof window.gtag === 'function') {
       if (!state.analytics) {
-        window.gtag('event', 'ai_consultation_lead', {
+        // Use GA4's recommended lead-generation event so Website and AI
+        // submissions populate the same lead funnel and key-event reports.
+        window.gtag('event', 'generate_lead', {
           form_id: 'ai-workflow-audit',
           form_name: 'AI Opportunity Screening',
           lead_source: 'ai_consulting',
           currency: 'THB',
           value: 1,
-          transaction_id: leadRef
+          transaction_id: conversionRef
         });
         state.analytics = true;
       }
@@ -269,7 +344,7 @@
       if (!state.ads) {
         window.gtag('event', 'conversion', {
           send_to: AI_CONVERSION_DESTINATION,
-          transaction_id: leadRef,
+          transaction_id: conversionRef,
           currency: 'THB',
           value: 1
         });
@@ -294,7 +369,7 @@
     if (state.analytics && state.ads && state.meta) return;
 
     if (attempt < 120) {
-      window.setTimeout(function () { trackConfirmedAiLead(root, leadRef, attempt + 1); }, 500);
+      window.setTimeout(function () { trackConfirmedAiLead(root, confirmation, attempt + 1); }, 500);
     }
   }
 
@@ -388,13 +463,23 @@
     if (root.dataset.auditSlug === 'ai-workflow-audit') {
       var retryConfirmedLead = function () {
         window.removeEventListener('hashbox:third-party-ready', retryConfirmedLead);
-        var pendingLeadRef = confirmedAiLeadRef(root);
-        if (pendingLeadRef) trackConfirmedAiLead(root, pendingLeadRef, 0);
+        var pendingLead = confirmedAiLead(root);
+        if (pendingLead && pendingLead.conversionRef) {
+          trackConfirmedAiLead(root, pendingLead, 0);
+        } else if (pendingLead) {
+          cleanSuccessParams();
+        }
       };
       window.addEventListener('hashbox:third-party-ready', retryConfirmedLead);
 
-      var leadRef = confirmedAiLeadRef(root);
-      if (leadRef) trackConfirmedAiLead(root, leadRef, 0);
+      var confirmedLead = confirmedAiLead(root);
+      if (confirmedLead && confirmedLead.conversionRef) {
+        trackConfirmedAiLead(root, confirmedLead, 0);
+      } else if (confirmedLead) {
+        // Legacy signed confirmations can still render success, but must not
+        // fall back to a UUID Google transaction ID.
+        cleanSuccessParams();
+      }
     }
     initAiStickyCta(root);
   }

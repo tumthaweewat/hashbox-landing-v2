@@ -42,7 +42,7 @@ node tools/dataforseo.mjs plan seo-handoff/keyword-plan-2026-08.md
 | A1 | **ทำไม traffic ตก ตั้งแต่มี AI Overview** | ai overview ทำ traffic หาย · zero-click search คือ · ctr ตกทั้งที่อันดับเท่าเดิม · วัดว่า traffic หายไปไหน | เอเจนซี่ไทย 1 ราย + เว็บข่าว + บทความต่างประเทศ/แปล — **ยังไม่มีใครลงลึกภาษาไทย** | เรามี GSC ของตัวเองที่เห็นปรากฏการณ์นี้จริง (impression พุ่ง 25–43/วัน แต่ position ตก) → เล่าจากข้อมูลจริงได้ ไม่ใช่แปลฝรั่ง |
 | A2 | **llms.txt ต้องทำไหม คุ้มไหม** | ใครอ่าน llms.txt จริงบ้าง · llms.txt vs robots.txt · llms-full.txt คือ · llms.txt ได้ผลไหม | head term `llms.txt คือ` **แน่นมาก** (anga, padvee, bizsoft, twndigital ฯลฯ) แต่มุม *"ต้องทำไหม/ได้ผลจริงไหม"* ยังว่าง | เรามี `/llms-full.txt` อยู่บนเว็บจริง + GEO checker วัดได้ → ตอบแบบมีหลักฐาน ไม่ใช่เชียร์ตามกระแส **ห้ามจับ head term ตรง ๆ** |
 | A3 | **ทำไมเว็บเราไม่ติด AI Overview** | ai overview เลือกเว็บจากอะไร · เช็คว่าเว็บติด ai overview ไหม · เว็บไม่ถูก ai อ้างอิง · แก้ยังไงให้ ai หยิบไปตอบ | ส่วนใหญ่เป็นบทความ "วิธีทำให้ติด" แบบ generic — **ไม่มีใครทำมุม diagnostic (ทำไมถึงไม่ติด)** | `/tools/geo-checker/` ตรวจ 14 จุดพอดี = บทความนี้คือคู่มืออ่านผลของเครื่องมือเรา ผูก tool→บทความ→บริการได้ครบวง |
-| A4 | **Google AI Mode คืออะไร กระทบ SEO ยังไง** | ai mode ต่างกับ ai overview ยังไง · query fan-out คือ · ai mode มีในไทยหรือยัง | ไทยยังบางมาก — เป็นคำที่ **คนจะเริ่มค้นเมื่อฟีเจอร์มาถึงไทยเต็มตัว** | ลงมือก่อนได้เปรียบ: เขียนตอนนี้ = เป็นเจ้าของคำตั้งแต่ volume ยังต่ำ ⚠️ ตรวจ SERP ซ้ำก่อนเขียน (ฟีเจอร์เปลี่ยนเร็ว) |
+| A4 ~~ตัด~~ | ~~**Google AI Mode คืออะไร กระทบ SEO ยังไง**~~ | — | — | **main ขึ้นหน้านี้ไปแล้ว** `/google-ai-mode-คืออะไร-2026/` (post 18, publish 2026-08-30) และมี `/aeo-คืออะไร-2026/` (post 19) คู่กัน ตอนวางแผนหน้านี้ยังไม่มี ห้ามเขียนซ้ำ ถ้าจะเพิ่มมุม diagnostic ให้แก้โพสต์เดิม |
 
 ### สาย "WordPress / SEO-Ready Website" → `/services/website-development/wordpress/` · `/services/website-development/`
 
@@ -100,7 +100,8 @@ node tools/dataforseo.mjs plan seo-handoff/keyword-plan-2026-08.md
 | 6 | **C1** ทำไมโปรเจกต์ AI ล้ม | ต้องเก็บเคสจริงให้ครบก่อนเขียน |
 | 7 ✅ | **B2** เตรียมอะไรบ้างก่อนทำเว็บบริษัทใหม่ | ดราฟต์เสร็จ `articles/company-website-ai-ready-2026.md` |
 | 8 ✅ | **B3** ทำเว็บใหม่แล้วอันดับหาย | ดราฟต์เสร็จ `articles/website-migration-seo-2026.md` |
-| 9–10 | C2 · A4 | A4 ตรวจ SERP ซ้ำก่อนเริ่มเสมอ |
+| 9 | **C2** คำนวณ ROI ของ AI คุ้มไม่คุ้ม | เขียนได้เลย ไม่ต้องรอ input · ต้องลิงก์ไป `/ai-solution-consulting-guide-2026/` ไม่เขียนเรื่องงบซ้ำหน้านั้น |
+| 10 | ~~A4~~ | ตัดออก — main publish ไปแล้ว (post 18) เหลืองานเขียนในแผนนี้ 1 ชิ้นคือ C2 |
 
 ---
 
@@ -203,7 +204,7 @@ node tools/dataforseo.mjs plan seo-handoff/keyword-plan-2026-08.md
 
 ## 6. ทำอะไรต่อ
 
-1. ตรวจ SERP ซ้ำก่อนเขียนทุกหัวข้อ — โดยเฉพาะ A4 (Google AI Mode) ที่เปลี่ยนเร็ว
+1. ตรวจ SERP ซ้ำก่อนเขียนทุกหัวข้อ — แผนนี้ร่างไว้ 2026-08-21 และ main ขึ้นบทความใหม่ไปหลายชิ้นตั้งแต่นั้น เช็ค `docs/seo-plan-2026-08-service-restructure/KEYWORD-DB.csv` ก่อนลงมือทุกครั้ง
 2. Export GSC รอบใหม่ (ส.ค. 2026) มาทับ baseline ใน `_inventory.md` §5 และปลดล็อก A1
-3. อัปเดต `_inventory.md` **ทุกครั้ง** ที่ publish ไม่งั้นรอบหน้าจะเสนอคำซ้ำ
+3. อัปเดต `_inventory.md` **ทุกครั้ง** ที่เพิ่มดราฟต์ และย้ายแถวไป KEYWORD-DB.csv เมื่อ publish ไม่งั้นรอบหน้าจะเสนอคำซ้ำ
 4. รีวิวสัปดาห์ที่ 4 / 8 / 12 — content ใหม่ใช้เวลา 3–6 เดือนกว่าจะไต่อันดับ **อันดับตกช่วงแรกหลัง index เป็นปกติ ห้ามตีความว่าล้มเหลว**
