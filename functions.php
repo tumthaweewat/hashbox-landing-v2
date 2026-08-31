@@ -634,13 +634,11 @@ function portfolio_settings_page() {
 function hashbox_page_is_english() {
     $path = hashbox_current_request_path();
 
-    foreach ( hashbox_hreflang_pairs() as $pair ) {
-        if ( $path === $pair['en'] ) {
-            return true;
-        }
-    }
-
-    return false;
+    // Everything under /en/ is English by design (service pages, listicles,
+    // the /en/ index itself) — a prefix check keeps future EN pages from
+    // silently rendering with Thai nav + lang="th-TH" the way exact-match
+    // against hashbox_hreflang_pairs() did.
+    return 'en' === $path || 0 === strpos( $path, 'en/' );
 }
 
 /**
