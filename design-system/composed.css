@@ -176,8 +176,9 @@
 }
 
 .hb-hero__inner--with-visual .hb-hero__title {
-  font-size: clamp(1.95rem, 2.75vw + 0.75rem, 3.15rem);
-  line-height: 1.12;
+  /* 2026-09-01: ลดจาก max 3.15rem — H1 หน้าแรกยาว 6 บรรทัด กินครึ่งจอ (Tum) */
+  font-size: clamp(1.7rem, 2.2vw + 0.6rem, 2.6rem);
+  line-height: 1.15;
   letter-spacing: 0;
 }
 
