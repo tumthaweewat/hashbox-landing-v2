@@ -3351,6 +3351,9 @@
 
 .hb-blog-single .hb-post__content.hb-prose .hb-post-article-shell h2::before {
   content: "";
+  /* 2026-09-01: override absolute+top:-1px ที่ตกทอดจาก rule เก่า — bar ไปแปะติดตัวอักษร (Tum) */
+  position: static;
+  top: auto;
   display: block;
   width: 3rem;
   height: 3px;
