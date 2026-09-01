@@ -394,6 +394,47 @@ assert.match(
   /'' !== \$website_project_type_label \? \$website_project_type_label : ''/,
   'HubSpot service mapping must omit fabricated values when project_type is skipped'
 );
+// Optional-field contract: empty passes, valid values pass, tampered fails closed.
+assert.match(
+  functionsSource,
+  /\$invalid_website_project_type = \$is_website_audit_form && '' !== \$project_type && '' === \$website_project_type_label;/,
+  'project_type: empty must pass, unknown must fail closed'
+);
+assert.match(
+  functionsSource,
+  /\$website_budget_allowlist = array\( '35900-60000', '60001-120000', '120001-250000', '250001-plus', 'needs-assessment-ready-35900' \);/,
+  'budget allow-list must match the form options exactly'
+);
+assert.match(
+  functionsSource,
+  /\$website_timeline_allowlist = array\( 'within-1-month', '1-3-months', 'over-3-months', 'planning-ready' \);/,
+  'timeline allow-list must match the form options exactly'
+);
+assert.match(
+  functionsSource,
+  /\$invalid_website_budget   = \$is_website_audit_form && '' !== \$budget && ! in_array\( \$budget, \$website_budget_allowlist, true \);/,
+  'budget: empty must pass, unknown must fail closed'
+);
+assert.match(
+  functionsSource,
+  /\$invalid_website_timeline = \$is_website_audit_form && '' !== \$timeline && ! in_array\( \$timeline, \$website_timeline_allowlist, true \);/,
+  'timeline: empty must pass, unknown must fail closed'
+);
+assert.match(
+  functionsSource,
+  /\$invalid_website_project_type \|\| \$invalid_website_budget \|\| \$invalid_website_timeline/,
+  'all three optional-field validators must gate the website-audit submission'
+);
+{
+  // Behavioural check of the validator expressions (mirrors the PHP logic).
+  const allow = { project_type: ['landing-page', 'corporate-website', 'website-redesign', 'needs-assessment'], budget: ['35900-60000', '60001-120000', '120001-250000', '250001-plus', 'needs-assessment-ready-35900'], timeline: ['within-1-month', '1-3-months', 'over-3-months', 'planning-ready'] };
+  const invalid = (field, value) => value !== '' && !allow[field].includes(value);
+  for (const field of Object.keys(allow)) {
+    assert.equal(invalid(field, ''), false, `${field}: empty value must be accepted`);
+    for (const good of allow[field]) assert.equal(invalid(field, good), false, `${field}: '${good}' must be accepted`);
+    for (const bad of ['hack', '35900', 'DROP TABLE', 'landing-page ']) assert.equal(invalid(field, bad), true, `${field}: tampered '${bad}' must fail closed`);
+  }
+}
 assert.match(
   scriptSource,
   /อีเมลที่สะดวกให้ติดต่อกลับ \*/,

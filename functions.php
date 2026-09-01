@@ -3472,6 +3472,12 @@ function hashbox_handle_contact_submit() {
     // Funnel V2: project_type is optional. Only reject values outside the
     // allow-list; an empty value means the visitor skipped the optional field.
     $invalid_website_project_type = $is_website_audit_form && '' !== $project_type && '' === $website_project_type_label;
+    // Funnel V2: budget/timeline are optional too, but posted values must come
+    // from the form's own option lists — anything else fails closed.
+    $website_budget_allowlist = array( '35900-60000', '60001-120000', '120001-250000', '250001-plus', 'needs-assessment-ready-35900' );
+    $website_timeline_allowlist = array( 'within-1-month', '1-3-months', 'over-3-months', 'planning-ready' );
+    $invalid_website_budget   = $is_website_audit_form && '' !== $budget && ! in_array( $budget, $website_budget_allowlist, true );
+    $invalid_website_timeline = $is_website_audit_form && '' !== $timeline && ! in_array( $timeline, $website_timeline_allowlist, true );
     $needs_contact_detail = $is_ai_form && in_array( $contact_preference, array( 'LINE', 'โทร' ), true );
     $invalid_ai_contact_preference = $is_ai_form && ! in_array( $contact_preference, array( '', 'LINE', 'โทร' ), true );
 
@@ -3481,7 +3487,7 @@ function hashbox_handle_contact_submit() {
             // Funnel V2 required set: name, email, contact_detail, pdpa (+ the
             // hidden service/contact_preference markers the page always posts).
             // project_type/budget/timeline are optional qualification fields.
-            ? ( $name === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || $invalid_website_project_type || 'phone-or-line' !== $contact_preference || $contact_detail === '' || ! $pdpa )
+            ? ( $name === '' || $email === '' || ! is_email( $email ) || 'seo-website' !== $service || $invalid_website_project_type || $invalid_website_budget || $invalid_website_timeline || 'phone-or-line' !== $contact_preference || $contact_detail === '' || ! $pdpa )
             : ( $is_audit_form
                 ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
                 : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) ) ) );
