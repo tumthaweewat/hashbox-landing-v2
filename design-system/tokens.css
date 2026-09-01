@@ -321,3 +321,15 @@ body {
   font-feature-settings: 'tnum', 'lnum';
   font-variant-numeric: tabular-nums lining-nums;
 }
+
+/* 2026-09-01: จัดบรรทัดทั้งเว็บ (Tum) — heading สมดุล ไม่ทิ้งคำเดี่ยวท้ายบรรทัด,
+   paragraph กัน orphan · browser ที่ไม่รองรับจะข้าม ไม่พังอะไร */
+h1, h2, h3,
+.hb-hero__title,
+.hb-section__title {
+  text-wrap: balance;
+}
+
+p, li, .hb-hero__sub {
+  text-wrap: pretty;
+}

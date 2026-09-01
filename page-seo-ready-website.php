@@ -281,7 +281,7 @@ $checks = array(
 
     .hb-srw-status {
         color: var(--srw-green);
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-family: var(--hb-font-mono);
         font-size: 12px;
         font-weight: 700;
     }
