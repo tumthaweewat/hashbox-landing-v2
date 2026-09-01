@@ -24,9 +24,9 @@ get_header();
                 </span>
                 <h1 class="hb-hero__title">
                     รับทำเว็บไซต์ SEO&#8209;Ready<br>
-                    <em>พร้อม SEO, AI Search และที่ปรึกษา AI</em><br>
-                    ไว้ในทีมเดียว<br>
-                    <em>วัดผลจาก Search Console ของคุณ</em>
+                    <em>พร้อม SEO, AI Search</em><br>
+                    และ<em><span class="hb-nowrap">ที่ปรึกษา AI</span></em> <span class="hb-nowrap">ไว้ในทีมเดียว</span><br>
+                    <em>วัดผลจาก <span class="hb-nowrap">Search Console ของคุณ</span></em>
                 </h1>
                 <p class="hb-hero__sub">
                     Hashbox Studio รับทำเว็บไซต์ SEO-Ready สำหรับธุรกิจไทยที่ต้องการมากกว่าเว็บสวย เราวางโครงสร้าง Technical SEO, Core Web Vitals, Schema, รับทำ SEO / AI Search และระบบ AI สำหรับธุรกิจไว้ในทีมเดียว ราคาเปิดเผยทุกบริการ และการันตี <strong>"ไม่โต ไม่จ่าย"</strong> — impressions ไม่โต 50% ใน 90 วัน เราทำต่อฟรี

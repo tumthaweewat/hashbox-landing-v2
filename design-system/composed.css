@@ -102,6 +102,8 @@
   color: transparent;
 }
 
+.hb-nowrap { white-space: nowrap; }
+
 .hb-hero__sub {
   font-size: var(--hb-text-lg);
   line-height: var(--hb-leading-relaxed);
@@ -170,14 +172,17 @@
   gap: var(--hb-space-5);
 }
 
-.hb-hero__inner--with-visual .hb-hero__sub {
+.hb-hero__inner--with-visual .hb-nowrap { white-space: nowrap; }
+
+.hb-hero__sub {
   font-size: clamp(0.95rem, 0.45vw + 0.86rem, 1.08rem);
   max-width: 58ch;
 }
 
 .hb-hero__inner--with-visual .hb-hero__title {
-  font-size: clamp(1.95rem, 2.75vw + 0.75rem, 3.15rem);
-  line-height: 1.12;
+  /* 2026-09-01: ลดจาก max 3.15rem — H1 หน้าแรกยาว 6 บรรทัด กินครึ่งจอ (Tum) */
+  font-size: clamp(1.65rem, 2vw + 0.55rem, 2.4rem);
+  line-height: 1.15;
   letter-spacing: 0;
 }
 

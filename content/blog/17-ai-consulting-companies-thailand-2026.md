@@ -100,6 +100,14 @@ Three things break foreign-first AI projects in Thailand: customers expect to ta
 
 ## FAQ {#faq}
 
+### What AI is available in Thailand?
+
+Four buckets: ready-to-use Thai AI platforms (Botnoi chat/voicebots, Amity Solutions agents, VISAI models and APIs); consulting firms that build custom systems to production (Hashbox, DBot, Data Wow, Sertis); enterprise programmes (Accenture, Deloitte, Adastra, PwC, KPMG); and in-house AI teams at large banks and retailers, which you cannot hire. If you want a system built for your business, start with the two hireable groups and the 7 criteria above.
+
+### Are AI consultants in high demand in Thailand?
+
+Demand is visibly growing — LINE automation, PDPA-compliant chatbots and RAG knowledge bases have moved from experiments to line items in ordinary SME budgets, and enterprise houses keep expanding local AI practices (Deloitte acquired Thai consultancy Appsynth in 2025). The practical consequence for buyers: good boutique teams book out, so ask about start dates early — and be more sceptical, not less, of anyone instantly available who promises everything.
+
 ### How much does AI consulting cost in Thailand?
 Published prices in 2026: Hashbox from THB 60,000 for an ROI assessment (PoC 200,000, production 500,000), DBot USD 20–45/hour with a USD 10k minimum. Enterprise practices (Accenture, Deloitte, Sertis, Adastra) do not publish prices; programmes typically start around THB 2M. Budget separately for LLM API usage, hosting and a monthly care plan.
 
