@@ -24,8 +24,8 @@ get_header();
                 </span>
                 <h1 class="hb-hero__title">
                     รับทำเว็บไซต์ SEO&#8209;Ready<br>
-                    <em>พร้อม SEO, AI Search และ<span class="hb-nowrap">ที่ปรึกษา AI</span></em><br>
-                    ไว้ในทีมเดียว<br>
+                    <em>พร้อม SEO, AI Search</em><br>
+                    และ<em><span class="hb-nowrap">ที่ปรึกษา AI</span></em> ไว้ในทีมเดียว<br>
                     <em>วัดผลจาก <span class="hb-nowrap">Search Console ของคุณ</span></em>
                 </h1>
                 <p class="hb-hero__sub">
