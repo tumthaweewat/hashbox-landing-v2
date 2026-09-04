@@ -651,6 +651,91 @@ function hashbox_page_is_english() {
 }
 
 /**
+ * Is the current request rendered with the long-form article layout?
+ *
+ * True for single posts and for WP pages assigned the "Article layout"
+ * template (page-article.php). Every blog-design hook — blog.css, the
+ * hb-blog-single body class, Article schema, og:type, heading IDs for the
+ * TOC, breadcrumbs — keys on this instead of is_singular( 'post' ), so an
+ * editorial page that lives under /en/ (a listicle moved from a post)
+ * gets the same design and structured data as a post. 2026-09-04: page 270
+ * rendered with page.php and lost all of it when it moved from post 251.
+ */
+function hashbox_is_article_view() {
+    return is_singular( 'post' ) || ( is_page() && is_page_template( 'page-article.php' ) );
+}
+
+/**
+ * UI strings for the article layout. Thai is the default; English when the
+ * request is under /en/ (hashbox_page_is_english()). Used by single.php and
+ * the post-* template parts so the chrome follows the page language.
+ */
+function hashbox_article_strings() {
+    static $strings = null;
+    if ( null !== $strings ) {
+        return $strings;
+    }
+    if ( hashbox_page_is_english() ) {
+        $strings = array(
+            'cta_primary'     => 'Talk to us — free',
+            'cta_services'    => 'See all services',
+            'brief_eyebrow'   => 'Quick Scan',
+            'brief_title'     => 'Article summary',
+            'brief_category'  => 'Category',
+            'brief_reading'   => 'Reading time',
+            'brief_updated'   => 'Updated',
+            'brief_metrics'   => array( 'Easy read', 'Checklist', 'Actionable' ),
+            'service_eyebrow' => 'Work with Hashbox',
+            'service_title'   => 'Web, SEO and AI in one team',
+            'service_text'    => 'We audit your site, rank what to fix first and lay out a roadmap you can measure.',
+            'service_link'    => 'See services',
+            'cta_kicker'      => 'Hashbox Audit',
+            'cta_title'       => 'Let our team take this further',
+            'cta_text'        => 'Send us the site or brief you are working on and we will point out what to fix first — SEO, conversion, tracking and AI workflow.',
+            'cta_points'      => array( 'Priority fixes', 'Roadmap', 'Quick wins' ),
+            'cta_points_label' => 'What you get',
+            'cta_button'      => 'Get free advice',
+            'meta_by'         => 'By',
+            'meta_updated'    => 'Updated',
+            'toc_title'       => 'Contents',
+            'share_label'     => 'Share:',
+            'related_eyebrow' => 'Keep reading',
+            'related_title'   => 'Related articles',
+            'crumb_blog'      => 'Blog',
+        );
+    } else {
+        $strings = array(
+            'cta_primary'     => 'ปรึกษาโปรเจกต์ฟรี',
+            'cta_services'    => 'ดูบริการทั้งหมด',
+            'brief_eyebrow'   => 'Quick Scan',
+            'brief_title'     => 'สรุปบทความ',
+            'brief_category'  => 'หมวดหมู่',
+            'brief_reading'   => 'เวลาอ่าน',
+            'brief_updated'   => 'อัปเดต',
+            'brief_metrics'   => array( 'อ่านง่าย', 'เช็กลิสต์', 'ลงมือทำ' ),
+            'service_eyebrow' => 'Work with Hashbox',
+            'service_title'   => 'Web, Marketing และ AI ในทีมเดียว',
+            'service_text'    => 'ให้ทีมช่วย audit เว็บไซต์ จัดลำดับงานที่ควรทำก่อน และวาง roadmap ที่วัดผลได้จริง',
+            'service_link'    => 'ดูบริการ',
+            'cta_kicker'      => 'Hashbox Audit',
+            'cta_title'       => 'ให้ทีมช่วยดูโจทย์นี้ต่อ',
+            'cta_text'        => 'ส่งเว็บไซต์หรือ brief ที่กำลังทำอยู่ให้เราช่วยชี้จุดที่ควรแก้ก่อน ทั้งด้าน SEO, conversion, tracking และ AI workflow',
+            'cta_points'      => array( 'Priority fixes', 'Roadmap', 'Quick wins' ),
+            'cta_points_label' => 'สิ่งที่คุณจะได้รับ',
+            'cta_button'      => 'รับคำแนะนำฟรี',
+            'meta_by'         => 'โดย',
+            'meta_updated'    => 'อัปเดต',
+            'toc_title'       => 'เนื้อหา',
+            'share_label'     => 'แชร์:',
+            'related_eyebrow' => 'อ่านต่อ',
+            'related_title'   => 'บทความที่เกี่ยวข้อง',
+            'crumb_blog'      => 'Blog',
+        );
+    }
+    return $strings;
+}
+
+/**
  * The three language signals for the page being rendered: html lang,
  * og:locale, and schema inLanguage.
  *
@@ -1249,7 +1334,7 @@ function hashbox_homepage_meta_description() {
     $image = $audit_landing && function_exists( 'hashbox_audit_landing_og_image_url' )
         ? hashbox_audit_landing_og_image_url( $audit_landing )
         : ( is_singular() ? hashbox_og_image_url( get_queried_object_id() ) : hashbox_default_og_image_url() );
-    $type  = is_singular( 'post' ) ? 'article' : 'website';
+    $type  = hashbox_is_article_view() ? 'article' : 'website';
 
     echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
     echo '<link rel="canonical" href="' . esc_url( $url ) . '">' . "\n";
@@ -2662,7 +2747,7 @@ function hashbox_rankmath_json_ld( $data, $jsonld = null ) {
             continue;
         }
 
-        if ( ! is_singular( 'post' ) && hashbox_schema_entity_has_type( $entity, array( 'Article', 'BlogPosting', 'NewsArticle' ) ) ) {
+        if ( ! hashbox_is_article_view() && hashbox_schema_entity_has_type( $entity, array( 'Article', 'BlogPosting', 'NewsArticle' ) ) ) {
             unset( $data[ $key ] );
             continue;
         }
@@ -2700,7 +2785,7 @@ function hashbox_rankmath_json_ld( $data, $jsonld = null ) {
         // node after this filter has run. Pre-existing, not caused by the
         // helper below; do not assume this line controls the Article node
         // until you have re-checked the live JSON-LD.
-        if ( is_singular( 'post' ) && hashbox_schema_entity_has_type( $entity, array( 'Article', 'BlogPosting', 'NewsArticle' ) ) ) {
+        if ( hashbox_is_article_view() && hashbox_schema_entity_has_type( $entity, array( 'Article', 'BlogPosting', 'NewsArticle' ) ) ) {
             $data[ $key ]['inLanguage'] = hashbox_page_in_language();
             $data[ $key ]['publisher']  = array( '@id' => $home . '#organization' );
         }
@@ -2737,7 +2822,7 @@ function hashbox_rankmath_canonical( $canonical ) {
 add_filter( 'rank_math/frontend/canonical', 'hashbox_rankmath_canonical' );
 
 function hashbox_rankmath_og_type( $type ) {
-    return is_singular( 'post' ) ? 'article' : 'website';
+    return hashbox_is_article_view() ? 'article' : 'website';
 }
 add_filter( 'rank_math/opengraph/type', 'hashbox_rankmath_og_type' );
 
@@ -4479,7 +4564,7 @@ function hashbox_get_toc( $post_id = null ) {
  * Filter the_content to inject heading IDs for in-page anchors.
  */
 function hashbox_inject_heading_ids( $content ) {
-    if ( ! is_singular( 'post' ) || ! in_the_loop() || ! is_main_query() ) {
+    if ( ! hashbox_is_article_view() || ! in_the_loop() || ! is_main_query() ) {
         return $content;
     }
     $processed = hashbox_process_content_toc( $content );
@@ -4701,7 +4786,7 @@ function hashbox_pagination() {
  * Lets Rank Math win if active (skip when Rank Math schema present).
  */
 function hashbox_inject_post_schema() {
-    if ( ! is_singular( 'post' ) ) {
+    if ( ! hashbox_is_article_view() ) {
         return;
     }
     $post_id  = get_the_ID();
@@ -4823,7 +4908,7 @@ add_action( 'wp_head', 'hashbox_inject_archive_schema', 23 );
  * design-system but aren't delayed by the deferred legacy sheet.
  */
 function hashbox_enqueue_blog_assets() {
-    if ( ! ( is_home() || is_singular( 'post' ) || is_category() || is_tag() || is_archive() || is_search() ) ) {
+    if ( ! ( is_home() || hashbox_is_article_view() || is_category() || is_tag() || is_archive() || is_search() ) ) {
         return;
     }
     $blog_css = get_template_directory() . '/design-system/blog.css';
@@ -4846,7 +4931,7 @@ add_action( 'wp_enqueue_scripts', 'hashbox_enqueue_blog_assets', 20 );
 function hashbox_blog_body_class( $classes ) {
     if ( is_home() ) {
         $classes[] = 'hb-blog-index';
-    } elseif ( is_singular( 'post' ) ) {
+    } elseif ( hashbox_is_article_view() ) {
         $classes[] = 'hb-blog-single';
     } elseif ( is_category() || is_tag() || is_archive() ) {
         $classes[] = 'hb-blog-archive';

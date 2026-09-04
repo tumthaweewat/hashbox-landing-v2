@@ -16,12 +16,13 @@ $primary        = ! empty( $cats ) ? $cats[0] : null;
 $reading_min    = hashbox_reading_time();
 $content_html   = apply_filters( 'the_content', get_the_content() );
 $content_html   = preg_replace( '/<h1\b[^>]*>.*?<\/h1>/is', '', $content_html, 1 );
+$t              = hashbox_article_strings();
 $brief_items    = array(
-    array( 'label' => 'หมวดหมู่', 'value' => $primary ? $primary->name : 'Insight' ),
-    array( 'label' => 'เวลาอ่าน', 'value' => (int) $reading_min . ' min read' ),
-    array( 'label' => 'อัปเดต', 'value' => get_the_modified_date( 'j M Y' ) ),
+    array( 'label' => $t['brief_category'], 'value' => $primary ? $primary->name : 'Insight' ),
+    array( 'label' => $t['brief_reading'], 'value' => (int) $reading_min . ' min read' ),
+    array( 'label' => $t['brief_updated'], 'value' => get_the_modified_date( 'j M Y' ) ),
 );
-$brief_metrics  = array( 'อ่านง่าย', 'เช็กลิสต์', 'ลงมือทำ' );
+$brief_metrics  = $t['brief_metrics'];
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'hb-post' ); ?>>
@@ -47,14 +48,14 @@ $brief_metrics  = array( 'อ่านง่าย', 'เช็กลิสต�
                     <?php get_template_part( 'template-parts/post-meta' ); ?>
 
                     <div class="hb-post__hero-actions" aria-label="Article actions">
-                        <a class="hb-btn hb-btn--gradient" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">ปรึกษาโปรเจกต์ฟรี</a>
-                        <a class="hb-btn hb-btn--outline" href="<?php echo esc_url( home_url( '/services/' ) ); ?>">ดูบริการทั้งหมด</a>
+                        <a class="hb-btn hb-btn--gradient" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>"><?php echo esc_html( $t['cta_primary'] ); ?></a>
+                        <a class="hb-btn hb-btn--outline" href="<?php echo esc_url( home_url( '/services/' ) ); ?>"><?php echo esc_html( $t['cta_services'] ); ?></a>
                     </div>
                 </div>
 
                 <aside class="hb-post-brief" aria-label="Article summary">
-                    <span class="hb-post-brief__eyebrow">Quick Scan</span>
-                    <h2 class="hb-post-brief__title">สรุปบทความ</h2>
+                    <span class="hb-post-brief__eyebrow"><?php echo esc_html( $t['brief_eyebrow'] ); ?></span>
+                    <h2 class="hb-post-brief__title"><?php echo esc_html( $t['brief_title'] ); ?></h2>
                     <dl class="hb-post-brief__list">
                         <?php foreach ( $brief_items as $brief_item ) : ?>
                             <div>
@@ -92,10 +93,10 @@ $brief_metrics  = array( 'อ่านง่าย', 'เช็กลิสต�
                 <?php get_template_part( 'template-parts/post-share' ); ?>
 
                 <div class="hb-post-service">
-                    <span class="hb-post-service__eyebrow">Work with Hashbox</span>
-                    <h3 class="hb-post-service__title">Web, Marketing และ AI ในทีมเดียว</h3>
-                    <p class="hb-post-service__text">ให้ทีมช่วย audit เว็บไซต์ จัดลำดับงานที่ควรทำก่อน และวาง roadmap ที่วัดผลได้จริง</p>
-                    <a class="hb-post-service__link" href="<?php echo esc_url( home_url( '/services/' ) ); ?>">ดูบริการ &rarr;</a>
+                    <span class="hb-post-service__eyebrow"><?php echo esc_html( $t['service_eyebrow'] ); ?></span>
+                    <h3 class="hb-post-service__title"><?php echo esc_html( $t['service_title'] ); ?></h3>
+                    <p class="hb-post-service__text"><?php echo esc_html( $t['service_text'] ); ?></p>
+                    <a class="hb-post-service__link" href="<?php echo esc_url( home_url( '/services/' ) ); ?>"><?php echo esc_html( $t['service_link'] ); ?> &rarr;</a>
                 </div>
             </aside>
 
@@ -116,19 +117,19 @@ $brief_metrics  = array( 'อ่านง่าย', 'เช็กลิสต�
 
                 <div class="hb-post__cta">
                     <div class="hb-post__cta-main">
-                        <span class="hb-post__cta-kicker">Hashbox Audit</span>
-                        <h2 class="hb-post__cta-title">ให้ทีมช่วยดูโจทย์นี้ต่อ</h2>
-                        <p class="hb-post__cta-text">ส่งเว็บไซต์หรือ brief ที่กำลังทำอยู่ให้เราช่วยชี้จุดที่ควรแก้ก่อน ทั้งด้าน SEO, conversion, tracking และ AI workflow</p>
+                        <span class="hb-post__cta-kicker"><?php echo esc_html( $t['cta_kicker'] ); ?></span>
+                        <h2 class="hb-post__cta-title"><?php echo esc_html( $t['cta_title'] ); ?></h2>
+                        <p class="hb-post__cta-text"><?php echo esc_html( $t['cta_text'] ); ?></p>
                     </div>
                     <div class="hb-post__cta-side">
-                        <div class="hb-post__cta-points" aria-label="สิ่งที่คุณจะได้รับ">
-                            <span>Priority fixes</span>
-                            <span>Roadmap</span>
-                            <span>Quick wins</span>
+                        <div class="hb-post__cta-points" aria-label="<?php echo esc_attr( $t['cta_points_label'] ); ?>">
+                            <?php foreach ( $t['cta_points'] as $cta_point ) : ?>
+                                <span><?php echo esc_html( $cta_point ); ?></span>
+                            <?php endforeach; ?>
                         </div>
                         <div class="hb-post__cta-actions">
-                            <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient">รับคำแนะนำฟรี &rarr;</a>
-                            <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-btn hb-btn--outline">ดูบริการทั้งหมด</a>
+                            <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient"><?php echo esc_html( $t['cta_button'] ); ?> &rarr;</a>
+                            <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-btn hb-btn--outline"><?php echo esc_html( $t['cta_services'] ); ?></a>
                         </div>
                     </div>
                 </div>

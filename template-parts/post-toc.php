@@ -11,7 +11,7 @@ if ( count( $toc ) < 3 ) {
 }
 ?>
 <aside class="hb-post-toc" aria-labelledby="hb-post-toc-title">
-    <h2 id="hb-post-toc-title" class="hb-post-toc__title">เนื้อหา</h2>
+    <h2 id="hb-post-toc-title" class="hb-post-toc__title"><?php echo esc_html( hashbox_article_strings()['toc_title'] ); ?></h2>
     <ol class="hb-post-toc__list">
         <?php foreach ( $toc as $item ) : ?>
             <li class="hb-post-toc__item hb-post-toc__item--h<?php echo (int) $item['level']; ?>">

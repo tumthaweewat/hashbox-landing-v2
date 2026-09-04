@@ -9,7 +9,7 @@ $url   = rawurlencode( get_permalink() );
 $title = rawurlencode( get_the_title() );
 ?>
 <div class="hb-post-share" role="group" aria-label="Share this post">
-    <span class="hb-post-share__label">แชร์:</span>
+    <span class="hb-post-share__label"><?php echo esc_html( hashbox_article_strings()['share_label'] ); ?></span>
     <a class="hb-post-share__btn" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $url; ?>" target="_blank" rel="noopener" aria-label="Share on Facebook">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.87v-6.98H7.9V12h2.5V9.8c0-2.47 1.47-3.83 3.72-3.83 1.08 0 2.21.19 2.21.19v2.43h-1.25c-1.23 0-1.61.76-1.61 1.54V12h2.74l-.44 2.89H13.5v6.98A10 10 0 0 0 22 12Z"/></svg>
     </a>

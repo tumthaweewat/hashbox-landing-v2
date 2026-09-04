@@ -9,8 +9,8 @@
 
 $crumbs = array( array( 'name' => 'Home', 'url' => home_url( '/' ) ) );
 
-if ( is_singular( 'post' ) ) {
-    $crumbs[] = array( 'name' => 'Blog', 'url' => home_url( '/blog/' ) );
+if ( hashbox_is_article_view() ) {
+    $crumbs[] = array( 'name' => hashbox_article_strings()['crumb_blog'], 'url' => home_url( '/blog/' ) );
     $cats = get_the_category();
     if ( ! empty( $cats ) ) {
         $crumbs[] = array( 'name' => $cats[0]->name, 'url' => get_category_link( $cats[0]->term_id ) );

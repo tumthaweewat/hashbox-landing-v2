@@ -5,16 +5,22 @@
  * @package Hashbox_Studio_V2
  */
 
+// Related posts are Thai; an English article page would get a Thai grid
+// under an English heading, so skip the block there until EN posts exist.
+if ( hashbox_page_is_english() ) {
+    return;
+}
 $related = hashbox_related_posts( get_the_ID(), 3 );
 if ( ! $related->have_posts() ) {
     return;
 }
+$t = hashbox_article_strings();
 ?>
 <section class="hb-post-related" aria-labelledby="hb-related-title">
     <div class="hb-container hb-container--md">
         <header class="hb-post-related__header">
-            <span class="hb-eyebrow">อ่านต่อ</span>
-            <h2 id="hb-related-title" class="hb-post-related__title">บทความที่เกี่ยวข้อง</h2>
+            <span class="hb-eyebrow"><?php echo esc_html( $t['related_eyebrow'] ); ?></span>
+            <h2 id="hb-related-title" class="hb-post-related__title"><?php echo esc_html( $t['related_title'] ); ?></h2>
         </header>
         <div class="hb-post-related__grid">
             <?php while ( $related->have_posts() ) : $related->the_post(); ?>
