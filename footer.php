@@ -61,7 +61,9 @@
                         HASHBOX<span class="hb-nav__brand-accent">.STUDIO</span>
                     </a>
                     <p class="hb-footer__desc">
-                        สตูดิโอที่รวม รับทำเว็บไซต์ SEO-Ready, รับทำ SEO / AI Search และที่ปรึกษา AI ไว้ในทีมเดียว ส่งมอบเว็บที่ผ่าน Lighthouse 100 และระบบ AI ที่ใช้งานจริงใน production
+                        <?php echo $hb_en
+                            ? 'One studio for SEO-ready websites, SEO / AI Search and AI consulting — we ship sites that pass Lighthouse 100 and AI systems that run in production.'
+                            : 'สตูดิโอที่รวม รับทำเว็บไซต์ SEO-Ready, รับทำ SEO / AI Search และที่ปรึกษา AI ไว้ในทีมเดียว ส่งมอบเว็บที่ผ่าน Lighthouse 100 และระบบ AI ที่ใช้งานจริงใน production'; ?>
                     </p>
                     <div class="hb-footer__socials">
                         <a href="https://www.linkedin.com/in/tumthaweewat/" class="hb-footer__social" aria-label="LinkedIn LI" target="_blank" rel="me noopener noreferrer">LI</a>
@@ -77,8 +79,8 @@
                         <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>
                         <li><a href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>"><?php echo esc_html( $hb_en && ! empty( $svc['en_name'] ) ? $svc['en_name'] : $svc['name'] ); ?></a></li>
                         <?php endforeach; ?>
-                        <li><a href="<?php echo esc_url( home_url( '/seo-audit/' ) ); ?>">SEO Audit ฟรี</a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">บริการทั้งหมด</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/seo-audit/' ) ); ?>"><?php echo $hb_en ? 'Free SEO Audit' : 'SEO Audit ฟรี'; ?></a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>"><?php echo $hb_en ? 'All services' : 'บริการทั้งหมด'; ?></a></li>
                     </ul>
                 </div>
 
@@ -98,7 +100,7 @@
                         <li><a href="mailto:business@hashbox.co.th">business@hashbox.co.th</a></li>
                         <li><a href="tel:+66625169868">Hotline: 062-516-9868</a></li>
                         <li><a href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer">LINE: @hashboxstudio</a></li>
-                        <li style="color: var(--hb-text-faint); font-size: var(--hb-text-sm);">จันทร์-ศุกร์ 9:00-18:00</li>
+                        <li style="color: var(--hb-text-faint); font-size: var(--hb-text-sm);"><?php echo $hb_en ? 'Mon–Fri 9:00–18:00' : 'จันทร์-ศุกร์ 9:00-18:00'; ?></li>
                         <li style="color: var(--hb-text-faint); font-size: var(--hb-text-sm);">139 Pan Rd, Si Lom, Bang Rak, Bangkok 10500</li>
                     </ul>
                 </div>
