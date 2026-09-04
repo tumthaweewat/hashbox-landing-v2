@@ -17,11 +17,14 @@ $reading_min    = hashbox_reading_time();
 $content_html   = apply_filters( 'the_content', get_the_content() );
 $content_html   = preg_replace( '/<h1\b[^>]*>.*?<\/h1>/is', '', $content_html, 1 );
 $t              = hashbox_article_strings();
-$brief_items    = array(
-    array( 'label' => $t['brief_category'], 'value' => $primary ? $primary->name : 'Insight' ),
-    array( 'label' => $t['brief_reading'], 'value' => (int) $reading_min . ' min read' ),
-    array( 'label' => $t['brief_updated'], 'value' => get_the_modified_date( 'j M Y' ) ),
-);
+$brief_items    = array();
+if ( $primary ) {
+    // Pages on the article layout have no category — skip the row rather
+    // than show a placeholder.
+    $brief_items[] = array( 'label' => $t['brief_category'], 'value' => $primary->name );
+}
+$brief_items[]  = array( 'label' => $t['brief_reading'], 'value' => (int) $reading_min . ' min read' );
+$brief_items[]  = array( 'label' => $t['brief_updated'], 'value' => get_the_modified_date( 'j M Y' ) );
 $brief_metrics  = $t['brief_metrics'];
 ?>
 
