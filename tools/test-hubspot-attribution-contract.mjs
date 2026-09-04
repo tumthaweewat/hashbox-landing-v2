@@ -28,13 +28,13 @@ assert.match(
 );
 assert.match(
   submitHandler,
-  /\$website_project_type_label\s*=\s*\$is_website_audit_form[\s\S]*?isset\( \$website_project_type_labels\[ \$project_type \] \)[\s\S]*?\$invalid_website_project_type\s*=\s*\$is_website_audit_form && '' === \$website_project_type_label;/,
-  'tampered or missing Website project types must fail closed'
+  /\$website_project_type_label\s*=\s*\$is_website_audit_form[\s\S]*?isset\( \$website_project_type_labels\[ \$project_type \] \)[\s\S]*?\$invalid_website_project_type\s*=\s*\$is_website_audit_form && '' !== \$project_type && '' === \$website_project_type_label;/,
+  'tampered Website project types must fail closed (missing = optional in Funnel V2)'
 );
 assert.match(
   submitHandler,
-  /'service'\s*=>\s*\$website_project_type_label/,
-  'the scheduled attribution payload must use the server-derived service label'
+  /'service'\s*=>\s*'' !== \$website_project_type_label \? \$website_project_type_label : ''/,
+  'the scheduled attribution payload must use the server-derived service label and omit fabricated values when project_type is skipped'
 );
 assert.match(
   submitHandler,

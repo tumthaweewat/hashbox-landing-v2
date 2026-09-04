@@ -366,19 +366,75 @@ assert.match(
 );
 assert.match(
   scriptSource,
-  /var requiredNames = \['project_type', 'budget', 'timeline'\]/,
-  'step one must retain the three lead-qualification fields'
-);
-assert.match(
-  scriptSource,
   /var contactNames = \['name', 'email', 'contact_detail'\]/,
-  'step two must retain the required contact fields'
+  'single-step form must keep only contact essentials required'
 );
 assert.match(
   scriptSource,
-  /var optionalNames = \['company', 'website', 'message'\]/,
-  'optional project context must remain available behind disclosure'
+  /var optionalNames = \['project_type', 'budget', 'timeline', 'company', 'website', 'message'\]/,
+  'qualification fields must move behind the optional disclosure'
 );
+assert.match(
+  scriptSource,
+  /control\.required = false;/,
+  'client-side required flags on optional fields must be cleared'
+);
+assert.match(
+  functionsSource,
+  /'' !== \$project_type && '' === \$website_project_type_label/,
+  'server must accept an empty optional project_type but reject unknown values'
+);
+assert.doesNotMatch(
+  functionsSource,
+  /\$invalid_website_project_type \|\| \$budget === '' \|\| \$timeline === ''/,
+  'server must not require budget/timeline for the website-audit form'
+);
+assert.match(
+  functionsSource,
+  /'' !== \$website_project_type_label \? \$website_project_type_label : ''/,
+  'HubSpot service mapping must omit fabricated values when project_type is skipped'
+);
+// Optional-field contract: empty passes, valid values pass, tampered fails closed.
+assert.match(
+  functionsSource,
+  /\$invalid_website_project_type = \$is_website_audit_form && '' !== \$project_type && '' === \$website_project_type_label;/,
+  'project_type: empty must pass, unknown must fail closed'
+);
+assert.match(
+  functionsSource,
+  /\$website_budget_allowlist = array\( '35900-60000', '60001-120000', '120001-250000', '250001-plus', 'needs-assessment-ready-35900' \);/,
+  'budget allow-list must match the form options exactly'
+);
+assert.match(
+  functionsSource,
+  /\$website_timeline_allowlist = array\( 'within-1-month', '1-3-months', 'over-3-months', 'planning-ready' \);/,
+  'timeline allow-list must match the form options exactly'
+);
+assert.match(
+  functionsSource,
+  /\$invalid_website_budget   = \$is_website_audit_form && '' !== \$budget && ! in_array\( \$budget, \$website_budget_allowlist, true \);/,
+  'budget: empty must pass, unknown must fail closed'
+);
+assert.match(
+  functionsSource,
+  /\$invalid_website_timeline = \$is_website_audit_form && '' !== \$timeline && ! in_array\( \$timeline, \$website_timeline_allowlist, true \);/,
+  'timeline: empty must pass, unknown must fail closed'
+);
+assert.match(
+  functionsSource,
+  /\$invalid_website_project_type \|\| \$invalid_website_budget \|\| \$invalid_website_timeline/,
+  'all three optional-field validators must gate the website-audit submission'
+);
+{
+  // Behavioural check of the validator expressions (mirrors the PHP logic).
+  const allow = { project_type: ['landing-page', 'corporate-website', 'website-redesign', 'needs-assessment'], budget: ['35900-60000', '60001-120000', '120001-250000', '250001-plus', 'needs-assessment-ready-35900'], timeline: ['within-1-month', '1-3-months', 'over-3-months', 'planning-ready'] };
+  const invalid = (field, value) => value !== '' && !allow[field].includes(value);
+  for (const field of Object.keys(allow)) {
+    assert.equal(invalid(field, ''), false, `${field}: empty value must be accepted`);
+    for (const good of allow[field]) assert.equal(invalid(field, good), false, `${field}: '${good}' must be accepted`);
+    for (const bad of ['hack', '35900', 'DROP TABLE', 'landing-page ']) assert.equal(invalid(field, bad), true, `${field}: tampered '${bad}' must fail closed`);
+  }
+}
 assert.match(
   scriptSource,
   /อีเมลที่สะดวกให้ติดต่อกลับ \*/,
@@ -387,8 +443,8 @@ assert.match(
 for (const eventName of [
   'hb_web_cta_click_v1',
   'hb_web_line_click_v1',
+  'hb_web_phone_click_v1',
   'hb_web_form_start_v1',
-  'hb_web_form_step_complete_v1',
   'hb_web_form_validation_error_v1',
   'hb_web_form_submit_attempt_v1'
 ]) {
@@ -399,9 +455,20 @@ assert.doesNotMatch(
   /pushDiagnosticEvent\([^)]*\{[^}]*(email|phone|contact_detail|company|website)\s*:/s,
   'diagnostic events must not include contact values or company data'
 );
-assert.ok(
-  (scriptSource.match(/if \(event\.defaultPrevented\) return;/g) || []).length >= 2,
-  'step-one interception must not trigger final-submit tracking or lock the form'
+assert.doesNotMatch(
+  scriptSource,
+  /hb_web_form_step_complete_v1/,
+  'retired step-complete event must not be emitted by the single-step form'
+);
+assert.match(
+  scriptSource,
+  /eventTimeout: 400/,
+  'outbound LINE/phone clicks must flush through GTM with a bounded timeout'
+);
+assert.match(
+  scriptSource,
+  /hb_web_phone_click_v1/,
+  'phone clicks must be tracked as their own diagnostic event'
 );
 assert.match(
   croCssSource,
