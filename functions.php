@@ -2741,6 +2741,12 @@ function hashbox_rankmath_json_ld( $data, $jsonld = null ) {
         if ( hashbox_schema_entity_has_type( $entity, 'BreadcrumbList' ) ) {
             $GLOBALS['hashbox_rm_has_breadcrumb'] = true;
         }
+        // Rank Math emits Article/BlogPosting for posts but only WebPage for
+        // pages, so hashbox_inject_post_schema() emits the theme Article node
+        // on article-layout pages unless Rank Math's graph already has one.
+        if ( hashbox_schema_entity_has_type( $entity, array( 'Article', 'BlogPosting', 'NewsArticle' ) ) ) {
+            $GLOBALS['hashbox_rm_has_article'] = true;
+        }
 
         if ( $is_case_study && hashbox_schema_entity_has_type( $entity, 'BreadcrumbList' ) ) {
             unset( $data[ $key ] );
@@ -4822,10 +4828,27 @@ function hashbox_inject_post_schema() {
                 'itemListElement' => $crumb_items,
             ) );
         }
+        // Rank Math carried an Article node (normal for posts) — done.
+        if ( ! empty( $GLOBALS['hashbox_rm_has_article'] ) ) {
+            return;
+        }
+        hashbox_jsonld( hashbox_article_schema_node( $post_id, $cat_name ) );
         return;
     }
 
+    hashbox_jsonld( hashbox_article_schema_node( $post_id, $cat_name ) );
     hashbox_jsonld( array(
+        '@context'        => 'https://schema.org',
+        '@type'           => 'BreadcrumbList',
+        'itemListElement' => $crumb_items,
+    ) );
+}
+
+/**
+ * Theme Article node for an article view (post or page-article.php page).
+ */
+function hashbox_article_schema_node( $post_id, $cat_name ) {
+    return array(
         '@context'      => 'https://schema.org',
         '@type'         => 'Article',
         '@id'           => get_permalink( $post_id ) . '#article',
@@ -4843,13 +4866,7 @@ function hashbox_inject_post_schema() {
         ),
         'articleSection' => $cat_name,
         'wordCount'      => str_word_count( wp_strip_all_tags( get_post_field( 'post_content', $post_id ) ) ),
-    ) );
-
-    hashbox_jsonld( array(
-        '@context'        => 'https://schema.org',
-        '@type'           => 'BreadcrumbList',
-        'itemListElement' => $crumb_items,
-    ) );
+    );
 }
 add_action( 'wp_head', 'hashbox_inject_post_schema', 22 );
 
