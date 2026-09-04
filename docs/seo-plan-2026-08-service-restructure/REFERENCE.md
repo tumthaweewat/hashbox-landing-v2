@@ -16,7 +16,8 @@
 | บริการให้คำปรึกษา ai solution | 9 | post 170 | ใหม่ |
 | hashbox | 5 (−3) | `/` | brand ยังไม่ #1 (Hashbox Monster ชนชื่อ) |
 | ที่ปรึกษา ai ไทย | 14 (+5) | `/services/ai-consulting/` | service page |
-| ai consulting bangkok / companies bangkok / consultant bangkok / companies thailand | 14–23 | `/en/ai-consulting/` | EN cannibalization แก้แล้ว — ไป /en/ หมด |
+| ai consulting bangkok / companies bangkok / consultant bangkok | 14–18 | `/en/ai-consulting/` | EN cannibalization แก้แล้ว — ไป /en/ หมด |
+| ai consulting companies thailand / ai consulting thailand / ai consulting company | 17 / ~27 / — | `/en/ai-consulting-companies-thailand-2026/` (page 270) | **2026-09-04 audit:** คำกลุ่ม *thailand* + *company* ย้ายเจ้าของไป listicle (title/H1 ตรงคำกว่า, +6 ใน 7 วัน); service page ถือเฉพาะ *bangkok* |
 | n8n คือ | 46 | `/n8n-thai-guide-2026/` | ใหม่ |
 | **รับทำเว็บไซต์ (ทุก variant), รับทำ seo, รับทำ n8n, geo คือ, ai overview, technical seo…** | — | ไม่ติด top 20 | ดู 6.3 |
 
@@ -25,7 +26,8 @@
 |---|---|---|
 | ปรึกษาทำระบบ ai solution (สำหรับธุรกิจ) | **post 170** (pos 3 — อย่าย้าย) | bullet ในแถว AI: "ปรึกษาทำระบบ AI Solution → คู่มือ" ชี้ post 170 |
 | ที่ปรึกษา ai (ไทย/สำหรับธุรกิจ), บริการให้คำปรึกษา ai | `/services/ai-consulting/` | **แถว 2 ของ service list = "ที่ปรึกษา AI สำหรับธุรกิจ — วางระบบ AI Solution ถึง production"** ชี้ service page (ไม่ใช้วลี "ปรึกษาทำระบบ ai solution" เป็น anchor ไปหน้า service เพื่อไม่แย่ง post 170) |
-| ai consulting bangkok/thailand (EN) | `/en/ai-consulting/` | nav/footer EN link |
+| ai consulting bangkok / consultant bangkok / ai solutions·services bangkok (EN) | `/en/ai-consulting/` | nav/footer EN link · listicle ลิงก์กลับด้วย anchor "AI consulting in Bangkok" |
+| ai consulting thailand / ai consulting companies thailand / ai consulting company (EN) | `/en/ai-consulting-companies-thailand-2026/` | anchor จาก /en/ai-consulting/#companies "9 AI consulting companies in Thailand…" (มีแล้ว) |
 | รับทำเว็บไซต์ + variants | `/services/website-development/` | แถว 1 "รับทำเว็บไซต์ SEO-Ready" |
 | รับทำเว็บไซต์ wordpress | `/services/website-development/wordpress/` | bullet |
 | รับทำ seo (+สายขาว) | `/services/seo/` | แถว 3 "รับทำ SEO" |

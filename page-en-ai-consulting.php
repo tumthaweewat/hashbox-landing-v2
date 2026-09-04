@@ -106,7 +106,7 @@ $faqs = array(
         <div class="hb-section__head">
             <span class="hb-eyebrow">Services</span>
             <h2 class="hb-h2">AI solutions we build in Bangkok</h2>
-            <p class="hb-section__sub">Six core services covering the AI use cases Thai B2B and SMB teams ask for most.</p>
+            <p class="hb-section__sub">Six core AI services in Bangkok, covering the use cases Thai B2B and SMB teams ask for most.</p>
         </div>
         <div class="hb-bento">
             <div class="hb-bento__cell hb-bento__cell--c2 hb-bento__cell--feature">
@@ -238,7 +238,7 @@ $faqs = array(
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">Choosing a partner</span>
-            <h2 class="hb-h2">How to choose an AI consulting company in Bangkok — 7 questions to ask</h2>
+            <h2 class="hb-h2">How to choose an AI consultant in Bangkok — 7 questions to ask</h2>
             <p class="hb-section__sub">Most AI consulting companies in Bangkok and Thailand pitch the same slide deck. These seven questions separate the ones that ship from the ones that present — and we answer each for ourselves so you can compare directly.</p>
         </div>
         <div class="hb-bento">
@@ -325,7 +325,7 @@ $faqs = array(
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">Hashbox</span>
                 <h3 class="hb-h3">Production system + code</h3>
-                <p class="hb-body">English + Thai delivery, public THB pricing, LINE/PDPA/Thai context built in, 100% source code, 6-phase process with 30-day post-launch monitoring.</p>
+                <p class="hb-body">An AI solution provider rather than a strategy shop: English + Thai delivery, public THB pricing, LINE/PDPA/Thai context built in, 100% source code, 6-phase process with 30-day post-launch monitoring.</p>
             </div>
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">Big consulting firm</span>
