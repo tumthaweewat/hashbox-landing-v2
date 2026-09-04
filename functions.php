@@ -4798,18 +4798,28 @@ function hashbox_inject_post_schema() {
     // emits BreadcrumbList when its breadcrumb module is on (it is not here),
     // so still emit ours unless Rank Math's graph already carried one
     // (flag set in hashbox_rankmath_json_ld, which runs earlier in wp_head).
+    // Mirror the visible breadcrumbs: Home / Blog / [category] / title. Pages
+    // on the article layout have no category, so that crumb is omitted.
+    $crumbs = array(
+        array( 'name' => 'Home', 'item' => home_url( '/' ) ),
+        array( 'name' => 'Blog', 'item' => home_url( '/blog/' ) ),
+    );
+    if ( ! empty( $cats ) ) {
+        $crumbs[] = array( 'name' => $cat_name, 'item' => $cat_url );
+    }
+    $crumbs[] = array( 'name' => get_the_title( $post_id ), 'item' => get_permalink( $post_id ) );
+    $crumb_items = array();
+    foreach ( $crumbs as $i => $crumb ) {
+        $crumb_items[] = array( '@type' => 'ListItem', 'position' => $i + 1, 'name' => $crumb['name'], 'item' => $crumb['item'] );
+    }
+
     if ( hashbox_rank_math_is_active() ) {
         if ( empty( $GLOBALS['hashbox_rm_has_breadcrumb'] ) ) {
             hashbox_jsonld( array(
                 '@context'        => 'https://schema.org',
                 '@type'           => 'BreadcrumbList',
                 '@id'             => get_permalink( $post_id ) . '#breadcrumb',
-                'itemListElement' => array(
-                    array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
-                    array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Blog', 'item' => home_url( '/blog/' ) ),
-                    array( '@type' => 'ListItem', 'position' => 3, 'name' => $cat_name, 'item' => $cat_url ),
-                    array( '@type' => 'ListItem', 'position' => 4, 'name' => get_the_title( $post_id ), 'item' => get_permalink( $post_id ) ),
-                ),
+                'itemListElement' => $crumb_items,
             ) );
         }
         return;
@@ -4838,12 +4848,7 @@ function hashbox_inject_post_schema() {
     hashbox_jsonld( array(
         '@context'        => 'https://schema.org',
         '@type'           => 'BreadcrumbList',
-        'itemListElement' => array(
-            array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
-            array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Blog', 'item' => home_url( '/blog/' ) ),
-            array( '@type' => 'ListItem', 'position' => 3, 'name' => $cat_name, 'item' => $cat_url ),
-            array( '@type' => 'ListItem', 'position' => 4, 'name' => get_the_title( $post_id ), 'item' => get_permalink( $post_id ) ),
-        ),
+        'itemListElement' => $crumb_items,
     ) );
 }
 add_action( 'wp_head', 'hashbox_inject_post_schema', 22 );
