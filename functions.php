@@ -2584,6 +2584,8 @@ function hashbox_organization_same_as() {
         'https://lin.ee/Xagx6i4',
         'https://clutch.co/profile/hashbox-studio',
         'https://www.f6s.com/hashbox-studio',
+        // GoodFirms — profile live 2026-09-04 (Tum registered; links back to the site)
+        'https://www.goodfirms.co/company/hashbox-studio',
         // Google Business Profile (Maps place, KG /g/11z8h8p_m7) — 2026-08-29
         'https://www.google.com/maps?cid=18343802282355714646',
     );
