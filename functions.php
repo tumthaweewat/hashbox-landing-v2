@@ -670,6 +670,74 @@ function hashbox_is_article_view() {
  * request is under /en/ (hashbox_page_is_english()). Used by single.php and
  * the post-* template parts so the chrome follows the page language.
  */
+/**
+ * [hb_video id="YOUTUBE_ID" title="…" description="…" upload="2026-09-10" duration="PT4M20S"]transcript…[/hb_video]
+ *
+ * Responsive YouTube embed (nocookie, lazy) + VideoObject JSON-LD + a
+ * collapsible transcript so the spoken answer is indexable text. AI
+ * Overviews for our Thai queries cite YouTube for ~60% of keywords
+ * (Signal 2026-09-06) — embedding the clip back on the article page ties
+ * the video and the page to the same entity and query.
+ */
+function hashbox_video_shortcode( $atts, $content = null ) {
+    $a = shortcode_atts( array(
+        'id'          => '',
+        'title'       => '',
+        'description' => '',
+        'upload'      => '',
+        'duration'    => '',
+    ), $atts, 'hb_video' );
+    $id = preg_replace( '/[^A-Za-z0-9_-]/', '', (string) $a['id'] );
+    if ( '' === $id ) {
+        return '';
+    }
+    $embed      = 'https://www.youtube-nocookie.com/embed/' . $id;
+    $watch      = 'https://www.youtube.com/watch?v=' . $id;
+    $thumb      = 'https://i.ytimg.com/vi/' . $id . '/hqdefault.jpg';
+    $transcript = trim( (string) $content );
+    $is_en      = function_exists( 'hashbox_page_is_english' ) && hashbox_page_is_english();
+
+    $schema = array(
+        '@context'     => 'https://schema.org',
+        '@type'        => 'VideoObject',
+        'name'         => $a['title'],
+        'description'  => $a['description'],
+        'thumbnailUrl' => array( $thumb ),
+        'uploadDate'   => $a['upload'],
+        'embedUrl'     => $embed,
+        'contentUrl'   => $watch,
+        'inLanguage'   => $is_en ? 'en' : 'th',
+        'publisher'    => array( '@id' => home_url( '/#organization' ) ),
+    );
+    if ( '' !== $a['duration'] ) {
+        $schema['duration'] = $a['duration'];
+    }
+    if ( '' !== $transcript ) {
+        $schema['transcript'] = wp_strip_all_tags( $transcript );
+    }
+
+    ob_start();
+    ?>
+    <figure class="hb-video">
+        <div class="hb-video__frame">
+            <iframe src="<?php echo esc_url( $embed ); ?>" title="<?php echo esc_attr( $a['title'] ); ?>" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <?php if ( '' !== $a['title'] ) : ?>
+            <figcaption class="hb-video__caption"><?php echo esc_html( $a['title'] ); ?> · <a href="<?php echo esc_url( $watch ); ?>" rel="noopener" target="_blank"><?php echo $is_en ? 'Watch on YouTube' : 'ดูบน YouTube'; ?></a></figcaption>
+        <?php endif; ?>
+        <?php if ( '' !== $transcript ) : ?>
+            <details class="hb-video__transcript">
+                <summary><?php echo $is_en ? 'Transcript' : 'บทพูดในคลิป (transcript)'; ?></summary>
+                <div><?php echo wp_kses_post( wpautop( $transcript ) ); ?></div>
+            </details>
+        <?php endif; ?>
+    </figure>
+    <script type="application/ld+json"><?php echo wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ); ?></script>
+    <?php
+    return ob_get_clean();
+}
+add_shortcode( 'hb_video', 'hashbox_video_shortcode' );
+
 function hashbox_article_strings() {
     static $strings = null;
     if ( null !== $strings ) {
