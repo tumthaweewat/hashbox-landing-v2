@@ -6,124 +6,176 @@
  */
 
 get_header();
-$page_url = get_permalink();
+$page_url   = get_permalink();
+$hb_services = hashbox_service_catalog_live();
 ?>
 
-<section class="hb-hero">
-    <div class="hb-hero__bg"></div>
-    <div class="hb-hero__grid"></div>
-    <div class="hb-container">
-        <div class="hb-hero__inner">
-            <nav class="hb-breadcrumb" aria-label="Breadcrumb">
-                <ol class="hb-breadcrumb__list">
+<div class="hb-services-page">
+    <section class="hb-services-hero" aria-labelledby="services-page-title">
+        <div class="hb-services-container">
+            <nav class="hb-services-breadcrumb" aria-label="Breadcrumb">
+                <ol>
                     <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
-                    <li><span class="hb-breadcrumb__sep">/</span></li>
+                    <li aria-hidden="true">/</li>
                     <li aria-current="page">Services</li>
                 </ol>
             </nav>
-            <span class="hb-eyebrow">Services</span>
-            <h1 class="hb-hero__title">รับทำเว็บไซต์ SEO-Ready,<br><em>ที่ปรึกษา AI, รับทำ SEO และ AI Search</em><br>ในทีมเดียว</h1>
-            <p class="hb-hero__sub">
-                บริการของ Hashbox Studio คือ 5 บริการที่ต่อกันเป็นระบบเดียว: รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, รับทำ AI Search (GEO) และ Workflow Automation ด้วย n8n — ทุกบริการเริ่มแยกได้ ราคาเปิดเผย และวัดผลจากข้อมูลจริงรายวัน
-            </p>
-        </div>
-    </div>
-</section>
 
-<section class="hb-section hb-section--surface">
-    <div class="hb-container">
-        <div class="hb-bento">
-            <?php $hb_i = 0; foreach ( hashbox_service_catalog_live() as $svc ) : $hb_i++; ?>
-            <a href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>" class="hb-service hb-bento__cell <?php echo ! empty( $svc['featured'] ) ? 'hb-bento__cell--c2' : 'hb-bento__cell--c2'; ?>" data-accent="<?php echo esc_attr( $svc['accent'] ); ?>" style="text-decoration:none;">
-                <span class="hb-service__num"><?php echo esc_html( str_pad( (string) $hb_i, 2, '0', STR_PAD_LEFT ) ); ?></span>
-                <h2 class="hb-service__title"><?php echo esc_html( $svc['name'] ); ?></h2>
-                <p class="hb-service__desc"><?php echo esc_html( $svc['desc'] ); ?></p>
-                <?php echo hashbox_service_bullets_html( $svc, 'hb-service__subs' ); ?>
-                <?php if ( ! empty( $svc['price'] ) ) : ?><div class="hb-service__stack" style="font-weight:600;"><?php echo esc_html( $svc['price'] ); ?></div><?php endif; ?>
-                <span class="hb-service__link">ดูรายละเอียด<?php echo esc_html( $svc['name'] ); ?> &rarr;</span>
-            </a>
-            <?php endforeach; ?>
+            <div class="hb-services-hero__grid">
+                <div class="hb-services-hero__copy">
+                    <p class="hb-services-kicker">Services</p>
+                    <h1 id="services-page-title" class="hb-services-hero__title">
+                        <span>รับทำเว็บไซต์ SEO-Ready,</span>
+                        <span class="hb-services-hero__accent">ที่ปรึกษา AI, รับทำ SEO</span>
+                        <span>และ AI Search ในทีมเดียว</span>
+                    </h1>
+                    <p class="hb-services-hero__lede">
+                        บริการของ Hashbox Studio คือ 5 บริการที่ต่อกันเป็นระบบเดียว: รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, รับทำ AI Search (GEO) และ Workflow Automation ด้วย n8n — ทุกบริการเริ่มแยกได้ ราคาเปิดเผย และวัดผลจากข้อมูลจริงรายวัน
+                    </p>
+                    <a class="hb-services-btn hb-services-btn--primary" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">รับ Audit ฟรี <span aria-hidden="true">&rarr;</span></a>
+                </div>
 
-            <a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>" class="hb-service hb-bento__cell hb-bento__cell--c2" data-accent="cyan" style="text-decoration:none;" hreflang="en">
-                <span class="hb-service__num">EN</span>
-                <span class="hb-service__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg></span>
-                <h2 class="hb-service__title">English: AI Consulting · SEO · AI Search</h2>
-                <p class="hb-service__desc">For English-speaking teams in Thailand — <a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>" style="color:inherit;text-decoration:underline;">AI consulting in Bangkok</a>, <a href="<?php echo esc_url( home_url( '/en/seo/' ) ); ?>" style="color:inherit;text-decoration:underline;">technical-first SEO agency</a> and <a href="<?php echo esc_url( home_url( '/en/ai-search/' ) ); ?>" style="color:inherit;text-decoration:underline;">AI Search (GEO)</a> and <a href="<?php echo esc_url( home_url( '/en/website-development/' ) ); ?>" style="color:inherit;text-decoration:underline;">website development</a> — same prices, PDPA, LINE and Thai-language context.</p>
-                <div class="hb-service__stack">English delivery · Public THB pricing · 100% source code</div>
-                <span class="hb-service__link">Read in English &rarr;</span>
-            </a>
-        </div>
-    </div>
-</section>
-
-<section class="hb-section">
-    <div class="hb-container">
-        <div class="hb-section__head">
-            <span class="hb-eyebrow">Service fit</span>
-            <h2 class="hb-h2">ควรเริ่มจากบริการไหนก่อน?</h2>
-            <p class="hb-section__sub">เลือกจากปัญหาหลักของธุรกิจตอนนี้ แล้วค่อยขยายเป็นระบบ Web + SEO + AI ที่ทำงานร่วมกัน</p>
-        </div>
-        <div class="hb-bento">
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">Website first</span>
-                <h3 class="hb-card__title">เว็บช้า ติด Google ยาก หรือกำลังทำเว็บใหม่</h3>
-                <p class="hb-card__body">เริ่มด้วย SEO-Ready Website เพื่อแก้ technical foundation ก่อนลงงบ marketing เพิ่ม.</p>
-            </a>
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">Traffic first</span>
-                <h3 class="hb-card__title">มีเว็บแล้ว แต่ traffic หรือ lead ยังไม่พอ</h3>
-                <p class="hb-card__body">เริ่มด้วยรับทำ SEO สายเทคนิค พร้อม CRO + tracking — เริ่มจาก Technical SEO Audit ฟรี.</p>
-            </a>
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">Operations first</span>
-                <h3 class="hb-card__title">ทีมเสียเวลากับงานซ้ำ ตอบลูกค้าช้า หรือข้อมูลกระจาย</h3>
-                <p class="hb-card__body">เริ่มด้วย AI Consulting เพื่อหา use case ที่ ROI สูงก่อนลงทุน build ระบบจริง.</p>
-            </a>
-            <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/work/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">Case studies</span>
-                <h3 class="hb-card__title">อยากเห็นตัวเลขจากงานจริงก่อนคุยรายละเอียด</h3>
-                <p class="hb-card__body">ดู case studies SEO, เว็บไซต์ และ AI ที่วัดผลจาก GA4, Search Console และ operation metrics.</p>
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- Bundle -->
-<section class="hb-section hb-section--surface">
-    <div class="hb-container">
-        <div class="hb-section__head hb-section__head--center">
-            <span class="hb-eyebrow">Why bundle?</span>
-            <h2 class="hb-h2">ทำไมควรใช้บริการรวมกันในทีมเดียว</h2>
-            <p class="hb-section__sub">Web · SEO · AI แยกกัน = 3 KPI ที่ไม่คุยกัน รวมกัน = ทีมเดียวที่รับผิดชอบผลรวมและ Optimize ข้ามฟังก์ชันได้</p>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--hb-space-4);">
-            <div class="hb-card">
-                <h3 class="hb-card__title">1 + 1 + 1 = 5</h3>
-                <p class="hb-card__body">เว็บ SEO-Ready ทำให้ติด Google · SEO + AI Search ทำให้ traffic โต · AI ทำให้ทีม scale หลังลูกค้าเข้ามา ผลลัพธ์ทบต้นกว่าทำแยก</p>
-            </div>
-            <div class="hb-card">
-                <h3 class="hb-card__title">Data ต่อเนื่อง</h3>
-                <p class="hb-card__body">GA4 + GSC + AI Chat Log อยู่ใน Dashboard เดียว ทำให้เห็น Pattern ที่ทีมแยกไม่มีวันเห็น</p>
-            </div>
-            <div class="hb-card">
-                <h3 class="hb-card__title">ราคา Bundle</h3>
-                <p class="hb-card__body">เลือก Retainer หลายบริการรวมกัน ประหยัดกว่าจ้างหลายบริษัทแยก ~30% และคุยกับทีมเดียว</p>
+                <aside class="hb-services-index" aria-label="บริการทั้งหมด">
+                    <p class="hb-services-index__title">บริการทั้งหมด</p>
+                    <ol>
+                        <?php $hb_i = 0; foreach ( $hb_services as $svc ) : $hb_i++; ?>
+                        <li>
+                            <a href="#service-<?php echo esc_attr( $svc['key'] ); ?>">
+                                <span class="hb-services-index__num"><?php echo esc_html( str_pad( (string) $hb_i, 2, '0', STR_PAD_LEFT ) ); ?></span>
+                                <span><?php echo esc_html( $svc['short'] ); ?></span>
+                                <span aria-hidden="true">&darr;</span>
+                            </a>
+                        </li>
+                        <?php endforeach; ?>
+                    </ol>
+                </aside>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="hb-section hb-section--surface">
-    <div class="hb-container hb-container--md" style="text-align:center;">
-        <h2 class="hb-h2">เริ่มด้วย Audit ฟรี</h2>
-        <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">ส่งรายงาน 15-20 หน้าให้ภายใน 3 วันทำการ ก่อนตัดสินใจเริ่มงาน</p>
-        <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ Audit ฟรี &rarr;</a>
-    </div>
-</section>
+    <section id="service-catalog" class="hb-services-catalog" aria-labelledby="service-catalog-title">
+        <div class="hb-services-container">
+            <header class="hb-services-section-head">
+                <h2 id="service-catalog-title">5 บริการที่ต่อกันเป็นระบบเดียว</h2>
+                <p>ทุกบริการเริ่มแยกได้ ราคาเปิดเผย และวัดผลจากข้อมูลจริงรายวัน</p>
+            </header>
+
+            <div class="hb-services-ledger">
+                <?php $hb_i = 0; foreach ( $hb_services as $svc ) : $hb_i++; ?>
+                <article id="service-<?php echo esc_attr( $svc['key'] ); ?>" class="hb-services-ledger__item">
+                    <span class="hb-services-ledger__num"><?php echo esc_html( str_pad( (string) $hb_i, 2, '0', STR_PAD_LEFT ) ); ?></span>
+                    <div class="hb-services-ledger__body">
+                        <h3><a href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>"><?php echo esc_html( $svc['name'] ); ?></a></h3>
+                        <p><?php echo esc_html( $svc['desc'] ); ?></p>
+                    </div>
+                    <div class="hb-services-ledger__detail">
+                        <?php echo hashbox_service_bullets_html( $svc, 'hb-services-ledger__links' ); ?>
+                        <div class="hb-services-ledger__actions">
+                            <?php if ( ! empty( $svc['price'] ) ) : ?>
+                            <span class="hb-services-ledger__price"><?php echo esc_html( $svc['price'] ); ?></span>
+                            <?php endif; ?>
+                            <a class="hb-services-ledger__cta" href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>" aria-label="ดูรายละเอียด<?php echo esc_attr( $svc['name'] ); ?>">
+                                <span class="hb-services-ledger__cta-full">ดูรายละเอียด<?php echo esc_html( $svc['name'] ); ?></span>
+                                <span class="hb-services-ledger__cta-compact" aria-hidden="true">ดูรายละเอียด</span>
+                                <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <?php endforeach; ?>
+
+                <article class="hb-services-ledger__item hb-services-ledger__item--english" lang="en">
+                    <span class="hb-services-ledger__num">EN</span>
+                    <div class="hb-services-ledger__body">
+                        <h3><a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>" hreflang="en">English: AI Consulting · SEO · AI Search</a></h3>
+                        <p>For English-speaking teams in Thailand — <a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>">AI consulting in Bangkok</a>, <a href="<?php echo esc_url( home_url( '/en/seo/' ) ); ?>">technical-first SEO agency</a> and <a href="<?php echo esc_url( home_url( '/en/ai-search/' ) ); ?>">AI Search (GEO)</a> and <a href="<?php echo esc_url( home_url( '/en/website-development/' ) ); ?>">website development</a> — same prices, PDPA, LINE and Thai-language context.</p>
+                    </div>
+                    <div class="hb-services-ledger__detail">
+                        <p class="hb-services-ledger__delivery">English delivery · Public THB pricing · 100% source code</p>
+                        <div class="hb-services-ledger__actions">
+                            <a class="hb-services-ledger__cta" href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>" hreflang="en">Read in English <span aria-hidden="true">&rarr;</span></a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="hb-services-fit" aria-labelledby="service-fit-title">
+        <div class="hb-services-container">
+            <header class="hb-services-section-head">
+                <p class="hb-services-kicker">Service fit</p>
+                <h2 id="service-fit-title">ควรเริ่มจากบริการไหนก่อน?</h2>
+                <p>เลือกจากปัญหาหลักของธุรกิจตอนนี้ แล้วค่อยขยายเป็นระบบ Web + SEO + AI ที่ทำงานร่วมกัน</p>
+            </header>
+
+            <div class="hb-services-fit__list">
+                <a class="hb-services-fit__row" href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>">
+                    <span class="hb-services-fit__label">Website first</span>
+                    <h3>เว็บช้า ติด Google ยาก หรือกำลังทำเว็บใหม่</h3>
+                    <p>เริ่มด้วย SEO-Ready Website เพื่อแก้ technical foundation ก่อนลงงบ marketing เพิ่ม.</p>
+                    <span class="hb-services-fit__arrow" aria-hidden="true">&rarr;</span>
+                </a>
+                <a class="hb-services-fit__row" href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>">
+                    <span class="hb-services-fit__label">Traffic first</span>
+                    <h3>มีเว็บแล้ว แต่ traffic หรือ lead ยังไม่พอ</h3>
+                    <p>เริ่มด้วยรับทำ SEO สายเทคนิค พร้อม CRO + tracking — เริ่มจาก Technical SEO Audit ฟรี.</p>
+                    <span class="hb-services-fit__arrow" aria-hidden="true">&rarr;</span>
+                </a>
+                <a class="hb-services-fit__row" href="<?php echo esc_url( home_url( '/services/ai-consulting/' ) ); ?>">
+                    <span class="hb-services-fit__label">Operations first</span>
+                    <h3>ทีมเสียเวลากับงานซ้ำ ตอบลูกค้าช้า หรือข้อมูลกระจาย</h3>
+                    <p>เริ่มด้วย AI Consulting เพื่อหา use case ที่ ROI สูงก่อนลงทุน build ระบบจริง.</p>
+                    <span class="hb-services-fit__arrow" aria-hidden="true">&rarr;</span>
+                </a>
+                <a class="hb-services-fit__row" href="<?php echo esc_url( home_url( '/work/' ) ); ?>">
+                    <span class="hb-services-fit__label">Case studies</span>
+                    <h3>อยากเห็นตัวเลขจากงานจริงก่อนคุยรายละเอียด</h3>
+                    <p>ดู case studies SEO, เว็บไซต์ และ AI ที่วัดผลจาก GA4, Search Console และ operation metrics.</p>
+                    <span class="hb-services-fit__arrow" aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="hb-services-bundle" aria-labelledby="services-bundle-title">
+        <div class="hb-services-container">
+            <header class="hb-services-bundle__head">
+                <p>Why bundle?</p>
+                <h2 id="services-bundle-title">ทำไมควรใช้บริการรวมกันในทีมเดียว</h2>
+                <p>Web · SEO · AI แยกกัน = 3 KPI ที่ไม่คุยกัน รวมกัน = ทีมเดียวที่รับผิดชอบผลรวมและ Optimize ข้ามฟังก์ชันได้</p>
+            </header>
+            <div class="hb-services-bundle__grid">
+                <article>
+                    <h3>1 + 1 + 1 = 5</h3>
+                    <p>เว็บ SEO-Ready ทำให้ติด Google · SEO + AI Search ทำให้ traffic โต · AI ทำให้ทีม scale หลังลูกค้าเข้ามา ผลลัพธ์ทบต้นกว่าทำแยก</p>
+                </article>
+                <article>
+                    <h3>Data ต่อเนื่อง</h3>
+                    <p>GA4 + GSC + AI Chat Log อยู่ใน Dashboard เดียว ทำให้เห็น Pattern ที่ทีมแยกไม่มีวันเห็น</p>
+                </article>
+                <article>
+                    <h3>ราคา Bundle</h3>
+                    <p>เลือก Retainer หลายบริการรวมกัน ประหยัดกว่าจ้างหลายบริษัทแยก ~30% และคุยกับทีมเดียว</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="services-audit" class="hb-services-audit" aria-labelledby="services-audit-title">
+        <div class="hb-services-container hb-services-audit__grid">
+            <div>
+                <h2 id="services-audit-title">เริ่มด้วย Audit ฟรี</h2>
+                <p>ส่งรายงาน 15-20 หน้าให้ภายใน 3 วันทำการ ก่อนตัดสินใจเริ่มงาน</p>
+            </div>
+            <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-services-btn hb-services-btn--primary">รับ Audit ฟรี <span aria-hidden="true">&rarr;</span></a>
+        </div>
+    </section>
+</div>
 
 <?php
 $service_items = array();
-foreach ( hashbox_service_catalog_live() as $svc ) {
+foreach ( $hb_services as $svc ) {
     $service_items[] = array(
         'name'        => $svc['name'],
         'alt'         => $svc['en_name'],

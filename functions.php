@@ -117,6 +117,21 @@ function hashbox_enqueue_assets() {
     // Legacy theme stylesheet (loads last — kept so WP recognizes theme)
     wp_enqueue_style( 'hashbox-style', get_stylesheet_uri(), array( $prev ), $version );
 
+    // Signal V3 typography is being migrated page by page. Keep the new
+    // display/body/data pairing isolated to the Services hub until the wider
+    // service-page family has passed visual and content-parity review.
+    if ( is_page( 'services' ) ) {
+        $services_typography = get_template_directory() . '/css/services-typography.css';
+        if ( file_exists( $services_typography ) ) {
+            wp_enqueue_style(
+                'hashbox-services-typography',
+                $theme_uri . '/css/services-typography.css',
+                array( 'hashbox-style' ),
+                filemtime( $services_typography )
+            );
+        }
+    }
+
     // V2 script — use the file mtime so long-lived browser/CDN caches pick up
     // interaction fixes without requiring a theme-version bump.
     $v2_script = get_template_directory() . '/js/v2.js';
@@ -271,10 +286,12 @@ function hashbox_preload_critical_fonts() {
     $landing   = function_exists( 'hashbox_get_audit_landing_for_path' ) ? hashbox_get_audit_landing_for_path() : null;
     $is_audit  = (bool) $landing;
     $is_ai     = is_array( $landing ) && 'ai-workflow-audit' === $landing['slug'];
-    $is_ads    = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
+    $is_ads      = function_exists( 'hashbox_is_ads_preview_request' ) && hashbox_is_ads_preview_request();
+    $is_services = is_page( 'services' );
 
-    // The ad-artwork preview uses Noto/Inter; public pages use the site-wide
-    // IBM Plex Sans Thai brand stack from the design-system bundle.
+    // The ad-artwork preview uses Noto/Inter. The Services hub opts into the
+    // Signal V3 display/body pairing; other public pages keep the site-wide
+    // IBM Plex Sans Thai stack from the production design-system bundle.
     if ( $is_ads ) {
         $fonts = array(
             'noto-sans-thai-thai-400.woff2',
@@ -287,6 +304,13 @@ function hashbox_preload_critical_fonts() {
             'ibm-plex-sans-thai-thai-400.woff2',
             'ibm-plex-sans-thai-thai-700.woff2',
             'ibm-plex-sans-thai-latin-400.woff2',
+        );
+    } elseif ( $is_services ) {
+        $fonts = array(
+            'noto-sans-thai-thai-400.woff2',
+            'noto-sans-thai-latin-400.woff2',
+            'ibm-plex-sans-thai-thai-700.woff2',
+            'ibm-plex-sans-thai-latin-700.woff2',
         );
     } else {
         $fonts = array(
