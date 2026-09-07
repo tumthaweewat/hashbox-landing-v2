@@ -1,4 +1,6 @@
-/* Contact section migration · Signal V3 · Compact Workbench · design-system: design.md */
+/* Contact section · Signal V3 · Compact Workbench.
+ * Approved 2026-09-08: static Indigo gradient exception for #contact only.
+ * Other page families retain solid surfaces; no glow or animated gradient. */
 #contact.hb-contact-v3 {
   --contact-paper: #fafaf9;
   --contact-ink: #0b0b12;
@@ -6,54 +8,60 @@
   --contact-rule: #d6d6d8;
   --contact-accent: #4f46e5;
   --contact-pressed: #4338ca;
-  background: var(--contact-paper);
-  color: var(--contact-ink);
+  --contact-gradient-start: #312e81;
+  --contact-on-brand: #eeedfc;
+  --contact-on-brand-rule: #a5a2df;
+  background: linear-gradient(115deg, var(--contact-gradient-start), var(--contact-accent));
+  color: var(--contact-paper);
   font-family: 'Noto Sans Thai', sans-serif;
   padding-block: 64px 88px;
   scroll-margin-top: 100px;
 }
-#contact .hb-container { max-width: 1088px; }
-#contact .hb-section__head { text-align: left; align-items: flex-start; margin: 0 0 24px; max-width: none; }
-#contact .hb-h2 { color: var(--contact-ink); font-family: 'IBM Plex Sans Thai', sans-serif; font-size: clamp(28px, 3.4vw, 44px); line-height: 1.3; }
-#contact .hb-section__sub { color: var(--contact-muted); margin: 12px 0 0; max-width: 65ch; font-size: 16px; }
+#contact .hb-container { max-width: 1024px; }
+#contact .hb-section__head { text-align: center; align-items: center; margin: 0 0 32px; max-width: none; }
+#contact .hb-h2 { color: var(--contact-paper); font-family: 'IBM Plex Sans Thai', sans-serif; font-size: clamp(28px, 3.4vw, 44px); line-height: 1.3; }
+#contact .hb-section__sub { color: var(--contact-on-brand); margin: 12px auto 0; max-width: 65ch; font-size: 16px; }
 #contact .hb-contact__grid { display: flex; flex-direction: column; gap: 28px; }
-#contact .contact-direct { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; padding-bottom: 24px; border-bottom: 1px solid var(--contact-rule); }
+#contact .contact-direct { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px 28px; padding-top: 24px; border-top: 1px solid var(--contact-on-brand-rule); }
 #contact .contact-direct > div { display: flex !important; flex-direction: row !important; flex-wrap: wrap; gap: 12px 24px !important; }
-#contact .contact-direct p { font-size: 14px; color: var(--contact-muted) !important; margin: 0; }
+#contact .contact-direct p { font-size: 14px; color: var(--contact-on-brand) !important; margin: 0; }
 #contact .contact-direct svg { width: 16px; height: 16px; flex-shrink: 0; }
-#contact .contact-direct .hb-btn { margin: 0 !important; padding: 8px 16px; min-height: 44px; font-size: 14px; background: transparent; color: var(--contact-accent); border: 1px solid var(--contact-accent); }
+#contact .contact-direct .hb-btn { margin: 0 !important; padding: 8px 16px; min-height: 44px; font-size: 14px; background: transparent; color: var(--contact-paper); border: 1px solid var(--contact-on-brand-rule); }
 #contact #homepage-contact { display: flex; flex-direction: column; gap: 20px; max-width: none; width: 100%; margin: 0; }
 #homepage-contact:has([value=audit]:checked) .contact-fields > .hb-field:has(#contact-website) { grid-column: 1 / -1; }
 #contact fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
-#contact legend, #contact .hb-label { color: var(--contact-ink); font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+#contact legend, #contact .hb-label { color: var(--contact-paper); font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+#contact .hb-label__required { color: inherit; }
 #contact .contact-intent__options { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
 #contact .contact-intent__options label { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; min-height: 52px; border: 1px solid var(--contact-rule); border-radius: 8px; cursor: pointer; font-weight: 500; }
-#contact .contact-intent__options label:has(:checked) { border-color: var(--contact-accent); color: var(--contact-accent); background: #eeedfc; }
+#contact .contact-intent__options label:has(:checked) { border-color: var(--contact-paper); color: var(--contact-gradient-start); background: var(--contact-paper); }
 #contact input[type=radio] { accent-color: var(--contact-accent); width: 18px; height: 18px; }
-#contact-intent-help { margin: 12px 0 0; color: var(--contact-muted); font-size: 14px; line-height: 1.7; }
+#contact-intent-help { margin: 12px 0 0; color: var(--contact-on-brand); font-size: 14px; line-height: 1.7; }
 #contact .contact-fields, #contact .contact-services__options { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px 24px; }
 #contact .contact-services__options { gap: 4px 24px; }
 #contact .hb-field { min-width: 0; }
 #contact .hb-input, #contact .hb-select, #contact .hb-textarea { font: inherit; font-size: 16px; color: var(--contact-ink); background: var(--contact-paper); border: 1px solid var(--contact-rule); border-radius: 8px; box-shadow: none; width: 100%; min-height: 48px; padding: 10px 14px; }
 #contact .hb-textarea { min-height: 96px; resize: vertical; }
 #contact input::placeholder, #contact textarea::placeholder { color: var(--contact-muted); opacity: .8; }
-#contact small { color: var(--contact-muted); font-size: 13px; display: block; line-height: 1.7; margin-top: 6px; }
-#contact .hb-checkbox-wrap { color: var(--contact-ink); font-size: 14px; line-height: 1.7; min-height: 44px; align-items: center; }
+#contact small { color: var(--contact-on-brand); font-size: 13px; display: block; line-height: 1.7; margin-top: 6px; }
+#contact .hb-checkbox-wrap { color: var(--contact-paper); font-size: 14px; line-height: 1.7; min-height: 44px; align-items: center; }
 #contact .hb-checkbox-wrap__label { color: inherit; }
 #contact .hb-checkbox { background: var(--contact-paper); border-color: var(--contact-muted); flex-shrink: 0; }
-#contact .hb-checkbox:checked { background-color: var(--contact-accent); border-color: var(--contact-accent); }
-#contact .hb-checkbox-wrap a { color: var(--contact-accent) !important; }
-#contact-project-details { border-block: 1px solid var(--contact-rule); padding-block: 12px; }
+#contact .hb-checkbox:checked { background-color: var(--contact-gradient-start); border-color: var(--contact-paper); }
+#contact .hb-checkbox-wrap a { color: var(--contact-paper) !important; }
+#contact-project-details { border-block: 1px solid var(--contact-on-brand-rule); padding-block: 12px; }
 #contact-project-details summary { cursor: pointer; min-height: 44px; padding-block: 10px; font-size: 14px; }
 #contact-project-details .hb-field { max-width: 640px; display: grid; gap: 8px; padding: 12px 0; }
 #contact .hb-btn { font-family: inherit; background-image: none; box-shadow: none; text-shadow: none; transform: none; border-radius: 8px; }
 #contact .hb-btn::before, #contact .hb-btn::after { display: none; }
-#contact button[type=submit] { align-self: flex-start; min-height: 48px; padding: 12px 24px; background: var(--contact-accent); color: var(--contact-paper); font-size: 16px; white-space: nowrap; }
-#contact :is(input,select,textarea,button,a,summary):focus-visible { outline: 2px solid var(--contact-accent); outline-offset: 3px; box-shadow: none; transition: none; }
+#contact button[type=submit] { align-self: center; min-height: 48px; padding: 12px 32px; background: var(--contact-paper); color: var(--contact-gradient-start); font-size: 16px; font-weight: 700; white-space: nowrap; }
+#contact :is(input,select,textarea,button,a,summary):focus-visible { outline: 2px solid var(--contact-paper); outline-offset: 3px; box-shadow: none; transition: none; }
+#contact .contact-intent__options label:has(:focus-visible) { outline: 2px solid var(--contact-paper); outline-offset: 3px; }
+#contact input[type=radio]:focus-visible { outline-color: var(--contact-accent); }
 #contact :disabled { opacity: .55; cursor: not-allowed; }
 #contact [hidden] { display: none !important; }
-@media (hover:hover) and (pointer:fine) { #contact button[type=submit]:hover { background: var(--contact-pressed); } }
-#contact button[type=submit]:active { background: var(--contact-pressed); }
+@media (hover:hover) and (pointer:fine) { #contact button[type=submit]:hover { background: var(--contact-on-brand); } }
+#contact button[type=submit]:active { background: var(--contact-rule); }
 @media (max-width: 600px) {
   #contact.hb-contact-v3 { padding-block: 40px 56px; }
   #contact .contact-fields, #contact .contact-services__options { grid-template-columns: minmax(0,1fr); }
