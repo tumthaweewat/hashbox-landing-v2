@@ -20,7 +20,7 @@
   --faq-font-body: 'Noto Sans Thai', sans-serif;
 }
 #faq .hb-h2 { font-family: var(--faq-font-display); font-weight: 700; font-style: normal; line-height: 1.3; }
-#faq .hb-accordion__trigger { font-family: var(--faq-font-display); font-weight: 600; font-style: normal; line-height: 1.5; }
+#faq.hb-section--light .hb-accordion__trigger { font-family: var(--faq-font-display); font-weight: 600; font-style: normal; line-height: 1.5; }
 #faq .hb-section__sub,
 #faq .hb-accordion__content,
 #faq .hb-accordion__content p { font-family: var(--faq-font-body); font-weight: 400; line-height: 1.7; }
