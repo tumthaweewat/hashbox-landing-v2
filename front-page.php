@@ -472,8 +472,8 @@ get_header();
 <section id="contact" class="hb-section hb-section--surface hb-contact-v3">
     <div class="hb-container">
         <div class="hb-section__head hb-section__head--center">
-            <h2 class="hb-h2">คุยเรื่องเว็บไซต์ SEO และระบบ AI</h2>
-            <p class="hb-section__sub">เลือกสิ่งที่ต้องการให้ทีมช่วย แล้วเล่าโจทย์ของคุณได้เลย</p>
+            <h2 class="hb-h2">ให้ธุรกิจคุณไปต่อ ด้วยเว็บไซต์ SEO และ AI</h2>
+            <p class="hb-section__sub">บอกเป้าหมายหรือปัญหาที่คุณอยากแก้ ทีม Hashbox พร้อมช่วยประเมินแนวทางที่เหมาะกับธุรกิจคุณ</p>
         </div>
 
         <div class="hb-contact__grid">
