@@ -489,7 +489,7 @@ get_header();
                 <?php if ( $contact_status === 'sent' ) : ?>
                     <div class="hb-badge hb-badge--emerald hb-badge--lg">ส่งข้อความสำเร็จ ทีมเราจะติดต่อกลับใน 1-3 วันทำการ</div>
                 <?php elseif ( $contact_status === 'invalid' ) : ?>
-                    <p role="alert">กรุณากรอกชื่อ อีเมล เว็บไซต์สำหรับ Audit และยินยอม PDPA ให้ครบถ้วน</p>
+                    <p role="alert">กรุณาตรวจชื่อ อีเมล เว็บไซต์สำหรับ Audit เบอร์โทรสำหรับประเมินโปรเจกต์ ช่องทางติดต่อที่เลือก และยินยอม PDPA ให้ครบถ้วน</p>
                 <?php elseif ( $contact_status === 'error' ) : ?>
                     <p role="alert">ส่งข้อความไม่สำเร็จ กรุณาลองอีกครั้ง หรือคุยกับทีมทาง LINE OA</p>
                 <?php endif; ?>
@@ -517,10 +517,21 @@ get_header();
                     <small id="contact-website-help">สำหรับ Audit กรุณาระบุเว็บไซต์ที่ต้องการให้ตรวจ</small>
                     <label class="hb-checkbox-wrap" data-project-only><input class="hb-checkbox" type="checkbox" name="no_website" id="contact-no-website" value="1"><span>ยังไม่มีเว็บไซต์</span></label>
                 </div>
-                <div class="hb-field" data-project-only>
-                    <label class="hb-label" for="contact-detail">เบอร์โทร หรือ LINE ID (ไม่บังคับ)</label>
-                    <input id="contact-detail" class="hb-input" name="contact_detail" type="text" placeholder="ช่องทางที่สะดวกให้ติดต่อ">
-                    <input type="hidden" name="contact_preference" value="phone-or-line">
+                <div class="hb-field">
+                    <label class="hb-label" for="contact-phone">เบอร์โทรศัพท์ (ไม่บังคับสำหรับ Audit)</label>
+                    <input id="contact-phone" class="hb-input" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="32" placeholder="081 234 5678 หรือ +66 81 234 5678" aria-describedby="contact-phone-help contact-phone-error">
+                    <small id="contact-phone-help">ใช้ติดต่อเกี่ยวกับคำขอของคุณ</small>
+                    <small id="contact-phone-error" class="contact-field-error" aria-live="polite"></small>
+                </div>
+                <div class="hb-field">
+                    <label class="hb-label" for="contact-preference">ช่องทางที่สะดวกให้ติดต่อ</label>
+                    <select id="contact-preference" class="hb-select" name="contact_preference"><option value="email">อีเมล</option><option value="phone">โทรศัพท์</option><option value="line">LINE</option></select>
+                </div>
+                <div class="hb-field">
+                    <label class="hb-label" for="contact-line">LINE ID (ไม่บังคับ)</label>
+                    <input id="contact-line" class="hb-input" name="line_id" type="text" maxlength="100" placeholder="LINE ID ของคุณ" aria-describedby="contact-line-help contact-line-error">
+                    <small id="contact-line-help">กรอกเมื่อสะดวกให้ติดต่อทาง LINE</small>
+                    <small id="contact-line-error" class="contact-field-error" aria-live="polite"></small>
                 </div>
                 </div>
                 <fieldset class="contact-services" data-project-only>

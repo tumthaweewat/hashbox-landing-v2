@@ -3612,6 +3612,14 @@ function hashbox_send_ai_confirmation_email( $email, $name, $lead_ref, $conversi
 }
 add_action( 'hashbox_send_ai_confirmation_email', 'hashbox_send_ai_confirmation_email', 10, 4 );
 
+/** Format validation only; does not claim a number exists or belongs to the sender. */
+function hashbox_contact_phone_valid( $phone ) {
+    $raw = trim( $phone );
+    $clean = preg_replace( '/[\s().-]/', '', $raw );
+    return (bool) preg_match( '/^[+0-9\s().-]+$/', $raw )
+        && (bool) preg_match( '/^(?:0\d{8,9}|\+[1-9]\d{6,14})$/', $clean );
+}
+
 function hashbox_handle_contact_submit() {
     if ( ! isset( $_POST['hashbox_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['hashbox_nonce'] ), 'hashbox_contact' ) ) {
         wp_die( 'Invalid request token.', 'Forbidden', array( 'response' => 403 ) );
@@ -3649,10 +3657,18 @@ function hashbox_handle_contact_submit() {
             $intent = 'project';
             $website = '';
         }
+        $line_id = isset( $_POST['line_id'] ) && is_string( $_POST['line_id'] ) ? sanitize_text_field( wp_unslash( $_POST['line_id'] ) ) : '';
+        $needs_phone = 'project' === $intent || 'phone' === $contact_preference;
+        $invalid_channels = ! in_array( $contact_preference, array( 'email', 'phone', 'line' ), true )
+            || ( $needs_phone && '' === trim( $phone ) )
+            || ( '' !== trim( $phone ) && ! hashbox_contact_phone_valid( $phone ) )
+            || ( 'line' === $contact_preference && '' === $line_id );
+        // Keep both contact methods in the existing notification payload.
+        $contact_detail = 'LINE ID: ' . ( $line_id ?: '—' );
         $host = strtolower( (string) wp_parse_url( $website, PHP_URL_HOST ) );
         $valid_site = in_array( wp_parse_url( $website, PHP_URL_SCHEME ), array( 'http', 'https' ), true ) && false !== strpos( $host, '.' );
         $facebook = (bool) preg_match( '/(^|\.)(facebook\.com|fb\.com)$/', $host );
-        $home_invalid = ! in_array( $intent, array( 'audit', 'project' ), true )
+        $home_invalid = $invalid_channels || ! in_array( $intent, array( 'audit', 'project' ), true )
             || ( 'audit' === $intent && ( ! $valid_site || $facebook ) )
             || ( '' !== $website && ! $valid_site );
         $basis = isset( $_POST['budget_basis'] ) && is_string( $_POST['budget_basis'] ) ? $_POST['budget_basis'] : '';

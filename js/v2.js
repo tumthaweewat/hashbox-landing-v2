@@ -18,6 +18,37 @@
     const details = document.getElementById('contact-project-details');
     const submit = contact.querySelector('[type="submit"]');
     const help = document.getElementById('contact-website-help');
+    const phone = contact.elements.phone;
+    const line = contact.elements.line_id;
+    const preference = contact.elements.contact_preference;
+    const showFieldError = (field, message) => {
+      field.setCustomValidity(message);
+      field.setAttribute('aria-invalid', message ? 'true' : 'false');
+      document.getElementById(field.id + '-error').textContent = message;
+    };
+    const validatePhone = () => {
+      const raw = phone.value.trim();
+      const clean = raw.replace(/[\s().-]/g, '');
+      const valid = /^[+0-9\s().-]+$/.test(raw) && (/^0\d{8,9}$/.test(clean) || /^\+[1-9]\d{6,14}$/.test(clean));
+      showFieldError(phone, !raw ? (phone.required ? 'กรุณาระบุเบอร์โทรศัพท์สำหรับติดต่อ' : '') : (valid ? '' : 'กรุณาระบุเบอร์ไทย 9–10 หลัก หรือเบอร์ต่างประเทศที่ขึ้นต้นด้วย + และรหัสประเทศ'));
+    };
+    const validateLine = () => showFieldError(line, line.required && !line.value.trim() ? 'กรุณาระบุ LINE ID หรือเลือกติดต่อทางอีเมล / โทรศัพท์' : '');
+    const updateContactChannels = () => {
+      phone.required = intent.value === 'project' || preference.value === 'phone';
+      line.required = preference.value === 'line';
+      contact.querySelector('label[for="contact-phone"]').textContent = phone.required ? 'เบอร์โทรศัพท์ *' : 'เบอร์โทรศัพท์ (ไม่บังคับ)';
+      contact.querySelector('label[for="contact-line"]').textContent = line.required ? 'LINE ID *' : 'LINE ID (ไม่บังคับ)';
+      document.getElementById('contact-phone-help').textContent = intent.value === 'project' ? 'ใช้ติดต่อเพื่อสอบถามรายละเอียดและประเมินโปรเจกต์ของคุณ' : 'ใช้ติดต่อเกี่ยวกับคำขอ Audit ของคุณ';
+      showFieldError(phone, '');
+      showFieldError(line, '');
+    };
+    preference.addEventListener('change', updateContactChannels);
+    phone.addEventListener('blur', validatePhone);
+    line.addEventListener('blur', validateLine);
+    phone.addEventListener('input', () => showFieldError(phone, ''));
+    line.addEventListener('input', () => showFieldError(line, ''));
+    phone.addEventListener('invalid', validatePhone);
+    line.addEventListener('invalid', validateLine);
     const updateContact = () => {
       if (noWebsite.checked) intent.value = 'project';
       const audit = intent.value === 'audit';
@@ -37,6 +68,7 @@
       details.querySelectorAll('input, select').forEach(field => { field.disabled = audit; });
       help.textContent = audit ? 'จำเป็นสำหรับ Audit: ระบุเว็บไซต์ที่ต้องการให้ตรวจ (ใช้ Facebook Page แทนไม่ได้)' : 'ระบุเว็บไซต์หรือ Facebook Page ของธุรกิจ ถ้ามี';
       submit.textContent = audit ? 'ขอ Audit ฟรี →' : 'ส่งโจทย์ให้ทีมประเมิน →';
+      updateContactChannels();
     };
     contact.querySelectorAll('[name="request_intent"]').forEach(radio => radio.addEventListener('change', () => {
       if (intent.value === 'audit') noWebsite.checked = false;
@@ -45,6 +77,13 @@
     noWebsite.addEventListener('change', updateContact);
     website.addEventListener('input', () => website.setCustomValidity(''));
     contact.addEventListener('submit', event => {
+      validatePhone();
+      validateLine();
+      if (!phone.validity.valid || !line.validity.valid) {
+        event.preventDefault();
+        (!phone.validity.valid ? phone : line).focus();
+        return;
+      }
       if (!website.disabled && website.value.trim()) {
         try {
           const raw = website.value.trim();
