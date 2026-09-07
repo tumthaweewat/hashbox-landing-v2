@@ -20,7 +20,7 @@
 #contact .hb-container { max-width: 1024px; }
 #contact .hb-section__head { text-align: center; align-items: center; margin: 0 0 32px; max-width: none; }
 #contact .hb-h2 { color: var(--contact-paper); font-family: 'IBM Plex Sans Thai', sans-serif; font-size: clamp(28px, 3.4vw, 44px); line-height: 1.3; }
-#contact .hb-section__sub { color: var(--contact-on-brand); margin: 12px auto 0; max-width: 65ch; font-size: 16px; }
+#contact .hb-section__sub { color: var(--contact-on-brand); margin: 12px auto 0; max-width: none; width: 100%; font-size: 16px; }
 #contact .hb-contact__grid { display: flex; flex-direction: column; gap: 28px; }
 #contact .contact-direct { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px 28px; padding-top: 24px; border-top: 1px solid var(--contact-on-brand-rule); }
 #contact .contact-direct > div { display: flex !important; flex-direction: row !important; flex-wrap: wrap; gap: 12px 24px !important; }
