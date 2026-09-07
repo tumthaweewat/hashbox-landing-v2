@@ -491,38 +491,66 @@ get_header();
             <?php
             $contact_status = isset( $_GET['contact'] ) ? sanitize_key( $_GET['contact'] ) : '';
             ?>
-            <form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" style="display:flex;flex-direction:column;gap:var(--hb-space-4);">
+            <form id="homepage-contact" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" style="display:flex;flex-direction:column;gap:var(--hb-space-4);">
                 <input type="hidden" name="action" value="hashbox_contact">
+                <input type="hidden" name="contact_context" value="homepage">
                 <?php wp_nonce_field( 'hashbox_contact', 'hashbox_nonce' ); ?>
 
                 <?php if ( $contact_status === 'sent' ) : ?>
                     <div class="hb-badge hb-badge--emerald hb-badge--lg">ส่งข้อความสำเร็จ ทีมเราจะติดต่อกลับใน 1-3 วันทำการ</div>
                 <?php elseif ( $contact_status === 'invalid' ) : ?>
-                    <div class="hb-badge hb-badge--rose hb-badge--lg">กรุณากรอกชื่อ อีเมล และยินยอม PDPA</div>
+                    <p role="alert">กรุณากรอกชื่อ อีเมล เว็บไซต์สำหรับ Audit และยินยอม PDPA ให้ครบถ้วน</p>
+                <?php elseif ( $contact_status === 'error' ) : ?>
+                    <p role="alert">ส่งข้อความไม่สำเร็จ กรุณาลองอีกครั้ง หรือคุยกับทีมทาง LINE OA</p>
                 <?php endif; ?>
 
                 <div class="hb-field">
                     <label class="hb-label" for="contact-name">ชื่อ <span class="hb-label__required">*</span></label>
-                    <input id="contact-name" class="hb-input" type="text" name="name" required placeholder="ชื่อ-นามสกุล">
+                    <input id="contact-name" class="hb-input" type="text" name="name" autocomplete="name" required placeholder="ชื่อ-นามสกุล">
                 </div>
                 <div class="hb-field">
                     <label class="hb-label" for="contact-email">อีเมล <span class="hb-label__required">*</span></label>
-                    <input id="contact-email" class="hb-input" type="email" name="email" required placeholder="you@company.com">
+                    <input id="contact-email" class="hb-input" type="email" name="email" autocomplete="email" required placeholder="you@company.com">
                 </div>
                 <div class="hb-field">
-                    <label class="hb-label" for="contact-service">สนใจบริการ</label>
-                    <select id="contact-service" class="hb-select" name="service">
-                        <option value="">เลือกบริการ</option>
-                        <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>
-                        <option value="<?php echo esc_attr( $svc['form_value'] ); ?>"><?php echo esc_html( $svc['name'] ); ?></option>
-                        <?php endforeach; ?>
-                        <option value="all">Bundle หลายบริการ</option>
-                        <option value="audit-only">SEO Audit ฟรีก่อน</option>
+                    <label class="hb-label" for="contact-intent">ต้องการให้ทีมช่วยเรื่องใด</label>
+                    <select id="contact-intent" class="hb-select" name="request_intent">
+                        <option value="audit">ขอ Audit เว็บไซต์ฟรี</option>
+                        <option value="project">ปรึกษา / ประเมินโปรเจกต์</option>
                     </select>
                 </div>
                 <div class="hb-field">
+                    <label class="hb-label" for="contact-website">เว็บไซต์ / Facebook Page</label>
+                    <input id="contact-website" class="hb-input" type="text" inputmode="url" name="website" placeholder="example.com" aria-describedby="contact-website-help">
+                    <small id="contact-website-help">สำหรับ Audit กรุณาระบุเว็บไซต์ที่ต้องการให้ตรวจ</small>
+                    <label class="hb-checkbox-wrap"><input class="hb-checkbox" type="checkbox" name="no_website" id="contact-no-website" value="1"><span>ยังไม่มีเว็บไซต์ (ปรึกษา / ประเมินโปรเจกต์)</span></label>
+                </div>
+                <fieldset class="hb-field" style="border:0;padding:0;margin:0;min-width:0;">
+                    <legend class="hb-label">บริการที่สนใจ (เลือกได้หลายข้อ)</legend>
+                        <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>
+                        <label class="hb-checkbox-wrap" style="min-height:44px;"><input class="hb-checkbox" type="checkbox" name="services[]" value="<?php echo esc_attr( $svc['form_value'] ); ?>"><span><?php echo esc_html( $svc['name'] ); ?></span></label>
+                        <?php endforeach; ?>
+                        <label class="hb-checkbox-wrap" style="min-height:44px;"><input class="hb-checkbox" type="checkbox" name="services[]" value="unsure"><span>ยังไม่แน่ใจ ต้องการคำแนะนำ</span></label>
+                </fieldset>
+                <div class="hb-field">
+                    <label class="hb-label" for="contact-detail">เบอร์โทร หรือ LINE ID (ไม่บังคับ)</label>
+                    <input id="contact-detail" class="hb-input" name="contact_detail" type="text" placeholder="เบอร์โทร หรือ LINE ID ที่สะดวกให้ติดต่อ">
+                    <input type="hidden" name="contact_preference" value="phone-or-line">
+                </div>
+                <details id="contact-project-details">
+                    <summary>งบประมาณและช่วงเริ่มงาน สำหรับประเมินโปรเจกต์ (ไม่บังคับ)</summary>
+                    <div class="hb-field">
+                        <label class="hb-label" for="contact-budget">งบประมาณโดยประมาณ</label>
+                        <input id="contact-budget" class="hb-input" name="budget" type="text" placeholder="เช่น 60,000 บาท หรือ ต้องการคำแนะนำ">
+                        <label class="hb-label" for="contact-budget-basis">ลักษณะงบประมาณ</label>
+                        <select id="contact-budget-basis" class="hb-select" name="budget_basis"><option value="">ต้องการคำแนะนำ</option><option value="project">ต่อโปรเจกต์</option><option value="monthly">ต่อเดือน</option></select>
+                        <label class="hb-label" for="contact-timeline">ต้องการเริ่มเมื่อไร</label>
+                        <select id="contact-timeline" class="hb-select" name="timeline"><option value="">ยังไม่กำหนด</option><option value="พร้อมเริ่มทันที">พร้อมเริ่มทันที</option><option value="ภายใน 1–3 เดือน">ภายใน 1–3 เดือน</option><option value="มากกว่า 3 เดือน">มากกว่า 3 เดือน</option></select>
+                    </div>
+                </details>
+                <div class="hb-field">
                     <label class="hb-label" for="contact-msg">โจทย์ของโปรเจกต์</label>
-                    <textarea id="contact-msg" class="hb-textarea" name="message" rows="3" placeholder="เล่าสั้น ๆ ว่าอยากแก้ปัญหาอะไร"></textarea>
+                    <textarea id="contact-msg" class="hb-textarea" name="message" rows="3" placeholder="เช่น อยากเพิ่มคนทักจาก Google หรือ ลดงานตอบลูกค้าซ้ำ"></textarea>
                 </div>
                 <label class="hb-checkbox-wrap">
                     <input type="checkbox" class="hb-checkbox" name="pdpa" required>

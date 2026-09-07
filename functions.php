@@ -3629,6 +3629,41 @@ function hashbox_handle_contact_submit() {
     $contact_detail     = isset( $_POST['contact_detail'] )     ? sanitize_text_field( wp_unslash( $_POST['contact_detail'] ) )     : '';
     $pdpa               = isset( $_POST['pdpa'] );
     $message            = $problem ?: $message;
+    // Homepage multi-service enquiry; preserve the scalar service contract used by landing pages.
+    $is_home_contact = isset( $_POST['contact_context'] ) && 'homepage' === $_POST['contact_context'];
+    $home_invalid = false;
+    if ( $is_home_contact ) {
+        $intent = isset( $_POST['request_intent'] ) && is_string( $_POST['request_intent'] ) ? wp_unslash( $_POST['request_intent'] ) : '';
+        $no_website = isset( $_POST['no_website'] );
+        $allowed_services = array_column( hashbox_service_catalog_live(), 'form_value' );
+        $allowed_services[] = 'unsure';
+        $selected_services = isset( $_POST['services'] ) && is_array( $_POST['services'] ) ? wp_unslash( $_POST['services'] ) : array();
+        $selected_services = array_values( array_unique( array_filter( $selected_services, function ( $value ) use ( $allowed_services ) {
+            return is_string( $value ) && in_array( $value, $allowed_services, true );
+        } ) ) );
+        $service = implode( ', ', $selected_services );
+        if ( $no_website ) {
+            $intent = 'project';
+            $website = '';
+        }
+        $host = strtolower( (string) wp_parse_url( $website, PHP_URL_HOST ) );
+        $valid_site = in_array( wp_parse_url( $website, PHP_URL_SCHEME ), array( 'http', 'https' ), true ) && false !== strpos( $host, '.' );
+        $facebook = (bool) preg_match( '/(^|\.)(facebook\.com|fb\.com)$/', $host );
+        $home_invalid = ! in_array( $intent, array( 'audit', 'project' ), true )
+            || ( 'audit' === $intent && ( ! $valid_site || $facebook ) )
+            || ( '' !== $website && ! $valid_site );
+        $basis = isset( $_POST['budget_basis'] ) && is_string( $_POST['budget_basis'] ) ? $_POST['budget_basis'] : '';
+        if ( 'audit' === $intent ) {
+            $budget = '';
+            $timeline = '';
+        } elseif ( '' !== $budget ) {
+            $budget .= 'monthly' === $basis ? ' (ต่อเดือน)' : ( 'project' === $basis ? ' (ต่อโปรเจกต์)' : ' (ต้องการคำแนะนำเรื่องลักษณะงบ)' );
+        }
+        $project_type = 'audit' === $intent ? 'ขอ Audit เว็บไซต์ฟรี' : 'ปรึกษา / ประเมินโปรเจกต์';
+        if ( $no_website ) {
+            $project_type .= ' — ยังไม่มีเว็บไซต์';
+        }
+    }
 
     $redirect_to = isset( $_POST['redirect_to'] ) ? esc_url_raw( wp_unslash( $_POST['redirect_to'] ) ) : home_url( '/#contact' );
     $redirect_to = wp_validate_redirect( $redirect_to, home_url( '/#contact' ) );
@@ -3666,7 +3701,7 @@ function hashbox_handle_contact_submit() {
                 ? ( $name === '' || $website === '' || $service === '' || $budget === '' || $timeline === '' || $contact_preference === '' || $contact_detail === '' || $message === '' || ! $pdpa )
                 : ( $name === '' || $email === '' || ! is_email( $email ) || ! $pdpa ) ) ) );
 
-    if ( $email !== '' && ! is_email( $email ) ) {
+    if ( $home_invalid || ( $email !== '' && ! is_email( $email ) ) ) {
         $invalid = true;
     }
 

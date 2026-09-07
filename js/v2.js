@@ -10,6 +10,51 @@
 (function () {
   'use strict';
 
+  const contact = document.getElementById('homepage-contact');
+  if (contact) {
+    const intent = contact.elements.request_intent;
+    const website = contact.elements.website;
+    const noWebsite = contact.elements.no_website;
+    const details = document.getElementById('contact-project-details');
+    const submit = contact.querySelector('[type="submit"]');
+    const help = document.getElementById('contact-website-help');
+    const updateContact = () => {
+      if (noWebsite.checked) intent.value = 'project';
+      const audit = intent.value === 'audit';
+      website.disabled = noWebsite.checked;
+      website.required = audit;
+      website.setCustomValidity('');
+      details.hidden = audit;
+      details.open = !audit;
+      details.querySelectorAll('input, select').forEach(field => { field.disabled = audit; });
+      help.textContent = audit ? 'จำเป็นสำหรับ Audit: ระบุเว็บไซต์ที่ต้องการให้ตรวจ (ใช้ Facebook Page แทนไม่ได้)' : 'ระบุเว็บไซต์หรือ Facebook Page ของธุรกิจ ถ้ามี';
+      submit.textContent = audit ? 'ขอ Audit ฟรี →' : 'ส่งโจทย์ให้ทีมประเมิน →';
+    };
+    intent.addEventListener('change', () => {
+      if (intent.value === 'audit') noWebsite.checked = false;
+      updateContact();
+    });
+    noWebsite.addEventListener('change', updateContact);
+    website.addEventListener('input', () => website.setCustomValidity(''));
+    contact.addEventListener('submit', event => {
+      if (!website.disabled && website.value.trim()) {
+        try {
+          const raw = website.value.trim();
+          const url = new URL(/^[a-z][a-z\d+.-]*:/i.test(raw) ? raw : 'https://' + raw);
+          if (!['http:', 'https:'].includes(url.protocol) || !url.hostname.includes('.')) throw new Error('url');
+          if (intent.value === 'audit' && /(^|\.)(facebook\.com|fb\.com)$/.test(url.hostname)) throw new Error('audit');
+          website.value = url.href;
+        } catch (error) {
+          event.preventDefault();
+          website.setCustomValidity('กรุณาระบุ URL ให้ถูกต้อง และใช้เว็บไซต์สำหรับการขอ Audit');
+          website.reportValidity();
+        }
+      }
+    });
+    updateContact();
+    window.addEventListener('pageshow', updateContact);
+  }
+
   /* ----------------------------------------------------------------------
    * 1. Sticky nav — collapse to full-width strip past 80px scroll
    * -------------------------------------------------------------------- */
