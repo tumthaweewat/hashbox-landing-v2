@@ -118,6 +118,7 @@ function hashbox_enqueue_assets() {
     wp_enqueue_style( 'hashbox-style', get_stylesheet_uri(), array( $prev ), $version );
     if ( is_front_page() ) {
         wp_enqueue_style( 'hashbox-contact-v3', $theme_uri . '/css/contact-v3.css', array( 'hashbox-style' ), filemtime( get_template_directory() . '/css/contact-v3.css' ) );
+        wp_enqueue_style( 'hashbox-faq-typography', $theme_uri . '/css/faq-typography.css', array( 'hashbox-style' ), filemtime( get_template_directory() . '/css/faq-typography.css' ) );
     }
 
     // Signal V3 typography is being migrated page by page. Keep the new
