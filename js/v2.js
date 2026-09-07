@@ -368,7 +368,37 @@
   /* ----------------------------------------------------------------------
    * 7. Smooth scroll for in-page anchors (offset for sticky nav)
    * -------------------------------------------------------------------- */
+  const scrollToContactForm = (animate = true) => {
+    if (!contact) return;
+    const navTop = nav ? parseFloat(getComputedStyle(nav).top) || 0 : 0;
+    const offset = (nav ? nav.getBoundingClientRect().height : 0) + Math.max(0, navTop) + 16;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({
+      top: Math.max(0, window.scrollY + contact.getBoundingClientRect().top - offset),
+      behavior: animate && !reduceMotion ? 'smooth' : 'auto'
+    });
+  };
+  // Support both #contact and WordPress-generated absolute homepage links.
   document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href]');
+    if (!contact || !a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === '_blank' || a.hasAttribute('download')) return;
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin || url.pathname !== location.pathname || url.hash !== '#contact') return;
+    e.preventDefault();
+    if (location.hash !== '#contact') history.pushState(null, '', '#contact');
+    requestAnimationFrame(() => scrollToContactForm());
+  });
+  const alignContactHash = () => {
+    if (contact && location.hash === '#contact') {
+      const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
+      fontsReady.then(() => requestAnimationFrame(() => scrollToContactForm(false)));
+    }
+  };
+  if (document.readyState === 'complete') alignContactHash();
+  else window.addEventListener('load', alignContactHash, { once: true });
+  window.addEventListener('hashchange', alignContactHash);
+  document.addEventListener('click', (e) => {
+    if (e.defaultPrevented) return;
     const a = e.target.closest('a[href^="#"]');
     if (!a) return;
     const href = a.getAttribute('href');
