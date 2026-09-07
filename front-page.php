@@ -469,16 +469,15 @@ get_header();
 </section>
 
 <!-- ============ CONTACT ============ -->
-<section id="contact" class="hb-section hb-section--surface">
+<section id="contact" class="hb-section hb-section--surface hb-contact-v3">
     <div class="hb-container">
         <div class="hb-section__head hb-section__head--center">
-            <span class="hb-eyebrow">Get in touch</span>
-            <h2 class="hb-h2">เริ่มต้นด้วย Audit ฟรี</h2>
-            <p class="hb-section__sub">กรอกแบบฟอร์มสั้น ๆ ทีมเราจะวัด Baseline ของเว็บคุณแล้วส่งรายงาน 15-20 หน้าให้ภายใน 3 วันทำการ ฟรีไม่มีข้อผูกมัด</p>
+            <h2 class="hb-h2">คุยเรื่องเว็บไซต์ SEO และระบบ AI</h2>
+            <p class="hb-section__sub">เลือกสิ่งที่ต้องการให้ทีมช่วย แล้วเล่าโจทย์ของคุณได้เลย</p>
         </div>
 
         <div class="hb-contact__grid">
-            <div>
+            <div class="contact-direct">
                 <div style="display:flex;flex-direction:column;gap:var(--hb-space-3);">
                     <p style="display:flex;align-items:center;gap:var(--hb-space-3);color:var(--hb-text);"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg><a href="mailto:business@hashbox.co.th" style="color:inherit;">business@hashbox.co.th</a></p>
                     <p style="display:flex;align-items:center;gap:var(--hb-space-3);color:var(--hb-text);"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+66625169868" style="color:inherit;">Hotline: 062-516-9868</a></p>
@@ -491,7 +490,7 @@ get_header();
             <?php
             $contact_status = isset( $_GET['contact'] ) ? sanitize_key( $_GET['contact'] ) : '';
             ?>
-            <form id="homepage-contact" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" style="display:flex;flex-direction:column;gap:var(--hb-space-4);">
+            <form id="homepage-contact" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
                 <input type="hidden" name="action" value="hashbox_contact">
                 <input type="hidden" name="contact_context" value="homepage">
                 <?php wp_nonce_field( 'hashbox_contact', 'hashbox_nonce' ); ?>
@@ -504,6 +503,15 @@ get_header();
                     <p role="alert">ส่งข้อความไม่สำเร็จ กรุณาลองอีกครั้ง หรือคุยกับทีมทาง LINE OA</p>
                 <?php endif; ?>
 
+                <fieldset class="contact-intent">
+                    <legend>ต้องการให้ทีมช่วยเรื่องใด</legend>
+                    <div class="contact-intent__options">
+                        <label><input type="radio" name="request_intent" value="audit" checked><span>ขอ Audit ฟรี</span></label>
+                        <label><input type="radio" name="request_intent" value="project"><span>ประเมินโปรเจกต์</span></label>
+                    </div>
+                    <p id="contact-intent-help" aria-live="polite">ทีมเราจะวัด Baseline ของเว็บคุณแล้วส่งรายงาน 15-20 หน้าให้ภายใน 3 วันทำการ ฟรีไม่มีข้อผูกมัด</p>
+                </fieldset>
+                <div class="contact-fields">
                 <div class="hb-field">
                     <label class="hb-label" for="contact-name">ชื่อ <span class="hb-label__required">*</span></label>
                     <input id="contact-name" class="hb-input" type="text" name="name" autocomplete="name" required placeholder="ชื่อ-นามสกุล">
@@ -513,32 +521,28 @@ get_header();
                     <input id="contact-email" class="hb-input" type="email" name="email" autocomplete="email" required placeholder="you@company.com">
                 </div>
                 <div class="hb-field">
-                    <label class="hb-label" for="contact-intent">ต้องการให้ทีมช่วยเรื่องใด</label>
-                    <select id="contact-intent" class="hb-select" name="request_intent">
-                        <option value="audit">ขอ Audit เว็บไซต์ฟรี</option>
-                        <option value="project">ปรึกษา / ประเมินโปรเจกต์</option>
-                    </select>
-                </div>
-                <div class="hb-field">
                     <label class="hb-label" for="contact-website">เว็บไซต์ / Facebook Page</label>
                     <input id="contact-website" class="hb-input" type="text" inputmode="url" name="website" placeholder="example.com" aria-describedby="contact-website-help">
                     <small id="contact-website-help">สำหรับ Audit กรุณาระบุเว็บไซต์ที่ต้องการให้ตรวจ</small>
-                    <label class="hb-checkbox-wrap"><input class="hb-checkbox" type="checkbox" name="no_website" id="contact-no-website" value="1"><span>ยังไม่มีเว็บไซต์ (ปรึกษา / ประเมินโปรเจกต์)</span></label>
+                    <label class="hb-checkbox-wrap" data-project-only><input class="hb-checkbox" type="checkbox" name="no_website" id="contact-no-website" value="1"><span>ยังไม่มีเว็บไซต์</span></label>
                 </div>
-                <fieldset class="hb-field" style="border:0;padding:0;margin:0;min-width:0;">
+                <div class="hb-field" data-project-only>
+                    <label class="hb-label" for="contact-detail">เบอร์โทร หรือ LINE ID (ไม่บังคับ)</label>
+                    <input id="contact-detail" class="hb-input" name="contact_detail" type="text" placeholder="ช่องทางที่สะดวกให้ติดต่อ">
+                    <input type="hidden" name="contact_preference" value="phone-or-line">
+                </div>
+                </div>
+                <fieldset class="contact-services" data-project-only>
                     <legend class="hb-label">บริการที่สนใจ (เลือกได้หลายข้อ)</legend>
+                    <div class="contact-services__options">
                         <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>
                         <label class="hb-checkbox-wrap" style="min-height:44px;"><input class="hb-checkbox" type="checkbox" name="services[]" value="<?php echo esc_attr( $svc['form_value'] ); ?>"><span><?php echo esc_html( $svc['name'] ); ?></span></label>
                         <?php endforeach; ?>
                         <label class="hb-checkbox-wrap" style="min-height:44px;"><input class="hb-checkbox" type="checkbox" name="services[]" value="unsure"><span>ยังไม่แน่ใจ ต้องการคำแนะนำ</span></label>
+                    </div>
                 </fieldset>
-                <div class="hb-field">
-                    <label class="hb-label" for="contact-detail">เบอร์โทร หรือ LINE ID (ไม่บังคับ)</label>
-                    <input id="contact-detail" class="hb-input" name="contact_detail" type="text" placeholder="เบอร์โทร หรือ LINE ID ที่สะดวกให้ติดต่อ">
-                    <input type="hidden" name="contact_preference" value="phone-or-line">
-                </div>
                 <details id="contact-project-details">
-                    <summary>งบประมาณและช่วงเริ่มงาน สำหรับประเมินโปรเจกต์ (ไม่บังคับ)</summary>
+                    <summary>เพิ่มงบประมาณและช่วงเริ่มงาน (ไม่บังคับ)</summary>
                     <div class="hb-field">
                         <label class="hb-label" for="contact-budget">งบประมาณโดยประมาณ</label>
                         <input id="contact-budget" class="hb-input" name="budget" type="text" placeholder="เช่น 60,000 บาท หรือ ต้องการคำแนะนำ">
@@ -549,7 +553,7 @@ get_header();
                     </div>
                 </details>
                 <div class="hb-field">
-                    <label class="hb-label" for="contact-msg">โจทย์ของโปรเจกต์</label>
+                    <label class="hb-label" for="contact-msg">โจทย์หรือเป้าหมาย (ไม่บังคับ)</label>
                     <textarea id="contact-msg" class="hb-textarea" name="message" rows="3" placeholder="เช่น อยากเพิ่มคนทักจาก Google หรือ ลดงานตอบลูกค้าซ้ำ"></textarea>
                 </div>
                 <label class="hb-checkbox-wrap">

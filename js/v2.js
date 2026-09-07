@@ -23,17 +23,25 @@
       const audit = intent.value === 'audit';
       website.disabled = noWebsite.checked;
       website.required = audit;
+      contact.querySelector('label[for="contact-website"]').textContent = audit ? 'เว็บไซต์ที่ต้องการให้ตรวจ *' : 'เว็บไซต์ / Facebook Page (ถ้ามี)';
       website.setCustomValidity('');
       details.hidden = audit;
-      details.open = !audit;
+      if (audit) details.open = false;
+      contact.querySelectorAll('[data-project-only]').forEach(group => {
+        group.hidden = audit;
+        group.querySelectorAll('input').forEach(field => { field.disabled = audit; });
+      });
+      document.getElementById('contact-intent-help').textContent = audit
+        ? 'ทีมเราจะวัด Baseline ของเว็บคุณแล้วส่งรายงาน 15-20 หน้าให้ภายใน 3 วันทำการ ฟรีไม่มีข้อผูกมัด'
+        : 'เลือกบริการและเล่าโจทย์ เพื่อให้ทีมประเมินแนวทางที่เหมาะกับธุรกิจของคุณ';
       details.querySelectorAll('input, select').forEach(field => { field.disabled = audit; });
       help.textContent = audit ? 'จำเป็นสำหรับ Audit: ระบุเว็บไซต์ที่ต้องการให้ตรวจ (ใช้ Facebook Page แทนไม่ได้)' : 'ระบุเว็บไซต์หรือ Facebook Page ของธุรกิจ ถ้ามี';
       submit.textContent = audit ? 'ขอ Audit ฟรี →' : 'ส่งโจทย์ให้ทีมประเมิน →';
     };
-    intent.addEventListener('change', () => {
+    contact.querySelectorAll('[name="request_intent"]').forEach(radio => radio.addEventListener('change', () => {
       if (intent.value === 'audit') noWebsite.checked = false;
       updateContact();
-    });
+    }));
     noWebsite.addEventListener('change', updateContact);
     website.addEventListener('input', () => website.setCustomValidity(''));
     contact.addEventListener('submit', event => {
