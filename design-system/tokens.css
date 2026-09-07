@@ -61,6 +61,19 @@
   --hb-accent-amber-soft: #EA580C; /* orange 600 — on dark */
   --hb-accent-rose:     #BE123C;   /* rose 700 — destructive only */
 
+  /* Navigation — Signal V3 dark utility masthead.
+   * These semantic tokens stay dark even when page content uses a light theme.
+   */
+  --hb-nav-surface:        oklch(15.33% 0.0149 284.51);
+  --hb-nav-surface-raised: oklch(24.23% 0.0133 285.37);
+  --hb-nav-text:           oklch(98.48% 0.0013 106.42);
+  --hb-nav-text-muted:     oklch(76% 0.008 284.51);
+  --hb-nav-border:         oklch(31% 0.012 284.51);
+  --hb-nav-focus:          oklch(93% 0.035 277);
+  --hb-nav-error:          oklch(68% 0.16 25);
+  --hb-nav-success:        oklch(66% 0.12 150);
+  --hb-nav-scrim:          oklch(9% 0.012 284.51 / 0.72);
+
   /* Gradient meshes (signature element) */
   --hb-grad-primary:    linear-gradient(135deg, var(--hb-accent-blue) 0%, var(--hb-accent-violet) 50%, var(--hb-accent-cyan) 100%);
   --hb-grad-cool:       linear-gradient(135deg, var(--hb-accent-cyan) 0%, var(--hb-accent-blue) 100%);
@@ -75,8 +88,8 @@
 
   /* -----------------------------------------------------------------------
    * TYPOGRAPHY
-   * Single family site-wide (2026-08-29, Tum): IBM Plex Sans Thai for display,
-   * body and 'mono' roles alike — no second font loads.
+   * IBM Plex Sans Thai remains the production page family. Signal V3 uses
+   * Noto Sans Thai only for shared navigation labels during this migration.
    * Body:    IBM Plex Sans Thai + IBM Plex Sans (Latin fallback)
    * Mono:    same family (token kept so existing rules keep working)
    * --------------------------------------------------------------------- */
@@ -84,6 +97,7 @@
   --hb-font-display: 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --hb-font-body:    'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --hb-font-mono:    'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --hb-nav-font-label: 'Noto Sans Thai', 'IBM Plex Sans Thai', system-ui, sans-serif;
 
   /* Type scale (fluid clamp for responsive)
    * Trimmed ~20% from prior baseline — old max values (96/72/52/

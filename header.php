@@ -3,6 +3,25 @@ $hashbox_header_landing   = function_exists( 'hashbox_get_audit_landing_for_path
 $hashbox_is_ai_audit      = is_array( $hashbox_header_landing ) && 'ai-workflow-audit' === $hashbox_header_landing['slug'];
 $hashbox_is_website_audit = is_page( 'website-audit' );
 $hb_en = function_exists( 'hashbox_page_is_english' ) && hashbox_page_is_english();
+
+// Keep the shared navigation's active state truthful across route families.
+$hb_request_uri = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '/';
+$hb_request_path = trim( (string) wp_parse_url( $hb_request_uri, PHP_URL_PATH ), '/' );
+$hb_path_in_family = static function ( $family ) use ( $hb_request_path ) {
+    return $family === $hb_request_path || 0 === strpos( $hb_request_path, $family . '/' );
+};
+$hb_nav_current_attr = static function ( $value ) {
+    return $value ? ' aria-current="' . esc_attr( $value ) . '"' : '';
+};
+
+$hb_services_current = 'services' === $hb_request_path
+    ? 'page'
+    : ( $hb_path_in_family( 'services' ) || $hb_path_in_family( 'en/ai-consulting' ) ? 'location' : '' );
+$hb_work_current = 'work' === $hb_request_path ? 'page' : ( $hb_path_in_family( 'work' ) ? 'location' : '' );
+$hb_blog_current = 'blog' === $hb_request_path
+    ? 'page'
+    : ( $hb_path_in_family( 'blog' ) || is_home() || is_singular( 'post' ) || is_category() || is_tag() || is_date() || is_author() ? 'location' : '' );
+$hb_about_current = 'about' === $hb_request_path ? 'page' : ( $hb_path_in_family( 'about' ) ? 'location' : '' );
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -41,7 +60,7 @@ $hb_en = function_exists( 'hashbox_page_is_english' ) && hashbox_page_is_english
                 <nav class="hb-nav__primary" aria-label="Primary">
                     <ul class="hb-nav__menu">
                         <li class="hb-nav__item hb-nav__item--has-sub" data-open="false">
-                            <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-nav__link hb-nav__link--sub" aria-haspopup="true" aria-expanded="false" aria-controls="navServicesSub"><?php echo $hb_en ? 'Services' : 'บริการ'; ?> <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></a>
+                            <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-nav__link hb-nav__link--sub" aria-haspopup="true" aria-expanded="false" aria-controls="navServicesSub"<?php echo $hb_nav_current_attr( $hb_services_current ); ?>><?php echo $hb_en ? 'Services' : 'บริการ'; ?> <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></a>
                             <ul class="hb-nav__sub" id="navServicesSub" aria-label="<?php echo $hb_en ? 'All services' : 'บริการทั้งหมด'; ?>">
                                 <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>
                                 <li><a class="hb-nav__sub-link" href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>"><span class="hb-nav__sub-name"><?php echo esc_html( $hb_en && ! empty( $svc['en_name'] ) ? $svc['en_name'] : $svc['name'] ); ?></span><span class="hb-nav__sub-stack"><?php echo esc_html( $svc['stack'] ); ?></span></a></li>
@@ -49,9 +68,9 @@ $hb_en = function_exists( 'hashbox_page_is_english' ) && hashbox_page_is_english
                                 <li class="hb-nav__sub-all"><a class="hb-nav__sub-link" href="<?php echo esc_url( home_url( '/services/' ) ); ?>"><span class="hb-nav__sub-name"><?php echo $hb_en ? 'All services' : 'ดูบริการทั้งหมด'; ?> &rarr;</span></a></li>
                             </ul>
                         </li>
-                        <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-nav__link">Work</a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="hb-nav__link">Blog</a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="hb-nav__link">About</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-nav__link"<?php echo $hb_nav_current_attr( $hb_work_current ); ?>>Work</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="hb-nav__link"<?php echo $hb_nav_current_attr( $hb_blog_current ); ?>>Blog</a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="hb-nav__link"<?php echo $hb_nav_current_attr( $hb_about_current ); ?>>About</a></li>
                     </ul>
                 </nav>
             <?php endif; ?>
@@ -83,16 +102,16 @@ $hb_en = function_exists( 'hashbox_page_is_english' ) && hashbox_page_is_english
             <nav>
                 <ul class="hb-sheet__menu">
                     <li>
-                        <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-sheet__link"><?php echo $hb_en ? 'Services' : 'บริการ'; ?></a>
+                        <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-sheet__link"<?php echo $hb_nav_current_attr( $hb_services_current ); ?>><?php echo $hb_en ? 'Services' : 'บริการ'; ?></a>
                         <ul class="hb-sheet__sub">
                             <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>
                             <li><a class="hb-sheet__sub-link" href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>"><?php echo esc_html( $hb_en && ! empty( $svc['en_name'] ) ? $svc['en_name'] : $svc['name'] ); ?></a></li>
                             <?php endforeach; ?>
                         </ul>
                     </li>
-                    <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-sheet__link">Work</a></li>
-                    <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="hb-sheet__link">Blog</a></li>
-                    <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="hb-sheet__link">About</a></li>
+                    <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-sheet__link"<?php echo $hb_nav_current_attr( $hb_work_current ); ?>>Work</a></li>
+                    <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="hb-sheet__link"<?php echo $hb_nav_current_attr( $hb_blog_current ); ?>>Blog</a></li>
+                    <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="hb-sheet__link"<?php echo $hb_nav_current_attr( $hb_about_current ); ?>>About</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-sheet__link">Contact</a></li>
                 </ul>
             </nav>
