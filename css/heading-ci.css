@@ -1,7 +1,28 @@
-/* Signal V3 · sitewide heading-font migration, approved 2026-09-08.
+/* Signal V3 · sitewide typography migration, approved 2026-09-08.
  * Keep page-family layouts, colour, body fonts and conversion flows intact.
  * Important is intentional: page-specific and inline legacy fonts must not
  * replace the brand display face on semantic headings. */
+:root, body {
+  --font-display: 'IBM Plex Sans Thai', sans-serif !important;
+  --font-body: 'Noto Sans Thai', sans-serif !important;
+  --font-outlier: 'IBM Plex Mono', 'Noto Sans Thai', monospace !important;
+  --hb-font-display: 'IBM Plex Sans Thai', sans-serif !important;
+  --hb-font-body: 'Noto Sans Thai', sans-serif !important;
+  /* Legacy mono tokens are used for ordinary labels and Thai text too.
+     Reserve actual monospace for code and explicit V3 data slots. */
+  --hb-font-mono: 'Noto Sans Thai', sans-serif !important;
+  --font-mono: 'Noto Sans Thai', sans-serif !important;
+  --hb5-font-body: 'Noto Sans Thai', sans-serif !important;
+  --hb5-font-display: 'IBM Plex Sans Thai', sans-serif !important;
+}
+body { font-family: 'Noto Sans Thai', sans-serif !important; }
+body :is(input,textarea,select,button,.hb-btn,.hb-label,.hb-nav__link,.hb-sheet__link,.hb-eyebrow,.hb-badge) {
+  font-family: 'Noto Sans Thai', sans-serif !important;
+}
+body :is(code,pre,kbd,samp) {
+  font-family: 'IBM Plex Mono', 'Noto Sans Thai', monospace !important;
+  font-weight: 500;
+}
 body :is(h1,h2,h3,h4,h5,h6,.hb-h1,.hb-h2,.hb-h3,.hb-h4,.hb-h5,.hb-h6,.hb-accordion__trigger) {
   font-family: 'IBM Plex Sans Thai', sans-serif !important;
   font-style: normal;
