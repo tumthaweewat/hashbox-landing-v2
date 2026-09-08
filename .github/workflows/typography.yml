@@ -1,0 +1,9 @@
+name: Typography CI contract
+on: [push, pull_request]
+jobs:
+  typography:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check font roles and generated CSS
+        run: node tools/test-typography-contract.mjs

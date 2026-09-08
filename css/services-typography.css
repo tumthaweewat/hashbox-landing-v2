@@ -125,9 +125,9 @@
   --color-footer-rule: oklch(31% 0.012 284.51);
   --color-error: oklch(48% 0.18 25);
   --color-success: oklch(44% 0.12 150);
-  --font-display: "IBM Plex Sans Thai", ui-sans-serif, sans-serif;
-  --font-body: "Noto Sans Thai", ui-sans-serif, sans-serif;
-  --font-outlier: "IBM Plex Mono", "Noto Sans Thai", ui-monospace, monospace;
+  --font-display: var(--ci-font-display);
+  --font-body: var(--ci-font-body);
+  --font-outlier: var(--ci-font-data);
 
   --space-3xs: 0.25rem;
   --space-2xs: 0.5rem;

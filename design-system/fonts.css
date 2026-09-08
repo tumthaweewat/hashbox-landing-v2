@@ -1,4 +1,9 @@
-/* Signal V3: shared body face for every public page family. */
+/* Signal V3: canonical production font roles, shared by every page family. */
+:root {
+  --ci-font-display: 'IBM Plex Sans Thai', sans-serif;
+  --ci-font-body: 'Noto Sans Thai', sans-serif;
+  --ci-font-data: 'IBM Plex Mono', 'Noto Sans Thai', monospace;
+}
 @font-face {
   font-family: 'Noto Sans Thai';
   font-style: normal;

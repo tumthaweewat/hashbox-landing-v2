@@ -94,9 +94,9 @@
    * Mono:    same family (token kept so existing rules keep working)
    * --------------------------------------------------------------------- */
 
-  --hb-font-display: 'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
-  --hb-font-body:    'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
-  --hb-font-mono:    'IBM Plex Sans Thai', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --hb-font-display: var(--ci-font-display);
+  --hb-font-body:    var(--ci-font-body);
+  --hb-font-mono:    var(--ci-font-body);
   --hb-nav-font-label: 'Noto Sans Thai', 'IBM Plex Sans Thai', system-ui, sans-serif;
 
   /* Type scale (fluid clamp for responsive)
