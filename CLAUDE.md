@@ -42,7 +42,7 @@ The site is a **one-page landing** driven by `front-page.php`, which assembles 9
 CSS custom properties defined in `:root` of `style.css`:
 - **Background**: Dark zinc (`#09090B`, `#18181B`, `#27272A`)
 - **Accents**: Blue (`#2563EB`), Cyan (`#06B6D4`), Amber (`#F59E0B`)
-- **Fonts**: single family `IBM Plex Sans Thai` for everything (display, body, eyebrows, stats) — decided 2026-08-29; `--hb-font-display/--hb-font-mono` tokens still exist but resolve to the same stack. Do not introduce DM Sans / Plex Mono again.
+- **Fonts** (Signal V3, approved 2026-09-08 — spec in `design.md`, tokens in `design-system/v3/`): display **IBM Plex Sans Thai** 600/700 on every heading (`css/heading-ci.css` enforces it); body **Noto Sans Thai** 400/500/700; data outlier **IBM Plex Mono** 500 in at most two semantic slots per page. All self-hosted from `assets/fonts/` via `design-system/fonts.css` — never a Google Fonts link. Supersedes the 2026-08-29 single-family rule.
 - **All styling is in `style.css`** (single file, ~39K lines) — no Tailwind, no SCSS
 
 ### JavaScript
@@ -90,7 +90,7 @@ Keep `style.css` Theme Name unique (currently `Hashbox Studio V2`) so WordPress 
 
 Apply to **every new page, post, template, section or component**, no exceptions:
 
-1. **One font family only**: `IBM Plex Sans Thai` for headings, body, eyebrows, stats, badges, code. Never add DM Sans, Plex Mono, Inter, Noto, Anuphan or any Google Fonts link. Use the tokens (`--hb-font-display/body/mono` all resolve to the same stack) — never hardcode a `font-family`.
+1. **Fonts by role, nothing else** (V3, 2026-09-08): headings `IBM Plex Sans Thai`, body/eyebrows/stats/badges `Noto Sans Thai`, mono outlier `IBM Plex Mono` in ≤2 slots per page. Never add DM Sans, Inter, Anuphan or any Google Fonts link; never hardcode a `font-family` — use the tokens (`--font-display` / `--font-body` / `--font-outlier`, legacy `--hb-font-*` map to the same). Headings always roman — no italics inside a heading.
 2. **One type scale**: use `--hb-text-*` tokens only (base 16px; hero H1 ≈ 28px mobile / 46–52px desktop; section H2 `--hb-text-4xl` ≈ 26–36px; H3 `--hb-text-3xl` ≈ 22–28px). No inline `font-size` in px/rem, no sizes above `--hb-text-6xl`. Reference: anga.co.th (body 16, headings small and dense).
 3. **UX/UI, not AI slop**: no gradient blobs, no fake stats, no unnamed testimonials, no decorative icons in every card, no mono/uppercase eyebrows on everything, no "All systems live"-style pills. Real numbers with a source, real names or none, one CTA per section, rows/tables over card grids where content is comparative, sticky first column on wide tables, mobile checked at 390px before publish.
 4. Content pages: answer-first paragraph, H2 = question or keyword phrase, FAQ = FAQPage schema from the same array, BreadcrumbList, dateModified real.
