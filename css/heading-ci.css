@@ -1,0 +1,13 @@
+/* Signal V3 · sitewide heading-font migration, approved 2026-09-08.
+ * Keep page-family layouts, colour, body fonts and conversion flows intact.
+ * Important is intentional: page-specific and inline legacy fonts must not
+ * replace the brand display face on semantic headings. */
+body :is(h1,h2,h3,h4,h5,h6,.hb-h1,.hb-h2,.hb-h3,.hb-h4,.hb-h5,.hb-h6,.hb-accordion__trigger) {
+  font-family: 'IBM Plex Sans Thai', sans-serif !important;
+  font-style: normal;
+}
+body :is(h1,h2,.hb-h1,.hb-h2) { font-weight: 700; }
+body :is(h3,h4,h5,h6,.hb-h3,.hb-h4,.hb-h5,.hb-h6) { font-weight: 600; }
+body :is(h1,h2,h3,h4,h5,h6) :is(a,span,em,strong) {
+  font-family: inherit !important;
+}

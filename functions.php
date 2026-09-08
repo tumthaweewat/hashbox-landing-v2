@@ -249,6 +249,13 @@ function hashbox_enqueue_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'hashbox_enqueue_assets' );
 
+// All public page families share the Signal V3 display font. Load after their
+// styles so legacy page rules cannot substitute another heading face.
+function hashbox_enqueue_heading_ci() {
+    wp_enqueue_style( 'hashbox-heading-ci', get_template_directory_uri() . '/css/heading-ci.css', array( 'hashbox-style' ), filemtime( get_template_directory() . '/css/heading-ci.css' ) );
+}
+add_action( 'wp_enqueue_scripts', 'hashbox_enqueue_heading_ci', 100 );
+
 /**
  * Async-load the legacy V1 stylesheet so it stops blocking first paint.
  *
