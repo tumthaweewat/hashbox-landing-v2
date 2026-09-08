@@ -28,6 +28,7 @@
 | ที่ปรึกษา ai (ไทย/สำหรับธุรกิจ), บริการให้คำปรึกษา ai | `/services/ai-consulting/` | **แถว 2 ของ service list = "ที่ปรึกษา AI สำหรับธุรกิจ — วางระบบ AI Solution ถึง production"** ชี้ service page (ไม่ใช้วลี "ปรึกษาทำระบบ ai solution" เป็น anchor ไปหน้า service เพื่อไม่แย่ง post 170) |
 | ai consulting bangkok / consultant bangkok / ai solutions·services bangkok (EN) | `/en/ai-consulting/` | nav/footer EN link · listicle ลิงก์กลับด้วย anchor "AI consulting in Bangkok" |
 | ai consulting thailand / ai consulting companies thailand / ai consulting company (EN) | `/en/ai-consulting-companies-thailand-2026/` | anchor จาก /en/ai-consulting/#companies "9 AI consulting companies in Thailand…" (มีแล้ว) |
+| ปรึกษา ai transformation | `/services/ai-consulting/#ai-transformation` (post 220 = supporting article) | **2026-09-08:** post 220 ติด #18 แล้วหลุด — intent เป็นบริการ ไม่ใช่นิยาม; section enterprise บนหน้าบริการถือคำ |
 | รับทำเว็บไซต์ + variants | `/services/website-development/` | แถว 1 "รับทำเว็บไซต์ SEO-Ready" |
 | รับทำเว็บไซต์ wordpress | `/services/website-development/wordpress/` | bullet |
 | รับทำ seo (+สายขาว) | `/services/seo/` | แถว 3 "รับทำ SEO" |

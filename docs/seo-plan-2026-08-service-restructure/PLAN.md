@@ -109,7 +109,7 @@ C2 listicle TH "10 บริษัทรับทำ SEO ไทย 2026" · C3 l
 2. ยุบหน้า = 301 + ถอด sitemap + แก้ inbound + llms.txt ในคอมมิตเดียว
 3. FAQ visible = FAQPage schema จาก array เดียว
 4. ทุกชิ้นผ่าน `content/briefs/TEMPLATE.md`: evidence ≥2 · CTA เดียว · Accuracy Gate (Tum) ก่อน publish
-5. Friday loop 30 นาที: impr↑ CTR↓ → title/meta · rank 11–30 → proof+FAQ+links · rank 1–10 lead↓ → CTA/offer · AIO ไม่ mention → direct answer+evidence · 0 impr 6–8 สัปดาห์ → index/cannibal/intent
+5. Friday loop 30 นาที — **ก่อนอ่านคอลัมน์ "หลุด"/ตก ให้เช็ก SERP จริงก่อน** (Google TH, desktop, hl=en และ hl=th, ไม่ personalize): 2026-09-08 Signal บอก "ai consulting thailand หลุด / companies thailand 21" แต่ live = #8–10 / #5 — 2 ใน 3 เป็น false alarm จน Tum ยืนยัน parameter ที่ Signal ใช้ดึง SERP (location/device/hl/num) · impr↑ CTR↓ → title/meta · rank 11–30 → proof+FAQ+links · rank 1–10 lead↓ → CTA/offer · AIO ไม่ mention → direct answer+evidence · 0 impr 6–8 สัปดาห์ → index/cannibal/intent
 6. Publish ผ่าน Code editor + REST เล็ก (classifier บล็อก JS injection ใหญ่) · date + date_gmt ย้อนหลังกัน status `future`
 
 ## Stack

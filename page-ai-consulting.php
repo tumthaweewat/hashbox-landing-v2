@@ -353,6 +353,29 @@ $cases = array(
     </div>
 </section>
 
+<section class="hb-section" id="ai-transformation">
+    <div class="hb-container hb-container--md">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">Enterprise</span>
+            <h2 class="hb-h2">ปรึกษา AI Transformation สำหรับองค์กร — ต่างจากทำระบบ AI ตัวเดียวตรงไหน</h2>
+            <p class="hb-section__sub">ปรึกษา AI Transformation คือการวางลำดับ use case ทั้งองค์กร ข้อมูล ทีม และ governance ไว้ในแผนเดียว แทนการแก้ทีละงาน — เหมาะกับองค์กรที่มีระบบ AI ตัวแรกรันอยู่แล้ว หรือมีมากกว่า 3 ทีมที่ต้องใช้ AI ร่วมกัน ส่วนธุรกิจที่ยังไม่มีระบบตัวแรก ควรเริ่มจากระบบเดียวที่เจ็บสุดก่อน แล้วค่อยขยาย</p>
+        </div>
+        <div class="hb-bento">
+            <div class="hb-card hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-eyebrow">ระบบ AI ตัวเดียว</span>
+                <h3 class="hb-card__title">แก้ 1 งาน 1 ทีม</h3>
+                <p class="hb-card__body">LINE Chatbot, RAG Knowledge Base หรือ Sales GPT · เริ่ม 200,000 บาท (PoC + Validation) ถึง 500,000 บาท (production) · 2–8 สัปดาห์ · วัดผลจาก 1 KPI ของงานนั้น</p>
+            </div>
+            <div class="hb-card hb-bento__cell hb-bento__cell--c2">
+                <span class="hb-eyebrow">AI Transformation</span>
+                <h3 class="hb-card__title">วางทั้งองค์กรในแผนเดียว</h3>
+                <p class="hb-card__body">tier AI Workforce Enterprise เริ่ม 1,200,000 บาท · multi-agent + multi-integration · 12–20 สัปดาห์ · roadmap 12 เดือน จัดลำดับ use case ตาม ROI · ทุกโปรเจกต์ยังเริ่มที่ ROI Assessment 60,000 บาทเหมือนกัน</p>
+            </div>
+        </div>
+        <p class="hb-body" style="margin-top:var(--hb-space-5);color:var(--hb-text-muted);">ยังไม่แน่ใจว่าองค์กรพร้อมระดับไหน อ่านก่อน: <a href="<?php echo esc_url( home_url( '/ai-transformation-คือ-2026/' ) ); ?>">AI Transformation คืออะไร — เริ่มยังไงไม่ให้ค้างที่ pilot</a></p>
+    </div>
+</section>
+
 <section class="hb-section">
     <div class="hb-container hb-container--md">
         <span class="hb-eyebrow">Author / Team</span>
