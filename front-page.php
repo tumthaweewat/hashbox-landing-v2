@@ -534,7 +534,7 @@ get_header();
                     <small id="contact-line-error" class="contact-field-error" aria-live="polite"></small>
                 </div>
                 </div>
-                <fieldset class="contact-services" data-project-only>
+                <fieldset class="contact-services">
                     <legend class="hb-label">บริการที่สนใจ (เลือกได้หลายข้อ)</legend>
                     <div class="contact-services__options">
                         <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>

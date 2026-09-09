@@ -38,7 +38,7 @@ $page_url = get_permalink();
         <div class="hb-geo__cta" id="hb-geo-cta" hidden>
             <h2 class="hb-geo__cta-title">อยากให้คะแนนขึ้นเป็น 90+?</h2>
             <p class="hb-geo__cta-text">ทีม Hashbox ช่วยทำ GEO + technical SEO ให้หน้าเว็บคุณถูกอ้างใน AI search — เริ่มด้วย audit ฟรี</p>
-            <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient">รับ GEO Audit ฟรี &rarr;</a>
+            <a href="<?php echo esc_url( home_url( '/?service=ai-search#contact' ) ); ?>" class="hb-btn hb-btn--gradient">นัดคุยว่าควรแก้จุดไหนก่อน &rarr;</a>
         </div>
     </div>
 </section>
