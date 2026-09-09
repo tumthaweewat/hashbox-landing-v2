@@ -3715,7 +3715,7 @@ function hashbox_handle_contact_submit() {
     );
     $website_project_type_label = $is_website_audit_form && isset( $website_project_type_labels[ $project_type ] )
         ? $website_project_type_labels[ $project_type ]
-        : '';
+        : ( $is_website_audit_form ? '' : $service );
     $invalid_website_project_type = $is_website_audit_form && '' === $website_project_type_label;
     $needs_contact_detail = $is_ai_form && in_array( $contact_preference, array( 'LINE', 'โทร' ), true );
     $invalid_ai_contact_preference = $is_ai_form && ! in_array( $contact_preference, array( '', 'LINE', 'โทร' ), true );
