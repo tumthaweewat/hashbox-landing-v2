@@ -490,6 +490,8 @@ get_header();
                     <div class="hb-badge hb-badge--emerald hb-badge--lg">ส่งข้อความสำเร็จ ทีมเราจะติดต่อกลับใน 1-3 วันทำการ</div>
                 <?php elseif ( $contact_status === 'invalid' ) : ?>
                     <p role="alert">กรุณาตรวจชื่อ อีเมล เว็บไซต์สำหรับ Audit เบอร์โทรสำหรับประเมินโปรเจกต์ ช่องทางติดต่อที่เลือก และยินยอม PDPA ให้ครบถ้วน</p>
+                <?php elseif ( $contact_status === 'processing' ) : ?>
+                    <p role="status">ระบบกำลังรับคำขอ กรุณารอสักครู่ก่อนตรวจสอบอีกครั้ง</p>
                 <?php elseif ( $contact_status === 'error' ) : ?>
                     <p role="alert">ส่งข้อความไม่สำเร็จ กรุณาลองอีกครั้ง หรือคุยกับทีมทาง LINE OA</p>
                 <?php endif; ?>

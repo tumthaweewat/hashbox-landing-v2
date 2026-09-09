@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once get_template_directory() . '/inc/service-catalog.php';
+require_once get_template_directory() . '/inc/homepage-leads.php';
 
 // No RSS/comment feed links in <head> and no emoji detection script —
 // both showed up as crawled-not-indexed URLs in GSC (2026-08-29).
@@ -3289,12 +3290,12 @@ function hashbox_is_conversion_ref( $value, $scope = '' ) {
     }
 
     $scope = strtoupper( (string) $scope );
-    if ( ! in_array( $scope, array( '', 'AI', 'WEB' ), true ) ) {
+    if ( ! in_array( $scope, array( '', 'AI', 'WEB', 'HOME' ), true ) ) {
         return false;
     }
 
     $pattern = '' === $scope
-        ? '/^HB-(?:AI|WEB)-[0-9]{8}-[0-9]{9,40}$/'
+        ? '/^HB-(?:AI|WEB|HOME)-[0-9]{8}-[0-9]{9,40}$/'
         : '/^HB-' . preg_quote( $scope, '/' ) . '-[0-9]{8}-[0-9]{9,40}$/';
 
     return 1 === preg_match( $pattern, $value );
@@ -3309,7 +3310,7 @@ function hashbox_generate_conversion_ref( $scope ) {
     global $wpdb;
 
     $scope = strtoupper( (string) $scope );
-    if ( ! in_array( $scope, array( 'AI', 'WEB' ), true ) ) {
+    if ( ! in_array( $scope, array( 'AI', 'WEB', 'HOME' ), true ) ) {
         return '';
     }
 
@@ -3694,6 +3695,9 @@ function hashbox_handle_contact_submit() {
 
     $redirect_to = isset( $_POST['redirect_to'] ) ? esc_url_raw( wp_unslash( $_POST['redirect_to'] ) ) : home_url( '/#contact' );
     $redirect_to = wp_validate_redirect( $redirect_to, home_url( '/#contact' ) );
+    if ( $is_home_contact ) {
+        $redirect_to = home_url( '/#contact' );
+    }
     $landing      = hashbox_get_audit_landing_for_return_url( $redirect_to );
     $posted_landing_slug = isset( $_POST['landing_slug'] ) ? sanitize_key( wp_unslash( $_POST['landing_slug'] ) ) : '';
     $redirect_path       = trim( (string) wp_parse_url( $redirect_to, PHP_URL_PATH ), '/' );
@@ -3701,7 +3705,7 @@ function hashbox_handle_contact_submit() {
     $is_website_audit_form = 'website-audit' === $posted_landing_slug && $redirect_path === $website_audit_path;
     $landing_slug = is_array( $landing ) && isset( $landing['slug'] )
         ? $landing['slug']
-        : ( $is_website_audit_form ? 'website-audit' : '' );
+        : ( $is_website_audit_form ? 'website-audit' : ( $is_home_contact ? 'homepage' : '' ) );
     $is_ai_route  = 'ai-workflow-audit' === $landing_slug;
     $ai_nonce_ok  = isset( $_POST['hashbox_ai_nonce'] )
         && wp_verify_nonce( wp_unslash( $_POST['hashbox_ai_nonce'] ), 'hashbox_ai_contact' );
@@ -3742,6 +3746,16 @@ function hashbox_handle_contact_submit() {
         $utm[ $utm_key ] = isset( $_POST[ $utm_key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $utm_key ] ) ) : '';
     }
 
+    $home_paths = array();
+    if ( $is_home_contact ) {
+        foreach ( array( 'entry_path', 'service_path', 'submission_path' ) as $path_key ) {
+            $path = isset( $_POST[ $path_key ] ) && is_string( $_POST[ $path_key ] ) ? wp_unslash( $_POST[ $path_key ] ) : '';
+            // Paths only: strip query strings, fragments and external origins.
+            $home_paths[ $path_key ] = '/' === substr( $path, 0, 1 ) && '//' !== substr( $path, 0, 2 )
+                ? sanitize_text_field( strtok( substr( $path, 0, 512 ), '?#' ) ) : '';
+        }
+    }
+
     $reply_email = is_email( $email ) ? $email : ( is_email( $contact_detail ) ? $contact_detail : '' );
     $to          = 'business@hashbox.co.th';
     $request_type = $is_ai_form
@@ -3750,6 +3764,18 @@ function hashbox_handle_contact_submit() {
     $subject      = sprintf( '[Hashbox V2] %s from %s — %s', $request_type, $name, $service ?: 'unspecified' );
     $lead_ref     = $is_ai_form ? wp_generate_uuid4() : '';
     $conversion_ref = $is_ai_form ? hashbox_generate_conversion_ref( 'AI' ) : '';
+    $home_state = array();
+    // Cached / no-JS forms remain usable but do not produce a tracked receipt.
+    $track_home = $is_home_contact && isset( $_POST['home_tracking_version'] ) && '1' === $_POST['home_tracking_version'];
+    if ( $track_home ) {
+        $lead_ref = isset( $_POST['lead_ref'] ) && is_string( $_POST['lead_ref'] ) ? wp_unslash( $_POST['lead_ref'] ) : '';
+        $home_state = hashbox_claim_home_lead( $lead_ref, $selected_services, $intent );
+        if ( 'claimed' !== $home_state['status'] ) {
+            wp_safe_redirect( hashbox_home_lead_return_url( $lead_ref, $home_state['status'] ) );
+            exit;
+        }
+        $conversion_ref = $home_state['conversion_ref'];
+    }
     $prepared_website_lead = false;
     $prepared_lead_claim_key = '';
 
@@ -3829,7 +3855,7 @@ function hashbox_handle_contact_submit() {
         : ( $is_website_audit_form
             ? array( 'Name: ' . $name, 'Company: ' . $company, 'Lead reference: ' . $lead_ref )
             : array( 'Name / Company: ' . $name ) );
-    if ( ( $is_ai_form || $is_website_audit_form ) && '' !== $conversion_ref ) {
+    if ( ( $is_ai_form || $is_website_audit_form || $track_home ) && '' !== $conversion_ref ) {
         $body_lines[] = 'Conversion reference: ' . $conversion_ref;
     }
     $body_lines   = array_merge( $body_lines, array(
@@ -3857,6 +3883,9 @@ function hashbox_handle_contact_submit() {
         'wbraid: ' . $utm['wbraid'],
         'gbraid: ' . $utm['gbraid'],
     ) );
+    foreach ( $home_paths as $path_key => $path_value ) {
+        $body_lines[] = $path_key . ': ' . $path_value;
+    }
     $body        = implode( "\n", $body_lines );
     $headers     = array( 'Content-Type: text/plain; charset=UTF-8' );
     if ( $reply_email ) {
@@ -3864,6 +3893,9 @@ function hashbox_handle_contact_submit() {
     }
 
     $sent = wp_mail( $to, $subject, $body, $headers );
+    if ( $track_home ) {
+        hashbox_finish_home_lead( $lead_ref, $home_state, $sent );
+    }
 
     if ( $sent && is_email( $email ) ) {
         $hubspot_attribution = array_merge( $utm, array(
@@ -3952,6 +3984,10 @@ function hashbox_handle_contact_submit() {
         }
     }
 
+    if ( $track_home ) {
+        wp_safe_redirect( hashbox_home_lead_return_url( $lead_ref, $sent ? 'sent' : 'error' ) );
+        exit;
+    }
     wp_safe_redirect( add_query_arg( 'contact', $sent ? 'sent' : 'error', $redirect_to ) );
     exit;
 }
@@ -4199,6 +4235,7 @@ function hashbox_prepare_hubspot_contact_properties( $attribution, $property_map
             'conversion_ref' === $attribution_key
             && ! hashbox_is_conversion_ref( $property_value, 'AI' )
             && ! hashbox_is_conversion_ref( $property_value, 'WEB' )
+            && ! hashbox_is_conversion_ref( $property_value, 'HOME' )
         ) {
             continue;
         }
