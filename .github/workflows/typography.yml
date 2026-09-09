@@ -1,8 +1,11 @@
 name: Typography CI contract
 on: [push, pull_request]
+permissions:
+  contents: read
 jobs:
   typography:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - name: Check font roles and generated CSS
