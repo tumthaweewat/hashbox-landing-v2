@@ -35,6 +35,9 @@ node_modules/
 # Claude / Superpowers session artifacts
 .superpowers/
 .claude/
+# ...except shared team skills, which are versioned on purpose
+!.claude/skills/
+!.claude/skills/**
 # Graphify outputs (rebuilt locally)
 graphify-out/
 

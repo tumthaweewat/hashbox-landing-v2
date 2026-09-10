@@ -39,6 +39,7 @@ function hashbox_service_catalog() {
             'stack'        => 'Next.js · Headless WordPress · Lighthouse 100',
             'price'        => 'เริ่ม 35,900 บาท',
             'price_llms'   => 'from 35,900 THB / project',
+            'price_from'   => 35900,
             'accent'       => 'blue',
             'featured'     => true,
             'form_value'   => 'seo-website',
@@ -62,6 +63,7 @@ function hashbox_service_catalog() {
             'stack'        => 'LINE Bot · RAG · Sales GPT · AI Agent',
             'price'        => 'เริ่ม 60,000 บาท',
             'price_llms'   => 'from 60,000 THB / project',
+            'price_from'   => 60000,
             'accent'       => 'violet',
             'featured'     => true,
             'form_value'   => 'ai-consulting',
@@ -86,6 +88,8 @@ function hashbox_service_catalog() {
             'stack'        => 'Technical Audit · Core Web Vitals · Local SEO · CRO',
             'price'        => 'เริ่มต้น 29,900 บาท/เดือน',
             'price_llms'   => 'from 29,900 THB / month',
+            'price_from'   => 29900,
+            'price_unit'   => 'MON',
             'accent'       => 'amber',
             'featured'     => false,
             'form_value'   => 'seo',
@@ -136,6 +140,7 @@ function hashbox_service_catalog() {
             'stack'         => 'Self-host · LINE OA · CRM sync · Sheet / Notion',
             'price'         => 'เริ่มต้น 29,000 บาท',
             'price_llms'    => 'from 29,000 THB / project',
+            'price_from'    => 29000,
             'accent'        => 'emerald',
             'featured'      => false,
             'form_value'    => 'n8n',
@@ -176,11 +181,25 @@ function hashbox_service_url( $item ) {
 
 /**
  * Offer entries for Organization/ProfessionalService hasOfferCatalog.
+ *
+ * Each service page states its own price in schema (see page-seo-service.php
+ * and the other money pages), but the site-level catalogue carried none, so
+ * the entity graph an AI engine reads from the homepage listed what we sell
+ * without what it costs. Price is one of the facts AI Overviews quote most
+ * often on commercial queries, so the figure is repeated here — sourced from
+ * `price_from` in the catalogue above rather than typed again, which is what
+ * keeps it in step with the visible `price` string beside it.
+ *
+ * `price_from` is a starting price, hence minPrice as well as price: Offer.price
+ * on its own carries no "from" meaning, while every visible string says เริ่มต้น.
+ * Services with no published price (ai-search, quoted after a free audit) simply
+ * carry no priceSpecification. Figures exclude VAT, matching the ราคาไม่รวม VAT 7%
+ * line the service pages show.
  */
 function hashbox_service_offer_catalog() {
     $offers = array();
     foreach ( hashbox_service_catalog_live() as $item ) {
-        $offers[] = array(
+        $offer = array(
             '@type'       => 'Offer',
             'url'         => hashbox_service_url( $item ),
             'itemOffered' => array(
@@ -193,6 +212,26 @@ function hashbox_service_offer_catalog() {
                 'serviceType' => $item['service_type'],
             ),
         );
+
+        if ( ! empty( $item['price_from'] ) ) {
+            $spec = array(
+                '@type'         => empty( $item['price_unit'] ) ? 'PriceSpecification' : 'UnitPriceSpecification',
+                'minPrice'      => (string) $item['price_from'],
+                'price'         => (string) $item['price_from'],
+                'priceCurrency' => 'THB',
+                'valueAddedTaxIncluded' => false,
+            );
+            if ( ! empty( $item['price_unit'] ) ) {
+                $spec['unitCode'] = $item['price_unit'];
+                $spec['unitText'] = 'เดือน';
+            }
+            $offer['priceCurrency']      = 'THB';
+            $offer['availability']       = 'https://schema.org/InStock';
+            $offer['areaServed']         = 'TH';
+            $offer['priceSpecification'] = $spec;
+        }
+
+        $offers[] = $offer;
     }
     return array(
         '@type'           => 'OfferCatalog',
