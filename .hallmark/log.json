@@ -4,6 +4,17 @@
     "scope": "ai-workflow-audit",
     "macrostructure": "Workbench",
     "theme": "Hashbox Signal V3 / Original Indigo",
+    "enrichment": "user-supplied workflow concept, caption retained",
+    "brief": "Section rhythm: centered case study, horizontal process, image/signals diptych, focused centered form and narrow FAQ",
+    "navigation": "existing campaign N9, unchanged",
+    "footer": "existing Ft5, unchanged",
+    "variation": "Same locked system; vary section geometry rather than brand. Preserve all copy, URLs, fields and tracking."
+  },
+  {
+    "date": "2026-09-13",
+    "scope": "ai-workflow-audit",
+    "macrostructure": "Workbench",
+    "theme": "Hashbox Signal V3 / Original Indigo",
     "enrichment": "published AutoBot metric; no new imagery",
     "brief": "Paid-traffic landing redesign with offer-first hero and mobile form before project contact",
     "navigation": "existing campaign N9, mobile CTA restored",

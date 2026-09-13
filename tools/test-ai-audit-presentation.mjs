@@ -18,6 +18,14 @@ for (const hook of ['data-audit-form','data-attribution-field','data-track-event
   assert.ok(template.includes(hook), `Missing conversion contract ${hook}`);
 }
 const figure = template.match(/<figure class="hb-ai-workflow-figure">[\s\S]*?<\/figure>/)?.[0];
+assert.match(template, /class="hb-ai-screening__intro"/);
+assert.match(template, /class="hb-ai-screening__visual"/);
+const rhythm = css.slice(css.indexOf('/* Section rhythm:'));
+assert.ok(rhythm.length > 0, 'Section-specific layout rules must be present');
+assert.match(rhythm, /\.hb-ai-case__layout\s*\{[^}]*grid-template-columns: minmax\(0, 1fr\)/);
+assert.match(rhythm, /\.hb-audit-form-layout\s*\{[^}]*max-width: 48rem;[^}]*margin-inline: auto/);
+assert.match(rhythm, /\.hb-ai-screening__visual\s*\{[^}]*grid-template-columns: minmax\(0, 1\.4fr\) minmax\(0, 1fr\)/);
+assert.match(rhythm, /\.hb-container--md\s*\{[^}]*max-width: 52rem/);
 assert.ok(figure, 'Concept illustration must remain separate from case-study proof');
 assert.match(figure, /ภาพจำลองแนวทางการทำงาน ไม่ใช่หน้าจอระบบลูกค้าจริง/);
 assert.match(figure, /width="1536" height="1024" loading="lazy" decoding="async"/);

@@ -155,19 +155,21 @@ get_header();
 
         <section class="hb-ai-screening">
             <div class="hb-container">
-                <h2 class="hb-ai-section__heading">รู้ให้ชัดว่าควรเริ่มตรงไหน ก่อนทำ PoC</h2>
-                <p class="hb-ai-section__lede">Screening 30 นาทีช่วยคัดโจทย์ที่มีโอกาสคุ้ม ตรวจความพร้อมของข้อมูล และชี้ขั้นตอนถัดไปโดยไม่ผูกมัดให้จ้างต่อ</p>
-                <figure class="hb-ai-workflow-figure">
-                    <img
-                        src="<?php echo esc_url( get_template_directory_uri() . '/assets/ai-workflow/workflow-concept-1536.webp' ); ?>"
-                        srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/ai-workflow/workflow-concept-768.webp' ); ?> 768w, <?php echo esc_url( get_template_directory_uri() . '/assets/ai-workflow/workflow-concept-1536.webp' ); ?> 1536w"
-                        sizes="(min-width: 960px) 832px, calc(100vw - 48px)"
-                        width="1536" height="1024" loading="lazy" decoding="async"
-                        alt="แนวคิดระบบ AI รับคำถาม ค้นข้อมูลจากเอกสาร แล้วตอบกลับหรือส่งต่อให้เจ้าหน้าที่"
-                    >
-                    <figcaption>ภาพจำลองแนวทางการทำงาน ไม่ใช่หน้าจอระบบลูกค้าจริง</figcaption>
-                </figure>
-                <div class="hb-ai-screening__layout">
+                <div class="hb-ai-screening__intro">
+                    <h2 class="hb-ai-section__heading">รู้ให้ชัดว่าควรเริ่มตรงไหน ก่อนทำ PoC</h2>
+                    <p class="hb-ai-section__lede">Screening 30 นาทีช่วยคัดโจทย์ที่มีโอกาสคุ้ม ตรวจความพร้อมของข้อมูล และชี้ขั้นตอนถัดไปโดยไม่ผูกมัดให้จ้างต่อ</p>
+                </div>
+                <div class="hb-ai-screening__visual">
+                    <figure class="hb-ai-workflow-figure">
+                        <img
+                            src="<?php echo esc_url( get_template_directory_uri() . '/assets/ai-workflow/workflow-concept-1536.webp' ); ?>"
+                            srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/ai-workflow/workflow-concept-768.webp' ); ?> 768w, <?php echo esc_url( get_template_directory_uri() . '/assets/ai-workflow/workflow-concept-1536.webp' ); ?> 1536w"
+                            sizes="(min-width: 1344px) 700px, (min-width: 960px) calc(58.333vw - 84px), (min-width: 640px) calc(100vw - 96px), calc(100vw - 32px)"
+                            width="1536" height="1024" loading="lazy" decoding="async"
+                            alt="แนวคิดระบบ AI รับคำถาม ค้นข้อมูลจากเอกสาร แล้วตอบกลับหรือส่งต่อให้เจ้าหน้าที่"
+                        >
+                        <figcaption>ภาพจำลองแนวทางการทำงาน ไม่ใช่หน้าจอระบบลูกค้าจริง</figcaption>
+                    </figure>
                     <div class="hb-ai-screening__signals">
                         <h3>ควรคุยตอนนี้ ถ้า…</h3>
                         <ul>
@@ -176,6 +178,8 @@ get_header();
                             <?php endforeach; ?>
                         </ul>
                     </div>
+                </div>
+                <div class="hb-ai-screening__layout">
                     <div class="hb-ai-screening__outputs">
                         <h3>หลังคุย คุณจะรู้…</h3>
                         <dl>
