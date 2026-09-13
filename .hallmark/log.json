@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-09-13",
+    "scope": "ai-workflow-audit",
+    "macrostructure": "Workbench",
+    "theme": "Hashbox Signal V3 / Original Indigo",
+    "enrichment": "published AutoBot metric; no new imagery",
+    "brief": "Paid-traffic landing redesign with offer-first hero and mobile form before project contact",
+    "navigation": "existing campaign N9, mobile CTA restored",
+    "footer": "existing Ft5",
+    "variation": "warm paper, 7/5 hero, dark proof panel, compact form, existing content and conversion logic retained"
+  },
+  {
     "date": "2026-08-07",
     "macrostructure": "Stat-Led",
     "theme": "Midnight",
