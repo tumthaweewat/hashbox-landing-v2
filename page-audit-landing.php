@@ -89,6 +89,7 @@ get_header();
                     </div>
 
                     <div class="hb-ai-hero__stat">
+                        <p class="hb-ai-case__label">AutoBot × Hashbox</p>
                         <p class="hb-ai-hero__figure">
                             <?php echo esc_html( str_replace( '-', '−', rtrim( $landing['proof']['metric'], '%' ) ) ); ?><sup>%</sup>
                         </p>
@@ -101,7 +102,6 @@ get_header();
         <section id="proof" class="hb-ai-section hb-ai-case">
             <div class="hb-container hb-ai-case__layout">
                 <div class="hb-ai-case__copy">
-                    <p class="hb-ai-case__label">AutoBot × Hashbox</p>
                     <h2>ตอบอัตโนมัติเมื่อควรตอบ ส่งต่อคนเมื่อควรคิด</h2>
                     <p><?php echo esc_html( $landing['proof']['body'] ); ?></p>
                     <a class="hb-ai-text-link" href="<?php echo esc_url( $proof_url ); ?>">ดูรายละเอียดเคส AutoBot <span aria-hidden="true">→</span></a>
@@ -322,20 +322,13 @@ get_header();
                     <?php if ( ! $is_ai_landing ) : ?><span class="hb-eyebrow">Request audit</span><?php endif; ?>
                     <h2 class="hb-h2"><?php echo esc_html( $landing['primary_cta'] ); ?></h2>
                     <p><?php echo esc_html( $is_ai_landing ? 'กรอกบริบทสั้น ๆ ทีมเราจะติดต่อกลับเพื่อนัดเวลา Screening 30 นาทีภายใน 1–3 วันทำการ' : 'กรอกข้อมูลให้พอเห็นบริบท ทีมเราจะตรวจ baseline และส่ง next-step recommendation กลับไปภายใน 1–3 วันทำการ' ); ?></p>
-                    <?php if ( $is_ai_landing ) : ?>
-                        <aside class="hb-ai-project-lead" aria-label="ผู้ดูแลโครงการ">
-                            <p class="hb-ai-project-lead__label">Project lead</p>
-                            <h3><?php echo esc_html( $landing['project_lead']['name'] ); ?></h3>
-                            <p class="hb-ai-project-lead__role"><?php echo esc_html( $landing['project_lead']['role'] ); ?> · <?php echo esc_html( $landing['project_lead']['experience'] ); ?></p>
-                            <p>ดูแลตั้งแต่เลือก use case, architecture, integration ไปจนถึง production monitoring</p>
-                            <a class="hb-ai-text-link" href="<?php echo esc_url( $landing['project_lead']['linkedin'] ); ?>" target="_blank" rel="noopener noreferrer">ดูประสบการณ์บน LinkedIn <span aria-hidden="true">↗</span></a>
-                        </aside>
-                    <?php endif; ?>
+                    <?php if ( ! $is_ai_landing ) : ?>
                     <div class="hb-audit-contact-strip">
                         <a href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer" data-track-event="line_click">LINE OA</a>
                         <a href="tel:+66625169868" data-track-event="phone_click">062-516-9868</a>
                         <a href="mailto:business@hashbox.co.th" data-track-event="email_click">business@hashbox.co.th</a>
                     </div>
+                    <?php endif; ?>
                 </div>
 
                 <form class="hb-audit-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" data-audit-form<?php if ( ! $is_ai_landing ) : ?> data-reveal<?php endif; ?>>
@@ -516,6 +509,22 @@ get_header();
                     <button class="hb-btn hb-btn--gradient hb-btn--lg hb-audit-form__submit<?php echo $is_ai_landing ? ' hb-ai-button' : ''; ?>" type="submit"><?php echo esc_html( $landing['primary_cta'] ); ?> <span aria-hidden="true">→</span></button>
                     <?php endif; ?>
                 </form>
+                <?php if ( $is_ai_landing ) : ?>
+                <div class="hb-ai-project-contact">
+                        <aside class="hb-ai-project-lead" aria-label="ผู้ดูแลโครงการ">
+                            <p class="hb-ai-project-lead__label">Project lead</p>
+                            <h3><?php echo esc_html( $landing['project_lead']['name'] ); ?></h3>
+                            <p class="hb-ai-project-lead__role"><?php echo esc_html( $landing['project_lead']['role'] ); ?> · <?php echo esc_html( $landing['project_lead']['experience'] ); ?></p>
+                            <p>ดูแลตั้งแต่เลือก use case, architecture, integration ไปจนถึง production monitoring</p>
+                            <a class="hb-ai-text-link" href="<?php echo esc_url( $landing['project_lead']['linkedin'] ); ?>" target="_blank" rel="noopener noreferrer">ดูประสบการณ์บน LinkedIn <span aria-hidden="true">↗</span></a>
+                        </aside>
+                    <div class="hb-audit-contact-strip">
+                        <a href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer" data-track-event="line_click">LINE OA</a>
+                        <a href="tel:+66625169868" data-track-event="phone_click">062-516-9868</a>
+                        <a href="mailto:business@hashbox.co.th" data-track-event="email_click">business@hashbox.co.th</a>
+                    </div>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>
