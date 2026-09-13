@@ -17,4 +17,15 @@ for (const field of ['name','company','email','problem','pdpa','form_context','l
 for (const hook of ['data-audit-form','data-attribution-field','data-track-event="ai_cta_click"','hashbox_ai_nonce']) {
   assert.ok(template.includes(hook), `Missing conversion contract ${hook}`);
 }
+const figure = template.match(/<figure class="hb-ai-workflow-figure">[\s\S]*?<\/figure>/)?.[0];
+assert.ok(figure, 'Concept illustration must remain separate from case-study proof');
+assert.match(figure, /ภาพจำลองแนวทางการทำงาน ไม่ใช่หน้าจอระบบลูกค้าจริง/);
+assert.match(figure, /width="1536" height="1024" loading="lazy" decoding="async"/);
+assert.match(figure, /768w,[\s\S]*1536w/);
+assert.ok(template.indexOf(figure) > template.indexOf('<section class="hb-ai-screening">'));
+for (const size of [768, 1536]) {
+  const asset = await readFile(new URL(`../assets/ai-workflow/workflow-concept-${size}.webp`, import.meta.url));
+  assert.equal(asset.toString('ascii', 8, 12), 'WEBP');
+  assert.ok(asset.length < 50000, 'Concept image should stay lightweight');
+}
 console.log('AI audit presentation contract passed');

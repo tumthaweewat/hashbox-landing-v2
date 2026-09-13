@@ -460,6 +460,26 @@ body.hb-audit-landing--ai_workforce :is(.hb-btn--gradient, .hb-btn--outline):act
   padding-block: var(--space-2xl) var(--space-4xl);
 }
 
+.hb-ai-workflow-figure {
+  max-width: 52rem;
+  margin: var(--space-lg) auto var(--space-xl);
+}
+
+.hb-ai-workflow-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hb-ai-workflow-figure figcaption {
+  margin-top: var(--space-sm);
+  color: var(--color-muted);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  text-align: center;
+}
+
 .hb-ai-screening__layout {
   display: grid;
   gap: var(--space-xl);
