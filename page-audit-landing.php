@@ -164,7 +164,7 @@ get_header();
                         <img
                             src="<?php echo esc_url( get_template_directory_uri() . '/assets/ai-workflow/workflow-concept-1536.webp' ); ?>"
                             srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/ai-workflow/workflow-concept-768.webp' ); ?> 768w, <?php echo esc_url( get_template_directory_uri() . '/assets/ai-workflow/workflow-concept-1536.webp' ); ?> 1536w"
-                            sizes="(min-width: 1344px) 700px, (min-width: 960px) calc(58.333vw - 84px), (min-width: 640px) calc(100vw - 96px), calc(100vw - 32px)"
+                            sizes="(min-width: 960px) 704px, (min-width: 640px) calc(100vw - 96px), calc(100vw - 32px)"
                             width="1536" height="1024" loading="lazy" decoding="async"
                             alt="แนวคิดระบบ AI รับคำถาม ค้นข้อมูลจากเอกสาร แล้วตอบกลับหรือส่งต่อให้เจ้าหน้าที่"
                         >
@@ -394,25 +394,6 @@ get_header();
                                 <label class="hb-label" for="audit-email">อีเมลสำหรับนัดหมาย <span class="hb-label__required">*</span></label>
                                 <input id="audit-email" class="hb-input" type="email" name="email" required aria-required="true" autocomplete="email" inputmode="email" placeholder="you@company.com">
                             </div>
-                            <div class="hb-ai-form__qualification">
-                                <div class="hb-field">
-                                    <label class="hb-label" for="audit-service">โจทย์ที่สนใจ</label>
-                                    <select id="audit-service" class="hb-select" name="service">
-                                        <?php foreach ( $service_options as $option ) : ?>
-                                            <option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, 'ยังไม่แน่ใจ ขอ AI Screening ก่อน' ); ?>><?php echo esc_html( $option ); ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="hb-field">
-                                    <label class="hb-label" for="audit-timeline">ช่วงเวลาที่อยากเริ่ม</label>
-                                    <select id="audit-timeline" class="hb-select" name="timeline">
-                                        <option value="">ยังไม่ระบุ</option>
-                                        <?php foreach ( $timeline_options as $option ) : ?>
-                                            <option value="<?php echo esc_attr( $option ); ?>"><?php echo esc_html( $option ); ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="hb-field">
                                 <label class="hb-label" for="audit-problem">โจทย์หลักที่อยากแก้คืออะไร? <span class="hb-label__required">*</span></label>
                                 <textarea id="audit-problem" class="hb-textarea" name="problem" rows="4" required aria-required="true" placeholder="เช่น ทีมตอบคำถามซ้ำ ข้อมูลอยู่หลายระบบ หรือต้องการค้นเอกสารด้วย AI"></textarea>
@@ -421,8 +402,27 @@ get_header();
 
                         <details class="hb-ai-form__optional">
                             <summary>เพิ่มข้อมูลเพื่อให้คำแนะนำแม่นขึ้น (ไม่บังคับ)</summary>
-                            <div class="hb-ai-form__optional-fields">
-                                <div class="hb-field">
+                                <div class="hb-ai-form__optional-fields">
+                                <div class="hb-ai-form__qualification">
+                                    <div class="hb-field">
+                                        <label class="hb-label" for="audit-service">โจทย์ที่สนใจ</label>
+                                        <select id="audit-service" class="hb-select" name="service">
+                                            <?php foreach ( $service_options as $option ) : ?>
+                                                <option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, 'ยังไม่แน่ใจ ขอ AI Screening ก่อน' ); ?>><?php echo esc_html( $option ); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="hb-field">
+                                        <label class="hb-label" for="audit-timeline">ช่วงเวลาที่อยากเริ่ม</label>
+                                        <select id="audit-timeline" class="hb-select" name="timeline">
+                                            <option value="">ยังไม่ระบุ</option>
+                                            <?php foreach ( $timeline_options as $option ) : ?>
+                                                <option value="<?php echo esc_attr( $option ); ?>"><?php echo esc_html( $option ); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                    <div class="hb-field">
                                     <label class="hb-label" for="audit-website">เว็บไซต์ปัจจุบัน</label>
                                     <input id="audit-website" class="hb-input" type="url" name="website" inputmode="url" autocomplete="url" placeholder="https://company.com">
                                 </div>
@@ -445,8 +445,8 @@ get_header();
                                     </select>
                                 </div>
                                 <div class="hb-field">
-                                    <label class="hb-label" for="audit-contact-detail">เบอร์โทร / LINE ID <span class="hb-label__required" data-ai-contact-required hidden>*</span></label>
-                                    <input id="audit-contact-detail" class="hb-input" type="text" name="contact_detail" autocomplete="tel" aria-describedby="audit-contact-detail-help" data-ai-contact-detail placeholder="ระบุเมื่ออยากให้ติดต่อช่องทางอื่น">
+                                    <label class="hb-label" for="audit-contact-detail"><span data-ai-contact-label>เบอร์โทร / LINE ID</span> <span class="hb-label__required" data-ai-contact-required hidden>*</span></label>
+                                    <input id="audit-contact-detail" class="hb-input" type="text" name="contact_detail" autocomplete="off" aria-describedby="audit-contact-detail-help" data-ai-contact-detail placeholder="ระบุเมื่ออยากให้ติดต่อช่องทางอื่น">
                                     <p id="audit-contact-detail-help" class="hb-field__help">จำเป็นเมื่อเลือก LINE หรือโทรศัพท์</p>
                                 </div>
                             </div>
