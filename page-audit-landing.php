@@ -133,6 +133,49 @@ get_header();
 
         <section class="hb-ai-section hb-ai-usecases">
             <div class="hb-container">
+                <div class="hb-ai-business-examples">
+                    <h2 class="hb-ai-section__heading">เห็นภาพจากงานที่ธุรกิจเจอทุกวัน</h2>
+                    <article class="hb-ai-stock-example" aria-labelledby="ai-stock-heading">
+                        <p class="hb-ai-stock-example__status">ตัวอย่างงานที่พัฒนา · ร้านอะไหล่และอู่ซ่อมรถ</p>
+                        <h3 id="ai-stock-heading">แจ้งเตือนสต็อกเหลือน้อย เพื่อเตรียมเติมของล่วงหน้า</h3>
+                        <dl class="hb-ai-example-facts">
+                            <div>
+                                <dt>ปัญหาที่เจอ</dt>
+                                <dd>อะไหล่ถูกใช้ทั้งงานขายและงานซ่อม เจ้าของร้านต้องรู้ว่ารายการไหนใกล้หมด</dd>
+                            </div>
+                            <div>
+                                <dt>ระบบช่วยอะไร</dt>
+                                <dd>แจ้งเตือนเมื่อสต็อกเหลือน้อย ให้เห็นรายการที่ต้องตรวจสอบและเตรียมเติม</dd>
+                            </div>
+                            <div>
+                                <dt>คนตัดสินใจอะไร</dt>
+                                <dd>เจ้าของร้านใช้ข้อมูลประกอบการวางแผนเติมของ และตัดสินใจว่าจะสั่งอะไร เมื่อไร</dd>
+                            </div>
+                        </dl>
+                        <p class="hb-ai-stock-example__note">การแจ้งเตือนตามเงื่อนไขเป็น Automation ได้ โดยไม่ต้องใช้ AI ทุกขั้นตอน</p>
+                    </article>
+                    <details class="hb-ai-example-options">
+                        <summary>ตัวอย่างงานอื่นที่ระบบช่วยได้</summary>
+                        <div class="hb-ai-example-options__content">
+                            <p class="hb-ai-example-options__status">แนวทางการใช้งาน ไม่ใช่เคสที่ยืนยันการส่งมอบหรือผลลัพธ์แล้ว</p>
+                            <dl class="hb-ai-example-facts">
+                                <div>
+                                    <dt>คัดแยกอีเมล</dt>
+                                    <dd>ช่วยแยกคำขอลูกค้าและส่งให้ทีมที่เกี่ยวข้อง ส่วนเรื่องที่ไม่ชัดเจนให้เจ้าหน้าที่ตรวจสอบ</dd>
+                                </div>
+                                <div>
+                                    <dt>เตรียมใบเสนอราคา</dt>
+                                    <dd>AI ช่วยอ่านคำขอและไฟล์แนบ ดึงข้อมูลมาร่างใบเสนอราคา โดยให้คนตรวจและอนุมัติก่อนส่ง</dd>
+                                </div>
+                                <div>
+                                    <dt>ติดตามเอกสาร</dt>
+                                    <dd>ช่วยรวบรวมสถานะเอกสารและรายการที่ยังขาด ให้ทีมเห็นงานที่ต้องติดตามต่อ</dd>
+                                </div>
+                            </dl>
+                            <p class="hb-ai-example-options__note">ต้องตรวจความพร้อมของข้อมูลและระบบเดิมก่อนกำหนดขอบเขตงาน</p>
+                        </div>
+                    </details>
+                </div>
                 <div class="hb-ai-usecases__intro">
                     <h2 class="hb-ai-section__heading">3 โจทย์ที่มีเหตุผลให้เริ่ม Screening</h2>
                     <p class="hb-ai-section__lede">เริ่มจากปัญหาที่เกิดซ้ำและวัดผลได้ก่อน ไม่เริ่มจากชื่อเทคโนโลยีหรือทำ AI เพราะกำลังเป็นกระแส</p>
