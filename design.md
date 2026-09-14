@@ -1,8 +1,11 @@
 # Hashbox Website Design System — Signal V3 · Original Indigo
 
-**Status:** Candidate source of truth for the redesign  
-**Production:** Not connected  
-**Version:** 3.1.0-candidate  
+**Status:** Candidate source of truth for the redesign
+
+**Production:** Not connected
+
+**Version:** 3.1.0-candidate
+
 **Last updated:** 2026-09-03
 
 Signal V3 is the design authority for all new Hashbox website design work. The older blue/orange kinetic-brutalist document, the dark dev-tools token notes, and the currently loaded dark-indigo token file remain historical references only. They must not be mixed into new layouts.
