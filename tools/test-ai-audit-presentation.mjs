@@ -7,6 +7,30 @@ const template = await read('page-audit-landing.php');
 const css = await read('css/ai-workflow-audit.css');
 const tokens = await read('tokens.css');
 const script = await read('js/audit-landing.js');
+const icons = await read('inc/ai-action-icons.php');
+const header = await read('header.php');
+const config = await read('functions.php');
+assert.match(icons, /aria-hidden="true" focusable="false"/);
+assert.match(config, /'primary_cta'\s*=> 'ปรึกษาโจทย์ AI ฟรี'/);
+assert.match(header, /hashbox_ai_action_icon\( 'chat' \)/);
+assert.match(template, /<span>ส่งข้อมูลขอคำปรึกษา<\/span>/);
+for (const name of ['chat', 'document', 'send', 'chevron', 'phone', 'mail', 'external']) {
+  assert.ok(icons.includes(`'${name}' =>`), `Missing action icon ${name}`);
+}
+assert.match(css, /details\[open\] > summary > \.hb-ai-action-icon/);
+assert.match(css, /\.hb-ai-hero__primary, \.hb-audit-form__submit\)[\s\S]*?min-height: 3\.5rem/);
+const examples = template.match(/<div class="hb-ai-business-examples">[\s\S]*?<\/details>\s*<\/div>/)?.[0];
+assert.ok(examples, 'Business examples must remain in the existing use-cases section');
+assert.ok(template.indexOf(examples) < template.indexOf('class="hb-ai-usecases__intro"'));
+assert.match(examples, /ตัวอย่างงานที่พัฒนา/);
+assert.match(examples, /แจ้งเตือนเมื่อสต็อกเหลือน้อย/);
+assert.match(examples, /โดยไม่ต้องใช้ AI ทุกขั้นตอน/);
+assert.match(examples, /แนวทางการใช้งาน ไม่ใช่เคสที่ยืนยันการส่งมอบหรือผลลัพธ์แล้ว/);
+assert.match(examples, /ให้คนตรวจและอนุมัติก่อนส่ง/);
+assert.match(examples, /<details class="hb-ai-example-options">/);
+assert.doesNotMatch(examples, /Micro Precision|MPC|Smile Account|SQL|OCR|\d+%|ใช้งานจริงแล้ว/i,
+  'Do not disclose client details or promote unconfirmed scope/results');
+assert.match(css, /\.hb-ai-example-options > summary:focus-visible/);
 const optional = template.match(/<details class="hb-ai-form__optional">[\s\S]*?<\/details>/)?.[0];
 for (const field of ['service', 'timeline', 'website', 'budget', 'contact_preference', 'contact_detail']) {
   assert.ok(optional?.includes(`name="${field}"`), `${field} must remain available in optional details`);

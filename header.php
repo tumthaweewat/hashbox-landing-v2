@@ -79,7 +79,7 @@ $hb_about_current = 'about' === $hb_request_path ? 'page' : ( $hb_path_in_family
                 <?php if ( $hashbox_is_website_audit ) : ?>
                     <a href="#project-form" class="hb-btn hb-btn--outline hb-btn--sm">ขอประเมิน</a>
                 <?php elseif ( $hashbox_is_ai_audit ) : ?>
-                    <a href="#audit-form" class="hb-btn hb-btn--gradient hb-btn--sm hb-ai-button" data-track-event="ai_cta_click">ส่งโจทย์ AI</a>
+                    <a href="#audit-form" class="hb-btn hb-btn--gradient hb-btn--sm hb-ai-button" data-track-event="ai_cta_click"><?php echo hashbox_ai_action_icon( 'chat' ); ?> <span>ปรึกษา AI ฟรี</span></a>
                 <?php else : ?>
                     <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--sm hb-nav__cta--drawer-backed"><?php echo $hb_en ? 'Free audit' : 'รับ Audit ฟรี'; ?></a>
                     <button type="button" class="hb-nav__burger" id="navBurger" aria-label="Open menu" aria-controls="navSheet" aria-expanded="false">

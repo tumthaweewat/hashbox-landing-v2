@@ -2,7 +2,8 @@
  * designed-as-app · Signal V3 · split hero / centered case / workflow diptych / centered form
  * enrichment: supplied conceptual workflow figure, explicitly labelled
  * nav: existing campaign N9, preserved · footer: Ft5 · no fabricated evidence */
-/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4
+ * Action components: visible labels + decorative line icons; Signal V3 retained. */
 
 html {
   overflow-x: clip;
@@ -410,6 +411,114 @@ body.hb-audit-landing--ai_workforce :is(.hb-btn--gradient, .hb-btn--outline):act
 .hb-ai-case__metrics strong {
   color: var(--color-ink-2);
   font-size: var(--text-base);
+}
+
+/* Component-scope Hallmark: business-owner audience, concrete examples before
+ * technical choices. Existing Signal V3 tokens; no new imagery or motion.
+ * Pre-emit critique: P4 H4 E4 S5 R4 V4. */
+.hb-ai-business-examples {
+  margin-block-end: var(--space-2xl);
+}
+
+.hb-ai-stock-example {
+  margin-block-start: var(--space-xl);
+  padding-block: var(--space-lg);
+  border-block-start: var(--rule-hair) solid var(--color-accent);
+}
+
+.hb-ai-stock-example__status,
+.hb-ai-example-options__status {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+
+.hb-ai-stock-example h3 {
+  margin: 0 0 var(--space-lg);
+  min-width: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.hb-ai-example-facts {
+  margin: 0;
+}
+
+.hb-ai-example-facts > div {
+  display: grid;
+  gap: var(--space-2xs) var(--space-lg);
+  padding-block: var(--space-sm);
+  border-block-start: var(--rule-hair) solid var(--color-rule);
+}
+
+.hb-ai-example-facts dt {
+  color: var(--color-ink-2);
+  font-weight: 700;
+}
+
+.hb-ai-example-facts dd {
+  min-width: 0;
+  margin: 0;
+  color: var(--color-muted);
+  overflow-wrap: anywhere;
+}
+
+.hb-ai-example-facts dt,
+.hb-ai-example-facts dd {
+  font-size: var(--text-base);
+  line-height: 1.7;
+}
+
+.hb-ai-stock-example__note,
+.hb-ai-example-options__note {
+  margin-block-start: var(--space-sm);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+
+.hb-ai-example-options {
+  border-block: var(--rule-hair) solid var(--color-rule);
+}
+
+.hb-ai-example-options > summary {
+  min-height: 2.75rem;
+  padding: var(--space-sm) var(--space-2xs);
+  color: var(--color-accent-text);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  line-height: 1.7;
+  cursor: pointer;
+}
+
+.hb-ai-example-options > summary:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.hb-ai-example-options > summary:active {
+  background: var(--color-paper-3);
+}
+
+.hb-ai-example-options__content {
+  padding-block: var(--space-sm) var(--space-lg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hb-ai-example-options > summary:hover {
+    background: var(--color-paper-2);
+  }
+}
+
+@media (min-width: 768px) {
+  .hb-ai-example-facts > div {
+    grid-template-columns: 10rem minmax(0, 1fr);
+  }
 }
 
 .hb-ai-usecases__intro {
@@ -1598,4 +1707,61 @@ body.hb-audit-landing--ai_workforce .hb-audit-faq__item summary {
   body.hb-audit-landing--ai_workforce .hb-audit-form-section {
     padding-block: var(--space-xl);
   }
+}
+
+/* Action hierarchy: primary consultation, secondary proof, native disclosures. */
+body.hb-audit-landing--ai_workforce .hb-ai-action-icon {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: 0 0 1.25rem;
+  vertical-align: middle;
+  pointer-events: none;
+}
+
+body.hb-audit-landing--ai_workforce :is(.hb-ai-button, .hb-ai-hero__actions .hb-btn, .hb-ai-text-link, .hb-audit-contact-strip a) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+}
+
+body.hb-audit-landing--ai_workforce :is(.hb-ai-hero__primary, .hb-audit-form__submit) {
+  min-height: 3.5rem;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--text-md);
+  line-height: 1.4;
+}
+
+body.hb-audit-landing--ai_workforce .hb-audit-form__submit { width: 100%; }
+
+body.hb-audit-landing--ai_workforce :is(.hb-ai-example-options, .hb-ai-form__optional, .hb-audit-faq__item) > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  list-style: none;
+  min-height: 3.5rem;
+  padding-inline: var(--space-xs);
+}
+
+body.hb-audit-landing--ai_workforce summary::-webkit-details-marker { display: none; }
+body.hb-audit-landing--ai_workforce .hb-audit-faq__item summary::after { display: none; }
+body.hb-audit-landing--ai_workforce details[open] > summary > .hb-ai-action-icon { transform: rotate(180deg); }
+body.hb-audit-landing--ai_workforce :is(.hb-ai-example-options, .hb-ai-form__optional) > summary { background: var(--color-paper-2); }
+body.hb-audit-landing--ai_workforce summary:active { background: var(--color-paper-3); }
+
+@media (hover: hover) and (pointer: fine) {
+  body.hb-audit-landing--ai_workforce summary:hover { background: var(--color-paper-3); }
+}
+
+@media (max-width: 45rem) {
+  body.hb-audit-landing--ai_workforce .hb-ai-mobile-cta { flex-direction: column; gap: var(--space-2xs); padding-block-start: var(--space-xs); }
+  body.hb-audit-landing--ai_workforce .hb-ai-mobile-cta .hb-btn { width: 100%; min-height: 3.5rem; font-size: var(--text-base); }
+  body.hb-audit-landing--ai_workforce { padding-block-end: calc(7rem + env(safe-area-inset-bottom)); }
+}
+
+@media (max-width: 25rem) {
+  body.hb-audit-landing--ai_workforce .hb-nav--ai-audit .hb-nav__brand > span:last-child { max-width: none; }
+  body.hb-audit-landing--ai_workforce .hb-nav--ai-audit .hb-nav__brand-accent { display: none; }
 }
