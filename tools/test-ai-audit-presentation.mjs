@@ -1,10 +1,36 @@
 import assert from 'node:assert/strict';
+import vm from 'node:vm';
 import { readFile } from 'node:fs/promises';
 
 const read = name => readFile(new URL('../' + name, import.meta.url), 'utf8');
 const template = await read('page-audit-landing.php');
 const css = await read('css/ai-workflow-audit.css');
 const tokens = await read('tokens.css');
+const script = await read('js/audit-landing.js');
+const optional = template.match(/<details class="hb-ai-form__optional">[\s\S]*?<\/details>/)?.[0];
+for (const field of ['service', 'timeline', 'website', 'budget', 'contact_preference', 'contact_detail']) {
+  assert.ok(optional?.includes(`name="${field}"`), `${field} must remain available in optional details`);
+}
+assert.ok(template.indexOf('id="audit-problem"') < template.indexOf('<details class="hb-ai-form__optional">'));
+const contactFn = script.slice(script.indexOf('  function initAiContactRequirement('), script.indexOf('  function initAiStickyCta('));
+const handlers = {};
+const attributes = {};
+const preference = { value: '', addEventListener: (name, fn) => { handlers[name] = fn; } };
+const detail = { value: 'preserve-me', setAttribute: (name, value) => { attributes[name] = value; }, removeAttribute: name => { delete attributes[name]; }, addEventListener() {} };
+const mark = {};
+const label = {};
+const controls = { '[data-ai-contact-preference]': preference, '[data-ai-contact-detail]': detail, '[data-ai-contact-required]': mark, '[data-ai-contact-label]': label };
+vm.runInNewContext(contactFn + '\ninitAiContactRequirement(form);', { form: { querySelector: selector => controls[selector] } });
+for (const [value, type, autocomplete, text] of [['โทร', 'tel', 'tel', 'เบอร์โทรศัพท์'], ['LINE', 'text', 'off', 'LINE ID'], ['', 'text', 'off', 'เบอร์โทร / LINE ID']]) {
+  preference.value = value;
+  handlers.change();
+  assert.equal(detail.type, type);
+  assert.equal(attributes.autocomplete, autocomplete);
+  assert.equal(detail.required, Boolean(value));
+  assert.equal(mark.hidden, !value);
+  assert.equal(label.textContent, text);
+  assert.equal(detail.value, 'preserve-me', 'Changing contact preference must not erase input');
+}
 assert.match(tokens, /body\.hb-audit-landing--ai_workforce\s*\{/, 'CI palette must be page-scoped');
 assert.match(css, /\.hb-ai-hero__availability\s*\{[^}]*font-family: var\(--font-body\)/, 'Thai offer label must not use data font');
 assert.match(css, /\.hb-nav__actions > \.hb-btn\s*\{[^}]*display: inline-flex/, 'Campaign CTA must remain available on mobile');
