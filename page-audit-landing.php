@@ -164,7 +164,7 @@ get_header();
                         <img
                             src="<?php echo esc_url( get_template_directory_uri() . '/assets/ai-workflow/workflow-concept-1536.webp' ); ?>"
                             srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/ai-workflow/workflow-concept-768.webp' ); ?> 768w, <?php echo esc_url( get_template_directory_uri() . '/assets/ai-workflow/workflow-concept-1536.webp' ); ?> 1536w"
-                            sizes="(min-width: 1344px) 700px, (min-width: 960px) calc(58.333vw - 84px), (min-width: 640px) calc(100vw - 96px), calc(100vw - 32px)"
+                            sizes="(min-width: 960px) 704px, (min-width: 640px) calc(100vw - 96px), calc(100vw - 32px)"
                             width="1536" height="1024" loading="lazy" decoding="async"
                             alt="แนวคิดระบบ AI รับคำถาม ค้นข้อมูลจากเอกสาร แล้วตอบกลับหรือส่งต่อให้เจ้าหน้าที่"
                         >

@@ -1,6 +1,14 @@
 [
   {
     "date": "2026-09-14",
+    "scope": "ai-workflow-audit short-text layout",
+    "macrostructure": "Workbench",
+    "theme": "Hashbox Signal V3 / Original Indigo",
+    "enrichment": "existing illustration centered above signals",
+    "brief": "User-approved full-width short copy and rendered-line regression guard; preserve copy and font sizes"
+  },
+  {
+    "date": "2026-09-14",
     "scope": "ai-workflow-audit",
     "macrostructure": "Workbench",
     "theme": "Hashbox Signal V3 / Original Indigo",

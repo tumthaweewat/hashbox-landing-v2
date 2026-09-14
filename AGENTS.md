@@ -81,3 +81,12 @@ This theme starts as a near-copy of V1 (state at 2026-05-11). Free to diverge:
 - Compare conversion / SEO performance against V1
 
 Keep `style.css` Theme Name unique (currently `Hashbox Studio V2`) so WordPress lists both themes separately in Appearance → Themes. PHP function names are shared with V1; only one theme is active at a time, so collisions don't occur in WP runtime, but rename if you ever need both loaded.
+
+## Desktop short-text wrapping
+
+- Keep short introductions, commercial notes and short list items on one line at desktop widths when the full content container has room.
+- Remove accidental ch-based max-width limits and adjust columns before changing font size. A side-by-side image may move above a full-width list.
+- Preserve copy, font size and accessibility. Never force all paragraphs with nowrap, clip text, use ellipsis, or add horizontal scrolling to achieve this.
+- Long-form prose retains its 45–75ch measure. Short utility copy is exempt from that limit.
+- At small viewports and browser zoom, wrapping is expected. Test 320, 375, 414, 768, 1280, 1440 and 1920px with fonts loaded; assert rendered line counts for designated desktop text and no overflow on mobile.
+- For AI Workflow Audit, guard vendor intro, Dashboard note, Screening signals, engagement intro and pricing note. Do not fix a regression by silently shortening copy.
