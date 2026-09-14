@@ -241,7 +241,7 @@ get_header();
         <section class="hb-ai-engagements" aria-labelledby="ai-engagements-heading">
             <div class="hb-container">
                 <div class="hb-ai-engagements__intro">
-                    <h2 id="ai-engagements-heading" class="hb-ai-section__heading">เริ่มเล็ก แล้วเพิ่มงบเมื่อข้อมูลยืนยัน</h2>
+                    <h2 id="ai-engagements-heading" class="hb-ai-section__heading">เริ่มจากงานเล็กที่วัดผลได้ ค่อยขยายเมื่อเห็นว่าคุ้มค่า</h2>
                     <p class="hb-ai-section__lede">Screening ช่วยเลือกทางที่เหมาะ จากนั้นค่อยตัดสินใจว่าจะหยุด จัดทำ business case ทดลอง PoC หรือขึ้นระบบ Production</p>
                 </div>
                 <ol class="hb-ai-engagements__list">
