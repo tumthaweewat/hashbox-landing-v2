@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once get_template_directory() . '/inc/service-catalog.php';
 require_once get_template_directory() . '/inc/homepage-leads.php';
+require_once get_template_directory() . '/inc/ai-action-icons.php';
 
 // No RSS/comment feed links in <head> and no emoji detection script —
 // both showed up as crawled-not-indexed URLs in GSC (2026-08-29).
@@ -1827,7 +1828,7 @@ function hashbox_audit_landing_pages() {
             'hero_headline'    => 'ลดงานซ้ำด้วย AI ที่วัด ROI ได้',
             'hero_subcopy'     => 'LINE Bot, RAG Knowledge Base และ Workflow Automation สำหรับทีมขายและซัพพอร์ตที่ต้องการตอบเร็วขึ้นโดยไม่เพิ่ม headcount',
             'hero_vendor'      => 'AI Consulting + Production Implementation ในกรุงเทพฯ สำหรับธุรกิจไทย',
-            'primary_cta'      => 'ส่งโจทย์ให้ทีม AI',
+            'primary_cta'      => 'ปรึกษาโจทย์ AI ฟรี',
             'proof_line'       => '-60% Support Cost จาก AI Bot + RAG ภายใน 8 สัปดาห์',
             'creative_key'     => 'ai_workforce',
             'utm_content'      => 'ai_workforce_v4',
