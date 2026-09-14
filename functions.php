@@ -1829,7 +1829,7 @@ function hashbox_audit_landing_pages() {
             'hero_subcopy'     => 'LINE Bot, RAG Knowledge Base และ Workflow Automation สำหรับทีมขายและซัพพอร์ตที่ต้องการตอบเร็วขึ้นโดยไม่เพิ่ม headcount',
             'hero_vendor'      => 'AI Consulting + Production Implementation ในกรุงเทพฯ สำหรับธุรกิจไทย',
             'primary_cta'      => 'ปรึกษาโจทย์ AI ฟรี',
-            'proof_line'       => '-60% Support Cost จาก AI Bot + RAG ภายใน 8 สัปดาห์',
+            'proof_line'       => 'ลดค่าใช้จ่ายงานซัพพอร์ต 60% ในเคส AutoBot เทียบกับก่อนใช้ระบบ วัดผลหลังพัฒนาเสร็จและใช้งานต่อเนื่อง 8 สัปดาห์',
             'creative_key'     => 'ai_workforce',
             'utm_content'      => 'ai_workforce_v4',
             'wide_image'       => 'linkedin_wide_ai_workforce_v4.png',
@@ -1866,14 +1866,14 @@ function hashbox_audit_landing_pages() {
             ),
             'proof'            => array(
                 'metric' => '-60%',
-                'title'  => 'ลด support cost ด้วย LINE Bot + RAG',
+                'title'  => 'ลดค่าใช้จ่ายงานซัพพอร์ตด้วย LINE Bot + RAG',
                 'body'   => 'ทีม Hashbox เคยทำ AI Bot สำหรับ on-demand service ให้ตอบลูกค้า 24/7, ลด response time และ route งานซับซ้อนไปหา human โดยยังวัดผลผ่าน dashboard เดียว',
                 'href'   => '/work/autobot-line/',
             ),
             'case_metrics'     => array(
                 array( 'metric' => '2 นาที', 'label' => 'Avg Response Time', 'detail' => 'ลดลงจาก 2 ชั่วโมง' ),
                 array( 'metric' => '84%', 'label' => 'AI-handled Resolution', 'detail' => 'AI จัดการเคสได้โดยไม่ต้องส่งต่อ' ),
-                array( 'metric' => '8 สัปดาห์', 'label' => 'Time to Production', 'detail' => 'จาก discovery ถึงระบบที่ใช้งานจริง' ),
+                array( 'metric' => '8 สัปดาห์', 'label' => 'ช่วงใช้งานและวัดผล', 'detail' => 'หลังพัฒนาระบบเสร็จ โดยเทียบกับก่อนใช้ระบบ' ),
             ),
             'engagements'      => array(
                 array(

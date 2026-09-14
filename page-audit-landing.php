@@ -93,7 +93,7 @@ get_header();
                         <p class="hb-ai-hero__figure">
                             <?php echo esc_html( str_replace( '-', '−', rtrim( $landing['proof']['metric'], '%' ) ) ); ?><sup>%</sup>
                         </p>
-                        <p class="hb-ai-hero__qualifier">Support cost ในเคส AutoBot ที่ทีม Hashbox ลงมือทำด้วย LINE Bot + RAG ภายใน 8 สัปดาห์ ผลลัพธ์จริงขึ้นอยู่กับโจทย์และข้อมูลของแต่ละธุรกิจ</p>
+                        <p class="hb-ai-hero__qualifier"><strong>ค่าใช้จ่ายงานซัพพอร์ตลูกค้าที่ลดลง</strong> ในเคส AutoBot หลังใช้ LINE Bot + RAG วัดผลหลังพัฒนาระบบเสร็จและใช้งานต่อเนื่อง 8 สัปดาห์ โดยเทียบกับก่อนใช้ระบบ ผลลัพธ์เฉพาะโครงการ ขึ้นอยู่กับขอบเขตงานและข้อมูลของแต่ละธุรกิจ</p>
                     </div>
                 </div>
             </div>
