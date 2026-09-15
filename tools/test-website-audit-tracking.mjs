@@ -6,6 +6,7 @@ const scriptSource = await readFile(
   new URL('../js/website-audit-tracking.js', import.meta.url),
   'utf8'
 );
+const homepageSource = await readFile(new URL('../js/homepage-leads.js', import.meta.url), 'utf8');
 const functionsSource = await readFile(
   new URL('../functions.php', import.meta.url),
   'utf8'
@@ -27,7 +28,7 @@ const ADS_EVENT = 'hb_web_ads_lead_v1';
 const EXPECTED_PAYLOAD = {
   hb_schema_version: 1,
   hb_transaction_id: VALID_CONVERSION_REF,
-  hb_value: 1,
+  hb_value: 0,
   hb_currency: 'THB',
   hb_form_id: 'hashbox_contact',
   hb_form_name: 'Website Project Evaluation',
@@ -61,7 +62,10 @@ function runTracking({
   localStorage = new MemoryStorage(),
   sessionStorage = new MemoryStorage(),
   hasFbq = true,
-  invokeAdsCallback = true
+  invokeAdsCallback = true,
+  entryUrl = null,
+  useCurrentVisit = false,
+  formSearch = null
 } = {}) {
   let pageUrl = new URL(
     'https://hashbox.co.th/website-audit/' +
@@ -71,6 +75,7 @@ function runTracking({
       '&lead_sig=' + 'a'.repeat(64) +
       '#audit-form'
   );
+  if (formSearch !== null) pageUrl.search = formSearch;
   const fields = new Map();
   const gtagCalls = [];
   const dataLayerPushes = [];
@@ -120,6 +125,7 @@ function runTracking({
   syncLocation();
 
   const document = {
+    getElementById() { return null; },
     querySelector(selector) {
       if (selector === 'form[data-hb5-form]') return form;
       if (selector === 'meta[name="hashbox-confirmed-website-lead"]') return meta;
@@ -176,14 +182,26 @@ function runTracking({
     window.fbq = (...args) => fbqCalls.push(args);
   }
 
-  vm.runInNewContext(scriptSource, {
+  const context = {
     window,
     document,
     URL,
     URLSearchParams,
     Date,
     console
-  });
+  };
+  if (useCurrentVisit) {
+    if (entryUrl) {
+      const formUrl = pageUrl;
+      pageUrl = new URL(entryUrl);
+      syncLocation();
+      vm.runInNewContext(homepageSource, context);
+      pageUrl = formUrl;
+      syncLocation();
+    }
+    vm.runInNewContext(homepageSource, context);
+  }
+  vm.runInNewContext(scriptSource, context);
 
   while (timers.length) timers.shift()();
 
@@ -463,4 +481,39 @@ assert.match(
   'email icon link must have an accessible name'
 );
 
-console.log('website-audit tracking tests passed');
+// Run both real scripts across the service -> audit navigation. The audit URL
+// deliberately has no UTM parameters, as it does after clicking the real CTA.
+const legacy = new MemoryStorage({
+  hashbox_attribution_v3_website_audit: JSON.stringify({
+    version: 3, capturedAt: Date.now(), identity: 'click:gclid:stale_test_click',
+    data: { utm_source: 'old_campaign', gclid: 'stale_test_click' }
+  })
+});
+const navigation = runTracking({
+  useCurrentVisit: true, confirmedRef: null, formSearch: '', localStorage: legacy,
+  entryUrl: 'https://hashbox.co.th/services/website-development/?utm_source=google&utm_medium=cpc&utm_campaign=corporate_test'
+});
+const fieldValue = (result, name) => result.form.querySelector(`input[name="${name}"]`).value;
+assert.equal(fieldValue(navigation, 'utm_source'), 'google');
+assert.equal(fieldValue(navigation, 'utm_campaign'), 'corporate_test');
+assert.equal(fieldValue(navigation, 'gclid'), '', 'a legacy form click ID must not contaminate this visit');
+assert.equal(eventPushes(navigation, ADS_EVENT).length, 0, 'navigation alone must never count as a lead');
+
+const changedCampaign = runTracking({
+  useCurrentVisit: true, confirmedRef: null,
+  entryUrl: 'https://hashbox.co.th/services/website-development/?utm_source=google&gclid=synthetic_unit_test_only',
+  formSearch: '?utm_source=new_source&utm_campaign=new_campaign'
+});
+assert.equal(fieldValue(changedCampaign, 'utm_source'), 'new_source');
+assert.equal(fieldValue(changedCampaign, 'gclid'), '', 'new campaign must replace the previous click ID');
+for (const time of [Date.now() - 31 * 60 * 1000, Date.now() + 60000, 'invalid']) {
+  const expired = runTracking({
+    useCurrentVisit: true, confirmedRef: null, formSearch: '', localStorage: legacy,
+    sessionStorage: new MemoryStorage({ hb_home_attribution_v1: JSON.stringify({
+      time, campaign: { utm_source: 'expired', gclid: 'expired_test_click' }
+    }) })
+  });
+  assert.equal(fieldValue(expired, 'utm_source'), '', 'invalid or expired visit must start fresh');
+  assert.equal(fieldValue(expired, 'gclid'), '');
+}
+console.log('website-audit tracking tests passed, including cross-page and stale-attribution regressions');

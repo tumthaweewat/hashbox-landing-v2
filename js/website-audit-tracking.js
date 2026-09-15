@@ -70,6 +70,9 @@
   }
 
   function captureAttribution() {
+    if (typeof window.hashboxGetCurrentAttribution === 'function') {
+      return window.hashboxGetCurrentAttribution();
+    }
     var stored = readStoredAttribution();
     var params = new URLSearchParams(window.location.search);
     var incoming = {};
@@ -562,7 +565,7 @@
     var payload = {
       hb_schema_version: 1,
       hb_transaction_id: conversionRef,
-      hb_value: 1,
+      hb_value: 0, // Raw enquiries have no verified monetary value yet.
       hb_currency: 'THB',
       hb_form_id: 'hashbox_contact',
       hb_form_name: 'Website Project Evaluation',
