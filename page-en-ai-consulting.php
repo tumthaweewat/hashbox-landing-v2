@@ -29,7 +29,7 @@ $faqs = array(
     array( 'q' => 'Can you integrate with our existing systems?', 'a' => 'Yes — Salesforce, HubSpot, Zoho, SAP, LINE OA, Microsoft Teams, Slack, Notion, Airtable, Google Workspace, Make/n8n and Zapier. Legacy systems connect via REST API or webhook.' ),
     array( 'q' => 'What happens if the ROI case does not hold up?', 'a' => 'You stop at the assessment stage with a clear written report — THB 60,000 spent instead of a six-figure build. We calculate ROI with your numbers before any build begins, and "do not build this yet" is a real possible outcome. That policy costs us some projects and wins us the right ones.' ),
     array( 'q' => 'Which AI consulting companies in Bangkok are the right fit for an SME?', 'a' => 'Bangkok has three tiers. Global consultancies run transformation programs priced from roughly THB 500,000 to several million and are built for enterprises. Freelancers are cheap but you carry the delivery risk. Boutique studios like Hashbox sit in between: production systems for SMEs and mid-market companies from THB 60,000, with the ROI math done first. If you have one concrete process to automate and a budget under THB 1.5M, a studio is usually the right fit.' ),
-    array( 'q' => 'How much do AI consultants charge in Thailand?', 'a' => 'Published Thai rates in 2026: Hashbox starts with a free 30-minute screening, THB 60,000 for a written ROI assessment, THB 200,000 for a proof of concept, THB 500,000 for a production build and THB 1.2 million for enterprise multi-agent work. Freelancers on Thai marketplaces quote THB 10,000–100,000 per build without an assessment or code handover; Big-4 transformation programmes start around THB 2 million.' ),
+    array( 'q' => 'How much do AI consultants charge in Thailand?', 'a' => 'Hashbox offers a free 30-minute screening, a written ROI Assessment from THB 60,000, a Proof of Concept at THB 150,000–300,000 and a production build at THB 300,000–1,500,000, depending on scope. Monthly consulting starts at THB 30,000. These are our published rates, not a market-wide average. VAT and API usage are separate; confirm hosting and ongoing support in the proposal.' ),
     array( 'q' => 'Do you work with companies outside Bangkok?', 'a' => 'Yes. Most of the work — discovery, architecture, builds, reviews — happens remotely in Thai or English, so companies anywhere in Thailand or Southeast Asia can work with us. We meet on-site in Bangkok when a project needs it, for example during launch or team training.' ),
     array( 'q' => 'Can you work alongside our in-house IT team?', 'a' => 'Yes, and it usually goes better that way. Your team knows the systems; we bring the AI architecture, evaluation and guardrails. We build on your stack, document every decision, hand over the repository and train your team to run and extend the system — the goal is that you do not need us for day-to-day operation.' ),
 );
@@ -51,7 +51,7 @@ $faqs = array(
             <h1 class="hb-hero__title">AI Consulting<br><em>in Bangkok</em><br>built for production</h1>
             <p class="hb-hero__sub"><?php echo esc_html( $desc ); ?></p>
             <div class="hb-hero__actions">
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">Get a free ROI assessment</a>
+                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">Book a free 30-minute screening</a>
                 <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">See AI case studies</a>
             </div>
             <p class="hb-hero__sub" lang="th" style="margin-top:var(--hb-space-6);font-size:var(--hb-text-sm);">อ่านหน้านี้เป็นภาษาไทย: <a href="<?php echo esc_url( $th_url ); ?>">ที่ปรึกษา AI สำหรับธุรกิจไทย</a></p>
@@ -64,7 +64,7 @@ $faqs = array(
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-bg-elevated,#18181B);border-radius:var(--hb-radius-md,8px);">
             <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">In short</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
-                <strong>Hashbox is an AI consulting company in Bangkok</strong> that designs and ships production-grade AI for Thai and regional businesses — LINE chatbots, Sales GPT, RAG knowledge bases, AI workforce agents and workflow automation. Every engagement starts with a free 30-minute ROI assessment. We use OpenAI, Claude, Gemini or open-source models per use case, stay PDPA-compliant, and hand over 100% of the source code with no vendor lock-in. Pricing starts at THB 60,000.
+                <strong>Hashbox is an AI consulting company in Bangkok</strong> that designs and ships production-grade AI for Thai and regional businesses — LINE chatbots, Sales GPT, RAG knowledge bases, AI workforce agents and workflow automation. Start with a free 30-minute screening to discuss your use case and data readiness. A written ROI assessment is a separate engagement from THB 60,000. We use OpenAI, Claude, Gemini or open-source models per use case, stay PDPA-compliant, and hand over 100% of the source code with no vendor lock-in. Pricing starts at THB 60,000.
             </p>
         </div>
     </div>
@@ -154,7 +154,7 @@ $faqs = array(
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">Week 1</span>
                 <h3 class="hb-h3">Discovery + ROI</h3>
-                <p class="hb-body">We map your current workflow, pick the AI use case with the clearest ROI, and calculate hours saved versus cost — free.</p>
+                <p class="hb-body">Start with a free 30-minute screening. For a written workflow analysis, cost model and go/no-go recommendation, the ROI Assessment takes 1–2 weeks and starts at THB 60,000.</p>
             </div>
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">Week 2–4</span>
@@ -231,7 +231,7 @@ $faqs = array(
                 <p class="hb-body">Monthly retainers for monitoring and iteration. Multi-system enterprise scope is quoted after assessment.</p>
             </div>
         </div>
-        <p class="hb-body" style="margin-top:var(--hb-space-6);">Included at every tier: full source code ownership, no vendor lock-in, PDPA-aware design, and English-language delivery. The ROI Assessment is deliberately a low-risk entry point — and if the recommendation is &ldquo;don&rsquo;t build this,&rdquo; that&rsquo;s what the report will say.</p>
+        <p class="hb-body" style="margin-top:var(--hb-space-6);">Prices exclude VAT and API usage. Hosting and any ongoing support are agreed separately in the proposal. Included at every tier: full source code ownership, no vendor lock-in, PDPA-aware design, and English-language delivery. The ROI Assessment is deliberately a low-risk entry point — and if the recommendation is &ldquo;don&rsquo;t build this,&rdquo; that&rsquo;s what the report will say.</p>
     </div>
 </section>
 
@@ -311,7 +311,7 @@ $faqs = array(
                 <p class="hb-body">Faster answers convert — customers book while intent is still hot.</p>
             </div>
         </div>
-        <p class="hb-body" style="margin-top:var(--hb-space-6);">The architecture is the pattern we deploy for most consumer-facing Thai businesses: LINE as the front door, an LLM with a curated knowledge base behind it, and a clean escalation path to humans. More projects on our <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>">work page</a>.</p>
+        <p class="hb-body" style="margin-top:var(--hb-space-6);"><a href="<?php echo esc_url( home_url( '/work/autobot-line/' ) ); ?>">Read our AutoBot LINE case study</a> (Thai) for the project scope, implementation and reported results. These figures describe that project; outcomes for your business depend on its baseline and scope. The architecture uses LINE as the front door, an LLM with a curated knowledge base behind it, and a clean escalation path to humans. More projects on our <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>">work page</a>.</p>
     </div>
 </section>
 
@@ -366,8 +366,8 @@ $faqs = array(
 
 <section class="hb-section hb-section--surface">
     <div class="hb-container hb-container--md" style="text-align:center;">
-        <h2 class="hb-h2">AI consulting in Bangkok — start with a free ROI assessment</h2>
-        <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">A 30-minute session to find the AI use case with the fastest payback — no commitment, no up-sell.</p>
+        <h2 class="hb-h2">AI consulting in Bangkok — start with a free screening</h2>
+        <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">A free 30-minute conversation about your use case and data readiness. A written ROI Assessment is available separately from THB 60,000; we agree the scope before you commit.</p>
         <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">Talk to us &rarr;</a>
     </div>
 </section>
