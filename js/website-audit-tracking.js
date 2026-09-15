@@ -70,6 +70,9 @@
   }
 
   function captureAttribution() {
+    if (typeof window.hashboxGetCurrentAttribution === 'function') {
+      return window.hashboxGetCurrentAttribution();
+    }
     var stored = readStoredAttribution();
     var params = new URLSearchParams(window.location.search);
     var incoming = {};

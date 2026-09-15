@@ -45,6 +45,15 @@ ai.elements.request_intent.value = 'project';
 ai.services[1].listeners.change();
 assert.equal(ai.elements.phone.required, true, 'Project contact validation remains intact');
 assert.equal(ai.services[1].disabled, false);
+const seo = run('?service=seo');
+assert.equal(seo.services[1].checked, true, 'SEO CTA must preselect SEO');
+assert.equal(seo.services[0].checked, false, 'SEO must not be recorded as AI Search');
+seo.services[1].checked = false;
+seo.services[2].checked = true;
+seo.services[2].listeners.change();
+seo.listeners.pageshow();
+assert.equal(seo.services[1].checked, false, 'SEO preselection must remain editable');
+assert.equal(seo.services[2].checked, true);
 for (const search of ['', '?service=unknown', '?service=%3Cscript%3E']) {
   assert.ok(run(search).services.every(service => !service.checked));
 }
@@ -58,4 +67,7 @@ for (const path of ['page-ai-search.php', 'page-geo-checker.php']) {
   assert.ok(!template.includes("home_url( '/#contact' )"), `${path} must retain AI Search context`);
   assert.ok(template.includes('/?service=ai-search#contact'));
 }
+const seoTemplate = await readFile(new URL('../page-seo-service.php', import.meta.url), 'utf8');
+assert.ok(!seoTemplate.includes("home_url( '/#contact' )"), 'SEO CTAs must carry service context');
+assert.ok(seoTemplate.includes('/?service=seo#contact'));
 console.log('AI Search routing tests passed: prefill, editable service, audit/project validation, unknown values and CRM fallback.');

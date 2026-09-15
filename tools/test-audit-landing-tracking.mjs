@@ -6,6 +6,7 @@ const scriptSource = await readFile(
   new URL('../js/audit-landing.js', import.meta.url),
   'utf8'
 );
+const homepageSource = await readFile(new URL('../js/homepage-leads.js', import.meta.url), 'utf8');
 const functionsSource = await readFile(
   new URL('../functions.php', import.meta.url),
   'utf8'
@@ -78,7 +79,8 @@ function runTracking({
   conversionRef = VALID_CONVERSION_REF,
   localStorage = new MemoryStorage(),
   sessionStorage = new MemoryStorage(),
-  hasFbq = true
+  hasFbq = true,
+  entryUrl = null
 } = {}) {
   let pageUrl = new URL(
     'https://hashbox.co.th/ai-workflow-audit/' +
@@ -88,6 +90,8 @@ function runTracking({
       '&lead_sig=' + 'a'.repeat(64) +
       '&confirmation=queued#audit-form'
   );
+  if (entryUrl) pageUrl.search = '';
+  const attributionFields = new Map();
   const gtagCalls = [];
   const fbqCalls = [];
   const historyCalls = [];
@@ -125,12 +129,19 @@ function runTracking({
   syncLocation();
 
   const document = {
+    getElementById() { return null; },
     querySelector(selector) {
       if (selector === '.hb-audit') return root;
       if (selector === 'meta[name="hashbox-confirmed-ai-lead"]') return meta;
       return null;
     },
-    querySelectorAll() {
+    querySelectorAll(selector) {
+      const match = selector.match(/^\[data-attribution-field="([^"]+)"\]$/);
+      if (match) {
+        const input = { value: '', dataset: {} };
+        attributionFields.set(match[1], input);
+        return [input];
+      }
       return [];
     },
     addEventListener() {}
@@ -170,13 +181,23 @@ function runTracking({
     };
   }
 
-  vm.runInNewContext(scriptSource, {
+  const context = {
     window,
     document,
     URL,
     URLSearchParams,
     console
-  });
+  };
+  if (entryUrl) {
+    const formUrl = pageUrl;
+    pageUrl = new URL(entryUrl);
+    syncLocation();
+    vm.runInNewContext(homepageSource, context);
+    pageUrl = formUrl;
+    syncLocation();
+    vm.runInNewContext(homepageSource, context);
+  }
+  vm.runInNewContext(scriptSource, context);
 
   return {
     gtagCalls,
@@ -184,7 +205,8 @@ function runTracking({
     historyCalls,
     timers,
     localStorage,
-    sessionStorage
+    sessionStorage,
+    attributionFields
   };
 }
 
@@ -195,6 +217,14 @@ function eventCalls(result, eventName) {
 }
 
 const firstRun = runTracking();
+const aiNavigation = runTracking({
+  entryUrl: 'https://hashbox.co.th/services/ai-consulting/?utm_source=google&utm_medium=cpc&utm_campaign=ai_test',
+  confirmedRef: null
+});
+assert.equal(aiNavigation.attributionFields.get('utm_source').value, 'google');
+assert.equal(aiNavigation.attributionFields.get('utm_campaign').value, 'ai_test');
+assert.equal(aiNavigation.attributionFields.get('gclid').value, '');
+assert.equal(eventCalls(aiNavigation, 'conversion').length, 0, 'AI form navigation must not count as a lead');
 const leadEvents = eventCalls(firstRun, 'generate_lead');
 const legacyLeadEvents = eventCalls(firstRun, 'ai_consultation_lead');
 const adsEvents = eventCalls(firstRun, 'conversion');

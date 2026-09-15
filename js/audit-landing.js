@@ -76,6 +76,9 @@
   }
 
   function captureAttribution(scope) {
+    if (typeof window.hashboxGetCurrentAttribution === 'function') {
+      return window.hashboxGetCurrentAttribution();
+    }
     var params = new URLSearchParams(window.location.search);
     var stored = readStoredAttribution(scope);
     var incoming = {};
@@ -117,31 +120,6 @@
       document.querySelectorAll('[data-attribution-field="' + key + '"]').forEach(function (input) {
         input.value = data[key] || input.dataset.attributionDefault || '';
       });
-    });
-  }
-
-  function sameOriginUrl(href) {
-    try {
-      var url = new URL(href, window.location.href);
-      return url.origin === window.location.origin ? url : null;
-    } catch (err) {
-      return null;
-    }
-  }
-
-  function preserveAttributionOnInternalLinks(data) {
-    document.querySelectorAll('a[href]').forEach(function (link) {
-      var url = sameOriginUrl(link.getAttribute('href'));
-      if (!url || url.hash && url.pathname === window.location.pathname) return;
-
-      var changed = false;
-      ATTRIBUTION_KEYS.forEach(function (key) {
-        if (data[key] && !url.searchParams.has(key)) {
-          url.searchParams.set(key, data[key]);
-          changed = true;
-        }
-      });
-      if (changed) link.href = url.toString();
     });
   }
 
@@ -466,7 +444,6 @@
   var attributionScope = root ? root.dataset.auditSlug : 'site';
   var attribution = withAttributionDefaults(captureAttribution(attributionScope), root);
   applyAttribution(attribution);
-  preserveAttributionOnInternalLinks(attribution);
   if (root) {
     if (root.dataset.auditSlug === 'ai-workflow-audit') {
       var retryConfirmedLead = function () {

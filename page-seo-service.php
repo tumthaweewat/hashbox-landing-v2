@@ -97,7 +97,7 @@ $compare = array(
             <h1 class="hb-hero__title">รับทำ SEO สายเทคนิค<br><em>ติดหน้าแรก Google และ AI Search</em><br>วัดผลด้วยข้อมูลจริงรายวัน</h1>
             <p class="hb-hero__sub">บริการรับทำ SEO ของ Hashbox ไม่ได้เริ่มจาก "เขียนบทความเดือนละ 4 ชิ้น" แต่เริ่มจากแก้โครงสร้างเว็บให้ Google อ่านได้เร็วและเข้าใจถูกต้องก่อน — Technical SEO, Core Web Vitals, Schema.org — แล้วต่อยอดด้วย content และ GEO เพื่อให้เว็บของคุณไม่ได้แค่ติดอันดับ แต่ถูก AI อ้างอิงด้วย · ค่าบริการเริ่มต้น 29,900 บาทต่อเดือน เริ่มจาก SEO Audit ฟรี</p>
             <div class="hb-hero__actions">
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
+                <a href="<?php echo esc_url( home_url( '/?service=seo#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
                 <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงาน</a>
             </div>
             <p class="hb-body" style="margin-top:var(--hb-space-5);color:var(--hb-text-muted);"><a href="#guarantee" style="color:var(--hb-accent-emerald,#10B981);font-weight:600;text-decoration:none;">&#10003; การันตี "ไม่โต ไม่จ่าย"</a> — impressions ไม่โต 50% ใน 90 วัน เราทำต่อฟรี · วัดจาก Search Console ของคุณ</p>
@@ -237,7 +237,7 @@ $compare = array(
             <?php endforeach; ?>
         </ul>
         <p class="hb-body" style="margin-top:var(--hb-space-4);color:var(--hb-text-muted);">ทั้งหมดเรียงตาม impact — คุณเห็นเองว่าอะไรควรแก้ก่อน และไม่มีข้อผูกมัดว่าต้องจ้างต่อ</p>
-        <p style="margin-top:var(--hb-space-5);"><a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient">รับ SEO Audit ฟรี &rarr;</a></p>
+        <p style="margin-top:var(--hb-space-5);"><a href="<?php echo esc_url( home_url( '/?service=seo#contact' ) ); ?>" class="hb-btn hb-btn--gradient">รับ SEO Audit ฟรี &rarr;</a></p>
     </div>
 </section>
 
@@ -324,7 +324,7 @@ $compare = array(
                     <li>GEO / AI Overview optimization ระดับ passage</li>
                     <li>ข้อมูลอันดับ + การถูกอ้างอิงใน AI Overview อัปเดตรายวัน จากระบบของเราเอง</li>
                 </ul>
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient" style="margin-top:auto;">ขอใบเสนอราคา SEO</a>
+                <a href="<?php echo esc_url( home_url( '/?service=seo#contact' ) ); ?>" class="hb-btn hb-btn--gradient" style="margin-top:auto;">ขอใบเสนอราคา SEO</a>
             </div>
             <div class="hb-card">
                 <h3 class="hb-card__title">อะไรทำให้ราคาขยับจากจุดเริ่มต้น</h3>
@@ -429,7 +429,7 @@ $compare = array(
         <h2 class="hb-h2">พร้อมเริ่มไหม?</h2>
         <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">ส่ง URL เว็บมา เราตรวจ technical, content และโอกาสใน AI Overview แล้วนัดคุยผลแบบไม่มีข้อผูกมัด</p>
         <div class="hb-hero__actions" style="justify-content:center;">
-            <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
+            <a href="<?php echo esc_url( home_url( '/?service=seo#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
             <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงานที่ผ่านมา</a>
         </div>
     </div>
@@ -480,7 +480,7 @@ hashbox_jsonld( array(
     ),
     'availableChannel' => array(
         '@type'             => 'ServiceChannel',
-        'serviceUrl'        => home_url( '/#contact' ),
+        'serviceUrl'        => home_url( '/?service=seo#contact' ),
         'availableLanguage' => array( 'th', 'en' ),
     ),
 ) );

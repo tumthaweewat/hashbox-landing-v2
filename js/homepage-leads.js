@@ -7,7 +7,7 @@
   var params = new URLSearchParams(window.location.search);
   var record = {};
   try { record = JSON.parse(window.sessionStorage.getItem(storeKey) || '{}'); } catch (e) { /* Storage is optional. */ }
-  if (!record || typeof record !== 'object' || !record.time || Date.now() - record.time > 30 * 60 * 1000) record = {};
+  if (!record || typeof record !== 'object' || !Number.isFinite(record.time) || record.time > Date.now() || Date.now() - record.time > 30 * 60 * 1000) record = {};
   record.entry_path = record.entry_path || window.location.pathname;
   if (/^\/(?:en\/)?services\//.test(window.location.pathname)) record.service_path = window.location.pathname;
   // Replace the campaign as a unit: never attach an earlier ad's click ID to a new campaign.
@@ -17,6 +17,17 @@
   }
   record.time = Date.now();
   try { window.sessionStorage.setItem(storeKey, JSON.stringify(record)); } catch (e) { /* Keep current-page attribution. */ }
+
+  // All lead forms use the current visit, including service-page -> audit CTAs.
+  // Return a complete allowlisted campaign, never merge an older form's click ID.
+  window.hashboxGetCurrentAttribution = function () {
+    var campaign = {};
+    keys.forEach(function (key) {
+      var value = record.campaign && record.campaign[key];
+      campaign[key] = typeof value === 'string' ? value.slice(0, 512) : '';
+    });
+    return campaign;
+  };
 
   var form = document.getElementById('homepage-contact');
   if (!form) return;
@@ -28,7 +39,8 @@
     }
     input.value = value || '';
   }
-  keys.forEach(function (key) { hidden(key, (record.campaign || {})[key]); });
+  var currentCampaign = window.hashboxGetCurrentAttribution();
+  keys.forEach(function (key) { hidden(key, currentCampaign[key]); });
   hidden('entry_path', record.entry_path);
   hidden('service_path', record.service_path);
   hidden('submission_path', window.location.pathname);

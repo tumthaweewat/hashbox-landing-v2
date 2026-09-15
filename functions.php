@@ -210,7 +210,7 @@ function hashbox_enqueue_assets() {
             wp_enqueue_script(
                 'hashbox-audit-landing',
                 $theme_uri . '/js/audit-landing.js',
-                array( 'hashbox-v2-script' ),
+                array( 'hashbox-v2-script', 'hashbox-home-leads' ),
                 filemtime( $audit_js ),
                 true
             );
@@ -233,7 +233,7 @@ function hashbox_enqueue_assets() {
             wp_enqueue_script(
                 'hashbox-website-audit-tracking',
                 $theme_uri . '/js/website-audit-tracking.js',
-                array( 'hashbox-v2-script' ),
+                array( 'hashbox-v2-script', 'hashbox-home-leads' ),
                 filemtime( $website_audit_js ),
                 true
             );
