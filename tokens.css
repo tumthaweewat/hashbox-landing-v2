@@ -1,4 +1,4 @@
-/* Hallmark · tokens: Midnight · dark / geometric-sans / cool-blue */
+/* Legacy audit tokens; the page-scoped Signal V3 migration follows below. */
 :root {
   --color-paper: oklch(13% 0.018 255);
   --color-paper-2: oklch(17% 0.022 255);
@@ -60,4 +60,48 @@
   --z-base: 1;
   --z-raised: 10;
   --z-sticky: 200;
+}
+
+/* Signal V3 · AI campaign page only. Values follow design.md; no global migration. */
+body.hb-audit-landing--ai_workforce {
+  --color-paper: oklch(98.48% 0.0013 106.42);
+  --color-paper-2: oklch(96.06% 0.0027 106.45);
+  --color-paper-3: oklch(93.04% 0.0027 106.45);
+  --color-ink: oklch(15.33% 0.0149 284.51);
+  --color-ink-2: oklch(24.23% 0.0133 285.37);
+  --color-muted: oklch(38.89% 0.0100 285.92);
+  --color-faint: var(--color-muted);
+  --color-rule: oklch(90.61% 0.0027 106.45);
+  --color-rule-2: oklch(60% 0.0062 286.19);
+  --color-accent: oklch(51.06% 0.2301 276.97);
+  --color-accent-strong: oklch(45.68% 0.2146 277.02);
+  --color-accent-text: var(--color-accent-strong);
+  --color-accent-ink: var(--color-paper);
+  --color-accent-soft: oklch(93% 0.035 277);
+  --color-focus: var(--color-accent-strong);
+  --color-error: oklch(44% 0.150 25);
+  --color-error-surface: oklch(93% 0.035 25);
+  --color-proof-paper: var(--color-ink);
+  --color-proof-ink: var(--color-paper);
+  --color-proof-muted: oklch(82.88% 0.0041 106.49);
+  --color-proof-rule: oklch(38.89% 0.0100 285.92);
+  --color-proof-accent: oklch(80% 0.09 277);
+  --font-display: var(--ci-font-display);
+  --font-body: var(--ci-font-body);
+  --font-outlier: var(--ci-font-data);
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 7rem;
+  --space-4xl: 11rem;
+  --text-display-s: clamp(2.25rem, 4vw + 1rem, 3.75rem);
+  --text-display: clamp(2.625rem, 4.5vw + 0.75rem, 4.75rem);
+  --size-control: 3.25rem;
+  --size-nav: 4.5rem;
+  --dur-short: 180ms;
 }

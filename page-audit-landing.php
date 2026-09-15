@@ -81,18 +81,19 @@ get_header();
                         <p class="hb-ai-hero__lede"><?php echo esc_html( $landing['hero_subcopy'] ); ?></p>
                         <div class="hb-ai-hero__actions">
                             <a class="hb-btn hb-btn--gradient hb-btn--lg hb-ai-button hb-ai-hero__primary" href="#audit-form" data-track-event="ai_cta_click">
-                                <?php echo esc_html( $landing['primary_cta'] ); ?> <span aria-hidden="true">→</span>
+                                <?php echo hashbox_ai_action_icon( 'chat' ); ?> <span><?php echo esc_html( $landing['primary_cta'] ); ?></span>
                             </a>
-                            <a class="hb-btn hb-btn--outline hb-btn--lg" href="#proof">ดูเคส AutoBot</a>
+                            <a class="hb-btn hb-btn--outline hb-btn--lg" href="#proof"><?php echo hashbox_ai_action_icon( 'document' ); ?> <span>ดูเคส AutoBot</span></a>
                         </div>
                         <p class="hb-ai-hero__reassurance">คุยกับทีมที่ทำระบบจริง · รู้ว่าควรเริ่มตรงไหน · ติดต่อกลับภายใน 1–3 วันทำการ</p>
                     </div>
 
                     <div class="hb-ai-hero__stat">
+                        <p class="hb-ai-case__label">AutoBot × Hashbox</p>
                         <p class="hb-ai-hero__figure">
                             <?php echo esc_html( str_replace( '-', '−', rtrim( $landing['proof']['metric'], '%' ) ) ); ?><sup>%</sup>
                         </p>
-                        <p class="hb-ai-hero__qualifier">Support cost ในเคส AutoBot ที่ทีม Hashbox ลงมือทำด้วย LINE Bot + RAG ภายใน 8 สัปดาห์ ผลลัพธ์จริงขึ้นอยู่กับโจทย์และข้อมูลของแต่ละธุรกิจ</p>
+                        <p class="hb-ai-hero__qualifier"><strong>ค่าใช้จ่ายงานซัพพอร์ตลูกค้าที่ลดลง</strong> ในเคส AutoBot หลังใช้ LINE Bot + RAG วัดผลหลังพัฒนาระบบเสร็จและใช้งานต่อเนื่อง 8 สัปดาห์ โดยเทียบกับก่อนใช้ระบบ ผลลัพธ์เฉพาะโครงการ ขึ้นอยู่กับขอบเขตงานและข้อมูลของแต่ละธุรกิจ</p>
                     </div>
                 </div>
             </div>
@@ -101,10 +102,9 @@ get_header();
         <section id="proof" class="hb-ai-section hb-ai-case">
             <div class="hb-container hb-ai-case__layout">
                 <div class="hb-ai-case__copy">
-                    <p class="hb-ai-case__label">AutoBot × Hashbox</p>
                     <h2>ตอบอัตโนมัติเมื่อควรตอบ ส่งต่อคนเมื่อควรคิด</h2>
                     <p><?php echo esc_html( $landing['proof']['body'] ); ?></p>
-                    <a class="hb-ai-text-link" href="<?php echo esc_url( $proof_url ); ?>">ดูรายละเอียดเคส AutoBot <span aria-hidden="true">→</span></a>
+                    <a class="hb-ai-text-link" href="<?php echo esc_url( $proof_url ); ?>"><?php echo hashbox_ai_action_icon( 'document' ); ?> ดูรายละเอียดเคส AutoBot</a>
                 </div>
                 <ol class="hb-ai-case__flow" aria-label="โครงสร้างระบบในเคส AutoBot">
                     <li>
@@ -133,6 +133,49 @@ get_header();
 
         <section class="hb-ai-section hb-ai-usecases">
             <div class="hb-container">
+                <div class="hb-ai-business-examples">
+                    <h2 class="hb-ai-section__heading">เห็นภาพจากงานที่ธุรกิจเจอทุกวัน</h2>
+                    <article class="hb-ai-stock-example" aria-labelledby="ai-stock-heading">
+                        <p class="hb-ai-stock-example__status">ตัวอย่างงานที่พัฒนา · ร้านอะไหล่และอู่ซ่อมรถ</p>
+                        <h3 id="ai-stock-heading">แจ้งเตือนสต็อกเหลือน้อย เพื่อเตรียมเติมของล่วงหน้า</h3>
+                        <dl class="hb-ai-example-facts">
+                            <div>
+                                <dt>ปัญหาที่เจอ</dt>
+                                <dd>อะไหล่ถูกใช้ทั้งงานขายและงานซ่อม เจ้าของร้านต้องรู้ว่ารายการไหนใกล้หมด</dd>
+                            </div>
+                            <div>
+                                <dt>ระบบช่วยอะไร</dt>
+                                <dd>แจ้งเตือนเมื่อสต็อกเหลือน้อย ให้เห็นรายการที่ต้องตรวจสอบและเตรียมเติม</dd>
+                            </div>
+                            <div>
+                                <dt>คนตัดสินใจอะไร</dt>
+                                <dd>เจ้าของร้านใช้ข้อมูลประกอบการวางแผนเติมของ และตัดสินใจว่าจะสั่งอะไร เมื่อไร</dd>
+                            </div>
+                        </dl>
+                        <p class="hb-ai-stock-example__note">การแจ้งเตือนตามเงื่อนไขเป็น Automation ได้ โดยไม่ต้องใช้ AI ทุกขั้นตอน</p>
+                    </article>
+                    <details class="hb-ai-example-options">
+                        <summary><span>ตัวอย่างงานอื่นที่ระบบช่วยได้</span><?php echo hashbox_ai_action_icon( 'chevron' ); ?></summary>
+                        <div class="hb-ai-example-options__content">
+                            <p class="hb-ai-example-options__status">แนวทางการใช้งาน ไม่ใช่เคสที่ยืนยันการส่งมอบหรือผลลัพธ์แล้ว</p>
+                            <dl class="hb-ai-example-facts">
+                                <div>
+                                    <dt>คัดแยกอีเมล</dt>
+                                    <dd>ช่วยแยกคำขอลูกค้าและส่งให้ทีมที่เกี่ยวข้อง ส่วนเรื่องที่ไม่ชัดเจนให้เจ้าหน้าที่ตรวจสอบ</dd>
+                                </div>
+                                <div>
+                                    <dt>เตรียมใบเสนอราคา</dt>
+                                    <dd>AI ช่วยอ่านคำขอและไฟล์แนบ ดึงข้อมูลมาร่างใบเสนอราคา โดยให้คนตรวจและอนุมัติก่อนส่ง</dd>
+                                </div>
+                                <div>
+                                    <dt>ติดตามเอกสาร</dt>
+                                    <dd>ช่วยรวบรวมสถานะเอกสารและรายการที่ยังขาด ให้ทีมเห็นงานที่ต้องติดตามต่อ</dd>
+                                </div>
+                            </dl>
+                            <p class="hb-ai-example-options__note">ต้องตรวจความพร้อมของข้อมูลและระบบเดิมก่อนกำหนดขอบเขตงาน</p>
+                        </div>
+                    </details>
+                </div>
                 <div class="hb-ai-usecases__intro">
                     <h2 class="hb-ai-section__heading">3 โจทย์ที่มีเหตุผลให้เริ่ม Screening</h2>
                     <p class="hb-ai-section__lede">เริ่มจากปัญหาที่เกิดซ้ำและวัดผลได้ก่อน ไม่เริ่มจากชื่อเทคโนโลยีหรือทำ AI เพราะกำลังเป็นกระแส</p>
@@ -155,9 +198,21 @@ get_header();
 
         <section class="hb-ai-screening">
             <div class="hb-container">
-                <h2 class="hb-ai-section__heading">รู้ให้ชัดว่าควรเริ่มตรงไหน ก่อนทำ PoC</h2>
-                <p class="hb-ai-section__lede">Screening 30 นาทีช่วยคัดโจทย์ที่มีโอกาสคุ้ม ตรวจความพร้อมของข้อมูล และชี้ขั้นตอนถัดไปโดยไม่ผูกมัดให้จ้างต่อ</p>
-                <div class="hb-ai-screening__layout">
+                <div class="hb-ai-screening__intro">
+                    <h2 class="hb-ai-section__heading">รู้ให้ชัดว่าควรเริ่มตรงไหน ก่อนทำ PoC</h2>
+                    <p class="hb-ai-section__lede">Screening 30 นาทีช่วยคัดโจทย์ที่มีโอกาสคุ้ม ตรวจความพร้อมของข้อมูล และชี้ขั้นตอนถัดไปโดยไม่ผูกมัดให้จ้างต่อ</p>
+                </div>
+                <div class="hb-ai-screening__visual">
+                    <figure class="hb-ai-workflow-figure">
+                        <img
+                            src="<?php echo esc_url( get_template_directory_uri() . '/assets/ai-workflow/workflow-concept-1536.webp' ); ?>"
+                            srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/ai-workflow/workflow-concept-768.webp' ); ?> 768w, <?php echo esc_url( get_template_directory_uri() . '/assets/ai-workflow/workflow-concept-1536.webp' ); ?> 1536w"
+                            sizes="(min-width: 960px) 704px, (min-width: 640px) calc(100vw - 96px), calc(100vw - 32px)"
+                            width="1536" height="1024" loading="lazy" decoding="async"
+                            alt="แนวคิดระบบ AI รับคำถาม ค้นข้อมูลจากเอกสาร แล้วตอบกลับหรือส่งต่อให้เจ้าหน้าที่"
+                        >
+                        <figcaption>ภาพจำลองแนวทางการทำงาน ไม่ใช่หน้าจอระบบลูกค้าจริง</figcaption>
+                    </figure>
                     <div class="hb-ai-screening__signals">
                         <h3>ควรคุยตอนนี้ ถ้า…</h3>
                         <ul>
@@ -166,6 +221,8 @@ get_header();
                             <?php endforeach; ?>
                         </ul>
                     </div>
+                </div>
+                <div class="hb-ai-screening__layout">
                     <div class="hb-ai-screening__outputs">
                         <h3>หลังคุย คุณจะรู้…</h3>
                         <dl>
@@ -184,7 +241,7 @@ get_header();
         <section class="hb-ai-engagements" aria-labelledby="ai-engagements-heading">
             <div class="hb-container">
                 <div class="hb-ai-engagements__intro">
-                    <h2 id="ai-engagements-heading" class="hb-ai-section__heading">เริ่มเล็ก แล้วเพิ่มงบเมื่อข้อมูลยืนยัน</h2>
+                    <h2 id="ai-engagements-heading" class="hb-ai-section__heading">เริ่มจากงานเล็กที่วัดผลได้ ค่อยขยายเมื่อเห็นว่าคุ้มค่า</h2>
                     <p class="hb-ai-section__lede">Screening ช่วยเลือกทางที่เหมาะ จากนั้นค่อยตัดสินใจว่าจะหยุด จัดทำ business case ทดลอง PoC หรือขึ้นระบบ Production</p>
                 </div>
                 <ol class="hb-ai-engagements__list">
@@ -322,20 +379,13 @@ get_header();
                     <?php if ( ! $is_ai_landing ) : ?><span class="hb-eyebrow">Request audit</span><?php endif; ?>
                     <h2 class="hb-h2"><?php echo esc_html( $landing['primary_cta'] ); ?></h2>
                     <p><?php echo esc_html( $is_ai_landing ? 'กรอกบริบทสั้น ๆ ทีมเราจะติดต่อกลับเพื่อนัดเวลา Screening 30 นาทีภายใน 1–3 วันทำการ' : 'กรอกข้อมูลให้พอเห็นบริบท ทีมเราจะตรวจ baseline และส่ง next-step recommendation กลับไปภายใน 1–3 วันทำการ' ); ?></p>
-                    <?php if ( $is_ai_landing ) : ?>
-                        <aside class="hb-ai-project-lead" aria-label="ผู้ดูแลโครงการ">
-                            <p class="hb-ai-project-lead__label">Project lead</p>
-                            <h3><?php echo esc_html( $landing['project_lead']['name'] ); ?></h3>
-                            <p class="hb-ai-project-lead__role"><?php echo esc_html( $landing['project_lead']['role'] ); ?> · <?php echo esc_html( $landing['project_lead']['experience'] ); ?></p>
-                            <p>ดูแลตั้งแต่เลือก use case, architecture, integration ไปจนถึง production monitoring</p>
-                            <a class="hb-ai-text-link" href="<?php echo esc_url( $landing['project_lead']['linkedin'] ); ?>" target="_blank" rel="noopener noreferrer">ดูประสบการณ์บน LinkedIn <span aria-hidden="true">↗</span></a>
-                        </aside>
-                    <?php endif; ?>
+                    <?php if ( ! $is_ai_landing ) : ?>
                     <div class="hb-audit-contact-strip">
                         <a href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer" data-track-event="line_click">LINE OA</a>
                         <a href="tel:+66625169868" data-track-event="phone_click">062-516-9868</a>
                         <a href="mailto:business@hashbox.co.th" data-track-event="email_click">business@hashbox.co.th</a>
                     </div>
+                    <?php endif; ?>
                 </div>
 
                 <form class="hb-audit-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" data-audit-form<?php if ( ! $is_ai_landing ) : ?> data-reveal<?php endif; ?>>
@@ -360,7 +410,7 @@ get_header();
                             <?php else : ?>
                                 <p>ทีม Hashbox จะติดต่อกลับภายใน 1–3 วันทำการ หากต้องการส่งข้อมูลเพิ่มสามารถคุยต่อทาง LINE ได้ทันที</p>
                             <?php endif; ?>
-                            <a class="hb-ai-text-link" href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer" data-track-event="line_click">คุยต่อทาง LINE <span aria-hidden="true">→</span></a>
+                            <a class="hb-ai-text-link" href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer" data-track-event="line_click"><?php echo hashbox_ai_action_icon( 'chat' ); ?> คุยต่อทาง LINE</a>
                         </div>
                     <?php elseif ( ! $is_ai_landing && 'sent' === $contact_status ) : ?>
                         <div class="hb-audit-alert hb-audit-alert--success" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" data-contact-alert>ส่งคำขอสำเร็จ ทีม Hashbox จะติดต่อกลับภายใน 1-3 วันทำการ</div>
@@ -387,25 +437,6 @@ get_header();
                                 <label class="hb-label" for="audit-email">อีเมลสำหรับนัดหมาย <span class="hb-label__required">*</span></label>
                                 <input id="audit-email" class="hb-input" type="email" name="email" required aria-required="true" autocomplete="email" inputmode="email" placeholder="you@company.com">
                             </div>
-                            <div class="hb-ai-form__qualification">
-                                <div class="hb-field">
-                                    <label class="hb-label" for="audit-service">โจทย์ที่สนใจ</label>
-                                    <select id="audit-service" class="hb-select" name="service">
-                                        <?php foreach ( $service_options as $option ) : ?>
-                                            <option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, 'ยังไม่แน่ใจ ขอ AI Screening ก่อน' ); ?>><?php echo esc_html( $option ); ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="hb-field">
-                                    <label class="hb-label" for="audit-timeline">ช่วงเวลาที่อยากเริ่ม</label>
-                                    <select id="audit-timeline" class="hb-select" name="timeline">
-                                        <option value="">ยังไม่ระบุ</option>
-                                        <?php foreach ( $timeline_options as $option ) : ?>
-                                            <option value="<?php echo esc_attr( $option ); ?>"><?php echo esc_html( $option ); ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="hb-field">
                                 <label class="hb-label" for="audit-problem">โจทย์หลักที่อยากแก้คืออะไร? <span class="hb-label__required">*</span></label>
                                 <textarea id="audit-problem" class="hb-textarea" name="problem" rows="4" required aria-required="true" placeholder="เช่น ทีมตอบคำถามซ้ำ ข้อมูลอยู่หลายระบบ หรือต้องการค้นเอกสารด้วย AI"></textarea>
@@ -413,9 +444,28 @@ get_header();
                         </div>
 
                         <details class="hb-ai-form__optional">
-                            <summary>เพิ่มข้อมูลเพื่อให้คำแนะนำแม่นขึ้น (ไม่บังคับ)</summary>
-                            <div class="hb-ai-form__optional-fields">
-                                <div class="hb-field">
+                            <summary><span>เพิ่มข้อมูล (ไม่บังคับ)</span><?php echo hashbox_ai_action_icon( 'chevron' ); ?></summary>
+                                <div class="hb-ai-form__optional-fields">
+                                <div class="hb-ai-form__qualification">
+                                    <div class="hb-field">
+                                        <label class="hb-label" for="audit-service">โจทย์ที่สนใจ</label>
+                                        <select id="audit-service" class="hb-select" name="service">
+                                            <?php foreach ( $service_options as $option ) : ?>
+                                                <option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, 'ยังไม่แน่ใจ ขอ AI Screening ก่อน' ); ?>><?php echo esc_html( $option ); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="hb-field">
+                                        <label class="hb-label" for="audit-timeline">ช่วงเวลาที่อยากเริ่ม</label>
+                                        <select id="audit-timeline" class="hb-select" name="timeline">
+                                            <option value="">ยังไม่ระบุ</option>
+                                            <?php foreach ( $timeline_options as $option ) : ?>
+                                                <option value="<?php echo esc_attr( $option ); ?>"><?php echo esc_html( $option ); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                    <div class="hb-field">
                                     <label class="hb-label" for="audit-website">เว็บไซต์ปัจจุบัน</label>
                                     <input id="audit-website" class="hb-input" type="url" name="website" inputmode="url" autocomplete="url" placeholder="https://company.com">
                                 </div>
@@ -438,8 +488,8 @@ get_header();
                                     </select>
                                 </div>
                                 <div class="hb-field">
-                                    <label class="hb-label" for="audit-contact-detail">เบอร์โทร / LINE ID <span class="hb-label__required" data-ai-contact-required hidden>*</span></label>
-                                    <input id="audit-contact-detail" class="hb-input" type="text" name="contact_detail" autocomplete="tel" aria-describedby="audit-contact-detail-help" data-ai-contact-detail placeholder="ระบุเมื่ออยากให้ติดต่อช่องทางอื่น">
+                                    <label class="hb-label" for="audit-contact-detail"><span data-ai-contact-label>เบอร์โทร / LINE ID</span> <span class="hb-label__required" data-ai-contact-required hidden>*</span></label>
+                                    <input id="audit-contact-detail" class="hb-input" type="text" name="contact_detail" autocomplete="off" aria-describedby="audit-contact-detail-help" data-ai-contact-detail placeholder="ระบุเมื่ออยากให้ติดต่อช่องทางอื่น">
                                     <p id="audit-contact-detail-help" class="hb-field__help">จำเป็นเมื่อเลือก LINE หรือโทรศัพท์</p>
                                 </div>
                             </div>
@@ -513,9 +563,25 @@ get_header();
                         <span class="hb-checkbox-wrap__label">ยินยอมให้ Hashbox เก็บข้อมูลเพื่อติดต่อกลับตาม <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">นโยบาย PDPA</a></span>
                     </label>
 
-                    <button class="hb-btn hb-btn--gradient hb-btn--lg hb-audit-form__submit<?php echo $is_ai_landing ? ' hb-ai-button' : ''; ?>" type="submit"><?php echo esc_html( $landing['primary_cta'] ); ?> <span aria-hidden="true">→</span></button>
+                    <button class="hb-btn hb-btn--gradient hb-btn--lg hb-audit-form__submit<?php echo $is_ai_landing ? ' hb-ai-button' : ''; ?>" type="submit"><?php if ( $is_ai_landing ) : ?><?php echo hashbox_ai_action_icon( 'send' ); ?> <span>ส่งข้อมูลขอคำปรึกษา</span><?php else : ?><?php echo esc_html( $landing['primary_cta'] ); ?> <span aria-hidden="true">→</span><?php endif; ?></button>
                     <?php endif; ?>
                 </form>
+                <?php if ( $is_ai_landing ) : ?>
+                <div class="hb-ai-project-contact">
+                        <aside class="hb-ai-project-lead" aria-label="ผู้ดูแลโครงการ">
+                            <p class="hb-ai-project-lead__label">Project lead</p>
+                            <h3><?php echo esc_html( $landing['project_lead']['name'] ); ?></h3>
+                            <p class="hb-ai-project-lead__role"><?php echo esc_html( $landing['project_lead']['role'] ); ?> · <?php echo esc_html( $landing['project_lead']['experience'] ); ?></p>
+                            <p>ดูแลตั้งแต่เลือก use case, architecture, integration ไปจนถึง production monitoring</p>
+                            <a class="hb-ai-text-link" href="<?php echo esc_url( $landing['project_lead']['linkedin'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo hashbox_ai_action_icon( 'external' ); ?> ดูประสบการณ์บน LinkedIn</a>
+                        </aside>
+                    <div class="hb-audit-contact-strip">
+                        <a href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer" data-track-event="line_click"><?php echo hashbox_ai_action_icon( 'chat' ); ?> LINE OA</a>
+                        <a href="tel:+66625169868" data-track-event="phone_click"><?php echo hashbox_ai_action_icon( 'phone' ); ?> 062-516-9868</a>
+                        <a href="mailto:business@hashbox.co.th" data-track-event="email_click"><?php echo hashbox_ai_action_icon( 'mail' ); ?> business@hashbox.co.th</a>
+                    </div>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>
@@ -529,7 +595,7 @@ get_header();
             <div class="hb-audit-faq">
                 <?php foreach ( $landing['faqs'] as $faq ) : ?>
                     <details class="hb-audit-faq__item"<?php if ( ! $is_ai_landing ) : ?> data-reveal<?php endif; ?>>
-                        <summary><?php echo esc_html( $faq['q'] ); ?></summary>
+                        <summary><?php if ( $is_ai_landing ) : ?><span><?php echo esc_html( $faq['q'] ); ?></span><?php echo hashbox_ai_action_icon( 'chevron' ); ?><?php else : ?><?php echo esc_html( $faq['q'] ); ?><?php endif; ?></summary>
                         <p><?php echo esc_html( $faq['a'] ); ?></p>
                     </details>
                 <?php endforeach; ?>
@@ -540,7 +606,7 @@ get_header();
     <?php if ( $is_ai_landing ) : ?>
         <aside class="hb-ai-mobile-cta" data-ai-sticky-cta aria-hidden="true" inert>
             <span class="hb-ai-mobile-cta__note">Screening ฟรี · 30 นาที</span>
-            <a class="hb-btn hb-btn--gradient hb-ai-button" href="#audit-form" data-track-event="ai_cta_click">ส่งโจทย์ AI</a>
+            <a class="hb-btn hb-btn--gradient hb-ai-button" href="#audit-form" data-track-event="ai_cta_click"><?php echo hashbox_ai_action_icon( 'chat' ); ?> <span>ปรึกษา AI ฟรี</span></a>
         </aside>
     <?php else : ?>
         <div class="hb-audit-mobile-cta">

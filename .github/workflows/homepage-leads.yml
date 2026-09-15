@@ -1,0 +1,24 @@
+name: Homepage lead verification
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  lead-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: PHP syntax and signed receipt behavior
+        run: |
+          php -l functions.php
+          php -l front-page.php
+          php -l inc/homepage-leads.php
+          php tools/test-homepage-leads.php
+      - name: Browser event and existing lead contracts
+        run: |
+          node --check js/homepage-leads.js
+          node tools/test-homepage-leads.mjs
+          node tools/test-ai-search-routing.mjs
+          node tools/test-conversion-ref-contract.mjs
+          node tools/test-hubspot-attribution-contract.mjs
+          node tools/test-audit-landing-tracking.mjs
+          node tools/test-website-audit-tracking.mjs

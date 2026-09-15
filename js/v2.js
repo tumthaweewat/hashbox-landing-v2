@@ -13,6 +13,13 @@
   const contact = document.getElementById('homepage-contact');
   if (contact) {
     const intent = contact.elements.request_intent;
+    // Service context is independent of campaign attribution. Never add UTMs
+    // to internal links or override a visitor's subsequent manual selection.
+    const requestedService = new URLSearchParams(window.location.search).get('service');
+    const serviceFields = Array.from(contact.querySelectorAll('[name="services[]"]'));
+    const requestedField = serviceFields.find(field => field.value === requestedService);
+    if (requestedField) requestedField.checked = true;
+    const isAiSearch = () => serviceFields.some(field => field.value === 'ai-search' && field.checked);
     const website = contact.elements.website;
     const noWebsite = contact.elements.no_website;
     const details = document.getElementById('contact-project-details');
@@ -67,13 +74,17 @@
         : 'เลือกบริการและเล่าโจทย์ เพื่อให้ทีมประเมินแนวทางที่เหมาะกับธุรกิจของคุณ';
       details.querySelectorAll('input, select').forEach(field => { field.disabled = audit; });
       help.textContent = audit ? 'จำเป็นสำหรับ Audit: ระบุเว็บไซต์ที่ต้องการให้ตรวจ (ใช้ Facebook Page แทนไม่ได้)' : 'ระบุเว็บไซต์หรือ Facebook Page ของธุรกิจ ถ้ามี';
-      submit.textContent = audit ? 'ขอ Audit ฟรี →' : 'ส่งโจทย์ให้ทีมประเมิน →';
+      if (audit && isAiSearch()) {
+        document.getElementById('contact-intent-help').textContent = 'ประเมินการค้นพบเว็บไซต์บน Google และ AI แหล่งที่ถูกอ้างอิง และจุดที่ควรปรับปรุงตามเป้าหมายธุรกิจ';
+      }
+      submit.textContent = audit && isAiSearch() ? 'นัดประเมิน SEO + AI Search →' : (audit ? 'ขอ Audit ฟรี →' : 'ส่งโจทย์ให้ทีมประเมิน →');
       updateContactChannels();
     };
     contact.querySelectorAll('[name="request_intent"]').forEach(radio => radio.addEventListener('change', () => {
       if (intent.value === 'audit') noWebsite.checked = false;
       updateContact();
     }));
+    serviceFields.forEach(field => field.addEventListener('change', updateContact));
     noWebsite.addEventListener('change', updateContact);
     website.addEventListener('input', () => website.setCustomValidity(''));
     contact.addEventListener('submit', event => {
@@ -422,7 +433,7 @@
     const a = e.target.closest('a[href]');
     if (!contact || !a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === '_blank' || a.hasAttribute('download')) return;
     const url = new URL(a.href, location.href);
-    if (url.origin !== location.origin || url.pathname !== location.pathname || url.hash !== '#contact') return;
+    if (url.origin !== location.origin || url.pathname !== location.pathname || url.hash !== '#contact' || url.search !== location.search) return;
     e.preventDefault();
     if (location.hash !== '#contact') history.pushState(null, '', '#contact');
     requestAnimationFrame(() => scrollToContactForm());

@@ -390,10 +390,18 @@
     var preference = form.querySelector('[data-ai-contact-preference]');
     var detail = form.querySelector('[data-ai-contact-detail]');
     var requiredMark = form.querySelector('[data-ai-contact-required]');
+    var contactLabel = form.querySelector('[data-ai-contact-label]');
     if (!preference || !detail) return;
 
     function syncRequirement() {
       var required = preference.value === 'LINE' || preference.value === 'โทร';
+      var isPhone = preference.value === 'โทร';
+      var isLine = preference.value === 'LINE';
+      if (contactLabel) contactLabel.textContent = isPhone ? 'เบอร์โทรศัพท์' : isLine ? 'LINE ID' : 'เบอร์โทร / LINE ID';
+      detail.type = isPhone ? 'tel' : 'text';
+      detail.setAttribute('inputmode', isPhone ? 'tel' : 'text');
+      detail.setAttribute('autocomplete', isPhone ? 'tel' : 'off');
+      detail.placeholder = isPhone ? 'เช่น 0812345678 หรือ +66 812345678' : isLine ? 'LINE ID ของคุณ' : 'ระบุเมื่ออยากให้ติดต่อช่องทางอื่น';
       detail.required = required;
       if (required) {
         detail.setAttribute('aria-required', 'true');

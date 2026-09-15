@@ -21,7 +21,7 @@ get_header();
 $page_url     = get_permalink();
 $services_url = home_url( '/services/' );
 $has_checker  = (bool) get_page_by_path( 'geo-checker', OBJECT, 'page' );
-$checker_url  = $has_checker ? home_url( '/geo-checker/' ) : home_url( '/#contact' );
+$checker_url  = $has_checker ? home_url( '/geo-checker/' ) : home_url( '/?service=ai-search#contact' );
 $desc         = 'รับทำ AI Search (GEO): ทำให้แบรนด์ถูกอ้างอิงใน Google AI Overview, ChatGPT, Perplexity และ Gemini — audit, entity/schema, answer-first content, citation จากแหล่งภายนอก วัดผลด้วย AI Visibility, Brand Mentions และ Citations จากระบบ track ของเราเอง';
 
 $author_name     = 'Tum Thaweewat';
@@ -37,13 +37,13 @@ $faqs = array(
     array( 'q' => 'ต้องทำ SEO ก่อนไหมถึงจะทำ AI Search ได้?', 'a' => 'พื้นฐานต้องผ่านก่อน: เว็บต้อง crawl ได้ เร็วพอ และมี Schema ถูกต้อง เพราะ AI ดึงจากดัชนีเดียวกับ Google ถ้าเว็บยังไม่ผ่านตรงนี้ เราจะแก้ใน 2–4 สัปดาห์แรกก่อนเริ่มงาน AI Search ส่วนเว็บที่ SEO ดีอยู่แล้วเริ่มงาน GEO ได้ทันที' ),
     array( 'q' => 'รับทำ AI Search ราคาเท่าไหร่?', 'a' => 'GEO / AI Overview optimization รวมอยู่ในบริการรับทำ SEO ของ Hashbox ซึ่งเริ่มต้น 29,900 บาทต่อเดือน สำหรับลูกค้าที่ต้องการเฉพาะงาน AI Search แยกจาก SEO เราเสนอราคาตาม scope จริงหลัง GEO Audit ฟรี (จำนวนคีย์เวิร์ด/prompt ที่ต้อง track, จำนวนหน้าที่ต้องแก้ และ citation ภายนอกที่ต้องสร้าง) ราคาไม่รวม VAT 7%' ),
     array( 'q' => 'ChatGPT และ Perplexity ดึงข้อมูลแบรนด์จากไหน?', 'a' => 'จากข้อมูลที่เราเห็นในระบบ track ปี 2026 AI ดึงจากแหล่งที่มีข้อเท็จจริงและตัวเลขชัด: เว็บของแบรนด์เอง (ถ้ามีประโยคนิยาม ราคา และ FAQ), directory เช่น Clutch, marketplace, Facebook page, วิดีโอ YouTube และบทความเปรียบเทียบ — คำในกลุ่มบริการไทยหลายคำ AI อ้างอิง Facebook และ YouTube มากกว่าเว็บบริษัท จึงเป็นเหตุผลที่บริการนี้ทำ citation ภายนอกควบคู่กับเว็บ' ),
-    array( 'q' => 'llms.txt คืออะไร จำเป็นไหม?', 'a' => 'llms.txt คือไฟล์ข้อความที่ root ของเว็บ สรุปว่าแบรนด์คือใคร ขายอะไร ราคาเท่าไร และหน้าสำคัญอยู่ที่ไหน ในรูปแบบที่ AI crawler อ่านง่าย (เหมือน robots.txt สำหรับ AI) ยังไม่ใช่มาตรฐานที่ทุก AI ใช้ แต่ต้นทุนต่ำและไม่มีข้อเสีย Hashbox ทำ llms.txt + llms-full.txt ให้ทุกเว็บที่ดูแล และทำให้เว็บตัวเองด้วย — ดูได้ที่ hashbox.co.th/llms.txt' ),
-    array( 'q' => 'Hashbox ทำ AI Search ให้ตัวเองได้ผลจริงไหม?', 'a' => 'เราใช้ระบบเดียวกันกับเว็บตัวเอง: track 61 คีย์เวิร์ด (EN 16 · TH 45), AI Overview 51 คำ และ 20 prompt × 4 AI ทุกเดือน บทความ "ปรึกษาทำระบบ AI Solution สำหรับธุรกิจ" ของเราติดอันดับ 3 บน Google และถูก AI Overview อ้างอิงในคำที่มีเอเจนซีใหญ่แข่งอยู่ — เราเปิดตัวเลขทั้งที่ได้และยังไม่ได้ให้ดูตอนคุยกัน' ),
+    array( 'q' => 'llms.txt คืออะไร จำเป็นไหม?', 'a' => 'llms.txt เป็นไฟล์สรุปข้อมูลและลิงก์ที่บางเว็บไซต์จัดทำไว้ให้ระบบ AI ใช้อ่าน ไม่ใช่ไฟล์ควบคุมการเข้าถึงแบบ robots.txt และไม่ใช่เงื่อนไขจำเป็นสำหรับ Google AI Overviews หรือ AI Mode Google ไม่กำหนดไฟล์ AI หรือ Schema พิเศษ การมีไฟล์นี้ไม่ได้รับประกันการถูกอ้างอิง เราพิจารณาเป็นส่วนเสริมตามการใช้งานจริง' ),
+    array( 'q' => 'Hashbox ทำ AI Search ให้ตัวเองได้ผลจริงไหม?', 'a' => 'เราใช้ระบบติดตามกับเว็บของเราเอง โดยดูคำค้นและ prompt แยกตามแพลตฟอร์ม ผลต้องอ่านพร้อมวันที่ตรวจ ประเทศ ภาษา และ URL อ้างอิง จำนวนคำในแต่ละรอบอาจต่างกัน จึงควรเปรียบเทียบชุดเดียวกัน เราสามารถนำรายงานที่มีข้อมูลต้นทางมาใช้ประกอบการประเมิน โดยไม่รับประกันอันดับหรือการถูก AI อ้างอิง' ),
 );
 
 $process = array(
-    array( 'AI-Specific Audit', 'ตรวจว่า AI crawler เข้าได้ไหม (robots, llms.txt), หน้าไหนมีประโยคที่ AI ยกไปใช้ได้, Schema และ entity ครบหรือยัง และคีย์เวิร์ดเป้าหมายไหน Google แสดง AI Overview อยู่ — พร้อมรายชื่อแหล่งที่ AI อ้างอิงแทนคุณตอนนี้' ),
-    array( 'Entity + Technical', 'Organization / Service / Person schema ที่ระบุชัดว่าแบรนด์คือใคร ทำอะไร อยู่ที่ไหน ราคาเท่าไร · sameAs เชื่อมทุกโปรไฟล์ให้เป็น entity เดียว · llms.txt + llms-full.txt · robots เปิดรับ GPTBot, ClaudeBot, PerplexityBot, Google-Extended' ),
+    array( 'AI-Specific Audit', 'ตรวจการเข้าถึงและการจัดทำดัชนี (robots.txt, noindex และข้อจำกัดของเว็บไซต์), หน้าไหนมีประโยคที่ AI ยกไปใช้ได้, Schema และ entity ครบหรือยัง และคีย์เวิร์ดเป้าหมายไหน Google แสดง AI Overview อยู่ — พร้อมรายชื่อแหล่งที่ AI อ้างอิงแทนคุณตอนนี้' ),
+    array( 'Entity + Technical', 'Organization / Service / Person schema ที่ระบุชัดว่าแบรนด์คือใคร ทำอะไร อยู่ที่ไหน ราคาเท่าไร · sameAs เชื่อมทุกโปรไฟล์ให้เป็น entity เดียว · ตรวจ robots.txt แยกตามวัตถุประสงค์การค้นหาและการฝึกโมเดล · llms.txt เป็นส่วนเสริม ไม่ใช่เงื่อนไขของ Google AI Overviews' ),
     array( 'Answer-First Content', 'ทุกหน้าเงินและบทความหลักมีประโยคนิยาม "X คือ…" ใน 2 บรรทัดแรก, ตารางเปรียบเทียบ, ขั้นตอน, ตัวเลข และ FAQ ที่ตอบตรงคำถามจริง — เขียนจากงานที่ทำจริง ไม่ใช่เนื้อหาทั่วไปที่ AI มีอยู่แล้ว' ),
     array( 'Citations ภายนอก', 'AI เชื่อสิ่งที่คนอื่นพูดถึงคุณมากกว่าที่คุณพูดเอง — Google Business Profile, directory (Clutch, GoodFirms), Facebook page, วิดีโอ YouTube พร้อม transcript และบทความเปรียบเทียบ ให้ข้อมูลตรงกันทุกแหล่ง' ),
     array( 'Track + Report', 'AI Overview ของคีย์เวิร์ดเป้าหมายรายวัน, prompt ชุดเดียวกันยิง ChatGPT / Claude / Gemini / Perplexity ทุกเดือน, แหล่งที่ AI อ้างอิง และ LLM traffic ใน GA4 — รายงานว่าอะไรขยับ อะไรยัง และทำอะไรต่อ' ),
@@ -84,8 +84,9 @@ $kpis = array(
             <span class="hb-eyebrow">AI Search · GEO · AEO</span>
             <h1 class="hb-hero__title">รับทำ AI Search (GEO)<br><em>ให้แบรนด์เป็นคำตอบของ AI</em><br>ใน Google AI Overview, ChatGPT, Perplexity</h1>
             <p class="hb-hero__sub">บริการรับทำ AI Search ของ Hashbox คือการทำให้ AI หยิบแบรนด์ของคุณไปตอบผู้ใช้ — ไม่ใช่แค่ติดอันดับในผลค้นหา 10 ลิงก์ เราตรวจว่า AI ดึงข้อมูลจากไหนตอนนี้ แก้ entity, Schema, llms.txt และเนื้อหาแบบ answer-first แล้วสร้างการถูกพูดถึงจากแหล่งภายนอกที่ AI เชื่อ วัดผลด้วยระบบ track AI Overview และ AI mention ของเราเอง · GEO รวมอยู่ใน SEO retainer เริ่มต้น 29,900 บาทต่อเดือน</p>
+            <p class="hb-body">ส่งเว็บไซต์และเป้าหมายธุรกิจ เพื่อประเมินช่องว่าง SEO + AI Search แหล่งที่ AI อ้างอิง และลำดับสิ่งที่ควรแก้ก่อนลงทุน</p>
             <div class="hb-hero__actions">
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">ขอ GEO Audit ฟรี</a>
+                <a href="<?php echo esc_url( home_url( '/?service=ai-search#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">นัดประเมิน SEO + AI Search สำหรับธุรกิจ</a>
                 <?php if ( $has_checker ) : ?>
                 <a href="<?php echo esc_url( $checker_url ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">เช็คเว็บด้วย GEO Checker</a>
                 <?php else : ?>
@@ -207,11 +208,29 @@ $kpis = array(
             <h2 class="hb-h2">เราทำ AI Search ให้ hashbox.co.th ด้วยระบบเดียวกัน</h2>
         </div>
         <ul style="list-style:none;margin:0;padding:var(--hb-space-6);border:1px solid var(--hb-border);border-radius:var(--hb-radius-md,8px);background:var(--hb-surface-1,#18181B);display:grid;gap:var(--hb-space-4);">
-            <li style="display:flex;gap:var(--hb-space-3);align-items:flex-start;"><span aria-hidden="true" style="color:var(--hb-accent-emerald,#10B981);font-weight:700;">&#10003;</span><p class="hb-body" style="margin:0;"><strong>Track ทุกวัน</strong> — 56 คีย์เวิร์ด, AI Overview 51 คำ, 20 prompt × ChatGPT / Claude / Gemini / Perplexity ทุกเดือน และรายชื่อแหล่งที่ AI อ้างอิงในแต่ละคำ</p></li>
+            <li style="display:flex;gap:var(--hb-space-3);align-items:flex-start;"><span aria-hidden="true" style="color:var(--hb-accent-emerald,#10B981);font-weight:700;">&#10003;</span><p class="hb-body" style="margin:0;"><strong>Track ทุกวัน</strong> — ติดตามคำค้นและ prompt แยกตามแพลตฟอร์ม พร้อมวันที่ตรวจ ประเทศ ภาษา และรายชื่อแหล่งอ้างอิง เปรียบเทียบเฉพาะชุดข้อมูลเดียวกัน</p></li>
             <li style="display:flex;gap:var(--hb-space-3);align-items:flex-start;"><span aria-hidden="true" style="color:var(--hb-accent-emerald,#10B981);font-weight:700;">&#10003;</span><p class="hb-body" style="margin:0;"><strong>ถูก AI Overview อ้างอิงจริง</strong> — บทความ <a href="<?php echo esc_url( home_url( '/ai-solution-consulting-guide-2026/' ) ); ?>">ปรึกษาทำระบบ AI Solution สำหรับธุรกิจ</a> ติดอันดับ 3 และถูก Google AI Overview อ้างอิง ในคำที่มีเอเจนซีใหญ่แข่งอยู่</p></li>
             <li style="display:flex;gap:var(--hb-space-3);align-items:flex-start;"><span aria-hidden="true" style="color:var(--hb-accent-emerald,#10B981);font-weight:700;">&#10003;</span><p class="hb-body" style="margin:0;"><strong>เปิดโครงสร้างให้ดู</strong> — <a href="<?php echo esc_url( home_url( '/llms.txt' ) ); ?>">llms.txt</a>, robots.txt ที่เปิดรับ AI crawler, Organization schema ที่ระบุ entity ครบ ทั้งหมดอยู่บนเว็บนี้ ตรวจได้เอง</p></li>
             <li style="display:flex;gap:var(--hb-space-3);align-items:flex-start;"><span aria-hidden="true" style="color:var(--hb-accent-emerald,#10B981);font-weight:700;">&#10003;</span><p class="hb-body" style="margin:0;"><strong>บอกตรงๆ ว่ายังไม่ได้อะไร</strong> — คำที่เรายังไม่ถูกเอ่ยถึง เราแสดงในรายงานเดียวกัน เพราะตัวเลขที่ไม่ครบคือสิ่งที่บอกว่าต้องทำอะไรต่อ</p></li>
         </ul>
+    </div>
+</section>
+
+<section class="hb-section hb-section--surface" id="sample-report">
+    <div class="hb-container hb-container--md">
+        <div class="hb-section__head">
+            <span class="hb-eyebrow">ตัวอย่างรูปแบบรายงาน</span>
+            <h2 class="hb-h2">ดูหลักฐานและสิ่งที่ควรแก้ในรายงานเดียวกัน</h2>
+            <p class="hb-section__sub">โครงสร้างตัวอย่างด้านล่างยังไม่ใช่ผลตรวจจริงของลูกค้า ข้อมูลจริงจะระบุชุดคำค้น วันที่ตรวจ และแหล่งอ้างอิงเพื่อย้อนตรวจได้</p>
+        </div>
+        <dl class="hb-body">
+            <dt><strong>คำค้น / Prompt</strong></dt><dd>[คำถามที่ลูกค้าใช้ค้นหาบริการของธุรกิจ]</dd>
+            <dt><strong>วันที่และเงื่อนไขตรวจ</strong></dt><dd>[วัน เวลา เขตเวลา ประเทศ ภาษา และแพลตฟอร์ม]</dd>
+            <dt><strong>ผลที่พบและแหล่งอ้างอิง</strong></dt><dd>[พบแบรนด์ / ไม่พบ / ไม่แสดงคำตอบ AI] พร้อม [URL ต้นทางและหลักฐานของรอบตรวจ]</dd>
+            <dt><strong>สิ่งที่ควรปรับปรุง</strong></dt><dd>[หน้าที่เกี่ยวข้อง ประเด็นที่ขาด และงานที่ควรทำก่อน พร้อมเหตุผล]</dd>
+            <dt><strong>การตรวจรอบถัดไป</strong></dt><dd>[ใช้คำถามและเงื่อนไขเดิม เปรียบเทียบผล พร้อมดูการสอบถามที่เกิดขึ้นจริง]</dd>
+        </dl>
+        <p class="hb-body">การปรากฏในคำตอบ AI เปลี่ยนได้และไม่สามารถรับประกันผลได้ ดู <a href="https://developers.google.com/search/docs/appearance/ai-features">แนวทาง Google Search Central</a></p>
     </div>
 </section>
 
@@ -230,12 +249,12 @@ $kpis = array(
                 <p class="hb-caption">GEO / AI Overview optimization เป็นส่วนหนึ่งของ<a href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>">บริการรับทำ SEO</a>อยู่แล้ว</p>
                 <ul class="hb-tier__features">
                     <li>Technical SEO + Core Web Vitals + Schema (พื้นฐานที่ AI ต้องการ)</li>
-                    <li>llms.txt + llms-full.txt + robots เปิดรับ AI crawler</li>
+                    <li>ตรวจการเข้าถึงของ crawler ตามการใช้งาน · llms.txt เป็นส่วนเสริม</li>
                     <li>Answer-first content และ FAQ บนหน้าเงิน</li>
                     <li>Track AI Overview ของคีย์เวิร์ดเป้าหมายรายวัน</li>
                     <li>รายงานอันดับ + AI citation ชุดเดียวกัน</li>
                 </ul>
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient" style="margin-top:auto;">ขอ SEO + GEO Audit ฟรี</a>
+                <a href="<?php echo esc_url( home_url( '/?service=ai-search#contact' ) ); ?>" class="hb-btn hb-btn--gradient" style="margin-top:auto;">ขอ SEO + GEO Audit ฟรี</a>
             </div>
             <div class="hb-card">
                 <h3 class="hb-card__title">AI Search แยกเดี่ยว — quote หลัง GEO Audit ฟรี</h3>
@@ -296,7 +315,7 @@ $kpis = array(
     <div class="hb-container hb-container--md" style="text-align:center;">
         <h2 class="hb-h2">อยากรู้ว่าตอนนี้ AI ตอบชื่อใครแทนคุณ?</h2>
         <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">ส่งชื่อแบรนด์ + คีย์เวิร์ด 5 คำมา เราส่งผลกลับว่า AI Overview, ChatGPT และ Perplexity อ้างอิงใครอยู่ พร้อมสิ่งที่ต้องแก้ก่อน — ฟรี ไม่มีข้อผูกมัด</p>
-        <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">ขอ GEO Audit ฟรี &rarr;</a>
+        <a href="<?php echo esc_url( home_url( '/?service=ai-search#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">ขอ GEO Audit ฟรี &rarr;</a>
     </div>
 </section>
 
