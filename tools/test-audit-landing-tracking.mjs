@@ -233,6 +233,7 @@ assert.equal(leadEvents.length, 1, 'AI success must emit one canonical generate_
 assert.equal(legacyLeadEvents.length, 0, 'AI success must not emit a second custom lead event');
 assert.equal(adsEvents.length, 1, 'AI success must emit one Google Ads conversion');
 assert.equal(leadEvents[0][2].lead_source, 'ai_consulting');
+assert.equal(leadEvents[0][2].send_to, 'G-WQ4CG18QQT', 'AI lead must explicitly reach GA4 when GTM owns asynchronous configuration');
 assert.equal(leadEvents[0][2].transaction_id, VALID_CONVERSION_REF);
 assert.equal(adsEvents[0][2].transaction_id, VALID_CONVERSION_REF);
 assert.equal(adsEvents[0][2].send_to, AI_ADS_DESTINATION);

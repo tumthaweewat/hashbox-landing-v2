@@ -10,6 +10,7 @@
   var LEGACY_ATTRIBUTION_STORAGE_KEY = 'hashbox_attribution_params';
   var ATTRIBUTION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
   var AI_CONVERSION_DESTINATION = 'AW-18190672421/qx_ICPKggN0cEKXE_uFD';
+  var GA4_DESTINATION = 'G-WQ4CG18QQT';
   var AI_PENDING_LEAD_KEY = 'hashbox_ai_pending_lead_ref';
   var AI_LEAD_STORAGE_PREFIX = 'hashbox_ai_lead_v2_';
   var AI_LEAD_MEMORY_STATE = {};
@@ -309,6 +310,8 @@
         // Use GA4's recommended lead-generation event so Website and AI
         // submissions populate the same lead funnel and key-event reports.
         window.gtag('event', 'generate_lead', {
+          // GTM configures GA4 asynchronously; do not rely on the default group.
+          send_to: GA4_DESTINATION,
           form_id: 'ai-workflow-audit',
           form_name: 'AI Opportunity Screening',
           lead_source: 'ai_consulting',
