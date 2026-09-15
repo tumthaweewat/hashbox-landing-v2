@@ -313,7 +313,7 @@
           form_name: 'AI Opportunity Screening',
           lead_source: 'ai_consulting',
           currency: 'THB',
-          value: 1,
+          value: 0, // Raw enquiries have no verified monetary value yet.
           transaction_id: conversionRef
         });
         state.analytics = true;
@@ -324,7 +324,7 @@
           send_to: AI_CONVERSION_DESTINATION,
           transaction_id: conversionRef,
           currency: 'THB',
-          value: 1
+          value: 0
         });
         state.ads = true;
       }

@@ -236,6 +236,8 @@ assert.equal(leadEvents[0][2].lead_source, 'ai_consulting');
 assert.equal(leadEvents[0][2].transaction_id, VALID_CONVERSION_REF);
 assert.equal(adsEvents[0][2].transaction_id, VALID_CONVERSION_REF);
 assert.equal(adsEvents[0][2].send_to, AI_ADS_DESTINATION);
+assert.equal(leadEvents[0][2].value, 0, 'raw enquiries must not claim an estimated monetary value');
+assert.equal(adsEvents[0][2].value, 0);
 assert.equal(firstRun.fbqCalls.length, 1, 'AI success must emit one Meta Lead event');
 assert.equal(firstRun.fbqCalls[0][3].eventID, VALID_LEAD_REF, 'Meta must retain the UUID eventID');
 assert.ok(
