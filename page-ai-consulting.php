@@ -364,7 +364,7 @@ $cases = array(
             <div class="hb-card hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-eyebrow">ระบบ AI ตัวเดียว</span>
                 <h3 class="hb-card__title">แก้ 1 งาน 1 ทีม</h3>
-                <p class="hb-card__body">LINE Chatbot, RAG Knowledge Base หรือ Sales GPT · เริ่ม 200,000 บาท (PoC + Validation) ถึง 500,000 บาท (production) · 2–8 สัปดาห์ · วัดผลจาก 1 KPI ของงานนั้น</p>
+                <p class="hb-card__body">LINE Chatbot, RAG Knowledge Base หรือ Sales GPT · PoC 150,000–300,000 บาท และ production 300,000–1,500,000 บาทตามขอบเขต · 2–8 สัปดาห์ · วัดผลจาก 1 KPI ของงานนั้น</p>
             </div>
             <div class="hb-card hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-eyebrow">AI Transformation</span>
@@ -413,6 +413,7 @@ $cases = array(
     <div class="hb-container hb-container--md">
         <span class="hb-eyebrow">Related</span>
         <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">บทความที่เกี่ยวข้อง</h2>
+        <p class="hb-body">ถ้ากำลังเลือกผู้ให้บริการ เริ่มจาก <a href="<?php echo esc_url( home_url( '/ai-solution-consulting-guide-2026/' ) ); ?>">คู่มือเลือกที่ปรึกษา AI Solution</a> แล้วเทียบขอบเขต ราคา และสิ่งที่จะได้รับกับบริการหน้านี้ ส่วน <a href="<?php echo esc_url( home_url( '/work/autobot-line/' ) ); ?>">กรณีศึกษา AutoBot LINE</a> อธิบายโจทย์และแนวทางส่งต่องานระหว่าง AI กับทีมคน</p>
         <div style="margin-top:var(--hb-space-6);display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--hb-space-3);">
             <a class="hb-card" href="<?php echo esc_url( home_url( '/line-chatbot-ai-guide-2026/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">Guide</span>
