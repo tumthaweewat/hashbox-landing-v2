@@ -15,3 +15,14 @@
 ## Internal links
 /services/seo/ (รับทำ SEO) · post 250 (เทียบ 10 บริษัท) · guarantee-terms · post 249 (รับทำเว็บไซต์ ราคา) · /technical-seo-guide/
 เพิ่มลิงก์เข้าชิ้นนี้จาก: post 250 section #price · /services/seo/ FAQ ราคา
+
+## Refresh — 16 กันยายน 2026
+
+- คง URL และ WordPress post ID 272 เดิม; intent คือเทียบราคา/ขอบเขตก่อนจ้าง ไม่สร้างบทความซ้ำ
+- เพิ่มตารางตรวจใบเสนอราคา 6 ด้าน พร้อมหลักฐานส่งมอบและวิธีแยก mention / citation / recommendation
+- ราคา Hashbox 29,900 บาท/เดือน ไม่รวม VAT 7%; ขอบเขต/ปริมาณจริงตกลงหลัง audit
+- วันที่ราคาคู่แข่งยังเป็น 29–31 สิงหาคม 2026; ระบุวันที่อัปเดตเฉพาะขอบเขตงานอย่างชัดเจน
+- หลักฐานประกอบหน้าบริการ: คำตอบ API ที่ Hashbox Signal เก็บวันที่ 15 กันยายน 2026 อ้างบท AI consulting แต่ไม่ได้แนะนำ Hashbox เป็นผู้ให้บริการ ไม่ใช่เคสผลลัพธ์ลูกค้า
+- วัดผลด้วย Signal prompt เดิม ID562 / P25 “แนะนำบริษัทรับทำ SEO ที่เปิดราคา”; ไม่สร้าง prompt ซ้ำหรือเพิ่มรอบ API
+- แหล่งราคา/เงื่อนไข: /services/seo/ และ /services/seo/guarantee-terms/
+- การเผยแพร่: theme ผ่าน main; เนื้อหาบทความและ metadata ต้องอัปเดตใน WordPress แยกต่างหาก

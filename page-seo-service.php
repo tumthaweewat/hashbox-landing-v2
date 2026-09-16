@@ -338,6 +338,42 @@ $compare = array(
     </div>
 </section>
 
+<section class="hb-section" id="deliverables">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <h2 class="hb-h2">ก่อนเริ่มงาน เราต้องตกลงสิ่งส่งมอบอะไรบ้าง</h2>
+            <p class="hb-section__sub">เริ่มจากหน้าและปัญหาที่มีผลกับธุรกิจ แล้วกำหนดว่าในรอบงานนี้จะตรวจ แก้ หรือเขียนอะไร ใครเป็นผู้รับผิดชอบ และใช้หลักฐานใดตรวจผล เพื่อให้ทั้งทีมของคุณและทีม Hashbox ใช้ขอบเขตงานเดียวกัน</p>
+        </div>
+        <h3 class="hb-h3">หัวข้อที่ใช้คุยก่อนเสนอราคา</h3>
+        <ul class="hb-body" style="display:grid;gap:var(--hb-space-3);list-style:disc;padding-left:var(--hb-space-6);margin-block:var(--hb-space-4) var(--hb-space-6);">
+            <li>หน้าบริการและกลุ่มคำค้นที่ต้องการเพิ่มโอกาสการติดต่อ</li>
+            <li>ปัญหาโครงสร้างหรือเนื้อหาที่ต้องแก้ก่อน และสิทธิ์เข้าถึงที่จำเป็น</li>
+            <li>หน้าเดิมที่ควรปรับและบทใหม่ที่เพิ่มประโยชน์จากสิ่งที่มีอยู่แล้ว</li>
+            <li>วิธีตรวจว่าแบบฟอร์มและช่องทางติดต่อเก็บผลได้ถูกต้อง</li>
+            <li>คำถาม AI Search ที่สัมพันธ์กับบริการ พร้อมรอบตรวจและข้อจำกัดข้อมูล</li>
+            <li>วิธีสรุปงานที่ทำแล้ว ผลที่อ่านได้ และสิ่งที่จะทำต่อ</li>
+        </ul>
+        <p class="hb-body">อ่าน<a href="<?php echo esc_url( home_url( '/ค่าจ้าง-seo-2026/' ) ); ?>">วิธีเทียบค่าจ้าง SEO และขอบเขตงาน</a> เพื่อเตรียมคำถามก่อนเริ่ม audit</p>
+    </div>
+</section>
+
+<section class="hb-section hb-section--surface" id="ai-search-evidence">
+    <div class="hb-container">
+        <div class="hb-section__head">
+            <h2 class="hb-h2">อ่านผล AI Search ให้ครบก่อนตัดสินใจ</h2>
+            <p class="hb-section__sub">ชื่อ Hashbox หรือแบรนด์ของคุณที่ปรากฏในคำตอบ กับลิงก์ที่ AI ใช้อ้างอิงเป็นคนละผลลัพธ์ และยังต้องอ่านบริบทเพิ่มว่าคำตอบแนะนำแบรนด์เป็นผู้ให้บริการหรือเพียงใช้ข้อมูลจากบทความ</p>
+        </div>
+        <p class="hb-body">เมื่อดูรายงาน ให้ตรวจคำถาม วันที่ แพลตฟอร์ม และจำนวนคำตอบที่ใช้ได้ร่วมกัน การทดสอบที่ตอบ error ยังไม่มีผลให้ตัดสิน ส่วนคำถามที่ใส่ชื่อแบรนด์อยู่แล้วควรแสดงแยกจากคำถามของคนที่กำลังมองหาผู้ให้บริการ</p>
+        <div class="hb-card" style="margin-block:var(--hb-space-6);">
+            <h3 class="hb-h3">ตัวอย่างจริง: ได้ citation แต่ยังไม่ได้รับการแนะนำ</h3>
+            <p class="hb-body">วันที่ <time datetime="2026-09-15">15 กันยายน 2026</time> Hashbox Signal เก็บคำตอบจากโมเดล OpenAI ผ่าน API สำหรับคำถาม <span lang="en">“Who are the top AI consulting firms in Thailand?”</span></p>
+            <p class="hb-body">คำตอบอ้าง<a href="<?php echo esc_url( home_url( '/en/ai-consulting-companies-thailand-2026/' ) ); ?>">บทเทียบบริษัท AI ของ Hashbox</a> ประกอบรายชื่อบริษัทอื่น แต่ไม่ได้เสนอ Hashbox เป็นผู้ให้บริการในรายชื่อนั้น จึงนับเป็น <strong>citation</strong> ในตัวอย่างนี้ และยังไม่นับเป็น <strong>brand recommendation</strong></p>
+            <p class="hb-caption">ตัวอย่างนี้ใช้แสดงวิธีอ่านรายงาน เป็นผลทดสอบผ่าน API ไม่ใช่ประวัติสนทนาของลูกค้า และไม่ใช่หลักฐานผลสำเร็จของบริการ SEO ให้ลูกค้า ผลแต่ละรอบอาจต่างกันตามคำถาม โมเดล และวันที่ตรวจ</p>
+        </div>
+        <p class="hb-body">ดู<a href="<?php echo esc_url( home_url( '/services/ai-search/' ) ); ?>">ขอบเขตบริการ AI Search</a> และตกลงคำถามเป้าหมายก่อนเริ่มวัดผล</p>
+    </div>
+</section>
+
 <section class="hb-section" id="guarantee">
     <div class="hb-container">
         <div class="hb-section__head">
