@@ -22,39 +22,39 @@ $page_url     = get_permalink();
 $services_url = home_url( '/services/' );
 $has_checker  = (bool) get_page_by_path( 'geo-checker', OBJECT, 'page' );
 $checker_url  = $has_checker ? home_url( '/geo-checker/' ) : home_url( '/?service=ai-search#contact' );
-$desc         = 'รับทำ AI Search (GEO): ทำให้แบรนด์ถูกอ้างอิงใน Google AI Overview, ChatGPT, Perplexity และ Gemini — audit, entity/schema, answer-first content, citation จากแหล่งภายนอก วัดผลด้วย AI Visibility, Brand Mentions และ Citations จากระบบ track ของเราเอง';
+$desc         = 'รับทำ AEO / GEO และ AI Search พร้อมแก้โครงสร้างเว็บไซต์ เนื้อหา และฟอร์มติดต่อ ประเมินขอบเขตงานก่อนเริ่ม วัดการค้นพบและ Lead แยกตามช่องทาง SEO retainer เริ่ม 29,900 บาท/เดือน';
 
 $author_name     = 'Tum Thaweewat';
 $author_role     = 'Head of Tech';
 $author_linkedin = 'https://www.linkedin.com/in/tumthaweewat/';
-$author_bio      = '17 ปี Technical SEO + Performance Engineering · สร้างระบบ track AI Overview / AI citation ของ Hashbox เอง · บทความของทีมถูก Google AI Overview อ้างอิงในคำที่แข่งขันจริง';
+$author_bio      = '17 ปี Technical SEO + Performance Engineering · ดูแลงานวิเคราะห์และพัฒนาเว็บไซต์ พร้อมระบบติดตาม AI Overview / AI citation ของ Hashbox';
 
 $faqs = array(
-    array( 'q' => 'รับทำ AI Search คืออะไร ต่างจากรับทำ SEO อย่างไร?', 'a' => 'AI Search Optimization หรือ GEO (Generative Engine Optimization) คือการทำให้ AI เช่น Google AI Overview, ChatGPT, Perplexity และ Gemini หยิบแบรนด์และเนื้อหาของคุณไป "ตอบ" ผู้ใช้ ส่วน SEO คือการทำให้เว็บติดอันดับในผลค้นหา 10 ลิงก์ ทั้งสองใช้พื้นฐานเดียวกัน (เว็บเร็ว โครงสร้างถูก Schema ครบ) แต่ AI Search ต้องการเพิ่มอีก 3 อย่าง: ประโยคนิยามที่ AI ยกไปใช้ได้ทันที, entity ที่ชัดว่าแบรนด์คุณคือใครทำอะไร และการถูกพูดถึงจากแหล่งภายนอกที่ AI เชื่อ' ),
-    array( 'q' => 'GEO, AEO และ AI SEO ต่างกันไหม?', 'a' => 'เป็นชื่อเรียกของงานเดียวกันจากคนละมุม — GEO (Generative Engine Optimization) เน้นให้ AI อ้างอิงเนื้อหา, AEO (Answer Engine Optimization) เน้นให้เนื้อหาเป็นคำตอบตรงคำถาม, AI SEO เป็นคำรวมที่เอเจนซีใช้ขาย ในทางปฏิบัติ Hashbox ทำทั้งชุดในบริการเดียว: audit → entity/schema → answer-first content → citation ภายนอก → วัดผล' ),
-    array( 'q' => 'ทำ AI Search ใช้เวลานานแค่ไหนถึงเห็นผล?', 'a' => 'AI Overview ของ Google เปลี่ยนแหล่งอ้างอิงได้ภายในไม่กี่วันหลัง Google re-crawl หน้าที่แก้ — เราเห็นการเปลี่ยนแปลงในระบบ track รายวัน ส่วน ChatGPT และ Perplexity ดึงจากดัชนีค้นหาและแหล่งภายนอก จึงขยับช้ากว่า มักเห็นผลใน 4–8 สัปดาห์หลังเนื้อหาและ citation ครบ คีย์เวิร์ดที่แข่งสูงต้องสะสมการถูกพูดถึงจากภายนอกซึ่งเราจะบอกตรงๆ ตั้งแต่ audit' ),
-    array( 'q' => 'Hashbox วัดผล AI Search อย่างไร?', 'a' => 'ด้วย 6 ตัวชี้วัดจากระบบ track ของเราเอง: AI Visibility (แบรนด์ปรากฏในคำตอบกี่ % ของ prompt ชุดเดียวกันทุกเดือน), Brand Mentions แยกตาม ChatGPT / Claude / Gemini / Perplexity, AI Overview Citations ของคีย์เวิร์ดเป้าหมายรายวัน, AI Share of Voice เทียบคู่แข่ง, แหล่งที่ AI อ้างอิงแทนเรา และ LLM traffic ใน GA4 (referrer chatgpt.com, perplexity.ai) — คุณเห็นข้อมูลชุดเดียวกับที่เราเห็น' ),
-    array( 'q' => 'ต้องทำ SEO ก่อนไหมถึงจะทำ AI Search ได้?', 'a' => 'พื้นฐานต้องผ่านก่อน: เว็บต้อง crawl ได้ เร็วพอ และมี Schema ถูกต้อง เพราะ AI ดึงจากดัชนีเดียวกับ Google ถ้าเว็บยังไม่ผ่านตรงนี้ เราจะแก้ใน 2–4 สัปดาห์แรกก่อนเริ่มงาน AI Search ส่วนเว็บที่ SEO ดีอยู่แล้วเริ่มงาน GEO ได้ทันที' ),
-    array( 'q' => 'รับทำ AI Search ราคาเท่าไหร่?', 'a' => 'GEO / AI Overview optimization รวมอยู่ในบริการรับทำ SEO ของ Hashbox ซึ่งเริ่มต้น 29,900 บาทต่อเดือน สำหรับลูกค้าที่ต้องการเฉพาะงาน AI Search แยกจาก SEO เราเสนอราคาตาม scope จริงหลัง GEO Audit ฟรี (จำนวนคีย์เวิร์ด/prompt ที่ต้อง track, จำนวนหน้าที่ต้องแก้ และ citation ภายนอกที่ต้องสร้าง) ราคาไม่รวม VAT 7%' ),
-    array( 'q' => 'ChatGPT และ Perplexity ดึงข้อมูลแบรนด์จากไหน?', 'a' => 'จากข้อมูลที่เราเห็นในระบบ track ปี 2026 AI ดึงจากแหล่งที่มีข้อเท็จจริงและตัวเลขชัด: เว็บของแบรนด์เอง (ถ้ามีประโยคนิยาม ราคา และ FAQ), directory เช่น Clutch, marketplace, Facebook page, วิดีโอ YouTube และบทความเปรียบเทียบ — คำในกลุ่มบริการไทยหลายคำ AI อ้างอิง Facebook และ YouTube มากกว่าเว็บบริษัท จึงเป็นเหตุผลที่บริการนี้ทำ citation ภายนอกควบคู่กับเว็บ' ),
-    array( 'q' => 'llms.txt คืออะไร จำเป็นไหม?', 'a' => 'llms.txt เป็นไฟล์สรุปข้อมูลและลิงก์ที่บางเว็บไซต์จัดทำไว้ให้ระบบ AI ใช้อ่าน ไม่ใช่ไฟล์ควบคุมการเข้าถึงแบบ robots.txt และไม่ใช่เงื่อนไขจำเป็นสำหรับ Google AI Overviews หรือ AI Mode Google ไม่กำหนดไฟล์ AI หรือ Schema พิเศษ การมีไฟล์นี้ไม่ได้รับประกันการถูกอ้างอิง เราพิจารณาเป็นส่วนเสริมตามการใช้งานจริง' ),
-    array( 'q' => 'Hashbox ทำ AI Search ให้ตัวเองได้ผลจริงไหม?', 'a' => 'เราใช้ระบบติดตามกับเว็บของเราเอง โดยดูคำค้นและ prompt แยกตามแพลตฟอร์ม ผลต้องอ่านพร้อมวันที่ตรวจ ประเทศ ภาษา และ URL อ้างอิง จำนวนคำในแต่ละรอบอาจต่างกัน จึงควรเปรียบเทียบชุดเดียวกัน เราสามารถนำรายงานที่มีข้อมูลต้นทางมาใช้ประกอบการประเมิน โดยไม่รับประกันอันดับหรือการถูก AI อ้างอิง' ),
+    array( 'q' => 'รับทำ AEO / GEO คืออะไร ต่างจาก SEO อย่างไร?', 'a' => 'AEO เน้นจัดเนื้อหาให้ตอบคำถามได้ชัด ส่วน GEO เน้นเพิ่มโอกาสที่ระบบสร้างคำตอบด้วย AI จะค้นพบและอ้างอิงเนื้อหา ทั้งสองมีงานทับซ้อนกับ SEO เช่น การเข้าถึงเว็บไซต์ ข้อมูลที่ถูกต้อง และเนื้อหาที่ตอบโจทย์ Hashbox ประเมินและลงมือปรับตามปัญหาจริง โดยไม่รับประกันอันดับหรือการถูก AI แนะนำ' ),
+    array( 'q' => 'รวมการแก้เว็บไซต์ให้ด้วยหรือไม่?', 'a' => 'รับทั้งประเมินและลงมือแก้เว็บไซต์ โดยระบุหน้าที่แก้ รายการงาน ผู้รับผิดชอบ และเกณฑ์ตรวจรับก่อนเริ่ม เช่น โครงสร้างหน้า การเข้าถึงเนื้อหา ข้อมูลธุรกิจ ฟอร์ม และ Tracking งานสร้างเว็บใหม่ ย้ายระบบ หรือพัฒนาฟังก์ชันขนาดใหญ่เสนอราคาแยก ไม่รวมโดยอัตโนมัติในค่าดูแลรายเดือน' ),
+    array( 'q' => 'เหมาะกับธุรกิจแบบไหน?', 'a' => 'เหมาะกับธุรกิจที่มีเว็บไซต์แล้ว ต้องการให้ลูกค้าค้นพบผ่าน Google และ AI Search และมีบริการหรือสินค้าที่ต้องการสร้างการสอบถามชัดเจน หากมีทีม SEO หรือทีมพัฒนาอยู่แล้ว เราสามารถแบ่งขอบเขตงานและวิธีตรวจรับร่วมกัน' ),
+    array( 'q' => 'ทำ AEO / GEO ใช้เวลานานแค่ไหน?', 'a' => 'แยกเวลาลงมือแก้เว็บไซต์ออกจากเวลาที่ระบบค้นหาประมวลผลและเลือกอ้างอิง เรากำหนดรอบงานหลังตรวจเว็บและยืนยันสิทธิ์เข้าถึง ผลการค้นพบขึ้นกับหลายปัจจัยและเปลี่ยนแปลงได้ จึงไม่กำหนดวันรับประกันการปรากฏในคำตอบ AI' ),
+    array( 'q' => 'Hashbox วัดผลอย่างไร?', 'a' => 'กำหนดคำค้นและชุดคำถามเป้าหมายก่อนเริ่ม บันทึกวันที่ ประเทศ ภาษา แพลตฟอร์ม และ URL ที่ถูกอ้างอิง เปรียบเทียบภายใต้เงื่อนไขเดียวกัน ควบคู่กับ Traffic ฟอร์มที่ส่งสำเร็จ Lead ที่ผ่านการคัดกรอง และโอกาสขายใน CRM โดยแยกข้อมูลทดสอบและช่องทางโฆษณาออกจาก Referral' ),
+    array( 'q' => 'บริการราคาเท่าไหร่?', 'a' => 'SEO retainer ที่รวมงาน GEO เริ่มต้น 29,900 บาทต่อเดือน ไม่รวม VAT 7% โดยตกลงจำนวนหน้า เนื้อหา และงานแก้ไขก่อนเริ่ม งาน AEO/GEO แบบโปรเจกต์เสนอราคาหลังประเมินเว็บไซต์ ส่วนการสร้างเว็บใหม่ ย้ายระบบ และฟังก์ชันเพิ่มเติมเสนอราคาแยก' ),
+    array( 'q' => 'ต้องมี llms.txt หรือ Schema พิเศษหรือไม่?', 'a' => 'Google ไม่กำหนดไฟล์ AI หรือ Schema พิเศษสำหรับ AI Overviews / AI Mode เราตรวจการเข้าถึง การจัดทำดัชนี และความสอดคล้องของเนื้อหากับข้อมูลโครงสร้างตามความเหมาะสม llms.txt เป็นส่วนเสริมและไม่ได้รับประกันการถูกอ้างอิง' ),
+    array( 'q' => 'ซื้อโฆษณาแล้ว AI จะแนะนำแบรนด์ในคำตอบด้วยหรือไม่?', 'a' => 'การซื้อพื้นที่โฆษณากับการถูกอ้างอิงในคำตอบเป็นคนละส่วน ChatGPT Ads ไม่ได้เปลี่ยนคำตอบของ ChatGPT บริการ AEO/GEO นี้เน้นปรับเว็บไซต์และเนื้อหา ไม่ใช่การซื้อสิทธิ์ให้ AI แนะนำแบรนด์' ),
+    array( 'q' => 'ก่อนนัดประเมินต้องเตรียมอะไร?', 'a' => 'ส่งเว็บไซต์ บริการหรือสินค้าที่ต้องการขาย และปัญหาที่อยากแก้ หากมีงบประมาณ ช่วงเริ่มงาน หรือทีมที่ดูแลเว็บอยู่แล้ว สามารถแจ้งเพิ่มได้ เรายืนยันขอบเขตงานและราคาให้เห็นก่อนตัดสินใจว่าจ้าง' ),
 );
 
 $process = array(
-    array( 'AI-Specific Audit', 'ตรวจการเข้าถึงและการจัดทำดัชนี (robots.txt, noindex และข้อจำกัดของเว็บไซต์), หน้าไหนมีประโยคที่ AI ยกไปใช้ได้, Schema และ entity ครบหรือยัง และคีย์เวิร์ดเป้าหมายไหน Google แสดง AI Overview อยู่ — พร้อมรายชื่อแหล่งที่ AI อ้างอิงแทนคุณตอนนี้' ),
-    array( 'Entity + Technical', 'Organization / Service / Person schema ที่ระบุชัดว่าแบรนด์คือใคร ทำอะไร อยู่ที่ไหน ราคาเท่าไร · sameAs เชื่อมทุกโปรไฟล์ให้เป็น entity เดียว · ตรวจ robots.txt แยกตามวัตถุประสงค์การค้นหาและการฝึกโมเดล · llms.txt เป็นส่วนเสริม ไม่ใช่เงื่อนไขของ Google AI Overviews' ),
-    array( 'Answer-First Content', 'ทุกหน้าเงินและบทความหลักมีประโยคนิยาม "X คือ…" ใน 2 บรรทัดแรก, ตารางเปรียบเทียบ, ขั้นตอน, ตัวเลข และ FAQ ที่ตอบตรงคำถามจริง — เขียนจากงานที่ทำจริง ไม่ใช่เนื้อหาทั่วไปที่ AI มีอยู่แล้ว' ),
-    array( 'Citations ภายนอก', 'AI เชื่อสิ่งที่คนอื่นพูดถึงคุณมากกว่าที่คุณพูดเอง — Google Business Profile, directory (Clutch, GoodFirms), Facebook page, วิดีโอ YouTube พร้อม transcript และบทความเปรียบเทียบ ให้ข้อมูลตรงกันทุกแหล่ง' ),
-    array( 'Track + Report', 'AI Overview ของคีย์เวิร์ดเป้าหมายรายวัน, prompt ชุดเดียวกันยิง ChatGPT / Claude / Gemini / Perplexity ทุกเดือน, แหล่งที่ AI อ้างอิง และ LLM traffic ใน GA4 — รายงานว่าอะไรขยับ อะไรยัง และทำอะไรต่อ' ),
+    array( 'ประเมินและจัดลำดับงาน', 'ตรวจการเข้าถึงเว็บ การจัดทำดัชนี หน้าให้บริการ และชุดคำถามของลูกค้า พร้อมบันทึก Baseline และสิ่งที่ควรแก้ก่อน' ),
+    array( 'แก้โครงสร้างเว็บไซต์', 'ลงมือปรับตามขอบเขตที่ตกลง เช่น robots / noindex / canonical, internal links, การแสดงเนื้อหา และ Schema ที่ตรงกับข้อมูลบนหน้า' ),
+    array( 'ปรับเนื้อหาที่ช่วยตัดสินใจ', 'ทำหน้าบริการ ราคา ขอบเขตงาน คำถามที่พบบ่อย และหลักฐานจากงานจริงให้ชัดเจน โดยใช้ข้อมูลที่ธุรกิจยืนยันได้' ),
+    array( 'ตรวจข้อมูลธุรกิจภายนอก', 'ตรวจความสอดคล้องของชื่อธุรกิจ บริการ และข้อมูลติดต่อในช่องทางที่เกี่ยวข้อง วางแผนแหล่งเผยแพร่ตามความเหมาะสม ไม่รับประกันว่าจะถูก AI เลือกอ้างอิง' ),
+    array( 'ตรวจรับและวัดผล', 'ทดสอบหน้าที่แก้ ฟอร์ม และเหตุการณ์ส่งสำเร็จ ติดตามการค้นพบ แหล่งอ้างอิง และการสอบถาม แยกผล Referral กับโฆษณาในรายงาน' ),
 );
 
 $platforms = array(
-    array( 'Google AI Overview / AI Mode', 'ดึงจากดัชนี Google โดยตรง — หน้าที่ติดอันดับและมีประโยคตอบตรงคำถามถูกยกไปอ้างอิง เปลี่ยนได้ภายในวันหลัง re-crawl' ),
-    array( 'ChatGPT (Search)', 'ผสมความรู้ในโมเดลกับผลค้นหา Bing — entity ที่ชัดและการถูกพูดถึงในหลายแหล่งมีผลมากกว่าอันดับ' ),
-    array( 'Perplexity', 'อ้างอิงแหล่งชัดเจนทุกคำตอบ — ชอบหน้าที่มีตัวเลข ตาราง และวันที่อัปเดต' ),
-    array( 'Gemini', 'ใช้ดัชนี Google + Knowledge Graph — Organization schema, sameAs และ Google Business Profile สำคัญที่สุด' ),
-    array( 'Claude', 'ค้นหาเว็บเมื่อถูกถาม — ประโยคนิยามและ FAQ ที่อ่านแล้วเข้าใจทันทีถูกยกไปตอบ' ),
+    array( 'Google AI Overviews / AI Mode', 'ตรวจพื้นฐาน SEO การจัดทำดัชนี และสิทธิ์แสดง snippet พร้อมดูแหล่งอ้างอิงของคำค้นเป้าหมาย ไม่มีไฟล์หรือ Schema พิเศษที่รับประกันการปรากฏ' ),
+    array( 'ChatGPT Search', 'ตรวจการเข้าถึงเนื้อหาเพื่อการค้นหาและแหล่งอ้างอิงที่พบจากชุดคำถามทดสอบ แยกการอนุญาตเพื่อค้นหาออกจากการฝึกโมเดล' ),
+    array( 'Perplexity', 'ตรวจคำตอบและลิงก์อ้างอิงในรอบทดสอบ เทียบกับหน้าให้บริการและข้อมูลที่ลูกค้าต้องใช้ตัดสินใจ' ),
+    array( 'Gemini', 'บันทึกว่าคำตอบในรอบทดสอบกล่าวถึงแบรนด์หรือมีลิงก์อ้างอิงหรือไม่ โดยไม่ถือว่าผลเหมือนกับ Google AI Overviews' ),
+    array( 'Claude', 'ตรวจในเงื่อนไขที่มีการค้นเว็บและบันทึกแหล่งอ้างอิง ผลแต่ละรอบอาจต่างกันและไม่ใช่การรับประกันการค้นพบของผู้ใช้ทุกคน' ),
 );
 
 $kpis = array(
@@ -63,7 +63,7 @@ $kpis = array(
     array( 'AI Overview Citations', 'คีย์เวิร์ดเป้าหมายที่หน้าเว็บคุณถูก AI Overview อ้างอิง อัปเดตรายวัน' ),
     array( 'AI Share of Voice', 'สัดส่วนการถูกอ้างอิงของคุณเทียบคู่แข่งในคำเดียวกัน' ),
     array( 'แหล่งที่ AI อ้างอิง', 'โดเมนไหนถูก AI ใช้แทนคุณ — บอกว่าต้องไปอยู่ที่ไหน' ),
-    array( 'LLM Traffic', 'session จาก chatgpt.com, perplexity.ai, gemini ใน GA4 และ lead ที่ตามมา' ),
+    array( 'Traffic → Lead', 'แยก Referral กับโฆษณา ตัดข้อมูลทดสอบ และติดตามฟอร์มสำเร็จ นัดหมาย และโอกาสขายใน CRM' ),
 );
 ?>
 
@@ -82,17 +82,18 @@ $kpis = array(
                 </ol>
             </nav>
             <span class="hb-eyebrow">AI Search · GEO · AEO</span>
-            <h1 class="hb-hero__title">รับทำ AI Search (GEO)<br><em>ให้แบรนด์เป็นคำตอบของ AI</em><br>ใน Google AI Overview, ChatGPT, Perplexity</h1>
-            <p class="hb-hero__sub">บริการรับทำ AI Search ของ Hashbox คือการทำให้ AI หยิบแบรนด์ของคุณไปตอบผู้ใช้ — ไม่ใช่แค่ติดอันดับในผลค้นหา 10 ลิงก์ เราตรวจว่า AI ดึงข้อมูลจากไหนตอนนี้ แก้ entity, Schema, llms.txt และเนื้อหาแบบ answer-first แล้วสร้างการถูกพูดถึงจากแหล่งภายนอกที่ AI เชื่อ วัดผลด้วยระบบ track AI Overview และ AI mention ของเราเอง · GEO รวมอยู่ใน SEO retainer เริ่มต้น 29,900 บาทต่อเดือน</p>
-            <p class="hb-body">ส่งเว็บไซต์และเป้าหมายธุรกิจ เพื่อประเมินช่องว่าง SEO + AI Search แหล่งที่ AI อ้างอิง และลำดับสิ่งที่ควรแก้ก่อนลงทุน</p>
+            <h1 class="hb-hero__title">รับทำ AEO / GEO<br><em>พร้อมปรับเว็บไซต์</em><br>ให้ค้นพบผ่าน Google และ AI Search</h1>
+            <p class="hb-hero__sub">Hashbox ช่วยธุรกิจที่มีเว็บไซต์แล้ว ประเมินช่องว่าง SEO + AI Search และลงมือแก้โครงสร้างเว็บ เนื้อหา และทางติดต่อ ตามขอบเขตที่ตกลง พร้อมวัดการค้นพบและการสอบถามที่เกิดขึ้นจริง</p>
+            <p class="hb-body">เหมาะกับเจ้าของธุรกิจและทีมการตลาดที่ต้องการทีมวิเคราะห์และพัฒนาเว็บไซต์ร่วมกัน</p>
             <div class="hb-hero__actions">
-                <a href="<?php echo esc_url( home_url( '/?service=ai-search#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">นัดประเมิน SEO + AI Search สำหรับธุรกิจ</a>
+                <a href="<?php echo esc_url( home_url( '/?service=ai-search#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">นัดประเมิน SEO + AI Search</a>
                 <?php if ( $has_checker ) : ?>
                 <a href="<?php echo esc_url( $checker_url ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">เช็คเว็บด้วย GEO Checker</a>
                 <?php else : ?>
                 <a href="<?php echo esc_url( home_url( '/geo-ai-search-optimization-2026/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">อ่าน GEO คืออะไร</a>
                 <?php endif; ?>
             </div>
+            <p class="hb-body" style="margin-top:var(--hb-space-5);">SEO retainer เริ่ม 29,900 บาท/เดือน ไม่รวม VAT 7% · งานสร้างเว็บใหม่หรือพัฒนาระบบเสนอราคาแยก</p>
             <p class="hb-hero__sub" lang="en" style="margin-top:var(--hb-space-5);font-size:var(--hb-text-sm);">Read this page in English: <a href="<?php echo esc_url( home_url( '/en/ai-search/' ) ); ?>">AI Search optimization (GEO) in Bangkok</a></p>
         </div>
     </div>
@@ -103,37 +104,34 @@ $kpis = array(
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-surface-2,#1E1E2A);border-radius:var(--hb-radius-md,8px);">
             <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">สรุปสั้นๆ</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
-                <strong>รับทำ AI Search (Generative Engine Optimization) คือ การทำให้ Google AI Overview, ChatGPT, Perplexity และ Gemini อ้างอิงแบรนด์ของคุณเวลาตอบคำถามลูกค้า</strong> — Hashbox ทำ 5 ขั้น: AI-specific audit → entity + Schema + llms.txt → answer-first content → citation จากแหล่งภายนอก → track รายวัน ด้วยระบบของเราเองที่ใช้กับเว็บตัวเองด้วย (บทความของเราถูก AI Overview อ้างอิงในคำที่เอเจนซีใหญ่แข่ง) · รวมใน SEO retainer เริ่มต้น 29,900 บาทต่อเดือน หรือ quote แยกหลัง GEO Audit ฟรี
+                <strong>AEO/GEO คือการปรับเว็บไซต์และข้อมูลธุรกิจให้ระบบค้นหาเข้าถึงและเข้าใจได้ชัด เพิ่มโอกาสถูกนำไปอ้างอิงในคำตอบ</strong> — เราเริ่มจากประเมิน ลงมือแก้ตามขอบเขต แล้ววัดผลต่อถึงการติดต่อ การปรากฏในคำตอบ AI เปลี่ยนได้และไม่สามารถรับประกันผล
             </p>
         </div>
     </div>
 </section>
 
-<section class="hb-section">
+<section class="hb-section" id="implementation">
     <div class="hb-container">
         <div class="hb-section__head">
-            <span class="hb-eyebrow">ทำไมต้องทำปี 2026</span>
-            <h2 class="hb-h2">ทำไมแบรนด์ต้องทำ AI Search ตอนนี้ — ตัวเลขจากระบบ track ของเรา</h2>
-            <p class="hb-section__sub">ไม่ใช่ตัวเลขจากรายงานต่างประเทศ — นี่คือสิ่งที่เราเห็นจากคีย์เวิร์ดบริการในไทยที่เรา track เอง เดือนสิงหาคม 2026</p>
+            <span class="hb-eyebrow">ขอบเขตงานที่จับต้องได้</span>
+            <h2 class="hb-h2">ประเมิน พร้อมลงมือแก้เว็บไซต์</h2>
+            <p class="hb-body">เลือกจุดเริ่มต้นตามสภาพเว็บและทีมที่คุณมี</p>
         </div>
-        <div class="hb-stats__grid hb-stats__grid--divided">
-            <div class="hb-stat">
-                <span class="hb-stat__value hb-stat__value--gradient">11<span class="hb-stat__unit">/ 51</span></span>
-                <p class="hb-stat__label">คีย์เวิร์ดที่ Google แสดง AI Overview</p>
-                <p class="hb-stat__caption">ผู้ใช้ได้คำตอบก่อนเห็น 10 ลิงก์</p>
+        <div class="hb-bento">
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <h3 class="hb-h3">มีเว็บ แต่ยังค้นพบยาก</h3>
+                <p class="hb-body">ตรวจหน้าบริการและปัญหาทางเทคนิค พร้อมรายการแก้ไขที่จัดลำดับตามเป้าหมายธุรกิจ</p>
             </div>
-            <div class="hb-stat">
-                <span class="hb-stat__value hb-stat__value--gradient">25</span>
-                <p class="hb-stat__label">แหล่งที่ AI Overview อ้างอิงในคำเดียว</p>
-                <p class="hb-stat__caption">"ai consulting companies thailand" — ถ้าไม่อยู่ในนั้น ก็ไม่มีตัวตน</p>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <h3 class="hb-h3">มีรายงาน แต่ขาดทีมแก้เว็บ</h3>
+                <p class="hb-body">ทีมพัฒนาช่วยลงมือแก้โครงสร้าง เนื้อหา และฟอร์ม พร้อมทดสอบและตรวจรับงานที่ตกลงกัน</p>
             </div>
-            <div class="hb-stat">
-                <span class="hb-stat__value">4<span class="hb-stat__unit">AI</span></span>
-                <p class="hb-stat__label">ChatGPT · Claude · Gemini · Perplexity</p>
-                <p class="hb-stat__caption">แต่ละตัวดึงข้อมูลคนละแหล่ง — ต้องทำครบ</p>
+            <div class="hb-bento__cell hb-bento__cell--c2">
+                <h3 class="hb-h3">อยากรู้ว่าคนเข้าแล้วติดต่อไหม</h3>
+                <p class="hb-body">เชื่อมข้อมูลช่องทางเข้าเว็บกับฟอร์มที่ส่งสำเร็จ และติดตามคุณภาพ Lead ใน CRM ตามระบบที่ใช้</p>
             </div>
         </div>
-        <p class="hb-body" style="margin-top:var(--hb-space-5);color:var(--hb-text-muted);">สิ่งที่เราเห็นชัดที่สุด: ในคำกลุ่มบริการไทย AI อ้างอิง marketplace, Facebook และ YouTube มากกว่าเว็บของบริษัทเอง — แปลว่าการทำเว็บอย่างเดียวไม่พอ ต้องพาแบรนด์ไปอยู่ในแหล่งที่ AI เชื่อด้วย อ่านข้อมูลเต็มใน <a href="<?php echo esc_url( home_url( '/google-ai-overview-thailand-2026/' ) ); ?>">AI Overview ในไทย: ข้อมูลจริงปี 2026</a></p>
+        <p class="hb-body" style="margin-top:var(--hb-space-5);">ก่อนเริ่มงาน คุณจะเห็นหน้าที่แก้ รายการส่งมอบ และเกณฑ์ตรวจรับในข้อเสนอ</p>
     </div>
 </section>
 
@@ -142,7 +140,7 @@ $kpis = array(
         <div class="hb-section__head">
             <span class="hb-eyebrow">กระบวนการ</span>
             <h2 class="hb-h2">บริการรับทำ AI Search ของเราทำอะไรบ้าง — 5 ขั้นตอน</h2>
-            <p class="hb-section__sub">เรียงตามลำดับที่ต้องทำจริง: AI ต้องเข้าถึงได้ → เข้าใจว่าคุณคือใคร → มีประโยคที่ยกไปตอบได้ → มีคนอื่นยืนยัน → วัดว่าได้ผล</p>
+            <p class="hb-section__sub">กำหนด Baseline และขอบเขตงานก่อนเริ่ม แล้วตรวจผลหลังแก้เว็บไซต์</p>
         </div>
         <div class="hb-bento">
             <?php foreach ( $process as $i => $p ) : ?>
@@ -155,7 +153,7 @@ $kpis = array(
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">+</span>
                 <h3 class="hb-h3">ทำร่วมกับ SEO และเว็บ</h3>
-                <p class="hb-body">AI Search ยืนบนพื้นฐานเดียวกับ <a href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>">บริการรับทำ SEO</a> (เว็บเร็ว โครงสร้างถูก Schema ครบ) และเว็บที่เราสร้างใหม่ทุกเว็บ<a href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>">พร้อมสำหรับ AI Search ตั้งแต่วันเปิดตัว</a></p>
+                <p class="hb-body">งานนี้ทำร่วมกับ <a href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>">บริการรับทำ SEO</a> และ <a href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>">บริการพัฒนาเว็บไซต์</a></p>
             </div>
         </div>
     </div>
@@ -165,7 +163,7 @@ $kpis = array(
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">ครอบคลุม</span>
-            <h2 class="hb-h2">AI แต่ละตัวดึงข้อมูลไม่เหมือนกัน — เราทำให้ครบทั้ง 5</h2>
+            <h2 class="hb-h2">เลือกแพลตฟอร์มและชุดคำถามให้ตรงกับลูกค้าของคุณ</h2>
         </div>
         <div class="hb-bento">
             <?php foreach ( $platforms as $p ) : ?>
@@ -176,7 +174,7 @@ $kpis = array(
             <?php endforeach; ?>
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <h3 class="hb-h3">เริ่มจากเช็คเว็บของคุณ</h3>
-                <p class="hb-body"><?php if ( $has_checker ) : ?>ใส่ URL ใน <a href="<?php echo esc_url( $checker_url ); ?>">GEO Readiness Checker</a> ได้คะแนน 0–100 ว่าหน้านั้นพร้อมถูก AI อ้างอิงแค่ไหน ฟรี ไม่ต้องลงทะเบียน<?php else : ?>ส่ง URL มาที่ฟอร์มด้านล่าง เราตรวจให้ว่าหน้าไหนพร้อมถูก AI อ้างอิง และตอนนี้ AI ดึงใครแทนคุณ<?php endif; ?></p>
+                <p class="hb-body"><?php if ( $has_checker ) : ?>ใส่ URL ใน <a href="<?php echo esc_url( $checker_url ); ?>">GEO Readiness Checker</a> เพื่อดูรายการตรวจความพร้อมทางเทคนิคเบื้องต้น ฟรี ไม่ต้องลงทะเบียน คะแนนไม่ใช่โอกาสถูก AI อ้างอิง<?php else : ?>ส่ง URL มาที่ฟอร์มด้านล่าง เราตรวจให้ว่าหน้าไหนพร้อมถูก AI อ้างอิง และตอนนี้ AI ดึงใครแทนคุณ<?php endif; ?></p>
             </div>
         </div>
     </div>
@@ -187,7 +185,7 @@ $kpis = array(
         <div class="hb-section__head">
             <span class="hb-eyebrow">วิธีวัดผล</span>
             <h2 class="hb-h2">Hashbox วัดผล AI Search อย่างไร — 6 ตัวชี้วัด</h2>
-            <p class="hb-section__sub">เอเจนซีส่วนใหญ่ขาย AI Search ได้แต่วัดไม่ได้ เราสร้างระบบ track เองก่อนขายบริการนี้ และใช้กับเว็บตัวเองทุกวัน</p>
+            <p class="hb-section__sub">ดูการกล่าวถึงและลิงก์อ้างอิงควบคู่กับการสอบถามและโอกาสขาย ไม่ใช้คะแนนความพร้อมแทนผลลัพธ์ธุรกิจ</p>
         </div>
         <div class="hb-bento">
             <?php foreach ( $kpis as $i => $k ) : ?>
@@ -202,17 +200,17 @@ $kpis = array(
 </section>
 
 <section class="hb-section" id="proof">
-    <div class="hb-container hb-container--md">
+    <div class="hb-container">
         <div class="hb-section__head">
-            <span class="hb-eyebrow">พิสูจน์กับเว็บตัวเองก่อน</span>
-            <h2 class="hb-h2">เราทำ AI Search ให้ hashbox.co.th ด้วยระบบเดียวกัน</h2>
+            <span class="hb-eyebrow">หลักฐานที่ตรวจย้อนหลังได้</span>
+            <h2 class="hb-h2">ใช้ข้อมูลพร้อมวันที่ และแยกผลแต่ละช่องทาง</h2>
         </div>
-        <ul style="list-style:none;margin:0;padding:var(--hb-space-6);border:1px solid var(--hb-border);border-radius:var(--hb-radius-md,8px);background:var(--hb-surface-1,#18181B);display:grid;gap:var(--hb-space-4);">
-            <li style="display:flex;gap:var(--hb-space-3);align-items:flex-start;"><span aria-hidden="true" style="color:var(--hb-accent-emerald,#10B981);font-weight:700;">&#10003;</span><p class="hb-body" style="margin:0;"><strong>Track ทุกวัน</strong> — ติดตามคำค้นและ prompt แยกตามแพลตฟอร์ม พร้อมวันที่ตรวจ ประเทศ ภาษา และรายชื่อแหล่งอ้างอิง เปรียบเทียบเฉพาะชุดข้อมูลเดียวกัน</p></li>
-            <li style="display:flex;gap:var(--hb-space-3);align-items:flex-start;"><span aria-hidden="true" style="color:var(--hb-accent-emerald,#10B981);font-weight:700;">&#10003;</span><p class="hb-body" style="margin:0;"><strong>ถูก AI Overview อ้างอิงจริง</strong> — บทความ <a href="<?php echo esc_url( home_url( '/ai-solution-consulting-guide-2026/' ) ); ?>">ปรึกษาทำระบบ AI Solution สำหรับธุรกิจ</a> ติดอันดับ 3 และถูก Google AI Overview อ้างอิง ในคำที่มีเอเจนซีใหญ่แข่งอยู่</p></li>
-            <li style="display:flex;gap:var(--hb-space-3);align-items:flex-start;"><span aria-hidden="true" style="color:var(--hb-accent-emerald,#10B981);font-weight:700;">&#10003;</span><p class="hb-body" style="margin:0;"><strong>เปิดโครงสร้างให้ดู</strong> — <a href="<?php echo esc_url( home_url( '/llms.txt' ) ); ?>">llms.txt</a>, robots.txt ที่เปิดรับ AI crawler, Organization schema ที่ระบุ entity ครบ ทั้งหมดอยู่บนเว็บนี้ ตรวจได้เอง</p></li>
-            <li style="display:flex;gap:var(--hb-space-3);align-items:flex-start;"><span aria-hidden="true" style="color:var(--hb-accent-emerald,#10B981);font-weight:700;">&#10003;</span><p class="hb-body" style="margin:0;"><strong>บอกตรงๆ ว่ายังไม่ได้อะไร</strong> — คำที่เรายังไม่ถูกเอ่ยถึง เราแสดงในรายงานเดียวกัน เพราะตัวเลขที่ไม่ครบคือสิ่งที่บอกว่าต้องทำอะไรต่อ</p></li>
+        <ul class="hb-body">
+            <li>แยกการเอ่ยชื่อแบรนด์ การมีลิงก์อ้างอิง และการคลิกเข้าเว็บออกจากกัน</li>
+            <li>บันทึกชุดคำถาม เงื่อนไขทดสอบ และ URL ต้นทาง เพื่อเทียบผลแต่ละรอบ</li>
+            <li>แยก Lead จาก Referral และโฆษณา พร้อมตัดข้อมูลทดสอบก่อนประเมินความคุ้มค่า</li>
         </ul>
+        <p class="hb-body">การซื้อโฆษณาไม่ได้ซื้อสิทธิ์ให้ AI แนะนำแบรนด์ในคำตอบ ดู <a href="https://help.openai.com/en/articles/20001047-ads-in-chatgpt">คำอธิบายเรื่องโฆษณาของ OpenAI</a></p>
     </div>
 </section>
 
@@ -238,30 +236,30 @@ $kpis = array(
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">ราคา</span>
-            <h2 class="hb-h2">ราคารับทำ AI Search — รวมใน SEO retainer หรือ quote แยกหลัง audit</h2>
-            <p class="hb-section__sub">เราไม่ขายแพ็กเกจ AI Search ตายตัว เพราะงานขึ้นกับว่า AI ดึงใครแทนคุณอยู่ตอนนี้ และต้องแก้กี่หน้า สร้าง citation กี่แหล่ง</p>
+            <h2 class="hb-h2">เลือกดูแลต่อเนื่อง หรือแก้เว็บเป็นโปรเจกต์</h2>
+            <p class="hb-section__sub">ประเมินเว็บไซต์ก่อนเสนอราคา เพื่อกำหนดจำนวนหน้า งานเนื้อหา และงานพัฒนาที่เหมาะกับธุรกิจ</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--hb-space-4);">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:var(--hb-space-4);">
             <div class="hb-tier hb-tier--featured">
                 <span class="hb-tier__ribbon">เริ่มตรงนี้</span>
                 <span class="hb-tier__name">รวมใน SEO retainer</span>
                 <div class="hb-tier__price">29,900<span class="hb-tier__price-unit">บาทต่อเดือน เริ่มต้น</span></div>
                 <p class="hb-caption">GEO / AI Overview optimization เป็นส่วนหนึ่งของ<a href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>">บริการรับทำ SEO</a>อยู่แล้ว</p>
                 <ul class="hb-tier__features">
-                    <li>Technical SEO + Core Web Vitals + Schema (พื้นฐานที่ AI ต้องการ)</li>
+                    <li>Technical SEO และงานแก้เว็บไซต์ตามขอบเขตที่ตกลง</li>
                     <li>ตรวจการเข้าถึงของ crawler ตามการใช้งาน · llms.txt เป็นส่วนเสริม</li>
                     <li>Answer-first content และ FAQ บนหน้าเงิน</li>
                     <li>Track AI Overview ของคีย์เวิร์ดเป้าหมายรายวัน</li>
                     <li>รายงานอันดับ + AI citation ชุดเดียวกัน</li>
                 </ul>
-                <a href="<?php echo esc_url( home_url( '/?service=ai-search#contact' ) ); ?>" class="hb-btn hb-btn--gradient" style="margin-top:auto;">ขอ SEO + GEO Audit ฟรี</a>
+                <a href="<?php echo esc_url( home_url( '/?service=ai-search#contact' ) ); ?>" class="hb-btn hb-btn--gradient" style="margin-top:auto;">นัดประเมิน SEO + AI Search</a>
             </div>
             <div class="hb-card">
-                <h3 class="hb-card__title">AI Search แยกเดี่ยว — quote หลัง GEO Audit ฟรี</h3>
-                <p class="hb-body" style="margin:0;"><strong>เหมาะกับ</strong> — เว็บที่ SEO ดีอยู่แล้วหรือมีทีม SEO อยู่ แต่ยังไม่ถูก AI เอ่ยถึง</p>
-                <p class="hb-body" style="margin:0;"><strong>ราคาขึ้นกับ</strong> — จำนวนคีย์เวิร์ด/prompt ที่ต้อง track · จำนวนหน้าที่ต้องปรับเป็น answer-first · จำนวน citation ภายนอกที่ต้องสร้าง (directory, วิดีโอ, บทความเปรียบเทียบ)</p>
-                <p class="hb-body" style="margin:0;"><strong>สิ่งที่ได้ก่อนตัดสินใจ</strong> — GEO Audit ฟรี: คีย์เวิร์ดไหนมี AI Overview, ตอนนี้ AI อ้างอิงใคร, หน้าไหนของคุณพร้อม/ไม่พร้อม เอาไปทำเองก็ได้</p>
-                <p class="hb-body" style="margin:0;color:var(--hb-text-muted);">ราคาไม่รวม VAT 7%</p>
+                <h3 class="hb-card__title">AEO/GEO + ปรับเว็บเป็นโปรเจกต์</h3>
+                <p class="hb-body" style="margin:0;"><strong>เหมาะกับ</strong> — ธุรกิจที่ต้องการแก้เว็บเดิมเป็นชุดงาน หรือมีทีม SEO อยู่แล้วและต้องการทีมพัฒนาร่วมงาน</p>
+                <p class="hb-body" style="margin:0;"><strong>ราคาขึ้นกับ</strong> — จำนวนหน้า ความซับซ้อนของระบบ งานเนื้อหา และสิทธิ์เข้าถึงที่จำเป็นในการแก้ไข</p>
+                <p class="hb-body" style="margin:0;"><strong>สิ่งที่ได้ก่อนตัดสินใจ</strong> — แนวทางแก้ปัญหา รายการส่งมอบ ระยะเวลาดำเนินงาน และราคาสำหรับขอบเขตที่ตกลง</p>
+                <p class="hb-body" style="margin:0;color:var(--hb-text-muted);">งานสร้างเว็บใหม่ ย้ายระบบ หรือเพิ่มฟังก์ชันขนาดใหญ่เสนอราคาแยก ค่าดูแลรายเดือนไม่รวมงานพัฒนาไม่จำกัด ราคาไม่รวม VAT 7%</p>
             </div>
         </div>
     </div>
@@ -313,9 +311,9 @@ $kpis = array(
 
 <section class="hb-section hb-section--surface">
     <div class="hb-container hb-container--md" style="text-align:center;">
-        <h2 class="hb-h2">อยากรู้ว่าตอนนี้ AI ตอบชื่อใครแทนคุณ?</h2>
-        <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">ส่งชื่อแบรนด์ + คีย์เวิร์ด 5 คำมา เราส่งผลกลับว่า AI Overview, ChatGPT และ Perplexity อ้างอิงใครอยู่ พร้อมสิ่งที่ต้องแก้ก่อน — ฟรี ไม่มีข้อผูกมัด</p>
-        <a href="<?php echo esc_url( home_url( '/?service=ai-search#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">ขอ GEO Audit ฟรี &rarr;</a>
+        <h2 class="hb-h2">ให้ทีมประเมิน AEO/GEO พร้อมงานปรับเว็บไซต์</h2>
+        <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">ส่งเว็บไซต์ บริการที่ต้องการขาย และเป้าหมายของคุณ ทีมจะประเมินช่องว่างและขอบเขตงานก่อนเสนอราคา หากมีงบประมาณหรือช่วงเริ่มงาน แจ้งเพิ่มได้</p>
+        <a href="<?php echo esc_url( home_url( '/?service=ai-search#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">นัดประเมิน SEO + AI Search &rarr;</a>
     </div>
 </section>
 
@@ -324,7 +322,7 @@ hashbox_jsonld( array(
     '@context'    => 'https://schema.org',
     '@type'       => 'Service',
     '@id'         => $page_url . '#service',
-    'name'        => 'รับทำ AI Search (GEO)',
+    'name'        => 'รับทำ AEO / GEO พร้อมปรับเว็บไซต์',
     'alternateName' => array( 'AI Search Optimization', 'Generative Engine Optimization', 'AEO' ),
     'serviceType' => 'Generative Engine Optimization',
     'description' => $desc,
@@ -337,10 +335,10 @@ hashbox_jsonld( array(
         '@type'           => 'OfferCatalog',
         'name'            => 'AI Search deliverables',
         'itemListElement' => array(
-            array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'AI-specific audit (llms.txt, robots, schema, AI Overview coverage)' ) ),
-            array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'Entity + Schema + llms.txt implementation' ) ),
+            array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'SEO and AI Search assessment' ) ),
+            array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'Scoped website and structured data implementation' ) ),
             array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'Answer-first content optimisation' ) ),
-            array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'External citation building' ) ),
+            array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'Business information and external source review' ) ),
             array( '@type' => 'Offer', 'itemOffered' => array( '@type' => 'Service', 'name' => 'AI visibility tracking and reporting' ) ),
         ),
     ),

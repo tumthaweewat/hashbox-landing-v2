@@ -63,8 +63,10 @@
       website.required = audit;
       contact.querySelector('label[for="contact-website"]').textContent = audit ? 'เว็บไซต์ที่ต้องการให้ตรวจ *' : 'เว็บไซต์ / Facebook Page (ถ้ามี)';
       website.setCustomValidity('');
-      details.hidden = audit;
-      if (audit) details.open = false;
+      // AI Search enquiries can include optional commercial context at audit stage.
+      const hideProjectDetails = audit && !isAiSearch();
+      details.hidden = hideProjectDetails;
+      if (hideProjectDetails) details.open = false;
       contact.querySelectorAll('[data-project-only]').forEach(group => {
         group.hidden = audit;
         group.querySelectorAll('input').forEach(field => { field.disabled = audit; });
@@ -72,10 +74,10 @@
       document.getElementById('contact-intent-help').textContent = audit
         ? 'ทีมเราจะวัด Baseline ของเว็บคุณแล้วส่งรายงาน 15-20 หน้าให้ภายใน 3 วันทำการ ฟรีไม่มีข้อผูกมัด'
         : 'เลือกบริการและเล่าโจทย์ เพื่อให้ทีมประเมินแนวทางที่เหมาะกับธุรกิจของคุณ';
-      details.querySelectorAll('input, select').forEach(field => { field.disabled = audit; });
+      details.querySelectorAll('input, select').forEach(field => { field.disabled = hideProjectDetails; });
       help.textContent = audit ? 'จำเป็นสำหรับ Audit: ระบุเว็บไซต์ที่ต้องการให้ตรวจ (ใช้ Facebook Page แทนไม่ได้)' : 'ระบุเว็บไซต์หรือ Facebook Page ของธุรกิจ ถ้ามี';
       if (audit && isAiSearch()) {
-        document.getElementById('contact-intent-help').textContent = 'ประเมินการค้นพบเว็บไซต์บน Google และ AI แหล่งที่ถูกอ้างอิง และจุดที่ควรปรับปรุงตามเป้าหมายธุรกิจ';
+        document.getElementById('contact-intent-help').textContent = 'ประเมิน SEO + AEO/GEO พร้อมขอบเขตงานปรับเว็บไซต์ เล่าบริการที่ต้องการขายและเป้าหมายของคุณ เพิ่มงบประมาณและช่วงเริ่มงานได้หากมีข้อมูล';
       }
       submit.textContent = audit && isAiSearch() ? 'นัดประเมิน SEO + AI Search →' : (audit ? 'ขอ Audit ฟรี →' : 'ส่งโจทย์ให้ทีมประเมิน →');
       updateContactChannels();

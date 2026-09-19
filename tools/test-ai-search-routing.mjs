@@ -28,19 +28,24 @@ function run(search) {
     window: { location: { search }, addEventListener: (name, fn) => { listeners[name] = fn; } },
     URL, URLSearchParams
   });
-  return { services, elements, submit, listeners, nodes };
+  return { services, elements, submit, listeners, nodes, detailInput };
 }
 const ai = run('?utm_source=google&service=ai-search');
 assert.equal(ai.services[0].checked, true);
 assert.equal(ai.services[0].disabled, false, 'Audit must submit the selected service');
 assert.equal(ai.elements.website.required, true);
 assert.match(ai.submit.textContent, /SEO \+ AI Search/);
+assert.equal(ai.nodes['contact-project-details'].hidden, false, 'AI audit can collect optional budget and timeline');
+assert.equal(ai.detailInput.disabled, false, 'AI audit commercial fields must be submitted');
+assert.equal(ai.detailInput.required, false, 'Commercial fields remain optional');
 ai.services[0].checked = false;
 ai.services[1].checked = true;
 ai.services[0].listeners.change();
 ai.listeners.pageshow();
 assert.equal(ai.services[0].checked, false, 'pageshow must preserve the visitor choice');
 assert.equal(ai.submit.textContent, 'ขอ Audit ฟรี →');
+assert.equal(ai.nodes['contact-project-details'].hidden, true, 'Switching away from AI Search restores generic audit behavior');
+assert.equal(ai.detailInput.disabled, true, 'Hidden commercial values are not submitted');
 ai.elements.request_intent.value = 'project';
 ai.services[1].listeners.change();
 assert.equal(ai.elements.phone.required, true, 'Project contact validation remains intact');
