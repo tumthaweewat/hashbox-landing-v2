@@ -1012,8 +1012,8 @@ function hashbox_get_seo_metadata() {
             // this work"; this page answers "who do I hire", and the title has
             // to say so. Keep ที่ปรึกษา AI — that is the term buyers search.
             'ai-search' => array(
-                'title'       => 'รับทำ AI Search (GEO) ให้แบรนด์ถูก AI อ้างอิง | Hashbox',
-                'description' => 'รับทำ AI Search / GEO: audit, entity + Schema + llms.txt, answer-first content, citation ภายนอก วัดผลด้วย AI Visibility, Brand Mentions และ AI Overview citations จากระบบ track ของเราเอง — รวมใน SEO retainer เริ่ม 29,900 บาท/เดือน',
+                'title'       => 'รับทำ AEO / GEO พร้อมปรับเว็บไซต์เพื่อ AI Search | Hashbox',
+                'description' => 'รับทำ AEO / GEO และ AI Search พร้อมแก้โครงสร้างเว็บไซต์ เนื้อหา และฟอร์มติดต่อ ประเมินขอบเขตงานก่อนเริ่ม วัดการค้นพบและ Lead แยกตามช่องทาง SEO retainer เริ่ม 29,900 บาท/เดือน',
             ),
             'guarantee-terms' => array(
                 'title'       => 'เงื่อนไขการันตี "ไม่โต ไม่จ่าย" บริการรับทำ SEO | Hashbox',
@@ -3682,7 +3682,7 @@ function hashbox_handle_contact_submit() {
             || ( 'audit' === $intent && ( ! $valid_site || $facebook ) )
             || ( '' !== $website && ! $valid_site );
         $basis = isset( $_POST['budget_basis'] ) && is_string( $_POST['budget_basis'] ) ? $_POST['budget_basis'] : '';
-        if ( 'audit' === $intent ) {
+        if ( 'audit' === $intent && ! in_array( 'ai-search', $selected_services, true ) ) {
             $budget = '';
             $timeline = '';
         } elseif ( '' !== $budget ) {

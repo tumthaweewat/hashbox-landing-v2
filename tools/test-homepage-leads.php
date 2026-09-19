@@ -58,3 +58,18 @@ $states[$key] = array('status' => 'prepared');
 $race = function() use ($key, $state) { global $states; $states[$key] = array_merge($state, array('status' => 'sent')); };
 check(hashbox_claim_home_lead($ref, array('seo'), 'audit')['status'] === 'sent', 'completion between read and lock cannot resend');
 echo "Homepage receipt tests passed.\n";
+
+// Exercise the submitted commercial details through the actual handler block.
+$details_start = strpos($source, "        \$basis = isset( \$_POST['budget_basis'] )");
+$details_end = strpos($source, "        \$project_type = 'audit'", $details_start);
+check(false !== $details_start && false !== $details_end, 'commercial detail handler located');
+$details_code = substr($source, $details_start, $details_end - $details_start);
+$run_details = function($intent, $selected_services, $budget, $timeline, $basis) use ($details_code) {
+    $_POST = array('budget_basis' => $basis);
+    eval($details_code);
+    return array($budget, $timeline);
+};
+check($run_details('audit', array('ai-search'), '30000', 'ภายใน 1–3 เดือน', 'monthly') === array('30000 (ต่อเดือน)', 'ภายใน 1–3 เดือน'), 'AI Search audit preserves budget basis and timeline');
+check($run_details('audit', array('ai-search'), '', '', '') === array('', ''), 'AI Search audit accepts unknown budget and timing');
+check($run_details('audit', array('seo'), '30000', 'soon', 'monthly') === array('', ''), 'other audits continue ignoring hidden commercial values');
+check($run_details('project', array('seo'), '80000', 'soon', 'project') === array('80000 (ต่อโปรเจกต์)', 'soon'), 'project enquiry retains existing budget formatting');
