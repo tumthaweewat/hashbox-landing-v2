@@ -9,6 +9,16 @@ const fonts = await read('design-system/fonts.css');
 for (const [role, family] of Object.entries({display:'IBM Plex Sans Thai', body:'Noto Sans Thai', data:'IBM Plex Mono'})) {
   assert.ok(fonts.includes(`--ci-font-${role}: '${family}'`), `Missing canonical ${role} font`);
 }
+// Testimonials are running body copy, including the shared case-study quote.
+// A component-level display family overrides the body even after global CI fixes.
+const composed = await read('design-system/composed.css');
+const quoteBody = composed.match(/\.hb-quote__body\s*\{([^}]+)\}/)?.[1];
+assert.ok(quoteBody, 'Shared testimonial body rule must exist');
+assert.match(quoteBody, /font-family:\s*var\(--hb-font-body\)\s*;/, 'Testimonial copy must use the CI body font, not the heading font');
+assert.match(quoteBody, /font-weight:\s*var\(--hb-weight-medium\)\s*;/, 'Keep the testimonial medium weight');
+for (const subset of ['thai', 'latin']) {
+  assert.ok(fonts.includes(`noto-sans-thai-${subset}-500.woff2`), `Testimonial body font needs the self-hosted ${subset} medium face`);
+}
 const roles = /--(?:hb-|hb5-|faq-)?font-(?:display|body|mono|outlier)\s*:\s*([^;]+);/g;
 const files = ['style.css', 'design-system/tokens.css', ...(await readdir(resolve(root, 'css'))).filter(f=>f.endsWith('.css')).map(f=>'css/'+f)];
 for (const path of files) {

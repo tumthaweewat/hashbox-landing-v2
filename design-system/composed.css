@@ -1095,7 +1095,7 @@
 }
 
 .hb-quote__body {
-  font-family: var(--hb-font-display);
+  font-family: var(--hb-font-body);
   font-size: var(--hb-text-xl);
   line-height: var(--hb-leading-snug);
   color: var(--hb-text-strong);
