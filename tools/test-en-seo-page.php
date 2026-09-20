@@ -62,6 +62,10 @@ foreach ( $xpath->query( '//img' ) as $image ) {
     $ratio = (int) $image->getAttribute( 'width' ) / (int) $image->getAttribute( 'height' );
     seo_expect( abs( $ratio - $size[0] / $size[1] ) < .01, 'Image aspect ratio must match source.' );
 }
+$photo = '//figure[contains(concat(" ", normalize-space(@class), " "), " en-seo-photo ")]';
+seo_expect( 1 === $xpath->query( $photo . '/img[@alt="People reviewing charts and reports together at a table with laptops"]' )->length, 'Consultation photo and descriptive alt remain intact.' );
+seo_expect( 0 === $xpath->query( $photo . '/figcaption' )->length, 'Consultation photo has no public caption or credit, as requested.' );
+seo_expect( 1 === $xpath->query( '//figure[contains(concat(" ", normalize-space(@class), " "), " en-seo-proof ")]/figcaption' )->length, 'Performance evidence keeps its factual caption.' );
 foreach ( $xpath->query( '//input[@required]|//textarea[@required]' ) as $input ) {
     seo_expect( 1 === $xpath->query( '//label[@for="' . $input->getAttribute( 'id' ) . '"]' )->length, 'Required field needs a visible label.' );
 }

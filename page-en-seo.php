@@ -135,7 +135,6 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
                     srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/services/seo/seo-consultation-pexels-kindel-media-640w.webp' ); ?> 640w, <?php echo esc_url( get_template_directory_uri() . '/assets/services/seo/seo-consultation-pexels-kindel-media-1200w.webp' ); ?> 1200w"
                     sizes="(min-width: 960px) 42vw, 92vw" width="1200" height="900" loading="lazy" decoding="async"
                     alt="People reviewing charts and reports together at a table with laptops">
-                <figcaption>Illustrative photo · <a href="https://www.pexels.com/photo/business-people-working-together-in-front-of-their-laptops-7651734/" target="_blank" rel="noopener noreferrer">Kindel Media / Pexels</a></figcaption>
             </figure>
             <div class="en-seo-approach__copy">
                 <p class="en-seo-eyebrow">How we work</p>
