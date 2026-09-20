@@ -16,7 +16,7 @@ $hb_nav_current_attr = static function ( $value ) {
 
 $hb_services_current = 'services' === $hb_request_path
     ? 'page'
-    : ( $hb_path_in_family( 'services' ) || $hb_path_in_family( 'en/ai-consulting' ) ? 'location' : '' );
+    : ( $hb_path_in_family( 'services' ) || $hb_path_in_family( 'en/ai-consulting' ) || is_page_template( 'page-en-seo.php' ) ? 'location' : '' );
 $hb_work_current = 'work' === $hb_request_path ? 'page' : ( $hb_path_in_family( 'work' ) ? 'location' : '' );
 $hb_blog_current = 'blog' === $hb_request_path
     ? 'page'
@@ -50,7 +50,7 @@ $hb_about_current = 'about' === $hb_request_path ? 'page' : ( $hb_path_in_family
                     <span>HASHBOX<span class="hb-nav__brand-accent">.STUDIO</span></span>
                 </span>
             <?php else : ?>
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="hb-nav__brand">
+                <a href="<?php echo esc_url( hashbox_en_seo_nav_url( '/' ) ); ?>" class="hb-nav__brand">
                     <span class="hb-nav__brand-mark">H</span>
                     <span>HASHBOX<span class="hb-nav__brand-accent">.STUDIO</span></span>
                 </a>
@@ -60,12 +60,12 @@ $hb_about_current = 'about' === $hb_request_path ? 'page' : ( $hb_path_in_family
                 <nav class="hb-nav__primary" aria-label="Primary">
                     <ul class="hb-nav__menu">
                         <li class="hb-nav__item hb-nav__item--has-sub" data-open="false">
-                            <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-nav__link hb-nav__link--sub" aria-haspopup="true" aria-expanded="false" aria-controls="navServicesSub"<?php echo $hb_nav_current_attr( $hb_services_current ); ?>><?php echo $hb_en ? 'Services' : 'บริการ'; ?> <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></a>
+                            <a href="<?php echo esc_url( hashbox_en_seo_nav_url( '/services/' ) ); ?>" class="hb-nav__link hb-nav__link--sub" aria-haspopup="true" aria-expanded="false" aria-controls="navServicesSub"<?php echo $hb_nav_current_attr( $hb_services_current ); ?>><?php echo $hb_en ? 'Services' : 'บริการ'; ?> <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></a>
                             <ul class="hb-nav__sub" id="navServicesSub" aria-label="<?php echo $hb_en ? 'All services' : 'บริการทั้งหมด'; ?>">
                                 <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>
-                                <li><a class="hb-nav__sub-link" href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>"><span class="hb-nav__sub-name"><?php echo esc_html( $hb_en && ! empty( $svc['en_name'] ) ? $svc['en_name'] : $svc['name'] ); ?></span><span class="hb-nav__sub-stack"><?php echo esc_html( $svc['stack'] ); ?></span></a></li>
+                                <li><a class="hb-nav__sub-link" href="<?php echo esc_url( hashbox_en_seo_nav_url( $svc['path'] ) ); ?>"><span class="hb-nav__sub-name"><?php echo esc_html( $hb_en && ! empty( $svc['en_name'] ) ? $svc['en_name'] : $svc['name'] ); ?></span><span class="hb-nav__sub-stack"><?php echo esc_html( $svc['stack'] ); ?></span></a></li>
                                 <?php endforeach; ?>
-                                <li class="hb-nav__sub-all"><a class="hb-nav__sub-link" href="<?php echo esc_url( home_url( '/services/' ) ); ?>"><span class="hb-nav__sub-name"><?php echo $hb_en ? 'All services' : 'ดูบริการทั้งหมด'; ?> &rarr;</span></a></li>
+                                <li class="hb-nav__sub-all"><a class="hb-nav__sub-link" href="<?php echo esc_url( hashbox_en_seo_nav_url( '/services/' ) ); ?>"><span class="hb-nav__sub-name"><?php echo $hb_en ? 'All services' : 'ดูบริการทั้งหมด'; ?> &rarr;</span></a></li>
                             </ul>
                         </li>
                         <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-nav__link"<?php echo $hb_nav_current_attr( $hb_work_current ); ?>>Work</a></li>
@@ -81,7 +81,7 @@ $hb_about_current = 'about' === $hb_request_path ? 'page' : ( $hb_path_in_family
                 <?php elseif ( $hashbox_is_ai_audit ) : ?>
                     <a href="#audit-form" class="hb-btn hb-btn--gradient hb-btn--sm hb-ai-button" data-track-event="ai_cta_click"><?php echo hashbox_ai_action_icon( 'chat' ); ?> <span>ปรึกษา AI ฟรี</span></a>
                 <?php else : ?>
-                    <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--sm hb-nav__cta--drawer-backed"><?php echo $hb_en ? 'Free audit' : 'รับ Audit ฟรี'; ?></a>
+                    <a href="<?php echo esc_url( hashbox_en_seo_nav_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--sm hb-nav__cta--drawer-backed"><?php echo $hb_en ? 'Free audit' : 'รับ Audit ฟรี'; ?></a>
                     <button type="button" class="hb-nav__burger" id="navBurger" aria-label="Open menu" aria-controls="navSheet" aria-expanded="false">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
                     </button>
@@ -102,21 +102,21 @@ $hb_about_current = 'about' === $hb_request_path ? 'page' : ( $hb_path_in_family
             <nav>
                 <ul class="hb-sheet__menu">
                     <li>
-                        <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="hb-sheet__link"<?php echo $hb_nav_current_attr( $hb_services_current ); ?>><?php echo $hb_en ? 'Services' : 'บริการ'; ?></a>
+                        <a href="<?php echo esc_url( hashbox_en_seo_nav_url( '/services/' ) ); ?>" class="hb-sheet__link"<?php echo $hb_nav_current_attr( $hb_services_current ); ?>><?php echo $hb_en ? 'Services' : 'บริการ'; ?></a>
                         <ul class="hb-sheet__sub">
                             <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>
-                            <li><a class="hb-sheet__sub-link" href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>"><?php echo esc_html( $hb_en && ! empty( $svc['en_name'] ) ? $svc['en_name'] : $svc['name'] ); ?></a></li>
+                            <li><a class="hb-sheet__sub-link" href="<?php echo esc_url( hashbox_en_seo_nav_url( $svc['path'] ) ); ?>"><?php echo esc_html( $hb_en && ! empty( $svc['en_name'] ) ? $svc['en_name'] : $svc['name'] ); ?></a></li>
                             <?php endforeach; ?>
                         </ul>
                     </li>
                     <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-sheet__link"<?php echo $hb_nav_current_attr( $hb_work_current ); ?>>Work</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="hb-sheet__link"<?php echo $hb_nav_current_attr( $hb_blog_current ); ?>>Blog</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="hb-sheet__link"<?php echo $hb_nav_current_attr( $hb_about_current ); ?>>About</a></li>
-                    <li><a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-sheet__link">Contact</a></li>
+                    <li><a href="<?php echo esc_url( hashbox_en_seo_nav_url( '/#contact' ) ); ?>" class="hb-sheet__link">Contact</a></li>
                 </ul>
             </nav>
             <div class="hb-sheet__footer">
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg"><?php echo $hb_en ? 'Get a free audit' : 'รับ Audit ฟรี'; ?></a>
+                <a href="<?php echo esc_url( hashbox_en_seo_nav_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg"><?php echo $hb_en ? 'Get a free audit' : 'รับ Audit ฟรี'; ?></a>
                 <a href="https://lin.ee/Xagx6i4" class="hb-btn hb-btn--outline" target="_blank" rel="noopener noreferrer"><?php echo $hb_en ? 'Chat on LINE' : 'คุยทาง LINE'; ?></a>
             </div>
         </div>

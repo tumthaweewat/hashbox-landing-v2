@@ -33,8 +33,13 @@ assert.match(
 );
 assert.match(
   submitHandler,
-  /'service'\s*=>\s*\$website_project_type_label/,
-  'the scheduled attribution payload must use the server-derived service label'
+  /'service'\s*=>\s*\$is_en_seo_form\s*\?\s*'seo'\s*:\s*\$website_project_type_label/,
+  'SEO enquiries use the scoped SEO label; Website enquiries retain the server-derived project label'
+);
+assert.match(
+  submitHandler,
+  /\$is_en_seo_form\s*=\s*isset\( \$_POST\['contact_context'\] \) && 'en-seo' === \$_POST\['contact_context'\] && \$redirect_path === \$en_seo_path;/,
+  'SEO CRM classification requires both the SEO context and the SEO return path'
 );
 assert.match(
   submitHandler,

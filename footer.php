@@ -56,7 +56,7 @@
         <div class="hb-container">
             <div class="hb-footer__grid">
                 <div class="hb-footer__brand">
-                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="hb-footer__brand-mark">
+                    <a href="<?php echo esc_url( hashbox_en_seo_nav_url( '/' ) ); ?>" class="hb-footer__brand-mark">
                         <span class="hb-nav__brand-mark">H</span>
                         HASHBOX<span class="hb-nav__brand-accent">.STUDIO</span>
                     </a>
@@ -77,10 +77,10 @@
                     <h3><?php echo $hb_en ? 'Services' : 'บริการ'; ?></h3>
                     <ul>
                         <?php foreach ( hashbox_service_catalog_live() as $svc ) : ?>
-                        <li><a href="<?php echo esc_url( hashbox_service_url( $svc ) ); ?>"><?php echo esc_html( $hb_en && ! empty( $svc['en_name'] ) ? $svc['en_name'] : $svc['name'] ); ?></a></li>
+                        <li><a href="<?php echo esc_url( hashbox_en_seo_nav_url( $svc['path'] ) ); ?>"><?php echo esc_html( $hb_en && ! empty( $svc['en_name'] ) ? $svc['en_name'] : $svc['name'] ); ?></a></li>
                         <?php endforeach; ?>
-                        <li><a href="<?php echo esc_url( home_url( '/seo-audit/' ) ); ?>"><?php echo $hb_en ? 'Free SEO Audit' : 'SEO Audit ฟรี'; ?></a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>"><?php echo $hb_en ? 'All services' : 'บริการทั้งหมด'; ?></a></li>
+                        <li><a href="<?php echo esc_url( hashbox_en_seo_nav_url( '/seo-audit/' ) ); ?>"><?php echo $hb_en ? 'Free SEO Audit' : 'SEO Audit ฟรี'; ?></a></li>
+                        <li><a href="<?php echo esc_url( hashbox_en_seo_nav_url( '/services/' ) ); ?>"><?php echo $hb_en ? 'All services' : 'บริการทั้งหมด'; ?></a></li>
                     </ul>
                 </div>
 
@@ -90,7 +90,7 @@
                         <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>">About</a></li>
                         <li><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>">Case Studies</a></li>
                         <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>">Blog</a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">Contact</a></li>
+                        <li><a href="<?php echo esc_url( hashbox_en_seo_nav_url( '/#contact' ) ); ?>">Contact</a></li>
                     </ul>
                 </div>
 
