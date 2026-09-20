@@ -37,6 +37,13 @@ seo_expect( 1 === $xpath->query( '//h1' )->length, 'Exactly one h1.' );
 seo_expect( 8 === $xpath->query( '//*[contains(@class,"en-seo-scope__item")]' )->length, 'All eight scope items retained.' );
 seo_expect( 8 === $xpath->query( '//*[contains(@class,"en-seo-measures")]/li' )->length, 'All eight KPIs retained.' );
 seo_expect( 1 === $xpath->query( '//form[@id="en-seo-contact-form"]' )->length, 'English contact form included.' );
+$audit_ctas = $xpath->query( '//a[@href="#seo-contact" and contains(concat(" ", normalize-space(@class), " "), " en-seo-button ")]' );
+seo_expect( 2 === $audit_ctas->length, 'Hero and pricing retain their primary audit CTAs.' );
+foreach ( $audit_ctas as $cta ) {
+    seo_expect( 'Get a free SEO audit' === trim( $cta->textContent ), 'Primary CTA copy must match the audit form, not promise a quote.' );
+}
+$submit_label = $xpath->query( '//form[@id="en-seo-contact-form"]//button[@data-en-seo-submit]/span' );
+seo_expect( 1 === $submit_label->length && 'Get a free SEO audit' === trim( $submit_label->item( 0 )->textContent ), 'Submit label keeps the same free SEO audit promise.' );
 $ids = array();
 foreach ( $xpath->query( '//*[@id]' ) as $element ) {
     $id = $element->getAttribute( 'id' );

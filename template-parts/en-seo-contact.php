@@ -64,7 +64,7 @@ $seo_messages = array(
                 <span>I agree to Hashbox using my details to respond to this request, as described in the <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>" target="_blank" rel="noopener">Privacy Policy</a>. <span aria-hidden="true">*</span></span>
             </label>
             <small class="en-seo-contact__error" id="en-seo-pdpa-error" aria-live="polite"></small>
-            <button class="en-seo-contact__submit" type="submit" data-en-seo-submit><span>Request SEO audit</span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+            <button class="en-seo-contact__submit" type="submit" data-en-seo-submit><span>Get a free SEO audit</span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
         </form>
     </div>
 </section>

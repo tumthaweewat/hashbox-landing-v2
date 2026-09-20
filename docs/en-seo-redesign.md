@@ -27,3 +27,19 @@ The existing untracked Signal V3 export `design-system/v3/tokens.css` is now a p
 Passed locally: PHP syntax; `tools/test-en-seo-page.php`; `tools/test-en-seo-contact.php` (including the real shared handler with mail/CRM I/O mocked); `tools/test-en-seo-contact.mjs`; `tools/test-en-seo-design.mjs` (17 token contrast pairs); existing typography, HubSpot attribution, conversion-ref, website-audit and AI audit tracking contract tests.
 
 Outstanding visual QA: connected-browser checks at 320, 375, 414, 768, 1280×800, 1440 and 1920px; keyboard navigation, form/FAQ states, direct `#seo-contact` alignment and reduced motion. The browser connector returned no available browser, so these are **not marked passed**. The user subsequently authorized deployment with that limitation disclosed. Existing case links and published claims were checked against live HTML; this task does not independently certify historical client outcomes.
+
+## Follow-up QA and CTA consistency — 20 September 2026
+
+- Hero, pricing and form-submit primary actions use `Get a free SEO audit`. The pricing CTA no longer promises a quote before taking the visitor to an audit form. Rendered-page tests guard this copy and the existing anchor destination.
+- Additional offline client tests cover rapid click/Enter while a nonce is pending, invalid required fields, failed nonce responses, error/unconfirmed/expired states, attribution across navigation and expiry, draft cleanup, and exact PII-free analytics with same-tab receipt deduplication. Native form POSTs and analytics sinks are simulated, not evidence of production delivery.
+- No price, guarantee, tracking destination, server delivery behavior, or other page family changed in this follow-up.
+
+### Remaining browser and delivery checks (not passed yet)
+
+1. Connect a browser and check the required viewport widths above with fonts loaded: no horizontal overflow, readable headings, one-line primary buttons, fixed-nav clearance, and the `#seo-contact` scroll position. Check keyboard focus, mobile-menu open/close, FAQ state, invalid fields and reduced motion.
+2. Agree on test name/email with the owner before creating a real `TEST` enquiry. Use a unique non-personal campaign marker such as `utm_source=qa&utm_medium=manual&utm_campaign=en_seo_release_test`. Confirm how test traffic is isolated from production reporting first; do not change Ads/GTM settings merely to run the test.
+3. Verify the request arrives in the team's inbox. A successful `wp_mail()` return and receipt confirm only that the application accepted the send, not that the message reached the inbox.
+4. Verify the corresponding HubSpot record after the scheduled sync runs. Check `service=seo`, submitted attribution and the landing source. The sync is scheduled two minutes later, but actual delivery depends on WordPress cron and the production token/property configuration. Extended landing attribution requires `HASHBOX_HUBSPOT_EXTENDED_ATTRIBUTION`; do not assume it is enabled from source code alone.
+5. With the owner's analytics access, verify one confirmed `generate_lead` for `en-seo-contact-form` / `lead_source=en_seo` in GA4 DebugView or Tag Assistant, no repeat after same-tab reload, and no lead event for invalid/error states. This form must not emit the separate Website Ads conversion.
+
+The browser discovery check remained empty during this follow-up. No real enquiry, email, CRM record, or analytics test event was created, and production configuration was not changed.

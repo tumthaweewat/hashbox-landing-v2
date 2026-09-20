@@ -213,7 +213,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
                     <li><?php echo hashbox_en_seo_icon( 'check' ); ?> Daily rank + AI-citation data, yours to keep</li>
                     <li><?php echo hashbox_en_seo_icon( 'check' ); ?> Written “no growth, no pay” guarantee</li>
                 </ul>
-                <a href="#seo-contact" class="en-seo-button">Request a quote <?php echo hashbox_en_seo_icon( 'arrow-right' ); ?></a>
+                <a href="#seo-contact" class="en-seo-button">Get a free SEO audit <?php echo hashbox_en_seo_icon( 'arrow-right' ); ?></a>
             </div>
             <div class="en-seo-pricing__scope">
                 <h3>What moves the price</h3>
