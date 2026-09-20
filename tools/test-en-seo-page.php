@@ -74,6 +74,11 @@ seo_expect( 3 === count( $seo_schemas ), 'Service, breadcrumb and FAQ schemas re
 seo_expect( home_url( '/en/' ) === $seo_schemas[1]['itemListElement'][0]['item'], 'Breadcrumb schema matches English visible routing.' );
 seo_expect( 2 === count( $seo_schemas[1]['itemListElement'] ), 'Visible and structured breadcrumbs have the same two levels.' );
 seo_expect( 29900 === $seo_schemas[0]['offers']['priceSpecification']['minPrice'], 'Published price unchanged.' );
+$hero_price = $xpath->query( '//p[contains(concat(" ", normalize-space(@class), " "), " en-seo-hero__terms ")]' );
+seo_expect( 1 === $hero_price->length && 'From THB 29,900 / month' === trim( $hero_price->item( 0 )->textContent ), 'Hero shows the unchanged price without the removed minimum/VAT note.' );
+seo_expect( 0 === $xpath->query( '//*[@id="pricing"]//p[contains(concat(" ", normalize-space(@class), " "), " en-seo-pricing__terms ")]' )->length, 'Pricing does not render the removed standalone minimum/VAT note.' );
+seo_expect( false !== strpos( $seo_schemas[2]['mainEntity'][0]['acceptedAnswer']['text'], 'excluding 7% VAT' ), 'The detailed pricing FAQ still explains VAT.' );
+seo_expect( false !== strpos( $seo_schemas[2]['mainEntity'][1]['acceptedAnswer']['text'], '3-month minimum' ), 'The detailed guarantee FAQ retains the actual minimum term.' );
 $questions = $xpath->query( '//*[contains(@class,"en-seo-faq__item")]/summary/span' );
 $answers = $xpath->query( '//*[contains(@class,"en-seo-faq__item")]/div/p' );
 seo_expect( count( $seo_schemas[2]['mainEntity'] ) === $questions->length, 'Visible and structured FAQ counts match.' );

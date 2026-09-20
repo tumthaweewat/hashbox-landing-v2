@@ -60,7 +60,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
                     <a href="#seo-contact" class="en-seo-button">Get a free SEO audit <?php echo hashbox_en_seo_icon( 'arrow-right' ); ?></a>
                     <a href="#results" class="en-seo-text-link">See the evidence <?php echo hashbox_en_seo_icon( 'arrow-right' ); ?></a>
                 </div>
-                <p class="en-seo-hero__terms">From <strong>THB 29,900 / month</strong> · 3-month minimum · Excludes 7% VAT</p>
+                <p class="en-seo-hero__terms">From <strong>THB 29,900 / month</strong></p>
                 <a href="#guarantee" class="en-seo-small-link">How the guarantee works</a>
             </div>
             <figure class="en-seo-proof">
@@ -203,7 +203,6 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
                 <p class="en-seo-eyebrow">Published pricing</p>
                 <h2 id="seo-pricing-title">SEO retainer</h2>
                 <p class="en-seo-price"><span>From</span> THB 29,900 <span>/ month</span></p>
-                <p class="en-seo-pricing__terms"><strong>3-month minimum</strong> · Excludes 7% VAT</p>
                 <p>All 8 scope items above, sized to your site after the free audit.</p>
                 <ul class="en-seo-checklist">
                     <li><?php echo hashbox_en_seo_icon( 'check' ); ?> Technical audit and fixes first</li>

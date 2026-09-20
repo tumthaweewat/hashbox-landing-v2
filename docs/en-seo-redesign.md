@@ -34,6 +34,8 @@ Outstanding visual QA: connected-browser checks at 320, 375, 414, 768, 1280×800
 - Additional offline client tests cover rapid click/Enter while a nonce is pending, invalid required fields, failed nonce responses, error/unconfirmed/expired states, attribution across navigation and expiry, draft cleanup, and exact PII-free analytics with same-tab receipt deduplication. Native form POSTs and analytics sinks are simulated, not evidence of production delivery.
 - No price, guarantee, tracking destination, server delivery behavior, or other page family changed in this follow-up.
 
+Owner-requested presentation updates: removed the public consultation-photo caption/credit (internal source/license record and alt retained), and removed `3-month minimum · Excludes 7% VAT` beside the hero and pricing amounts. The THB 29,900 monthly price, detailed FAQ/payment conditions, full-terms link and structured data remain unchanged.
+
 ### Browser and delivery verification checklist
 
 1. Connect a browser and check the required viewport widths above with fonts loaded: no horizontal overflow, readable headings, one-line primary buttons, fixed-nav clearance, and the `#seo-contact` scroll position. Check keyboard focus, mobile-menu open/close, FAQ state, invalid fields and reduced motion.
