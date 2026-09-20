@@ -34,7 +34,7 @@ Outstanding visual QA: connected-browser checks at 320, 375, 414, 768, 1280×800
 - Additional offline client tests cover rapid click/Enter while a nonce is pending, invalid required fields, failed nonce responses, error/unconfirmed/expired states, attribution across navigation and expiry, draft cleanup, and exact PII-free analytics with same-tab receipt deduplication. Native form POSTs and analytics sinks are simulated, not evidence of production delivery.
 - No price, guarantee, tracking destination, server delivery behavior, or other page family changed in this follow-up.
 
-### Remaining browser and delivery checks (not passed yet)
+### Browser and delivery verification checklist
 
 1. Connect a browser and check the required viewport widths above with fonts loaded: no horizontal overflow, readable headings, one-line primary buttons, fixed-nav clearance, and the `#seo-contact` scroll position. Check keyboard focus, mobile-menu open/close, FAQ state, invalid fields and reduced motion.
 2. Agree on test name/email with the owner before creating a real `TEST` enquiry. Use a unique non-personal campaign marker such as `utm_source=qa&utm_medium=manual&utm_campaign=en_seo_release_test`. Confirm how test traffic is isolated from production reporting first; do not change Ads/GTM settings merely to run the test.
@@ -42,4 +42,12 @@ Outstanding visual QA: connected-browser checks at 320, 375, 414, 768, 1280×800
 4. Verify the corresponding HubSpot record after the scheduled sync runs. Check `service=seo`, submitted attribution and the landing source. The sync is scheduled two minutes later, but actual delivery depends on WordPress cron and the production token/property configuration. Extended landing attribution requires `HASHBOX_HUBSPOT_EXTENDED_ATTRIBUTION`; do not assume it is enabled from source code alone.
 5. With the owner's analytics access, verify one confirmed `generate_lead` for `en-seo-contact-form` / `lead_source=en_seo` in GA4 DebugView or Tag Assistant, no repeat after same-tab reload, and no lead event for invalid/error states. This form must not emit the separate Website Ads conversion.
 
-The browser discovery check remained empty during this follow-up. No real enquiry, email, CRM record, or analytics test event was created, and production configuration was not changed.
+### Production delivery confirmed — 20 September 2026
+
+The owner submitted an enquiry through the deployed `c3e87eb` version at approximately 10:47 Bangkok time. Read-only connector checks confirmed:
+
+- The notification reached the intended team's Gmail Inbox at 10:47:38, with the submitted message, `service=seo` and `landing=en-seo`.
+- HubSpot's existing contact recorded the same message and an `en-seo-contact-form` conversion at 10:47:38. Its `service` field initially retained an older value, then changed to `seo` at 10:50:02 after the scheduled sync. This was a delayed update, not a failed classification.
+- The portal does not currently have the `hashbox_landing_slug` contact property. The landing is identifiable from the collected-form conversion and notification email, but the dedicated custom-field sync is not verified. No property was created or account setting changed.
+
+These checks verify the deployed delivery path, not the unreleased CTA wording. The agent did not submit another form, send an email, edit CRM data or change production configuration. The owner-supplied test had no isolated campaign marker, so UTM attribution is still not verified end to end. Browser discovery remained empty; responsive/keyboard visual QA and actual GA4 event receipt/deduplication remain outstanding.
