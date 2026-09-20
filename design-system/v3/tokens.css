@@ -1,0 +1,113 @@
+/* Hallmark · genre: modern-minimal · tone: measured / legible / evidence-led · anchor: Hashbox Indigo · macrostructure: Workbench · H2 hero: 7/5 split + real proof · F3 service sheet · editorial work ledger · F4 process · nav: N11 · footer: Ft5 · design-system: design.md · designed-as-app */
+/* theme: reference-synthesis (AGR · Creative Marketing · Linea Prompt · Nex Studio · Riangle) · adapted: Hashbox Original Indigo · DNA-source: urls · no copied imagery */
+/* Hallmark audit · contrast: pass (40–41) · nav: N11 · footer: Ft5 · slop: pass (42–45) · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · responsive: pass (49) · icons: pass (30) · mobile: pass (34, 49–57) */
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V4 */
+
+:root {
+  --color-clear: oklch(15.33% 0.0149 284.51 / 0%);
+  --color-paper: oklch(98.48% 0.0013 106.42);
+  --color-paper-2: oklch(96.06% 0.0027 106.45);
+  --color-paper-3: oklch(93.04% 0.0027 106.45);
+  --color-ink: oklch(15.33% 0.0149 284.51);
+  --color-ink-2: oklch(24.23% 0.0133 285.37);
+  --color-muted: oklch(38.89% 0.0100 285.92);
+  --color-neutral: oklch(53.96% 0.0062 286.19);
+  --color-rule: oklch(90.61% 0.0027 106.45);
+  --color-rule-2: oklch(82.88% 0.0041 106.49);
+  --color-accent: oklch(51.06% 0.2301 276.97);
+  --color-accent-strong: oklch(45.68% 0.2146 277.02);
+  --color-accent-soft: oklch(93% 0.035 277);
+  --color-accent-ink: oklch(98.48% 0.0013 106.42);
+  --color-highlight: oklch(55.34% 0.1739 38.40);
+  --color-highlight-soft: oklch(96% 0.020 38.40);
+  --color-focus: oklch(45.68% 0.2146 277.02);
+  --color-success: oklch(40% 0.110 150);
+  --color-success-soft: oklch(92% 0.035 150);
+  --color-warning: oklch(47% 0.110 75);
+  --color-warning-soft: oklch(93% 0.040 75);
+  --color-error: oklch(44% 0.150 25);
+  --color-error-soft: oklch(93% 0.035 25);
+  --color-status-ink: oklch(98.48% 0.0013 106.42);
+  --color-overlay: oklch(15.33% 0.0149 284.51 / 64%);
+
+  --font-display: "IBM Plex Sans Thai", ui-sans-serif, sans-serif;
+  --font-body: "Noto Sans Thai", ui-sans-serif, sans-serif;
+  --font-outlier: "IBM Plex Mono", ui-monospace, monospace;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.5625rem;
+  --text-xl: 1.953125rem;
+  --text-2xl: 2.44140625rem;
+  --text-3xl: 3.0517578125rem;
+  --text-4xl: 3.8146972656rem;
+  --text-display-sm: clamp(2.25rem, 4vw + 1rem, 3.75rem);
+  --text-display: clamp(2.625rem, 4.5vw + 0.75rem, 4.75rem);
+
+  --leading-tight: 1.08;
+  --leading-heading: 1.22;
+  --leading-body: 1.7;
+  --leading-label: 1.25;
+
+  --tracking-display: -0.025em;
+  --tracking-heading: -0.015em;
+  --tracking-body: 0em;
+  --tracking-label: 0.08em;
+
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 7rem;
+  --space-4xl: 11rem;
+  --space-5xl: 14rem;
+
+  --rule-hair: 1px;
+  --rule-fine: 2px;
+
+  --radius-xs: 0.125rem;
+  --radius-input: 0.5rem;
+  --radius-card: 0.75rem;
+  --radius-panel: 1rem;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 1rem 2.5rem oklch(15.33% 0.0149 284.51 / 8%);
+  --shadow-raised: 0 1.5rem 4rem oklch(15.33% 0.0149 284.51 / 12%);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --dur-micro: 120ms;
+  --dur-short: 180ms;
+  --dur-base: 260ms;
+  --dur-long: 420ms;
+
+  --size-control: 2.75rem;
+  --size-control-lg: 3.25rem;
+  --size-nav: 4rem;
+  --size-touch: 2.75rem;
+
+  --container-max: 78rem;
+  --container-prose: 65ch;
+  --container-narrow: 56rem;
+
+  --z-base: 1;
+  --z-raised: 10;
+  --z-sticky: 200;
+  --z-sticky-nav: 300;
+  --z-overlay: 400;
+  --z-modal: 500;
+  --z-toast: 600;
+}

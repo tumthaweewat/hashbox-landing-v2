@@ -1,0 +1,24 @@
+name: English SEO page verification
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  en-seo-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: dom, gd
+          coverage: none
+      - name: Rendered page and real-handler contracts (no live delivery)
+        run: |
+          php tools/test-en-seo-page.php
+          php tools/test-en-seo-contact.php
+      - name: Client validation, attribution and design tokens
+        run: |
+          node --check js/en-seo-contact.js
+          node tools/test-en-seo-contact.mjs
+          node tools/test-en-seo-design.mjs

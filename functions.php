@@ -13,6 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once get_template_directory() . '/inc/service-catalog.php';
 require_once get_template_directory() . '/inc/homepage-leads.php';
 require_once get_template_directory() . '/inc/ai-action-icons.php';
+require_once get_template_directory() . '/inc/en-seo-icons.php';
+require_once get_template_directory() . '/inc/en-seo-page.php';
+require_once get_template_directory() . '/inc/en-seo-contact.php';
 
 // No RSS/comment feed links in <head> and no emoji detection script —
 // both showed up as crawled-not-indexed URLs in GSC (2026-08-29).
@@ -3702,11 +3705,13 @@ function hashbox_handle_contact_submit() {
     $landing      = hashbox_get_audit_landing_for_return_url( $redirect_to );
     $posted_landing_slug = isset( $_POST['landing_slug'] ) ? sanitize_key( wp_unslash( $_POST['landing_slug'] ) ) : '';
     $redirect_path       = trim( (string) wp_parse_url( $redirect_to, PHP_URL_PATH ), '/' );
+    $en_seo_path         = trim( (string) wp_parse_url( home_url( '/en/seo/' ), PHP_URL_PATH ), '/' );
+    $is_en_seo_form      = isset( $_POST['contact_context'] ) && 'en-seo' === $_POST['contact_context'] && $redirect_path === $en_seo_path;
     $website_audit_path  = trim( (string) wp_parse_url( home_url( '/website-audit/' ), PHP_URL_PATH ), '/' );
     $is_website_audit_form = 'website-audit' === $posted_landing_slug && $redirect_path === $website_audit_path;
     $landing_slug = is_array( $landing ) && isset( $landing['slug'] )
         ? $landing['slug']
-        : ( $is_website_audit_form ? 'website-audit' : ( $is_home_contact ? 'homepage' : '' ) );
+        : ( $is_website_audit_form ? 'website-audit' : ( $is_home_contact ? 'homepage' : ( $is_en_seo_form ? 'en-seo' : '' ) ) );
     $is_ai_route  = 'ai-workflow-audit' === $landing_slug;
     $ai_nonce_ok  = isset( $_POST['hashbox_ai_nonce'] )
         && wp_verify_nonce( wp_unslash( $_POST['hashbox_ai_nonce'] ), 'hashbox_ai_contact' );
@@ -3761,7 +3766,7 @@ function hashbox_handle_contact_submit() {
     $to          = 'business@hashbox.co.th';
     $request_type = $is_ai_form
         ? 'AI consultation request'
-        : ( $is_website_audit_form ? 'Website project evaluation' : ( $is_audit_form ? 'Audit request' : 'New enquiry' ) );
+        : ( $is_website_audit_form ? 'Website project evaluation' : ( $is_en_seo_form ? 'Technical SEO audit (English)' : ( $is_audit_form ? 'Audit request' : 'New enquiry' ) ) );
     $subject      = sprintf( '[Hashbox V2] %s from %s — %s', $request_type, $name, $service ?: 'unspecified' );
     $lead_ref     = $is_ai_form ? wp_generate_uuid4() : '';
     $conversion_ref = $is_ai_form ? hashbox_generate_conversion_ref( 'AI' ) : '';
@@ -3900,7 +3905,7 @@ function hashbox_handle_contact_submit() {
 
     if ( $sent && is_email( $email ) ) {
         $hubspot_attribution = array_merge( $utm, array(
-            'service'                      => $website_project_type_label,
+            'service'                      => $is_en_seo_form ? 'seo' : $website_project_type_label,
             'lead_ref'                     => $lead_ref,
             'conversion_ref'               => $conversion_ref,
             'landing_slug'                 => $landing_slug,

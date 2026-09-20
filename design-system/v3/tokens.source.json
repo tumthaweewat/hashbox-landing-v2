@@ -1,0 +1,161 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$extensions": {
+    "studio.hashbox": {
+      "name": "Signal V3 — Original Indigo",
+      "status": "candidate",
+      "contentPolicy": "Preserve existing website content",
+      "references": [
+        { "name": "Genesis", "url": "https://designmd.ai/chef/genesis", "role": "quiet UI discipline" },
+        { "name": "AGR Studio", "url": "https://agr.studio/", "role": "senior B2B confidence and capability ledgers" },
+        { "name": "Creative Marketing", "url": "https://creativemarketing.peachweb.io/", "role": "large statement pacing only" },
+        { "name": "Linea Prompt", "url": "https://lineaprompt.com/", "role": "promise-action-proof hierarchy and precise surfaces" },
+        { "name": "Nex Studio", "url": "https://nexstudio.tech/", "role": "bold typography and dark-light project rhythm" },
+        { "name": "Riangle", "url": "https://riangle.com/", "role": "studio-technology voice and project indexing" }
+      ],
+      "referencePolicy": {
+        "role": "Directional synthesis adapted to Hashbox identity; never a pixel copy",
+        "adopted": [
+          "large studio typography with rhythmic whitespace",
+          "one primary action before supporting detail",
+          "editorial project ledgers built from real case-study content",
+          "precise proof surfaces and restrained rules",
+          "no more than three purposeful motion primitives"
+        ],
+        "excluded": [
+          "green as a brand accent",
+          "gradients, glow, glass and decorative illustration",
+          "loading screens, parallax and custom cursor effects",
+          "fabricated metrics, testimonials or client counts",
+          "repeated decorative section numbering"
+        ]
+      },
+      "generatedOutputs": [
+        "tokens.css",
+        "tokens.json"
+      ]
+    }
+  },
+  "color": {
+    "clear": { "$value": "oklch(15.33% 0.0149 284.51 / 0%)", "$type": "color", "$description": "Transparent geometry-preserving outline" },
+    "paper": { "$value": "oklch(98.48% 0.0013 106.42)", "$type": "color", "$description": "Primary Hashbox warm off-white surface, derived from #FAFAF9" },
+    "paper-2": { "$value": "oklch(96.06% 0.0027 106.45)", "$type": "color", "$description": "Secondary Hashbox surface, derived from #F2F2F0" },
+    "paper-3": { "$value": "oklch(93.04% 0.0027 106.45)", "$type": "color", "$description": "Raised Hashbox surface, derived from #E8E8E6" },
+    "ink": { "$value": "oklch(15.33% 0.0149 284.51)", "$type": "color", "$description": "Primary Hashbox near-black, derived from #0B0B12" },
+    "ink-2": { "$value": "oklch(24.23% 0.0133 285.37)", "$type": "color", "$description": "Secondary Hashbox text, derived from #1F1F26" },
+    "muted": { "$value": "oklch(38.89% 0.0100 285.92)", "$type": "color", "$description": "Accessible supporting text, derived from #44444A" },
+    "neutral": { "$value": "oklch(53.96% 0.0062 286.19)", "$type": "color", "$description": "Decorative metadata only, derived from #6E6E72" },
+    "rule": { "$value": "oklch(90.61% 0.0027 106.45)", "$type": "color", "$description": "Default divider, derived from #E0E0DE" },
+    "rule-2": { "$value": "oklch(82.88% 0.0041 106.49)", "$type": "color", "$description": "Strong divider and control border, derived from #C7C7C4" },
+    "accent": { "$value": "oklch(51.06% 0.2301 276.97)", "$type": "color", "$description": "Hashbox indigo primary, derived from #4F46E5" },
+    "accent-strong": { "$value": "oklch(45.68% 0.2146 277.02)", "$type": "color", "$description": "Hashbox indigo pressed state, derived from #4338CA" },
+    "accent-soft": { "$value": "oklch(93% 0.035 277)", "$type": "color", "$description": "Derived quiet indigo surface" },
+    "accent-ink": { "$value": "oklch(98.48% 0.0013 106.42)", "$type": "color", "$description": "Text on Hashbox indigo" },
+    "highlight": { "$value": "oklch(55.34% 0.1739 38.40)", "$type": "color", "$description": "Hashbox burnt-orange highlight, derived from #C2410C" },
+    "highlight-soft": { "$value": "oklch(96% 0.020 38.40)", "$type": "color", "$description": "Derived quiet burnt-orange surface" },
+    "focus": { "$value": "oklch(45.68% 0.2146 277.02)", "$type": "color", "$description": "Keyboard focus indicator" },
+    "success": { "$value": "oklch(40% 0.110 150)", "$type": "color", "$description": "Confirmed state" },
+    "success-soft": { "$value": "oklch(92% 0.035 150)", "$type": "color", "$description": "Confirmed state surface" },
+    "warning": { "$value": "oklch(47% 0.110 75)", "$type": "color", "$description": "Attention state" },
+    "warning-soft": { "$value": "oklch(93% 0.040 75)", "$type": "color", "$description": "Attention state surface" },
+    "error": { "$value": "oklch(44% 0.150 25)", "$type": "color", "$description": "Error state" },
+    "error-soft": { "$value": "oklch(93% 0.035 25)", "$type": "color", "$description": "Error state surface" },
+    "status-ink": { "$value": "oklch(98.48% 0.0013 106.42)", "$type": "color", "$description": "Text on semantic fills" },
+    "overlay": { "$value": "oklch(15.33% 0.0149 284.51 / 64%)", "$type": "color", "$description": "Modal overlay" }
+  },
+  "font": {
+    "display": { "$value": "\"IBM Plex Sans Thai\", ui-sans-serif, sans-serif", "$type": "fontFamily" },
+    "body": { "$value": "\"Noto Sans Thai\", ui-sans-serif, sans-serif", "$type": "fontFamily" },
+    "outlier": { "$value": "\"IBM Plex Mono\", ui-monospace, monospace", "$type": "fontFamily" }
+  },
+  "weight": {
+    "regular": { "$value": "400", "$type": "number" },
+    "medium": { "$value": "500", "$type": "number" },
+    "semibold": { "$value": "600", "$type": "number" },
+    "bold": { "$value": "700", "$type": "number" }
+  },
+  "text": {
+    "xs": { "$value": "0.75rem", "$type": "dimension" },
+    "sm": { "$value": "0.875rem", "$type": "dimension" },
+    "base": { "$value": "1rem", "$type": "dimension" },
+    "md": { "$value": "1.25rem", "$type": "dimension" },
+    "lg": { "$value": "1.5625rem", "$type": "dimension" },
+    "xl": { "$value": "1.953125rem", "$type": "dimension" },
+    "2xl": { "$value": "2.44140625rem", "$type": "dimension" },
+    "3xl": { "$value": "3.0517578125rem", "$type": "dimension" },
+    "4xl": { "$value": "3.8146972656rem", "$type": "dimension" },
+    "display-sm": { "$value": "clamp(2.25rem, 4vw + 1rem, 3.75rem)", "$type": "dimension" },
+    "display": { "$value": "clamp(2.625rem, 4.5vw + 0.75rem, 4.75rem)", "$type": "dimension" }
+  },
+  "leading": {
+    "tight": { "$value": "1.08", "$type": "number" },
+    "heading": { "$value": "1.22", "$type": "number" },
+    "body": { "$value": "1.7", "$type": "number" },
+    "label": { "$value": "1.25", "$type": "number" }
+  },
+  "tracking": {
+    "display": { "$value": "-0.025em", "$type": "dimension" },
+    "heading": { "$value": "-0.015em", "$type": "dimension" },
+    "body": { "$value": "0em", "$type": "dimension" },
+    "label": { "$value": "0.08em", "$type": "dimension" }
+  },
+  "space": {
+    "3xs": { "$value": "0.25rem", "$type": "dimension" },
+    "2xs": { "$value": "0.5rem", "$type": "dimension" },
+    "xs": { "$value": "0.75rem", "$type": "dimension" },
+    "sm": { "$value": "1rem", "$type": "dimension" },
+    "md": { "$value": "1.5rem", "$type": "dimension" },
+    "lg": { "$value": "2rem", "$type": "dimension" },
+    "xl": { "$value": "3rem", "$type": "dimension" },
+    "2xl": { "$value": "4.5rem", "$type": "dimension" },
+    "3xl": { "$value": "7rem", "$type": "dimension" },
+    "4xl": { "$value": "11rem", "$type": "dimension" },
+    "5xl": { "$value": "14rem", "$type": "dimension" }
+  },
+  "rule": {
+    "hair": { "$value": "1px", "$type": "dimension" },
+    "fine": { "$value": "2px", "$type": "dimension" }
+  },
+  "radius": {
+    "xs": { "$value": "0.125rem", "$type": "dimension" },
+    "input": { "$value": "0.5rem", "$type": "dimension" },
+    "card": { "$value": "0.75rem", "$type": "dimension" },
+    "panel": { "$value": "1rem", "$type": "dimension" },
+    "pill": { "$value": "999px", "$type": "dimension" }
+  },
+  "shadow": {
+    "card": { "$value": "0 1rem 2.5rem oklch(15.33% 0.0149 284.51 / 8%)", "$type": "shadow" },
+    "raised": { "$value": "0 1.5rem 4rem oklch(15.33% 0.0149 284.51 / 12%)", "$type": "shadow" }
+  },
+  "ease": {
+    "out": { "$value": "cubic-bezier(0.16, 1, 0.3, 1)", "$type": "cubicBezier" },
+    "in": { "$value": "cubic-bezier(0.7, 0, 0.84, 0)", "$type": "cubicBezier" },
+    "in-out": { "$value": "cubic-bezier(0.65, 0, 0.35, 1)", "$type": "cubicBezier" }
+  },
+  "duration": {
+    "micro": { "$value": "120ms", "$type": "duration" },
+    "short": { "$value": "180ms", "$type": "duration" },
+    "base": { "$value": "260ms", "$type": "duration" },
+    "long": { "$value": "420ms", "$type": "duration" }
+  },
+  "size": {
+    "control": { "$value": "2.75rem", "$type": "dimension" },
+    "control-lg": { "$value": "3.25rem", "$type": "dimension" },
+    "nav": { "$value": "4rem", "$type": "dimension" },
+    "touch": { "$value": "2.75rem", "$type": "dimension" }
+  },
+  "container": {
+    "max": { "$value": "78rem", "$type": "dimension" },
+    "prose": { "$value": "65ch", "$type": "dimension" },
+    "narrow": { "$value": "56rem", "$type": "dimension" }
+  },
+  "z": {
+    "base": { "$value": "1", "$type": "number" },
+    "raised": { "$value": "10", "$type": "number" },
+    "sticky": { "$value": "200", "$type": "number" },
+    "sticky-nav": { "$value": "300", "$type": "number" },
+    "overlay": { "$value": "400", "$type": "number" },
+    "modal": { "$value": "500", "$type": "number" },
+    "toast": { "$value": "600", "$type": "number" }
+  }
+}
