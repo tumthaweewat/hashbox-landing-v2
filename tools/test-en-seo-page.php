@@ -37,6 +37,13 @@ seo_expect( 1 === $xpath->query( '//h1' )->length, 'Exactly one h1.' );
 seo_expect( 8 === $xpath->query( '//*[contains(@class,"en-seo-scope__item")]' )->length, 'All eight scope items retained.' );
 seo_expect( 8 === $xpath->query( '//*[contains(@class,"en-seo-measures")]/li' )->length, 'All eight KPIs retained.' );
 seo_expect( 1 === $xpath->query( '//form[@id="en-seo-contact-form"]' )->length, 'English contact form included.' );
+$audit_ctas = $xpath->query( '//a[@href="#seo-contact" and contains(concat(" ", normalize-space(@class), " "), " en-seo-button ")]' );
+seo_expect( 2 === $audit_ctas->length, 'Hero and pricing retain their primary audit CTAs.' );
+foreach ( $audit_ctas as $cta ) {
+    seo_expect( 'Get a free SEO audit' === trim( $cta->textContent ), 'Primary CTA copy must match the audit form, not promise a quote.' );
+}
+$submit_label = $xpath->query( '//form[@id="en-seo-contact-form"]//button[@data-en-seo-submit]/span' );
+seo_expect( 1 === $submit_label->length && 'Get a free SEO audit' === trim( $submit_label->item( 0 )->textContent ), 'Submit label keeps the same free SEO audit promise.' );
 $ids = array();
 foreach ( $xpath->query( '//*[@id]' ) as $element ) {
     $id = $element->getAttribute( 'id' );
@@ -55,6 +62,10 @@ foreach ( $xpath->query( '//img' ) as $image ) {
     $ratio = (int) $image->getAttribute( 'width' ) / (int) $image->getAttribute( 'height' );
     seo_expect( abs( $ratio - $size[0] / $size[1] ) < .01, 'Image aspect ratio must match source.' );
 }
+$photo = '//figure[contains(concat(" ", normalize-space(@class), " "), " en-seo-photo ")]';
+seo_expect( 1 === $xpath->query( $photo . '/img[@alt="People reviewing charts and reports together at a table with laptops"]' )->length, 'Consultation photo and descriptive alt remain intact.' );
+seo_expect( 0 === $xpath->query( $photo . '/figcaption' )->length, 'Consultation photo has no public caption or credit, as requested.' );
+seo_expect( 1 === $xpath->query( '//figure[contains(concat(" ", normalize-space(@class), " "), " en-seo-proof ")]/figcaption' )->length, 'Performance evidence keeps its factual caption.' );
 foreach ( $xpath->query( '//input[@required]|//textarea[@required]' ) as $input ) {
     seo_expect( 1 === $xpath->query( '//label[@for="' . $input->getAttribute( 'id' ) . '"]' )->length, 'Required field needs a visible label.' );
 }
@@ -63,6 +74,11 @@ seo_expect( 3 === count( $seo_schemas ), 'Service, breadcrumb and FAQ schemas re
 seo_expect( home_url( '/en/' ) === $seo_schemas[1]['itemListElement'][0]['item'], 'Breadcrumb schema matches English visible routing.' );
 seo_expect( 2 === count( $seo_schemas[1]['itemListElement'] ), 'Visible and structured breadcrumbs have the same two levels.' );
 seo_expect( 29900 === $seo_schemas[0]['offers']['priceSpecification']['minPrice'], 'Published price unchanged.' );
+$hero_price = $xpath->query( '//p[contains(concat(" ", normalize-space(@class), " "), " en-seo-hero__terms ")]' );
+seo_expect( 1 === $hero_price->length && 'From THB 29,900 / month' === trim( $hero_price->item( 0 )->textContent ), 'Hero shows the unchanged price without the removed minimum/VAT note.' );
+seo_expect( 0 === $xpath->query( '//*[@id="pricing"]//p[contains(concat(" ", normalize-space(@class), " "), " en-seo-pricing__terms ")]' )->length, 'Pricing does not render the removed standalone minimum/VAT note.' );
+seo_expect( false !== strpos( $seo_schemas[2]['mainEntity'][0]['acceptedAnswer']['text'], 'excluding 7% VAT' ), 'The detailed pricing FAQ still explains VAT.' );
+seo_expect( false !== strpos( $seo_schemas[2]['mainEntity'][1]['acceptedAnswer']['text'], '3-month minimum' ), 'The detailed guarantee FAQ retains the actual minimum term.' );
 $questions = $xpath->query( '//*[contains(@class,"en-seo-faq__item")]/summary/span' );
 $answers = $xpath->query( '//*[contains(@class,"en-seo-faq__item")]/div/p' );
 seo_expect( count( $seo_schemas[2]['mainEntity'] ) === $questions->length, 'Visible and structured FAQ counts match.' );

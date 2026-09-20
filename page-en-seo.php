@@ -60,7 +60,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
                     <a href="#seo-contact" class="en-seo-button">Get a free SEO audit <?php echo hashbox_en_seo_icon( 'arrow-right' ); ?></a>
                     <a href="#results" class="en-seo-text-link">See the evidence <?php echo hashbox_en_seo_icon( 'arrow-right' ); ?></a>
                 </div>
-                <p class="en-seo-hero__terms">From <strong>THB 29,900 / month</strong> · 3-month minimum · Excludes 7% VAT</p>
+                <p class="en-seo-hero__terms">From <strong>THB 29,900 / month</strong></p>
                 <a href="#guarantee" class="en-seo-small-link">How the guarantee works</a>
             </div>
             <figure class="en-seo-proof">
@@ -135,7 +135,6 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
                     srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/services/seo/seo-consultation-pexels-kindel-media-640w.webp' ); ?> 640w, <?php echo esc_url( get_template_directory_uri() . '/assets/services/seo/seo-consultation-pexels-kindel-media-1200w.webp' ); ?> 1200w"
                     sizes="(min-width: 960px) 42vw, 92vw" width="1200" height="900" loading="lazy" decoding="async"
                     alt="People reviewing charts and reports together at a table with laptops">
-                <figcaption>Illustrative photo · <a href="https://www.pexels.com/photo/business-people-working-together-in-front-of-their-laptops-7651734/" target="_blank" rel="noopener noreferrer">Kindel Media / Pexels</a></figcaption>
             </figure>
             <div class="en-seo-approach__copy">
                 <p class="en-seo-eyebrow">How we work</p>
@@ -204,7 +203,6 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
                 <p class="en-seo-eyebrow">Published pricing</p>
                 <h2 id="seo-pricing-title">SEO retainer</h2>
                 <p class="en-seo-price"><span>From</span> THB 29,900 <span>/ month</span></p>
-                <p class="en-seo-pricing__terms"><strong>3-month minimum</strong> · Excludes 7% VAT</p>
                 <p>All 8 scope items above, sized to your site after the free audit.</p>
                 <ul class="en-seo-checklist">
                     <li><?php echo hashbox_en_seo_icon( 'check' ); ?> Technical audit and fixes first</li>
@@ -213,7 +211,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
                     <li><?php echo hashbox_en_seo_icon( 'check' ); ?> Daily rank + AI-citation data, yours to keep</li>
                     <li><?php echo hashbox_en_seo_icon( 'check' ); ?> Written “no growth, no pay” guarantee</li>
                 </ul>
-                <a href="#seo-contact" class="en-seo-button">Request a quote <?php echo hashbox_en_seo_icon( 'arrow-right' ); ?></a>
+                <a href="#seo-contact" class="en-seo-button">Get a free SEO audit <?php echo hashbox_en_seo_icon( 'arrow-right' ); ?></a>
             </div>
             <div class="en-seo-pricing__scope">
                 <h3>What moves the price</h3>

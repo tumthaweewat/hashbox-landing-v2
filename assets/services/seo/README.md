@@ -20,7 +20,7 @@ Responsive assets:
 | `seo-consultation-pexels-kindel-media-1200w.webp` | 1200 × 900 | 86,144 |
 | `seo-consultation-pexels-kindel-media-640w.webp` | 640 × 480 | 36,352 |
 
-Use explicit width/height, responsive `srcset`/`sizes`, and lazy loading below the fold. A visible credit `Illustrative photo · Kindel Media / Pexels` clarifies context.
+Use explicit width/height, responsive `srcset`/`sizes`, and lazy loading below the fold. The public caption and credit were removed at the owner's request on 2026-09-20. Keep this internal provenance record and the descriptive alt text; the photograph remains illustrative and must not be presented as Hashbox staff or a client endorsement.
 
 ## Lucide icons
 
