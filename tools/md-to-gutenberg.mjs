@@ -50,6 +50,23 @@ let i = 0;
 
 const pushPara = (text) => out.push(`<!-- wp:paragraph -->\n<p>${inline(text)}</p>\n<!-- /wp:paragraph -->`);
 
+/**
+ * JSON ของ block attribute ต้อง escape แบบเดียวกับที่ Gutenberg เขียนเอง
+ * (`"` → `"` · `<` `>` `&` `--` เช่นกัน — `--` จะปิดคอมเมนต์ HTML กลางคัน)
+ * ไม่งั้นไฟล์กับสิ่งที่อยู่บนเว็บจะต่างกันทุกครั้งที่ WP บันทึก แล้วเทียบกันไม่ได้อีกเลย
+ */
+const attrJson = (o) =>
+  JSON.stringify(o)
+    .replace(/--/g, '\\u002d\\u002d')
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026')
+    .replace(/\\"/g, '\\u0022');
+
+/** list-item เขียนติดกันในบรรทัดเดียวตามที่ WP serialize เอง — ช่วยให้ paste แล้ว round-trip นิ่ง */
+const listItems = (items) =>
+  items.map((t) => `<!-- wp:list-item --><li>${inline(t)}</li><!-- /wp:list-item -->`).join('');
+
 while (i < body.length) {
   const line = body[i];
 
@@ -116,11 +133,13 @@ while (i < body.length) {
   if (line.trim().startsWith('>')) {
     const q = [];
     while (i < body.length && body[i].trim().startsWith('>')) { q.push(body[i].replace(/^\s*>\s?/, '')); i++; }
+    // core/quote ต้องห่อ **บล็อกลูก** ไม่ใช่ <p>/<ul> ดิบ — ไม่งั้น Gutenberg ตีว่า block ไม่ valid
+    // (เจอจริงตอน paste เข้า WP: invalidBlocks = ["core/quote"] และ WP เขียน markup ใหม่ตอน save)
     const inner = [];
     let list = [];
     const flush = () => {
       if (!list.length) return;
-      inner.push(`<ul>${list.map((t) => `<li>${inline(t)}</li>`).join('')}</ul>`);
+      inner.push(`<!-- wp:list -->\n<ul class="wp-block-list">${listItems(list)}</ul>\n<!-- /wp:list -->`);
       list = [];
     };
     for (const l of q) {
@@ -128,10 +147,10 @@ while (i < body.length) {
       const li = l.match(/^\s*[-*]\s+(.*)$/);
       if (li) { list.push(li[1]); continue; }
       flush();
-      inner.push(`<p>${inline(l)}</p>`);
+      inner.push(`<!-- wp:paragraph -->\n<p>${inline(l)}</p>\n<!-- /wp:paragraph -->`);
     }
     flush();
-    out.push(`<!-- wp:quote -->\n<blockquote class="wp-block-quote">${inner.join('')}</blockquote>\n<!-- /wp:quote -->`);
+    out.push(`<!-- wp:quote -->\n<blockquote class="wp-block-quote">${inner.join('\n\n')}</blockquote>\n<!-- /wp:quote -->`);
     continue;
   }
 
@@ -144,8 +163,7 @@ while (i < body.length) {
       if (!m) break;
       items.push(m[1]); i++;
     }
-    const inner = items.map((t) => `<!-- wp:list-item -->\n<li>${inline(t)}</li>\n<!-- /wp:list-item -->`).join('\n');
-    out.push(`<!-- wp:list -->\n<ul class="wp-block-list">\n${inner}\n</ul>\n<!-- /wp:list -->`);
+    out.push(`<!-- wp:list -->\n<ul class="wp-block-list">${listItems(items)}</ul>\n<!-- /wp:list -->`);
     continue;
   }
 
@@ -157,8 +175,7 @@ while (i < body.length) {
       if (!m) break;
       items.push(m[1]); i++;
     }
-    const inner = items.map((t) => `<!-- wp:list-item -->\n<li>${inline(t)}</li>\n<!-- /wp:list-item -->`).join('\n');
-    out.push(`<!-- wp:list {"ordered":true} -->\n<ol class="wp-block-list">\n${inner}\n</ol>\n<!-- /wp:list -->`);
+    out.push(`<!-- wp:list {"ordered":true} -->\n<ol class="wp-block-list">${listItems(items)}</ol>\n<!-- /wp:list -->`);
     continue;
   }
 
@@ -178,7 +195,7 @@ if (faq.length) {
     .map((q) => `<div class="rank-math-faq-item"><h3 class="rank-math-question">${esc(q.title)}</h3><div class="rank-math-answer">${esc(q.content)}</div></div>`)
     .join('');
   out.push(
-    `<!-- wp:rank-math/faq-block ${JSON.stringify({ titleWrapper: 'h3', questions })} -->\n<div class="wp-block-rank-math-faq-block">${html}</div>\n<!-- /wp:rank-math/faq-block -->`,
+    `<!-- wp:rank-math/faq-block ${attrJson({ titleWrapper: 'h3', questions })} -->\n<div class="wp-block-rank-math-faq-block">${html}</div>\n<!-- /wp:rank-math/faq-block -->`,
   );
 }
 
