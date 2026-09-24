@@ -1,0 +1,349 @@
+<!-- wp:paragraph -->
+<p><strong>AI Search Metrics คือ</strong> ชุดตัวชี้วัดที่บอกว่าแบรนด์หรือเว็บไซต์ของคุณ<strong>ถูก AI หยิบไปพูดถึงและอ้างอิงมากแค่ไหน</strong> ในคำตอบของ ChatGPT, Gemini, Claude, Perplexity และ Google AI Overview — ต่างจาก SEO เดิมที่วัด "อันดับบนหน้าผลค้นหา" เพราะในคำตอบของ AI ไม่มีอันดับ มีแค่ "ถูกอ้างหรือไม่ถูกอ้าง"</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+<p><strong>TL;DR</strong> — ตัวเลขทั้งหมดในบทความนี้มาจากระบบติดตามของ Hashbox เอง เก็บทุกวันระหว่าง 25 ส.ค. – 23 ก.ย. 2026</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li>เก็บคำตอบจริงได้ <strong>531 คำตอบ</strong> จาก 34 คำถาม × 4 แพลตฟอร์ม</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ChatGPT อ้างอิงเว็บไทยมากที่สุด</strong>: 7 วันล่าสุดอ้างโดเมนเรา 56 จาก 133 คำตอบ (42%) ขณะที่ Claude อ้างแค่ 1 จาก 31 (3%)</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>"ถูกเอ่ยชื่อ" กับ "ถูกอ้างลิงก์" ไม่ใช่ตัวเดียวกัน</strong> — Gemini เอ่ยชื่อเรา 18 ครั้งแต่ใส่ลิงก์ให้แค่ 12</li><!-- /wp:list-item --><!-- wp:list-item --><li>ตัวชี้วัดเดียวกันคำนวณคนละตัวหารได้ผลต่างกันเป็นเท่าตัว — ส่วนที่คนพลาดมากที่สุดคือ <strong>"ยังไม่เคยถาม" ถูกนับเป็น "ถามแล้วไม่เจอ"</strong></li><!-- /wp:list-item --><!-- wp:list-item --><li>ต้นทุนวัดจริง: ถามผ่าน API ตกคำตอบละ <strong>$0.033</strong> แต่ดึงจากหน้าเว็บจริงตกคำตอบละ <strong>$0.0012</strong> — ต่างกัน 28 เท่า</li><!-- /wp:list-item --></ul>
+<!-- /wp:list --></blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">ทำไมตัวชี้วัดแบบ SEO เดิมใช้กับ AI ไม่ได้</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>SEO มี Search Console ที่บอก impression, click, CTR และอันดับเฉลี่ย ครบในที่เดียว — ตัวเลขพวกนี้มีเจ้าของคือ Google และมีนิยามตายตัว</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>คำตอบของ AI ไม่มีอะไรแบบนั้นเลย:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>ไม่มีอันดับ</strong> — คำตอบเดียวอาจเอ่ยถึง 3 แบรนด์ โดยไม่มีที่ 1 ที่ 2</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ไม่มีตัวเลขกลาง</strong> — ChatGPT ไม่มี Search Console ให้คุณเปิดดู</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>คำตอบไม่คงที่</strong> — ถามคำเดิมสองวันติดกันได้คำตอบคนละแบบ</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>การถูก "พูดถึง" กับถูก "ลิงก์" เกิดแยกกัน</strong> — AI อาจแนะนำชื่อบริษัทคุณโดยไม่ใส่ลิงก์ หรือใส่ลิงก์โดยไม่เอ่ยชื่อ</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>มิติ</th><th>SEO เดิม</th><th>AI Search</th></tr></thead><tbody><tr><td>หน่วยของผลลัพธ์</td><td>อันดับ 1–100</td><td>ถูกอ้าง / ไม่ถูกอ้าง</td></tr><tr><td>แหล่งตัวเลข</td><td>Search Console (ของ Google)</td><td>ต้องเก็บเอง</td></tr><tr><td>ความคงที่</td><td>อันดับเปลี่ยนช้า</td><td>คำตอบเปลี่ยนได้ทุกวัน</td></tr><tr><td>หนึ่งผลลัพธ์มีกี่ราย</td><td>1 เว็บต่อ 1 อันดับ</td><td>3–5 แบรนด์ในคำตอบเดียว</td></tr><tr><td>การถูกพูดถึงโดยไม่มีลิงก์</td><td>ไม่มีแนวคิดนี้</td><td>เกิดบ่อย ต้องวัดแยก</td></tr><tr><td>สิ่งที่ดันอันดับ</td><td>ลิงก์ + เนื้อหา + เทคนิค</td><td>ความชัดของข้อเท็จจริง + การถูกอ้างในแหล่งที่ AI ไว้ใจ</td></tr><tr><td>ตรวจย้อนหลังได้มั้ย</td><td>ได้ 16 เดือนใน GSC</td><td>ได้เฉพาะที่คุณเก็บไว้เอง</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>ฉะนั้นการวัด AI Search จึงต้องเริ่มจาก "เก็บคำตอบจริงเป็นชุดข้อมูลของตัวเอง" ก่อน แล้วค่อยคำนวณตัวชี้วัดจากชุดนั้น — ใครไม่เก็บข้อมูลเอง จะไม่มีอะไรให้วัด</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">7 ตัวชี้วัด AI Search ที่ใช้ได้จริง (พร้อมสูตร)</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">1. AI Visibility — เราโผล่ในคำตอบกี่ %</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>นิยาม:</strong> สัดส่วนของคำตอบที่มีแบรนด์เราอยู่ ไม่ว่าจะในรูปข้อความหรือลิงก์</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>AI Visibility = (คำตอบที่เอ่ยถึงเรา ÷ คำตอบที่วัดได้ทั้งหมด) × 100</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:paragraph -->
+<p><strong>ตัวหารที่ถูกต้องคือ "คำตอบที่วัดได้จริง"</strong> ไม่ใช่ "คำถามทั้งหมด" — คำถามที่ยิงแล้วล้ม (API ตอบ error, โควตาหมด, คำตอบว่าง) ต้องไม่ถูกนับว่า "ถามแล้วไม่เจอเรา" เพราะมันคือ "ยังไม่ได้ถาม" ข้อผิดพลาดนี้ทำให้ตัวเลขต่ำกว่าจริงแบบเงียบๆ และเป็นกับดักที่เราเจอกับตัวเองมาแล้ว</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">2. Citation Rate — ถูกใส่ลิงก์กี่ %</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>นิยาม:</strong> สัดส่วนของคำตอบที่มี <strong>ลิงก์ไปเว็บเรา</strong> อยู่ในแหล่งอ้างอิง</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>Citation Rate = (คำตอบที่อ้างโดเมนเรา ÷ คำตอบที่วัดได้ทั้งหมด) × 100</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:paragraph -->
+<p>ต้องเก็บแยกจาก Visibility เสมอ เพราะสองอย่างนี้ขยับไม่พร้อมกัน — ข้อมูลของเราเจอทั้ง "เอ่ยชื่อแต่ไม่ลิงก์" และ "ลิงก์แต่ไม่เอ่ยชื่อ"</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>ระวังตัวหารตัวนี้เป็นพิเศษ</strong> — ถ้าเอา "จำนวนครั้งที่โดเมนเราถูกอ้าง" ไปหารด้วย "จำนวนคำตอบที่มีโดเมนเราอยู่" ผลจะออกมาใกล้ 100% เสมอ เพราะทั้งเศษและส่วนนับจากคำตอบชุดเดียวกัน ตัวหารที่ถูกต้องคือ <strong>คำตอบทั้งหมดที่ถามไป</strong> ไม่ใช่เฉพาะคำตอบที่มีเราอยู่แล้ว</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">3. Share of Voice — ส่วนแบ่งการถูกอ้างเทียบคู่แข่ง</h3>
+<!-- /wp:heading -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>Share of Voice = (ครั้งที่เราถูกอ้าง ÷ ครั้งที่ทุกแบรนด์ในหมวดถูกอ้าง) × 100</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:paragraph -->
+<p>ตัวนี้ตอบคำถามที่ผู้บริหารถามจริง: "เราเทียบกับคู่แข่งอยู่ตรงไหน" — แต่ต้องกำหนด "หมวด" ให้ชัดก่อน ไม่งั้นตัวหารจะพองด้วยโดเมนที่ไม่ใช่คู่แข่ง เช่น Wikipedia หรือเว็บข่าว</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">4. Prompt Coverage — ครอบคลุมคำถามที่คนถามจริงแค่ไหน</h3>
+<!-- /wp:heading -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>Prompt Coverage = (คำถามที่เราโผล่อย่างน้อย 1 แพลตฟอร์ม ÷ คำถามที่ติดตามทั้งหมด) × 100</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:paragraph -->
+<p>ตัวชี้วัดนี้เตือนว่าคุณอาจได้คะแนนดีจากคำถามง่ายๆ ไม่กี่ข้อ ขณะที่คำถามเชิงจ้างงานจริงไม่มีใครเห็นคุณเลย — <strong>ต้องแยกดูตามเจตนาของคำถาม</strong> ไม่ใช่ดูค่าเฉลี่ยรวม (ดูตารางด้านล่าง)</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">5. AI Position — เราถูกเอ่ยเป็นรายที่เท่าไหร่ในคำตอบ</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>นิยามของ AI Position คือ</strong> ลำดับเฉลี่ยที่แบรนด์เราถูกเอ่ยถึงในคำตอบที่มีหลายแบรนด์</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>AI Position = ผลรวมลำดับที่เราถูกเอ่ย ÷ จำนวนคำตอบที่เราถูกเอ่ย</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:paragraph -->
+<p>ตัวอย่าง: ถูกเอ่ยเป็นรายที่ 3, 7 และ 2 ในสามคำตอบ → (3+7+2) ÷ 3 = <strong>ลำดับเฉลี่ย 4</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>ข้อควรระวัง: คำตอบของ AI ไม่ใช่รายการจัดอันดับ ลำดับการเอ่ยจึงไม่ได้แปลว่า "ดีกว่า" เสมอไป ใช้ดูแนวโน้มของตัวเองพอ อย่าเอาไปขายว่าเป็นอันดับแบบ SEO</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">6. Source Type Mix — AI หยิบจากแหล่งชนิดไหน</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>ไม่ใช่ตัวเลขเดียว แต่เป็นการแยกประเภทโดเมนที่ถูกอ้างในหมวดของคุณ: เว็บแบรนด์ · ไดเรกทอรี · มาร์เก็ตเพลส · สื่อ · เอกสารทางการ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>ตัวนี้เปลี่ยนแผนงานได้มากที่สุด เพราะถ้าคำตอบในหมวดคุณถูกป้อนด้วยไดเรกทอรีเป็นหลัก การเขียนบล็อกเพิ่มจะไม่ช่วย — ต้องไปอยู่ในไดเรกทอรีนั้นแทน</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">7. AI Referral Traffic — คนกดเข้ามาจริงกี่คน</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>ดูใน GA4 → Traffic acquisition แล้วกรอง session source ด้วย <code>chatgpt.com</code>, <code>perplexity.ai</code>, <code>gemini.google.com</code>, <code>copilot.microsoft.com</code>, <code>claude.ai</code> (หรือรวมเป็น Custom Channel Group ชื่อ "AI Referral") — เป็นตัวชี้วัดปลายทางที่แม่นเรื่อง "คน" ที่สุด แต่เห็นได้เฉพาะคนที่<strong>กดลิงก์</strong> ซึ่งเป็นส่วนน้อยของคนที่เห็นชื่อคุณในคำตอบ อย่าใช้ตัวเดียวตัดสิน</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">แล้ว Sentiment ล่ะ ทำไมไม่อยู่ในลิสต์</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>หลายบทความใส่ "Sentiment" (AI พูดถึงเราในแง่ดีหรือแง่ลบ) ไว้เป็นตัวชี้วัดด้วย — เราเลือก<strong>ยังไม่นับเป็นตัวชี้วัดหลัก</strong> ด้วยเหตุผลตรงไปตรงมา: ถ้าแบรนด์ยังถูกเอ่ยถึงน้อยมาก (หลักหน่วยต่อสัปดาห์) การวัดอารมณ์ของข้อความจะแกว่งจนไม่มีความหมาย และเครื่องมือวิเคราะห์อารมณ์ภาษาไทยยังพลาดกับประโยคเชิงเปรียบเทียบบ่อย</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>เกณฑ์ที่เราใช้กับตัวเอง: เริ่มวัด sentiment เมื่อ <strong>การถูกเอ่ยถึงต่อสัปดาห์มากพอจะเห็นแนวโน้ม</strong> ก่อนหน้านั้นให้เอาเวลาไปทำให้ถูกเอ่ยถึงก่อน</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">ข้อมูลจริง: แต่ละ AI อ้างอิงเว็บไทยไม่เท่ากันเลย</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>วัดจากคำถามภาษาไทย/อังกฤษชุดเดียวกัน 34 ข้อ ถามทั้ง 4 แพลตฟอร์มในช่วง 7 วันล่าสุด (17–23 ก.ย. 2026)</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>แพลตฟอร์ม</th><th>คำตอบที่วัดได้</th><th>อ้างลิงก์เรา</th><th>เอ่ยชื่อเรา</th><th>Citation Rate</th></tr></thead><tbody><tr><td>ChatGPT</td><td>133</td><td>56</td><td>56</td><td><strong>42%</strong></td></tr><tr><td>Perplexity</td><td>31</td><td>11</td><td>6</td><td><strong>35%</strong></td></tr><tr><td>Gemini</td><td>133</td><td>12</td><td>18</td><td><strong>9%</strong></td></tr><tr><td>Claude</td><td>31</td><td>1</td><td>1</td><td><strong>3%</strong></td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>สามอย่างที่ตารางนี้บอก และหาไม่ได้จากบทความนิยามทั่วไป:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"ordered":true} -->
+<ol class="wp-block-list"><!-- wp:list-item --><li><strong>ถ้าจะเลือกวัดแค่เจ้าเดียว ให้วัด ChatGPT ก่อน</strong> — อ้างอิงเว็บไทยบ่อยที่สุดในชุดคำถามนี้</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>Gemini เอ่ยชื่อเรามากกว่าที่ลิงก์ให้</strong> (18 ครั้ง vs 12) — ถ้าคุณวัดแค่ referral traffic คุณจะมองไม่เห็นการถูกพูดถึงส่วนนี้เลย</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>Claude แทบไม่อ้างเว็บไทย</strong> ในชุดคำถามนี้ — ไม่ได้แปลว่าแบรนด์คุณแย่ แต่แปลว่าโมเดลนี้ตอบจากความรู้ในตัวมากกว่าจะไปค้นเว็บ</li><!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">แยกตาม "เจตนาของคนถาม" แล้วตัวเลขจะเปลี่ยนความหมายทันที</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>ค่าเฉลี่ยรวมของทั้งชุดคำถามซ่อนสิ่งสำคัญที่สุดไว้ เราจึงจัดกลุ่มคำถาม 31 ข้อของเราตามเจตนา แล้ววัดใหม่:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>กลุ่มคำถาม</th><th>คู่ที่วัดได้ (คำถาม × เจ้า)</th><th>เราโผล่</th></tr></thead><tbody><tr><td>ถามชื่อแบรนด์เราตรงๆ</td><td>4</td><td><strong>100%</strong></td></tr><tr><td>ขอรายชื่อผู้ให้บริการ</td><td>48</td><td><strong>29%</strong></td></tr><tr><td>ถามราคา/จ้างทำ</td><td>36</td><td><strong>19%</strong></td></tr><tr><td>ถามความรู้ทั่วไป</td><td>36</td><td><strong>0%</strong></td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>อ่านแบบนี้: ถามชื่อเราก็เจอเรา — ไม่มีความหมายเชิงการตลาด · ที่มีค่าคือ 29% กับ 19% เพราะนั่นคือตอนที่คนยังไม่รู้จักคุณแล้วกำลังหาคนทำ · และ <strong>0% ในคำถามความรู้</strong> คือช่องว่างที่แก้ได้ถูกที่สุดด้วยคอนเทนต์</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>ถ้าคุณรายงานแค่ตัวเลขเฉลี่ยรวม คุณจะได้ตัวเลขที่ดูดีจากคำถามชื่อแบรนด์ แล้วพลาดความจริงทั้งหมดนี้</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">ใครถูก AI อ้างมากที่สุดในคำตอบภาษาไทย</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>โดเมนที่ถูกอ้างบ่อยที่สุดในคำตอบทั้ง 4 แพลตฟอร์ม 7 วันล่าสุด (ชุดคำถามบริการ AI/SEO/เว็บไซต์)</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>โดเมน</th><th>ครั้งที่ถูกอ้าง</th><th>ประเภท</th></tr></thead><tbody><tr><td>hashbox.co.th</td><td>130</td><td>เว็บแบรนด์ (ดูหมายเหตุ)</td></tr><tr><td>developers.google.com</td><td>69</td><td>เอกสารทางการ</td></tr><tr><td>clutch.co</td><td>34</td><td>ไดเรกทอรีเอเจนซี</td></tr><tr><td>fastwork.co</td><td>29</td><td>มาร์เก็ตเพลสฟรีแลนซ์</td></tr><tr><td>anga.co.th</td><td>28</td><td>เอเจนซีไทย</td></tr><tr><td>primal.co.th</td><td>27</td><td>เอเจนซีไทย</td></tr><tr><td>goodfirms.co</td><td>24</td><td>ไดเรกทอรีเอเจนซี</td></tr><tr><td>nationthailand.com</td><td>24</td><td>สื่อ</td></tr><tr><td>krajang.co.th</td><td>20</td><td>เอเจนซีไทย</td></tr><tr><td>ensun.io</td><td>16</td><td>ไดเรกทอรี</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p><strong>หมายเหตุสำคัญ:</strong> hashbox.co.th อยู่อันดับ 1 เพราะชุดคำถามนี้เป็นคำถามที่เราเลือกติดตามเอง (คำในหมวดธุรกิจของเรา) ไม่ใช่กลุ่มตัวอย่างสุ่มของตลาดไทย — ตัวเลขนี้จึงใช้เทียบ "เราเทียบกับคู่แข่งในคำถามที่เราสนใจ" ได้ แต่ใช้สรุปว่า "ใครดังที่สุดในประเทศ" ไม่ได้</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>สิ่งที่ใช้ได้จริงจากตารางนี้คือ <strong>Source Type Mix</strong>: ไดเรกทอรีต่างชาติสามเจ้า (Clutch, GoodFirms, ensun) รวมกันถูกอ้าง 74 ครั้ง — มากกว่าเอเจนซีไทยรายใดรายเดียว แปลว่าในคำถามแนว "แนะนำบริษัททำ X ในไทย" AI หยิบจากหน้ารวมรายชื่อมากพอๆ กับหยิบจากเว็บบริษัทโดยตรง <strong>การไปอยู่ในไดเรกทอรีพวกนี้จึงเป็นงาน AI Search ที่ทำได้เร็วกว่าเขียนบล็อกใหม่</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">4 กับดักที่ทำให้ตัวเลข AI Search หลอกตา</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>1. คำขอที่ล้มถูกนับเป็น "ไม่เจอเรา"</strong> — วันที่ API ชนโควตาหรือคืน error ถ้าระบบบันทึกแถวเปล่าไว้แล้วนับรวม ตัวเลขจะตกโดยไม่มีอะไรพัง เราเจอกับตัวเองแล้วต้องแยก "ยังไม่มีคำตอบ" ออกจาก "ถามแล้วไม่เจอ" ให้เป็นคนละสถานะ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>2. กล่อง AI Overview ที่ขึ้นแต่ไม่มีข้อมูล</strong> — ข้อมูลของเรามี <strong>3 วันจาก 30</strong> ที่ Google ส่งกล่อง AI Overview มาแบบไม่มีรายการอ้างอิงเลย ถ้านับวันแบบนั้นรวมเข้าไป กราฟจะดิ่งทั้งที่ไม่มีอะไรแย่ลงจริง — ต้องติดธง "วันนี้ข้อมูลไม่ครบ ห้ามเอาไปเทียบ" ไว้ในข้อมูลเอง</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>3. ลิงก์ในคำตอบเปลี่ยนรูปแบบ</strong> — ปลายเดือน ส.ค. 2026 ลิงก์อ้างอิงใน AI Overview เปลี่ยนเป็นลิงก์ตัวกลางของ Google โดเมนจริงย้ายไปอยู่อีกฟิลด์ ใครดึงโดเมนจาก URL ตรงๆ จะเห็นตัวเลขดิ่งเป็น 0 พร้อมกันทุกคำในวันเดียว — <strong>ตัวเลขที่ดิ่งพร้อมกันทั้งกระดานในวันเดียว ให้สงสัยเครื่องมือก่อนสงสัยผลงาน</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>4. ตัวอย่างที่ถูกตัดแล้วรายงานเหมือนทั้งหมด</strong> — เครื่องมือส่วนใหญ่คืนผลมาจำกัดจำนวน ถ้าเอาไปหารเป็นเปอร์เซ็นต์โดยไม่รู้ว่าของจริงมีมากกว่านั้น คุณจะประกาศว่า "ไม่มีใครพูดถึงเรา" จากตัวอย่างที่ถูกตัดหัวท้ายทิ้ง</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">ต้นทุนการวัดจริง (ตัวเลขบิลของเราเอง)</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>ค่าใช้จ่ายรวม 30 วันของระบบติดตามทั้งหมด — อันดับ SERP, AI Overview, คำตอบ AI 4 เจ้า และคีย์เวิร์ดรีเสิร์ช</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>งาน</th><th>30 วัน</th><th>คำขอ</th></tr></thead><tbody><tr><td>ติดตามอันดับ + AI Overview</td><td>$5.99</td><td>3,218</td></tr><tr><td>ถามคำถามกับ AI ผ่าน API</td><td>$5.46</td><td>511</td></tr><tr><td>ดึงคำตอบจากหน้าเว็บจริง</td><td>$0.33</td><td>271</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p><strong>ราคาต่อคำตอบต่างกัน 28 เท่า</strong> ระหว่างถามผ่าน API ($0.033) กับดึงจากหน้าเว็บที่ผู้ใช้เห็นจริง ($0.0012) — และวิธีหลังยังตรงกับสิ่งที่ผู้ใช้เห็นมากกว่าด้วย เพราะเป็นหน้าเดียวกับที่คนเปิด ไม่ใช่ช่องทางสำหรับนักพัฒนา</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>ข้อแลกเปลี่ยนคือความถี่: ของเราตั้งให้ ChatGPT/Gemini วัดทุกวัน ส่วน Claude/Perplexity วัดทุก 7 วัน เพราะสองเจ้าหลังต้องถามผ่าน API ซึ่งแพงกว่า</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">เริ่มวัดเองวันนี้ — 3 ระดับตามงบ</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>ระดับ 1 ฟรี (1 ชั่วโมง/สัปดาห์)</strong> — เขียนคำถามที่ลูกค้าถามจริง 10–20 ข้อลงสเปรดชีต ถาม ChatGPT/Gemini เองทุกสัปดาห์ บันทึกแค่ 3 ช่อง: เอ่ยชื่อเรามั้ย · ใส่ลิงก์เรามั้ย · ใครถูกเอ่ยบ้าง · <strong>จดวันที่ทุกครั้ง</strong> เพราะคำตอบเปลี่ยนตลอด</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>ระดับ 2 ใช้ GA4 (ฟรี)</strong> — ตั้ง segment ดู referral จาก <code>chatgpt.com</code>, <code>perplexity.ai</code>, <code>gemini.google.com</code> เทียบเดือนต่อเดือน เห็นเฉพาะคนที่กดเข้ามา แต่เป็นตัวเลข "คนจริง" ที่ผู้บริหารเข้าใจทันที</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>ระดับ 3 อัตโนมัติ</strong> — เก็บคำตอบดิบทุกวันเข้าฐานข้อมูลของตัวเอง แล้วคำนวณตัวชี้วัดจากข้อมูลดิบนั้น จุดสำคัญคือ <strong>เก็บคำตอบดิบไว้เสมอ</strong> เพราะเมื่อสูตรคำนวณเปลี่ยน คุณย้อนคำนวณข้อมูลเก่าใหม่ได้ทันทีโดยไม่ต้องจ่ายเงินถามซ้ำ — และคำตอบของ AI ณ วันนั้นย้อนกลับไปถามใหม่ไม่ได้อีกแล้ว</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">สรุป 7 ตัวชี้วัด AI Search</h2>
+<!-- /wp:heading -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>ตัวชี้วัด</th><th>ตอบคำถามว่า</th><th>สูตร</th></tr></thead><tbody><tr><td>AI Visibility</td><td>เราโผล่ในคำตอบกี่ %</td><td>เอ่ยถึงเรา ÷ คำตอบที่วัดได้</td></tr><tr><td>Citation Rate</td><td>ถูกใส่ลิงก์กี่ %</td><td>อ้างโดเมนเรา ÷ คำตอบที่วัดได้</td></tr><tr><td>Share of Voice</td><td>เทียบคู่แข่งอยู่ตรงไหน</td><td>ครั้งที่เราถูกอ้าง ÷ ครั้งที่ทุกแบรนด์ถูกอ้าง</td></tr><tr><td>Prompt Coverage</td><td>ครอบคำถามที่คนถามจริงแค่ไหน</td><td>คำถามที่เราโผล่ ÷ คำถามที่ติดตาม</td></tr><tr><td>AI Position</td><td>ถูกเอ่ยเป็นรายที่เท่าไหร่</td><td>ผลรวมลำดับ ÷ จำนวนคำตอบที่เราถูกเอ่ย</td></tr><tr><td>Source Type Mix</td><td>AI หยิบจากแหล่งชนิดไหน</td><td>แยกนับตามประเภทโดเมน (ไม่ใช่ตัวเลขเดียว)</td></tr><tr><td>AI Referral Traffic</td><td>คนกดเข้ามาจริงกี่คน</td><td>GA4 → referral จากโดเมน AI</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>ถ้าจะเริ่มจากตัวเดียว ให้เริ่มที่ <strong>Citation Rate แยกตามแพลตฟอร์ม</strong> เพราะเป็นตัวที่ขยับตามงานคอนเทนต์ตรงที่สุดและตรวจย้อนได้ด้วยตาเปล่า</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">อ่านต่อ</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>ตัวชี้วัดบอกว่าตอนนี้อยู่ตรงไหน ส่วนงานที่ทำให้ตัวเลขขยับอยู่คนละหน้า</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><a href="https://hashbox.co.th/geo-ai-search-optimization-2026/">GEO: ทำให้ AI หยิบเว็บเราไปอ้าง</a> — วิธีเขียนและจัดโครงเนื้อหาให้ถูกอ้าง ไม่ใช่แค่ถูกจัดอันดับ</li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="https://hashbox.co.th/google-ai-overview-thailand-2026/">Google AI Overview ในไทย: ข้อมูลจริง</a> — เจาะฝั่ง AI Overview โดยเฉพาะ จากคีย์เวิร์ดไทยที่เราติดตาม</li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="https://hashbox.co.th/schema-markup-thai-guide-2026/">Schema Markup ฉบับภาษาไทย</a> — ข้อเท็จจริงที่เครื่องอ่านออกคือวัตถุดิบที่ AI หยิบไปใช้ง่ายที่สุด</li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="https://hashbox.co.th/technical-seo-guide/">Technical SEO</a> — ถ้าบอตเข้าไม่ถึงหน้า ไม่มีตัวชี้วัดไหนขยับ</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>อยากรู้ว่าแบรนด์คุณอยู่ตรงไหนใน ChatGPT, Gemini, Claude และ Perplexity ตอนนี้ — <a href="https://hashbox.co.th/services/seo/">คุยกับเราเรื่อง SEO และ AEO</a> เราวัดให้จากระบบเดียวกับที่ใช้เขียนบทความนี้</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">FAQ: คำถามที่พบบ่อยเรื่องการวัด AI Search</h2>
+<!-- /wp:heading -->
+
+<!-- wp:rank-math/faq-block {"titleWrapper":"h3","questions":[{"id":"faq-question-1","title":"AI Search Metrics ต่างจาก SEO Metrics อย่างไร?","content":"SEO วัดอันดับ คลิก และ impression ซึ่งมีตัวเลขกลางจาก Search Console ส่วน AI Search วัด \u0022การถูกอ้างอิงในคำตอบ\u0022 ซึ่งไม่มีอันดับและไม่มีตัวเลขกลาง ต้องเก็บข้อมูลเอง และต้องแยกการถูกเอ่ยชื่อออกจากการถูกใส่ลิงก์","visible":true},{"id":"faq-question-2","title":"ควรวัดกี่คำถามถึงจะพอ?","content":"เริ่มที่ 10–20 คำถามที่ลูกค้าถามจริงก่อน แล้วแบ่งกลุ่มตามเจตนา (ขอรายชื่อ · ถามราคา · ถามความรู้ · ถามชื่อแบรนด์) สำคัญกว่าจำนวนคือการแบ่งกลุ่ม เพราะค่าเฉลี่ยรวมซ่อนความจริงไว้","visible":true},{"id":"faq-question-3","title":"AI Visibility กี่เปอร์เซ็นต์ถึงเรียกว่าดี?","content":"ไม่มีเกณฑ์กลาง เพราะขึ้นกับหมวดธุรกิจและชุดคำถามที่เลือก ให้เทียบกับตัวเองเดือนต่อเดือนและเทียบกับคู่แข่งในคำถามชุดเดียวกัน — ข้อมูลของเราในคำถามเชิงจ้างงานอยู่ที่ 19–29% และในคำถามความรู้อยู่ที่ 0% ซึ่งบอกทิศทางงานได้ชัดกว่าตัวเลขเดี่ยว","visible":true},{"id":"faq-question-4","title":"ถูกเอ่ยชื่อแต่ไม่มีลิงก์ มีประโยชน์ไหม?","content":"มี เพราะคนจำชื่อแล้วไปค้นต่อเองได้ แต่ต้องเก็บเป็นคนละตัวเลขกับการถูกใส่ลิงก์ ไม่งั้นจะวัดผลงานคอนเทนต์ผิด — ข้อมูลของเรามีทั้งสองกรณีในสัปดาห์เดียวกัน","visible":true},{"id":"faq-question-5","title":"วัด ChatGPT ได้จริงเหรอ ในเมื่อไม่มี Search Console?","content":"ได้ โดยถามคำถามชุดเดิมซ้ำๆ แล้วบันทึกคำตอบ ทำมือก็ได้ หรืออัตโนมัติก็ได้ สิ่งที่ต้องระวังคือคำตอบไม่คงที่ จึงต้องวัดสม่ำเสมอและดูแนวโน้ม ไม่ใช่ตัดสินจากการถามครั้งเดียว","visible":true},{"id":"faq-question-6","title":"ต้องวัด AI ตัวไหนบ้าง?","content":"อย่างน้อย ChatGPT, Gemini และ Google AI Overview เพราะฐานผู้ใช้ใหญ่และดึงแหล่งข้อมูลต่างกัน — ข้อมูลของเราชี้ว่า ChatGPT อ้างอิงเว็บไทยบ่อยที่สุด (42% ของคำตอบ) ส่วน Claude น้อยที่สุด (3%) ถ้ามีงบจำกัดให้เริ่มจากสองเจ้าแรกก่อน","visible":true},{"id":"faq-question-7","title":"ควรวัดบ่อยแค่ไหน?","content":"เก็บข้อมูลให้ถี่ที่สุดเท่าที่งบไหว แล้วค่อยสรุปเป็นรายสัปดาห์/รายเดือน — ของเราเก็บ ChatGPT กับ Gemini ทุกวัน ส่วน Claude/Perplexity ทุก 7 วันเพราะต้องถามผ่าน API ซึ่งแพงกว่า 28 เท่า อย่าตัดสินจากการถามครั้งเดียว เพราะคำตอบแกว่งได้ทุกวัน","visible":true},{"id":"faq-question-8","title":"ต้องจ่ายเท่าไหร่ถึงจะวัดแบบอัตโนมัติได้?","content":"ของเราอยู่ที่ราวสิบดอลลาร์ต่อเดือนสำหรับ 34 คำถาม × 4 แพลตฟอร์ม รวมการติดตามอันดับและ AI Overview ด้วย ต้นทุนหลักอยู่ที่การถามผ่าน API ซึ่งลดได้มากถ้าดึงจากหน้าเว็บจริงแทนในแพลตฟอร์มที่ทำได้","visible":true}]} -->
+<div class="wp-block-rank-math-faq-block"><div class="rank-math-faq-item"><h3 class="rank-math-question">AI Search Metrics ต่างจาก SEO Metrics อย่างไร?</h3><div class="rank-math-answer">SEO วัดอันดับ คลิก และ impression ซึ่งมีตัวเลขกลางจาก Search Console ส่วน AI Search วัด "การถูกอ้างอิงในคำตอบ" ซึ่งไม่มีอันดับและไม่มีตัวเลขกลาง ต้องเก็บข้อมูลเอง และต้องแยกการถูกเอ่ยชื่อออกจากการถูกใส่ลิงก์</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">ควรวัดกี่คำถามถึงจะพอ?</h3><div class="rank-math-answer">เริ่มที่ 10–20 คำถามที่ลูกค้าถามจริงก่อน แล้วแบ่งกลุ่มตามเจตนา (ขอรายชื่อ · ถามราคา · ถามความรู้ · ถามชื่อแบรนด์) สำคัญกว่าจำนวนคือการแบ่งกลุ่ม เพราะค่าเฉลี่ยรวมซ่อนความจริงไว้</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">AI Visibility กี่เปอร์เซ็นต์ถึงเรียกว่าดี?</h3><div class="rank-math-answer">ไม่มีเกณฑ์กลาง เพราะขึ้นกับหมวดธุรกิจและชุดคำถามที่เลือก ให้เทียบกับตัวเองเดือนต่อเดือนและเทียบกับคู่แข่งในคำถามชุดเดียวกัน — ข้อมูลของเราในคำถามเชิงจ้างงานอยู่ที่ 19–29% และในคำถามความรู้อยู่ที่ 0% ซึ่งบอกทิศทางงานได้ชัดกว่าตัวเลขเดี่ยว</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">ถูกเอ่ยชื่อแต่ไม่มีลิงก์ มีประโยชน์ไหม?</h3><div class="rank-math-answer">มี เพราะคนจำชื่อแล้วไปค้นต่อเองได้ แต่ต้องเก็บเป็นคนละตัวเลขกับการถูกใส่ลิงก์ ไม่งั้นจะวัดผลงานคอนเทนต์ผิด — ข้อมูลของเรามีทั้งสองกรณีในสัปดาห์เดียวกัน</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">วัด ChatGPT ได้จริงเหรอ ในเมื่อไม่มี Search Console?</h3><div class="rank-math-answer">ได้ โดยถามคำถามชุดเดิมซ้ำๆ แล้วบันทึกคำตอบ ทำมือก็ได้ หรืออัตโนมัติก็ได้ สิ่งที่ต้องระวังคือคำตอบไม่คงที่ จึงต้องวัดสม่ำเสมอและดูแนวโน้ม ไม่ใช่ตัดสินจากการถามครั้งเดียว</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">ต้องวัด AI ตัวไหนบ้าง?</h3><div class="rank-math-answer">อย่างน้อย ChatGPT, Gemini และ Google AI Overview เพราะฐานผู้ใช้ใหญ่และดึงแหล่งข้อมูลต่างกัน — ข้อมูลของเราชี้ว่า ChatGPT อ้างอิงเว็บไทยบ่อยที่สุด (42% ของคำตอบ) ส่วน Claude น้อยที่สุด (3%) ถ้ามีงบจำกัดให้เริ่มจากสองเจ้าแรกก่อน</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">ควรวัดบ่อยแค่ไหน?</h3><div class="rank-math-answer">เก็บข้อมูลให้ถี่ที่สุดเท่าที่งบไหว แล้วค่อยสรุปเป็นรายสัปดาห์/รายเดือน — ของเราเก็บ ChatGPT กับ Gemini ทุกวัน ส่วน Claude/Perplexity ทุก 7 วันเพราะต้องถามผ่าน API ซึ่งแพงกว่า 28 เท่า อย่าตัดสินจากการถามครั้งเดียว เพราะคำตอบแกว่งได้ทุกวัน</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">ต้องจ่ายเท่าไหร่ถึงจะวัดแบบอัตโนมัติได้?</h3><div class="rank-math-answer">ของเราอยู่ที่ราวสิบดอลลาร์ต่อเดือนสำหรับ 34 คำถาม × 4 แพลตฟอร์ม รวมการติดตามอันดับและ AI Overview ด้วย ต้นทุนหลักอยู่ที่การถามผ่าน API ซึ่งลดได้มากถ้าดึงจากหน้าเว็บจริงแทนในแพลตฟอร์มที่ทำได้</div></div></div>
+<!-- /wp:rank-math/faq-block -->
