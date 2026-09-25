@@ -113,7 +113,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
         <div class="en-seo-wrap">
             <div class="en-seo-section__head">
                 <p class="en-seo-eyebrow">Scope of work</p>
-                <h2 id="seo-scope-title">One connected SEO programme</h2>
+                <h2 id="seo-scope-title">SEO services in Bangkok — one connected programme</h2>
                 <p>Technical foundation first, then content, local and AI search — every item measured by the same daily data.</p>
             </div>
             <div class="en-seo-scope">
@@ -138,7 +138,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
             </figure>
             <div class="en-seo-approach__copy">
                 <p class="en-seo-eyebrow">How we work</p>
-                <h2 id="seo-approach-title">Start with your site, not an article quota</h2>
+                <h2 id="seo-approach-title">Technical SEO in Thailand starts with your site, not an article quota</h2>
                 <p>We fix how Google reads your site — Core Web Vitals, schema, structure — before adding content, then optimise for both the 10 blue links and AI answers.</p>
                 <ol class="en-seo-steps">
                     <li><h3>Audit the foundation</h3><p>Check crawlability, speed, schema and content gaps before agreeing a scope.</p></li>
@@ -201,7 +201,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
         <div class="en-seo-wrap en-seo-pricing">
             <div class="en-seo-pricing__offer">
                 <p class="en-seo-eyebrow">Published pricing</p>
-                <h2 id="seo-pricing-title">SEO retainer</h2>
+                <h2 id="seo-pricing-title">SEO pricing in Bangkok — monthly retainer</h2>
                 <p class="en-seo-price"><span>From</span> THB 29,900 <span>/ month</span></p>
                 <p>All 8 scope items above, sized to your site after the free audit.</p>
                 <ul class="en-seo-checklist">
@@ -228,7 +228,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
     <section class="en-seo-section en-seo-wrap en-seo-faq" id="faq" aria-labelledby="seo-faq-title">
         <div class="en-seo-section__head">
             <p class="en-seo-eyebrow">Before we start</p>
-            <h2 id="seo-faq-title">Your SEO questions, answered</h2>
+            <h2 id="seo-faq-title">SEO agency in Bangkok — your questions, answered</h2>
         </div>
         <?php foreach ( $faqs as $i => $f ) : ?>
         <details class="en-seo-faq__item"<?php echo 0 === $i ? ' open' : ''; ?>>
