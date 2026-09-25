@@ -16,7 +16,7 @@ get_header();
 
 $page_url = home_url( '/en/seo/' );
 $th_url   = home_url( '/services/seo/' );
-$desc     = 'Technical-first SEO agency in Bangkok: Core Web Vitals, schema, local SEO and AI Search (GEO) with daily rank and AI-citation tracking. From THB 29,900/month, with a written "no growth, no pay" guarantee measured in your own Search Console.';
+$desc     = 'Technical-first SEO agency in Bangkok: Core Web Vitals, schema, local SEO, AI Search (GEO). From THB 29,900/month with a "no growth, no pay" guarantee.';
 
 $faqs = array(
     array( 'q' => 'How much does SEO cost in Thailand?', 'a' => 'Published prices in 2026 range from roughly THB 22,000 to 39,000 per month for an ongoing retainer; most agencies do not publish at all and quote THB 40,000–80,000 after a call. Hashbox starts at THB 29,900 per month (about USD 850), excluding 7% VAT, with the final scope quoted after a free technical audit. Project-based AI-SEO packages elsewhere run THB 165,000–320,000.' ),
