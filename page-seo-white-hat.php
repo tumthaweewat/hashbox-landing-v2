@@ -142,6 +142,9 @@ $measure = array(
                 </div>
             <?php endforeach; ?>
         </div>
+        <p class="hb-body" style="margin-top:var(--hb-space-6);text-align:center;">
+            <a href="<?php echo esc_url( home_url( '/seo-สายเทา-vs-สายขาว-2026/' ) ); ?>" class="hb-btn hb-btn--outline">อ่านต่อ: SEO สายเทา vs สายขาว เสี่ยงแค่ไหน และ 5 คำถามเช็คเอเจนซีก่อนเซ็น</a>
+        </p>
     </div>
 </section>
 
