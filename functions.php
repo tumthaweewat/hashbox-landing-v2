@@ -1288,6 +1288,37 @@ function hashbox_sync_n8n_service_rankmath_meta() {
 }
 add_action( 'wp', 'hashbox_sync_n8n_service_rankmath_meta', 1 );
 
+/**
+ * Rank Math meta sync for /en/seo/ (2026-09-26).
+ *
+ * The <meta name="description"> for this page is owned by its
+ * rank_math_description row (hashbox_rankmath_description() bails once the
+ * row exists), so the 2026-09-26 description change in the meta map and in
+ * $desc of page-en-seo.php never reached the live tag on its own — og/twitter
+ * and WebPage.description updated, <meta name="description"> stayed at the old
+ * 213-char text that Google truncates at ~155. Same one-page pattern as
+ * hashbox_sync_n8n_service_rankmath_meta(). Description only — the title row
+ * already matches the map and is left untouched.
+ */
+function hashbox_sync_en_seo_rankmath_meta() {
+    $sync_key = '20260926_en_seo_rankmath_meta_v1';
+    if ( $sync_key === get_option( 'hashbox_en_seo_rankmath_meta_version' ) ) {
+        return;
+    }
+
+    $page = get_page_by_path( 'en/seo', OBJECT, 'page' );
+    if ( ! $page ) {
+        return; // page not created in WP yet — retry on a later request, never an error
+    }
+
+    // Keep byte-identical to $desc in page-en-seo.php and the 'en/seo' meta map entry.
+    update_post_meta( $page->ID, 'rank_math_description', 'Technical-first SEO agency in Bangkok: Core Web Vitals, schema, local SEO, AI Search (GEO). From THB 29,900/month with a "no growth, no pay" guarantee.' );
+    clean_post_cache( $page->ID );
+
+    update_option( 'hashbox_en_seo_rankmath_meta_version', $sync_key, false );
+}
+add_action( 'wp', 'hashbox_sync_en_seo_rankmath_meta', 1 );
+
 /*
  * No sync for /services/ai-consulting/ on purpose (2026-08-17).
  *
