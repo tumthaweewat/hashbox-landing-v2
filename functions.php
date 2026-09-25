@@ -972,7 +972,7 @@ function hashbox_get_seo_metadata() {
         ),
         'en/seo' => array(
             'title'       => 'SEO Agency Bangkok — Technical-first SEO, from THB 29,900 | Hashbox',
-            'description' => 'Technical-first SEO agency in Bangkok: Core Web Vitals, schema, local SEO and AI Search (GEO) with daily rank and AI-citation tracking. From THB 29,900/month with a written "no growth, no pay" guarantee.',
+            'description' => 'Technical-first SEO agency in Bangkok: Core Web Vitals, schema, local SEO, AI Search (GEO). From THB 29,900/month with a "no growth, no pay" guarantee.',
         ),
         'en/ai-search' => array(
             'title'       => 'AI Search Optimization (GEO) Agency in Bangkok | Hashbox',
