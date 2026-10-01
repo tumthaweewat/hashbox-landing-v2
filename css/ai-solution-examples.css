@@ -1,0 +1,14 @@
+.hb-solution-examples { min-width: 0; margin-block: var(--hb-space-6); }
+.hb-solution-examples__note { color: var(--hb-text-muted); font-size: var(--hb-text-sm); line-height: 1.7; }
+.hb-solution-example { padding-block: var(--hb-space-6); border-block-start: 1px solid var(--hb-border); }
+.hb-solution-example h3 { font-family: var(--font-display); font-size: var(--hb-text-2xl); font-weight: 600; line-height: 1.45; margin: 0 0 var(--hb-space-4); }
+.hb-solution-example dl { display: grid; gap: var(--hb-space-3); margin: 0; }
+.hb-solution-example dl > div { display: grid; grid-template-columns: minmax(8rem, 1fr) minmax(0, 4fr); gap: var(--hb-space-4); }
+.hb-solution-example dt { font-weight: 600; }
+.hb-solution-example dd { margin: 0; color: var(--hb-text); line-height: 1.75; overflow-wrap: anywhere; }
+.hb-solution-examples :is(p, dt, dd) { font-family: var(--font-body); }
+.hb-ai .hb-solution-examples { --hb-text-muted: var(--color-ink-3); --hb-text: var(--color-ink-2); --hb-border: var(--color-rule); }
+.hb-ai-hero__scope { font-family: var(--font-display); font-size: var(--hb-text-2xl); line-height: 1.5; margin-block: var(--hb-space-4); }
+@media (max-width: 600px) {
+  .hb-solution-example dl > div { grid-template-columns: minmax(0, 1fr); gap: var(--hb-space-1); }
+}

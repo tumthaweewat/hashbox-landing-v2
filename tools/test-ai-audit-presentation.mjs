@@ -10,10 +10,8 @@ const script = await read('js/audit-landing.js');
 const icons = await read('inc/ai-action-icons.php');
 const header = await read('header.php');
 const config = await read('functions.php');
-assert.match(template, /ค่าใช้จ่ายงานซัพพอร์ตลูกค้าที่ลดลง/);
-assert.match(template, /วัดผลหลังพัฒนาระบบเสร็จและใช้งานต่อเนื่อง 8 สัปดาห์ โดยเทียบกับก่อนใช้ระบบ/);
-assert.match(config, /'label' => 'ช่วงใช้งานและวัดผล'/);
-assert.doesNotMatch(config, /'metric' => '8 สัปดาห์', 'label' => 'Time to Production'/);
+assert.doesNotMatch(template, /AutoBot|data-case-result|ค่าใช้จ่ายงานซัพพอร์ตลูกค้าที่ลดลง/);
+assert.match(template, /ข้อมูล → AI → ระบบเดิม/);
 assert.match(icons, /aria-hidden="true" focusable="false"/);
 assert.match(config, /'primary_cta'\s*=> 'ปรึกษาโจทย์ AI ฟรี'/);
 assert.match(header, /hashbox_ai_action_icon\( 'chat' \)/);
@@ -23,20 +21,17 @@ for (const name of ['chat', 'document', 'send', 'chevron', 'phone', 'mail', 'ext
 }
 assert.match(css, /details\[open\] > summary > \.hb-ai-action-icon/);
 assert.match(css, /\.hb-ai-hero__primary, \.hb-audit-form__submit\)[\s\S]*?min-height: 3\.5rem/);
-const examples = template.match(/<div class="hb-ai-business-examples">[\s\S]*?<\/details>\s*<\/div>/)?.[0];
-assert.ok(examples, 'Business examples must remain in the existing use-cases section');
-assert.ok(template.indexOf(examples) < template.indexOf('class="hb-ai-usecases__intro"'));
-assert.match(examples, /ตัวอย่างงานที่พัฒนา/);
-assert.match(examples, /แจ้งเตือนเมื่อสต็อกเหลือน้อย/);
-assert.match(examples, /โดยไม่ต้องใช้ AI ทุกขั้นตอน/);
-assert.match(examples, /แนวทางการใช้งาน ไม่ใช่เคสที่ยืนยันการส่งมอบหรือผลลัพธ์แล้ว/);
-assert.match(examples, /ให้คนตรวจและอนุมัติก่อนส่ง/);
-assert.match(examples, /<details class="hb-ai-example-options">/);
-assert.doesNotMatch(examples, /Micro Precision|MPC|Smile Account|SQL|OCR|\d+%|ใช้งานจริงแล้ว/i,
-  'Do not disclose client details or promote unconfirmed scope/results');
+const examples = await read('template-parts/ai-solution-use-cases.php');
+const exampleData = await read('inc/ai-solution-use-cases.php');
+assert.match(template, /get_template_part\( 'template-parts\/ai-solution-use-cases' \)/);
+assert.match(examples, /ตัวอย่างขอบเขตบริการ/);
+assert.match(examples, /ไม่ใช่รายงานผลลัพธ์ของลูกค้า/);
+assert.match(examples, /ไม่ต้องใช้ AI ทุกขั้นตอน/);
+assert.match(exampleData, /อนุมัติเอกสารที่ส่งให้ลูกค้า/);
+assert.doesNotMatch(examples + exampleData, /Micro Precision|MPC|Paolo|Smile Account|\d+%|ใช้งานจริงแล้ว/i);
 assert.match(css, /\.hb-ai-example-options > summary:focus-visible/);
 const optional = template.match(/<details class="hb-ai-form__optional">[\s\S]*?<\/details>/)?.[0];
-for (const field of ['service', 'timeline', 'website', 'budget', 'contact_preference', 'contact_detail']) {
+for (const field of ['service', 'timeline', 'website', 'budget', 'contact_preference', 'contact_detail', 'workflow_type', 'current_systems', 'work_volume']) {
   assert.ok(optional?.includes(`name="${field}"`), `${field} must remain available in optional details`);
 }
 assert.ok(template.indexOf('id="audit-problem"') < template.indexOf('<details class="hb-ai-form__optional">'));
