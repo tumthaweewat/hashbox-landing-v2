@@ -38,6 +38,8 @@ try {
     const report = await page.evaluate(() => ({
       width: innerWidth, scrollWidth: document.documentElement.scrollWidth,
       examples: document.querySelectorAll('.hb-solution-example').length,
+      exampleHeadingColors: [...document.querySelectorAll('.hb-solution-example h3')].map(n => getComputedStyle(n).color),
+      heroHeadingColor: getComputedStyle(document.querySelector('h1')).color,
       badFacts: [...document.querySelectorAll('.hb-solution-example dd')].filter(n => n.scrollWidth > n.clientWidth + 1).length,
       fields: [...document.querySelectorAll('[name="workflow_type"], [name="current_systems"], [name="work_volume"]')].map(n => ({name: n.name, required: n.required, visible: n.getBoundingClientRect().height > 0}))
     }));
@@ -47,6 +49,7 @@ try {
     assert.ok(report.scrollWidth <= width + 1, `${target}: horizontal overflow`);
     assert.equal(report.examples, 3);
     assert.equal(report.badFacts, 0);
+    if (target === 'audit') assert.ok(report.exampleHeadingColors.every(color => color === report.heroHeadingColor), 'Light-page example headings must use the same ink token as the hero');
     if (target === 'audit') {
       assert.equal(report.fields.length, 3);
       assert.ok(report.fields.every(field => field.visible && !field.required));
