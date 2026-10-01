@@ -27,7 +27,7 @@ $author_linkedin  = 'https://www.linkedin.com/in/tumthaweewat/';
 $author_bio       = '17 ปีประสบการณ์ Software Engineering และการเชื่อมระบบธุรกิจ · ดูแลตั้งแต่การเลือก use case, architecture และ integration ไปจนถึง production monitoring';
 
 $faqs = array(
-    array( 'q' => 'บริการที่ปรึกษา AI ราคาเริ่มต้นเท่าไหร่?', 'a' => 'คุย AI Opportunity Screening เบื้องต้น 30 นาทีฟรี · ROI Assessment Report แบบลงรายละเอียดเริ่ม 60,000 บาท · PoC (Proof of Concept) 150,000-300,000 บาท · Production Build 300,000-1,500,000 บาท · ที่ปรึกษารายเดือน 30,000-150,000 บาท/เดือน' ),
+    array( 'q' => 'บริการที่ปรึกษา AI ราคาเริ่มต้นเท่าไหร่?', 'a' => 'คุย AI Opportunity Screening เบื้องต้น 30 นาทีฟรี · ROI Assessment Report แบบลงรายละเอียดเริ่ม 60,000 บาท · PoC (Proof of Concept) เริ่ม 200,000 บาท · Production Build เริ่ม 500,000 บาท · ที่ปรึกษารายเดือน 30,000-150,000 บาท/เดือน' ),
     array( 'q' => 'ใช้เวลานานเท่าไหร่ตั้งแต่เริ่มถึง production?', 'a' => 'Simple chatbot (LINE OA + LLM): 2-3 สัปดาห์ · RAG Knowledge Base: 4-6 สัปดาห์ · Sales GPT + CRM integration: 6-10 สัปดาห์ · Custom AI agent + workflow: 8-16 สัปดาห์ ขึ้นกับ data + integration scope' ),
     array( 'q' => 'Hashbox ใช้ AI model อะไรบ้าง?', 'a' => 'เลือกตามโจทย์ · OpenAI (GPT-5, GPT-4o) สำหรับ general-purpose · Anthropic Claude (Opus 4.7, Sonnet 4.6, Haiku 4.5) สำหรับ reasoning + long context · Google Gemini สำหรับ multimodal · open-source (Llama, Mistral) สำหรับ self-host/PDPA-sensitive · OpenAI Embedding หรือ Cohere สำหรับ RAG' ),
     array( 'q' => 'ที่ปรึกษา AI ไทย ต่างจาก agency ทั่วไปอย่างไร?', 'a' => 'Agency ทั่วไปขายชั่วโมง consulting หรือ training course · Hashbox ส่งมอบ AI system ที่ run production ได้จริง พร้อม monitoring, cost guardrails, fallback logic, และ source code · ลูกค้าเป็นเจ้าของ 100% · ไม่ผูก vendor' ),
@@ -91,9 +91,6 @@ $pricing = array(
     array( 'tier' => 'AI Workforce Enterprise', 'price' => 1200000, 'scope' => 'Multi-agent + multi-integration', 'time' => '12-20 สัปดาห์', 'fit' => 'Transformation ระดับองค์กร' ),
 );
 
-$cases = array(
-    array( 'name' => 'AutoBot LINE (On-demand Service)', 'tag' => 'LINE OA + OpenAI + RAG', 'metric1' => 'Response time 2 ชั่วโมง → 2 นาที', 'metric2' => 'Support operating cost -60%', 'metric3' => 'Inquiry → Booking +18%', 'url' => '/work/autobot-line/' ),
-);
 ?>
 
 <section class="hb-hero">
@@ -111,11 +108,11 @@ $cases = array(
                 </ol>
             </nav>
             <span class="hb-eyebrow">Service 03 / 03 · Updated <?php echo esc_html( date_i18n( 'F Y' ) ); ?></span>
-            <h1 class="hb-hero__title">ที่ปรึกษา AI สำหรับธุรกิจ<br><em>บริการให้คำปรึกษา AI Solution</em><br>วางระบบถึง Production</h1>
-            <p class="hb-hero__sub">บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทยที่ต้องการ deploy AI ใน production จริง — LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Integration · เริ่มจากโจทย์ธุรกิจและข้อมูลที่มี · โปรเจกต์เริ่ม 60,000 บาท</p>
+            <h1 class="hb-hero__title">ที่ปรึกษา AI สำหรับธุรกิจ<br><span>บริการให้คำปรึกษา AI Solution</span><br>วางระบบถึง Production</h1>
+            <p class="hb-hero__sub">พัฒนา AI Automation และ AI Agent สำหรับงานเอกสาร งานขาย บริการลูกค้า และคอนเทนต์ เชื่อมกับข้อมูลและระบบเดิมของธุรกิจ พร้อมจุดตรวจโดยคนและเกณฑ์วัดผล · คุยประเมินเบื้องต้นฟรี 30 นาที</p>
             <div class="hb-hero__actions">
                 <a href="<?php echo esc_url( home_url( '/ai-workflow-audit/#audit-form' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">นัดคุย AI ฟรี 30 นาที</a>
-                <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดู AI Case Studies</a>
+                <a href="<?php echo esc_url( home_url( '/services/ai-consulting/#solution-examples' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูตัวอย่างขอบเขตงาน</a>
             </div>
             <p class="hb-hero__sub" lang="en" style="margin-top:var(--hb-space-5);font-size:var(--hb-text-sm);">Read this page in English: <a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>">AI consulting company in Bangkok</a></p>
             <div class="hb-trustbar" style="margin-top:var(--hb-space-8);display:flex;flex-wrap:wrap;gap:var(--hb-space-5);align-items:center;color:var(--hb-text-muted,#a1a1aa);font-size:var(--hb-text-sm);">
@@ -227,26 +224,12 @@ $cases = array(
     </div>
 </section>
 
-<section class="hb-section">
-    <div class="hb-container">
-        <div class="hb-section__head">
-            <span class="hb-eyebrow">Case Studies</span>
-            <h2 class="hb-h2">ผลงาน AI ที่ run production จริง</h2>
-            <p class="hb-lead" style="margin-top:var(--hb-space-4);">ตัวอย่างระบบที่ใช้งานจริง พร้อมตัวเลขผลลัพธ์จากหน้า Case Study</p>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--hb-space-4);">
-            <?php foreach ( $cases as $c ) : ?>
-                <a class="hb-card hb-card--elevated" href="<?php echo esc_url( home_url( $c['url'] ) ); ?>" style="text-decoration:none;display:flex;flex-direction:column;gap:var(--hb-space-3);">
-                    <span class="hb-eyebrow"><?php echo esc_html( $c['tag'] ); ?></span>
-                    <h3 class="hb-card__title"><?php echo esc_html( $c['name'] ); ?></h3>
-                    <div style="display:flex;flex-direction:column;gap:var(--hb-space-2);margin-top:var(--hb-space-3);">
-                        <div style="font-size:var(--hb-text-sm);color:var(--hb-accent-emerald,#10B981);font-weight:600;">▲ <?php echo esc_html( $c['metric1'] ); ?></div>
-                        <div style="font-size:var(--hb-text-sm);color:var(--hb-accent-emerald,#10B981);font-weight:600;">▲ <?php echo esc_html( $c['metric2'] ); ?></div>
-                        <div style="font-size:var(--hb-text-sm);color:var(--hb-accent-emerald,#10B981);font-weight:600;">▲ <?php echo esc_html( $c['metric3'] ); ?></div>
-                    </div>
-                </a>
-            <?php endforeach; ?>
-        </div>
+<section class="hb-section" id="solution-examples">
+    <div class="hb-container hb-container--md">
+        <h2 class="hb-h2">AI Solution สำหรับเอกสาร งานขาย และทีมคอนเทนต์</h2>
+        <p class="hb-lead">เริ่มจากปัญหาที่ทีมเจอซ้ำ เลือกหนึ่งกระบวนการมาทดลอง แล้วใช้ผลทดสอบกำหนดขอบเขตการพัฒนาต่อ</p>
+        <?php get_template_part( 'template-parts/ai-solution-use-cases' ); ?>
+        <a class="hb-btn hb-btn--gradient" href="<?php echo esc_url( home_url( '/ai-workflow-audit/#audit-form' ) ); ?>">นัดประเมินระบบ AI สำหรับธุรกิจ</a>
     </div>
 </section>
 
@@ -364,7 +347,7 @@ $cases = array(
             <div class="hb-card hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-eyebrow">ระบบ AI ตัวเดียว</span>
                 <h3 class="hb-card__title">แก้ 1 งาน 1 ทีม</h3>
-                <p class="hb-card__body">LINE Chatbot, RAG Knowledge Base หรือ Sales GPT · PoC 150,000–300,000 บาท และ production 300,000–1,500,000 บาทตามขอบเขต · 2–8 สัปดาห์ · วัดผลจาก 1 KPI ของงานนั้น</p>
+                <p class="hb-card__body">LINE Chatbot, RAG Knowledge Base หรือ Sales GPT · PoC เริ่ม 200,000 บาท และ Production Build เริ่ม 500,000 บาท · ระยะเวลาตามขอบเขต · วัดผลจาก KPI ของงานนั้น</p>
             </div>
             <div class="hb-card hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-eyebrow">AI Transformation</span>
@@ -413,7 +396,7 @@ $cases = array(
     <div class="hb-container hb-container--md">
         <span class="hb-eyebrow">Related</span>
         <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">บทความที่เกี่ยวข้อง</h2>
-        <p class="hb-body">ถ้ากำลังเลือกผู้ให้บริการ เริ่มจาก <a href="<?php echo esc_url( home_url( '/ai-solution-consulting-guide-2026/' ) ); ?>">คู่มือเลือกที่ปรึกษา AI Solution</a> แล้วเทียบขอบเขต ราคา และสิ่งที่จะได้รับกับบริการหน้านี้ ส่วน <a href="<?php echo esc_url( home_url( '/work/autobot-line/' ) ); ?>">กรณีศึกษา AutoBot LINE</a> อธิบายโจทย์และแนวทางส่งต่องานระหว่าง AI กับทีมคน</p>
+        <p class="hb-body">ถ้ากำลังเลือกผู้ให้บริการ เริ่มจาก <a href="<?php echo esc_url( home_url( '/ai-solution-consulting-guide-2026/' ) ); ?>">คู่มือเลือกที่ปรึกษา AI Solution</a> แล้วเทียบขอบเขต ราคา และสิ่งที่จะได้รับกับบริการหน้านี้ ส่วน <a href="#solution-examples">ตัวอย่างขอบเขตงาน AI Solution</a> อธิบายปัญหา การเชื่อมระบบ และจุดที่ทีมคนตรวจงาน</p>
         <div style="margin-top:var(--hb-space-6);display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--hb-space-3);">
             <a class="hb-card" href="<?php echo esc_url( home_url( '/line-chatbot-ai-guide-2026/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">Guide</span>

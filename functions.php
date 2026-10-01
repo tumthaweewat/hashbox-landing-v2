@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once get_template_directory() . '/inc/service-catalog.php';
 require_once get_template_directory() . '/inc/homepage-leads.php';
 require_once get_template_directory() . '/inc/ai-action-icons.php';
+require_once get_template_directory() . '/inc/ai-solution-use-cases.php';
 require_once get_template_directory() . '/inc/en-seo-icons.php';
 require_once get_template_directory() . '/inc/en-seo-page.php';
 require_once get_template_directory() . '/inc/en-seo-contact.php';
@@ -1856,14 +1857,14 @@ function hashbox_audit_landing_pages() {
         'ai-workflow-audit' => array(
             'slug'             => 'ai-workflow-audit',
             'service_label'    => 'AI Workforce',
-            'service_interest' => 'AI Tool / LINE Bot',
+            'service_interest' => 'AI Consulting',
             'meta_title'       => 'AI Opportunity Screening ฟรี 30 นาที | Hashbox Studio',
-            'meta_description' => 'คุยกับทีม AI 30 นาทีเพื่อประเมินโอกาสลดงานซ้ำด้วย LINE Bot, RAG Knowledge Base และ Workflow Automation พร้อมแนวทางเริ่มต้นที่เหมาะกับธุรกิจ',
-            'hero_headline'    => 'ลดงานซ้ำด้วย AI ที่วัด ROI ได้',
-            'hero_subcopy'     => 'LINE Bot, RAG Knowledge Base และ Workflow Automation สำหรับทีมขายและซัพพอร์ตที่ต้องการตอบเร็วขึ้นโดยไม่เพิ่ม headcount',
-            'hero_vendor'      => 'AI Consulting + Production Implementation ในกรุงเทพฯ สำหรับธุรกิจไทย',
+            'meta_description' => 'ประเมินระบบ AI สำหรับธุรกิจฟรี 30 นาที: งานเอกสาร คำขอราคา CRM และทีมคอนเทนต์ พร้อมเลือก workflow ที่ควรเริ่มและประเมินข้อมูลกับระบบเดิม',
+            'hero_headline'    => 'พัฒนา AI เชื่อมกับงานและระบบของธุรกิจคุณ',
+            'hero_subcopy'     => 'งานเอกสาร คำขอลูกค้า และคอนเทนต์ใช้เวลาทีมมากเกินไป? คุยกับ Hashbox เพื่อเลือกงานที่เหมาะกับ AI Automation และ AI Agent พร้อมจุดตรวจโดยคนและเกณฑ์วัดผลก่อนเริ่มพัฒนา',
+            'hero_vendor'      => 'AI Solution · Automation · Integration สำหรับธุรกิจไทย',
             'primary_cta'      => 'ปรึกษาโจทย์ AI ฟรี',
-            'proof_line'       => 'ลดค่าใช้จ่ายงานซัพพอร์ต 60% ในเคส AutoBot เทียบกับก่อนใช้ระบบ วัดผลหลังพัฒนาเสร็จและใช้งานต่อเนื่อง 8 สัปดาห์',
+            'proof_line'       => 'เริ่มจากกระบวนการที่ชัด เชื่อมข้อมูลจากระบบเดิม และให้ทีมตรวจงานก่อนดำเนินการในขั้นตอนสำคัญ',
             'creative_key'     => 'ai_workforce',
             'utm_content'      => 'ai_workforce_v4',
             'wide_image'       => 'linkedin_wide_ai_workforce_v4.png',
@@ -1899,15 +1900,10 @@ function hashbox_audit_landing_pages() {
                 array( 'title' => 'ขั้นตอนถัดไปที่แนะนำ', 'body' => 'สรุปว่าควรจัดข้อมูล ทดลอง PoC หรือทำ ROI Assessment แบบลงรายละเอียดต่อหรือไม่' ),
             ),
             'proof'            => array(
-                'metric' => '-60%',
-                'title'  => 'ลดค่าใช้จ่ายงานซัพพอร์ตด้วย LINE Bot + RAG',
-                'body'   => 'ทีม Hashbox เคยทำ AI Bot สำหรับ on-demand service ให้ตอบลูกค้า 24/7, ลด response time และ route งานซับซ้อนไปหา human โดยยังวัดผลผ่าน dashboard เดียว',
-                'href'   => '/work/autobot-line/',
-            ),
-            'case_metrics'     => array(
-                array( 'metric' => '2 นาที', 'label' => 'Avg Response Time', 'detail' => 'ลดลงจาก 2 ชั่วโมง' ),
-                array( 'metric' => '84%', 'label' => 'AI-handled Resolution', 'detail' => 'AI จัดการเคสได้โดยไม่ต้องส่งต่อ' ),
-                array( 'metric' => '8 สัปดาห์', 'label' => 'ช่วงใช้งานและวัดผล', 'detail' => 'หลังพัฒนาระบบเสร็จ โดยเทียบกับก่อนใช้ระบบ' ),
+                'metric' => '',
+                'title'  => 'ออกแบบ AI ให้ทำงานร่วมกับทีมและระบบเดิม',
+                'body'   => 'เริ่มจากข้อมูลและขั้นตอนงานของธุรกิจ ให้ AI ช่วยค้น อ่าน หรือร่างงาน เชื่อมระบบตามสิทธิ์ที่ตกลง และกำหนดจุดตรวจสำหรับข้อมูลที่ไม่ชัดเจน เอกสารลูกค้า และงานที่มีผลต่อธุรกิจ',
+                'href'   => '/services/ai-consulting/#solution-examples',
             ),
             'engagements'      => array(
                 array(
@@ -1952,7 +1948,7 @@ function hashbox_audit_landing_pages() {
                 array( 'title' => 'สรุปแนวทางเริ่มต้น', 'body' => 'แนะนำ next step, ช่วงเวลา และระดับงบประมาณเบื้องต้นที่เหมาะกับทีมคุณ' ),
             ),
             'faqs'             => array(
-                array( 'q' => 'Screening นี้เหมาะกับธุรกิจแบบไหน?', 'a' => 'เหมาะกับทีมที่มีแชทลูกค้าเยอะ มี FAQ หรือ policy ซ้ำ ๆ และอยากเริ่มใช้ AI แบบวัดผลได้ ไม่ใช่ทำ demo แล้วจบ' ),
+                array( 'q' => 'Screening นี้เหมาะกับธุรกิจแบบไหน?', 'a' => 'เหมาะกับธุรกิจที่มีงานซ้ำในเอกสาร อีเมลขอราคา แชทลูกค้า หรือคอนเทนต์ และมีทีมเจ้าของกระบวนการร่วมประเมินข้อมูล ระบบเดิม และเกณฑ์วัดผล' ),
                 array( 'q' => 'Screening ฟรีต่างจาก ROI Assessment อย่างไร?', 'a' => 'Screening 30 นาทีใช้เพื่อดูโจทย์ ความพร้อม และ next step เบื้องต้น ส่วน ROI Assessment เป็นงานแบบเสียค่าใช้จ่ายที่ map workflow และเปรียบเทียบชั่วโมงที่ลดได้กับค่าพัฒนาและ API' ),
                 array( 'q' => 'ราคาเริ่มต้นและใช้เวลาเท่าไหร่?', 'a' => 'ROI Assessment เริ่ม 60,000 บาท ใช้เวลา 1–2 สัปดาห์ · PoC + Validation เริ่ม 200,000 บาท ใช้เวลา 3–5 สัปดาห์ · Production Build เริ่ม 500,000 บาท ใช้เวลา 6–12 สัปดาห์ ขึ้นกับข้อมูลและ integration scope' ),
                 array( 'q' => 'ต้องมีข้อมูลพร้อมแค่ไหนก่อนเริ่ม?', 'a' => 'ไม่จำเป็นต้องพร้อมทั้งหมดครับ Screening จะช่วยบอกว่าข้อมูลส่วนไหนใช้ได้ทันที ส่วนไหนควรจัดโครงสร้างก่อนนำเข้า RAG หรือ Bot' ),
@@ -3758,6 +3754,7 @@ function hashbox_handle_contact_submit() {
         ? $website_project_type_labels[ $project_type ]
         : ( $is_website_audit_form ? '' : $service );
     $invalid_website_project_type = $is_website_audit_form && '' === $website_project_type_label;
+    $ai_intake_details = $is_ai_form ? hashbox_ai_solution_intake_details( $_POST ) : array();
     $needs_contact_detail = $is_ai_form && in_array( $contact_preference, array( 'LINE', 'โทร' ), true );
     $invalid_ai_contact_preference = $is_ai_form && ! in_array( $contact_preference, array( '', 'LINE', 'โทร' ), true );
 
@@ -3922,6 +3919,9 @@ function hashbox_handle_contact_submit() {
     ) );
     foreach ( $home_paths as $path_key => $path_value ) {
         $body_lines[] = $path_key . ': ' . $path_value;
+    }
+    foreach ( $ai_intake_details as $label => $value ) {
+        $body_lines[] = $label . ': ' . $value;
     }
     $body        = implode( "\n", $body_lines );
     $headers     = array( 'Content-Type: text/plain; charset=UTF-8' );

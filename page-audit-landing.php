@@ -83,17 +83,16 @@ get_header();
                             <a class="hb-btn hb-btn--gradient hb-btn--lg hb-ai-button hb-ai-hero__primary" href="#audit-form" data-track-event="ai_cta_click">
                                 <?php echo hashbox_ai_action_icon( 'chat' ); ?> <span><?php echo esc_html( $landing['primary_cta'] ); ?></span>
                             </a>
-                            <a class="hb-btn hb-btn--outline hb-btn--lg" href="#proof"><?php echo hashbox_ai_action_icon( 'document' ); ?> <span>ดูเคส AutoBot</span></a>
+                            <a class="hb-btn hb-btn--outline hb-btn--lg" href="#proof"><?php echo hashbox_ai_action_icon( 'document' ); ?> <span>ดูตัวอย่างงานที่ช่วยได้</span></a>
                         </div>
                         <p class="hb-ai-hero__reassurance">คุยกับทีมที่ทำระบบจริง · รู้ว่าควรเริ่มตรงไหน · ติดต่อกลับภายใน 1–3 วันทำการ</p>
                     </div>
 
                     <div class="hb-ai-hero__stat">
-                        <p class="hb-ai-case__label">AutoBot × Hashbox</p>
-                        <p class="hb-ai-hero__figure">
-                            <?php echo esc_html( str_replace( '-', '−', rtrim( $landing['proof']['metric'], '%' ) ) ); ?><sup>%</sup>
-                        </p>
-                        <p class="hb-ai-hero__qualifier"><strong>ค่าใช้จ่ายงานซัพพอร์ตลูกค้าที่ลดลง</strong> ในเคส AutoBot หลังใช้ LINE Bot + RAG วัดผลหลังพัฒนาระบบเสร็จและใช้งานต่อเนื่อง 8 สัปดาห์ โดยเทียบกับก่อนใช้ระบบ ผลลัพธ์เฉพาะโครงการ ขึ้นอยู่กับขอบเขตงานและข้อมูลของแต่ละธุรกิจ</p>
+                        <p class="hb-ai-case__label">เริ่มจากงานหนึ่งกระบวนการ</p>
+                        <h2 class="hb-ai-hero__scope">ข้อมูล → AI → ระบบเดิม</h2>
+                        <p class="hb-ai-hero__qualifier">เลือกงานที่เกิดซ้ำ ตรวจความพร้อมของข้อมูลและการเชื่อมต่อ แล้วทดลองกับข้อมูลจริงก่อนขยายระบบ</p>
+                        <p class="hb-ai-hero__qualifier">กำหนดให้คนตรวจเอกสารและอนุมัติขั้นตอนสำคัญ พร้อมวัดเวลา คุณภาพ และค่าใช้จ่ายของงาน</p>
                     </div>
                 </div>
             </div>
@@ -102,79 +101,32 @@ get_header();
         <section id="proof" class="hb-ai-section hb-ai-case">
             <div class="hb-container hb-ai-case__layout">
                 <div class="hb-ai-case__copy">
-                    <h2>ตอบอัตโนมัติเมื่อควรตอบ ส่งต่อคนเมื่อควรคิด</h2>
+                    <h2>ออกแบบ AI ให้ทำงานร่วมกับทีมและระบบเดิม</h2>
                     <p><?php echo esc_html( $landing['proof']['body'] ); ?></p>
-                    <a class="hb-ai-text-link" href="<?php echo esc_url( $proof_url ); ?>"><?php echo hashbox_ai_action_icon( 'document' ); ?> ดูรายละเอียดเคส AutoBot</a>
+                    <a class="hb-ai-text-link" href="<?php echo esc_url( $proof_url ); ?>"><?php echo hashbox_ai_action_icon( 'document' ); ?> ดูบริการ AI Solution และการเชื่อมระบบ</a>
                 </div>
-                <ol class="hb-ai-case__flow" aria-label="โครงสร้างระบบในเคส AutoBot">
+                <ol class="hb-ai-case__flow" aria-label="ตัวอย่างกระบวนการที่มีคนตรวจงาน">
                     <li>
                         <span>01</span>
-                        <div><h3>รับคำถามจาก LINE</h3><p>รับบริบทจากลูกค้าได้ตลอด 24 ชั่วโมง โดยไม่ต้องรอเจ้าหน้าที่เปิดแชท</p></div>
+                        <div><h3>รับข้อมูลจากงานที่เลือก</h3><p>อีเมล ไฟล์เอกสาร หรือข้อความจากลูกค้า โดยกำหนดแหล่งข้อมูลและสิทธิ์ให้ชัด</p></div>
                     </li>
                     <li>
                         <span>02</span>
-                        <div><h3>ค้นคำตอบจาก Knowledge Base</h3><p>RAG ดึงข้อมูลที่เกี่ยวข้องมาใช้ตอบ แทนการเดาจากโมเดลเพียงอย่างเดียว</p></div>
+                        <div><h3>ค้น อ่าน และเตรียมงานด้วย AI</h3><p>ใช้ข้อมูลอ้างอิงของธุรกิจเพื่อดึงข้อมูลหรือร่างงาน พร้อมตรวจเงื่อนไขก่อนส่งต่อ</p></div>
                     </li>
                     <li>
                         <span>03</span>
-                        <div><h3>ส่งต่อ Human พร้อมบริบท</h3><p>เคสซับซ้อนถูกส่งต่อให้ทีมงาน โดยยังคงประวัติและเหตุผลที่ต้องรับช่วง</p></div>
+                        <div><h3>ให้ทีมตรวจและอนุมัติ</h3><p>คนตรวจข้อมูลสำคัญก่อนส่งเอกสาร บันทึกรายการ หรือเผยแพร่เนื้อหา</p></div>
                     </li>
                 </ol>
-                <dl class="hb-ai-case__metrics" aria-label="ผลลัพธ์จากเคส AutoBot">
-                    <?php foreach ( $landing['case_metrics'] as $metric ) : ?>
-                        <div>
-                            <dt><?php echo esc_html( $metric['metric'] ); ?></dt>
-                            <dd><strong><?php echo esc_html( $metric['label'] ); ?></strong><span><?php echo esc_html( $metric['detail'] ); ?></span></dd>
-                        </div>
-                    <?php endforeach; ?>
-                </dl>
             </div>
         </section>
 
         <section class="hb-ai-section hb-ai-usecases">
             <div class="hb-container">
-                <div class="hb-ai-business-examples">
-                    <h2 class="hb-ai-section__heading">เห็นภาพจากงานที่ธุรกิจเจอทุกวัน</h2>
-                    <article class="hb-ai-stock-example" aria-labelledby="ai-stock-heading">
-                        <p class="hb-ai-stock-example__status">ตัวอย่างงานที่พัฒนา · ร้านอะไหล่และอู่ซ่อมรถ</p>
-                        <h3 id="ai-stock-heading">แจ้งเตือนสต็อกเหลือน้อย เพื่อเตรียมเติมของล่วงหน้า</h3>
-                        <dl class="hb-ai-example-facts">
-                            <div>
-                                <dt>ปัญหาที่เจอ</dt>
-                                <dd>อะไหล่ถูกใช้ทั้งงานขายและงานซ่อม เจ้าของร้านต้องรู้ว่ารายการไหนใกล้หมด</dd>
-                            </div>
-                            <div>
-                                <dt>ระบบช่วยอะไร</dt>
-                                <dd>แจ้งเตือนเมื่อสต็อกเหลือน้อย ให้เห็นรายการที่ต้องตรวจสอบและเตรียมเติม</dd>
-                            </div>
-                            <div>
-                                <dt>คนตัดสินใจอะไร</dt>
-                                <dd>เจ้าของร้านใช้ข้อมูลประกอบการวางแผนเติมของ และตัดสินใจว่าจะสั่งอะไร เมื่อไร</dd>
-                            </div>
-                        </dl>
-                        <p class="hb-ai-stock-example__note">การแจ้งเตือนตามเงื่อนไขเป็น Automation ได้ โดยไม่ต้องใช้ AI ทุกขั้นตอน</p>
-                    </article>
-                    <details class="hb-ai-example-options">
-                        <summary><span>ตัวอย่างงานอื่นที่ระบบช่วยได้</span><?php echo hashbox_ai_action_icon( 'chevron' ); ?></summary>
-                        <div class="hb-ai-example-options__content">
-                            <p class="hb-ai-example-options__status">แนวทางการใช้งาน ไม่ใช่เคสที่ยืนยันการส่งมอบหรือผลลัพธ์แล้ว</p>
-                            <dl class="hb-ai-example-facts">
-                                <div>
-                                    <dt>คัดแยกอีเมล</dt>
-                                    <dd>ช่วยแยกคำขอลูกค้าและส่งให้ทีมที่เกี่ยวข้อง ส่วนเรื่องที่ไม่ชัดเจนให้เจ้าหน้าที่ตรวจสอบ</dd>
-                                </div>
-                                <div>
-                                    <dt>เตรียมใบเสนอราคา</dt>
-                                    <dd>AI ช่วยอ่านคำขอและไฟล์แนบ ดึงข้อมูลมาร่างใบเสนอราคา โดยให้คนตรวจและอนุมัติก่อนส่ง</dd>
-                                </div>
-                                <div>
-                                    <dt>ติดตามเอกสาร</dt>
-                                    <dd>ช่วยรวบรวมสถานะเอกสารและรายการที่ยังขาด ให้ทีมเห็นงานที่ต้องติดตามต่อ</dd>
-                                </div>
-                            </dl>
-                            <p class="hb-ai-example-options__note">ต้องตรวจความพร้อมของข้อมูลและระบบเดิมก่อนกำหนดขอบเขตงาน</p>
-                        </div>
-                    </details>
+                <div class="hb-ai-business-examples" id="solution-examples">
+                    <h2 class="hb-ai-section__heading">AI ช่วยงานของธุรกิจแบบไหนได้บ้าง?</h2>
+                    <?php get_template_part( 'template-parts/ai-solution-use-cases' ); ?>
                 </div>
                 <div class="hb-ai-usecases__intro">
                     <h2 class="hb-ai-section__heading">3 โจทย์ที่มีเหตุผลให้เริ่ม Screening</h2>
@@ -439,7 +391,7 @@ get_header();
                             </div>
                             <div class="hb-field">
                                 <label class="hb-label" for="audit-problem">โจทย์หลักที่อยากแก้คืออะไร? <span class="hb-label__required">*</span></label>
-                                <textarea id="audit-problem" class="hb-textarea" name="problem" rows="4" required aria-required="true" placeholder="เช่น ทีมตอบคำถามซ้ำ ข้อมูลอยู่หลายระบบ หรือต้องการค้นเอกสารด้วย AI"></textarea>
+                                <textarea id="audit-problem" class="hb-textarea" name="problem" rows="4" required aria-required="true" placeholder="เช่น คีย์ข้อมูลจากเอกสาร รับอีเมลขอราคาจำนวนมาก หรือเตรียมคอนเทนต์หลายขั้นตอน"></textarea>
                             </div>
                         </div>
 
@@ -477,6 +429,24 @@ get_header();
                                             <option value="<?php echo esc_attr( $option ); ?>"><?php echo esc_html( $option ); ?></option>
                                         <?php endforeach; ?>
                                     </select>
+                                </div>
+                                <div class="hb-field">
+                                    <label class="hb-label" for="audit-workflow">ประเภทงานที่ต้องการให้ช่วย</label>
+                                    <select id="audit-workflow" class="hb-select" name="workflow_type">
+                                        <option value="">ยังไม่แน่ใจ</option>
+                                        <option value="documents-operations">เอกสาร / สินค้า / งานปฏิบัติการ</option>
+                                        <option value="sales-service">อีเมลขอราคา / งานขาย / บริการลูกค้า</option>
+                                        <option value="content-editorial">คอนเทนต์ / กองบรรณาธิการ</option>
+                                        <option value="other">งานอื่น ต้องการให้ช่วยประเมิน</option>
+                                    </select>
+                                </div>
+                                <div class="hb-field">
+                                    <label class="hb-label" for="audit-systems">ระบบที่ใช้อยู่</label>
+                                    <input id="audit-systems" class="hb-input" type="text" name="current_systems" maxlength="160" placeholder="เช่น CRM, ERP, โปรแกรมบัญชี, LINE, Google Sheets">
+                                </div>
+                                <div class="hb-field">
+                                    <label class="hb-label" for="audit-volume">ปริมาณงานและเวลาที่ใช้โดยประมาณ</label>
+                                    <input id="audit-volume" class="hb-input" type="text" name="work_volume" maxlength="160" placeholder="เช่น เอกสาร 100 ใบ/วัน ใช้เวลา 3 ชั่วโมง">
                                 </div>
                                 <div class="hb-field">
                                     <label class="hb-label" for="audit-contact">ช่องทางติดต่ออื่นที่สะดวก</label>
