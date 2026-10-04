@@ -16,7 +16,8 @@ get_header();
 
 $page_url = home_url( '/en/ai-search/' );
 $th_url   = home_url( '/services/ai-search/' );
-$desc     = 'AI Search / Generative Engine Optimization (GEO) agency in Bangkok: get your brand cited by Google AI Overviews, ChatGPT, Perplexity and Gemini — AI-specific audit, entity schema and llms.txt, answer-first content, external citations, measured daily with our own AI-visibility tracker.';
+$desc     = 'AI SEO and GEO agency in Bangkok: get cited by Google AI Overviews, ChatGPT, Perplexity and Gemini. Inside the SEO retainer from THB 29,900/month.';
+$contact  = home_url( '/en/seo/?service=ai-search#seo-contact' ); // shared English form (2026-10-04)
 
 $faqs = array(
     array( 'q' => 'What is AI Search optimization (GEO) and how is it different from SEO?', 'a' => 'Generative Engine Optimization is the work of getting AI answer engines — Google AI Overviews and AI Mode, ChatGPT, Perplexity, Gemini — to cite your brand when they answer a buyer\'s question. SEO gets you into the ten blue links; GEO gets you into the answer above them. Both need the same foundation (fast site, clean structure, schema), but GEO adds three things: a definition sentence an AI can quote, an unambiguous entity (who you are, where, what you sell, at what price) and mentions from third-party sources the models trust.' ),
@@ -26,7 +27,7 @@ $faqs = array(
     array( 'q' => 'Where do ChatGPT and Perplexity get information about Thai businesses?', 'a' => 'From what we see in our tracker in 2026: your own site if it states facts plainly (definition, prices, FAQ), directories such as Clutch, marketplaces, Facebook pages, YouTube videos and comparison articles. For Thai service queries the engines often cite Facebook and YouTube over company websites — which is why this service builds external citations alongside the site.' ),
     array( 'q' => 'What is llms.txt and do we need it?', 'a' => 'A plain-text file at your domain root that summarises who you are, what you sell, prices and key pages in a format AI crawlers read easily. It is not yet an official standard for the major engines, but it costs nothing, has no downside and forces the brand facts into one verifiable place. We ship llms.txt and llms-full.txt on every site we manage — ours is at hashbox.co.th/llms.txt.' ),
     array( 'q' => 'Do we need SEO first?', 'a' => 'The foundation must pass: crawlable, fast enough, correct schema — AI engines draw on the same index as Google. If it does not, we fix that in the first 2–4 weeks. Sites with solid SEO can start GEO work immediately.' ),
-    array( 'q' => 'Does Hashbox do this for its own site?', 'a' => 'Yes — same tracker, same method: 61 keywords (16 English, 45 Thai), 51 AI Overview checks and 20 prompts across ChatGPT, Claude, Gemini and Perplexity every month. Our guide to AI solution consulting ranks in the top 5 on Google and is cited by Google\'s AI Overview in a query contested by large agencies. We show the numbers we have not hit yet as openly as the ones we have.' ),
+    array( 'q' => 'Does Hashbox do this for its own site?', 'a' => 'Yes — same tracker, same method. As of 4 October 2026 it checks 95 keywords (23 English, 72 Thai) on Google every day, including whether an AI Overview appears and who it cites, plus 31 prompts across ChatGPT, Claude, Gemini and Perplexity every month. On that date our guide to AI solution consulting ranked 2nd on Google for the Thai query "ปรึกษาทำระบบ ai solution สำหรับธุรกิจ" and was cited in its AI Overview on 3 of the previous 4 days. We show the numbers we have not hit yet as openly as the ones we have.', 'link' => array( 'url' => '/ai-solution-consulting-guide-2026/', 'text' => 'Read the AI solution consulting guide (Thai)' ) ),
 );
 
 $process = array(
@@ -62,18 +63,16 @@ $kpis = array(
         <div class="hb-hero__inner">
             <nav class="hb-breadcrumb" aria-label="Breadcrumb">
                 <ol class="hb-breadcrumb__list">
-                    <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
+                    <li><a href="<?php echo esc_url( home_url( '/en/' ) ); ?>">English services</a></li>
                     <li><span class="hb-breadcrumb__sep">/</span></li>
-                    <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Services</a></li>
-                    <li><span class="hb-breadcrumb__sep">/</span></li>
-                    <li aria-current="page">AI Search (GEO)</li>
+                    <li aria-current="page">AI SEO &amp; GEO</li>
                 </ol>
             </nav>
-            <span class="hb-eyebrow">AI Search · GEO · AEO · Bangkok</span>
-            <h1 class="hb-hero__title">AI Search optimization<br><em>(GEO) in Bangkok</em><br>be the answer AI gives</h1>
+            <span class="hb-eyebrow">AI SEO · GEO · AEO · Bangkok</span>
+            <h1 class="hb-hero__title">AI SEO &amp; GEO agency in Bangkok<br>be the answer AI gives</h1>
             <p class="hb-hero__sub"><?php echo esc_html( $desc ); ?></p>
             <div class="hb-hero__actions">
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">Get a free GEO audit</a>
+                <a href="<?php echo esc_url( $contact ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">Get a free GEO audit</a>
                 <a href="<?php echo esc_url( home_url( '/geo-checker/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">Check a page with the GEO checker</a>
             </div>
             <p class="hb-hero__sub" lang="th" style="margin-top:var(--hb-space-6);font-size:var(--hb-text-sm);">อ่านหน้านี้เป็นภาษาไทย: <a href="<?php echo esc_url( $th_url ); ?>">รับทำ AI Search (GEO)</a></p>
@@ -86,7 +85,7 @@ $kpis = array(
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-surface-2,#1E1E2A);border-radius:var(--hb-radius-md,8px);">
             <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">In short</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
-                <strong>AI Search optimization (Generative Engine Optimization) is the work of getting Google AI Overviews, ChatGPT, Perplexity and Gemini to cite your brand when they answer a buyer.</strong> Hashbox does it in five steps — AI-specific audit → entity, schema and llms.txt → answer-first content → external citations → daily tracking — with a tracker we built and run on our own site. Included in the SEO retainer from THB 29,900/month, or quoted standalone after a free GEO audit.
+                <strong>AI SEO — also called AI Search optimization or Generative Engine Optimization (GEO) — is the work of getting Google AI Overviews, ChatGPT, Perplexity and Gemini to cite your brand when they answer a buyer.</strong> Hashbox does it in five steps — AI-specific audit → entity, schema and llms.txt → answer-first content → external citations → daily tracking — with a tracker we built and run on our own site. Included in the SEO retainer from THB 29,900/month, or quoted standalone after a free GEO audit.
             </p>
         </div>
     </div>
@@ -111,7 +110,7 @@ $kpis = array(
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">Process</span>
-            <h2 class="hb-h2">What our AI Search service does — five steps</h2>
+            <h2 class="hb-h2">AI optimization services — what we do in five steps</h2>
         </div>
         <div class="hb-bento">
             <?php foreach ( $process as $i => $p ) : ?>
@@ -179,7 +178,7 @@ $kpis = array(
                     <li>Daily AI Overview tracking on target keywords</li>
                     <li>One report for rank and AI citations</li>
                 </ul>
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient" style="margin-top:auto;">Get the free audit</a>
+                <a href="<?php echo esc_url( $contact ); ?>" class="hb-btn hb-btn--gradient" style="margin-top:auto;">Get the free audit</a>
             </div>
             <div class="hb-card">
                 <h3 class="hb-card__title">Standalone AI Search — quoted after a free GEO audit</h3>
@@ -202,7 +201,7 @@ $kpis = array(
             <?php foreach ( $faqs as $i => $f ) : ?>
                 <details class="hb-accordion__item" <?php echo 0 === $i ? 'open' : ''; ?>>
                     <summary class="hb-accordion__trigger"><?php echo esc_html( $f['q'] ); ?></summary>
-                    <div class="hb-accordion__content"><p><?php echo esc_html( $f['a'] ); ?></p></div>
+                    <div class="hb-accordion__content"><p><?php echo esc_html( $f['a'] ); ?></p><?php if ( ! empty( $f['link'] ) ) : ?><a href="<?php echo esc_url( home_url( $f['link']['url'] ) ); ?>"><?php echo esc_html( $f['link']['text'] ); ?></a><?php endif; ?></div>
                 </details>
             <?php endforeach; ?>
         </div>
@@ -213,7 +212,7 @@ $kpis = array(
     <div class="hb-container hb-container--md" style="text-align:center;">
         <h2 class="hb-h2">Want to know who AI names instead of you?</h2>
         <p class="hb-lead" style="margin: var(--hb-space-4) auto var(--hb-space-6);">Send your brand and five keywords. We reply with who Google AI Overviews, ChatGPT and Perplexity cite today and what to fix first — free, no commitment. Related: <a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>">AI consulting in Bangkok</a> · <a href="<?php echo esc_url( home_url( '/en/ai-consulting-companies-thailand-2026/' ) ); ?>">AI consulting companies in Thailand compared</a>.</p>
-        <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">Get the free GEO audit &rarr;</a>
+        <a href="<?php echo esc_url( $contact ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">Get the free GEO audit &rarr;</a>
     </div>
 </section>
 
@@ -222,8 +221,8 @@ hashbox_jsonld( array(
     '@context'    => 'https://schema.org',
     '@type'       => 'Service',
     '@id'         => $page_url . '#service',
-    'name'        => 'AI Search Optimization (GEO) Bangkok',
-    'alternateName' => array( 'Generative Engine Optimization', 'AI SEO', 'AEO' ),
+    'name'        => 'AI SEO & GEO Agency Bangkok — AI Search Optimization',
+    'alternateName' => array( 'Generative Engine Optimization', 'AI Search Optimization', 'AI optimization services', 'AEO' ),
     'description' => $desc,
     'url'         => $page_url,
     'inLanguage'  => 'en-US',
@@ -235,9 +234,8 @@ hashbox_jsonld( array(
     '@context'        => 'https://schema.org',
     '@type'           => 'BreadcrumbList',
     'itemListElement' => array(
-        array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
-        array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => home_url( '/services/' ) ),
-        array( '@type' => 'ListItem', 'position' => 3, 'name' => 'AI Search (GEO) Bangkok', 'item' => $page_url ),
+        array( '@type' => 'ListItem', 'position' => 1, 'name' => 'English services', 'item' => home_url( '/en/' ) ),
+        array( '@type' => 'ListItem', 'position' => 2, 'name' => 'AI SEO & GEO', 'item' => $page_url ),
     ),
 ) );
 $faq_entities = array();

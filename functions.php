@@ -976,8 +976,8 @@ function hashbox_get_seo_metadata() {
             'description' => 'Technical-first SEO agency in Bangkok: Core Web Vitals, schema, local SEO, AI Search (GEO). From THB 29,900/month with a "no growth, no pay" guarantee.',
         ),
         'en/ai-search' => array(
-            'title'       => 'AI Search Optimization (GEO) Agency in Bangkok | Hashbox',
-            'description' => 'Get cited by Google AI Overviews, ChatGPT, Perplexity and Gemini: AI-specific audit, entity schema + llms.txt, answer-first content, external citations, measured daily with our own AI-visibility tracker. Bangkok, Thailand.',
+            'title'       => 'AI SEO & GEO Agency Bangkok — AI Search Optimization | Hashbox',
+            'description' => 'AI SEO and GEO agency in Bangkok: get cited by Google AI Overviews, ChatGPT, Perplexity and Gemini. Inside the SEO retainer from THB 29,900/month.',
         ),
         'en/ai-consulting-companies-thailand-2026' => array(
             'title'       => 'AI Consulting Companies in Thailand 2026: 9 Firms Compared | Hashbox',
@@ -1324,6 +1324,36 @@ function hashbox_sync_en_seo_rankmath_meta() {
     update_option( 'hashbox_en_seo_rankmath_meta_version', $sync_key, false );
 }
 add_action( 'wp', 'hashbox_sync_en_seo_rankmath_meta', 1 );
+
+/**
+ * Rank Math meta sync for /en/ai-search/ (2026-10-04).
+ *
+ * GSC 25 Aug - 2 Oct: the page had 22 impressions while its English queries
+ * ("ai seo bangkok", "ai seo agency bangkok", "ai optimization services
+ * bangkok") landed on /en/seo/ and /en/ai-consulting/ — "AI SEO" was only in
+ * schema alternateName, never in the title. The old description was 213
+ * characters. The rank_math_* rows own the live tags, so write both, same
+ * one-page pattern as hashbox_sync_en_seo_rankmath_meta().
+ */
+function hashbox_sync_en_ai_search_rankmath_meta() {
+    $sync_key = '20261004_en_ai_search_rankmath_meta_v1';
+    if ( $sync_key === get_option( 'hashbox_en_ai_search_rankmath_meta_version' ) ) {
+        return;
+    }
+
+    $page = get_page_by_path( 'en/ai-search', OBJECT, 'page' );
+    if ( ! $page ) {
+        return; // page not created in WP yet — retry on a later request, never an error
+    }
+
+    // Keep byte-identical to $desc in page-en-ai-search.php and the 'en/ai-search' meta map entry.
+    update_post_meta( $page->ID, 'rank_math_title', 'AI SEO & GEO Agency Bangkok — AI Search Optimization | Hashbox' );
+    update_post_meta( $page->ID, 'rank_math_description', 'AI SEO and GEO agency in Bangkok: get cited by Google AI Overviews, ChatGPT, Perplexity and Gemini. Inside the SEO retainer from THB 29,900/month.' );
+    clean_post_cache( $page->ID );
+
+    update_option( 'hashbox_en_ai_search_rankmath_meta_version', $sync_key, false );
+}
+add_action( 'wp', 'hashbox_sync_en_ai_search_rankmath_meta', 1 );
 
 /*
  * No sync for /services/ai-consulting/ on purpose (2026-08-17).
@@ -3799,7 +3829,7 @@ function hashbox_handle_contact_submit() {
     $to          = 'business@hashbox.co.th';
     $request_type = $is_ai_form
         ? 'AI consultation request'
-        : ( $is_website_audit_form ? 'Website project evaluation' : ( $is_en_seo_form ? 'Technical SEO audit (English)' : ( $is_audit_form ? 'Audit request' : 'New enquiry' ) ) );
+        : ( $is_website_audit_form ? 'Website project evaluation' : ( $is_en_seo_form ? hashbox_en_seo_contact_services()[ hashbox_en_seo_contact_service( $service ) ] : ( $is_audit_form ? 'Audit request' : 'New enquiry' ) ) );
     $subject      = sprintf( '[Hashbox V2] %s from %s — %s', $request_type, $name, $service ?: 'unspecified' );
     $lead_ref     = $is_ai_form ? wp_generate_uuid4() : '';
     $conversion_ref = $is_ai_form ? hashbox_generate_conversion_ref( 'AI' ) : '';
@@ -3941,7 +3971,7 @@ function hashbox_handle_contact_submit() {
 
     if ( $sent && is_email( $email ) ) {
         $hubspot_attribution = array_merge( $utm, array(
-            'service'                      => $is_en_seo_form ? 'seo' : $website_project_type_label,
+            'service'                      => $is_en_seo_form ? hashbox_en_seo_contact_service( $service ) : $website_project_type_label,
             'lead_ref'                     => $lead_ref,
             'conversion_ref'               => $conversion_ref,
             'landing_slug'                 => $landing_slug,

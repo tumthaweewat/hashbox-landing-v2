@@ -18,6 +18,9 @@ function wp_enqueue_style( ...$args ) { $GLOBALS['seo_enqueues'][] = $args; }
 function wp_enqueue_script( ...$args ) { $GLOBALS['seo_enqueues'][] = $args; }
 function hashbox_en_seo_contact_result() { return array( 'status' => '' ); }
 function hashbox_en_seo_contact_url() { return home_url( '/en/seo/#seo-contact' ); }
+function hashbox_en_seo_contact_services() { return array( 'seo' => 'Technical SEO audit (English)', 'ai-search' => 'AI Search (GEO) audit (English)' ); }
+function hashbox_en_seo_contact_service( $value ) { return is_string( $value ) && array_key_exists( $value, hashbox_en_seo_contact_services() ) ? $value : 'seo'; }
+function wp_unslash( $value ) { return stripslashes( $value ); }
 function wp_nonce_field( ...$args ) { echo '<input type="hidden" name="hashbox_nonce" value="offline-test-only">'; }
 function get_header() { echo '<!doctype html><html lang="en"><head><meta charset="utf-8"></head><body><main>'; }
 function get_footer() { echo '</main></body></html>'; }
@@ -97,4 +100,18 @@ $seo_enqueues = array();
 hashbox_enqueue_en_seo_assets();
 seo_expect( array() === $seo_enqueues, 'No assets loaded on unrelated pages.' );
 seo_expect( home_url( '/#contact' ) === hashbox_en_seo_nav_url( '/#contact' ), 'Other page navigation unchanged.' );
+seo_expect( 1 === $xpath->query( '//form[@id="en-seo-contact-form"]//input[@name="service"][@value="seo"]' )->length, 'Default English form is classified as SEO.' );
+
+// /en/ai-search/ links to ?service=ai-search; unknown values fall back to SEO.
+foreach ( array( 'ai-search' => array( 'ai-search', 'Get a free AI Search (GEO) audit' ), 'ai-consulting' => array( 'seo', 'Get a free technical SEO audit' ) ) as $requested => $expected ) {
+    $_GET = array( 'service' => $requested );
+    ob_start();
+    get_template_part( 'template-parts/en-seo-contact' );
+    $variant = new DOMDocument();
+    $variant->loadHTML( '<?xml encoding="utf-8"?>' . ob_get_clean() );
+    $variant_xpath = new DOMXPath( $variant );
+    seo_expect( 1 === $variant_xpath->query( '//input[@name="service"][@value="' . $expected[0] . '"]' )->length, 'Form service for ?service=' . $requested );
+    seo_expect( $expected[1] === trim( $variant_xpath->query( '//h2[@id="en-seo-contact-title"]' )->item( 0 )->textContent ), 'Form heading for ?service=' . $requested );
+}
+$_GET = array();
 echo "EN SEO page: rendered content, anchors, labels, images, schema and page isolation passed.\n";

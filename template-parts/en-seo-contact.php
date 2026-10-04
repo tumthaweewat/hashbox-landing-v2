@@ -5,8 +5,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 $seo_result = hashbox_en_seo_contact_result();
 $seo_status = $seo_result['status'];
+// /en/ai-search/ links here with ?service=ai-search; a confirmed receipt carries
+// the service that was actually submitted. Both pass the same allowlist.
+$seo_service = hashbox_en_seo_contact_service(
+    isset( $seo_result['service'] ) ? $seo_result['service'] : ( isset( $_GET['service'] ) && is_string( $_GET['service'] ) ? wp_unslash( $_GET['service'] ) : '' )
+);
+$seo_services = hashbox_en_seo_contact_services();
+$seo_copy = 'ai-search' === $seo_service
+    ? array(
+        'title'  => 'Get a free AI Search (GEO) audit',
+        'intro'  => 'Share your website and the questions you want AI answers to cite you for. We check which of your keywords trigger AI Overviews and who is cited today before recommending a scope.',
+        'submit' => 'Get a free GEO audit',
+        'label'  => 'AI Search (GEO) audit request',
+    )
+    : array(
+        'title'  => 'Get a free technical SEO audit',
+        'intro'  => 'Share your website and the result you want to improve. We will review the technical foundation before recommending a scope.',
+        'submit' => 'Get a free SEO audit',
+        'label'  => 'SEO audit request',
+    );
 $seo_messages = array(
-    'sent' => 'Thank you — your SEO audit request has been sent to our team. We will follow up by email.',
+    'sent' => 'Thank you — your ' . $seo_copy['label'] . ' has been sent to our team. We will follow up by email.',
     'invalid' => 'Please check your name, email, website and privacy consent, then try again.',
     'error' => 'We could not send your request. Your details are kept in this tab so you can try again, or email business@hashbox.co.th.',
     'unconfirmed' => 'Your request was processed, but we could not load its confirmation. Please email business@hashbox.co.th before submitting again.',
@@ -17,8 +36,8 @@ $seo_messages = array(
     <div class="hb-container en-seo-contact__layout">
         <div class="en-seo-contact__intro">
             <span class="en-seo-eyebrow">Start with your website</span>
-            <h2 id="en-seo-contact-title">Get a free technical SEO audit</h2>
-            <p>Share your website and the result you want to improve. We will review the technical foundation before recommending a scope.</p>
+            <h2 id="en-seo-contact-title"><?php echo esc_html( $seo_copy['title'] ); ?></h2>
+            <p><?php echo esc_html( $seo_copy['intro'] ); ?></p>
             <p class="en-seo-contact__hint">For your existing website · English communication · No obligation</p>
             <div class="en-seo-contact__aside">
                 <p>Prefer to talk first?</p>
@@ -26,11 +45,11 @@ $seo_messages = array(
                 <a href="https://lin.ee/Xagx6i4" target="_blank" rel="noopener noreferrer" data-track-event="line_click">Talk to Hashbox on LINE <span aria-hidden="true">↗</span></a>
             </div>
         </div>
-        <form id="en-seo-contact-form" class="en-seo-contact__form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" data-en-seo-contact data-status="<?php echo esc_attr( $seo_status ); ?>" data-nonce-url="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>"<?php if ( 'sent' === $seo_status && ! empty( $seo_result['receipt'] ) ) : ?> data-confirmed-receipt="<?php echo esc_attr( $seo_result['receipt'] ); ?>"<?php endif; ?>>
+        <form id="en-seo-contact-form" class="en-seo-contact__form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" data-en-seo-contact data-status="<?php echo esc_attr( $seo_status ); ?>" data-nonce-url="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>"<?php if ( 'sent' === $seo_status && ! empty( $seo_result['receipt'] ) ) : ?> data-confirmed-receipt="<?php echo esc_attr( $seo_result['receipt'] ); ?>" data-confirmed-form-name="<?php echo esc_attr( $seo_services[ $seo_service ] ); ?>"<?php endif; ?>>
             <input type="hidden" name="action" value="hashbox_contact">
             <input type="hidden" name="contact_context" value="en-seo">
-            <input type="hidden" name="service" value="seo">
-            <input type="hidden" name="project_type" value="Technical SEO audit (English)">
+            <input type="hidden" name="service" value="<?php echo esc_attr( $seo_service ); ?>">
+            <input type="hidden" name="project_type" value="<?php echo esc_attr( $seo_services[ $seo_service ] ); ?>">
             <input type="hidden" name="contact_preference" value="email">
             <input type="hidden" name="redirect_to" value="<?php echo esc_url( hashbox_en_seo_contact_url() ); ?>">
             <?php wp_nonce_field( 'hashbox_contact', 'hashbox_nonce' ); ?>
@@ -64,7 +83,7 @@ $seo_messages = array(
                 <span>I agree to Hashbox using my details to respond to this request, as described in the <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>" target="_blank" rel="noopener">Privacy Policy</a>. <span aria-hidden="true">*</span></span>
             </label>
             <small class="en-seo-contact__error" id="en-seo-pdpa-error" aria-live="polite"></small>
-            <button class="en-seo-contact__submit" type="submit" data-en-seo-submit><span>Get a free SEO audit</span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+            <button class="en-seo-contact__submit" type="submit" data-en-seo-submit><span><?php echo esc_html( $seo_copy['submit'] ); ?></span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
         </form>
     </div>
 </section>

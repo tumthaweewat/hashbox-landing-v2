@@ -161,4 +161,16 @@ unset( $bypass['contact_context'] );
 $generic = run_real_handler( $bypass );
 expect( false === strpos( $generic['url'], 'seo_receipt=' ), 'Removing the scoped context cannot create an SEO success receipt.' );
 expect( $bypass['service'] === $generic['scheduled'][0]['args'][1]['service'] && '' === $generic['scheduled'][0]['args'][1]['landing_slug'], 'Generic forms retain their existing service classification without becoming English SEO leads.' );
+// /en/ai-search/ shares this form via ?service=ai-search (2026-10-04).
+$geo = $request;
+$geo['service'] = 'ai-search';
+$geo_success = run_real_handler( $geo );
+expect( false !== strpos( $geo_success['mails'][0]['body'], 'Service: ai-search' ), 'The shared form classifies an AI Search enquiry.' );
+expect( false !== strpos( $geo_success['mails'][0]['subject'], 'AI Search (GEO) audit (English)' ), 'Notification subject identifies the English AI Search request.' );
+expect( 'ai-search' === $geo_success['scheduled'][0]['args'][1]['service'], 'CRM attribution classifies the AI Search service.' );
+expect( 'en-seo' === $geo_success['scheduled'][0]['args'][1]['landing_slug'], 'An AI Search enquiry keeps the shared English form landing source.' );
+$geo_receipt = array();
+parse_str( (string) parse_url( $geo_success['url'], PHP_URL_QUERY ), $geo_receipt );
+$stored = $GLOBALS['test_transients'][ 'hb_en_seo_' . ( $geo_receipt['seo_receipt'] ?? '' ) ] ?? array();
+expect( 'ai-search' === ( $stored['service'] ?? '' ), 'The confirmed receipt records the submitted service for analytics labelling.' );
 echo "EN SEO contact: actual shared handler delivery, route classification, CRM attribution and failure-path checks passed.\n";

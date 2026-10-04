@@ -105,6 +105,15 @@
   }
   attribution();
 
+  // /en/ai-search/ links here with ?service=ai-search. The server renders the
+  // matching form, but a page cache that ignores query strings may serve the
+  // SEO copy — keep the lead's classification right regardless. The server
+  // still allowlists the value (hashbox_en_seo_contact_service()).
+  var serviceField = form.querySelector('input[name="service"]');
+  if (serviceField && new URLSearchParams(window.location.search).get('service') === 'ai-search') {
+    serviceField.value = 'ai-search';
+  }
+
   if (state === 'sent') {
     storageRemove(draftKey);
     var receipt = form.dataset.confirmedReceipt || '';
@@ -119,7 +128,7 @@
           // Match the current shared lead pipeline: GTM configures GA4 async.
           send_to: 'G-WQ4CG18QQT',
           form_id: 'en-seo-contact-form',
-          form_name: 'Technical SEO audit (English)',
+          form_name: form.dataset.confirmedFormName || 'Technical SEO audit (English)',
           lead_source: 'en_seo'
         });
         storageWrite(trackedKey, true);
