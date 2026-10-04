@@ -86,6 +86,7 @@ foreach ( $seo_schemas[2]['mainEntity'] as $index => $faq ) {
     seo_expect( $faq['name'] === $questions->item( $index )->textContent, 'FAQ question parity.' );
     seo_expect( $faq['acceptedAnswer']['text'] === $answers->item( $index )->textContent, 'FAQ answer parity.' );
 }
+seo_expect( 1 === $xpath->query( '//*[contains(@class,"en-seo-faq__item")]/div/a[contains(@href,"seo-%e0%b9%84%e0%b8%97%e0%b8%a2-2026") or contains(@href,"seo-ไทย-2026")]' )->length, 'The agency-comparison FAQ links to the comparison it cites.' );
 seo_expect( home_url( '/en/seo/#seo-contact' ) === hashbox_en_seo_nav_url( '/#contact' ), 'English contact routing.' );
 seo_expect( home_url( '/en/ai-search/' ) === hashbox_en_seo_nav_url( '/services/ai-search/' ), 'English service routing.' );
 hashbox_enqueue_en_seo_assets();

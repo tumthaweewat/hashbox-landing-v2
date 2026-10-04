@@ -26,7 +26,7 @@ $faqs = array(
     array( 'q' => 'Do you do local SEO for Bangkok?', 'a' => 'Yes. Google Business Profile completion and posting, LocalBusiness schema, NAP consistency across directories, review strategy and location-intent service pages are part of the retainer scope — most useful for B2B firms whose buyers search "… Bangkok" or "… near me".' ),
     array( 'q' => 'Does the retainer include AI Search / GEO?', 'a' => 'Yes. Optimising pages to be cited by Google AI Overviews, ChatGPT, Perplexity and Gemini — entity schema, llms.txt, answer-first content — is inside the SEO retainer. We track AI Overview citations for your keywords daily. If you only want AI Search without SEO, see the standalone AI Search service.' ),
     array( 'q' => 'What do I see in reporting?', 'a' => 'Eight numbers, daily, from our own tracking plus Google\'s data: keywords in the top 3/10/30, impressions, clicks and CTR, AI Overview citations, AI mentions across ChatGPT, Claude, Gemini and Perplexity, Core Web Vitals pass rate, indexed pages, organic leads and referring domains. The historical data is yours if we part ways.' ),
-    array( 'q' => 'Which SEO agency in Thailand is the best?', 'a' => 'There is no single best — pick by verifiable criteria, not size: does the agency publish prices, refuse to guarantee rankings, start from a technical audit, offer AI Search, run its own measurement, publish named cases with numbers, and leave the data with you when you part ways? We scored 10 Thai agencies (including ourselves, honestly) against those 7 criteria in a public comparison; agencies that publish prices run THB 22,000-39,000 per month.' ),
+    array( 'q' => 'Which SEO agency in Thailand is the best?', 'a' => 'There is no single best — pick by verifiable criteria, not size: does the agency publish prices, refuse to guarantee rankings, start from a technical audit, offer AI Search, run its own measurement, publish named cases with numbers, and leave the data with you when you part ways? We scored 10 Thai agencies (including ourselves, honestly) against those 7 criteria in a comparison published in Thai; agencies that publish prices run THB 22,000-39,000 per month.', 'link' => array( 'url' => '/บริษัทรับทำ-seo-ไทย-2026/', 'text' => 'Read the 10-agency comparison (Thai)' ) ),
     array( 'q' => 'Do you work in English with teams outside Thailand?', 'a' => 'Yes. Reporting, meetings and documentation are in English on request; the content itself is written in Thai, English or both depending on who your customers are. Remote work is the default; on-site in Bangkok when useful.' ),
 );
 
@@ -53,7 +53,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
         <div class="en-seo-hero__grid">
             <div class="en-seo-hero__copy">
                 <p class="en-seo-eyebrow">SEO · Bangkok, Thailand</p>
-                <h1 id="seo-title">Technical-first SEO agency in Bangkok</h1>
+                <h1 id="seo-title">Technical-first SEO services in Bangkok</h1>
                 <p class="en-seo-lead">Fix the foundation. Grow your visibility. Measure the results in your own Search Console.</p>
                 <p>Core Web Vitals, content, local SEO and AI Search — with daily reporting and a written “no growth, no pay” guarantee.</p>
                 <div class="en-seo-actions">
@@ -233,7 +233,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
         <?php foreach ( $faqs as $i => $f ) : ?>
         <details class="en-seo-faq__item"<?php echo 0 === $i ? ' open' : ''; ?>>
             <summary><span><?php echo esc_html( $f['q'] ); ?></span><?php echo hashbox_en_seo_icon( 'plus' ); ?></summary>
-            <div><p><?php echo esc_html( $f['a'] ); ?></p></div>
+            <div><p><?php echo esc_html( $f['a'] ); ?></p><?php if ( ! empty( $f['link'] ) ) : ?><a href="<?php echo esc_url( home_url( $f['link']['url'] ) ); ?>" class="en-seo-text-link"><?php echo esc_html( $f['link']['text'] ); ?></a><?php endif; ?></div>
         </details>
         <?php endforeach; ?>
     </section>
@@ -243,7 +243,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
     <nav class="en-seo-related en-seo-wrap" aria-label="Related English services">
         <span>Related services</span>
         <a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>">AI consulting <?php echo hashbox_en_seo_icon( 'arrow-right' ); ?></a>
-        <a href="<?php echo esc_url( home_url( '/en/ai-search/' ) ); ?>">AI Search (GEO) <?php echo hashbox_en_seo_icon( 'arrow-right' ); ?></a>
+        <a href="<?php echo esc_url( home_url( '/en/ai-search/' ) ); ?>">AI SEO agency in Bangkok (GEO) <?php echo hashbox_en_seo_icon( 'arrow-right' ); ?></a>
     </nav>
 </div>
 
@@ -252,7 +252,7 @@ hashbox_jsonld( array(
     '@context'    => 'https://schema.org',
     '@type'       => 'Service',
     '@id'         => $page_url . '#service',
-    'name'        => 'SEO Agency Bangkok — Technical-first SEO',
+    'name'        => 'SEO Services Bangkok — Technical-first SEO Agency',
     'description' => $desc,
     'url'         => $page_url,
     'inLanguage'  => 'en-US',

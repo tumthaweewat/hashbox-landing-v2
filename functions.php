@@ -972,7 +972,7 @@ function hashbox_get_seo_metadata() {
             'description' => 'Bangkok web development company building SEO-ready sites: Next.js or WordPress, Lighthouse 95+ guaranteed, green Core Web Vitals, full schema, Thai/English, LINE + PDPA. Landing from THB 35,900, corporate from 80,000, e-commerce from 350,000. Source code handed over.',
         ),
         'en/seo' => array(
-            'title'       => 'SEO Agency Bangkok — Technical-first SEO, from THB 29,900 | Hashbox',
+            'title'       => 'SEO Services & Agency in Bangkok — Technical-first | Hashbox',
             'description' => 'Technical-first SEO agency in Bangkok: Core Web Vitals, schema, local SEO, AI Search (GEO). From THB 29,900/month with a "no growth, no pay" guarantee.',
         ),
         'en/ai-search' => array(
@@ -1298,11 +1298,15 @@ add_action( 'wp', 'hashbox_sync_n8n_service_rankmath_meta', 1 );
  * $desc of page-en-seo.php never reached the live tag on its own — og/twitter
  * and WebPage.description updated, <meta name="description"> stayed at the old
  * 213-char text that Google truncates at ~155. Same one-page pattern as
- * hashbox_sync_n8n_service_rankmath_meta(). Description only — the title row
- * already matches the map and is left untouched.
+ * hashbox_sync_n8n_service_rankmath_meta().
+ *
+ * v2 (2026-10-04) also writes the title: "seo services bangkok" and its
+ * variants are the page's largest query group in GSC (~400 impressions,
+ * position ~41-51) and the old title said only "Agency". The rank_math_title
+ * row owns <title>, so the map change alone would not reach the live tag.
  */
 function hashbox_sync_en_seo_rankmath_meta() {
-    $sync_key = '20260926_en_seo_rankmath_meta_v1';
+    $sync_key = '20261004_en_seo_rankmath_meta_v2';
     if ( $sync_key === get_option( 'hashbox_en_seo_rankmath_meta_version' ) ) {
         return;
     }
@@ -1313,6 +1317,7 @@ function hashbox_sync_en_seo_rankmath_meta() {
     }
 
     // Keep byte-identical to $desc in page-en-seo.php and the 'en/seo' meta map entry.
+    update_post_meta( $page->ID, 'rank_math_title', 'SEO Services & Agency in Bangkok — Technical-first | Hashbox' );
     update_post_meta( $page->ID, 'rank_math_description', 'Technical-first SEO agency in Bangkok: Core Web Vitals, schema, local SEO, AI Search (GEO). From THB 29,900/month with a "no growth, no pay" guarantee.' );
     clean_post_cache( $page->ID );
 
