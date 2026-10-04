@@ -9,6 +9,23 @@ function hashbox_en_seo_contact_url() {
     return home_url( '/en/seo/#seo-contact' );
 }
 
+/**
+ * Services this English form may classify a lead as, and the request label
+ * each one carries into the notification and CRM. /en/ai-search/ shares the
+ * form (2026-10-04) and links to it with ?service=ai-search; anything else —
+ * including a tampered hidden field — falls back to SEO.
+ */
+function hashbox_en_seo_contact_services() {
+    return array(
+        'seo'       => 'Technical SEO audit (English)',
+        'ai-search' => 'AI Search (GEO) audit (English)',
+    );
+}
+
+function hashbox_en_seo_contact_service( $value ) {
+    return is_string( $value ) && array_key_exists( $value, hashbox_en_seo_contact_services() ) ? $value : 'seo';
+}
+
 /** Accept a domain without a scheme, as the visible field promises. No URL is fetched. */
 function hashbox_en_seo_contact_website( $value ) {
     if ( ! is_string( $value ) ) {
@@ -69,14 +86,17 @@ function hashbox_en_seo_contact_prepare() {
     }
 
     // Keep the shared email, consent and CRM pipeline. Only this form's routing
-    // and service classification are fixed; hidden fields cannot change them.
+    // and service classification are fixed; the service is limited to the
+    // allowlist above, and project_type always follows it.
+    $service = hashbox_en_seo_contact_service( isset( $_POST['service'] ) ? wp_unslash( $_POST['service'] ) : '' );
+    $services = hashbox_en_seo_contact_services();
     $_POST['name'] = wp_slash( $name );
     $_POST['email'] = wp_slash( $email );
     $_POST['website'] = wp_slash( $website );
     $_POST['message'] = wp_slash( $message );
     $_POST['problem'] = '';
-    $_POST['service'] = 'seo';
-    $_POST['project_type'] = 'Technical SEO audit (English)';
+    $_POST['service'] = $service;
+    $_POST['project_type'] = $services[ $service ];
     $_POST['contact_preference'] = 'email';
     $_POST['redirect_to'] = wp_slash( hashbox_en_seo_contact_url() );
     $_POST['landing_slug'] = '';
@@ -106,7 +126,13 @@ function hashbox_en_seo_contact_receipt( $location, $status ) {
         return add_query_arg( 'seo_contact', $result, hashbox_en_seo_contact_url() );
     }
     $receipt = str_replace( '-', '', wp_generate_uuid4() );
-    $record = array( 'status' => 'sent' );
+    // Same request as the handler: $_POST['service'] is the allowlisted value
+    // set in hashbox_en_seo_contact_prepare(), kept so the receipt page can
+    // label the confirmed lead without trusting the query string.
+    $record = array(
+        'status'  => 'sent',
+        'service' => hashbox_en_seo_contact_service( isset( $_POST['service'] ) ? wp_unslash( $_POST['service'] ) : '' ),
+    );
     if ( ! set_transient( 'hb_en_seo_' . $receipt, $record, HOUR_IN_SECONDS ) ) {
         // Submission succeeded, but do not invent a verifiable receipt.
         return add_query_arg( 'seo_contact', 'unconfirmed', hashbox_en_seo_contact_url() );

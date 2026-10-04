@@ -33,8 +33,8 @@ assert.match(
 );
 assert.match(
   submitHandler,
-  /'service'\s*=>\s*\$is_en_seo_form\s*\?\s*'seo'\s*:\s*\$website_project_type_label/,
-  'SEO enquiries use the scoped SEO label; Website enquiries retain the server-derived project label'
+  /'service'\s*=>\s*\$is_en_seo_form\s*\?\s*hashbox_en_seo_contact_service\( \$service \)\s*:\s*\$website_project_type_label/,
+  'English-form enquiries use the allowlisted service (seo | ai-search); Website enquiries retain the server-derived project label'
 );
 assert.match(
   submitHandler,
