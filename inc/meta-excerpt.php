@@ -61,3 +61,21 @@ function hashbox_meta_excerpt( $html, $max_visible = 150 ) {
     }
     return rtrim( $out, " ,;:|·—–-" ) . '…';
 }
+
+/**
+ * Generated <title> for posts and pages without a Rank Math title: the brand
+ * suffix is added only when the result fits ~60 visible characters (Google
+ * cuts around there, and cutting the suffix is better than cutting the
+ * title), and never when the title already names the brand —
+ * /privacy-policy/ rendered "| Hashbox Studio | Hashbox Studio".
+ */
+function hashbox_meta_title( $title, $suffix = ' | Hashbox Studio', $max_visible = 60 ) {
+    $title = trim( (string) $title );
+    if ( false !== stripos( $title, 'hashbox' ) ) {
+        return $title;
+    }
+    if ( hashbox_visible_length( html_entity_decode( $title . $suffix, ENT_QUOTES, 'UTF-8' ) ) > $max_visible ) {
+        return $title;
+    }
+    return $title . $suffix;
+}
