@@ -1133,6 +1133,18 @@ function hashbox_get_seo_metadata() {
         }
     }
 
+    if ( is_author() ) {
+        // Fell through to the homepage title before 2026-10-07.
+        $author_id = (int) get_queried_object_id();
+        $is_founder = 1 === $author_id;
+        $name      = $is_founder ? hashbox_founder_name() : get_the_author_meta( 'display_name', $author_id );
+        $bio       = wp_strip_all_tags( (string) get_the_author_meta( 'description', $author_id ) );
+        return array(
+            'title'       => $is_founder ? $name . ' · ' . hashbox_founder_name_th() . ' | Hashbox' : $name . ' — ผู้เขียน | Hashbox Studio',
+            'description' => '' !== $bio ? wp_html_excerpt( $bio, 152, '…' ) : 'บทความโดย ' . $name . ' จาก Hashbox Studio',
+        );
+    }
+
     if ( is_category() ) {
         $name      = single_cat_title( '', false );
         $term_desc = term_description();

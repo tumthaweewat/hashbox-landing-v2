@@ -41,9 +41,9 @@ if ( $is_founder ) {
             <?php else : ?>
                 <?php echo get_avatar( $author_id, 96, '', $display, array( 'class' => 'hb-post-meta__avatar', 'style' => 'border-radius:50%;' ) ); ?>
             <?php endif; ?>
-            <div>
+            <div class="hb-author-hero__text">
                 <span class="hb-eyebrow">ผู้เขียน</span>
-                <h1 class="hb-blog-hero__title" style="margin-top:var(--hb-space-2);"><?php echo esc_html( $display ); ?><?php if ( $is_founder ) : ?><span lang="th" style="display:block;font-size:0.55em;font-weight:600;margin-top:var(--hb-space-2);"><?php echo esc_html( hashbox_founder_name_th() ); ?></span><?php endif; ?></h1>
+                <h1 class="hb-blog-hero__title hb-author-hero__name" style="margin-top:var(--hb-space-2);"><?php echo esc_html( $display ); ?><?php if ( $is_founder ) : ?><span lang="th" style="display:block;font-size:0.55em;font-weight:600;margin-top:var(--hb-space-2);"><?php echo esc_html( hashbox_founder_name_th() ); ?></span><?php endif; ?></h1>
                 <?php if ( ! empty( $job ) ) : ?>
                     <p class="hb-blog-hero__lede" style="margin-top:var(--hb-space-2);"><?php echo esc_html( $job ); ?></p>
                 <?php endif; ?>
@@ -51,7 +51,7 @@ if ( $is_founder ) {
         </div>
 
         <?php if ( ! empty( $bio ) ) : ?>
-            <p class="hb-blog-hero__lede" style="margin-top:var(--hb-space-6);max-width:640px;"><?php echo esc_html( $bio ); ?></p>
+            <p class="hb-blog-hero__lede hb-author-hero__bio" style="margin-top:var(--hb-space-6);"><?php echo esc_html( $bio ); ?></p>
         <?php endif; ?>
 
         <?php if ( $linkedin || $twitter || $github ) : ?>

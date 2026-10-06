@@ -35,4 +35,21 @@ const containers = [...author.matchAll(/class="hb-container([^"]*)"/g)].map(m =>
 assert.ok(containers.length >= 2, 'Hero and grid containers expected');
 for (const c of containers) assert.equal(c, 'hb-container--xl', `Author page container "${c}" should be hb-container--xl`);
 
-console.log('Author page: breadcrumb, CI Thai font weight and full-width containers passed.');
+
+
+// 2026-10-07 owner feedback: name on one line, bio uses the full section width.
+const blogCss = await read('design-system/blog.css');
+assert.match(author, /<h1 class="hb-blog-hero__title hb-author-hero__name"/, 'Author H1 needs the hb-author-hero__name hook');
+const nameRule = blogCss.match(/\.hb-author-hero__name\s*\{([^}]+)\}/)?.[1] ?? '';
+assert.match(nameRule, /max-width:\s*none/, 'Author name must not inherit the 22ch title cap');
+assert.match(blogCss, /@media \(min-width: 64rem\)\s*\{\s*\.hb-author-hero__name\s*\{[^}]*white-space:\s*nowrap/, 'Author name stays on one line from 1024px');
+assert.ok(!/max-width:\s*640px/.test(author), 'Author bio must use the full section width');
+const bioRule = blogCss.match(/\.hb-author-hero__bio\s*\{([^}]+)\}/)?.[1] ?? '';
+assert.match(bioRule, /max-width:\s*none/, 'Author bio must override the 60ch lede cap');
+assert.match(author, /class="hb-blog-hero__lede hb-author-hero__bio"/, 'Bio paragraph needs the hb-author-hero__bio hook');
+
+// <title> on author archives fell through to the homepage title.
+const fn = await read('functions.php');
+const meta = fn.slice(fn.indexOf('function hashbox_get_seo_metadata'), fn.indexOf('function hashbox_get_seo_title'));
+assert.match(meta, /if \( is_author\(\) \)/, 'hashbox_get_seo_metadata needs an author-archive branch');
+console.log('Author page: breadcrumb, CI Thai font, full width, one-line name, full-width bio, archive title passed.');
