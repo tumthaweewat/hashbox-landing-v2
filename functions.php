@@ -1096,7 +1096,7 @@ function hashbox_get_seo_metadata() {
      */
     if ( 'services/seo' === hashbox_current_request_path() ) {
         return array(
-            'title'       => 'รับทำ SEO สายเทคนิค ติดหน้าแรก Google และ AI Search | Hashbox',
+            'title'       => 'รับทำ SEO สายเทคนิค ติดหน้าแรก Google วัดผลรายวัน | Hashbox',
             'description' => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 29,900 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
         );
     }
@@ -3213,19 +3213,46 @@ function hashbox_llms_txt_content() {
         $lines[] = '- [' . $svc['name'] . '](' . hashbox_service_url( $svc ) . '): ' . $svc['desc'] . $price;
     }
     $lines[] = '';
-    $lines[] = '## Pillar Guides';
+    $lines[] = '## Comparisons and pricing';
+    $lines[] = '';
+    // The pages AI answers cite most for "who / how much" questions (hashbox-seo-stack
+    // llm_answer_sources, 30 days to 2026-10-06) — listed first so engines that read
+    // llms.txt find them without crawling the blog.
+    $lines[] = '- [AI Consulting Companies in Thailand 2026](' . home_url( '/en/ai-consulting-companies-thailand-2026/' ) . '): 9 firms compared on 7 checkable criteria (English)';
+    $lines[] = '- [บริษัทที่ปรึกษา AI ในไทย 2026](' . home_url( '/บริษัทที่ปรึกษา-ai-ไทย-2026/' ) . '): เทียบ 9 บริษัทด้วย 7 เกณฑ์ที่ตรวจเองได้';
+    $lines[] = '- [Best SEO Agencies in Bangkok 2026](' . home_url( '/best-seo-agencies-bangkok-2026/' ) . '): 13 agencies scored on 7 criteria, published prices and guarantees (English)';
+    $lines[] = '- [10 บริษัทรับทำ SEO ในไทย 2026](' . home_url( '/บริษัทรับทำ-seo-ไทย-2026/' ) . '): เทียบ 10 บริษัทด้วย 7 เกณฑ์ที่ตรวจเองได้ — เปิดราคา การันตีอันดับ technical-first และ AI Search';
+    $lines[] = '- [ค่าจ้าง SEO 2026](' . home_url( '/ค่าจ้าง-seo-2026/' ) . '): ตัวอย่างราคาและตารางตรวจขอบเขตงานก่อนจ้าง';
+    $lines[] = '- [จ้างทำ AI Search ราคาเท่าไหร่](' . home_url( '/จ้างทำ-ai-search-ราคา-2026/' ) . '): ขอบเขตงาน GEO/AEO ราคา และวิธีวัดผลจากคำตอบ AI 1,425 คำตอบ';
+    $lines[] = '- [รับทำเว็บไซต์ ราคา 2026](' . home_url( '/รับทำเว็บไซต์-ราคา-2026/' ) . '): ราคาตลาดไทย 4 ระดับ และค่าใช้จ่ายซ่อนที่ต้องถามก่อนจ้าง';
+    $lines[] = '- [บริษัทรับทำเว็บไซต์ 2026](' . home_url( '/บริษัทรับทำเว็บไซต์-2026/' ) . '): เทียบ 10 บริษัทด้วย 7 เกณฑ์ที่ตรวจได้';
+    $lines[] = '- [n8n ราคา 2026](' . home_url( '/n8n-ราคา-2026/' ) . '): n8n Cloud vs self-hosted in THB, checked monthly';
+    $lines[] = '';
+    $lines[] = '## Guides and original data';
     $lines[] = '';
     // The guide, not the service page, is what answers "ปรึกษาทำระบบ AI
-    // Solution" — it ranks 3rd for it and is the AI Overview citation. It was
-    // missing from this list entirely, so llms.txt pointed that phrase at the
-    // service page and never named the page that actually owns it.
-    $lines[] = '- [ปรึกษาทำระบบ AI Solution สำหรับธุรกิจ](' . home_url( '/ai-solution-consulting-guide-2026/' ) . '): AI consulting budgets, timelines and vendor checklist for Thai businesses';
-    $lines[] = '- [Technical SEO คือ? คู่มือ 2026](' . home_url( '/technical-seo-guide/' ) . '): Technical SEO definition, audit checklist, common fixes';
+    // Solution" — it ranks top 3 for it and is the AI Overview citation.
+    $lines[] = '- [ปรึกษาทำระบบ AI Solution สำหรับธุรกิจ](' . home_url( '/ai-solution-consulting-guide-2026/' ) . '): AI consulting budgets, timelines and vendor checklist';
+    $lines[] = '- [AI Search Metrics มีอะไรบ้าง](' . home_url( '/ai-search-metrics-thailand-2026/' ) . '): 7 metrics with formulas and real data from Thai AI answers';
+    $lines[] = '- [Rank Tracker เชื่อได้ไหม](' . home_url( '/rank-tracker-เชื่อได้ไหม-2026/' ) . '): 4,068 keyword-days showing scraped SERPs diverging from Google (original data)';
+    $lines[] = '- [Google AI Overview ในไทย](' . home_url( '/google-ai-overview-thailand-2026/' ) . '): 48 Thai keywords measured for 10 days — coverage and who gets cited (original data)';
     $lines[] = '- [GEO คืออะไร? Generative Engine Optimization](' . home_url( '/geo-ai-search-optimization-2026/' ) . '): GEO definition + optimization for ChatGPT, Perplexity, Google AI Overviews';
+    $lines[] = '- [AEO คืออะไร](' . home_url( '/aeo-คืออะไร-2026/' ) . '): Answer Engine Optimization vs SEO vs GEO';
+    $lines[] = '- [Technical SEO คือ? คู่มือ 2026](' . home_url( '/technical-seo-guide/' ) . '): Technical SEO definition, audit checklist, common fixes';
+    $lines[] = '- [n8n คืออะไร](' . home_url( '/n8n-thai-guide-2026/' ) . '): When n8n fits and when it does not, from a team that ran it in production';
+    $lines[] = '- [ตัวอย่าง n8n workflow](' . home_url( '/ตัวอย่าง-n8n-workflow-2026/' ) . '): 6 workflows with node chains and monthly executions';
+    $lines[] = '- [AI Agent / RAG Chatbot](' . home_url( '/ai-agent-rag-chatbot-thailand-2026/' ) . '): AI agents and RAG for Thai businesses';
     $lines[] = '- [Next.js vs WordPress 2026](' . home_url( '/nextjs-vs-wordpress-2026/' ) . '): Stack comparison for SEO performance';
     $lines[] = '- [AI Workforce Guide for Thai SMEs](' . home_url( '/ai-workforce-sme-thailand-2026/' ) . '): AI adoption playbook for Thai businesses';
     $lines[] = '- [LINE Chatbot AI Guide 2026](' . home_url( '/line-chatbot-ai-guide-2026/' ) . '): Conversational AI for LINE platform';
-    $lines[] = '- [CRO Guide for Thai Websites](' . home_url( '/cro-thai-websites-2026/' ) . '): Conversion rate optimization for Thai market';
+    $lines[] = '- [CRO Guide for Thai Websites](' . home_url( '/cro-conversion-rate-optimization-thai-2026/' ) . '): Conversion rate optimization for Thai market';
+    $lines[] = '';
+    $lines[] = '## English pages';
+    $lines[] = '';
+    $lines[] = '- [SEO agency in Bangkok](' . home_url( '/en/seo/' ) . '): Technical-first SEO from THB 29,900/month';
+    $lines[] = '- [AI search optimization (GEO)](' . home_url( '/en/ai-search/' ) . '): ChatGPT, Gemini, Perplexity and Google AI Overviews';
+    $lines[] = '- [AI consulting in Bangkok](' . home_url( '/en/ai-consulting/' ) . '): AI consulting for teams in Thailand';
+    $lines[] = '- [Website development in Bangkok](' . home_url( '/en/website-development/' ) . '): SEO-ready websites';
     $lines[] = '';
     $lines[] = '## Pricing (THB, excl. VAT)';
     $lines[] = '';

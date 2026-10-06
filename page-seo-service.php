@@ -94,7 +94,7 @@ $compare = array(
                 </ol>
             </nav>
             <span class="hb-eyebrow">SEO Service · วัดผลด้วยข้อมูลจริง</span>
-            <h1 class="hb-hero__title">รับทำ SEO สายเทคนิค<br><em>ติดหน้าแรก Google และ AI Search</em><br>วัดผลด้วยข้อมูลจริงรายวัน</h1>
+            <h1 class="hb-hero__title">รับทำ SEO สายเทคนิค<br><em>ติดหน้าแรก Google</em><br>วัดผลด้วยข้อมูลจริงรายวัน</h1>
             <p class="hb-hero__sub">บริการรับทำ SEO ของ Hashbox ไม่ได้เริ่มจาก "เขียนบทความเดือนละ 4 ชิ้น" แต่เริ่มจากแก้โครงสร้างเว็บให้ Google อ่านได้เร็วและเข้าใจถูกต้องก่อน — Technical SEO, Core Web Vitals, Schema.org — แล้วต่อยอดด้วย content และ GEO เพื่อให้เว็บของคุณไม่ได้แค่ติดอันดับ แต่ถูก AI อ้างอิงด้วย · ค่าบริการเริ่มต้น 29,900 บาทต่อเดือน เริ่มจาก SEO Audit ฟรี</p>
             <div class="hb-hero__actions">
                 <a href="<?php echo esc_url( home_url( '/?service=seo#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
@@ -168,7 +168,7 @@ $compare = array(
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">05</span>
                 <h3 class="hb-h3">GEO / AI Overview Optimization</h3>
-                <p class="hb-body">จุดที่เราต่างจากบริษัทรับทำ SEO ทั่วไปมากที่สุด: เรา optimize ระดับ passage ให้ content ถูก AI Overview หยิบไปอ้างอิง และมีระบบ track ว่าโดเมนไหนถูกอ้างอิงในคีย์เวิร์ดเป้าหมาย อัปเดตรายวัน อ่านแนวคิดเต็มๆ ที่ <a href="<?php echo esc_url( home_url( '/geo-ai-search-optimization-2026/' ) ); ?>">GEO: AI Search Optimization 2026</a></p>
+                <p class="hb-body">จุดที่เราต่างจากบริษัทรับทำ SEO ทั่วไปมากที่สุด: เรา optimize ระดับ passage ให้ content ถูก AI Overview หยิบไปอ้างอิง และมีระบบ track ว่าโดเมนไหนถูกอ้างอิงในคีย์เวิร์ดเป้าหมาย อัปเดตรายวัน อ่านแนวคิดเต็มๆ ที่ <a href="<?php echo esc_url( home_url( '/geo-ai-search-optimization-2026/' ) ); ?>">GEO: AI Search Optimization 2026</a> · ขอบเขตงานเต็มดูที่บริการ<a href="<?php echo esc_url( home_url( '/services/ai-search/' ) ); ?>">รับทำ AI Search</a></p>
             </div>
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">06</span>
@@ -370,7 +370,7 @@ $compare = array(
             <p class="hb-body">คำตอบอ้าง<a href="<?php echo esc_url( home_url( '/en/ai-consulting-companies-thailand-2026/' ) ); ?>">บทเทียบบริษัท AI ของ Hashbox</a> ประกอบรายชื่อบริษัทอื่น แต่ไม่ได้เสนอ Hashbox เป็นผู้ให้บริการในรายชื่อนั้น จึงนับเป็น <strong>citation</strong> ในตัวอย่างนี้ และยังไม่นับเป็น <strong>brand recommendation</strong></p>
             <p class="hb-caption">ตัวอย่างนี้ใช้แสดงวิธีอ่านรายงาน เป็นผลทดสอบผ่าน API ไม่ใช่ประวัติสนทนาของลูกค้า และไม่ใช่หลักฐานผลสำเร็จของบริการ SEO ให้ลูกค้า ผลแต่ละรอบอาจต่างกันตามคำถาม โมเดล และวันที่ตรวจ</p>
         </div>
-        <p class="hb-body">ดู<a href="<?php echo esc_url( home_url( '/services/ai-search/' ) ); ?>">ขอบเขตบริการ AI Search</a> และตกลงคำถามเป้าหมายก่อนเริ่มวัดผล</p>
+        <p class="hb-body">ดูขอบเขตบริการ<a href="<?php echo esc_url( home_url( '/services/ai-search/' ) ); ?>">รับทำ AI Search</a> และตกลงคำถามเป้าหมายก่อนเริ่มวัดผล</p>
     </div>
 </section>
 

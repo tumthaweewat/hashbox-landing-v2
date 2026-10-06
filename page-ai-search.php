@@ -82,7 +82,7 @@ $kpis = array(
                 </ol>
             </nav>
             <span class="hb-eyebrow">AI Search · GEO · AEO</span>
-            <h1 class="hb-hero__title">รับทำ AEO / GEO<br><em>พร้อมปรับเว็บไซต์</em><br>ให้ค้นพบผ่าน Google และ AI Search</h1>
+            <h1 class="hb-hero__title">รับทำ AI Search<br><em>AEO / GEO พร้อมปรับเว็บไซต์</em><br>ให้ค้นพบผ่าน Google และ AI</h1>
             <p class="hb-hero__sub">Hashbox ช่วยธุรกิจที่มีเว็บไซต์แล้ว ประเมินช่องว่าง SEO + AI Search และลงมือแก้โครงสร้างเว็บ เนื้อหา และทางติดต่อ ตามขอบเขตที่ตกลง พร้อมวัดการค้นพบและการสอบถามที่เกิดขึ้นจริง</p>
             <p class="hb-body">เหมาะกับเจ้าของธุรกิจและทีมการตลาดที่ต้องการทีมวิเคราะห์และพัฒนาเว็บไซต์ร่วมกัน</p>
             <div class="hb-hero__actions">
