@@ -23,3 +23,5 @@ jobs:
         run: php tools/test-post-service-hub.php
       - name: Founder avatar contract
         run: php tools/test-founder-avatar.php
+      - name: Generated meta descriptions (Thai-aware length)
+        run: php tools/test-meta-excerpt.php
