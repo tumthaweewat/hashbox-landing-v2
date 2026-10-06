@@ -2017,7 +2017,7 @@ function hashbox_audit_landing_pages() {
                 'name'       => hashbox_founder_name(),
                 'role'       => 'Head of Tech',
                 'experience' => '17 ปีในงาน Software Engineering',
-                'linkedin'   => 'https://www.linkedin.com/in/tumthaweewat/',
+                'linkedin'   => hashbox_founder_linkedin(),
             ),
             'process'          => array(
                 array( 'title' => 'วัด baseline งานซ้ำ', 'body' => 'เก็บคำถามซ้ำ, SLA, ticket volume และต้นทุนเวลาของทีม' ),
@@ -2821,7 +2821,7 @@ function hashbox_rankmath_schema_organization() {
             'name'   => hashbox_founder_name(),
             'alternateName' => hashbox_founder_alternate_names(),
             'url'    => home_url( '/about/' ),
-            'sameAs' => array( 'https://www.linkedin.com/in/tumthaweewat/', 'https://github.com/tumthaweewat' ),
+            'sameAs' => array( hashbox_founder_linkedin(), 'https://github.com/tumthaweewat' ),
         ),
         'slogan' => 'เว็บไซต์ SEO-Ready และระบบ AI ที่ใช้งานจริงใน production',
         'sameAs' => hashbox_organization_same_as(),

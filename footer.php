@@ -66,7 +66,7 @@
                             : 'สตูดิโอที่รวม รับทำเว็บไซต์ SEO-Ready, รับทำ SEO / AI Search และที่ปรึกษา AI ไว้ในทีมเดียว ส่งมอบเว็บที่ผ่าน Lighthouse 100 และระบบ AI ที่ใช้งานจริงใน production'; ?>
                     </p>
                     <div class="hb-footer__socials">
-                        <a href="https://www.linkedin.com/in/tumthaweewat/" class="hb-footer__social" aria-label="LinkedIn LI" target="_blank" rel="me noopener noreferrer">LI</a>
+                        <a href="<?php echo esc_url( hashbox_founder_linkedin() ); ?>" class="hb-footer__social" aria-label="LinkedIn LI" target="_blank" rel="me noopener noreferrer">LI</a>
                         <a href="https://www.facebook.com/profile.php?id=61590390615650" class="hb-footer__social" aria-label="Facebook FB" target="_blank" rel="me noopener noreferrer">FB</a>
                         <a href="https://www.instagram.com/hashbox.studio/" class="hb-footer__social" aria-label="Instagram IG" target="_blank" rel="me noopener noreferrer">IG</a>
                         <a href="https://lin.ee/Xagx6i4" class="hb-footer__social" aria-label="LINE @hashboxstudio" target="_blank" rel="me noopener noreferrer">LINE</a>

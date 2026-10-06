@@ -20,7 +20,7 @@
 ## 2. Social / Profiles (ใส่ทุกที่ที่มีช่อง)
 
 - LINE OA: https://lin.ee/Xagx6i4 (@hashboxstudio)
-- LinkedIn: https://www.linkedin.com/in/tumthaweewat/
+- LinkedIn: https://www.linkedin.com/in/tumthanawat/
 - Facebook: https://www.facebook.com/profile.php?id=61590390615650
 - Instagram: https://www.instagram.com/hashbox.studio/
 

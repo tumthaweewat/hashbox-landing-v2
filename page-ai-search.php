@@ -26,7 +26,7 @@ $desc         = 'รับทำ AEO / GEO และ AI Search พร้อม�
 
 $author_name     = hashbox_founder_name();
 $author_role     = 'Head of Tech';
-$author_linkedin = 'https://www.linkedin.com/in/tumthaweewat/';
+$author_linkedin = hashbox_founder_linkedin();
 $author_bio      = '17 ปี Technical SEO + Performance Engineering · ดูแลงานวิเคราะห์และพัฒนาเว็บไซต์ พร้อมระบบติดตาม AI Overview / AI citation ของ Hashbox';
 
 $faqs = array(
