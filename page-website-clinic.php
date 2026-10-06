@@ -25,7 +25,7 @@ $services_url = home_url( '/services/' );
 $seo_url      = home_url( '/services/seo/' );
 $desc         = 'รับทำเว็บไซต์คลินิกที่คนไข้ค้นเจอบนมือถือและจองได้ทันที — หน้าบริการต่อหัตถการ โปรไฟล์แพทย์ ระบบนัดผ่าน LINE OA แผนที่และ Google Business Profile โครงสร้าง PDPA และ Schema สำหรับสถานพยาบาล · Lighthouse 95+ · เริ่มต้น 35,900 บาท ประเมิน scope ฟรี';
 
-$author_name     = 'Tum Thaweewat';
+$author_name     = hashbox_founder_name();
 $author_role     = 'Head of Tech';
 $author_linkedin = 'https://www.linkedin.com/in/tumthaweewat/';
 $author_bio      = '17 ปีประสบการณ์ Technical SEO + Performance Engineering · ผ่านโปรเจกต์ SEO migration 50+ เคส · Cert: Google Analytics, Search Console, Cloudflare Performance Engineer';
@@ -332,6 +332,7 @@ hashbox_jsonld( array(
     '@type'       => 'Person',
     '@id'         => home_url( '/#founder' ),
     'name'        => $author_name,
+    'alternateName' => hashbox_founder_alternate_names(),
     'jobTitle'    => $author_role,
     'description' => $author_bio,
     'url'         => $page_url,

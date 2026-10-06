@@ -101,6 +101,7 @@ echo "EN SEO contact: validation, isolation, routing and verified-feedback check
 
 // Exercise the actual handler and route classification from functions.php.
 // Only WordPress I/O is mocked: no mail, CRM request or live form is submitted.
+require_once __DIR__ . '/../inc/founder.php';
 $theme_functions = file_get_contents( __DIR__ . '/../functions.php' );
 foreach ( array( 'hashbox_audit_landing_pages', 'hashbox_get_audit_landing_for_path', 'hashbox_get_audit_landing_for_return_url', 'hashbox_handle_contact_submit' ) as $function_name ) {
     $start = strpos( $theme_functions, 'function ' . $function_name . '(' );

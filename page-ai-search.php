@@ -24,7 +24,7 @@ $has_checker  = (bool) get_page_by_path( 'geo-checker', OBJECT, 'page' );
 $checker_url  = $has_checker ? home_url( '/geo-checker/' ) : home_url( '/?service=ai-search#contact' );
 $desc         = 'รับทำ AEO / GEO และ AI Search พร้อมแก้โครงสร้างเว็บไซต์ เนื้อหา และฟอร์มติดต่อ ประเมินขอบเขตงานก่อนเริ่ม วัดการค้นพบและ Lead แยกตามช่องทาง SEO retainer เริ่ม 29,900 บาท/เดือน';
 
-$author_name     = 'Tum Thaweewat';
+$author_name     = hashbox_founder_name();
 $author_role     = 'Head of Tech';
 $author_linkedin = 'https://www.linkedin.com/in/tumthaweewat/';
 $author_bio      = '17 ปี Technical SEO + Performance Engineering · ดูแลงานวิเคราะห์และพัฒนาเว็บไซต์ พร้อมระบบติดตาม AI Overview / AI citation ของ Hashbox';
