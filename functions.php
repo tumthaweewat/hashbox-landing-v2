@@ -5602,6 +5602,42 @@ function hashbox_geo_run_checks( $html, $llms_txt_found ) {
 /**
  * AJAX endpoint for the checker.
  */
+/**
+ * What /geo-checker/ scores, for the page itself (2026-10-07: the page had 55
+ * words). Must match the $add() calls in hashbox_geo_check_handler() check for
+ * check and weight for weight — tools/test-geo-checker-page.mjs enforces it.
+ */
+function hashbox_geo_checker_criteria() {
+    return array(
+        array( 'id' => 'title',      'weight' => 8,  'label' => 'มี <title> ความยาวเหมาะสม', 'why' => 'title ที่ชัดและมี keyword หลักคือสิ่งแรกที่ engine ใช้ระบุว่าหน้านี้ตอบเรื่องอะไร' ),
+        array( 'id' => 'meta',       'weight' => 6,  'label' => 'มี meta description', 'why' => 'สรุปหน้าในประโยคเดียว ทั้งคนและ AI ใช้ตัดสินว่าจะอ่านต่อหรือไม่' ),
+        array( 'id' => 'h1',         'weight' => 8,  'label' => 'มี H1 เดียว', 'why' => 'หัวข้อหลักหนึ่งอันต่อหน้า บอกชัดว่าหน้านี้เกี่ยวกับอะไร' ),
+        array( 'id' => 'h2',         'weight' => 6,  'label' => 'มีหัวข้อย่อย H2 อย่างน้อย 2', 'why' => 'แบ่งเนื้อหาเป็นส่วนๆ ให้ AI ดึงไปตอบทีละส่วนได้' ),
+        array( 'id' => 'answer',     'weight' => 10, 'label' => 'มีหัวข้อแบบคำถาม', 'why' => 'หัวข้อที่เป็นคำถามที่คนถาม AI แล้วตอบทันทีใต้หัวข้อ คือรูปแบบที่ถูกยกไปตอบง่ายที่สุด' ),
+        array( 'id' => 'faq',        'weight' => 14, 'label' => 'มี FAQPage schema', 'why' => 'FAQ ที่มองเห็นบนหน้า พร้อม schema จากข้อความชุดเดียวกัน' ),
+        array( 'id' => 'article',    'weight' => 8,  'label' => 'มี Article/BlogPosting schema', 'why' => 'ระบุผู้เขียนและวันที่เผยแพร่ให้เครื่องอ่านได้' ),
+        array( 'id' => 'org',        'weight' => 8,  'label' => 'มี Organization schema', 'why' => 'ประกาศตัวตนแบรนด์พร้อม sameAs ให้ engine เชื่อมเว็บกับแบรนด์ได้' ),
+        array( 'id' => 'author',     'weight' => 8,  'label' => 'มีสัญญาณผู้เขียน (E-E-A-T)', 'why' => 'Person schema หรือ meta author ช่วยเรื่องความน่าเชื่อถือ' ),
+        array( 'id' => 'breadcrumb', 'weight' => 4,  'label' => 'มี BreadcrumbList schema', 'why' => 'ช่วยให้ engine เข้าใจว่าหน้านี้อยู่ตรงไหนในโครงสร้างเว็บ' ),
+        array( 'id' => 'og',         'weight' => 4,  'label' => 'มี Open Graph (title + image)', 'why' => 'เมื่อถูกแชร์หรืออ้างอิง หน้าจะแสดงผลถูกต้อง' ),
+        array( 'id' => 'lists',      'weight' => 6,  'label' => 'มี list หรือตาราง', 'why' => 'เนื้อหาแบบ structured ถูกดึงไปตอบง่ายกว่าย่อหน้ายาว' ),
+        array( 'id' => 'depth',      'weight' => 6,  'label' => 'เนื้อหาราว 800 คำขึ้นไป', 'why' => 'ครอบคลุมหัวข้อพอที่จะตอบคำถามต่อเนื่องได้' ),
+        array( 'id' => 'llms',       'weight' => 4,  'label' => 'มีไฟล์ /llms.txt', 'why' => 'ไฟล์ชี้ทางให้ AI crawler หาเนื้อหาสำคัญของเว็บ' ),
+    );
+}
+
+/**
+ * Visible FAQ on /geo-checker/ — the same text feeds FAQPage schema.
+ */
+function hashbox_geo_checker_faqs() {
+    return array(
+        array( 'q' => 'GEO Readiness Checker คืออะไร?', 'a' => 'เครื่องมือฟรีที่ตรวจหน้าเว็บทีละหน้าว่าพร้อมให้ AI search อย่าง ChatGPT, Perplexity และ Google AI Overviews อ้างอิงแค่ไหน ให้คะแนน 0–100 จาก 14 จุด พร้อมคำแนะนำว่าควรแก้อะไร' ),
+        array( 'q' => 'คะแนนสูงแปลว่า AI จะอ้างเว็บเราแน่นอนไหม?', 'a' => 'ไม่แน่นอน คะแนนวัดความพร้อมบนหน้า เช่น โครงหัวข้อ schema และเนื้อหาแบบ structured แต่การถูกอ้างจริงยังขึ้นกับความน่าเชื่อถือของเว็บและการถูกพูดถึงนอกเว็บ ถ้าจะรู้ว่าถูกอ้างจริงไหมต้องวัดจากคำตอบของ AI โดยตรง' ),
+        array( 'q' => 'ตรวจหน้าแบบไหนได้ ใช้เวลานานไหม?', 'a' => 'ตรวจได้เฉพาะหน้าสาธารณะที่เข้าถึงได้โดยไม่ต้องล็อกอิน ใช้เวลาประมาณ 5–10 วินาทีต่อหน้า' ),
+        array( 'q' => 'คะแนนแต่ละจุดคิดยังไง?', 'a' => 'แต่ละจุดผ่านหรือไม่ผ่าน และมีน้ำหนักตามตารางด้านบน รวมกันเต็ม 100 จุดที่มีน้ำหนักมากที่สุดคือ FAQPage schema (14) และหัวข้อแบบคำถาม (10)' ),
+    );
+}
+
 function hashbox_geo_check_handler() {
     check_ajax_referer( 'hb_geo_check', 'nonce' );
 
