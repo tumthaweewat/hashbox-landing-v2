@@ -19,3 +19,5 @@ jobs:
           coverage: none
       - name: Lint every tracked PHP file
         run: node tools/test-php-syntax.mjs
+      - name: Article → service page map (breadcrumb silo)
+        run: php tools/test-post-service-hub.php

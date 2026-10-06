@@ -17,6 +17,7 @@ require_once get_template_directory() . '/inc/ai-solution-use-cases.php';
 require_once get_template_directory() . '/inc/en-seo-icons.php';
 require_once get_template_directory() . '/inc/en-seo-page.php';
 require_once get_template_directory() . '/inc/en-seo-contact.php';
+require_once get_template_directory() . '/inc/post-service-hub.php';
 
 // No RSS/comment feed links in <head> and no emoji detection script —
 // both showed up as crawled-not-indexed URLs in GSC (2026-08-29).
@@ -5071,12 +5072,17 @@ function hashbox_inject_post_schema() {
     // (flag set in hashbox_rankmath_json_ld, which runs earlier in wp_head).
     // Mirror the visible breadcrumbs: Home / Blog / [category] / title. Pages
     // on the article layout have no category, so that crumb is omitted.
-    $crumbs = array(
-        array( 'name' => 'Home', 'item' => home_url( '/' ) ),
-        array( 'name' => 'Blog', 'item' => home_url( '/blog/' ) ),
-    );
-    if ( ! empty( $cats ) ) {
-        $crumbs[] = array( 'name' => $cat_name, 'item' => $cat_url );
+    // Same crumbs as template-parts/breadcrumbs.php: Home / service page / title
+    // when the post has a service hub (inc/post-service-hub.php), else Home / Blog / category.
+    $hub    = hashbox_post_service_hub( $post_id );
+    $crumbs = array( array( 'name' => 'Home', 'item' => home_url( '/' ) ) );
+    if ( $hub ) {
+        $crumbs[] = array( 'name' => $hub['name'], 'item' => $hub['url'] );
+    } else {
+        $crumbs[] = array( 'name' => 'Blog', 'item' => home_url( '/blog/' ) );
+        if ( ! empty( $cats ) ) {
+            $crumbs[] = array( 'name' => $cat_name, 'item' => $cat_url );
+        }
     }
     $crumbs[] = array( 'name' => get_the_title( $post_id ), 'item' => get_permalink( $post_id ) );
     $crumb_items = array();
