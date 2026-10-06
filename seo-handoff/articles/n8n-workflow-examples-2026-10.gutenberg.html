@@ -1,0 +1,265 @@
+<!-- wp:paragraph -->
+<p><strong>n8n workflow คือ</strong> ลำดับขั้นตอนอัตโนมัติที่ต่อ node เข้าด้วยกันบนหน้าจอ — เริ่มจาก <strong>trigger</strong> หนึ่งตัว (มีฟอร์มเข้า ถึงเวลาที่ตั้งไว้ มีอีเมลใหม่) แล้วส่งข้อมูลต่อไปทีละ node จนจบงาน บทความนี้รวม 6 ตัวอย่างที่ธุรกิจไทยใช้กันจริง แต่ละตัวบอก<strong>ลำดับ node</strong> ที่ใช้สร้างตามได้ <strong>จำนวน execution ต่อเดือน</strong> (ตัวกำหนดว่าต้องจ่าย n8n แผนไหน) และ<strong>จุดที่มักพัง</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+<p><strong>TL;DR</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>6 ตัวอย่าง:</strong> ฟอร์มหน้าเว็บ → LINE ทีมขาย · AI จัดหมวดอีเมลลูกค้า · รายงานสรุปทุกเช้า · งานที่ต้องรอคนอนุมัติ · ระบบติดตามอันดับ SEO ที่เราสร้างจริง · AI Agent ตอบคำถามจากเอกสาร</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ส่ง LINE ห้ามใช้ LINE node แล้ว</strong> — LINE Notify ปิดบริการตั้งแต่ 1 เม.ย. 2025 และ n8n ประกาศเลิกใช้ node นี้ ให้ส่งผ่าน HTTP Request ไป LINE Messaging API แทน</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>workflow ที่ตั้งเวลาทุก 15 นาทีใช้ ~2,880 executions/เดือน</strong> — เกินแผน Starter ของ n8n Cloud แล้ว คิดก่อนตั้งความถี่</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ทุก workflow ที่ใช้งานจริงควรมี Error Workflow</strong> — ไม่งั้นมันพังเงียบ และคุณจะรู้ตอนลูกค้าถามว่าทำไมไม่มีใครติดต่อกลับ</li><!-- /wp:list-item --></ul>
+<!-- /wp:list --></blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">ส่วนประกอบของ n8n workflow ที่ต้องรู้ก่อนดูตัวอย่าง</h2>
+<!-- /wp:heading -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>ส่วนประกอบ</th><th>คืออะไร</th><th>node ที่ใช้บ่อย</th></tr></thead><tbody><tr><td>Trigger</td><td>จุดเริ่มต้น — workflow หนึ่งมีได้หลาย trigger แต่แต่ละรอบเริ่มจากตัวเดียว</td><td>Webhook · Schedule Trigger · Gmail Trigger · Chat Trigger</td></tr><tr><td>Node จัดการข้อมูล</td><td>แปลง กรอง แตกแขนง</td><td>Edit Fields (Set) · If · Switch · Code · Loop Over Items</td></tr><tr><td>Node เชื่อมบริการ</td><td>อ่าน/เขียนระบบอื่น</td><td>HTTP Request · Google Sheets · Gmail · Postgres</td></tr><tr><td>Node AI</td><td>เรียกโมเดลภาษา</td><td>AI Agent · Text Classifier</td></tr><tr><td>Execution</td><td>การรัน workflow หนึ่งรอบตั้งแต่ trigger จนจบ — n8n Cloud คิดเงินตามจำนวนนี้ ไม่ใช่ตามจำนวน node</td><td>—</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">1. ฟอร์มหน้าเว็บ → แจ้งทีมขายทาง LINE + บันทึกลง Google Sheets</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>ใช้เมื่อ:</strong> มีคนกรอกฟอร์มติดต่อบนเว็บ แล้วอยากให้ทีมขายเห็นภายในไม่กี่วินาที และมีบันทึกไว้ทุกรายการ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>ลำดับ</th><th>Node</th><th>ทำอะไร</th></tr></thead><tbody><tr><td>1</td><td>Webhook</td><td>รับข้อมูลจากฟอร์ม</td></tr><tr><td>2</td><td>Edit Fields (Set)</td><td>เลือกเฉพาะฟิลด์ที่ใช้ ตัดช่องว่าง เติมเวลารับ</td></tr><tr><td>3</td><td>If</td><td>กรองรายการที่ไม่มีเบอร์และอีเมลทั้งคู่ (มักเป็นสแปม)</td></tr><tr><td>4</td><td>Google Sheets</td><td>เพิ่มแถวใหม่</td></tr><tr><td>5</td><td>HTTP Request</td><td>ส่งข้อความเข้า LINE ผ่าน LINE Messaging API (push message)</td></tr><tr><td>6</td><td>Respond to Webhook</td><td>ตอบกลับฟอร์มว่ารับแล้ว</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p><strong>Executions ต่อเดือน:</strong> เท่ากับจำนวนฟอร์มที่เข้ามา — 10 รายการต่อวันคือ ~300 ต่อเดือน</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>จุดที่พังบ่อย:</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>ใช้ LINE node</strong> — node นี้ใช้ LINE Notify ซึ่งปิดบริการแล้ว workflow จะส่งไม่ออกโดยไม่มีอะไรผิดในฝั่งคุณ ต้องเปลี่ยนเป็น HTTP Request ไป Messaging API ของ LINE Official Account</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ฟอร์มรอนานเพราะ workflow ทำงานก่อนตอบ</strong> — ถ้าขั้นตอนหลัง Webhook ช้า ให้ตั้ง Webhook ให้ตอบกลับทันที หรือวาง Respond to Webhook ไว้ก่อนขั้นตอนที่ช้า</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ไม่กันสแปม</strong> — บอตกรอกฟอร์มได้ทั้งวัน แต่ละครั้งคือ 1 execution และ 1 ข้อความ LINE ที่กินโควตา</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">2. อีเมลลูกค้าเข้า → AI จัดหมวด → ส่งต่อคนรับผิดชอบ</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>ใช้เมื่อ:</strong> กล่องอีเมลรวมของบริษัทมีทั้งขอใบเสนอราคา แจ้งปัญหา สมัครงาน และสแปม ปนกัน</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>ลำดับ</th><th>Node</th><th>ทำอะไร</th></tr></thead><tbody><tr><td>1</td><td>Gmail Trigger</td><td>ตรวจอีเมลใหม่ตามรอบที่ตั้ง</td></tr><tr><td>2</td><td>Text Classifier</td><td>ให้โมเดล AI จัดเข้าหมวดที่กำหนด เช่น ขอราคา / แจ้งปัญหา / สมัครงาน / อื่นๆ</td></tr><tr><td>3</td><td>Switch</td><td>แยกเส้นทางตามหมวด</td></tr><tr><td>4</td><td>Gmail / HTTP Request</td><td>ส่งต่อให้ฝ่ายที่รับผิดชอบ หรือแจ้งทีมในแชต</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p><strong>Executions ต่อเดือน:</strong> ประมาณตามจำนวนอีเมลที่เข้ามา — ตรวจตัวเลขจริงในหน้า Executions หลังเปิดใช้ 1 สัปดาห์ แล้วค่อยคูณเป็นรายเดือน</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>จุดที่พังบ่อย:</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>ไม่มีหมวด "ไม่แน่ใจ"</strong> — AI จัดผิดได้เสมอ ให้มีเส้นทางที่ส่งไปให้คนดูเมื่อโมเดลไม่มั่นใจ แทนการบังคับเข้าหมวดใดหมวดหนึ่ง</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ลืมค่าโมเดล</strong> — ทุกอีเมลคือการเรียกโมเดลหนึ่งครั้ง ค่า AI จ่ายแยกจากค่า n8n</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ข้อมูลส่วนบุคคล</strong> — เนื้อหาอีเมลถูกส่งไปยังผู้ให้บริการโมเดล ตรวจนโยบาย PDPA ของบริษัทก่อน</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">3. รายงานสรุปทุกเช้า (ยอดขาย / lead / งานค้าง)</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>ใช้เมื่อ:</strong> ผู้บริหารอยากเห็นตัวเลขเมื่อวานทุกเช้าโดยไม่ต้องเปิดหลายระบบ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>ลำดับ</th><th>Node</th><th>ทำอะไร</th></tr></thead><tbody><tr><td>1</td><td>Schedule Trigger</td><td>ทุกวัน 08:00</td></tr><tr><td>2</td><td>HTTP Request / Postgres / Google Sheets</td><td>ดึงตัวเลขของเมื่อวานจากระบบต้นทาง</td></tr><tr><td>3</td><td>Code</td><td>รวมยอด เทียบกับวันก่อน จัดข้อความ</td></tr><tr><td>4</td><td>HTTP Request / Gmail</td><td>ส่งเข้า LINE หรืออีเมล</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p><strong>Executions ต่อเดือน:</strong> ~30 — แผนไหนก็พอ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>จุดที่พังบ่อย:</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>เขตเวลา</strong> — ตั้งเขตเวลาของ workflow เป็นเวลาไทย ไม่งั้น "เมื่อวาน" ของระบบกับของคุณคนละวัน</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ดึงข้อมูลก่อนระบบต้นทางอัปเดตเสร็จ</strong> — บางระบบปิดยอดของเมื่อวานช้ากว่าที่คิด ตรวจเวลาที่ข้อมูลมาครบจริงก่อนตั้ง 08:00</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>รายงานไม่มาแล้วไม่มีใครรู้</strong> — ถ้าวันไหนไม่มีข้อความ คนมักคิดว่า "วันนี้ไม่มีอะไร" ให้ workflow ส่งข้อความเสมอแม้ยอดเป็นศูนย์</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">4. งานที่ต้องรอคนอนุมัติก่อนไปต่อ (human-in-the-loop)</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>ใช้เมื่อ:</strong> มีคำขอที่ต้องมีคนกดอนุมัติ เช่น เบิกค่าใช้จ่าย ส่วนลดพิเศษ หรือโพสต์ที่ AI ร่างให้ก่อนเผยแพร่</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>ลำดับ</th><th>Node</th><th>ทำอะไร</th></tr></thead><tbody><tr><td>1</td><td>Webhook / Form</td><td>รับคำขอ</td></tr><tr><td>2</td><td>Gmail / HTTP Request</td><td>ส่งรายละเอียดพร้อมลิงก์อนุมัติให้ผู้อนุมัติ</td></tr><tr><td>3</td><td>Wait</td><td>หยุดรอแบบ <strong>On Webhook Call</strong> หรือ <strong>On Form Submitted</strong></td></tr><tr><td>4</td><td>If</td><td>อนุมัติหรือไม่</td></tr><tr><td>5</td><td>(ต่อ)</td><td>อนุมัติ = ทำงานต่อ · ไม่อนุมัติ = แจ้งผู้ขอ</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p><strong>Executions ต่อเดือน:</strong> เท่ากับจำนวนคำขอ — การรอไม่เพิ่ม execution</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>จุดที่พังบ่อย:</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>ไม่มีเวลาหมดอายุ</strong> — ถ้าผู้อนุมัติไม่ตอบ คำขอค้างตลอดไป ให้กำหนดเวลาสูงสุดและเส้นทางแจ้งเตือนเมื่อเลยเวลา</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>คิดว่าการรอจะกินเครื่อง</strong> — n8n เก็บสถานะของ execution ที่รอนานกว่า 65 วินาทีลงฐานข้อมูล การรอเป็นวันจึงไม่ได้ค้างอยู่ในหน่วยความจำ</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>งานแบบนี้คือจุดที่ n8n เหนือกว่าการเขียนสคริปต์ธรรมดาชัดที่สุด — "รอคน แล้วค่อยไปต่อ" เขียนเป็นสคริปต์ยาก แต่วาดเป็น workflow แล้วทุกคนในทีมอ่านเข้าใจ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">5. ตัวอย่างจริงของเรา: ระบบติดตามอันดับ SEO (4 workflow)</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>นี่คือ workflow ที่ Hashbox สร้างใช้เองเพื่อติดตามอันดับคีย์เวิร์ดและ AI Overview ทุกวัน — แยกเป็น 4 workflow ที่ทำงานต่อกัน</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Workflow A — ส่งงานเช็กอันดับ (ทุกวัน 06:00)</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>ลำดับ</th><th>Node</th><th>ทำอะไร</th></tr></thead><tbody><tr><td>1</td><td>Schedule Trigger</td><td>ทุกวัน 06:00</td></tr><tr><td>2</td><td>Postgres</td><td>ดึงคีย์เวิร์ดที่ต้องเช็กวันนี้</td></tr><tr><td>3</td><td>Code</td><td>แบ่งเป็นชุดละ 100 คำ</td></tr><tr><td>4</td><td>HTTP Request</td><td>ส่งงานไปที่ API ของผู้ให้บริการข้อมูลผลค้นหา</td></tr><tr><td>5</td><td>Code</td><td>แตกเลขงานที่ได้กลับมา</td></tr><tr><td>6</td><td>Postgres</td><td>บันทึกเลขงานไว้รอดึงผล</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p><strong>Workflow B — ดึงผลกลับมาเก็บ (ทุก 15 นาที):</strong> Schedule Trigger → Postgres (งานที่ยังค้าง) → HTTP Request (ดึงผล) → Code (เตรียมข้อมูล) → Postgres (ส่งเข้าฟังก์ชันในฐานข้อมูลที่ตีความผลต่อ)</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Workflow C — แจ้งเตือนเมื่อ workflow อื่นล้ม:</strong> Error Trigger → Code (สร้างข้อความ) → HTTP Request (ส่งเข้าแชตของทีม)</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Workflow D — ตรวจสุขภาพระบบทุกเช้า (09:00):</strong> Schedule Trigger → Postgres (คิวรีตรวจความผิดปกติ) → Code → HTTP Request (แจ้งทีมถ้ามีปัญหา)</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>สามบทเรียนจากระบบนี้:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"ordered":true} -->
+<ol class="wp-block-list"><!-- wp:list-item --><li><strong>ตรรกะสำคัญไม่ได้อยู่ใน n8n</strong> — การตีความผลค้นหาอยู่ในฐานข้อมูล n8n ทำหน้าที่ขนข้อมูลอย่างเดียว ข้อดีคือทดสอบตรรกะได้ และเปลี่ยนตัวขนข้อมูลได้โดยไม่แตะตรรกะ ซึ่งเราทำจริงในภายหลัง (<a href="https://hashbox.co.th/n8n-thai-guide-2026/">เหตุผลอยู่ในบทความ n8n คืออะไร</a>)</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>Workflow B คนเดียวใช้ ~2,880 executions ต่อเดือน</strong> เพราะรันทุก 15 นาที — เกินแผน Starter ของ n8n Cloud (2,500) ทั้งที่แต่ละรอบทำงานแค่ไม่กี่วินาที</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>Workflow C กับ D สำคัญพอๆ กับ A กับ B</strong> — ระบบที่ไม่มีคนเฝ้า ต้องมี workflow ที่คอยบอกว่า workflow อื่นยังทำงานอยู่</li><!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">6. AI Agent ตอบคำถามลูกค้าจากเอกสารของบริษัท</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>ใช้เมื่อ:</strong> มีคำถามซ้ำๆ ที่คำตอบอยู่ในเอกสาร เช่น เงื่อนไขบริการ วิธีใช้สินค้า นโยบายคืนเงิน</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>ลำดับ</th><th>Node</th><th>ทำอะไร</th></tr></thead><tbody><tr><td>1</td><td>Chat Trigger / Webhook</td><td>รับคำถาม (จากหน้าแชตของ n8n หรือจากระบบแชตของคุณ)</td></tr><tr><td>2</td><td>AI Agent</td><td>โมเดลภาษา + หน่วยความจำของบทสนทนา + เครื่องมือค้นเอกสาร</td></tr><tr><td>3</td><td>(เครื่องมือของ Agent)</td><td>ค้นข้อความที่เกี่ยวข้องจากเอกสารที่เตรียมไว้</td></tr><tr><td>4</td><td>If</td><td>ถ้าตอบไม่ได้หรือเป็นเรื่องอ่อนไหว → ส่งต่อให้คน</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p><strong>Executions ต่อเดือน:</strong> ประมาณเท่ากับจำนวนข้อความที่ลูกค้าส่ง — และทุกข้อความมีค่าโมเดล AI แยกต่างหาก</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>จุดที่พังบ่อย:</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>ไม่มีทางส่งต่อให้คน</strong> — Agent ที่ต้องตอบทุกคำถามจะเดาเมื่อไม่รู้ ให้กำหนดชัดว่าเรื่องไหนต้องส่งต่อ</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ไม่ทดสอบกับคำถามจริง</strong> — ก่อนเปิดใช้ ให้รวมคำถามจริงจากลูกค้า 30–50 ข้อแล้วตรวจคำตอบทีละข้อ</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>เอกสารเก่า</strong> — Agent ตอบตามเอกสารที่ป้อน ถ้าราคาหรือเงื่อนไขเปลี่ยนแต่ไม่อัปเดตเอกสาร มันจะตอบข้อมูลเก่าอย่างมั่นใจ</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">สรุป: แต่ละตัวอย่างใช้ execution เท่าไหร่</h2>
+<!-- /wp:heading -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>ตัวอย่าง</th><th>Trigger</th><th>Executions / เดือน (ประมาณ)</th></tr></thead><tbody><tr><td>ฟอร์ม → LINE + Sheets</td><td>Webhook</td><td>เท่ากับจำนวนฟอร์ม (10/วัน ≈ 300)</td></tr><tr><td>AI จัดหมวดอีเมล</td><td>Gmail Trigger</td><td>ตามจำนวนอีเมล — ตรวจจริงหลัง 1 สัปดาห์</td></tr><tr><td>รายงานเช้า</td><td>Schedule Trigger</td><td>~30</td></tr><tr><td>รออนุมัติ</td><td>Webhook / Form</td><td>เท่ากับจำนวนคำขอ</td></tr><tr><td>ระบบติดตามอันดับ (workflow ทุก 15 นาที)</td><td>Schedule Trigger</td><td>~2,880 ต่อ workflow</td></tr><tr><td>AI Agent</td><td>Chat Trigger</td><td>ตามจำนวนข้อความ + ค่าโมเดล AI</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>ตัวเลขนี้คือสิ่งที่กำหนดว่าคุณต้องใช้ n8n แผนไหน หรือควรติดตั้งเอง — อ่านต่อที่ <a href="https://hashbox.co.th/n8n-ราคา-2026/">n8n ราคา 2026: Cloud vs Self-hosted คิดเป็นบาท</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">5 หลักที่ทำให้ workflow ไม่พังเงียบ</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list {"ordered":true} -->
+<ol class="wp-block-list"><!-- wp:list-item --><li><strong>มี Error Workflow เสมอ</strong> — ใช้ Error Trigger ส่งแจ้งเตือนเมื่อ workflow ไหนล้ม แล้วตั้งให้ทุก workflow ที่ใช้งานจริงชี้มาที่ตัวนี้</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>รันซ้ำแล้วต้องไม่ทำซ้ำ</strong> — ถ้ากด retry แล้วลูกค้าได้อีเมลสองฉบับ หรือแถวใน Sheets ซ้ำ แปลว่า workflow ยังไม่พร้อมใช้งานจริง ให้มีตัวตรวจว่ารายการนี้ทำไปแล้วหรือยัง</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>เก็บ API key ไว้ใน Credentials ของ n8n</strong> — ไม่ใส่ไว้ใน Code node หรือใน URL</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ตรรกะที่ต้องถูกเสมอ เก็บไว้นอก n8n</strong> — สูตรคำนวณเงิน เงื่อนไขทางธุรกิจที่ต้องทดสอบได้ ควรอยู่ในฐานข้อมูลหรือระบบที่มีเทสต์ ให้ n8n เป็นตัวขนข้อมูล</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>export workflow เป็นไฟล์เก็บไว้</strong> — ทุกครั้งที่แก้ใหญ่ ให้ดาวน์โหลด JSON ของ workflow เก็บไว้ในที่ที่ย้อนเวอร์ชันได้</li><!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">อ่านต่อ</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><a href="https://hashbox.co.th/n8n-thai-guide-2026/">n8n คืออะไร? เหมาะกับงานแบบไหน</a> — รวมถึง 4 ข้อที่บอกว่างานของคุณไม่เหมาะกับ n8n</li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="https://hashbox.co.th/n8n-ราคา-2026/">n8n ราคา 2026</a> — คำนวณว่าตัวอย่างข้างบนต้องจ่ายแผนไหน</li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="https://hashbox.co.th/services/n8n-automation/">รับทำ n8n Automation</a> — ถ้าอยากได้ workflow ที่ใช้งานจริงพร้อมเอกสาร</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>อยากให้ดูว่างานที่ทีมทำมืออยู่ควรเป็น workflow แบบไหน — <a href="https://hashbox.co.th/#contact">เล่าให้เราฟังว่าตอนนี้ทำกี่ขั้นตอน</a> บางงานไม่ควรทำเป็นระบบอัตโนมัติเลย และเราจะบอกตรงๆ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">FAQ: คำถามที่พบบ่อยเรื่อง n8n workflow</h2>
+<!-- /wp:heading -->
+
+<!-- wp:rank-math/faq-block {"titleWrapper":"h3","questions":[{"id":"faq-question-1","title":"n8n workflow คืออะไร?","content":"คือลำดับขั้นตอนอัตโนมัติที่ต่อ node เข้าด้วยกัน เริ่มจาก trigger หนึ่งตัว เช่น มีฟอร์มเข้า ถึงเวลาที่ตั้งไว้ หรือมีอีเมลใหม่ แล้วส่งข้อมูลต่อไปทีละ node จนจบงาน การรันหนึ่งรอบเรียกว่า execution ซึ่งเป็นหน่วยที่ n8n Cloud ใช้คิดเงิน","visible":true},{"id":"faq-question-2","title":"n8n ส่งข้อความเข้า LINE ได้ไหม?","content":"ได้ แต่ต้องส่งผ่าน HTTP Request ไปยัง LINE Messaging API ของ LINE Official Account เพราะ LINE node เดิมของ n8n ใช้ LINE Notify ซึ่งปิดบริการแล้วตั้งแต่ 1 เมษายน 2025 และ n8n ประกาศเลิกใช้ node นี้ตั้งแต่เวอร์ชัน 1.64.0","visible":true},{"id":"faq-question-3","title":"หา template ของ n8n workflow ได้ที่ไหน?","content":"n8n มีคลัง template อย่างเป็นทางการที่ n8n.io/workflows ซึ่ง import เข้าระบบได้ทันที ก่อนใช้ให้ตรวจทุก node ว่าต้องการ credential อะไร ส่งข้อมูลไปที่ไหน และตรงกับระบบของคุณไหม template ที่ใช้ LINE node เดิมจะใช้งานไม่ได้แล้ว","visible":true},{"id":"faq-question-4","title":"ต้องเขียนโค้ดเป็นไหมถึงจะสร้าง workflow ได้?","content":"งานส่วนใหญ่สร้างได้ด้วยการลาก node และตั้งค่าบนหน้าจอ แต่การจัดรูปข้อมูลที่ซับซ้อนหรือเรียก API ที่ไม่มี node สำเร็จรูป จะง่ายขึ้นมากถ้าเขียน JavaScript ใน Code node และอ่านเอกสาร API ได้","visible":true},{"id":"faq-question-5","title":"n8n AI Agent คืออะไร?","content":"คือ node ที่ให้โมเดลภาษาตัดสินใจเองว่าจะใช้เครื่องมือไหนเพื่อตอบคำถามหรือทำงาน เช่น ค้นเอกสาร เรียก API หรือคำนวณ ต่างจากการเรียกโมเดลธรรมดาที่ทำตามขั้นตอนตายตัว เหมาะกับงานถาม-ตอบจากเอกสาร แต่ต้องกำหนดเรื่องที่ต้องส่งต่อให้คน และทดสอบกับคำถามจริงก่อนเปิดใช้","visible":true},{"id":"faq-question-6","title":"workflow หนึ่งนับเป็นกี่ execution?","content":"นับหนึ่งครั้งต่อการรันหนึ่งรอบ ไม่ว่าจะมีกี่ node workflow ที่ตั้งเวลาทุก 15 นาทีจึงใช้ประมาณ 2,880 executions ต่อเดือน ส่วน workflow ที่รับฟอร์มใช้เท่ากับจำนวนฟอร์มที่เข้ามา","visible":true},{"id":"faq-question-7","title":"ทำไม workflow ไม่ทำงานตามเวลาที่ตั้ง?","content":"ตรวจสามอย่าง: workflow ถูกเปิดใช้งานแล้ว ไม่ใช่แค่กดทดสอบ · เขตเวลาของ workflow เป็นเวลาไทย · ถ้าติดตั้งเอง เครื่องที่รัน n8n ต้องเปิดอยู่ตลอดและไม่ถูกโฮสต์ปิด process ทิ้ง ซึ่งเป็นปัญหาที่พบบ่อยบนโฮสต์แบบแชร์","visible":true},{"id":"faq-question-8","title":"จ้างทำ n8n workflow ราคาเท่าไหร่?","content":"บริการวางระบบ n8n ของ Hashbox เริ่มต้น 29,000 บาทต่อโปรเจกต์ ไม่รวม VAT 7% คิดเป็นโปรเจกต์ไม่ใช่รายเดือน ติดตั้งบนเซิร์ฟเวอร์ของคุณเองและส่งมอบไฟล์ workflow พร้อมเอกสาร ราคาจริงขึ้นกับจำนวน workflow และจำนวนระบบที่ต้องเชื่อม","visible":true}]} -->
+<div class="wp-block-rank-math-faq-block"><div class="rank-math-faq-item"><h3 class="rank-math-question">n8n workflow คืออะไร?</h3><div class="rank-math-answer">คือลำดับขั้นตอนอัตโนมัติที่ต่อ node เข้าด้วยกัน เริ่มจาก trigger หนึ่งตัว เช่น มีฟอร์มเข้า ถึงเวลาที่ตั้งไว้ หรือมีอีเมลใหม่ แล้วส่งข้อมูลต่อไปทีละ node จนจบงาน การรันหนึ่งรอบเรียกว่า execution ซึ่งเป็นหน่วยที่ n8n Cloud ใช้คิดเงิน</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">n8n ส่งข้อความเข้า LINE ได้ไหม?</h3><div class="rank-math-answer">ได้ แต่ต้องส่งผ่าน HTTP Request ไปยัง LINE Messaging API ของ LINE Official Account เพราะ LINE node เดิมของ n8n ใช้ LINE Notify ซึ่งปิดบริการแล้วตั้งแต่ 1 เมษายน 2025 และ n8n ประกาศเลิกใช้ node นี้ตั้งแต่เวอร์ชัน 1.64.0</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">หา template ของ n8n workflow ได้ที่ไหน?</h3><div class="rank-math-answer">n8n มีคลัง template อย่างเป็นทางการที่ n8n.io/workflows ซึ่ง import เข้าระบบได้ทันที ก่อนใช้ให้ตรวจทุก node ว่าต้องการ credential อะไร ส่งข้อมูลไปที่ไหน และตรงกับระบบของคุณไหม template ที่ใช้ LINE node เดิมจะใช้งานไม่ได้แล้ว</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">ต้องเขียนโค้ดเป็นไหมถึงจะสร้าง workflow ได้?</h3><div class="rank-math-answer">งานส่วนใหญ่สร้างได้ด้วยการลาก node และตั้งค่าบนหน้าจอ แต่การจัดรูปข้อมูลที่ซับซ้อนหรือเรียก API ที่ไม่มี node สำเร็จรูป จะง่ายขึ้นมากถ้าเขียน JavaScript ใน Code node และอ่านเอกสาร API ได้</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">n8n AI Agent คืออะไร?</h3><div class="rank-math-answer">คือ node ที่ให้โมเดลภาษาตัดสินใจเองว่าจะใช้เครื่องมือไหนเพื่อตอบคำถามหรือทำงาน เช่น ค้นเอกสาร เรียก API หรือคำนวณ ต่างจากการเรียกโมเดลธรรมดาที่ทำตามขั้นตอนตายตัว เหมาะกับงานถาม-ตอบจากเอกสาร แต่ต้องกำหนดเรื่องที่ต้องส่งต่อให้คน และทดสอบกับคำถามจริงก่อนเปิดใช้</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">workflow หนึ่งนับเป็นกี่ execution?</h3><div class="rank-math-answer">นับหนึ่งครั้งต่อการรันหนึ่งรอบ ไม่ว่าจะมีกี่ node workflow ที่ตั้งเวลาทุก 15 นาทีจึงใช้ประมาณ 2,880 executions ต่อเดือน ส่วน workflow ที่รับฟอร์มใช้เท่ากับจำนวนฟอร์มที่เข้ามา</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">ทำไม workflow ไม่ทำงานตามเวลาที่ตั้ง?</h3><div class="rank-math-answer">ตรวจสามอย่าง: workflow ถูกเปิดใช้งานแล้ว ไม่ใช่แค่กดทดสอบ · เขตเวลาของ workflow เป็นเวลาไทย · ถ้าติดตั้งเอง เครื่องที่รัน n8n ต้องเปิดอยู่ตลอดและไม่ถูกโฮสต์ปิด process ทิ้ง ซึ่งเป็นปัญหาที่พบบ่อยบนโฮสต์แบบแชร์</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">จ้างทำ n8n workflow ราคาเท่าไหร่?</h3><div class="rank-math-answer">บริการวางระบบ n8n ของ Hashbox เริ่มต้น 29,000 บาทต่อโปรเจกต์ ไม่รวม VAT 7% คิดเป็นโปรเจกต์ไม่ใช่รายเดือน ติดตั้งบนเซิร์ฟเวอร์ของคุณเองและส่งมอบไฟล์ workflow พร้อมเอกสาร ราคาจริงขึ้นกับจำนวน workflow และจำนวนระบบที่ต้องเชื่อม</div></div></div>
+<!-- /wp:rank-math/faq-block -->
