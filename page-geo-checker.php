@@ -40,6 +40,34 @@ $page_url = get_permalink();
             <p class="hb-geo__cta-text">ทีม Hashbox ช่วยทำ GEO + technical SEO ให้หน้าเว็บคุณถูกอ้างใน AI search — เริ่มด้วย audit ฟรี</p>
             <a href="<?php echo esc_url( home_url( '/?service=ai-search#contact' ) ); ?>" class="hb-btn hb-btn--gradient">นัดคุยว่าควรแก้จุดไหนก่อน &rarr;</a>
         </div>
+
+        <section class="hb-geo__about" aria-labelledby="hb-geo-criteria-title">
+            <h2 class="hb-geo__section-title" id="hb-geo-criteria-title">GEO Readiness Checker ตรวจอะไรบ้าง</h2>
+            <p class="hb-geo__section-lede">คะแนนเต็ม 100 จาก 14 จุด แต่ละจุดผ่านหรือไม่ผ่าน และมีน้ำหนักไม่เท่ากันตามผลต่อการถูก AI ยกไปตอบ</p>
+            <div class="hb-geo__table-wrap">
+                <table class="hb-geo__table">
+                    <thead><tr><th scope="col">จุดตรวจ</th><th scope="col">คะแนน</th><th scope="col">ทำไมสำคัญ</th></tr></thead>
+                    <tbody>
+                        <?php foreach ( hashbox_geo_checker_criteria() as $criterion ) : ?>
+                            <tr>
+                                <td><?php echo esc_html( $criterion['label'] ); ?></td>
+                                <td><?php echo (int) $criterion['weight']; ?></td>
+                                <td><?php echo esc_html( $criterion['why'] ); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <p class="hb-geo__section-lede">อยากรู้ว่า AI อ้างเว็บคุณจริงแค่ไหน อ่าน <a href="<?php echo esc_url( home_url( '/ai-search-metrics-thailand-2026/' ) ); ?>">AI Search Metrics มีอะไรบ้าง</a> หรือดูบริการ<a href="<?php echo esc_url( home_url( '/services/ai-search/' ) ); ?>">รับทำ AI Search</a></p>
+        </section>
+
+        <section class="hb-geo__about" aria-labelledby="hb-geo-faq-title">
+            <h2 class="hb-geo__section-title" id="hb-geo-faq-title">คำถามที่พบบ่อย</h2>
+            <?php foreach ( hashbox_geo_checker_faqs() as $faq ) : ?>
+                <h3 class="hb-geo__faq-q"><?php echo esc_html( $faq['q'] ); ?></h3>
+                <p class="hb-geo__faq-a"><?php echo esc_html( $faq['a'] ); ?></p>
+            <?php endforeach; ?>
+        </section>
     </div>
 </section>
 
@@ -54,5 +82,20 @@ hashbox_jsonld( array(
     'url'             => $page_url,
     'offers'          => array( '@type' => 'Offer', 'price' => '0', 'priceCurrency' => 'THB' ),
     'provider'        => array( '@id' => home_url( '/#organization' ) ),
+) );
+hashbox_jsonld( array(
+    '@context'   => 'https://schema.org',
+    '@type'      => 'FAQPage',
+    '@id'        => $page_url . '#faq',
+    'mainEntity' => array_map(
+        function ( $faq ) {
+            return array(
+                '@type'          => 'Question',
+                'name'           => $faq['q'],
+                'acceptedAnswer' => array( '@type' => 'Answer', 'text' => $faq['a'] ),
+            );
+        },
+        hashbox_geo_checker_faqs()
+    ),
 ) );
 get_footer();

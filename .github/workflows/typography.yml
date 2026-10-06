@@ -16,3 +16,5 @@ jobs:
         run: node tools/test-page-single-h1.mjs
       - name: Author box under founder posts
         run: node tools/test-post-author.mjs
+      - name: GEO checker page criteria match the scorer
+        run: node tools/test-geo-checker-page.mjs
