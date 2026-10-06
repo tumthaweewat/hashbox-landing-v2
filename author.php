@@ -20,7 +20,9 @@ $twitter  = get_the_author_meta( 'twitter', $author_id );
 $github   = get_the_author_meta( 'github', $author_id );
 
 // User 1 is the founder: photo, two-line name (EN / Thai), role and LinkedIn
-// from inc/founder.php — same as the About page.
+// from inc/founder.php — same as the About page. The Thai line is weight 600:
+// IBM Plex Sans Thai 400/500 are font-display: optional and fall back to the
+// system Thai face on a first visit.
 $is_founder = 1 === (int) $author_id;
 if ( $is_founder ) {
     $display  = hashbox_founder_name();
@@ -30,7 +32,7 @@ if ( $is_founder ) {
 ?>
 
 <section class="hb-blog-hero hb-blog-hero--archive">
-    <div class="hb-container hb-container--md">
+    <div class="hb-container hb-container--xl">
         <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
 
         <div style="display:flex;gap:var(--hb-space-5);align-items:center;flex-wrap:wrap;">
@@ -41,7 +43,7 @@ if ( $is_founder ) {
             <?php endif; ?>
             <div>
                 <span class="hb-eyebrow">ผู้เขียน</span>
-                <h1 class="hb-blog-hero__title" style="margin-top:var(--hb-space-2);"><?php echo esc_html( $display ); ?><?php if ( $is_founder ) : ?><span lang="th" style="display:block;font-size:0.55em;font-weight:500;margin-top:var(--hb-space-2);"><?php echo esc_html( hashbox_founder_name_th() ); ?></span><?php endif; ?></h1>
+                <h1 class="hb-blog-hero__title" style="margin-top:var(--hb-space-2);"><?php echo esc_html( $display ); ?><?php if ( $is_founder ) : ?><span lang="th" style="display:block;font-size:0.55em;font-weight:600;margin-top:var(--hb-space-2);"><?php echo esc_html( hashbox_founder_name_th() ); ?></span><?php endif; ?></h1>
                 <?php if ( ! empty( $job ) ) : ?>
                     <p class="hb-blog-hero__lede" style="margin-top:var(--hb-space-2);"><?php echo esc_html( $job ); ?></p>
                 <?php endif; ?>
@@ -69,7 +71,7 @@ if ( $is_founder ) {
 </section>
 
 <section class="hb-blog-grid-section">
-    <div class="hb-container hb-container--md">
+    <div class="hb-container hb-container--xl">
         <?php if ( have_posts() ) : ?>
             <h2 class="screen-reader-text">บทความโดยผู้เขียนนี้</h2>
             <div class="hb-blog-grid">

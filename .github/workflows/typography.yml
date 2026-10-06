@@ -10,3 +10,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check font roles and generated CSS
         run: node tools/test-typography-contract.mjs
+      - name: Check author page breadcrumb, Thai font and width
+        run: node tools/test-author-page.mjs

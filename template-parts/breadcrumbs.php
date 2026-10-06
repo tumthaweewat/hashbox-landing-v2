@@ -33,6 +33,12 @@ if ( hashbox_is_article_view() ) {
     $crumbs[] = array( 'name' => 'Blog', 'url' => '' );
 } elseif ( is_search() ) {
     $crumbs[] = array( 'name' => 'Search: ' . esc_html( get_search_query() ), 'url' => '' );
+} elseif ( is_author() ) {
+    // Not get_the_archive_title(): it wraps the name in <span class="vcard">,
+    // which esc_html below prints as text.
+    $author_id = (int) get_queried_object_id();
+    $crumbs[]  = array( 'name' => 'Blog', 'url' => home_url( '/blog/' ) );
+    $crumbs[]  = array( 'name' => 1 === $author_id ? hashbox_founder_name() : get_the_author_meta( 'display_name', $author_id ), 'url' => '' );
 } elseif ( is_archive() ) {
     $crumbs[] = array( 'name' => get_the_archive_title(), 'url' => '' );
 }
