@@ -20,6 +20,7 @@ require_once get_template_directory() . '/inc/en-seo-contact.php';
 require_once get_template_directory() . '/inc/post-service-hub.php';
 
 require_once get_template_directory() . '/inc/founder.php';
+add_filter( 'pre_get_avatar_data', 'hashbox_founder_avatar_data', 10, 2 );
 
 /**
  * Old author slug → user ID. WordPress does not redirect an author archive when
