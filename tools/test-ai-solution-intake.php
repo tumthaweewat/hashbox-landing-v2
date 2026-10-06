@@ -33,6 +33,7 @@ function get_header() {
     echo '</head><body class="' . ( $ai ? 'hb-audit-landing hb-audit-landing--ai_workforce' : '' ) . '"><main>';
 }
 function get_footer() { echo '</main></body></html>'; }
+require get_template_directory() . '/inc/founder.php';
 require get_template_directory() . '/inc/ai-solution-use-cases.php';
 require get_template_directory() . '/inc/ai-action-icons.php';
 $source = file_get_contents( get_template_directory() . '/functions.php' );

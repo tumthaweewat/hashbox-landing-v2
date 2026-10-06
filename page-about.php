@@ -28,7 +28,7 @@ $page_url = get_permalink();
                 และ AI <em>ที่วัดผลได้จริง</em>
             </h1>
             <p class="hb-hero__sub">
-                Hashbox Studio (แฮชบ็อกซ์ สตูดิโอ) คือสตูดิโอในกรุงเทพฯ ก่อตั้งปี 2024 โดย Tum Thaweewat ให้บริการรับทำเว็บไซต์ SEO-Ready, รับทำ SEO / AI Search และที่ปรึกษา AI สำหรับธุรกิจไทย — ไม่เกี่ยวข้องกับแบรนด์อื่นที่ใช้ชื่อ Hashbox
+                Hashbox Studio (แฮชบ็อกซ์ สตูดิโอ) คือสตูดิโอในกรุงเทพฯ ก่อตั้งปี 2024 โดย Tum Thanawat (ธณวรรธณ์ ศรีอรุณทิพย์) ให้บริการรับทำเว็บไซต์ SEO-Ready, รับทำ SEO / AI Search และที่ปรึกษา AI สำหรับธุรกิจไทย — ไม่เกี่ยวข้องกับแบรนด์อื่นที่ใช้ชื่อ Hashbox
             </p>
             <p class="hb-hero__sub">
                 Hashbox Studio ตั้งขึ้นจากความเชื่อว่าธุรกิจไทยไม่ควรต้องจ้าง 3 บริษัทแยกกันเพื่อทำเว็บ ทำ SEO และวาง AI เราจึงรวม รับทำเว็บไซต์ SEO-Ready, รับทำ SEO / AI Search และที่ปรึกษา AI ไว้ในทีมเดียว ใต้ KPI ชุดเดียวกัน เพื่อให้ลูกค้าเห็นผลลัพธ์ที่จับต้องและวัดได้จริง
@@ -106,11 +106,11 @@ $page_url = get_permalink();
         </div>
         <div class="hb-card hb-bento__cell--feature" itemscope itemtype="https://schema.org/Person">
             <div style="display:flex;gap:var(--hb-space-5);align-items:flex-start;flex-wrap:wrap;">
-                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/team/tum-thaweewat.jpg' ); ?>" alt="Tum Thaweewat — Head of Tech, Hashbox Studio" width="88" height="88" loading="lazy" decoding="async" itemprop="image" style="flex:0 0 88px;width:88px;height:88px;border-radius:50%;object-fit:cover;border:2px solid var(--hb-accent-blue,#2563EB);">
+                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/team/tum-thaweewat.jpg' ); ?>" alt="<?php echo esc_attr( hashbox_founder_name() ); ?> — Head of Tech, Hashbox Studio" width="88" height="88" loading="lazy" decoding="async" itemprop="image" style="flex:0 0 88px;width:88px;height:88px;border-radius:50%;object-fit:cover;border:2px solid var(--hb-accent-blue,#2563EB);">
                 <div style="flex:1;min-width:260px;">
-                    <h3 class="hb-h3" itemprop="name" style="margin:0;">Tum Thaweewat</h3>
+                    <h3 class="hb-h3" itemprop="name" style="margin:0;"><?php echo esc_html( hashbox_founder_name() ); ?></h3>
                     <p class="hb-bento__label" itemprop="jobTitle" style="margin-top:var(--hb-space-2);">Head of Tech · Hashbox Studio</p>
-                    <p class="hb-body" itemprop="description" style="margin-top:var(--hb-space-3);">17 ปีประสบการณ์ด้าน Software Engineering, AI/ML และ Technical SEO · ผ่านโปรเจกต์ LLM integration และ SEO/Performance migration กว่า 50 เคส · Cert: OpenAI API, Anthropic Claude, LangChain, Google Search Console, Cloudflare Performance</p>
+                    <p class="hb-body" itemprop="description" style="margin-top:var(--hb-space-3);">17 ปีประสบการณ์ด้าน Software Engineering, AI/ML และ Technical SEO · ผ่านโปรเจกต์ LLM integration และ SEO/Performance migration กว่า 50 เคส · <?php echo esc_html( hashbox_founder_partner_networks() ); ?> · Cert: OpenAI API, Anthropic Claude, LangChain, Google Search Console, Cloudflare Performance</p>
                     <div class="hb-rail" style="margin-top:var(--hb-space-4);">
                         <a class="hb-btn hb-btn--outline" href="https://www.linkedin.com/in/tumthaweewat/" target="_blank" rel="noopener noreferrer me"><span itemprop="sameAs" style="display:none;">https://www.linkedin.com/in/tumthaweewat/</span>LinkedIn &rarr;</a>
                     </div>
@@ -225,10 +225,11 @@ hashbox_jsonld( array(
     '@context'    => 'https://schema.org',
     '@type'       => 'Person',
     '@id'         => home_url( '/#tum-thaweewat' ),
-    'name'        => 'Tum Thaweewat',
+    'name'        => hashbox_founder_name(),
+    'alternateName' => hashbox_founder_alternate_names(),
     'jobTitle'    => 'Head of Tech',
     'image'       => get_template_directory_uri() . '/assets/team/tum-thaweewat.jpg',
-    'description' => '17 ปีประสบการณ์ด้าน Software Engineering, AI/ML และ Technical SEO · ผ่านโปรเจกต์ LLM integration และ SEO/Performance migration กว่า 50 เคส · Cert: OpenAI API, Anthropic Claude, LangChain, Google Search Console, Cloudflare Performance',
+    'description' => '17 ปีประสบการณ์ด้าน Software Engineering, AI/ML และ Technical SEO · ผ่านโปรเจกต์ LLM integration และ SEO/Performance migration กว่า 50 เคส · ' . hashbox_founder_partner_networks() . ' · Cert: OpenAI API, Anthropic Claude, LangChain, Google Search Console, Cloudflare Performance',
     'url'         => 'https://www.linkedin.com/in/tumthaweewat/',
     'sameAs'      => array( 'https://www.linkedin.com/in/tumthaweewat/' ),
     'worksFor'    => array( '@id' => home_url( '/#organization' ) ),

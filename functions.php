@@ -19,6 +19,30 @@ require_once get_template_directory() . '/inc/en-seo-page.php';
 require_once get_template_directory() . '/inc/en-seo-contact.php';
 require_once get_template_directory() . '/inc/post-service-hub.php';
 
+require_once get_template_directory() . '/inc/founder.php';
+
+/**
+ * Old author slug → user ID. WordPress does not redirect an author archive when
+ * user_nicename changes (admin-hashbox → thanawat-sriaroonthip, 2026-10-06).
+ * Fires only on a 404, so it is inert until the old slug stops resolving.
+ */
+function hashbox_legacy_author_redirect() {
+    if ( ! is_404() ) {
+        return;
+    }
+    $path = (string) wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '', PHP_URL_PATH );
+    if ( ! preg_match( '#^/author/([^/]+)/?(.*)$#', $path, $m ) ) {
+        return;
+    }
+    $legacy = array( 'admin-hashbox' => 1 );
+    if ( ! isset( $legacy[ $m[1] ] ) ) {
+        return;
+    }
+    wp_safe_redirect( trailingslashit( get_author_posts_url( $legacy[ $m[1] ] ) ) . ltrim( $m[2], '/' ), 301 );
+    exit;
+}
+add_action( 'template_redirect', 'hashbox_legacy_author_redirect', 1 );
+
 // No RSS/comment feed links in <head> and no emoji detection script —
 // both showed up as crawled-not-indexed URLs in GSC (2026-08-29).
 remove_action( 'wp_head', 'feed_links', 2 );
@@ -1700,6 +1724,10 @@ function hashbox_author_schema( $user_id ) {
         'name'  => $display,
         'url'   => get_author_posts_url( $user_id ),
     );
+    // User 1 is the founder — same person as the founder node and the About page.
+    if ( 1 === $user_id ) {
+        $person['alternateName'] = hashbox_founder_alternate_names();
+    }
 
     $bio = get_the_author_meta( 'description', $user_id );
     if ( ! empty( $bio ) ) {
@@ -1973,7 +2001,7 @@ function hashbox_audit_landing_pages() {
             ),
             'engagement_note'  => 'ราคาเริ่มต้นตามขอบเขตที่ระบุ ไม่รวม VAT 7% และค่า API · ทีมจะสรุป scope และใบเสนอราคาหลัง Screening',
             'project_lead'     => array(
-                'name'       => 'Tum Thaweewat',
+                'name'       => hashbox_founder_name(),
                 'role'       => 'Head of Tech',
                 'experience' => '17 ปีในงาน Software Engineering',
                 'linkedin'   => 'https://www.linkedin.com/in/tumthaweewat/',
@@ -2777,7 +2805,8 @@ function hashbox_rankmath_schema_organization() {
         'foundingLocation' => array( '@type' => 'Place', 'name' => 'Bangkok, Thailand' ),
         'founder' => array(
             '@type'  => 'Person',
-            'name'   => 'Thaweewat (Tum)',
+            'name'   => hashbox_founder_name(),
+            'alternateName' => hashbox_founder_alternate_names(),
             'url'    => home_url( '/about/' ),
             'sameAs' => array( 'https://www.linkedin.com/in/tumthaweewat/', 'https://github.com/tumthaweewat' ),
         ),
@@ -3156,9 +3185,9 @@ function hashbox_llms_txt_content() {
     $lines = array();
     $lines[] = '# Hashbox Studio';
     $lines[] = '';
-    $lines[] = '> Hashbox Studio (แฮชบ็อกซ์ สตูดิโอ) คือสตูดิโอในกรุงเทพฯ ก่อตั้งปี 2024 โดย Tum Thaweewat ให้บริการ รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, รับทำ AI Search (GEO) และ Workflow Automation ด้วย n8n สำหรับธุรกิจไทย ทุกเว็บไซต์ส่งมอบพร้อม Lighthouse 100, Core Web Vitals เขียว, Schema.org ครบ และ optimise สำหรับ AI Search ตั้งแต่วันเปิดตัว';
+    $lines[] = '> Hashbox Studio (แฮชบ็อกซ์ สตูดิโอ) คือสตูดิโอในกรุงเทพฯ ก่อตั้งปี 2024 โดย Tum Thanawat (ธณวรรธณ์ ศรีอรุณทิพย์) ให้บริการ รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, รับทำ AI Search (GEO) และ Workflow Automation ด้วย n8n สำหรับธุรกิจไทย ทุกเว็บไซต์ส่งมอบพร้อม Lighthouse 100, Core Web Vitals เขียว, Schema.org ครบ และ optimise สำหรับ AI Search ตั้งแต่วันเปิดตัว';
     $lines[] = '';
-    $lines[] = '> Hashbox Studio is a Bangkok-based studio founded in 2024 by Tum Thaweewat. Services: SEO-Ready website development, AI consulting for Thai businesses, technical-first SEO, AI Search (GEO) optimisation and n8n workflow automation. Every website ships with Lighthouse 100, green Core Web Vitals, complete Schema.org markup and AI-search optimisation from launch. Prices are public (THB, excl. VAT).';
+    $lines[] = '> Hashbox Studio is a Bangkok-based studio founded in 2024 by Tum Thanawat (Thanawat Sriaroonthip). Services: SEO-Ready website development, AI consulting for Thai businesses, technical-first SEO, AI Search (GEO) optimisation and n8n workflow automation. Every website ships with Lighthouse 100, green Core Web Vitals, complete Schema.org markup and AI-search optimisation from launch. Prices are public (THB, excl. VAT).';
     $lines[] = '';
     $lines[] = '## About';
     $lines[] = '';
@@ -3213,7 +3242,7 @@ function hashbox_llms_txt_content() {
     $lines[] = '- LinkedIn: https://www.linkedin.com/company/hashbox-studio';
     $lines[] = '- Facebook: https://www.facebook.com/profile.php?id=61590390615650';
     $lines[] = '- Clutch: https://clutch.co/profile/hashbox-studio';
-    $lines[] = '- Founder: Tum Thaweewat — https://www.linkedin.com/in/tumthaweewat/';
+    $lines[] = '- Founder: Tum Thanawat (ธณวรรธณ์ ศรีอรุณทิพย์ · Thanawat Sriaroonthip) — ' . hashbox_founder_partner_networks() . ' — https://www.linkedin.com/in/tumthaweewat/';
     $lines[] = '';
     $lines[] = '## Optional';
     $lines[] = '';

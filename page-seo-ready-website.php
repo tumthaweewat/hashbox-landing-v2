@@ -9,7 +9,7 @@ get_header();
 $page_url = get_permalink();
 $desc = 'รับทำเว็บไซต์ครบวงจร ทั้งเว็บไซต์บริษัท เว็บแอปพลิเคชัน และระบบเชื่อมต่อฐานข้อมูล พร้อมวางโครงสร้างเว็บไซต์ให้พร้อมติด Google และ AI Search ตั้งแต่วันแรก';
 
-$author_name      = 'Tum Thaweewat';
+$author_name      = hashbox_founder_name();
 $author_role      = 'Head of Tech';
 $author_linkedin  = 'https://www.linkedin.com/in/tumthaweewat/';
 $author_bio       = '17 ปีประสบการณ์ Technical SEO + Performance Engineering · ผ่านโปรเจกต์ SEO migration 50+ เคส · Cert: Google Analytics, Search Console, Cloudflare Performance Engineer';
@@ -1706,6 +1706,7 @@ hashbox_jsonld( array(
     '@type' => 'Person',
     '@id' => home_url( '/#founder' ),
     'name' => $author_name,
+    'alternateName' => hashbox_founder_alternate_names(),
     'jobTitle' => $author_role,
     'description' => $author_bio,
     'url' => $page_url,

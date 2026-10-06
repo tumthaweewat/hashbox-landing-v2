@@ -21,7 +21,7 @@ $page_url = get_permalink();
 // description contradicts the title we just rewrote.
 $desc = 'บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทย · รับวางระบบ AI, LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Integration · คุยประเมินโอกาสเบื้องต้นฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท';
 
-$author_name      = 'Tum Thaweewat';
+$author_name      = hashbox_founder_name();
 $author_role      = 'Head of Tech';
 $author_linkedin  = 'https://www.linkedin.com/in/tumthaweewat/';
 $author_bio       = '17 ปีประสบการณ์ Software Engineering และการเชื่อมระบบธุรกิจ · ดูแลตั้งแต่การเลือก use case, architecture และ integration ไปจนถึง production monitoring';

@@ -25,7 +25,7 @@ $desc         = 'รับทำ SEO สายขาวตามแนวทา�
 $price_from     = 29900;
 $price_from_txt = number_format( $price_from ) . ' บาทต่อเดือน';
 
-$author_name     = 'Tum Thaweewat';
+$author_name     = hashbox_founder_name();
 $author_role     = 'Head of Tech';
 $author_linkedin = 'https://www.linkedin.com/in/tumthaweewat/';
 $author_bio      = '17 ปีประสบการณ์ Technical SEO + Performance Engineering · ผ่านโปรเจกต์ SEO migration 50+ เคส · Cert: Google Analytics, Search Console, Cloudflare Performance Engineer';
@@ -332,6 +332,7 @@ hashbox_jsonld( array(
     '@type'       => 'Person',
     '@id'         => home_url( '/#founder' ),
     'name'        => $author_name,
+    'alternateName' => hashbox_founder_alternate_names(),
     'jobTitle'    => $author_role,
     'description' => $author_bio,
     'url'         => $page_url,
