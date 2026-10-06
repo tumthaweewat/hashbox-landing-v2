@@ -100,7 +100,8 @@ function hashbox_service_catalog() {
         ),
         'ai-search' => array(
             'key'           => 'ai-search',
-            'name'          => 'รับทำ AEO / GEO + ปรับเว็บไซต์',
+            // Sitewide nav/footer/card anchor to the owner page of "รับทำ AI Search" (audit 2026-10-06).
+            'name'          => 'รับทำ AI Search (AEO / GEO)',
             'short'         => 'รับทำ AI Search',
             'en_name'       => 'AI Search Optimization (GEO)',
             'path'          => '/services/ai-search/',
