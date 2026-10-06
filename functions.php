@@ -1120,7 +1120,7 @@ function hashbox_get_seo_metadata() {
 
     if ( is_singular() ) {
         $post_obj = get_queried_object();
-        $title    = $post_obj instanceof WP_Post ? get_the_title( $post_obj ) . ' | Hashbox Studio' : $fallback['title'];
+        $title    = $post_obj instanceof WP_Post ? hashbox_meta_title( get_the_title( $post_obj ) ) : $fallback['title'];
         if ( $post_obj && ! empty( $post_obj->post_excerpt ) ) {
             return array(
                 'title'       => $title,

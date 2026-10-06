@@ -36,6 +36,13 @@ foreach ( array( '<p>ตัวอย่าง &lt;script&gt;alert(1)&lt;/script&
     meta_expect( false === strpos( $clean, '<' ) && false === strpos( $clean, '>' ), 'Decoded entities must not produce angle brackets: ' . $clean );
 }
 
+// Generated <title> (audit: 22 titles over 65). The brand suffix is added only when
+// it fits, and never twice — /privacy-policy/ rendered "| Hashbox Studio | Hashbox Studio".
+meta_expect( 'Blog post | Hashbox Studio' === hashbox_meta_title( 'Blog post' ), 'Short titles get the brand suffix' );
+meta_expect( 'นโยบายความเป็นส่วนตัว (Privacy Policy) | Hashbox Studio' === hashbox_meta_title( 'นโยบายความเป็นส่วนตัว (Privacy Policy) | Hashbox Studio' ), 'No second brand suffix' );
+$long = 'SEO คืออะไร? คู่มือฉบับ 2026 — ทำงานยังไง ยากแค่ไหน ใช้เวลาเท่าไร พร้อมตัวเลขจริง';
+meta_expect( $long === hashbox_meta_title( $long ), 'Long titles drop the suffix instead of being cut mid-phrase' );
+
 $fn = file_get_contents( __DIR__ . '/../functions.php' );
 $meta = substr( $fn, strpos( $fn, 'function hashbox_get_seo_metadata' ), strpos( $fn, 'function hashbox_get_seo_title' ) - strpos( $fn, 'function hashbox_get_seo_metadata' ) );
 meta_expect( false === strpos( $meta, 'wp_trim_words' ), 'Generated descriptions must not use wp_trim_words (word count ≠ length in Thai)' );
