@@ -18,6 +18,15 @@ $job     = get_the_author_meta( 'job_title', $author_id );
 $linkedin = get_the_author_meta( 'linkedin', $author_id );
 $twitter  = get_the_author_meta( 'twitter', $author_id );
 $github   = get_the_author_meta( 'github', $author_id );
+
+// User 1 is the founder: photo, two-line name (EN / Thai), role and LinkedIn
+// from inc/founder.php — same as the About page.
+$is_founder = 1 === (int) $author_id;
+if ( $is_founder ) {
+    $display  = hashbox_founder_name();
+    $job      = $job ? $job : 'Head of Tech · Hashbox Studio';
+    $linkedin = $linkedin ? $linkedin : hashbox_founder_linkedin();
+}
 ?>
 
 <section class="hb-blog-hero hb-blog-hero--archive">
@@ -25,10 +34,14 @@ $github   = get_the_author_meta( 'github', $author_id );
         <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
 
         <div style="display:flex;gap:var(--hb-space-5);align-items:center;flex-wrap:wrap;">
-            <?php echo get_avatar( $author_id, 96, '', $display, array( 'class' => 'hb-post-meta__avatar', 'style' => 'border-radius:50%;' ) ); ?>
+            <?php if ( $is_founder ) : ?>
+                <img src="<?php echo esc_url( get_template_directory_uri() . hashbox_founder_photo_path() ); ?>" alt="<?php echo esc_attr( hashbox_founder_name() . ' · ' . hashbox_founder_name_th() ); ?> — Head of Tech, Hashbox Studio" width="120" height="120" loading="eager" decoding="async" style="flex:0 0 120px;width:120px;height:120px;border-radius:50%;object-fit:cover;border:2px solid var(--hb-accent-blue,#2563EB);">
+            <?php else : ?>
+                <?php echo get_avatar( $author_id, 96, '', $display, array( 'class' => 'hb-post-meta__avatar', 'style' => 'border-radius:50%;' ) ); ?>
+            <?php endif; ?>
             <div>
                 <span class="hb-eyebrow">ผู้เขียน</span>
-                <h1 class="hb-blog-hero__title" style="margin-top:var(--hb-space-2);"><?php echo esc_html( $display ); ?></h1>
+                <h1 class="hb-blog-hero__title" style="margin-top:var(--hb-space-2);"><?php echo esc_html( $display ); ?><?php if ( $is_founder ) : ?><span lang="th" style="display:block;font-size:0.55em;font-weight:500;margin-top:var(--hb-space-2);"><?php echo esc_html( hashbox_founder_name_th() ); ?></span><?php endif; ?></h1>
                 <?php if ( ! empty( $job ) ) : ?>
                     <p class="hb-blog-hero__lede" style="margin-top:var(--hb-space-2);"><?php echo esc_html( $job ); ?></p>
                 <?php endif; ?>
@@ -42,7 +55,7 @@ $github   = get_the_author_meta( 'github', $author_id );
         <?php if ( $linkedin || $twitter || $github ) : ?>
             <div class="hb-rail" style="margin-top:var(--hb-space-5);">
                 <?php if ( $linkedin ) : ?>
-                    <a class="hb-btn hb-btn--outline hb-btn--sm" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="me noopener noreferrer">LinkedIn</a>
+                    <a class="hb-btn hb-btn--outline" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="me noopener noreferrer">LinkedIn &rarr;</a>
                 <?php endif; ?>
                 <?php if ( $twitter ) : ?>
                     <a class="hb-btn hb-btn--outline hb-btn--sm" href="<?php echo esc_url( $twitter ); ?>" target="_blank" rel="me noopener noreferrer">X</a>
