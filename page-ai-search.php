@@ -22,7 +22,7 @@ $page_url     = get_permalink();
 $services_url = home_url( '/services/' );
 $has_checker  = (bool) get_page_by_path( 'geo-checker', OBJECT, 'page' );
 $checker_url  = $has_checker ? home_url( '/geo-checker/' ) : home_url( '/?service=ai-search#contact' );
-$desc         = 'รับทำ AEO / GEO และ AI Search พร้อมแก้โครงสร้างเว็บไซต์ เนื้อหา และฟอร์มติดต่อ ประเมินขอบเขตงานก่อนเริ่ม วัดการค้นพบและ Lead แยกตามช่องทาง SEO retainer เริ่ม 29,900 บาท/เดือน';
+$desc         = 'รับทำ AI Search (GEO/AEO): ปรับเว็บให้ ChatGPT, Gemini และ Google AI Overview อ้างถึง วัดผลแยกรายแพลตฟอร์ม · รวมในค่า SEO รายเดือนเริ่ม 29,900 บาท';
 
 $author_name     = hashbox_founder_name();
 $author_role     = 'Head of Tech';

@@ -19,7 +19,7 @@ $page_url = get_permalink();
 // commercial lead ("บริการให้คำปรึกษา AI Solution", a query this page should
 // win) stays, the guide's head phrase goes — otherwise the machine-readable
 // description contradicts the title we just rewrote.
-$desc = 'บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทย · รับวางระบบ AI, LINE Chatbot, RAG Knowledge Base, Workflow Automation และ Custom AI Integration · คุยประเมินโอกาสเบื้องต้นฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท';
+$desc = 'บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทย ส่งงานถึง production — LINE Chatbot, RAG, AI Agent, Workflow Automation · คุยฟรี 30 นาที เริ่ม 60,000 บาท';
 
 $author_name      = hashbox_founder_name();
 $author_role      = 'Head of Tech';

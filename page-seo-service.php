@@ -9,7 +9,7 @@
  * accordion and the FAQPage JSON-LD.
  *
  * Rank Math: Title=รับทำ SEO สายเทคนิค วัดผลด้วยข้อมูลรายวัน | Hashbox,
- * Description=บริการรับทำ SEO แบบ technical-first เริ่มต้น 29,900 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี
+ * Description=รับทำ SEO สายเทคนิค เริ่ม 29,900 บาท/เดือน ตรวจ Technical SEO ฟรีก่อนเซ็นสัญญา · Core Web Vitals, Schema, Local SEO · การันตี "ไม่โต ไม่จ่าย" วัดผลรายวัน
  * (Title/description ตัวจริงเขียนลง rank_math_* post meta โดย
  * hashbox_sync_new_service_pages_rankmath_meta() ใน functions.php —
  * บล็อกนี้เป็น reference ต้องแก้ให้ตรงกันทั้งสองที่)
@@ -25,7 +25,7 @@ get_header();
 
 $page_url     = get_permalink();
 $services_url = home_url( '/services/' );
-$desc         = 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 29,900 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี';
+$desc         = 'รับทำ SEO สายเทคนิค เริ่ม 29,900 บาท/เดือน ตรวจ Technical SEO ฟรีก่อนเซ็นสัญญา · Core Web Vitals, Schema, Local SEO · การันตี "ไม่โต ไม่จ่าย" วัดผลรายวัน';
 
 // จุดเริ่มต้นราคาที่เผยแพร่ (retainer รายเดือน) — ใช้ร่วมกันระหว่างข้อความบนหน้าและ Offer schema.
 $price_from     = 29900;

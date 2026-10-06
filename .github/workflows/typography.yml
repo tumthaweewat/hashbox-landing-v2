@@ -12,3 +12,5 @@ jobs:
         run: node tools/test-typography-contract.mjs
       - name: Check author page breadcrumb, Thai font and width
         run: node tools/test-author-page.mjs
+      - name: One H1 on editor-built pages
+        run: node tools/test-page-single-h1.mjs

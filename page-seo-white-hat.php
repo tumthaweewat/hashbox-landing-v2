@@ -20,7 +20,7 @@ get_header();
 $page_url     = get_permalink();
 $parent_url   = home_url( '/services/seo/' );
 $services_url = home_url( '/services/' );
-$desc         = 'รับทำ SEO สายขาวตามแนวทางของ Google — ไม่ซื้อลิงก์ ไม่ปั่นบทความ ไม่ cloaking · แก้ technical ก่อน ต่อด้วยคอนเทนต์ที่ตอบเจตนาและ GEO · ทุกงานตรวจย้อนได้ด้วยข้อมูลอันดับรายวันจากระบบของเราเอง · เริ่มต้น 29,900 บาทต่อเดือน เริ่มจาก SEO Audit ฟรี';
+$desc         = 'รับทำ SEO สายขาวตามแนวทาง Google — ไม่ซื้อลิงก์ ไม่ปั่นบทความ แก้ technical ก่อน ตรวจย้อนได้ด้วยข้อมูลอันดับรายวัน · เริ่ม 29,900 บาท/เดือน Audit ฟรี';
 
 $price_from     = 29900;
 $price_from_txt = number_format( $price_from ) . ' บาทต่อเดือน';

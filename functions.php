@@ -21,6 +21,7 @@ require_once get_template_directory() . '/inc/post-service-hub.php';
 
 require_once get_template_directory() . '/inc/founder.php';
 add_filter( 'pre_get_avatar_data', 'hashbox_founder_avatar_data', 10, 2 );
+require_once get_template_directory() . '/inc/meta-excerpt.php';
 
 /**
  * Old author slug → user ID. WordPress does not redirect an author archive when
@@ -945,7 +946,7 @@ function hashbox_get_seo_metadata() {
     if ( is_front_page() ) {
         return array(
             'title'       => 'รับทำเว็บไซต์ SEO-Ready · ที่ปรึกษา AI · รับทำ SEO | Hashbox Studio',
-            'description' => 'Hashbox Studio รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, AI Search (GEO) และ n8n Automation สำหรับธุรกิจไทย — ราคาเปิดเผย Lighthouse 100, Core Web Vitals เขียว วัดผลจากข้อมูลจริงรายวัน',
+            'description' => 'Hashbox Studio รับทำเว็บไซต์ SEO-Ready, รับทำ SEO, AI Search, ที่ปรึกษา AI และ n8n สำหรับธุรกิจไทย — ราคาเปิดเผย Lighthouse 100 วัดผลจากข้อมูลจริงรายวัน',
         );
     }
 
@@ -995,7 +996,7 @@ function hashbox_get_seo_metadata() {
     $en_meta = array(
         'en/website-development' => array(
             'title'       => 'Website Development Company in Bangkok — SEO-Ready, from THB 35,900 | Hashbox',
-            'description' => 'Bangkok web development company building SEO-ready sites: Next.js or WordPress, Lighthouse 95+ guaranteed, green Core Web Vitals, full schema, Thai/English, LINE + PDPA. Landing from THB 35,900, corporate from 80,000, e-commerce from 350,000. Source code handed over.',
+            'description' => 'SEO-ready Next.js or WordPress sites in Bangkok: Lighthouse 95+ guaranteed, Thai/English, LINE + PDPA. From THB 35,900, source code handed over.',
         ),
         'en/seo' => array(
             'title'       => 'SEO Services & Agency in Bangkok — Technical-first | Hashbox',
@@ -1007,11 +1008,11 @@ function hashbox_get_seo_metadata() {
         ),
         'en/ai-consulting-companies-thailand-2026' => array(
             'title'       => 'AI Consulting Companies in Thailand 2026: 9 Firms Compared | Hashbox',
-            'description' => 'AI consulting companies in Thailand compared on 7 criteria you can verify on each firm\'s own website — public pricing, ROI assessment before build, ships to production, source-code handover, Thai context, named cases, SME entry. Hashbox 7/7, DBot 5/7, Botnoi 4/7.',
+            'description' => '9 AI consulting companies in Thailand compared on 7 criteria you can verify: public pricing, ROI assessment, production delivery and code handover.roduction, source-code handover, Thai context, named cases, SME entry. Hashbox 7/7, DBot 5/7, Botnoi 4/7.',
         ),
         'en/ai-consulting' => array(
             'title'       => 'AI Consulting Company in Bangkok, Thailand | Hashbox',
-            'description' => 'AI consulting in Bangkok for Thai and regional businesses: LINE chatbots, Sales GPT, RAG knowledge bases and workflow automation shipped to production. Public pricing from THB 60,000, ROI assessed first, 100% source code handover.',
+            'description' => 'AI consulting in Bangkok: LINE chatbots, RAG knowledge bases and automation shipped to production. From THB 60,000, ROI assessed first.',
         ),
     );
     if ( isset( $en_meta[ $en_path ] ) ) {
@@ -1024,15 +1025,15 @@ function hashbox_get_seo_metadata() {
         $page_meta = array(
             'services' => array(
                 'title'       => 'บริการรับทำเว็บไซต์ SEO-Ready, รับทำ SEO, AI Search และที่ปรึกษา AI | Hashbox Studio',
-                'description' => 'รวม 5 บริการในทีมเดียว: รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO, รับทำ AI Search (GEO) และ Workflow Automation n8n — ราคาโปร่งใส วัดผลจากข้อมูลจริงรายวัน',
+                'description' => '5 บริการในทีมเดียว: รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI, รับทำ SEO, รับทำ AI Search และ n8n Automation — ราคาโปร่งใส วัดผลจากข้อมูลจริงรายวัน',
             ),
             'seo-ready-website' => array(
                 'title'       => 'รับทำเว็บไซต์ SEO-Ready ติด Google และ AI Search | Hashbox',
-                'description' => 'รับทำเว็บไซต์บริษัท E-commerce และ Landing Page แบบ SEO-Ready — Lighthouse 100, Core Web Vitals เขียว, Schema ครบ, รองรับ AI Search ส่งมอบพร้อม source code ราคาเริ่ม 35,900 บาท ประเมินโปรเจกต์ฟรี',
+                'description' => 'รับทำเว็บไซต์บริษัท E-commerce และ Landing Page แบบ SEO-Ready — Lighthouse 100, Core Web Vitals เขียว, Schema ครบ ส่งมอบ source code เริ่ม 35,900 บาท',
             ),
             'website-development' => array(
                 'title'       => 'รับทำเว็บไซต์ SEO-Ready ติด Google และ AI Search | Hashbox',
-                'description' => 'รับทำเว็บไซต์บริษัท E-commerce และ Landing Page แบบ SEO-Ready — Lighthouse 100, Core Web Vitals เขียว, Schema ครบ, รองรับ AI Search ส่งมอบพร้อม source code ราคาเริ่ม 35,900 บาท ประเมินโปรเจกต์ฟรี',
+                'description' => 'รับทำเว็บไซต์บริษัท E-commerce และ Landing Page แบบ SEO-Ready — Lighthouse 100, Core Web Vitals เขียว, Schema ครบ ส่งมอบ source code เริ่ม 35,900 บาท',
             ),
             // Commercial intent only. This page used to lead with "ปรึกษาทำระบบ
             // AI Solution" — the exact phrase /ai-solution-consulting-guide-2026/
@@ -1043,15 +1044,15 @@ function hashbox_get_seo_metadata() {
             // to say so. Keep ที่ปรึกษา AI — that is the term buyers search.
             'ai-search' => array(
                 'title'       => 'รับทำ AEO / GEO พร้อมปรับเว็บไซต์เพื่อ AI Search | Hashbox',
-                'description' => 'รับทำ AEO / GEO และ AI Search พร้อมแก้โครงสร้างเว็บไซต์ เนื้อหา และฟอร์มติดต่อ ประเมินขอบเขตงานก่อนเริ่ม วัดการค้นพบและ Lead แยกตามช่องทาง SEO retainer เริ่ม 29,900 บาท/เดือน',
+                'description' => 'รับทำ AI Search (GEO/AEO): ปรับเว็บให้ ChatGPT, Gemini และ Google AI Overview อ้างถึง วัดผลแยกรายแพลตฟอร์ม · รวมในค่า SEO รายเดือนเริ่ม 29,900 บาท',
             ),
             'guarantee-terms' => array(
                 'title'       => 'เงื่อนไขการันตี "ไม่โต ไม่จ่าย" บริการรับทำ SEO | Hashbox',
-                'description' => 'เงื่อนไขฉบับเต็ม: ชั้น 1 งานเทคนิคผ่านใน 30 วัน ไม่ผ่านแก้ฟรี · ชั้น 2 impressions +50% หรือ Top-20 +5 คำใน 90 วัน ไม่ถึงทำต่อฟรีสูงสุด 3 เดือน · วัดจาก Search Console ของลูกค้า พร้อมนิยาม วิธีนับ ข้อยกเว้น',
+                'description' => 'เงื่อนไขการันตีฉบับเต็ม: งานเทคนิคผ่านใน 30 วัน · impressions +50% หรือ Top-20 +5 คำใน 90 วัน ไม่ถึงทำต่อฟรีสูงสุด 3 เดือน วัดจาก Search Console ของลูกค้า',
             ),
             'ai-consulting' => array(
                 'title'       => 'ที่ปรึกษา AI สำหรับธุรกิจ · บริการให้คำปรึกษา AI Solution | Hashbox',
-                'description' => 'บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทย — ที่ปรึกษา AI ที่ส่งงานถึง production: LINE Chatbot, RAG Knowledge Base, AI Agent, Workflow Automation · คุยประเมินโอกาสฟรี 30 นาที · โปรเจกต์เริ่ม 60,000 บาท',
+                'description' => 'บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทย ส่งงานถึง production — LINE Chatbot, RAG, AI Agent, Workflow Automation · คุยฟรี 30 นาที เริ่ม 60,000 บาท',
             ),
             'work' => array(
                 'title'       => 'Case Studies SEO, CRO, AI ที่วัดผลได้ | Hashbox',
@@ -1098,7 +1099,7 @@ function hashbox_get_seo_metadata() {
     if ( 'services/seo' === hashbox_current_request_path() ) {
         return array(
             'title'       => 'รับทำ SEO สายเทคนิค ติดหน้าแรก Google วัดผลรายวัน | Hashbox',
-            'description' => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 29,900 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
+            'description' => 'รับทำ SEO สายเทคนิค เริ่ม 29,900 บาท/เดือน ตรวจ Technical SEO ฟรีก่อนเซ็นสัญญา · Core Web Vitals, Schema, Local SEO · การันตี "ไม่โต ไม่จ่าย" วัดผลรายวัน',
         );
     }
 
@@ -1123,13 +1124,13 @@ function hashbox_get_seo_metadata() {
         if ( $post_obj && ! empty( $post_obj->post_excerpt ) ) {
             return array(
                 'title'       => $title,
-                'description' => wp_trim_words( wp_strip_all_tags( $post_obj->post_excerpt ), 28, '…' ),
+                'description' => hashbox_meta_excerpt( $post_obj->post_excerpt ),
             );
         }
         if ( $post_obj && ! empty( $post_obj->post_content ) ) {
             return array(
                 'title'       => $title,
-                'description' => wp_trim_words( wp_strip_all_tags( $post_obj->post_content ), 28, '…' ),
+                'description' => hashbox_meta_excerpt( strip_shortcodes( $post_obj->post_content ) ),
             );
         }
     }
@@ -1142,7 +1143,7 @@ function hashbox_get_seo_metadata() {
         $bio       = wp_strip_all_tags( (string) get_the_author_meta( 'description', $author_id ) );
         return array(
             'title'       => $is_founder ? $name . ' · ' . hashbox_founder_name_th() . ' | Hashbox' : $name . ' — ผู้เขียน | Hashbox Studio',
-            'description' => '' !== $bio ? wp_html_excerpt( $bio, 152, '…' ) : 'บทความโดย ' . $name . ' จาก Hashbox Studio',
+            'description' => '' !== $bio ? hashbox_meta_excerpt( $bio ) : 'บทความโดย ' . $name . ' จาก Hashbox Studio',
         );
     }
 
@@ -1152,7 +1153,7 @@ function hashbox_get_seo_metadata() {
         return array(
             'title'       => $name . ' | Blog Hashbox Studio',
             'description' => ! empty( $term_desc )
-                ? wp_trim_words( wp_strip_all_tags( $term_desc ), 28, '…' )
+                ? hashbox_meta_excerpt( $term_desc )
                 : 'รวมบทความหมวด ' . $name . ' จาก Hashbox Studio ครอบคลุม SEO, web performance, digital marketing, CRO และ AI automation สำหรับธุรกิจไทย',
         );
     }
@@ -1163,7 +1164,7 @@ function hashbox_get_seo_metadata() {
         return array(
             'title'       => '#' . $name . ' | Blog Hashbox Studio',
             'description' => ! empty( $term_desc )
-                ? wp_trim_words( wp_strip_all_tags( $term_desc ), 28, '…' )
+                ? hashbox_meta_excerpt( $term_desc )
                 : 'รวมบทความเกี่ยวกับ ' . $name . ' จากทีม Hashbox Studio พร้อมแนวทางลงมือทำจริงสำหรับ SEO, marketing, web และ AI',
         );
     }
@@ -1173,7 +1174,7 @@ function hashbox_get_seo_metadata() {
         $term_desc = term_description();
         return array(
             'title'       => $name . ' | Hashbox Studio',
-            'description' => ! empty( $term_desc ) ? wp_trim_words( wp_strip_all_tags( $term_desc ), 28, '…' ) : $fallback['description'],
+            'description' => ! empty( $term_desc ) ? hashbox_meta_excerpt( $term_desc ) : $fallback['description'],
         );
     }
 
@@ -1259,7 +1260,7 @@ function hashbox_sync_new_service_pages_rankmath_meta() {
             'path'  => 'services/seo',
             'title' => 'รับทำ SEO สายเทคนิค วัดผลด้วยข้อมูลรายวัน | Hashbox',
             // Keep in sync with $desc in page-seo-service.php.
-            'desc'  => 'บริการรับทำ SEO แบบ technical-first เริ่มต้น 29,900 บาทต่อเดือน — Core Web Vitals, Schema, GEO/AI Overview พร้อมระบบ track อันดับรายวัน เริ่มจาก SEO Audit ฟรี',
+            'desc'  => 'รับทำ SEO สายเทคนิค เริ่ม 29,900 บาท/เดือน ตรวจ Technical SEO ฟรีก่อนเซ็นสัญญา · Core Web Vitals, Schema, Local SEO · การันตี "ไม่โต ไม่จ่าย" วัดผลรายวัน',
         ),
         array(
             'path'  => 'services/website-development/wordpress',
@@ -2040,7 +2041,7 @@ function hashbox_audit_landing_pages() {
             'service_label'    => 'SEO-Ready Website',
             'service_interest' => 'SEO-Ready Website',
             'meta_title'       => 'รับทำ SEO Audit ฟรี — Technical SEO Audit สำหรับเว็บใหม่ | Hashbox',
-            'meta_description' => 'รับทำ SEO Audit ฟรี: ตรวจแผนทำเว็บใหม่ให้พร้อมติด Google และ AI Search ตั้งแต่วันแรก ครอบคลุม Technical SEO, Core Web Vitals, Schema, GA4 และ GSC รายงาน 15–20 หน้าใน 3 วันทำการ',
+            'meta_description' => 'รับทำ SEO Audit ฟรี: ตรวจแผนเว็บใหม่ให้พร้อมติด Google และ AI Search — Technical SEO, Core Web Vitals, Schema, GA4, GSC รายงาน 15–20 หน้าใน 3 วันทำการ',
             'hero_headline'    => 'รับทำ SEO Audit ฟรี — ทำเว็บใหม่ให้พร้อมติด Google',
             'hero_subcopy'     => 'วาง Technical SEO, Core Web Vitals, Schema และ GA4/GSC ตั้งแต่วันแรก เพื่อให้เว็บใหม่ไม่เสียโอกาส organic traffic หลัง deploy',
             'primary_cta'      => 'ขอ SEO Audit ฟรี',
@@ -2084,7 +2085,7 @@ function hashbox_audit_landing_pages() {
             'service_label'    => 'Technical SEO',
             'service_interest' => 'SEO-Ready Website',
             'meta_title'       => 'รับทำ Technical SEO Audit ฟรี — SEO Recovery สำหรับเว็บที่ Traffic ตก | Hashbox',
-            'meta_description' => 'รับทำ Technical SEO Audit ฟรี: Traffic ตกหรือ organic ไม่โต ให้ทีมตรวจ Core Web Vitals, indexation, schema, backlinks และ competitor gap พร้อม recovery roadmap ที่บอกว่าควรแก้อะไรก่อน',
+            'meta_description' => 'รับทำ Technical SEO Audit ฟรี: traffic ตกหรือ organic ไม่โต ตรวจ Core Web Vitals, indexation, schema, backlinks, competitor gap พร้อม roadmap ว่าแก้อะไรก่อน',
             'hero_headline'    => 'Technical SEO Audit ฟรี — Traffic ตก? ให้ทีมตรวจระบบ SEO',
             'hero_subcopy'     => 'เช็ก CWV, Indexation, Schema, Backlinks และ Competitor Gap พร้อม roadmap ที่บอกว่าควรแก้ technical หรือ content ก่อน',
             'primary_cta'      => 'รับ Audit ฟรี',

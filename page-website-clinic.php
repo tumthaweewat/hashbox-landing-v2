@@ -23,7 +23,7 @@ $page_url     = get_permalink();
 $parent_url   = home_url( '/services/website-development/' );
 $services_url = home_url( '/services/' );
 $seo_url      = home_url( '/services/seo/' );
-$desc         = 'รับทำเว็บไซต์คลินิกที่คนไข้ค้นเจอบนมือถือและจองได้ทันที — หน้าบริการต่อหัตถการ โปรไฟล์แพทย์ ระบบนัดผ่าน LINE OA แผนที่และ Google Business Profile โครงสร้าง PDPA และ Schema สำหรับสถานพยาบาล · Lighthouse 95+ · เริ่มต้น 35,900 บาท ประเมิน scope ฟรี';
+$desc         = 'รับทำเว็บไซต์คลินิกให้คนไข้ค้นเจอบนมือถือและจองผ่าน LINE OA ได้ทันที — หน้าหัตถการ โปรไฟล์แพทย์ PDPA และ Schema · Lighthouse 95+ เริ่ม 35,900 บาท';
 
 $author_name     = hashbox_founder_name();
 $author_role     = 'Head of Tech';
