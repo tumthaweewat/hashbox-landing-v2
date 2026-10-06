@@ -21,8 +21,13 @@ get_header();
             </ol>
         </nav>
 
+        <?php
+        // One H1 per page: landing pages built in the editor carry their own
+        // (e.g. /website-audit/), so the title steps down to a styled <p>.
+        $hb_title_tag = false !== stripos( (string) get_post_field( 'post_content', get_the_ID() ), '<h1' ) ? 'p' : 'h1';
+        ?>
         <header style="margin-bottom: var(--hb-space-8);">
-            <h1 class="hb-h1"><?php the_title(); ?></h1>
+            <<?php echo $hb_title_tag; ?> class="hb-h1"><?php the_title(); ?></<?php echo $hb_title_tag; ?>>
         </header>
 
         <div class="hb-prose">
