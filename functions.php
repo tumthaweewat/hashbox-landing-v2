@@ -2949,6 +2949,12 @@ function hashbox_rankmath_json_ld( $data, $jsonld = null ) {
         if ( hashbox_schema_entity_has_type( $entity, array( 'Article', 'BlogPosting', 'NewsArticle' ) ) ) {
             $GLOBALS['hashbox_rm_has_article'] = true;
         }
+        // Rank Math's Person node for the founder (author archive + every post's author)
+        // gets the same alternateName as the theme's Person nodes — one entity across the site.
+        if ( hashbox_schema_entity_has_type( $entity, 'Person' ) && isset( $entity['@id'] )
+            && 0 === strpos( (string) $entity['@id'], get_author_posts_url( 1 ) ) && empty( $entity['alternateName'] ) ) {
+            $data[ $key ]['alternateName'] = hashbox_founder_alternate_names();
+        }
 
         if ( $is_case_study && hashbox_schema_entity_has_type( $entity, 'BreadcrumbList' ) ) {
             unset( $data[ $key ] );
