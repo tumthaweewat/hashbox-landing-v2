@@ -4268,3 +4268,16 @@
   cursor: pointer;
   font-weight: 600;
 }
+
+/* Author archive hero (author.php) — the name stays on one line from 1024px and
+   the bio uses the full section width (owner feedback 2026-10-07). Two classes
+   so these win over .hb-blog-hero__title / __lede wherever they load. */
+.hb-author-hero__text { flex: 1 1 20rem; min-width: 0; }
+.hb-blog-hero__title.hb-author-hero__name {
+  max-width: none;
+  font-size: clamp(2.25rem, 1.5rem + 2.5vw, 3.75rem);
+}
+.hb-blog-hero__lede.hb-author-hero__bio { max-width: none; }
+@media (min-width: 64rem) {
+  .hb-author-hero__name { white-space: nowrap; }
+}
