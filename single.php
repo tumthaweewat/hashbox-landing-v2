@@ -52,7 +52,8 @@ $brief_metrics  = $t['brief_metrics'];
 
                     <div class="hb-post__hero-actions" aria-label="Article actions">
                         <a class="hb-btn hb-btn--gradient" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>"><?php echo esc_html( $t['cta_primary'] ); ?></a>
-                        <a class="hb-btn hb-btn--outline" href="<?php echo esc_url( home_url( '/services/' ) ); ?>"><?php echo esc_html( $t['cta_services'] ); ?></a>
+                        <?php $service_hub = hashbox_post_service_hub(); ?>
+                        <a class="hb-btn hb-btn--outline" href="<?php echo esc_url( $service_hub ? $service_hub['url'] : home_url( '/services/' ) ); ?>"><?php echo esc_html( $service_hub ? $service_hub['button'] : $t['cta_services'] ); ?></a>
                     </div>
                 </div>
 
@@ -97,9 +98,9 @@ $brief_metrics  = $t['brief_metrics'];
 
                 <div class="hb-post-service">
                     <span class="hb-post-service__eyebrow"><?php echo esc_html( $t['service_eyebrow'] ); ?></span>
-                    <h3 class="hb-post-service__title"><?php echo esc_html( $t['service_title'] ); ?></h3>
-                    <p class="hb-post-service__text"><?php echo esc_html( $t['service_text'] ); ?></p>
-                    <a class="hb-post-service__link" href="<?php echo esc_url( home_url( '/services/' ) ); ?>"><?php echo esc_html( $t['service_link'] ); ?> &rarr;</a>
+                    <h3 class="hb-post-service__title"><?php echo esc_html( $service_hub ? $service_hub['name'] : $t['service_title'] ); ?></h3>
+                    <p class="hb-post-service__text"><?php echo esc_html( $service_hub ? $service_hub['text'] : $t['service_text'] ); ?></p>
+                    <a class="hb-post-service__link" href="<?php echo esc_url( $service_hub ? $service_hub['url'] : home_url( '/services/' ) ); ?>"><?php echo esc_html( $service_hub ? $service_hub['button'] : $t['service_link'] ); ?> &rarr;</a>
                 </div>
             </aside>
 

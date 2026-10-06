@@ -10,10 +10,17 @@
 $crumbs = array( array( 'name' => 'Home', 'url' => home_url( '/' ) ) );
 
 if ( hashbox_is_article_view() ) {
-    $crumbs[] = array( 'name' => hashbox_article_strings()['crumb_blog'], 'url' => home_url( '/blog/' ) );
-    $cats = get_the_category();
-    if ( ! empty( $cats ) ) {
-        $crumbs[] = array( 'name' => $cats[0]->name, 'url' => get_category_link( $cats[0]->term_id ) );
+    // Posts point at the service page they support (inc/post-service-hub.php) — silo
+    // instead of /category/ URLs. Article-layout pages and unmapped posts keep Blog / category.
+    $hub = hashbox_post_service_hub();
+    if ( $hub ) {
+        $crumbs[] = array( 'name' => $hub['name'], 'url' => $hub['url'] );
+    } else {
+        $crumbs[] = array( 'name' => hashbox_article_strings()['crumb_blog'], 'url' => home_url( '/blog/' ) );
+        $cats = get_the_category();
+        if ( ! empty( $cats ) ) {
+            $crumbs[] = array( 'name' => $cats[0]->name, 'url' => get_category_link( $cats[0]->term_id ) );
+        }
     }
     $crumbs[] = array( 'name' => get_the_title(), 'url' => '' );
 } elseif ( is_category() ) {
