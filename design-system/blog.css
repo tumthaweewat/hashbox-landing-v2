@@ -4326,4 +4326,18 @@
 @media (max-width: 40rem) {
   .hb-post-author { flex-direction: column; }
 }
+/* The box sits below the white article paper; the paper's prose rules
+   (p #303036, img radius/margin, link #4338ca) must not reach it. */
+.hb-blog-single .hb-post__content.hb-prose .hb-post-author p { color: var(--hb-text-muted); }
+.hb-blog-single .hb-post__content.hb-prose .hb-post-author .hb-post-author__name,
+.hb-blog-single .hb-post__content.hb-prose .hb-post-author .hb-post-author__name a {
+  color: var(--hb-text-strong);
+  text-decoration: none;
+}
+.hb-blog-single .hb-post__content.hb-prose .hb-post-author .hb-post-author__name span { color: var(--hb-text-muted); }
+.hb-blog-single .hb-post__content.hb-prose .hb-post-author__links a { color: var(--hb-accent-cyan-soft, #67e8f9); }
+.hb-post__content.hb-prose img.hb-post-author__photo {
+  margin: 0;
+  border-radius: 50%;
+}
 

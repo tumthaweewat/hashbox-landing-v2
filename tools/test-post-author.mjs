@@ -22,4 +22,8 @@ for (const key of ['author_kicker', 'author_bio', 'author_about']) {
   assert.equal(fn.match(new RegExp(`'${key}'\\s*=>`, 'g'))?.length, 2, `${key} needs an English and a Thai string`);
 }
 assert.match(css, /\.hb-post-author\s*\{/, 'Author box styles');
+// 2026-10-07 live check: the box sits below the white article paper, but the
+// paper's prose rules (p #303036, img radius/margin, link #4338ca) leaked into it.
+assert.match(css, /\.hb-post__content\.hb-prose \.hb-post-author p\s*\{[^}]*color:\s*var\(--hb-text-muted\)/, 'Bio/links text must override the paper prose colour');
+assert.match(css, /\.hb-post__content\.hb-prose img\.hb-post-author__photo\s*\{[^}]*border-radius:\s*50%/, 'Photo must stay round inside prose');
 console.log('Post author box: founder only, links /about/ + LinkedIn, TH/EN strings, styled.');
