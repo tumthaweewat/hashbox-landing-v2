@@ -28,6 +28,14 @@ meta_expect( mb_check_encoding( $out, 'UTF-8' ), 'Valid UTF-8' );
 $cat = "<p>บทความเรื่อง Web Development จากทีมที่ build เว็บไซต์ลูกค้าจริง</p>\n<p>เนื้อหาเขียนโดยวิศวกร</p>";
 meta_expect( false !== strpos( hashbox_meta_excerpt( $cat ), 'จริง เนื้อหา' ), 'Category paragraphs are joined with a space' );
 
+// Security review 2026-10-07: entities are decoded after strip_tags, so a post that
+// shows code (&lt;script&gt;) must not come out as a live tag in the description —
+// it lands in og:description and JSON-LD WebPage.description too.
+foreach ( array( '<p>ตัวอย่าง &lt;script&gt;alert(1)&lt;/script&gt; ในบทความ</p>', '&lt;img src=x onerror=alert(1)&gt; ' . str_repeat( 'ข้อความยาว ', 40 ) ) as $evil ) {
+    $clean = hashbox_meta_excerpt( $evil );
+    meta_expect( false === strpos( $clean, '<' ) && false === strpos( $clean, '>' ), 'Decoded entities must not produce angle brackets: ' . $clean );
+}
+
 $fn = file_get_contents( __DIR__ . '/../functions.php' );
 $meta = substr( $fn, strpos( $fn, 'function hashbox_get_seo_metadata' ), strpos( $fn, 'function hashbox_get_seo_title' ) - strpos( $fn, 'function hashbox_get_seo_metadata' ) );
 meta_expect( false === strpos( $meta, 'wp_trim_words' ), 'Generated descriptions must not use wp_trim_words (word count ≠ length in Thai)' );

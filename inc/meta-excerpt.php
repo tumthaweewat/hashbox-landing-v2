@@ -35,6 +35,10 @@ function hashbox_meta_excerpt( $html, $max_visible = 150 ) {
     $text = preg_replace( '#<(script|style)\b[^>]*>.*?</\1>#is', ' ', (string) $html );
     $text = preg_replace( '#</(p|div|li|h[1-6]|td|th|blockquote)>|<br\s*/?>#i', ' ', $text );
     $text = html_entity_decode( strip_tags( $text ), ENT_QUOTES, 'UTF-8' );
+    // Decoding turns &lt;script&gt; (code shown in a post) into a live tag, and the
+    // result also lands in og:description and JSON-LD. Plain text has no use for
+    // angle brackets, so strip again and drop any that remain.
+    $text = str_replace( array( '<', '>' ), '', strip_tags( $text ) );
     $text = trim( (string) preg_replace( '/\s+/u', ' ', $text ) );
     if ( hashbox_visible_length( $text ) <= $max_visible ) {
         return $text;
