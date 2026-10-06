@@ -256,6 +256,8 @@ AI Position = ผลรวมลำดับที่เราถูกเอ่
 - [Google AI Overview ในไทย: ข้อมูลจริง](https://hashbox.co.th/google-ai-overview-thailand-2026/) — เจาะฝั่ง AI Overview โดยเฉพาะ จากคีย์เวิร์ดไทยที่เราติดตาม
 - [Schema Markup ฉบับภาษาไทย](https://hashbox.co.th/schema-markup-thai-guide-2026/) — ข้อเท็จจริงที่เครื่องอ่านออกคือวัตถุดิบที่ AI หยิบไปใช้ง่ายที่สุด
 - [Technical SEO](https://hashbox.co.th/technical-seo-guide/) — ถ้าบอตเข้าไม่ถึงหน้า ไม่มีตัวชี้วัดไหนขยับ
+- [จ้างทำ AI Search ราคาเท่าไหร่](https://hashbox.co.th/จ้างทำ-ai-search-ราคา-2026/) — ถ้าจะจ้างทีมทำ ต้องได้งานอะไร และรายงานแบบไหนที่ตรวจย้อนได้
+- [Rank Tracker เชื่อได้ไหม](https://hashbox.co.th/rank-tracker-เชื่อได้ไหม-2026/) — กับดักตัวเลขหลอกตาฝั่งอันดับ Google จากข้อมูลจริง 4,068 คำ×วัน
 
 อยากรู้ว่าแบรนด์คุณอยู่ตรงไหนใน ChatGPT, Gemini, Claude และ Perplexity ตอนนี้ — [คุยกับเราเรื่อง SEO และ AEO](https://hashbox.co.th/services/seo/) เราวัดให้จากระบบเดียวกับที่ใช้เขียนบทความนี้
 

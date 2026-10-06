@@ -162,6 +162,7 @@ rank-tracker-เชื่อได้ไหม-2026
 - [AI Overview คืออะไร? ข้อมูลจริงจากคีย์เวิร์ดไทย](https://hashbox.co.th/google-ai-overview-thailand-2026/) — อีกตัวเลขที่ได้รับผลกระทบเดียวกัน
 - [AI Search Metrics มีอะไรบ้าง? 7 ตัวชี้วัด](https://hashbox.co.th/ai-search-metrics-thailand-2026/) — กับดักตัวหารแบบเดียวกันฝั่งคำตอบ AI
 - [Technical SEO](https://hashbox.co.th/technical-seo-guide/) — ถ้าอันดับตกจริง สาเหตุทางเทคนิคที่ต้องไล่ก่อน
+- [จ้างทำ AI Search ราคาเท่าไหร่](https://hashbox.co.th/จ้างทำ-ai-search-ราคา-2026/) — ถ้าจะจ้างทีมทำ SEO/AI Search ถามอะไรก่อนเซ็นสัญญาเรื่องรายงาน
 
 ต้องการรายงาน SEO ที่บอกว่าตัวเลขไหนยืนยันแล้ว ตัวเลขไหนยัง — [ดูบริการ SEO ของ Hashbox](https://hashbox.co.th/services/seo/) หรือ [ส่งเว็บไซต์ให้เราประเมิน](https://hashbox.co.th/#contact)
 

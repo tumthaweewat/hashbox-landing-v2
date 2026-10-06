@@ -305,6 +305,8 @@ $kpis = array(
             <li><a href="<?php echo esc_url( home_url( '/schema-markup-thai-guide-2026/' ) ); ?>">Schema Markup สำหรับเว็บไทย</a> — พื้นฐาน entity ที่ AI ต้องการ</li>
             <li><a href="<?php echo esc_url( home_url( '/google-ai-mode-คืออะไร-2026/' ) ); ?>">Google AI Mode คืออะไร ต่างจาก AI Overview ยังไง</a> — timeline ภาษาไทย, query fan-out, วัดผล</li>
             <li><a href="<?php echo esc_url( home_url( '/aeo-คืออะไร-2026/' ) ); ?>">AEO คืออะไร? ต่างจาก SEO และ GEO ตรงไหน</a> — ตารางเทียบ 3 แนวทาง + 7 รูปแบบที่ AI ยกไปตอบ</li>
+            <li><a href="<?php echo esc_url( home_url( '/ai-search-metrics-thailand-2026/' ) ); ?>">AI Search Metrics มีอะไรบ้าง? 7 ตัวชี้วัด</a> — สูตรและตัวหารที่ถูก จากคำตอบ AI ภาษาไทยจริง</li>
+            <li><a href="<?php echo esc_url( home_url( '/จ้างทำ-ai-search-ราคา-2026/' ) ); ?>">จ้างทำ AI Search ราคาเท่าไหร่? ขอบเขตงาน + วิธีวัดผล</a> — สิ่งที่ควรได้และคำถามก่อนเซ็นสัญญา</li>
         </ul>
     </div>
 </section>
