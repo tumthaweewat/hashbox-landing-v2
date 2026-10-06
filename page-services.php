@@ -30,7 +30,7 @@ $hb_services = hashbox_service_catalog_live();
                         <span>และ AI Search ในทีมเดียว</span>
                     </h1>
                     <p class="hb-services-hero__lede">
-                        บริการของ Hashbox Studio คือ 5 บริการที่ต่อกันเป็นระบบเดียว: รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, รับทำ AI Search (GEO) และ Workflow Automation ด้วย n8n — ทุกบริการเริ่มแยกได้ ราคาเปิดเผย และวัดผลจากข้อมูลจริงรายวัน
+                        บริการของ Hashbox Studio คือ 5 บริการที่ต่อกันเป็นระบบเดียว: รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, <a href="<?php echo esc_url( home_url( '/services/ai-search/' ) ); ?>">รับทำ AI Search (GEO)</a> และ Workflow Automation ด้วย n8n — ทุกบริการเริ่มแยกได้ ราคาเปิดเผย และวัดผลจากข้อมูลจริงรายวัน
                     </p>
                     <a class="hb-services-btn hb-services-btn--primary" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">รับ Audit ฟรี <span aria-hidden="true">&rarr;</span></a>
                 </div>
