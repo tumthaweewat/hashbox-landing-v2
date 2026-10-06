@@ -112,7 +112,7 @@ $page_url = get_permalink();
                     <p class="hb-bento__label" itemprop="jobTitle" style="margin-top:var(--hb-space-2);">Head of Tech · Hashbox Studio</p>
                     <p class="hb-body" itemprop="description" style="margin-top:var(--hb-space-3);">17 ปีประสบการณ์ด้าน Software Engineering, AI/ML และ Technical SEO · ผ่านโปรเจกต์ LLM integration และ SEO/Performance migration กว่า 50 เคส · <?php echo esc_html( hashbox_founder_partner_networks() ); ?> · Cert: OpenAI API, Anthropic Claude, LangChain, Google Search Console, Cloudflare Performance</p>
                     <div class="hb-rail" style="margin-top:var(--hb-space-4);">
-                        <a class="hb-btn hb-btn--outline" href="https://www.linkedin.com/in/tumthaweewat/" target="_blank" rel="noopener noreferrer me"><span itemprop="sameAs" style="display:none;">https://www.linkedin.com/in/tumthaweewat/</span>LinkedIn &rarr;</a>
+                        <a class="hb-btn hb-btn--outline" href="<?php echo esc_url( hashbox_founder_linkedin() ); ?>" target="_blank" rel="noopener noreferrer me"><span itemprop="sameAs" style="display:none;"><?php echo esc_html( hashbox_founder_linkedin() ); ?></span>LinkedIn &rarr;</a>
                     </div>
                     <meta itemprop="worksFor" content="Hashbox Studio">
                 </div>
@@ -230,8 +230,8 @@ hashbox_jsonld( array(
     'jobTitle'    => 'Head of Tech',
     'image'       => get_template_directory_uri() . '/assets/team/tum-thaweewat.jpg',
     'description' => '17 ปีประสบการณ์ด้าน Software Engineering, AI/ML และ Technical SEO · ผ่านโปรเจกต์ LLM integration และ SEO/Performance migration กว่า 50 เคส · ' . hashbox_founder_partner_networks() . ' · Cert: OpenAI API, Anthropic Claude, LangChain, Google Search Console, Cloudflare Performance',
-    'url'         => 'https://www.linkedin.com/in/tumthaweewat/',
-    'sameAs'      => array( 'https://www.linkedin.com/in/tumthaweewat/' ),
+    'url'         => hashbox_founder_linkedin(),
+    'sameAs'      => array( hashbox_founder_linkedin() ),
     'worksFor'    => array( '@id' => home_url( '/#organization' ) ),
 ) );
 hashbox_jsonld( array(

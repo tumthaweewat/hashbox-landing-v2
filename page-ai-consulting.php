@@ -23,7 +23,7 @@ $desc = 'บริการให้คำปรึกษา AI Solution สำ�
 
 $author_name      = hashbox_founder_name();
 $author_role      = 'Head of Tech';
-$author_linkedin  = 'https://www.linkedin.com/in/tumthaweewat/';
+$author_linkedin  = hashbox_founder_linkedin();
 $author_bio       = '17 ปีประสบการณ์ Software Engineering และการเชื่อมระบบธุรกิจ · ดูแลตั้งแต่การเลือก use case, architecture และ integration ไปจนถึง production monitoring';
 
 $faqs = array(

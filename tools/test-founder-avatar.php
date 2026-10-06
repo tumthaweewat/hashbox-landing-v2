@@ -31,3 +31,15 @@ avatar_expect( filesize( $file ) < 20000, 'Avatar must stay under 20 KB' );
 $functions = file_get_contents( __DIR__ . '/../functions.php' );
 avatar_expect( false !== strpos( $functions, "add_filter( 'pre_get_avatar_data', 'hashbox_founder_avatar_data', 10, 2 );" ), 'Filter must be registered' );
 echo "Founder avatar: theme photo for user 1 in every id form, Gravatar for others, small square file, filter registered.\n";
+
+// LinkedIn (2026-10-07: profile moved to /in/tumthanawat/). One source only —
+// twelve hardcoded copies drifted when the vanity URL changed.
+avatar_expect( 'https://www.linkedin.com/in/tumthanawat/' === hashbox_founder_linkedin(), 'Founder LinkedIn URL' );
+$root = realpath( __DIR__ . '/..' );
+foreach ( explode( "\n", trim( shell_exec( 'git -C ' . escapeshellarg( $root ) . ' ls-files "*.php"' ) ) ) as $file ) {
+    if ( 'inc/founder.php' === $file || 0 === strpos( $file, 'tools/' ) ) {
+        continue;
+    }
+    avatar_expect( false === strpos( file_get_contents( $root . '/' . $file ), 'linkedin.com/in/tum' ), "$file hardcodes the founder's LinkedIn URL — use hashbox_founder_linkedin()" );
+}
+echo "Founder LinkedIn: single source in inc/founder.php.\n";

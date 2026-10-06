@@ -24,7 +24,7 @@ function hashbox_founder_alternate_names() {
     return array( 'ธณวรรธณ์ ศรีอรุณทิพย์', 'Thanawat Sriaroonthip', 'Tum Thanawat' );
 }
 function hashbox_founder_linkedin() {
-    return 'https://www.linkedin.com/in/tumthaweewat/';
+    return 'https://www.linkedin.com/in/tumthanawat/';
 }
 function hashbox_founder_photo_path() {
     return '/assets/team/tum-thaweewat.jpg';
