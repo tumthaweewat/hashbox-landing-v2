@@ -838,6 +838,9 @@ function hashbox_article_strings() {
             'related_eyebrow' => 'Keep reading',
             'related_title'   => 'Related articles',
             'crumb_blog'      => 'Blog',
+            'author_kicker'   => 'Written by',
+            'author_bio'      => 'Head of Tech at Hashbox Studio · 17 years in software engineering, AI/ML and technical SEO',
+            'author_about'    => 'About Hashbox Studio',
         );
     } else {
         $strings = array(
@@ -866,6 +869,9 @@ function hashbox_article_strings() {
             'related_eyebrow' => 'อ่านต่อ',
             'related_title'   => 'บทความที่เกี่ยวข้อง',
             'crumb_blog'      => 'Blog',
+            'author_kicker'   => 'เขียนโดย',
+            'author_bio'      => 'Head of Tech, Hashbox Studio · 17 ปีในงาน Software Engineering, AI/ML และ Technical SEO',
+            'author_about'    => 'เกี่ยวกับ Hashbox Studio',
         );
     }
     return $strings;

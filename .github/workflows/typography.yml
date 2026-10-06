@@ -14,3 +14,5 @@ jobs:
         run: node tools/test-author-page.mjs
       - name: One H1 on editor-built pages
         run: node tools/test-page-single-h1.mjs
+      - name: Author box under founder posts
+        run: node tools/test-post-author.mjs

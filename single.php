@@ -119,6 +119,8 @@ $brief_metrics  = $t['brief_metrics'];
                     </div>
                 <?php endif; ?>
 
+                <?php get_template_part( 'template-parts/post-author' ); ?>
+
                 <div class="hb-post__cta">
                     <div class="hb-post__cta-main">
                         <span class="hb-post__cta-kicker"><?php echo esc_html( $t['cta_kicker'] ); ?></span>
