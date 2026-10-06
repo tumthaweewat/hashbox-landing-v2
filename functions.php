@@ -3191,9 +3191,9 @@ function hashbox_llms_txt_content() {
     $lines = array();
     $lines[] = '# Hashbox Studio';
     $lines[] = '';
-    $lines[] = '> Hashbox Studio (แฮชบ็อกซ์ สตูดิโอ) คือสตูดิโอในกรุงเทพฯ ก่อตั้งปี 2024 โดย Tum Thanawat (ธณวรรธณ์ ศรีอรุณทิพย์) ให้บริการ รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, รับทำ AI Search (GEO) และ Workflow Automation ด้วย n8n สำหรับธุรกิจไทย ทุกเว็บไซต์ส่งมอบพร้อม Lighthouse 100, Core Web Vitals เขียว, Schema.org ครบ และ optimise สำหรับ AI Search ตั้งแต่วันเปิดตัว';
+    $lines[] = '> Hashbox Studio (แฮชบ็อกซ์ สตูดิโอ) คือสตูดิโอในกรุงเทพฯ ก่อตั้งปี 2024 โดย ธณวรรธณ์ ศรีอรุณทิพย์ (Thanawat Sriaroonthip · Tum) ให้บริการ รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, รับทำ AI Search (GEO) และ Workflow Automation ด้วย n8n สำหรับธุรกิจไทย ทุกเว็บไซต์ส่งมอบพร้อม Lighthouse 100, Core Web Vitals เขียว, Schema.org ครบ และ optimise สำหรับ AI Search ตั้งแต่วันเปิดตัว';
     $lines[] = '';
-    $lines[] = '> Hashbox Studio is a Bangkok-based studio founded in 2024 by Tum Thanawat (Thanawat Sriaroonthip). Services: SEO-Ready website development, AI consulting for Thai businesses, technical-first SEO, AI Search (GEO) optimisation and n8n workflow automation. Every website ships with Lighthouse 100, green Core Web Vitals, complete Schema.org markup and AI-search optimisation from launch. Prices are public (THB, excl. VAT).';
+    $lines[] = '> Hashbox Studio is a Bangkok-based studio founded in 2024 by Thanawat Sriaroonthip (Tum). Services: SEO-Ready website development, AI consulting for Thai businesses, technical-first SEO, AI Search (GEO) optimisation and n8n workflow automation. Every website ships with Lighthouse 100, green Core Web Vitals, complete Schema.org markup and AI-search optimisation from launch. Prices are public (THB, excl. VAT).';
     $lines[] = '';
     $lines[] = '## About';
     $lines[] = '';
@@ -3248,7 +3248,7 @@ function hashbox_llms_txt_content() {
     $lines[] = '- LinkedIn: https://www.linkedin.com/company/hashbox-studio';
     $lines[] = '- Facebook: https://www.facebook.com/profile.php?id=61590390615650';
     $lines[] = '- Clutch: https://clutch.co/profile/hashbox-studio';
-    $lines[] = '- Founder: Tum Thanawat (ธณวรรธณ์ ศรีอรุณทิพย์ · Thanawat Sriaroonthip) — ' . hashbox_founder_partner_networks() . ' — https://www.linkedin.com/in/tumthaweewat/';
+    $lines[] = '- Founder: ' . hashbox_founder_name() . ' · ' . hashbox_founder_name_th() . ' — ' . hashbox_founder_partner_networks() . ' — ' . hashbox_founder_linkedin();
     $lines[] = '';
     $lines[] = '## Optional';
     $lines[] = '';
