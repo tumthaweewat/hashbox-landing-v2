@@ -58,8 +58,8 @@ foreach ( array( 'service' => 'page-ai-consulting.php', 'audit' => 'page-audit-l
     expect( 1 === $xpath->query( '//h1' )->length, 'One H1 per page.' );
     expect( 3 === $xpath->query( '//article[contains(@class,"hb-solution-example")]' )->length, 'Both pages render the same three anonymous examples.' );
     expect( false === strpos( $html, 'AutoBot' ), 'No unverified result attribution on acquisition pages.' );
-    // 2026-10-07: each scope links to a written example, labelled by real status (live vs designed, not delivered).
-    $want = array( '/จุดสั่งซื้อ-safety-stock-2026/' => 'ใช้งานจริง', '/ai-agent-คืออะไร-2026/' => 'ยังไม่ส่งมอบ', '/ai-newsroom-2026/' => 'ยังไม่ส่งมอบ' );
+    // 2026-10-07: each scope links to its written example; status claims stay in the articles, not on these cards (PR #37).
+    $want = array( '/จุดสั่งซื้อ-safety-stock-2026/' => 'อ่านตัวอย่างละเอียด', '/ai-agent-คืออะไร-2026/' => 'อ่านตัวอย่างละเอียด', '/ai-newsroom-2026/' => 'อ่านตัวอย่างละเอียด' );
     $i = 0;
     foreach ( $xpath->query( '//article[contains(@class,"hb-solution-example")]' ) as $article ) {
         $path  = array_keys( $want )[ $i ];

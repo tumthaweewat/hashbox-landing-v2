@@ -14,7 +14,7 @@
                     <div><dt>วัดผลจากอะไร</dt><dd><?php echo esc_html( $example['measure'] ); ?></dd></div>
                 </dl>
                 <?php if ( ! empty( $example['example'] ) ) : ?>
-                    <p class="hb-solution-example__more"><span><?php echo esc_html( $example['example']['status'] ); ?>:</span> <a href="<?php echo esc_url( home_url( $example['example']['path'] ) ); ?>"><?php echo esc_html( $example['example']['label'] ); ?> &rarr;</a></p>
+                    <p class="hb-solution-example__more"><span>อ่านตัวอย่างละเอียด:</span> <a href="<?php echo esc_url( home_url( $example['example']['path'] ) ); ?>"><?php echo esc_html( $example['example']['label'] ); ?> &rarr;</a></p>
                 <?php endif; ?>
             </article>
         <?php endforeach; ?>
