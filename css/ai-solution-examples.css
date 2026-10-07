@@ -13,3 +13,6 @@
 @media (max-width: 600px) {
   .hb-solution-example dl > div { grid-template-columns: minmax(0, 1fr); gap: var(--hb-space-1); }
 }
+.hb-solution-example__more { margin: var(--hb-space-4) 0 0; font-family: var(--font-body); font-size: var(--hb-text-sm); color: var(--hb-text-muted); }
+.hb-solution-example__more a { font-weight: 600; }
+.hb-ai .hb-solution-example__more { color: var(--color-ink-3); }

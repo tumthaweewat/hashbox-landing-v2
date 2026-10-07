@@ -9,6 +9,9 @@ function hashbox_ai_solution_use_cases() {
             'solution' => 'อ่านและดึงข้อมูลจากเอกสาร เตรียมรายการให้ตรวจสอบ และเชื่อมข้อมูลสินค้าหรือสต็อกจากระบบเดิม',
             'approval' => 'เจ้าหน้าที่ตรวจข้อมูลและอนุมัติรายการก่อนนำเข้าระบบหรือดำเนินการต่อ',
             'measure' => 'เวลาต่อเอกสาร ความถูกต้องของข้อมูล และจำนวนรายการที่ต้องแก้ไข',
+            // Link to the written example. No status or result claims on these scope cards (PR #37 rule,
+            // tools/test-ai-audit-presentation.mjs) — each article states plainly what is live and what is a design.
+            'example' => array( 'label' => 'จุดสั่งซื้อและ Safety Stock: ตัวอย่างระบบดูแลสต็อกร้านอะไหล่', 'path' => '/จุดสั่งซื้อ-safety-stock-2026/' ),
         ),
         array(
             'title' => 'AI Agent สำหรับงานขายและบริการ',
@@ -16,6 +19,7 @@ function hashbox_ai_solution_use_cases() {
             'solution' => 'คัดแยกอีเมล อ่านคำขอราคา ร่างใบเสนอราคา และเชื่อมข้อมูลกับ CRM หรือระบบงานที่มีสิทธิ์เข้าถึง',
             'approval' => 'ทีมขายตรวจราคา เงื่อนไข และผู้รับก่อนอนุมัติเอกสารที่ส่งให้ลูกค้า',
             'measure' => 'เวลาตั้งแต่รับคำขอถึงร่างพร้อมตรวจ และจำนวนคำขอที่ตกหล่น',
+            'example' => array( 'label' => 'AI Agent คืออะไร: ตัวอย่างระบบจัดการอีเมลขอใบเสนอราคา', 'path' => '/ai-agent-คืออะไร-2026/' ),
         ),
         array(
             'title' => 'AI สำหรับทีมคอนเทนต์และกองบรรณาธิการ',
@@ -23,6 +27,7 @@ function hashbox_ai_solution_use_cases() {
             'solution' => 'รวบรวมแหล่งข้อมูลที่กำหนด ร่างเนื้อหาตามสไตล์ และจัดคิวให้ทีมตรวจสอบก่อนเผยแพร่',
             'approval' => 'ผู้ดูแลตรวจข้อเท็จจริง แหล่งอ้างอิง และสิทธิ์ใช้ภาพก่อนอนุมัติโพสต์',
             'measure' => 'เวลาจัดเตรียมต่อชิ้น จำนวนรอบแก้ไข และงานที่ผ่านการตรวจ',
+            'example' => array( 'label' => 'AI Newsroom: 7 ขั้นที่คนอนุมัติทุกข่าว', 'path' => '/ai-newsroom-2026/' ),
         ),
     );
 }

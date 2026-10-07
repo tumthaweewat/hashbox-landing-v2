@@ -410,9 +410,9 @@ $pricing = array(
                 <span class="hb-eyebrow">Guide</span>
                 <h3 class="hb-card__title">บริการ RAG &amp; AI Agent Chatbot</h3>
             </a>
-            <a class="hb-card" href="<?php echo esc_url( home_url( '/geo-ai-search-optimization-2026/' ) ); ?>" style="text-decoration:none;">
-                <span class="hb-eyebrow">GEO</span>
-                <h3 class="hb-card__title">GEO + AI Search Optimization</h3>
+            <a class="hb-card" href="<?php echo esc_url( home_url( '/ai-agent-คืออะไร-2026/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Guide</span>
+                <h3 class="hb-card__title">AI Agent คืออะไร + 3 ตัวอย่างจริง</h3>
             </a>
         </div>
     </div>

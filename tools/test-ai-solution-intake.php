@@ -58,6 +58,17 @@ foreach ( array( 'service' => 'page-ai-consulting.php', 'audit' => 'page-audit-l
     expect( 1 === $xpath->query( '//h1' )->length, 'One H1 per page.' );
     expect( 3 === $xpath->query( '//article[contains(@class,"hb-solution-example")]' )->length, 'Both pages render the same three anonymous examples.' );
     expect( false === strpos( $html, 'AutoBot' ), 'No unverified result attribution on acquisition pages.' );
+    // 2026-10-07: each scope links to its written example; status claims stay in the articles, not on these cards (PR #37).
+    $want = array( '/จุดสั่งซื้อ-safety-stock-2026/' => 'อ่านตัวอย่างละเอียด', '/ai-agent-คืออะไร-2026/' => 'อ่านตัวอย่างละเอียด', '/ai-newsroom-2026/' => 'อ่านตัวอย่างละเอียด' );
+    $i = 0;
+    foreach ( $xpath->query( '//article[contains(@class,"hb-solution-example")]' ) as $article ) {
+        $path  = array_keys( $want )[ $i ];
+        $label = $want[ $path ];
+        $links = $xpath->query( './/a', $article );
+        expect( 1 === $links->length && false !== strpos( rawurldecode( $links->item( 0 )->getAttribute( 'href' ) ), $path ), "Example $i links to $path." );
+        expect( false !== strpos( $article->textContent, $label ), "Example $i is labelled \"$label\"." );
+        $i++;
+    }
     if ( 'audit' === $target ) {
         foreach ( array( 'workflow_type', 'current_systems', 'work_volume' ) as $name ) {
             $nodes = $xpath->query( '//*[@name="' . $name . '"]' );

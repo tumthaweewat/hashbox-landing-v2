@@ -1,0 +1,305 @@
+<!-- wp:paragraph -->
+<p><strong>AI Newsroom คือ</strong> ระบบที่ให้ AI ช่วยงานซ้ำๆ ของทีมข่าว ได้แก่ ไล่ดูแหล่งข่าว คัดข่าวที่เข้าเรื่อง ตรวจข้อเท็จจริงเบื้องต้น และร่างข่าวภาษาไทยพร้อมภาพ แล้วส่งให้บรรณาธิการ (บก.) ตัดสินใจก่อนโพสต์ทุกชิ้น เป้าหมายคือให้เวลาของทีมย้ายจาก "หาข่าว แปล และเรียบเรียง" มาอยู่ที่ "ตรวจและตัดสินใจ" ไม่ใช่ให้ AI เป็นนักข่าวแทนคน</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>บทความนี้เป็นแนวทางที่เราออกแบบจากโจทย์จริงของเพจข่าวที่ติดต่อเรา (ยังไม่ได้ส่งมอบ) เราจึงอธิบายได้ว่าระบบทำงานยังไง ตัดสินใจแบบนี้เพราะอะไร และติดตรงไหน แต่ยังไม่มีตัวเลขผลลัพธ์ และจะไม่แต่งตัวเลขขึ้นมาเอง</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+<p><strong>TL;DR</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li>ระบบมี <strong>7 ขั้น</strong> โดย <strong>AI ทำแค่ 2 ขั้น</strong> คือคัดกรองพร้อมตรวจสอบ และเขียนร่าง ส่วน <strong>คนอนุมัติที่ขั้นที่ 6 ทุกครั้ง</strong> ขั้นที่เหลือเป็นกฎอัตโนมัติ</li><!-- /wp:list-item --><!-- wp:list-item --><li>ก่อนเขียน ระบบเทียบ <strong>4 อย่างกับแหล่งทางการ</strong> ได้แก่ ชื่อ ตัวเลข ราคา และวันที่ แล้วแสดงระดับความมั่นใจ ถ้ายืนยันไม่ได้จะติดธง "ยังไม่ยืนยัน"</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ใช้ภาพจริงจากแหล่งข่าวพร้อมเครดิตเท่านั้น</strong> ไม่ใช้ภาพที่ AI สร้าง</li><!-- /wp:list-item --><!-- wp:list-item --><li>ทีมปรับแหล่งข่าว หัวข้อ โทน และเวลาโพสต์ได้เองใน Google Sheets <strong>โดยไม่ต้องเขียนโค้ด</strong></li><!-- /wp:list-item --><!-- wp:list-item --><li>ข้อจำกัดคือ AI ไม่ได้แม่น 100% ความรับผิดชอบต่อเนื้อหายังเป็นของเพจ และนโยบาย API ของ Meta เปลี่ยนได้</li><!-- /wp:list-item --></ul>
+<!-- /wp:list --></blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">AI Newsroom ต่างจากการใช้ ChatGPT เขียนข่าวทีละชิ้นยังไง</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>ทีมข่าวจำนวนมากใช้ AI อยู่แล้วแบบทีละชิ้น คือคัดลอกข่าวต่างประเทศไปวางในแชตแล้วสั่งให้เรียบเรียง วิธีนี้ช่วยได้ แต่งานส่วนที่กินเวลาที่สุดยังทำด้วยมือเหมือนเดิม และไม่มีอะไรกันความผิดพลาดได้</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th></th><th>ใช้แชต AI ทีละข่าว</th><th>AI Newsroom</th></tr></thead><tbody><tr><td>ใครหาข่าว</td><td>คนเปิดเว็บไล่ดูเอง</td><td>ระบบไล่แหล่งที่กำหนดทุกชั่วโมง และกันข่าวซ้ำ</td></tr><tr><td>ตรวจข้อเท็จจริง</td><td>ขึ้นกับว่าคนเขียนนึกถึงหรือไม่</td><td>เทียบ 4 จุดกับแหล่งทางการทุกข่าว และติดธงเมื่อยืนยันไม่ได้</td></tr><tr><td>สไตล์การเขียน</td><td>เปลี่ยนไปตาม prompt แต่ละครั้ง</td><td>ใช้คู่มือสไตล์ชุดเดียวที่สกัดจากโพสต์เดิมของเพจ</td></tr><tr><td>ภาพ</td><td>หาเอง หรือเสี่ยงไปใช้ภาพ AI</td><td>ใช้ภาพจริงจาก press kit หรือข่าวต้นทาง พร้อมเครดิต</td></tr><tr><td>ร่องรอยการทำงาน</td><td>ไม่มีบันทึก</td><td>ทุกข่าวบันทึกว่าใครอนุมัติ เมื่อไหร่ และโพสต์ไหน</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>ถ้าเพจของคุณโพสต์วันละไม่กี่ข่าว การใช้แชต AI อาจพอแล้ว AI Newsroom เหมาะกับเพจที่ต้องเลือกข่าวจากแหล่งจำนวนมากทุกวัน และต้องได้คุณภาพเท่ากันทุกชิ้น</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">7 ขั้นของ AI Newsroom</h2>
+<!-- /wp:heading -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>ขั้น</th><th>ใครทำ</th><th>ทีมปรับเองได้ (ไม่ต้องเขียนโค้ด)</th></tr></thead><tbody><tr><td>1. ค้นข่าว</td><td>กฎอัตโนมัติ</td><td>เพิ่มหรือลบแหล่งข่าว ความถี่ในการดึง</td></tr><tr><td>2. คัดกรองและตรวจข้อเท็จจริง</td><td><strong>AI</strong></td><td>หัวข้อที่สนใจและไม่สนใจ เรื่องที่ให้น้ำหนัก จำนวนข่าวสูงสุดต่อวัน</td></tr><tr><td>3. เขียนข่าวภาษาไทยใหม่</td><td><strong>AI</strong></td><td>โทน ความยาว โครงสร้าง คำที่ใช้และคำต้องห้าม</td></tr><tr><td>4. หาภาพจริง</td><td>กฎอัตโนมัติ</td><td>แหล่งภาพที่อนุญาตและไม่อนุญาต รูปแบบเครดิต</td></tr><tr><td>5. ทำภาพปก</td><td>กฎอัตโนมัติ (เลย์เอาต์ตายตัว)</td><td>เลย์เอาต์ โลโก้ สี ฟอนต์</td></tr><tr><td>6. บก. ตรวจและอนุมัติ</td><td><strong>คน</strong></td><td>ใครมีสิทธิ์อนุมัติ ช่องทางแจ้งเตือน</td></tr><tr><td>7. โพสต์ Facebook</td><td>กฎอัตโนมัติ</td><td>เวลาโพสต์มาตรฐาน จำนวนโพสต์ต่อวัน</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p><strong>AI อยู่แค่ขั้นที่ 2 และ 3 เพราะสองขั้นนี้เป็นงานภาษา</strong> เช่น การตัดสินว่าข่าวเข้าเรื่องหรือไม่ การจับคู่ว่าสองแหล่งพูดถึงเหตุการณ์เดียวกัน และการเรียบเรียงใหม่ ซึ่งกฎแบบตายตัวทำไม่ได้ ส่วนการดึงข่าว การหาภาพ การทำปก และการโพสต์เป็นงานที่ทำตามกฎได้ ถ้าให้ AI ทำงานเหล่านี้ด้วยจะได้ระบบที่แพงขึ้นและคาดเดาได้ยากขึ้นโดยไม่มีอะไรดีขึ้น</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">ขั้นที่ 1 — ค้นข่าว: ไล่แหล่งที่กำหนดทุกชั่วโมง เก็บแค่ข่าวใหม่</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>ระบบติดตามเว็บข่าวและหน้าข่าวทางการ (newsroom) ขององค์กรที่เพจสนใจผ่าน RSS หรือหน้ารวมข่าว <strong>ทุก 1 ชั่วโมง</strong> และเก็บเฉพาะข่าวที่ยังไม่เคยเห็น เพื่อกันข่าวซ้ำ รายชื่อแหล่งข่าวและความถี่อยู่ใน Google Sheet ที่ทีมแก้เองได้</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>ข้อจำกัด: เว็บที่ต้องล็อกอินหรือจำกัดการดึงข้อมูล <strong>อาจดึงได้แค่พาดหัวและสรุป</strong> และต้องเคารพเงื่อนไขการใช้งานของแต่ละเว็บ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">ขั้นที่ 2 — AI คัดกรองและตรวจข้อเท็จจริง</h3>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>ให้คะแนนตามหัวข้อที่เพจสนใจ</strong> เช่น สินค้าใหม่ การเปิดตัว ราคา เทคโนโลยี เทรนด์ แล้วตัดข่าวที่ไม่เข้าเรื่อง</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>จับคู่ข่าวเดียวกันจากหลายแหล่ง</strong> เพื่อให้ บก. เห็นข่าวเรื่องเดียวรวมเป็นชิ้นเดียว</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ตรวจ 4 อย่างกับแหล่งทางการ</strong> ได้แก่</li><!-- /wp:list-item --><!-- wp:list-item --><li>ชื่อ เช่น ชื่อรุ่น ชื่อบริษัท ชื่อบุคคล</li><!-- /wp:list-item --><!-- wp:list-item --><li>ตัวเลข เช่น สเปก สถิติ</li><!-- /wp:list-item --><!-- wp:list-item --><li>ราคา</li><!-- /wp:list-item --><!-- wp:list-item --><li>วันที่ เช่น วันเปิดตัว วันมีผล</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>ระบบใช้ search API ไปหาแหล่งทางการมาเทียบก่อนเขียน</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>แสดงระดับความมั่นใจ</strong> และ <strong>ติดธง "ยังไม่ยืนยัน / ข่าวลือ"</strong> เมื่อหาแหล่งทางการมายืนยันไม่ได้</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>สี่อย่างนี้เป็นจุดที่ข่าวแปลผิดบ่อยที่สุด และพอผิดแล้วผู้อ่านจับได้ทันที การตรวจของ AI ในขั้นนี้เป็นด่านแรกเท่านั้น ไม่ได้มาแทนการตรวจของ บก.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">ขั้นที่ 3 — เขียนข่าวภาษาไทยใหม่ ไม่แปลตรง ไม่คัดลอก</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>ก่อนเริ่ม เราสกัด <strong>คู่มือสไตล์</strong> จากโพสต์เดิมของเพจ <strong>20–30 โพสต์</strong> ให้ออกมาเป็นไฟล์ข้อความธรรมดาที่ทีมอ่านและแก้เองได้ แล้วให้ AI เขียนตามคู่มือนั้น ผลที่ได้มีดังนี้</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>พาดหัว 2 แบบ</strong> ให้ บก. เลือก</li><!-- /wp:list-item --><!-- wp:list-item --><li>เนื้อข่าว ไฮไลต์ ราคาและกำหนดการ (ถ้ามี) และมุมมองที่เกี่ยวกับผู้อ่านไทย</li><!-- /wp:list-item --><!-- wp:list-item --><li>แฮชแท็ก</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>แหล่งอ้างอิงท้ายข่าวทุกชิ้น</strong></li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>กติกาที่ไม่มีข้อยกเว้นคือ <strong>ไม่แปลตรงและไม่คัดลอกประโยคจากต้นทาง</strong> ด้วยสามเหตุผล</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"ordered":true} -->
+<ol class="wp-block-list"><!-- wp:list-item --><li>การแปลประโยคต่อประโยคเสี่ยงเรื่องลิขสิทธิ์</li><!-- /wp:list-item --><!-- wp:list-item --><li>ข่าวแปลตรงอ่านแล้วรู้ทันที</li><!-- /wp:list-item --><!-- wp:list-item --><li>ข่าวที่ไม่ได้เขียนให้ผู้อ่านไทยไม่บอกว่าเรื่องนั้นเกี่ยวกับคนอ่านยังไง</li><!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">ขั้นที่ 4 — หาภาพจริง ไม่ใช้ภาพที่ AI สร้าง</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>ระบบเลือกภาพตามลำดับนี้</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"ordered":true} -->
+<ol class="wp-block-list"><!-- wp:list-item --><li>ภาพจาก <strong>press kit / newsroom ทางการ</strong></li><!-- /wp:list-item --><!-- wp:list-item --><li>ภาพจากข่าวต้นทาง</li><!-- /wp:list-item --><!-- wp:list-item --><li>ถ้าไม่พบภาพที่ใช้ได้ ให้ <strong>แจ้ง บก. เลือกเอง</strong></li><!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>ทุกภาพต้องแนบลิงก์และเครดิตของแหล่งที่มา <strong>ไม่ใช้ภาพที่ AI สร้างในข่าว</strong> เพราะภาพข่าวต้องเป็นของจริง ภาพที่ AI วาดแทนสินค้าหรือเหตุการณ์จริงคือข้อมูลผิดที่ดูเหมือนจริง</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">ขั้นที่ 5 — ทำภาพปกจากเลย์เอาต์ประจำเพจ</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>ระบบประกอบภาพปกจากภาพจริง พาดหัวสั้น และโลโก้เพจ ลงใน <strong>เลย์เอาต์ตายตัว 2 แบบ</strong> ขนาดพอดี Facebook ทีมจึงไม่ต้องเปิดโปรแกรมทำกราฟิกทุกข่าว และปกทุกใบหน้าตาเป็นแบบเดียวกัน ฟอนต์ไทยที่ใช้บนปกต้องติดตั้งไว้บนเซิร์ฟเวอร์</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">ขั้นที่ 6 — บก. ตรวจและอนุมัติ (ขั้นที่ข้ามไม่ได้)</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>ข่าวแต่ละชิ้นจะถูกส่งไปสองที่</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>กลุ่ม LINE ของทีม บก.</strong> แสดงพาดหัว สรุป ภาพปก ลิงก์ต้นทาง และระดับความมั่นใจ</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>"โต๊ะ บก." ใน Google Sheets</strong> ข่าวรอเป็นคิว และแก้ข้อความได้ทุกจุด</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>บก. มี 4 ตัวเลือก</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>ตัวเลือก</th><th>เกิดอะไรต่อ</th></tr></thead><tbody><tr><td>อนุมัติ</td><td>เข้าคิวโพสต์</td></tr><tr><td>แก้แล้วอนุมัติ</td><td>โพสต์ฉบับที่ บก. แก้</td></tr><tr><td>ให้ AI เขียนใหม่ พร้อมคอมเมนต์</td><td>ส่งกลับไปขั้นที่ 3 พร้อมคำสั่งของ บก.</td></tr><tr><td>ไม่ใช้</td><td>ตัดทิ้ง และบันทึกเหตุผลไว้</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p><strong>AI ไม่โพสต์เองจนกว่า บก. จะกดอนุมัติ และไม่มีข่าวไหนโพสต์โดยไม่ผ่านคน</strong> ข้อนี้คือเงื่อนไขของการออกแบบ ไม่ใช่การตั้งค่าที่ปิดทีหลังได้ เหตุผลคือการตรวจในขั้นที่ 2 เป็นแค่ด่านแรก ความรับผิดชอบต่อสิ่งที่โพสต์ออกไปอยู่ที่เพจ และเพจต้องรู้ทุกครั้งว่าใครเป็นคนตัดสินใจ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">ขั้นที่ 7 — โพสต์ Facebook พร้อมบันทึกทุกโพสต์</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>ข่าวที่อนุมัติแล้วจะโพสต์ทันทีหรือตั้งเวลาผ่าน <strong>Meta Graph API</strong> พร้อมภาพปก เครดิต และแฮชแท็ก ระบบบันทึก <strong>เวลาโพสต์ ลิงก์โพสต์ และผู้อนุมัติ</strong> ลงในชีตเดียวกัน ถ้าย้อนกลับมาดูภายหลังจะรู้ทันทีว่าข่าวชิ้นไหนออกเมื่อไหร่และใครอนุมัติ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>การโพสต์ผ่าน API ต้องสร้างแอปใน Meta for Developers <strong>ภายใต้บัญชีของเพจเอง</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">เครื่องมือที่อยู่เบื้องหลัง (อธิบายแบบไม่ต้องเป็นโปรแกรมเมอร์)</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>n8n</strong> ทำหน้าที่ร้อยทุกขั้นเข้าด้วยกันเป็นสายงานเดียว เป็นเครื่องมือ workflow automation ที่ติดตั้งบนเซิร์ฟเวอร์ (VPS) ของเพจเองได้ อ่านเพิ่มที่ <a href="https://hashbox.co.th/n8n-thai-guide-2026/">n8n คืออะไร</a> และ <a href="https://hashbox.co.th/ตัวอย่าง-n8n-workflow-2026/">ตัวอย่าง n8n workflow ที่ใช้จริง</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>โมเดลภาษา (LLM)</strong> จาก OpenAI, Anthropic หรือ Google ใช้ในขั้นคัดกรอง ตรวจสอบ และเขียน เลือกโมเดลต่างกันได้ในแต่ละขั้นตามความยากของงาน</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>Search API</strong> ใช้หาแหล่งทางการมาเทียบข้อเท็จจริงในขั้นที่ 2</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>Google Sheets</strong> เป็นแผงควบคุมของทีม ทั้งแหล่งข่าว หัวข้อ โต๊ะ บก. และบันทึกการโพสต์ ส่วนคู่มือสไตล์และ prompt เก็บเป็นไฟล์ข้อความที่อ่านเข้าใจได้</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>LINE</strong> ใช้แจ้งเตือน บก. ดูการใช้ LINE กับระบบ AI เพิ่มเติมที่ <a href="https://hashbox.co.th/line-chatbot-ai-guide-2026/">คู่มือ LINE Chatbot AI</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>Meta Graph API</strong> ใช้โพสต์และตั้งเวลาโพสต์ Facebook</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>ระบบนี้เป็นตัวอย่างหนึ่งของ AI Agent ที่ทำงานหลายขั้นต่อกันและส่งต่อให้คนในจุดที่ต้องตัดสินใจ อ่านความต่างระหว่าง AI Agent กับ chatbot ได้ใน <a href="https://hashbox.co.th/ai-agent-คืออะไร-2026/">AI Agent คืออะไร ต่างจาก Chatbot ยังไง</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">กำหนดขนาดระบบก่อนเริ่ม: ถาม 5 ข้อนี้</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>ก่อนสร้าง ต้องตอบ 5 ข้อนี้ให้ได้ เพราะทุกข้อกระทบทั้งค่าใช้จ่ายรายเดือนและภาระของ บก.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"ordered":true} -->
+<ol class="wp-block-list"><!-- wp:list-item --><li><strong>ติดตามกี่แหล่งข่าว</strong> — แหล่งยิ่งมาก ข่าวที่ต้องคัดกรองก็ยิ่งมาก</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>โพสต์วันละกี่ข่าว</strong> — จำนวนนี้คือตัวกำหนดค่า AI ต่อเดือน</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>บก. กี่คน และตรวจได้วันละกี่ชิ้น</strong> — <strong>คอขวดจริงคือเวลาของคนตรวจ ไม่ใช่ AI</strong></li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>กี่ภาษา</strong></li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>กี่แพลตฟอร์ม</strong> — Facebook อย่างเดียว หรือรวมเว็บไซต์ Instagram TikTok</li><!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>ตัวอย่างการกำหนดขนาดสำหรับเพจเดียวในระยะแรก</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>เรื่อง</th><th>ขนาดตัวอย่าง</th></tr></thead><tbody><tr><td>แหล่งข่าว</td><td>หลักสิบแหล่ง (เริ่มจากแหล่งทางการก่อน)</td></tr><tr><td>ข่าวต่อวัน</td><td>ไม่เกินสิบกว่าข่าว — เพดานต่อเดือนกำหนดในสัญญา</td></tr><tr><td>ผู้ใช้ทีม บก.</td><td>ไม่กี่คน (กำหนดว่าใครอนุมัติได้)</td></tr><tr><td>ภาษา</td><td>ไทยภาษาเดียว</td></tr><tr><td>แพลตฟอร์ม</td><td>Facebook ก่อน แล้วค่อยเพิ่มช่องทางอื่นในระยะถัดไป</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>การกำหนดเพดานชัดตั้งแต่ต้นทำให้รู้ค่าใช้จ่ายล่วงหน้า และกันไม่ให้คิวของ บก. ล้นจนข่าวค้างตรวจ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">ทดสอบก่อนใช้จริง และใครเป็นเจ้าของระบบ</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>แผนตัวอย่างสำหรับเพจเดียว ใช้เวลาประมาณ 6 สัปดาห์ (พัฒนา 4 สัปดาห์ + ทดลองใช้จริงและส่งมอบ 2 สัปดาห์)</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>สัปดาห์</th><th>งาน</th></tr></thead><tbody><tr><td>1</td><td>เก็บรายชื่อแหล่งข่าวและโพสต์เดิม 20–30 โพสต์ สกัดคู่มือสไตล์ ตั้งเกณฑ์คัดข่าว ติดตั้ง n8n และเปิดบัญชีที่จำเป็น</td></tr><tr><td>2</td><td>ทำส่วนค้นข่าว คัดกรอง ตรวจสอบ และเขียนข่าว ส่งข่าวตัวอย่าง 10 ชิ้นให้ บก. ให้ความเห็น</td></tr><tr><td>3</td><td>ทำส่วนหาภาพ ภาพปก และโต๊ะ บก. ปรับ prompt รอบที่ 2</td></tr><tr><td>4</td><td>เชื่อม Facebook Page แล้ว<strong>ทดสอบทั้งระบบแบบร่างอย่างเดียว ยังไม่โพสต์จริง</strong></td></tr><tr><td>5</td><td>ทดลองใช้จริงกับทีม บก. (ยังตรวจทุกข่าว) และอบรมครั้งที่ 1</td></tr><tr><td>6</td><td>ส่งมอบ อบรมครั้งที่ 2 และตรวจรับงาน</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p><strong>ระบบเฝ้าระวัง:</strong> ระบบจะแจ้งเตือนเมื่อสายงานหยุดทำงาน หรือเมื่อการเชื่อมต่อ Facebook หมดอายุ เพราะการเชื่อมต่อลักษณะนี้หมดอายุเป็นรอบ และถ้าไม่มีใครรู้ เพจจะเงียบไปเฉยๆ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>ความเป็นเจ้าของ:</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li>บัญชี Facebook App, LINE และ Google เปิดใน<strong>ชื่อของเพจตั้งแต่วันแรก</strong></li><!-- /wp:list-item --><!-- wp:list-item --><li>workflow ทุกตัว export ออกมาเป็นไฟล์ได้</li><!-- /wp:list-item --><!-- wp:list-item --><li>เพจรับโอนเซิร์ฟเวอร์และ API key ไปดูแลเองได้</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>ระบบที่ผูกอยู่กับบัญชีของผู้รับจ้าง เท่ากับผู้รับจ้างถือกุญแจเพจของคุณไว้</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">ข้อจำกัดที่ต้องรู้ก่อนตัดสินใจทำ</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><strong>AI ไม่ได้แม่น 100%</strong> AI เป็นเครื่องมือช่วยร่างและตรวจเบื้องต้น ความรับผิดชอบต่อเนื้อหาที่โพสต์ยังเป็นของเพจ ระบบนี้ไม่ได้ออกแบบมาให้ข้ามคนตรวจได้</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>สิทธิ์ในภาพเป็นหน้าที่ของทีม</strong> ภาพจาก press kit ส่วนใหญ่ให้ใช้ประกอบข่าวได้ แต่เงื่อนไขต่างกันในแต่ละแหล่ง ทีม บก. ต้องตรวจเอง ระบบช่วยแนบเครดิตและลิงก์ได้ แต่รับรองสิทธิ์แทนไม่ได้</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>แหล่งที่ต้องล็อกอินหรือติด paywall</strong> อาจได้แค่พาดหัวและสรุป</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>นโยบายของ Meta เปลี่ยนได้</strong> สิทธิ์ของ API และขั้นตอนอนุมัติแอปเปลี่ยนเป็นระยะ ต้องมีคนคอยดูแล</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>จริยธรรมและลิขสิทธิ์</strong> ต้องเขียนใหม่ทุกครั้งโดยไม่แปลตรง อ้างแหล่งที่มาทุกข่าว และไม่นำเสนอข่าวลือเหมือนข้อเท็จจริง ควรตกลงนโยบายภายในด้วยว่าจะบอกผู้อ่านหรือไม่ว่าใช้ AI ช่วยเรียบเรียง</li><!-- /wp:list-item --><!-- wp:list-item --><li><strong>ค่าใช้จ่ายโตตามจำนวนข่าว</strong> ทั้งค่าโมเดลภาษา ค่า search API และค่าเซิร์ฟเวอร์ ยิ่งโพสต์มาก ค่าใช้จ่ายรายเดือนก็ยิ่งสูง</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">เหมาะกับเพจแบบไหน</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><strong>เหมาะกับ</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li>เพจที่ข่าวมาจากแหล่งเปิดและแหล่งทางการเป็นหลัก เช่น ข่าวเทคโนโลยี ข่าวรถยนต์ ข่าวเกม ข่าวธุรกิจ ข่าวกีฬาต่างประเทศ</li><!-- /wp:list-item --><!-- wp:list-item --><li>มี บก. อย่างน้อย 1 คนที่ตรวจข่าวได้ทุกวัน</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p><strong>ไม่เหมาะกับ</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li>ข่าวเชิงสืบสวน</li><!-- /wp:list-item --><!-- wp:list-item --><li>ข่าวท้องถิ่นที่ต้องลงพื้นที่</li><!-- /wp:list-item --><!-- wp:list-item --><li>ข่าวด่วนที่ต้องยืนยันกับแหล่งข่าวที่เป็นคน</li><!-- /wp:list-item --><!-- wp:list-item --><li>เพจที่หวังให้ระบบโพสต์เองโดยไม่มีคนตรวจ</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">อ่านต่อ</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><a href="https://hashbox.co.th/ai-agent-คืออะไร-2026/">AI Agent คืออะไร? 3 ตัวอย่างที่ธุรกิจไทยใช้ได้จริง</a> — AI Newsroom เป็นหนึ่งในสามตัวอย่าง AI Agent ที่ใช้กับธุรกิจไทยได้</li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="https://hashbox.co.th/n8n-thai-guide-2026/">n8n คืออะไร เหมาะกับงานแบบไหน</a> — เครื่องมือที่ร้อยทั้ง 7 ขั้นเข้าด้วยกัน</li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="https://hashbox.co.th/ตัวอย่าง-n8n-workflow-2026/">ตัวอย่าง n8n Workflow ที่ใช้จริง</a> — ลำดับ node และจุดที่พังบ่อย</li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="https://hashbox.co.th/line-chatbot-ai-guide-2026/">คู่มือ LINE Chatbot AI</a> — ถ้าอยากให้ LINE ทำมากกว่าการแจ้งเตือน</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>ถ้าต้องการวางระบบแบบนี้ให้ทีมของคุณ ดู <a href="https://hashbox.co.th/services/n8n-automation/">บริการรับทำ n8n Automation</a> หรือ <a href="https://hashbox.co.th/services/ai-consulting/">คุยกับที่ปรึกษา AI สำหรับธุรกิจ</a> เพื่อประเมินขอบเขตก่อนเริ่ม</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">FAQ: คำถามที่พบบ่อยเรื่อง AI Newsroom</h2>
+<!-- /wp:heading -->
+
+<!-- wp:rank-math/faq-block {"titleWrapper":"h3","questions":[{"id":"faq-question-1","title":"AI Newsroom คืออะไร?","content":"AI Newsroom คือระบบที่ให้ AI ช่วยงานซ้ำๆ ของทีมข่าว ได้แก่ ไล่ดูแหล่งข่าว คัดข่าวที่เข้าเรื่อง ตรวจข้อเท็จจริงเบื้องต้น และร่างข่าวภาษาไทยพร้อมภาพ จากนั้นบรรณาธิการเป็นผู้ตัดสินใจก่อนโพสต์ทุกชิ้น ระบบนี้ไม่ได้มาแทนนักข่าว แต่ย้ายเวลาของทีมจากการหาข่าวและเรียบเรียงไปอยู่ที่การตรวจและตัดสินใจ","visible":true},{"id":"faq-question-2","title":"ให้ AI เขียนข่าวแล้วโพสต์อัตโนมัติเลยได้ไหม?","content":"ในทางเทคนิคทำได้ แต่เราไม่ออกแบบแบบนั้น ในระบบที่เราออกแบบ AI จะไม่โพสต์เองจนกว่า บก. จะกดอนุมัติ เพราะการตรวจข้อเท็จจริงของ AI เป็นแค่ด่านแรกและไม่ได้แม่น 100% ความรับผิดชอบต่อเนื้อหายังเป็นของเพจ","visible":true},{"id":"faq-question-3","title":"ป้องกัน AI สรุปข่าวหรือเขียนข่าวผิดได้ยังไง?","content":"ก่อนเขียน ระบบเทียบ 4 อย่างกับแหล่งทางการ คือ ชื่อ ตัวเลข ราคา และวันที่ แล้วแสดงระดับความมั่นใจ ถ้ายืนยันไม่ได้จะติดธง \u0022ยังไม่ยืนยัน / ข่าวลือ\u0022 และแนบลิงก์ต้นทางให้ บก. ตรวจทุกชิ้นก่อนอนุมัติ","visible":true},{"id":"faq-question-4","title":"ใช้ภาพที่ AI สร้างประกอบข่าวได้ไหม?","content":"ในระบบที่เราออกแบบไม่ใช้ เพราะภาพข่าวต้องเป็นของจริง ระบบเลือกภาพจาก press kit หรือ newsroom ทางการก่อน รองลงมาคือภาพจากข่าวต้นทาง แนบเครดิตและลิงก์ทุกภาพ ถ้าหาภาพไม่ได้จะให้ บก. เลือกเอง","visible":true},{"id":"faq-question-5","title":"ทีมต้องเขียนโค้ดเป็นไหมถึงจะดูแลระบบได้?","content":"ไม่ต้อง สิ่งที่ต้องปรับบ่อย ได้แก่ แหล่งข่าว หัวข้อ โทนการเขียน คำต้องห้าม และเวลาโพสต์ อยู่ใน Google Sheets กับไฟล์ข้อความที่อ่านเข้าใจได้ ส่วนสายงานเบื้องหลังสร้างบน n8n ซึ่งเป็นเครื่องมือ workflow automation แบบไม่ต้องเขียนโค้ด","visible":true},{"id":"faq-question-6","title":"n8n โพสต์ Facebook อัตโนมัติได้ไหม?","content":"ได้ ผ่าน Meta Graph API โดยต้องสร้างแอปใน Meta for Developers ภายใต้บัญชีของเพจเอง สิ่งที่ต้องระวังคือการเชื่อมต่อหมดอายุเป็นรอบ และนโยบายของ Meta เปลี่ยนได้ ระบบจึงควรแจ้งเตือนทันทีเมื่อการเชื่อมต่อหลุด","visible":true}]} -->
+<div class="wp-block-rank-math-faq-block"><div class="rank-math-faq-item"><h3 class="rank-math-question">AI Newsroom คืออะไร?</h3><div class="rank-math-answer">AI Newsroom คือระบบที่ให้ AI ช่วยงานซ้ำๆ ของทีมข่าว ได้แก่ ไล่ดูแหล่งข่าว คัดข่าวที่เข้าเรื่อง ตรวจข้อเท็จจริงเบื้องต้น และร่างข่าวภาษาไทยพร้อมภาพ จากนั้นบรรณาธิการเป็นผู้ตัดสินใจก่อนโพสต์ทุกชิ้น ระบบนี้ไม่ได้มาแทนนักข่าว แต่ย้ายเวลาของทีมจากการหาข่าวและเรียบเรียงไปอยู่ที่การตรวจและตัดสินใจ</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">ให้ AI เขียนข่าวแล้วโพสต์อัตโนมัติเลยได้ไหม?</h3><div class="rank-math-answer">ในทางเทคนิคทำได้ แต่เราไม่ออกแบบแบบนั้น ในระบบที่เราออกแบบ AI จะไม่โพสต์เองจนกว่า บก. จะกดอนุมัติ เพราะการตรวจข้อเท็จจริงของ AI เป็นแค่ด่านแรกและไม่ได้แม่น 100% ความรับผิดชอบต่อเนื้อหายังเป็นของเพจ</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">ป้องกัน AI สรุปข่าวหรือเขียนข่าวผิดได้ยังไง?</h3><div class="rank-math-answer">ก่อนเขียน ระบบเทียบ 4 อย่างกับแหล่งทางการ คือ ชื่อ ตัวเลข ราคา และวันที่ แล้วแสดงระดับความมั่นใจ ถ้ายืนยันไม่ได้จะติดธง "ยังไม่ยืนยัน / ข่าวลือ" และแนบลิงก์ต้นทางให้ บก. ตรวจทุกชิ้นก่อนอนุมัติ</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">ใช้ภาพที่ AI สร้างประกอบข่าวได้ไหม?</h3><div class="rank-math-answer">ในระบบที่เราออกแบบไม่ใช้ เพราะภาพข่าวต้องเป็นของจริง ระบบเลือกภาพจาก press kit หรือ newsroom ทางการก่อน รองลงมาคือภาพจากข่าวต้นทาง แนบเครดิตและลิงก์ทุกภาพ ถ้าหาภาพไม่ได้จะให้ บก. เลือกเอง</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">ทีมต้องเขียนโค้ดเป็นไหมถึงจะดูแลระบบได้?</h3><div class="rank-math-answer">ไม่ต้อง สิ่งที่ต้องปรับบ่อย ได้แก่ แหล่งข่าว หัวข้อ โทนการเขียน คำต้องห้าม และเวลาโพสต์ อยู่ใน Google Sheets กับไฟล์ข้อความที่อ่านเข้าใจได้ ส่วนสายงานเบื้องหลังสร้างบน n8n ซึ่งเป็นเครื่องมือ workflow automation แบบไม่ต้องเขียนโค้ด</div></div><div class="rank-math-faq-item"><h3 class="rank-math-question">n8n โพสต์ Facebook อัตโนมัติได้ไหม?</h3><div class="rank-math-answer">ได้ ผ่าน Meta Graph API โดยต้องสร้างแอปใน Meta for Developers ภายใต้บัญชีของเพจเอง สิ่งที่ต้องระวังคือการเชื่อมต่อหมดอายุเป็นรอบ และนโยบายของ Meta เปลี่ยนได้ ระบบจึงควรแจ้งเตือนทันทีเมื่อการเชื่อมต่อหลุด</div></div></div>
+<!-- /wp:rank-math/faq-block -->
