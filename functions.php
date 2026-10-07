@@ -3262,6 +3262,9 @@ function hashbox_llms_txt_content() {
     $lines[] = '- [n8n คืออะไร](' . home_url( '/n8n-thai-guide-2026/' ) . '): When n8n fits and when it does not, from a team that ran it in production';
     $lines[] = '- [ตัวอย่าง n8n workflow](' . home_url( '/ตัวอย่าง-n8n-workflow-2026/' ) . '): 6 workflows with node chains and monthly executions';
     $lines[] = '- [AI Agent / RAG Chatbot](' . home_url( '/ai-agent-rag-chatbot-thailand-2026/' ) . '): AI agents and RAG for Thai businesses';
+    $lines[] = '- [AI Agent คืออะไร + 3 ตัวอย่างจริง](' . home_url( '/ai-agent-คืออะไร-2026/' ) . '): AI agent vs chatbot vs automation; a live stock system and two designs, each labelled by status';
+    $lines[] = '- [จุดสั่งซื้อและ Safety Stock คำนวณยังไง](' . home_url( '/จุดสั่งซื้อ-safety-stock-2026/' ) . '): Reorder point and safety stock formulas with real data from a 27,000-SKU parts shop (original data)';
+    $lines[] = '- [AI Newsroom คืออะไร](' . home_url( '/ai-newsroom-2026/' ) . '): A 7-step AI newsroom design where an editor approves every story';
     $lines[] = '- [Next.js vs WordPress 2026](' . home_url( '/nextjs-vs-wordpress-2026/' ) . '): Stack comparison for SEO performance';
     $lines[] = '- [AI Workforce Guide for Thai SMEs](' . home_url( '/ai-workforce-sme-thailand-2026/' ) . '): AI adoption playbook for Thai businesses';
     $lines[] = '- [LINE Chatbot AI Guide 2026](' . home_url( '/line-chatbot-ai-guide-2026/' ) . '): Conversational AI for LINE platform';
