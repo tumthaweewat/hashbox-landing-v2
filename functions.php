@@ -1014,7 +1014,7 @@ function hashbox_get_seo_metadata() {
         ),
         'en/ai-consulting-companies-thailand-2026' => array(
             'title'       => 'AI Consulting Companies in Thailand 2026: 9 Firms Compared | Hashbox',
-            'description' => '9 AI consulting companies in Thailand compared on 7 criteria you can verify: public pricing, ROI assessment, production delivery and code handover.roduction, source-code handover, Thai context, named cases, SME entry. Hashbox 7/7, DBot 5/7, Botnoi 4/7.',
+            'description' => '9 AI consulting companies in Thailand compared on 7 criteria you can verify: public pricing, ROI assessment, production delivery and code handover.',
         ),
         'en/ai-consulting' => array(
             'title'       => 'AI Consulting Company in Bangkok, Thailand | Hashbox',
@@ -1882,6 +1882,14 @@ function hashbox_prime_rankmath_sitemap_request() {
     }
 }
 add_action( 'init', 'hashbox_prime_rankmath_sitemap_request', -100 );
+
+/*
+ * Rank Math's sitemap cache is never invalidated on this host (2026-10-07: post-sitemap.xml
+ * still at 10-06 after three posts went live, edited posts kept old lastmod, clearing
+ * Rank Math transients did nothing). ~80 URLs is cheap to build per request; a stale
+ * sitemap hides new posts from Google. tools/test-sitemap-llms.php
+ */
+add_filter( 'rank_math/sitemap/enable_caching', '__return_false' );
 
 function hashbox_flush_rankmath_sitemap_rewrites_once() {
     if ( ! hashbox_rank_math_is_active() ) {
@@ -3285,6 +3293,8 @@ function hashbox_llms_txt_content() {
     $lines[] = '- SEO-Ready Enterprise: from 500,000 THB / 8-14 weeks';
     // One-off build fees above; this one is a monthly retainer, hence the unit.
     $lines[] = '- SEO retainer (technical-first, incl. GEO): from 29,900 THB / month — guarantee: technical pass in 30 days; if impressions do not grow 50% in 90 days we keep working free (max 3 months)';
+    // The catalogue refactor dropped this assignment; undefined = the price line never rendered.
+    $hb_has_n8n_page = (bool) get_page_by_path( 'services/n8n-automation', OBJECT, 'page' );
     if ( $hb_has_n8n_page ) {
         $lines[] = '- n8n automation build (self-hosted, handover included): from 29,000 THB / project';
     }

@@ -25,3 +25,5 @@ jobs:
         run: php tools/test-founder-avatar.php
       - name: Generated meta descriptions (Thai-aware length)
         run: php tools/test-meta-excerpt.php
+      - name: Sitemap cache, llms.txt and meta map contract
+        run: php tools/test-sitemap-llms.php
