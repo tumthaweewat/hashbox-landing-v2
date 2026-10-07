@@ -237,7 +237,7 @@ $pricing = array(
     <div class="hb-container hb-container--md">
         <span class="hb-eyebrow">Comparison</span>
         <h2 class="hb-h2" style="margin-top:var(--hb-space-3);">Hashbox AI Consulting vs ทางเลือกอื่น</h2>
-        <p class="hb-lead" style="margin-top:var(--hb-space-4);">เทียบ deliverable + ผลลัพธ์ vs ทางเลือกที่บริษัทไทยพิจารณาบ่อย</p>
+        <p class="hb-lead" style="margin-top:var(--hb-space-4);">เทียบ deliverable + ผลลัพธ์ vs ทางเลือกที่บริษัทไทยพิจารณาบ่อย · ถ้าต้องการเทียบรายบริษัท ดู <a href="<?php echo esc_url( home_url( '/บริษัทที่ปรึกษา-ai-ไทย-2026/' ) ); ?>">บริษัทที่ปรึกษา AI ในไทย 9 เจ้า เทียบด้วย 7 เกณฑ์ที่ตรวจเองได้</a></p>
         <div style="margin-top:var(--hb-space-6);overflow-x:auto;">
             <table style="width:100%;border-collapse:collapse;font-size:var(--hb-text-sm);min-width:680px;">
                 <thead>
@@ -413,6 +413,10 @@ $pricing = array(
             <a class="hb-card" href="<?php echo esc_url( home_url( '/ai-agent-คืออะไร-2026/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">Guide</span>
                 <h3 class="hb-card__title">AI Agent คืออะไร + 3 ตัวอย่างจริง</h3>
+            </a>
+            <a class="hb-card" href="<?php echo esc_url( home_url( '/บริษัทที่ปรึกษา-ai-ไทย-2026/' ) ); ?>" style="text-decoration:none;">
+                <span class="hb-eyebrow">Comparison</span>
+                <h3 class="hb-card__title">บริษัทที่ปรึกษา AI ในไทย: เทียบ 9 บริษัท</h3>
             </a>
         </div>
     </div>
