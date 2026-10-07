@@ -18,6 +18,8 @@ $cases = array(
     array( 'ตัวอย่าง-n8n-workflow-2026', 'ai-consulting', 'n8n' ),
     array( 'seo-สายเทา-vs-สายขาว-2026', 'seo', 'seo-white-hat' ),
     array( 'lighthouse-100-ทำยังไง-2026', 'seo', 'website' ),
+    // Core Web Vitals sits with LCP/Lighthouse — performance is sold as part of the website build (content map 2026-10-07)
+    array( 'core-web-vitals-thai-guide-2026', 'seo', 'website' ),
     array( 'best-seo-agencies-bangkok-2026', 'seo', 'seo-en' ),
     // category defaults
     array( 'technical-seo-guide', 'seo', 'seo' ),

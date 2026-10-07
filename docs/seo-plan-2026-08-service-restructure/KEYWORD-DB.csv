@@ -3,7 +3,7 @@ score,group,keyword,lang,intent,cluster,rank_2026-08-28,landing_page,serp_owner,
 49,Win,ai consulting companies bangkok,en,commercial,ai-consulting-en,16,/en/ai-consulting/,map 100%,5,5,5,4,B5 + C3 listicle | listicle /en/ page 270 live,C3,onsite done 2026-08-29 (post 251 -> page 270 /en/ 2026-08-31),86,13.0
 49,Win,ai consultant bangkok,en,commercial,ai-consulting-en,18,/en/ai-consulting/,map 100%,5,5,5,4,B5 + GBP,B5,onsite done 2026-08-29,101,13.4
 49,Win,ai consulting companies thailand,en,commercial,ai-consulting-en,23,/en/ai-consulting-companies-thailand-2026/,map 100%,5,5,5,4,"C3 listicle (AIO 25 sources, none us) | listicle /en/ page 270 live",C3,"onsite done 2026-08-29 (post 251 -> page 270 /en/ 2026-08-31) | owner -> listicle 2026-09-04 (audit: thailand/company variants to listicle, bangkok variants stay /en/ai-consulting/)",52,44.5
-45,Defend,บริการให้คำปรึกษา ai solution,th,commercial,ai-consulting,9,/ai-solution-consulting-guide-2026/,organic,5,4,4,5,H2 variant on post 170 + link from service page,B3,onsite done 2026-08-29,254,35.3
+45,Defend,บริการให้คำปรึกษา ai solution,th,commercial,ai-consulting,9,/ai-solution-consulting-guide-2026/,organic,5,4,4,5,H2 variant on post 170 + link from service page,B3,onsite done 2026-08-29 | 2026-10-07 owner confirmed (content map),254,35.3
 45,Win,ที่ปรึกษา ai ไทย,th,commercial,ai-consulting,14,/services/ai-consulting/,organic,5,5,3,4,refresh service page template (B3) + footer/nav links,B3,onsite done 2026-08-29,12,15.2
 44,Build,รับทำ seo technical audit,th,transactional,seo,31,/seo-audit/,-,5,5,3,3,sitemap + title 'รับทำ Technical SEO Audit',A7,onsite done 2026-08-29,14,36.5
 43,Build,รับทำ n8n,th,transactional,n8n,-,/services/n8n-automation/,-,5,3,5,4,B4 + footer + A6 links from post 196,B4,onsite done 2026-08-29,,
@@ -40,14 +40,14 @@ score,group,keyword,lang,intent,cluster,rank_2026-08-28,landing_page,serp_owner,
 35,Build,รับทำเว็บไซต์ wordpress,th,transactional,website,-,/services/website-development/wordpress/,-,4,3,3,4,bullet from home + footer link,A1,onsite done 2026-08-29,,
 35,Build,รับทำ seo สายขาว,th,transactional,seo,-,/services/seo/white-hat/,nerdoptimize #1,4,3,3,4,child page owns keyword; parent FAQ de-exact-matched + links,B1,kept child page 2026-08-29,,
 35,Build,เว็บไซต์ seo ready,th,commercial,website,-,/services/website-development/,video 100%,4,3,3,4,B2 + video 'SEO-Ready คืออะไร',E2,onsite done 2026-08-29,,
-35,Build,n8n ราคา,th,commercial,n8n,-,/services/n8n-automation/,-,4,3,3,4,"B4 H2 'n8n ราคา' 29,000 + FAQ",B4,onsite done 2026-08-29,,
+35,Build,n8n ราคา,th,commercial,n8n,-,/n8n-ราคา-2026/,-,4,3,3,4,"B4 H2 'n8n ราคา' 29,000 + FAQ",B4,onsite done 2026-08-29 | 2026-10-07 owner -> dedicated post /n8n-ราคา-2026/ (content map; was service page / post 196),,
 35,Build,n8n automation ราคา,th,commercial,n8n,-,/services/n8n-automation/,-,4,3,3,4,same,B4,onsite done 2026-08-29,,
 35,Win,technical seo คือ,th,informational,seo,30,/technical-seo-guide/,-,3,4,3,5,same,A6,onsite done 2026-08-29,35,38.6
 34,Build,n8n คือ,th,informational,n8n,46,/n8n-thai-guide-2026/,video 100%,3,4,3,4,refresh + video embed + link to n8n service,E2,onsite done 2026-08-29,4,40.2
 34,Win,local seo bkk,en,commercial,seo,30,/local-seo-bangkok-b2b-2026/,-,3,4,3,4,same as above,A7,onsite done 2026-08-29,12,41.0
 34,Build,รับทำ ai,th,transactional,ai-consulting,-,/services/ai-consulting/,-,4,2,4,4,B3 H2 variant,B3,onsite done 2026-08-29,1,37.0
 32,Build,technical seo,en,informational,seo,49,/technical-seo-guide/,-,3,3,3,5,refresh + CTA → /seo-audit/ + link /en/seo/,A6,onsite done 2026-08-29,53,60.7
-31,Build,n8n workflow,th,informational,n8n,-,/n8n-thai-guide-2026/,video 100%,3,3,3,4,post 196 + video,E2,onsite done 2026-08-29,,
+31,Build,n8n workflow,th,informational,n8n,-,/ตัวอย่าง-n8n-workflow-2026/,video 100%,3,3,3,4,post 196 + video,E2,onsite done 2026-08-29 | 2026-10-07 owner -> /ตัวอย่าง-n8n-workflow-2026/ (focus of that post; was post 196),,
 31,Build,website development bangkok,en,transactional,website,-,/en/website-development/,map 100%,4,2,4,4,/en/website-development/ EN page (pricing table + FAQ 8),P3,EN page live 2026-08-29,,
 30,Build,ai consulting company,en,commercial,ai-consulting-en,-,/en/ai-consulting-companies-thailand-2026/,video 100%,3,2,4,4,B5 + C3 | listicle /en/ page 270 live,C3,"onsite done 2026-08-29 (post 251 -> page 270 /en/ 2026-08-31) | owner -> listicle 2026-09-04 (audit: thailand/company variants to listicle, bangkok variants stay /en/ai-consulting/)",12,55.4
 29,Build,รับทำเว็บไซต์ คลินิก,th,transactional,website,-,/services/website-development/clinic/,-,4,2,3,1,child page exists (no clinic case yet — no testimonial/case on page),C7,kept child page 2026-08-29,,
@@ -55,7 +55,7 @@ score,group,keyword,lang,intent,cluster,rank_2026-08-28,landing_page,serp_owner,
 29,Build,เว็บโหลดช้า,th,informational,website,-,/core-web-vitals-thai-guide-2026/,fb 33%,3,3,2,4,post CTA → /website-audit/,A6,onsite done 2026-08-29,,
 28,Build,ai consultant,en,commercial,ai-consulting-en,-,/en/ai-consulting/,video 100%,3,2,3,4,B5; global term low chance,B5,onsite done 2026-08-29,28,76.4
 27,Build,seo agency,en,commercial,seo,-,/en/seo/,map 100%,3,1,4,4,/en/seo/ money page + C2 listicle (post 250) as support,C2,EN page live 2026-08-29 (page 260),,
-26,Build,core web vitals คือ,th,informational,seo,-,/core-web-vitals-thai-guide-2026/,-,2,3,2,5,refresh + CTA,A6,onsite done 2026-08-29,,
+26,Build,core web vitals คือ,th,informational,website,-,/core-web-vitals-thai-guide-2026/,-,2,3,2,5,refresh + CTA,A6,onsite done 2026-08-29 | 2026-10-07 silo hub -> /services/website-development/ (with LCP/Lighthouse),,
 25,Defend,hashbox,brand,navigational,brand,5,/,play.google 17%,3,2,1,5,Organization alternateName/sameAs,D3,onsite done 2026-08-29,17,3.3
 25,Build,seo คือ,th,informational,seo,-,post 210 hub,-,2,2,3,5,hub exists; CTA → /services/seo/,A6,onsite done 2026-08-29,,
 24,Build,ai overview,th,informational,ai-search,-,post 208,-,2,2,3,4,post 208 CTA → ai-search,A6,onsite done 2026-08-29,,
@@ -69,7 +69,7 @@ score,group,keyword,lang,intent,cluster,rank_2026-08-28,landing_page,serp_owner,
 36,Build,technical seo agency thailand,en,commercial,seo,-,/en/seo/,-,4,3,3,4,/en/seo/ H1 Technical-first SEO agency + guide post link,C,EN page live 2026-08-29 (page 260),,
 34,Build,google ai mode คืออะไร,th,informational,ai-search,-,/google-ai-mode-คืออะไร-2026/,-,3,3,5,4,C4 synonym post (post 18) → /services/ai-search/,C4,published 2026-08-30,,
 33,Build,aeo คืออะไร,th,informational,ai-search,-,/aeo-คืออะไร-2026/,-,3,3,5,4,C4 synonym post (post 19) → /services/ai-search/,C4,published 2026-08-30,,
-45,Win,บริการให้คำปรึกษา ai solution,th,commercial,ai-consulting,62,/services/ai-consulting/,-,5,4,4,4,H1/title/answer now carry phrase (2026-08-29) — was unowned; 124 impr pos 62,B4,onsite done 2026-08-29,124,62.2
+45,Win,บริการให้คำปรึกษา ai solution,th,commercial,ai-consulting,62,/services/ai-consulting/,-,5,4,4,4,H1/title/answer now carry phrase (2026-08-29) — was unowned; 124 impr pos 62,B4,"onsite done 2026-08-29 | 2026-10-07 SUPERSEDED: owner = post 170 (#12 on 10-07; service page not in top 20) — service H1 keeps the phrase from 08-29, do not add more; review 2026-11-03",124,62.2
 38,Build,ปรึกษา ai transformation,th,commercial,ai-consulting,64,/services/ai-consulting/,-,4,3,4,4,H2 variant + FAQ (exists); candidate enterprise section,B4,onsite done 2026-08-29 | 2026-09-08 audit: post 220 held #18 then fell out (informational vs service intent) -> service page owns; enterprise section added (#ai-transformation); dup post-220 row removed,29,63.7
 30,Build,การันตี seo,th,commercial,seo,-,/services/seo/guarantee-terms/,-,3,3,3,4,terms page (page 268) + /services/seo/#guarantee summary,B1,published 2026-08-29,,
 40,Build,ค่าจ้าง seo,th,commercial,seo,-,/ค่าจ้าง-seo-2026/,map (รับทำ seo),4,4,4,4,pricing guide post 272 — evidence จาก research post 250,C5,live 2026-08-31 (post 272),,

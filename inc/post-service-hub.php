@@ -99,7 +99,7 @@ function hashbox_post_service_hub_key( $slug, $category_slug ) {
         ),
         'n8n'           => array( 'n8n-ราคา-2026', 'n8n-thai-guide-2026', 'ตัวอย่าง-n8n-workflow-2026' ),
         'seo-white-hat' => array( 'seo-สายเทา-vs-สายขาว-2026' ),
-        'website'       => array( 'lighthouse-100-ทำยังไง-2026', 'lcp-คือ-วิธีแก้-2026' ),
+        'website'       => array( 'lighthouse-100-ทำยังไง-2026', 'lcp-คือ-วิธีแก้-2026', 'core-web-vitals-thai-guide-2026' ),
         'seo-en'        => array( 'best-seo-agencies-bangkok-2026' ),
     );
     foreach ( $overrides as $key => $slugs ) {

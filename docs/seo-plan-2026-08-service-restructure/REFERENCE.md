@@ -22,22 +22,29 @@
 | **รับทำเว็บไซต์ (ทุก variant), รับทำ seo, รับทำ n8n, geo คือ, ai overview, technical seo…** | — | ไม่ติด top 20 | ดู 6.3 |
 
 ### 6.2 Keyword ownership map (กติกา: 1 keyword = 1 หน้า — anchor บนหน้าแรก/nav ต้องชี้ตามนี้)
+
+> **อัปเดต 2026-10-07** ให้ตรงกับ content map (`hashbox-seo-stack/docs/research/2026-10-07-content-map.md` หัวข้อ 3 — ตารางเจ้าของคำล่าสุด) ·
+> ย้าย: `n8n ราคา` → `/n8n-ราคา-2026/` · `n8n workflow` → `/ตัวอย่าง-n8n-workflow-2026/` · `geo seo` → `/services/ai-search/` (intent เชิงจ้าง ตาม KEYWORD-DB) ·
+> `บริการให้คำปรึกษา ai solution` → post 170 (อันดับ 12 · หน้าบริการไม่ติด 20 อันดับแรก) · `บริษัทรับทำ seo` → post 250 (listicle) · ขัดกันเมื่อไหร่ให้ยึด content map
+
 | Keyword | หน้าเจ้าของ | anchor ที่ใช้บนหน้าแรก/nav |
 |---|---|---|
 | ปรึกษาทำระบบ ai solution (สำหรับธุรกิจ) | **post 170** (pos 3 — อย่าย้าย) | bullet ในแถว AI: "ปรึกษาทำระบบ AI Solution → คู่มือ" ชี้ post 170 |
-| ที่ปรึกษา ai (ไทย/สำหรับธุรกิจ), บริการให้คำปรึกษา ai | `/services/ai-consulting/` | **แถว 2 ของ service list = "ที่ปรึกษา AI สำหรับธุรกิจ — วางระบบ AI Solution ถึง production"** ชี้ service page (ไม่ใช้วลี "ปรึกษาทำระบบ ai solution" เป็น anchor ไปหน้า service เพื่อไม่แย่ง post 170) |
+| ที่ปรึกษา ai (ไทย/สำหรับธุรกิจ), บริการให้คำปรึกษา ai (ไม่รวม "…ai solution" → post 170) | `/services/ai-consulting/` | **แถว 2 ของ service list = "ที่ปรึกษา AI สำหรับธุรกิจ — วางระบบ AI Solution ถึง production"** ชี้ service page (ไม่ใช้วลี "ปรึกษาทำระบบ ai solution" เป็น anchor ไปหน้า service เพื่อไม่แย่ง post 170) |
 | ai consulting bangkok / consultant bangkok / ai solutions·services bangkok (EN) | `/en/ai-consulting/` | nav/footer EN link · listicle ลิงก์กลับด้วย anchor "AI consulting in Bangkok" |
 | ai consulting thailand / ai consulting companies thailand / ai consulting company (EN) | `/en/ai-consulting-companies-thailand-2026/` | anchor จาก /en/ai-consulting/#companies "9 AI consulting companies in Thailand…" (มีแล้ว) |
 | ปรึกษา ai transformation | `/services/ai-consulting/#ai-transformation` (post 220 = supporting article) | **2026-09-08:** post 220 ติด #18 แล้วหลุด — intent เป็นบริการ ไม่ใช่นิยาม; section enterprise บนหน้าบริการถือคำ |
 | รับทำเว็บไซต์ + variants | `/services/website-development/` | แถว 1 "รับทำเว็บไซต์ SEO-Ready" |
 | รับทำเว็บไซต์ wordpress | `/services/website-development/wordpress/` | bullet |
 | รับทำ seo (+สายขาว) | `/services/seo/` | แถว 3 "รับทำ SEO" |
-| geo คือ / geo seo | post 66 | bullet ในแถว AI Search → post 66 |
-| รับทำ ai search / ai seo / geo agency | `/services/ai-search/` (ใหม่) | แถว 4 |
+| geo คือ | post 66 | bullet ในแถว AI Search → post 66 |
+| รับทำ ai search / ai seo / geo agency / geo seo | `/services/ai-search/` | แถว 4 |
 | รับทำ n8n / รับวางระบบ n8n | `/services/n8n-automation/` | แถว 5 |
-| n8n คือ / n8n ราคา | post 196 | bullet |
+| n8n คือ | post 196 | bullet |
+| n8n ราคา · n8n self hosted | `/n8n-ราคา-2026/` (2026-10-06) | post 196 ลิงก์ไปด้วย anchor ราคา |
+| n8n workflow · n8n ai agent | `/ตัวอย่าง-n8n-workflow-2026/` (2026-10-06) | — |
 | รับทำ ai tool / prototype | post 224 | bullet ในแถว AI |
-| ปรึกษา ai transformation | post 220 | bullet ในแถว AI |
+| ai transformation คือ | post 220 (คำ "ปรึกษา ai transformation" เป็นของหน้าบริการ — แถวบน) | bullet ในแถว AI |
 
 > ผลของ restructure ต่อ post 170: **บวก** — หน้าแรก/nav ส่ง link เข้า post 170 ด้วย anchor ตรง keyword จากทุกหน้า (ตอนนี้ post 170 ได้ link จากหน้าแรกเฉพาะตอนอยู่ใน "บทความล่าสุด"). ห้ามใส่ H2/anchor "ปรึกษาทำระบบ ai solution" บนหน้า service เพิ่มอีก (ตอนนี้มี H2 "บริการปรึกษาและทำระบบ AI Solution" 1 จุด — พอ).
 
@@ -96,9 +103,9 @@
 ├── /services/                      hub · ItemList(Service ×5) + BreadcrumbList
 │   ├── /services/website-development/          รับทำเว็บไซต์ SEO-Ready (H1 คงเดิม)      ← "รับทำเว็บไซต์", "ออกแบบเว็บไซต์ธุรกิจ"
 │   │   └── /services/website-development/wordpress/   รับทำเว็บไซต์ WordPress
-│   ├── /services/ai-consulting/                ที่ปรึกษา AI สำหรับธุรกิจไทย              ← "ปรึกษาทำระบบ ai solution", "ที่ปรึกษา ai"
+│   ├── /services/ai-consulting/                ที่ปรึกษา AI สำหรับธุรกิจไทย              ← "ที่ปรึกษา ai สำหรับธุรกิจ", "ที่ปรึกษา ai" ("ปรึกษาทำระบบ ai solution" = post 170)
 │   │   (EN twin) /en/ai-consulting/            ← "ai consulting bangkok" (hreflang pair)
-│   ├── /services/seo/                          รับทำ SEO Technical-first                ← "รับทำ seo", "บริษัทรับทำ seo"
+│   ├── /services/seo/                          รับทำ SEO Technical-first                ← "รับทำ seo" ("บริษัทรับทำ seo" = post 250 listicle)
 │   │   └── #cro  (ย้ายจาก DM: GA4/GSC/Heatmap/A-B/CRO Sprint)
 │   ├── /services/ai-search/  ★ใหม่             รับทำ AI Search (GEO)                    ← "รับทำ ai search", "ai seo", "geo agency", "บริการ geo"
 │   └── /services/n8n-automation/               รับทำ n8n Automation                     ← "รับทำ n8n", "workflow automation"
@@ -218,7 +225,7 @@
 | B1 | /services/seo/ | "รับทำ SEO สายเทคนิค ติดหน้าแรก Google และ AI Search วัดผลรายวัน" | บริษัทรับทำ SEO · รับทำ SEO สายขาว · Local SEO Bangkok · Technical SEO Audit · ราคารับทำ SEO · CRO (#cro) | เพิ่ม "วิธีวัดผล" 8 KPI; FAQ +3; ลิงก์ /seo-audit/ |
 | B2 | /services/website-development/ | "รับทำเว็บไซต์ SEO-Ready ติด Google ตั้งแต่วันเปิด รองรับ AI Search" | รับทำเว็บไซต์ บริษัท · รับทำเว็บไซต์ ราคา · เว็บไซต์ SEO Ready · รับทำเว็บไซต์ WordPress (→ /wordpress/) · เว็บโหลดช้า | FAQ "ค่าใช้จ่ายเริ่มต้นเท่าไหร่ → 35,900" ใน FAQPage; PSI proof จริง |
 | B3 | /services/ai-consulting/ | "ที่ปรึกษา AI สำหรับธุรกิจไทย วางระบบ AI Solution ถึง Production" | บริการให้คำปรึกษา AI · ผู้ให้บริการโซลูชัน AI · บริการ RAG · รับทำ AI Tool / Prototype · ปรึกษา AI Transformation (ลิงก์ post 170/220/224) | **เพิ่มราคาเริ่มต้น** (ตอนนี้ไม่มี — คู่แข่งมี); Offer schema |
-| B4 | /services/n8n-automation/ | "รับทำ n8n Automation วางระบบ Workflow ให้ธุรกิจไทย จบเป็นโปรเจกต์" | รับวางระบบ n8n · n8n ราคา · n8n workflow · บริการ n8n | ลิงก์ post 196; embed วิดีโอเมื่อมี |
+| B4 | /services/n8n-automation/ | "รับทำ n8n Automation วางระบบ Workflow ให้ธุรกิจไทย จบเป็นโปรเจกต์" | รับวางระบบ n8n · บริการ n8n · n8n automation ราคา (2026-10-07: `n8n ราคา` / `n8n workflow` ย้ายไปโพสต์เฉพาะ) | ลิงก์ post 196; embed วิดีโอเมื่อมี |
 | B5 | /en/ai-consulting/ | "AI Consulting Bangkok — Production AI Systems for Thai Business" | AI consulting companies in Thailand (answer-first list) · AI consultant Bangkok · AI solutions Bangkok | AIO มี 25 แหล่ง ไม่มีเรา |
 | B6 | ทุกหน้า | — | — | `dateModified` แสดงจริง + ใน schema; Audience schema; sameAs ครบ |
 

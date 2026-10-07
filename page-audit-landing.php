@@ -572,6 +572,26 @@ get_header();
             </div>
         </div>
     </section>
+    <?php
+    // Visible FAQ above = the only source; FAQPage JSON-LD mirrors it (content map 2026-10-07).
+    $faq_entities = array();
+    foreach ( $landing['faqs'] as $faq ) {
+        $faq_entities[] = array(
+            '@type'          => 'Question',
+            'name'           => $faq['q'],
+            'acceptedAnswer' => array( '@type' => 'Answer', 'text' => $faq['a'] ),
+        );
+    }
+    if ( $faq_entities && function_exists( 'hashbox_jsonld' ) ) {
+        hashbox_jsonld( array(
+            '@context'   => 'https://schema.org',
+            '@type'      => 'FAQPage',
+            '@id'        => $current_url . '#faq',
+            'inLanguage' => 'th',
+            'mainEntity' => $faq_entities,
+        ) );
+    }
+    ?>
 
     <?php if ( $is_ai_landing ) : ?>
         <aside class="hb-ai-mobile-cta" data-ai-sticky-cta aria-hidden="true" inert>

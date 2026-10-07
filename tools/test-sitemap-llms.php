@@ -4,6 +4,7 @@
  * (content map 2026-10-07): the XML sitemap, llms.txt and the meta map.
  */
 error_reporting( E_ALL );
+if ( ! defined( 'ABSPATH' ) ) { define( 'ABSPATH', __DIR__ . '/../' ); } // inc/*.php exit silently without it
 function plumbing_expect( $condition, $message ) { if ( ! $condition ) { throw new RuntimeException( $message ); } }
 $fn = file_get_contents( __DIR__ . '/../functions.php' );
 
@@ -33,4 +34,16 @@ plumbing_expect( count( $m[1] ) > 20, 'Meta map descriptions not found — parse
 foreach ( $m[1] as $desc ) {
     plumbing_expect( 0 === preg_match( '/[a-z]{3,}\.[a-z]{3,}/', $desc ), 'Spliced description: ' . $desc );
 }
-echo "Sitemap/llms/meta: sitemap cache off, n8n llms line defined, no spliced descriptions.\n";
+// Audit landings (content map 2026-10-07): the FAQ is visible but had no FAQPage JSON-LD,
+// and /seo-recovery-audit/ repeated /seo-audit/'s "Technical SEO Audit" in a 79-char title.
+$tpl = file_get_contents( __DIR__ . '/../page-audit-landing.php' );
+plumbing_expect( false !== strpos( $tpl, "'FAQPage'" ) && false !== strpos( $tpl, "\$landing['faqs']" ), 'Audit landing must emit FAQPage JSON-LD from its visible FAQ' );
+require __DIR__ . '/../inc/meta-excerpt.php';
+$start = strpos( $fn, "'seo-audit' => array(" );
+preg_match_all( "/'meta_title'\s*=>\s*'((?:[^'\\\\]|\\\\.)*)'/", substr( $fn, $start, strpos( $fn, "'growth-audit' => array(" ) - $start ), $t );
+plumbing_expect( count( $t[1] ) >= 3, 'Audit landing titles not found — parser out of date' );
+plumbing_expect( 1 === count( array_filter( $t[1], function ( $x ) { return false !== stripos( $x, 'Technical SEO Audit' ); } ) ), '"Technical SEO Audit" belongs to /seo-audit/ only' );
+foreach ( $t[1] as $title ) {
+    plumbing_expect( hashbox_visible_length( $title ) <= 65, 'Audit landing title over 65 visible chars: ' . $title );
+}
+echo "Sitemap/llms/meta: sitemap cache off, n8n llms line defined, no spliced descriptions, audit landing FAQ schema + titles.\n";
