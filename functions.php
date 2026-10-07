@@ -1679,6 +1679,12 @@ function hashbox_hreflang_pairs() {
             'th' => 'services/website-development',
             'en' => 'en/website-development',
         ),
+        // Listicle twins (2026-10-07): the TH post was orphaned while the EN page is the
+        // site's most-cited URL. TH path is a post slug — matched after rawurldecode.
+        array(
+            'th' => 'บริษัทที่ปรึกษา-ai-ไทย-2026',
+            'en' => 'en/ai-consulting-companies-thailand-2026',
+        ),
     );
 }
 
@@ -1690,7 +1696,8 @@ function hashbox_hreflang_pairs() {
  * pair only activates once its EN page has been created in WP.
  */
 function hashbox_inject_hreflang() {
-    $path = hashbox_current_request_path();
+    // Thai slugs arrive percent-encoded in REQUEST_URI; pairs are declared decoded.
+    $path = rawurldecode( hashbox_current_request_path() );
 
     foreach ( hashbox_hreflang_pairs() as $pair ) {
         if ( $path !== $pair['th'] && $path !== $pair['en'] ) {

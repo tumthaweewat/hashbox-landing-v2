@@ -46,4 +46,15 @@ plumbing_expect( 1 === count( array_filter( $t[1], function ( $x ) { return fals
 foreach ( $t[1] as $title ) {
     plumbing_expect( hashbox_visible_length( $title ) <= 65, 'Audit landing title over 65 visible chars: ' . $title );
 }
-echo "Sitemap/llms/meta: sitemap cache off, n8n llms line defined, no spliced descriptions, audit landing FAQ schema + titles.\n";
+// The Thai AI-consulting listicle sat orphaned for 5 weeks (2026-10-07): only the category
+// archive linked to it and GSC said "Google ไม่รู้จัก URL", while its EN twin is the site's
+// most-cited page. It needs a link from the money page and an hreflang pair with the EN twin.
+$svc = file_get_contents( __DIR__ . '/../page-ai-consulting.php' );
+plumbing_expect( false !== strpos( $svc, "home_url( '/บริษัทที่ปรึกษา-ai-ไทย-2026/' )" ), '/services/ai-consulting/ must link the Thai listicle' );
+$start = strpos( $fn, 'function hashbox_hreflang_pairs' );
+$pairs = substr( $fn, $start, strpos( $fn, 'function hashbox_inject_hreflang' ) - $start );
+plumbing_expect( false !== strpos( $pairs, "'th' => 'บริษัทที่ปรึกษา-ai-ไทย-2026'" ) && false !== strpos( $pairs, "'en' => 'en/ai-consulting-companies-thailand-2026'" ), 'TH/EN listicles must be an hreflang pair' );
+$start  = strpos( $fn, 'function hashbox_inject_hreflang' );
+$inject = substr( $fn, $start, 600 );
+plumbing_expect( false !== strpos( $inject, 'rawurldecode' ), 'hreflang must decode the request path — Thai slugs arrive percent-encoded' );
+echo "Sitemap/llms/meta: sitemap cache off, n8n llms line defined, no spliced descriptions, audit landing FAQ schema + titles, TH listicle linked + hreflang.\n";
