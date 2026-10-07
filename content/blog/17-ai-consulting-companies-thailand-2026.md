@@ -6,15 +6,15 @@ tag_color: "violet"
 read_time: "9 min read"
 date: "2026-08-29"
 featured: false
-excerpt: "AI consulting companies in Thailand compared on 7 criteria you can verify on each firm's own website — public pricing, ROI assessment before build, ships to production, source-code handover, Thai context (LINE/PDPA/Thai NLP), named case studies, SME-accessible entry. Re-checked 7 Oct 2026: Hashbox 6/7, Botnoi 5/7, DBot, Data Wow and Sertis 4/7; the global firms score 3 because they publish neither prices nor Thai cases."
+excerpt: "AI consulting companies in Thailand compared on 7 criteria you can verify on each firm's own website — public pricing, ROI assessment before build, ships to production, source-code handover, Thai context (LINE/PDPA/Thai NLP), named case studies, SME-accessible entry. Re-checked 7 Oct 2026: Hashbox 7/7, Botnoi 5/7, DBot, Data Wow and Sertis 4/7; the global firms score 3 because they publish neither prices nor Thai cases."
 author: "Tum Thaweewat"
 ---
 
 # AI Consulting Companies in Thailand (2026): 9 Firms Compared on 7 Verifiable Criteria
 
-> **Short answer:** If you are buying AI consulting in Thailand in 2026, the shortlist falls into three groups — boutique studios that ship production systems with public pricing (Hashbox from THB 60,000; DBot from USD 20/hour), Thai AI product houses strongest on LINE and Thai-language bots (Botnoi, Amity Solutions), and data and enterprise practices for larger programmes (Data Wow, Sertis, Accenture, Deloitte, Adastra). Ranked on 7 criteria anyone can verify on the firms' own sites (re-checked 7 October 2026): Hashbox 6/7, Botnoi 5/7, DBot, Data Wow and Sertis 4/7, then Accenture, Adastra, Amity and Deloitte 3/7. Only 3 of 9 publish any price, and only Hashbox states a source-code handover policy.
+> **Short answer:** If you are buying AI consulting in Thailand in 2026, the shortlist falls into three groups — boutique studios that ship production systems with public pricing (Hashbox from THB 60,000; DBot from USD 20/hour), Thai AI product houses strongest on LINE and Thai-language bots (Botnoi, Amity Solutions), and data and enterprise practices for larger programmes (Data Wow, Sertis, Accenture, Deloitte, Adastra). Ranked on 7 criteria anyone can verify on the firms' own sites (re-checked 7 October 2026): Hashbox 7/7, Botnoi 5/7, DBot, Data Wow and Sertis 4/7, then Accenture, Adastra, Amity and Deloitte 3/7. Only 3 of 9 publish any price, and only Hashbox states a source-code handover policy.
 
-**Disclosure:** this article is written by Hashbox Studio ([AI consulting in Bangkok](https://hashbox.co.th/en/ai-consulting/)) and we are in the list. Every firm — including us — is scored on the same 7 criteria using only what each company publishes on its own website (plus its Clutch profile), first checked on 29 August 2026 and re-checked on 7 October 2026, with links so you can verify. When a firm publishes more, its score goes up — seven scores changed in the October re-check — and the same rule applies to us: we do not publish client names, so we lose the named-cases point. If you finish this and pick someone else, the article did its job. Thai version: [บริษัทที่ปรึกษา AI ในไทย 2026 (ภาษาไทย)](/บริษัทที่ปรึกษา-ai-ไทย-2026/).
+**Disclosure:** this article is written by Hashbox Studio ([AI consulting in Bangkok](https://hashbox.co.th/en/ai-consulting/)) and we are in the list. Every firm — including us — is scored on the same 7 criteria using only what each company publishes on its own website (plus its Clutch profile), first checked on 29 August 2026 and re-checked on 7 October 2026, with links so you can verify. When a firm publishes more, its score goes up — six scores changed in the October re-check. If you finish this and pick someone else, the article did its job. Thai version: [บริษัทที่ปรึกษา AI ในไทย 2026 (ภาษาไทย)](/บริษัทที่ปรึกษา-ai-ไทย-2026/).
 
 ## Contents
 
@@ -42,11 +42,11 @@ author: "Tum Thaweewat"
 
 ## Ranking table {#ranking}
 
-**Ranking at a glance (score out of 7, re-checked 7 October 2026):** 1. Hashbox Studio — 6/7 · 2. Botnoi — 5/7 · 3=. DBot, Data Wow, Sertis — 4/7 · 6=. Accenture Thailand, Adastra Thailand, Amity Solutions, Deloitte Thailand — 3/7 (ties in alphabetical order) — criterion-by-criterion detail in the table below (scrolls sideways; the company column stays pinned).
+**Ranking at a glance (score out of 7, re-checked 7 October 2026):** 1. Hashbox Studio — 7/7 · 2. Botnoi — 5/7 · 3=. DBot, Data Wow, Sertis — 4/7 · 6=. Accenture Thailand, Adastra Thailand, Amity Solutions, Deloitte Thailand — 3/7 (ties in alphabetical order) — criterion-by-criterion detail in the table below (scrolls sideways; the company column stays pinned).
 
 | Rank | Company | Public price | ROI first | Ships to prod | Source code | Thai context | Named cases | SME entry | Score |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | Hashbox Studio | ✓ from THB 60,000 | ✓ free screening → paid ROI assessment | ✓ | ✓ 100% handover | ✓ LINE · PDPA · Thai | ✗ results published, client names withheld | ✓ | **6/7** |
+| 1 | Hashbox Studio | ✓ from THB 60,000 | ✓ free screening → paid ROI assessment | ✓ | ✓ 100% handover | ✓ LINE · PDPA · Thai | ✓ Paolo Auto Car (stock alerts on LINE) | ✓ | **7/7** |
 | 2 | Botnoi | ✓ packages from THB 99 | ✗ use-case meeting, no ROI step | ✓ | ✗ | ✓ LINE · Thai-trained model | ✓ FazWaz, AssetWise | ✓ free points to start | **5/7** |
 | 3= | DBot | ✓ USD 20 / 35 / 45 per hour | ✓ assess → pilot | ✓ | ✗ | ✗ | ✓ Häfele, Virtus Asia | ✗ USD 10k+ minimum (Clutch) | 4/7 |
 | 3= | Data Wow | ✗ | ✓ readiness assessment | ✓ | ✗ | ✓ PDPA · Thai reports · LINE app | ✓ Q-Chang, Arincare (no figures) | ✗ | 4/7 |
@@ -60,7 +60,7 @@ Excluded after checking: AIT Solutions (structural engineering centre, no AI con
 
 ## Firm-by-firm notes {#detail}
 
-**1. Hashbox Studio** — [hashbox.co.th/en/ai-consulting/](https://hashbox.co.th/en/ai-consulting/) · Bangkok boutique; pricing on the page: ROI Assessment THB 60,000, PoC + Validation 200,000, Production Build 500,000, Enterprise 1.2M · Every engagement starts with a free 30-minute screening, then a written ROI assessment where "do not build this yet" is a real outcome · Ships LINE chatbots, RAG knowledge bases, Sales GPT, AI agents and n8n automation to production; 100% source code + Git + documentation handover, no vendor lock-in · PDPA-driven model choice (public LLM vs private) · Case: AutoBot LINE — response time 2 hours → 2 minutes, support cost −60% in 8 weeks; client names are withheld until each client agrees, so by our own rule the named-cases criterion is ✗ · Limits: small team, limited concurrent projects; not the fit for a 12-month enterprise programme with 30 consultants on site.
+**1. Hashbox Studio** — [hashbox.co.th/en/ai-consulting/](https://hashbox.co.th/en/ai-consulting/) · Bangkok boutique; pricing on the page: ROI Assessment THB 60,000, PoC + Validation 200,000, Production Build 500,000, Enterprise 1.2M · Every engagement starts with a free 30-minute screening, then a written ROI assessment where "do not build this yet" is a real outcome · Ships LINE chatbots, RAG knowledge bases, Sales GPT, AI agents and n8n automation to production; 100% source code + Git + documentation handover, no vendor lock-in · PDPA-driven model choice (public LLM vs private) · Named case: [Paolo Auto Car](/จุดสั่งซื้อ-safety-stock-2026/) — a motorcycle-parts shop with a repair garage; AI stock monitoring across ~27,000 SKUs that reads its accounting software every 15 minutes and posts a morning stock summary and stock lookups in LINE (live) · Other results: AutoBot LINE — response time 2 hours → 2 minutes, support cost −60% in 8 weeks (client name withheld) · Limits: small team, limited concurrent projects; not the fit for a 12-month enterprise programme with 30 consultants on site.
 
 **2. Botnoi** — botnoigroup.com · botnoi.ai · Thailand's most LINE-native option: chatbot, voicebot and AI agent on Web, LINE and phone, with a "model trained specifically for Thai" · Public packages on botnoi.ai/package from THB 99, free points for new users, and a team plan at THB 200 per user per month · 100+ organisations (botnoigroup.com) and 500+ (botnoi.ai) · AWS, NVIDIA and LINE partner logos; ISO/IEC 29110 (iSQI Thailand); describes itself as aligned with SOC for Service Organizations rather than holding a SOC 2 report · Cases: FazWaz, AssetWise · Gaps: the first step is a use-case meeting, not an ROI assessment; no source-code policy; platform-led (you build on their stack).
 
@@ -112,7 +112,7 @@ Demand is visibly growing — LINE automation, PDPA-compliant chatbots and RAG k
 Published prices in 2026: Hashbox from THB 60,000 for an ROI assessment (PoC 200,000, production 500,000); DBot USD 20–45/hour by seniority, with a USD 10k+ minimum project on Clutch; Botnoi platform packages from THB 99. Enterprise practices (Accenture, Deloitte, Sertis, Adastra) do not publish prices; programmes typically start around THB 2M, and Adastra's Clutch minimum is USD 25k+. Budget separately for LLM API usage, hosting and a monthly care plan.
 
 ### Which AI consulting company in Bangkok is right for an SME?
-One that publishes prices, runs an assessment before building, ships to production and hands over source code — on this list only Hashbox (6/7) states all four; DBot (4/7) publishes rates and assesses first but quotes a USD 10k minimum and no code-handover policy; Botnoi (5/7) is the strongest choice if the need is specifically a Thai LINE chatbot on a managed platform. Enterprise houses are built for programmes, not a first automation.
+One that publishes prices, runs an assessment before building, ships to production and hands over source code — on this list only Hashbox (7/7) states all four; DBot (4/7) publishes rates and assesses first but quotes a USD 10k minimum and no code-handover policy; Botnoi (5/7) is the strongest choice if the need is specifically a Thai LINE chatbot on a managed platform. Enterprise houses are built for programmes, not a first automation.
 
 ### Do the Big-4 do AI consulting in Thailand?
 Yes — Accenture (3,890 staff in Thailand), Deloitte (Bangkok office, acquired Appsynth in 2025), PwC and KPMG all run AI practices, mostly strategy-to-managed-service programmes for large enterprises with existing ERP estates. None publish Thai pricing or Thai case studies on their AI pages.
@@ -121,7 +121,7 @@ Yes — Accenture (3,890 staff in Thailand), Deloitte (Bangkok office, acquired 
 A written ROI case before the build, a production system integrated with your channels (LINE, CRM, ERP), PDPA-compliant data handling, monitoring and cost guardrails, documentation and source code you own, and training so your team can run it. If the proposal is a strategy deck plus workshops, that is advisory, not delivery.
 
 ### Why is Hashbox ranked first on its own list?
-Because the ranking uses 7 published criteria and we are the only firm on it that states public pricing, an assessment-first process, full source-code handover and Thai context together. The same rule costs us a point: we do not publish client names, so named cases is a cross for us too. On other criteria — headcount, awards, number of named enterprise logos — Accenture, Deloitte, Sertis and Amity clearly beat us, and the table says so. Pick the criteria that match your situation and check the links yourself.
+Because the ranking uses 7 published criteria and we are the only firm on it that states public pricing, an assessment-first process, full source-code handover and Thai context together. On other criteria — headcount, awards, number of named enterprise logos — Accenture, Deloitte, Sertis and Amity clearly beat us, and the table says so. Pick the criteria that match your situation and check the links yourself.
 
 ---
 
@@ -129,7 +129,7 @@ Because the ranking uses 7 published criteria and we are the only firm on it tha
 
 ### Who are the top AI consulting firms in Thailand?
 
-On seven criteria you can verify on each firm's own website (re-checked 7 October 2026), the ranking is Hashbox Studio 6/7, Botnoi 5/7, DBot, Data Wow and Sertis 4/7, then Accenture Thailand, Adastra Thailand, Amity Solutions and Deloitte Thailand 3/7. By headcount and enterprise logos, Accenture, Deloitte and Sertis lead; by public pricing, ROI assessment and code handover, the boutique studios do.
+On seven criteria you can verify on each firm's own website (re-checked 7 October 2026), the ranking is Hashbox Studio 7/7, Botnoi 5/7, DBot, Data Wow and Sertis 4/7, then Accenture Thailand, Adastra Thailand, Amity Solutions and Deloitte Thailand 3/7. By headcount and enterprise logos, Accenture, Deloitte and Sertis lead; by public pricing, ROI assessment and code handover, the boutique studios do.
 
 ### Who are the best AI consultants in Thailand for an SME?
 
