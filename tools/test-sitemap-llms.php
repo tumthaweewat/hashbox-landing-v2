@@ -57,4 +57,16 @@ plumbing_expect( false !== strpos( $pairs, "'th' => 'บริษัทที่
 $start  = strpos( $fn, 'function hashbox_inject_hreflang' );
 $inject = substr( $fn, $start, 600 );
 plumbing_expect( false !== strpos( $inject, 'rawurldecode' ), 'hreflang must decode the request path — Thai slugs arrive percent-encoded' );
+// Thai slugs (2026-10-08): Google keeps Thai URLs in uppercase percent-encoding. URL
+// Inspection of /%e0%b8...-2026/ (what Rank Math printed in the sitemap and canonical)
+// says "unknown to Google" while /%E0%B8...-2026/ is indexed, and no Thai URL showed a
+// sitemap reference — every Thai <loc> pointed at a URL Google never matched.
+require __DIR__ . '/../inc/url-encoding.php';
+plumbing_expect( 'https://hashbox.co.th/%E0%B8%88%E0%B8%B8%E0%B8%94-safety-stock-2026/' === hashbox_uppercase_percent_encoding( 'https://hashbox.co.th/%e0%b8%88%e0%b8%b8%e0%b8%94-safety-stock-2026/' ), 'Percent-encoding must be uppercased' );
+plumbing_expect( 'https://hashbox.co.th/services/seo/' === hashbox_uppercase_percent_encoding( 'https://hashbox.co.th/services/seo/' ), 'ASCII URLs pass through unchanged' );
+plumbing_expect( 'https://hashbox.co.th/a-b/?q=Abc%2Fd' === hashbox_uppercase_percent_encoding( 'https://hashbox.co.th/a-b/?q=Abc%2fd' ), 'Only the hex digits of %XX change, never the rest of the URL' );
+plumbing_expect( false === hashbox_uppercase_percent_encoding( false ), 'Non-strings (excluded sitemap entries) pass through' );
+foreach ( array( "'rank_math/sitemap/entry', 'hashbox_sitemap_entry_uppercase_encoding', 99", "'rank_math/frontend/canonical', 'hashbox_uppercase_percent_encoding', 99", "'rank_math/opengraph/url', 'hashbox_uppercase_percent_encoding', 99" ) as $hook ) {
+    plumbing_expect( false !== strpos( $fn, "add_filter( $hook" ), "Missing late filter: $hook" );
+}
 echo "Sitemap/llms/meta: sitemap cache off, n8n llms line defined, no spliced descriptions, audit landing FAQ schema + titles, TH listicle linked + hreflang.\n";
