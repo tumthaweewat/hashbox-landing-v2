@@ -51,6 +51,10 @@ foreach ( $t[1] as $title ) {
 // most-cited page. It needs a link from the money page and an hreflang pair with the EN twin.
 $svc = file_get_contents( __DIR__ . '/../page-ai-consulting.php' );
 plumbing_expect( false !== strpos( $svc, "home_url( '/บริษัทที่ปรึกษา-ai-ไทย-2026/' )" ), '/services/ai-consulting/ must link the Thai listicle' );
+// Same gap on the website side (2026-10-08): the web-company listicle is indexed and cited by AI,
+// but its only inbound link was the price article — the service page never linked it.
+$web = file_get_contents( __DIR__ . '/../page-seo-ready-website.php' );
+plumbing_expect( false !== strpos( $web, "home_url( '/บริษัทรับทำเว็บไซต์-2026/' )" ), '/services/website-development/ must link the web-company listicle' );
 $start = strpos( $fn, 'function hashbox_hreflang_pairs' );
 $pairs = substr( $fn, $start, strpos( $fn, 'function hashbox_inject_hreflang' ) - $start );
 plumbing_expect( false !== strpos( $pairs, "'th' => 'บริษัทที่ปรึกษา-ai-ไทย-2026'" ) && false !== strpos( $pairs, "'en' => 'en/ai-consulting-companies-thailand-2026'" ), 'TH/EN listicles must be an hreflang pair' );
