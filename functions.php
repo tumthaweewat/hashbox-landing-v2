@@ -18,6 +18,7 @@ require_once get_template_directory() . '/inc/en-seo-icons.php';
 require_once get_template_directory() . '/inc/en-seo-page.php';
 require_once get_template_directory() . '/inc/en-seo-contact.php';
 require_once get_template_directory() . '/inc/post-service-hub.php';
+require_once get_template_directory() . '/inc/url-encoding.php';
 
 require_once get_template_directory() . '/inc/founder.php';
 add_filter( 'pre_get_avatar_data', 'hashbox_founder_avatar_data', 10, 2 );
@@ -3106,6 +3107,12 @@ function hashbox_rankmath_case_study_sitemap_entry( $url, $type, $object ) {
     return $url;
 }
 add_filter( 'rank_math/sitemap/entry', 'hashbox_rankmath_case_study_sitemap_entry', 10, 3 );
+
+// Thai slugs: uppercase %XX in everything search engines read (inc/url-encoding.php). Late
+// priority so it applies after the case-study and legacy rewrites above.
+add_filter( 'rank_math/sitemap/entry', 'hashbox_sitemap_entry_uppercase_encoding', 99 );
+add_filter( 'rank_math/frontend/canonical', 'hashbox_uppercase_percent_encoding', 99 );
+add_filter( 'rank_math/opengraph/url', 'hashbox_uppercase_percent_encoding', 99 );
 
 /**
  * Output a JSON-LD <script> tag for structured data.
