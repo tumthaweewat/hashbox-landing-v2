@@ -37,6 +37,10 @@ $doc = new DOMDocument();
 $doc->loadHTML( $html );
 $xpath = new DOMXPath( $doc );
 seo_expect( 1 === $xpath->query( '//h1' )->length, 'Exactly one h1.' );
+// The page owns "seo agency bangkok" (720/mo). The Sep-20 redesign changed the H1 from "SEO agency" to
+// "SEO services" and the page fell out of the top 100 for it (2026-10-10 check) — keep the owner keyword in the H1.
+$h1 = strtolower( $xpath->query( '//h1' )->item( 0 )->textContent );
+seo_expect( false !== strpos( $h1, 'seo agency' ) && false !== strpos( $h1, 'bangkok' ), 'H1 must carry the owner keyword "SEO agency … Bangkok".' );
 seo_expect( 8 === $xpath->query( '//*[contains(@class,"en-seo-scope__item")]' )->length, 'All eight scope items retained.' );
 seo_expect( 8 === $xpath->query( '//*[contains(@class,"en-seo-measures")]/li' )->length, 'All eight KPIs retained.' );
 seo_expect( 1 === $xpath->query( '//form[@id="en-seo-contact-form"]' )->length, 'English contact form included.' );

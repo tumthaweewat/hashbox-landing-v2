@@ -53,7 +53,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
         <div class="en-seo-hero__grid">
             <div class="en-seo-hero__copy">
                 <p class="en-seo-eyebrow">SEO · Bangkok, Thailand</p>
-                <h1 id="seo-title">Technical-first SEO services in Bangkok</h1>
+                <h1 id="seo-title">Technical-first SEO agency in Bangkok</h1>
                 <p class="en-seo-lead">Fix the foundation. Grow your visibility. Measure the results in your own Search Console.</p>
                 <p>Core Web Vitals, content, local SEO and AI Search — with daily reporting and a written “no growth, no pay” guarantee.</p>
                 <div class="en-seo-actions">
