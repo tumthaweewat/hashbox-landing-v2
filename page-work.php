@@ -16,6 +16,13 @@ $cases = array(
     array( 'slug' => 'gold-brand',   'name' => 'Gold Brand',           'industry' => 'Luxury',     'metric' => '+180% Search',  'tag' => 'Brand + Web', 'tag_color' => 'amber',   'bg' => 'linear-gradient(135deg, #7C2D12, #C2410C)',  'desc' => 'Brand refresh + Performance site บน Next.js', 'cta' => 'อ่าน Brand + Web case study' ),
     array( 'slug' => 'pitch-deck',   'name' => 'Pitch Deck Microsite', 'industry' => 'SaaS',       'metric' => 'Series A',      'tag' => 'Investor Web','tag_color' => 'violet',  'bg' => 'linear-gradient(135deg, #312E81, #7C3AED)',  'desc' => 'Investor Microsite + Live Metrics Dashboard ปิด Series A', 'cta' => 'อ่าน Investor Microsite case study' ),
 );
+
+// Named clients first — but only once their WP page is published (inc/case-studies.php).
+$named = array();
+foreach ( hashbox_published_case_studies() as $slug => $case ) {
+    $named[] = array_merge( $case['hub'], array( 'slug' => $slug, 'name' => $case['client']['name'] ) );
+}
+$cases = array_merge( $named, $cases );
 ?>
 
 <section class="hb-hero">

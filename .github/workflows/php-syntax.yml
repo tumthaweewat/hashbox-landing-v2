@@ -27,3 +27,5 @@ jobs:
         run: php tools/test-meta-excerpt.php
       - name: Sitemap cache, llms.txt and meta map contract
         run: php tools/test-sitemap-llms.php
+      - name: Named case studies (E-E-A-T, client rules, publication gate)
+        run: php tools/test-case-studies.php
