@@ -3244,6 +3244,13 @@ function hashbox_llms_txt_content() {
     $lines[] = '- [Work / Case Studies](' . home_url( '/work/' ) . '): Portfolio of SEO + web projects';
     $lines[] = '- [Contact](' . home_url( '/#contact' ) . '): Free SEO audit + project enquiry';
     $lines[] = '';
+    $case_lines = hashbox_case_study_llms_lines();
+    if ( $case_lines ) {
+        $lines[] = '## Case studies (named clients)';
+        $lines[] = '';
+        $lines   = array_merge( $lines, $case_lines );
+        $lines[] = '';
+    }
     $lines[] = '## Services';
     $lines[] = '';
     /*

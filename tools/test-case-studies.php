@@ -184,4 +184,14 @@ $GLOBALS['wp_pages'] = array(
 $cards = work_hub_card_slugs();
 expect( array( 'paolo-auto-car', 'banktabien' ) === array_slice( $cards, 0, 2 ) && 8 === count( $cards ), 'Work hub: published named cases come first.' );
 
+// llms.txt follows the same gate
+$GLOBALS['wp_pages'] = array();
+expect( array() === hashbox_case_study_llms_lines(), 'llms.txt: no case lines while the pages are unpublished.' );
+$GLOBALS['wp_pages'] = array( 'work/banktabien' => (object) array( 'post_status' => 'publish' ) );
+$llms = hashbox_case_study_llms_lines();
+expect( 1 === count( $llms ) && false !== strpos( $llms[0], home_url( '/work/banktabien/' ) ), 'llms.txt: one line per published case, pointing at /work/<slug>/.' );
+$fn = file_get_contents( get_template_directory() . '/functions.php' );
+expect( false !== strpos( substr( $fn, strpos( $fn, 'function hashbox_llms_txt_content' ), 4000 ), 'hashbox_case_study_llms_lines()' ), 'llms.txt content includes the case lines.' );
+expect( false !== strpos( file_get_contents( get_template_directory() . '/page-wordpress-website.php' ), "hashbox_published_case_studies()['banktabien']" ), 'WordPress service page links the case only once it is published.' );
+
 echo "Case studies: E-E-A-T structure, schema, per-client rules and the publication gate passed.\n";

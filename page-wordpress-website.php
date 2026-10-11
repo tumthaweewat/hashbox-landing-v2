@@ -347,6 +347,9 @@ $table_cell = 'padding:var(--hb-space-3) var(--hb-space-4);border-bottom:1px sol
             <a href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">ประเมินโปรเจกต์ฟรี</a>
             <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงานที่ผ่านมา</a>
         </div>
+        <?php if ( isset( hashbox_published_case_studies()['banktabien'] ) ) : ?>
+        <p class="hb-body" style="margin-top:var(--hb-space-6);">ตัวอย่างเว็บ WordPress ที่เราทำจริงพร้อมชื่อลูกค้า: <a href="<?php echo esc_url( home_url( '/work/banktabien/' ) ); ?>">เคส Bank Tabien — เว็บไซต์ทะเบียนรถสวย 3,800+ หน้า</a></p>
+        <?php endif; ?>
     </div>
 </section>
 

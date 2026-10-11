@@ -49,6 +49,15 @@ function hashbox_published_case_studies() {
     return $out;
 }
 
+/** llms.txt lines — published cases only (pointing an AI crawler at a 404 is worse than not listing it). */
+function hashbox_case_study_llms_lines() {
+    $lines = array();
+    foreach ( hashbox_published_case_studies() as $slug => $case ) {
+        $lines[] = '- [' . $case['title'] . '](' . home_url( '/work/' . $slug . '/' ) . '): ' . $case['seo_description'];
+    }
+    return $lines;
+}
+
 function hashbox_case_study_templates() {
     return array( 'page-work-paolo-auto-car.php', 'page-work-banktabien.php' );
 }
