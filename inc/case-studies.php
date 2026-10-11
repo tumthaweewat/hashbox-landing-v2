@@ -164,7 +164,7 @@ function hashbox_render_case_study_v2( array $case ) {
                 <p class="hb-eyebrow"><?php echo esc_html( 'Case study · ' . $case['eyebrow'] ); ?></p>
                 <h1 class="hb-h1 hb-case2__title"><?php echo esc_html( $case['title'] ); ?></h1>
                 <p class="hb-case2__byline">
-                    <img class="hb-case2__avatar" src="<?php echo esc_url( get_template_directory_uri() . hashbox_founder_avatar_path() ); ?>" alt="<?php echo esc_attr( hashbox_founder_name() ); ?>" width="40" height="40" loading="lazy">
+                    <img class="hb-case2__avatar" src="<?php echo esc_url( get_template_directory_uri() . hashbox_founder_avatar_path() ); ?>" alt="" width="40" height="40" loading="lazy">
                     <span>เขียนโดย <a href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php echo esc_html( hashbox_founder_name() ); ?></a> · <?php echo esc_html( $case['author_role'] ); ?></span>
                     <span class="hb-case2__dates">เผยแพร่ <time datetime="<?php echo esc_attr( $case['published'] ); ?>"><?php echo esc_html( hashbox_case_study_date( $case['published'] ) ); ?></time> · อัปเดต <time datetime="<?php echo esc_attr( $case['modified'] ); ?>"><?php echo esc_html( hashbox_case_study_date( $case['modified'] ) ); ?></time></span>
                 </p>
@@ -280,7 +280,7 @@ function hashbox_render_case_study_v2( array $case ) {
                 <h2 class="hb-h2" id="related">อ่านต่อ</h2>
                 <ul class="hb-case2__related">
                 <?php foreach ( $case['related'] as $r ) : ?>
-                    <li><a href="<?php echo esc_url( home_url( $r['path'] ) ); ?>"><?php echo esc_html( $r['label'] ); ?></a><?php echo $r['note'] ? ' — ' . esc_html( $r['note'] ) : ''; ?></li>
+                    <li><a href="<?php echo esc_url( home_url( $r['path'] ) ); ?>"><?php echo esc_html( $r['label'] ); ?></a><?php echo ! empty( $r['note'] ) ? ' — ' . esc_html( $r['note'] ) : ''; ?></li>
                 <?php endforeach; ?>
                 </ul>
             </div>
