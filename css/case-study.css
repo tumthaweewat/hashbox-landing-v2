@@ -1,0 +1,119 @@
+/*
+ * Named case studies (/work/paolo-auto-car/, /work/banktabien/) — inc/case-studies.php.
+ * Reading layout: one column, tables for anything comparative, tokens only (design rules 2026-08-29).
+ */
+
+.hb-case2 .hb-section.hb-case2__section { padding-block: var(--hb-space-10); }
+.hb-case2 > .hb-breadcrumb { padding-top: var(--hb-space-6); padding-inline: var(--hb-space-4); }
+
+/* links inside copy must read as links (facts, steps, notes, related) */
+.hb-case2__prose a,
+.hb-case2__table a,
+.hb-case2__note a,
+.hb-case2__answer a,
+.hb-case2__related a { color: var(--hb-accent-blue); text-decoration: underline; text-underline-offset: 3px; }
+.hb-case2__prose a:hover,
+.hb-case2__table a:hover,
+.hb-case2__related a:hover { color: var(--hb-accent-blue-strong); }
+.hb-case2__head { padding-top: var(--hb-space-12); padding-bottom: var(--hb-space-6); }
+.hb-case2__title { margin-top: var(--hb-space-3); }
+
+/* byline: who wrote it and when — the first E-E-A-T signal on the page */
+.hb-case2__byline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--hb-space-2) var(--hb-space-3);
+  margin-top: var(--hb-space-5);
+  color: var(--hb-text-muted);
+  font-size: var(--hb-text-sm);
+}
+.hb-case2__byline a { color: var(--hb-text-strong); }
+.hb-case2__avatar { width: 40px; height: 40px; border-radius: var(--hb-radius-full); object-fit: cover; }
+.hb-case2__dates { flex-basis: 100%; padding-left: calc(40px + var(--hb-space-3)); }
+
+/* answer-first summary — what AI answers and featured snippets lift */
+.hb-case2__answer {
+  margin-top: var(--hb-space-6);
+  padding: var(--hb-space-5) var(--hb-space-6);
+  border-left: var(--hb-border-thick) solid var(--hb-accent-blue);
+  border-radius: var(--hb-radius-sm);
+  background: var(--hb-surface-1);
+}
+.hb-case2__answer p { margin: 0; font-size: var(--hb-text-lg); line-height: 1.75; color: var(--hb-text); }
+
+.hb-case2__figure { margin-block: var(--hb-space-4) 0; }
+.hb-case2__figure img { display: block; width: 100%; height: auto; border: var(--hb-border-thin) solid var(--hb-border); border-radius: var(--hb-radius-md); }
+.hb-case2__figure figcaption { margin-top: var(--hb-space-2); color: var(--hb-text-muted); font-size: var(--hb-text-sm); }
+
+/* prose */
+.hb-case2__prose p,
+.hb-case2__prose li { line-height: 1.8; color: var(--hb-text); }
+.hb-case2__prose p { margin-top: var(--hb-space-4); }
+.hb-case2__prose ul { margin-top: var(--hb-space-4); padding-left: var(--hb-space-5); }
+.hb-case2__prose ul li + li { margin-top: var(--hb-space-2); }
+.hb-case2__note { margin-top: var(--hb-space-3); color: var(--hb-text-muted); font-size: var(--hb-text-sm); line-height: 1.7; }
+
+.hb-case2__steps { margin-top: var(--hb-space-6); padding: 0; list-style: none; counter-reset: case2-step; }
+.hb-case2__steps > li {
+  position: relative;
+  padding: 0 0 var(--hb-space-6) var(--hb-space-10);
+  counter-increment: case2-step;
+}
+.hb-case2__steps > li::before {
+  content: counter(case2-step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--hb-space-8);
+  height: var(--hb-space-8);
+  display: grid;
+  place-items: center;
+  border: var(--hb-border-thin) solid var(--hb-border-strong);
+  border-radius: var(--hb-radius-full);
+  color: var(--hb-text-strong);
+  font-size: var(--hb-text-sm);
+}
+.hb-case2__step-title { margin: 0; font-size: var(--hb-text-xl); color: var(--hb-text-strong); }
+.hb-case2__steps > li p { margin-top: var(--hb-space-2); }
+
+.hb-case2__lessons { margin-top: var(--hb-space-5); padding-left: var(--hb-space-5); }
+.hb-case2__lessons li + li { margin-top: var(--hb-space-4); }
+.hb-case2__lessons strong { color: var(--hb-text-strong); }
+
+/* tables: facts, status, results — first column stays put when the table scrolls on phones */
+.hb-case2__table-wrap { margin-top: var(--hb-space-5); overflow-x: auto; border: var(--hb-border-thin) solid var(--hb-border); border-radius: var(--hb-radius-md); }
+.hb-case2__table { width: 100%; border-collapse: collapse; font-size: var(--hb-text-base); }
+.hb-case2__table th,
+.hb-case2__table td { padding: var(--hb-space-3) var(--hb-space-4); text-align: left; vertical-align: top; line-height: 1.65; border-bottom: var(--hb-border-thin) solid var(--hb-border); }
+.hb-case2__table tr:last-child > * { border-bottom: 0; }
+.hb-case2__table thead th { color: var(--hb-text-muted); font-size: var(--hb-text-sm); font-weight: 500; background: var(--hb-surface-1); }
+.hb-case2__table tbody th { position: sticky; left: 0; z-index: 1; min-width: 9rem; color: var(--hb-text-strong); background: var(--hb-surface-1); }
+.hb-case2__facts tbody th { width: 30%; }
+.hb-case2__status td:first-of-type,
+.hb-case2__results td:first-of-type { min-width: 14rem; }
+.hb-case2__source { color: var(--hb-text-muted); font-size: var(--hb-text-sm); min-width: 11rem; }
+
+.hb-case2__state { display: inline-block; padding: var(--hb-space-1) var(--hb-space-2); border-radius: var(--hb-radius-xs); font-size: var(--hb-text-sm); white-space: nowrap; }
+.hb-case2__state--live { color: var(--hb-success); background: color-mix(in oklch, var(--hb-success) 12%, transparent); }
+.hb-case2__state--done { color: var(--hb-info); background: color-mix(in oklch, var(--hb-info) 12%, transparent); }
+.hb-case2__state--delivery { color: var(--hb-warning); background: color-mix(in oklch, var(--hb-warning) 14%, transparent); white-space: normal; }
+
+/* FAQ */
+.hb-case2__faq-item { margin-top: var(--hb-space-3); border: var(--hb-border-thin) solid var(--hb-border); border-radius: var(--hb-radius-md); }
+.hb-case2__faq-item summary { cursor: pointer; padding: var(--hb-space-4) var(--hb-space-5); color: var(--hb-text-strong); font-weight: 600; }
+.hb-case2__faq-item summary:focus-visible { outline: 2px solid var(--hb-accent-blue); outline-offset: 2px; }
+.hb-case2__faq-item p { margin: 0; padding: 0 var(--hb-space-5) var(--hb-space-4); line-height: 1.8; color: var(--hb-text); }
+
+.hb-case2__related { margin-top: var(--hb-space-4); padding-left: var(--hb-space-5); }
+.hb-case2__related li + li { margin-top: var(--hb-space-2); }
+
+.hb-case2__cta { background: var(--hb-surface-1); }
+.hb-case2__cta p { margin-block: var(--hb-space-3) var(--hb-space-6); color: var(--hb-text-muted); line-height: 1.7; }
+
+@media (max-width: 640px) {
+  .hb-case2__answer { padding: var(--hb-space-4); }
+  .hb-case2__dates { padding-left: 0; }
+  .hb-case2__steps > li { padding-left: var(--hb-space-10); }
+  .hb-case2__facts tbody th { min-width: 7rem; }
+}
