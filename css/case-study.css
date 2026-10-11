@@ -4,7 +4,8 @@
  */
 
 .hb-case2 .hb-section.hb-case2__section { padding-block: var(--hb-space-10); }
-.hb-case2 > .hb-breadcrumb { padding-top: var(--hb-space-6); padding-inline: var(--hb-space-4); }
+/* the nav is position:fixed — same top offset as .hb-blog-hero so the breadcrumb is not under it */
+.hb-case2 > .hb-breadcrumb { padding-top: var(--hb-space-16); padding-inline: var(--hb-space-4); }
 
 /* links inside copy must read as links (facts, steps, notes, related) */
 .hb-case2__prose a,
@@ -15,7 +16,7 @@
 .hb-case2__prose a:hover,
 .hb-case2__table a:hover,
 .hb-case2__related a:hover { color: var(--hb-accent-blue-strong); }
-.hb-case2__head { padding-top: var(--hb-space-12); padding-bottom: var(--hb-space-6); }
+.hb-case2__head { padding-top: var(--hb-space-8); padding-bottom: var(--hb-space-6); }
 .hb-case2__title { margin-top: var(--hb-space-3); }
 
 /* byline: who wrote it and when — the first E-E-A-T signal on the page */
