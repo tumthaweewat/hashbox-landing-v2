@@ -156,6 +156,9 @@ foreach ( array( '฿', 'บาท' ) as $banned ) {
     expect( false === strpos( $bank, $banned ), "banktabien: must not contain \"$banned\" (no project prices)." );
 }
 expect( false !== strpos( $bank, 'href="https://banktabien.com/"' ), 'banktabien: links to the live client site.' );
+// Ongoing SEO for Bank Tabien is another agency's work (owner, 2026-10-11): claim the built-in structure only.
+expect( false === strpos( $bank, 'Technical SEO' ), 'banktabien: no "Technical SEO" service claim.' );
+expect( substr_count( $bank, 'เอเจนซีอื่น' ) >= 2, 'banktabien: says ongoing SEO is done by another agency.' );
 $owner_stat = array_values( array_filter( $cases['banktabien']['results'], function ( $r ) { return false !== strpos( $r['value'], '80%' ); } ) );
 expect( 1 === count( $owner_stat ) && false !== strpos( $owner_stat[0]['source'], 'เจ้าของ' ), 'banktabien: the 80% figure is attributed to the owner, not measured by us.' );
 
