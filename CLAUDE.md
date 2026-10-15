@@ -94,5 +94,6 @@ Apply to **every new page, post, template, section or component**, no exceptions
 2. **One type scale**: use `--hb-text-*` tokens only (base 16px; hero H1 ≈ 28px mobile / 46–52px desktop; section H2 `--hb-text-4xl` ≈ 26–36px; H3 `--hb-text-3xl` ≈ 22–28px). No inline `font-size` in px/rem, no sizes above `--hb-text-6xl`. Reference: anga.co.th (body 16, headings small and dense).
 3. **UX/UI, not AI slop**: no gradient blobs, no fake stats, no unnamed testimonials, no decorative icons in every card, no mono/uppercase eyebrows on everything, no "All systems live"-style pills. Real numbers with a source, real names or none, one CTA per section, rows/tables over card grids where content is comparative, sticky first column on wide tables, mobile checked at 390px before publish.
 4. Content pages: answer-first paragraph, H2 = question or keyword phrase, FAQ = FAQPage schema from the same array, BreadcrumbList, dateModified real.
+5. **New pages get short English slugs** (`n8n-pricing-2026`, not `n8n-ราคา-2026`); Thai keywords go in the title, H1 and meta. **Never change an existing Thai slug** (owner, 2026-10-15) — it means a 301, re-indexing and split GSC/rank data. Thai slugs once kept 24 pages out of Google over percent-encoding case (#72).
 
 Checklist lives in `content/briefs/TEMPLATE.md` §6 — run it before every publish.

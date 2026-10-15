@@ -42,6 +42,9 @@
 
 ## 5. SEO deliverables (Claude Code ทำต่อจาก draft)
 - Title ≤60 ตัวอักษร ×3 (มี keyword + ตัวเลข/ปี) · Meta ≤155 ×2 · slug EN สั้น · excerpt 50 คำ
+- **slug ภาษาอังกฤษเท่านั้นสำหรับหน้าใหม่** (เช่น `n8n-pricing-2026` ไม่ใช่ `n8n-ราคา-2026`) — คำไทยอยู่ใน title/H1/meta พอ คำใน URL มีน้ำหนักต่ออันดับน้อยมาก ·
+  slug ไทยเคยทำให้ 24 หน้าไม่อยู่ใน Google เพราะ percent-encoding ตัวเล็ก/ตัวใหญ่ไม่ตรงกัน (#72) และกลายเป็นข้อความ `%E0%B8…` ยาวๆ เวลาแชร์ ·
+  **หน้าเดิมที่เป็น slug ไทยห้ามเปลี่ยน** (เจ้าของตัดสิน 2026-10-15) — เปลี่ยน = 301 + รอ index ใหม่ + ข้อมูล GSC/rank tracker แยกเป็นสอง URL
 - Featured-snippet answer 45–60 คำ · FAQ 4–6 (Rank Math FAQ block — schema ตรงเนื้อหา)
 - Schema: Article/BlogPosting + FAQPage (post) · Service + FAQPage + Offer (service page) — ห้ามใส่ชนิดที่ไม่ตรงหน้า
 - Facebook post 1 · LinkedIn post 1 · script วิดีโอ 60–90 วิ 1 · GBP post 1
