@@ -26,7 +26,7 @@ $github   = get_the_author_meta( 'github', $author_id );
 $is_founder = 1 === (int) $author_id;
 if ( $is_founder ) {
     $display  = hashbox_founder_name();
-    $job      = $job ? $job : 'Head of Tech · Hashbox Studio';
+    $job      = $job ? $job : hashbox_founder_job_title() . ' · Hashbox Studio';
     $linkedin = $linkedin ? $linkedin : hashbox_founder_linkedin();
 }
 ?>

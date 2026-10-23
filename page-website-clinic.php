@@ -26,7 +26,7 @@ $seo_url      = home_url( '/services/seo/' );
 $desc         = 'รับทำเว็บไซต์คลินิกให้คนไข้ค้นเจอบนมือถือและจองผ่าน LINE OA ได้ทันที — หน้าหัตถการ โปรไฟล์แพทย์ PDPA และ Schema · Lighthouse 95+ เริ่ม 35,900 บาท';
 
 $author_name     = hashbox_founder_name();
-$author_role     = 'Head of Tech';
+$author_role     = hashbox_founder_job_title();
 $author_linkedin = hashbox_founder_linkedin();
 $author_bio      = '17 ปีประสบการณ์ Technical SEO + Performance Engineering · ผ่านโปรเจกต์ SEO migration 50+ เคส · Cert: Google Analytics, Search Console, Cloudflare Performance Engineer';
 
@@ -327,18 +327,9 @@ hashbox_jsonld( array(
     'mainEntity' => $faq_entities,
 ) );
 
-hashbox_jsonld( array(
-    '@context'    => 'https://schema.org',
-    '@type'       => 'Person',
-    '@id'         => home_url( '/#founder' ),
-    'name'        => $author_name,
-    'alternateName' => hashbox_founder_alternate_names(),
-    'jobTitle'    => $author_role,
-    'description' => $author_bio,
-    'url'         => $page_url,
-    'worksFor'    => array( '@id' => home_url( '/#organization' ) ),
-    'sameAs'      => array( $author_linkedin ),
-    'knowsAbout'  => array( 'WordPress', 'Next.js', 'Technical SEO', 'Local SEO', 'Core Web Vitals', 'Schema.org', 'PDPA' ),
-) );
+hashbox_jsonld( hashbox_founder_person_schema( array(
+    '@context'   => 'https://schema.org',
+    'knowsAbout' => array( 'WordPress', 'Next.js', 'Technical SEO', 'Local SEO', 'Core Web Vitals', 'Schema.org', 'PDPA' ),
+) ) );
 
 get_footer();

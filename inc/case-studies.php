@@ -83,7 +83,7 @@ function hashbox_case_study_date( $ymd ) {
 /** JSON-LD nodes for one case: Article (author = founder), Person, BreadcrumbList, FAQPage. */
 function hashbox_case_study_schema( array $case ) {
     $url     = home_url( '/work/' . $case['slug'] . '/' );
-    $founder = home_url( '/#founder' );
+    $founder = hashbox_founder_id();
     $about   = array( '@type' => 'Organization', 'name' => $case['client']['name'], 'description' => $case['client']['description'] );
     if ( ! empty( $case['client']['url'] ) ) {
         $about['url'] = $case['client']['url'];
@@ -108,18 +108,7 @@ function hashbox_case_study_schema( array $case ) {
     if ( ! empty( $case['image']['path'] ) ) {
         $article['image'] = get_template_directory_uri() . $case['image']['path'];
     }
-    $person = array(
-        '@context'      => 'https://schema.org',
-        '@type'         => 'Person',
-        '@id'           => $founder,
-        'name'          => hashbox_founder_name(),
-        'alternateName' => hashbox_founder_alternate_names(),
-        'jobTitle'      => 'Founder',
-        'url'           => home_url( '/about/' ),
-        'image'         => get_template_directory_uri() . hashbox_founder_photo_path(),
-        'worksFor'      => array( '@id' => home_url( '/#organization' ) ),
-        'sameAs'        => array( hashbox_founder_linkedin() ),
-    );
+    $person = hashbox_founder_person_schema( array( '@context' => 'https://schema.org' ) );
     $crumbs = array(
         '@context'        => 'https://schema.org',
         '@type'           => 'BreadcrumbList',

@@ -22,7 +22,7 @@ $page_url = get_permalink();
 $desc = 'บริการให้คำปรึกษา AI Solution สำหรับธุรกิจไทย ส่งงานถึง production — LINE Chatbot, RAG, AI Agent, Workflow Automation · คุยฟรี 30 นาที เริ่ม 60,000 บาท';
 
 $author_name      = hashbox_founder_name();
-$author_role      = 'Head of Tech';
+$author_role      = hashbox_founder_job_title();
 $author_linkedin  = hashbox_founder_linkedin();
 $author_bio       = '17 ปีประสบการณ์ Software Engineering และการเชื่อมระบบธุรกิจ · ดูแลตั้งแต่การเลือก use case, architecture และ integration ไปจนถึง production monitoring';
 

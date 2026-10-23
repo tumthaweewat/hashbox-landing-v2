@@ -22,7 +22,7 @@ $parent_url = home_url( '/services/website-development/' );
 $desc       = 'รับทำเว็บไซต์ WordPress 2 รูปแบบ — Custom Theme เขียนเองไม่พึ่ง page builder หนัก และ Headless WordPress (WP + Next.js) ทุกโปรเจกต์ผ่าน Build Gate กว่า 12 ขั้นตอน Core Web Vitals เขียว Schema ครบ 8+ types และโครงสร้าง AI Search Ready';
 
 $author_name     = hashbox_founder_name();
-$author_role     = 'Head of Tech';
+$author_role     = hashbox_founder_job_title();
 $author_linkedin = hashbox_founder_linkedin();
 $author_bio      = '17 ปีประสบการณ์ Technical SEO + Performance Engineering · ผ่านโปรเจกต์ SEO migration 50+ เคส · Cert: Google Analytics, Search Console, Cloudflare Performance Engineer';
 
@@ -440,18 +440,9 @@ hashbox_jsonld( array(
 ) );
 
 // Person (Author / E-E-A-T).
-hashbox_jsonld( array(
-    '@context'    => 'https://schema.org',
-    '@type'       => 'Person',
-    '@id'         => home_url( '/#founder' ),
-    'name'        => $author_name,
-    'alternateName' => hashbox_founder_alternate_names(),
-    'jobTitle'    => $author_role,
-    'description' => $author_bio,
-    'url'         => $page_url,
-    'worksFor'    => array( '@id' => home_url( '/#organization' ) ),
-    'sameAs'      => array( $author_linkedin ),
-    'knowsAbout'  => array( 'WordPress', 'Headless WordPress', 'Next.js', 'Technical SEO', 'Core Web Vitals', 'Schema.org', 'Performance Engineering' ),
-) );
+hashbox_jsonld( hashbox_founder_person_schema( array(
+    '@context'   => 'https://schema.org',
+    'knowsAbout' => array( 'WordPress', 'Headless WordPress', 'Next.js', 'Technical SEO', 'Core Web Vitals', 'Schema.org', 'Performance Engineering' ),
+) ) );
 
 get_footer();

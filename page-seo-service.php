@@ -32,7 +32,7 @@ $price_from     = 29900;
 $price_from_txt = number_format( $price_from ) . ' บาทต่อเดือน';
 
 $author_name     = hashbox_founder_name();
-$author_role     = 'Head of Tech';
+$author_role     = hashbox_founder_job_title();
 $author_linkedin = hashbox_founder_linkedin();
 $author_bio      = '17 ปีประสบการณ์ Technical SEO + Performance Engineering · ผ่านโปรเจกต์ SEO migration 50+ เคส · Cert: Google Analytics, Search Console, Cloudflare Performance Engineer';
 
