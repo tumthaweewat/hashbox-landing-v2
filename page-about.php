@@ -109,8 +109,8 @@ $page_url = get_permalink();
                 <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/team/tum-thaweewat.jpg' ); ?>" alt="<?php echo esc_attr( hashbox_founder_name() . ' · ' . hashbox_founder_name_th() ); ?> — Head of Tech, Hashbox Studio" width="88" height="88" loading="lazy" decoding="async" itemprop="image" style="flex:0 0 88px;width:88px;height:88px;border-radius:50%;object-fit:cover;border:2px solid var(--hb-accent-blue,#2563EB);">
                 <div style="flex:1;min-width:260px;">
                     <h3 class="hb-h3" style="margin:0;"><span itemprop="name"><?php echo esc_html( hashbox_founder_name() ); ?></span><span lang="th" itemprop="alternateName" style="display:block;font-size:0.8em;font-weight:600;margin-top:var(--hb-space-1);"><?php echo esc_html( hashbox_founder_name_th() ); ?></span></h3>
-                    <p class="hb-bento__label" itemprop="jobTitle" style="margin-top:var(--hb-space-2);">Head of Tech · Hashbox Studio</p>
-                    <p class="hb-body" itemprop="description" style="margin-top:var(--hb-space-3);">17 ปีประสบการณ์ด้าน Software Engineering, AI/ML และ Technical SEO · ผ่านโปรเจกต์ LLM integration และ SEO/Performance migration กว่า 50 เคส · <?php echo esc_html( hashbox_founder_partner_networks() ); ?> · Cert: OpenAI API, Anthropic Claude, LangChain, Google Search Console, Cloudflare Performance</p>
+                    <p class="hb-bento__label" itemprop="jobTitle" style="margin-top:var(--hb-space-2);"><?php echo esc_html( hashbox_founder_job_title() ); ?> · Hashbox Studio</p>
+                    <p class="hb-body" itemprop="description" style="margin-top:var(--hb-space-3);"><?php echo esc_html( hashbox_founder_description() ); ?></p>
                     <div class="hb-rail" style="margin-top:var(--hb-space-4);">
                         <a class="hb-btn hb-btn--outline" href="<?php echo esc_url( hashbox_founder_linkedin() ); ?>" target="_blank" rel="noopener noreferrer me"><span itemprop="sameAs" style="display:none;"><?php echo esc_html( hashbox_founder_linkedin() ); ?></span>LinkedIn &rarr;</a>
                     </div>
@@ -221,25 +221,15 @@ hashbox_jsonld( array(
         array( '@type' => 'ListItem', 'position' => 2, 'name' => 'About', 'item' => $page_url ),
     ),
 ) );
-hashbox_jsonld( array(
-    '@context'    => 'https://schema.org',
-    '@type'       => 'Person',
-    '@id'         => home_url( '/#tum-thaweewat' ),
-    'name'        => hashbox_founder_name(),
-    'alternateName' => hashbox_founder_alternate_names(),
-    'jobTitle'    => 'Head of Tech',
-    'image'       => get_template_directory_uri() . '/assets/team/tum-thaweewat.jpg',
-    'description' => '17 ปีประสบการณ์ด้าน Software Engineering, AI/ML และ Technical SEO · ผ่านโปรเจกต์ LLM integration และ SEO/Performance migration กว่า 50 เคส · ' . hashbox_founder_partner_networks() . ' · Cert: OpenAI API, Anthropic Claude, LangChain, Google Search Console, Cloudflare Performance',
-    'url'         => hashbox_founder_linkedin(),
-    'sameAs'      => array( hashbox_founder_linkedin() ),
-    'worksFor'    => array( '@id' => home_url( '/#organization' ) ),
-) );
+// The one founder node (inc/founder.php) — same @id as the service pages, the case
+// studies, the post author and Organization.founder.
+hashbox_jsonld( hashbox_founder_person_schema( array( '@context' => 'https://schema.org' ) ) );
 hashbox_jsonld( array(
     '@context' => 'https://schema.org',
     '@type'    => 'Organization',
     '@id'      => home_url( '/#organization' ),
-    'founder'  => array( '@id' => home_url( '/#tum-thaweewat' ) ),
-    'employee' => array( array( '@id' => home_url( '/#tum-thaweewat' ) ) ),
+    'founder'  => array( '@id' => hashbox_founder_id() ),
+    'employee' => array( array( '@id' => hashbox_founder_id() ) ),
 ) );
 
 get_footer();

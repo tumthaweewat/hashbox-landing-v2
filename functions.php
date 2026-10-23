@@ -1739,6 +1739,12 @@ function hashbox_author_schema( $user_id ) {
         return array( '@id' => home_url( '/#organization' ) );
     }
 
+    // User 1 is the founder — emit the site-wide founder node (same @id as the
+    // About page, the service pages and the case studies), not a second Person.
+    if ( 1 === $user_id ) {
+        return hashbox_founder_person_schema();
+    }
+
     $same_as = array();
     foreach ( array( 'linkedin', 'twitter', 'github' ) as $key ) {
         $url = get_the_author_meta( $key, $user_id );
@@ -1753,11 +1759,6 @@ function hashbox_author_schema( $user_id ) {
         'name'  => $display,
         'url'   => get_author_posts_url( $user_id ),
     );
-    // User 1 is the founder — same person as the founder node and the About page.
-    if ( 1 === $user_id ) {
-        $person['alternateName'] = hashbox_founder_alternate_names();
-    }
-
     $bio = get_the_author_meta( 'description', $user_id );
     if ( ! empty( $bio ) ) {
         $person['description'] = wp_strip_all_tags( $bio );
@@ -2039,7 +2040,7 @@ function hashbox_audit_landing_pages() {
             'engagement_note'  => 'ราคาเริ่มต้นตามขอบเขตที่ระบุ ไม่รวม VAT 7% และค่า API · ทีมจะสรุป scope และใบเสนอราคาหลัง Screening',
             'project_lead'     => array(
                 'name'       => hashbox_founder_name(),
-                'role'       => 'Head of Tech',
+                'role'       => hashbox_founder_job_title(),
                 'experience' => '17 ปีในงาน Software Engineering',
                 'linkedin'   => hashbox_founder_linkedin(),
             ),
@@ -2840,13 +2841,10 @@ function hashbox_rankmath_schema_organization() {
         'image' => hashbox_brand_images(),
         'foundingDate' => '2024',
         'foundingLocation' => array( '@type' => 'Place', 'name' => 'Bangkok, Thailand' ),
-        'founder' => array(
-            '@type'  => 'Person',
-            'name'   => hashbox_founder_name(),
-            'alternateName' => hashbox_founder_alternate_names(),
-            'url'    => home_url( '/about/' ),
-            'sameAs' => array( hashbox_founder_linkedin(), 'https://github.com/tumthaweewat' ),
-        ),
+        // The site-wide founder node (same @id as About, the service pages and the
+        // case studies) — nested here so every page that carries the Organization
+        // graph also carries the one Person entity.
+        'founder' => hashbox_founder_person_schema(),
         'slogan' => 'เว็บไซต์ SEO-Ready และระบบ AI ที่ใช้งานจริงใน production',
         'sameAs' => hashbox_organization_same_as(),
         'contactPoint' => array(
@@ -2991,6 +2989,9 @@ function hashbox_rankmath_json_ld( $data, $jsonld = null ) {
         if ( hashbox_schema_entity_has_type( $entity, 'Person' ) && isset( $entity['@id'] )
             && 0 === strpos( (string) $entity['@id'], get_author_posts_url( 1 ) ) && empty( $entity['alternateName'] ) ) {
             $data[ $key ]['alternateName'] = hashbox_founder_alternate_names();
+            $data[ $key ]['jobTitle']      = hashbox_founder_job_title();
+            $data[ $key ]['worksFor']      = array( '@id' => $home . '#organization' );
+            $data[ $key ]['sameAs']        = array( hashbox_founder_linkedin(), hashbox_founder_github() );
         }
 
         if ( $is_case_study && hashbox_schema_entity_has_type( $entity, 'BreadcrumbList' ) ) {
@@ -3164,22 +3165,28 @@ function hashbox_robots_txt( $output, $public ) {
         return $output;
     }
 
-    $output  = "User-agent: *\n";
-    $output .= "Disallow: /wp-admin/\n";
-    $output .= "Allow: /wp-admin/admin-ajax.php\n";
     // GSC (2026-08-29): 26 of 28 "crawled – not indexed" URLs were RSS feeds,
     // the search feed and wp-emoji.js — crawl budget spent on nothing.
-    $output .= "Disallow: /feed/\n";
-    $output .= "Disallow: /*/feed/\n";
-    $output .= "Disallow: /*/feed/rss2/\n";
-    $output .= "Disallow: /search/\n";
-    $output .= "Disallow: /?s=\n";
-    $output .= "Disallow: /wp-includes/js/wp-emoji-release.min.js\n\n";
+    $disallow  = "Disallow: /wp-admin/\n";
+    $disallow .= "Allow: /wp-admin/admin-ajax.php\n";
+    $disallow .= "Disallow: /feed/\n";
+    $disallow .= "Disallow: /*/feed/\n";
+    $disallow .= "Disallow: /*/feed/rss2/\n";
+    $disallow .= "Disallow: /search/\n";
+    $disallow .= "Disallow: /?s=\n";
+    $disallow .= "Disallow: /wp-includes/js/wp-emoji-release.min.js\n";
+
+    $output  = "User-agent: *\n";
+    $output .= $disallow . "\n";
     // AI search crawlers are welcome — GEO depends on it. Listed explicitly
-    // so the policy is unambiguous to each vendor.
-    foreach ( array( 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'anthropic-ai', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Bingbot', 'Applebot-Extended', 'CCBot' ) as $bot ) {
+    // so the policy is unambiguous to each vendor. Each named group repeats
+    // the * rules: per RFC 9309 a crawler that matches its own group ignores
+    // the * group, so "Allow: /" alone re-opened feeds, search and wp-admin
+    // to every bot named here (audit 2026-10-21).
+    foreach ( array( 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'anthropic-ai', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Bingbot', 'Applebot-Extended', 'CCBot' ) as $bot ) {
         $output .= "User-agent: {$bot}\n";
-        $output .= "Allow: /\n\n";
+        $output .= "Allow: /\n";
+        $output .= $disallow . "\n";
     }
     $output .= "Sitemap: " . home_url( '/sitemap_index.xml' ) . "\n";
     $output .= "Sitemap: " . home_url( '/landing-sitemap.xml' ) . "\n";
@@ -3243,6 +3250,7 @@ function hashbox_llms_txt_content() {
     $lines[] = '- [About Hashbox Studio](' . home_url( '/about/' ) . '): Team, mission, methodology';
     $lines[] = '- [Work / Case Studies](' . home_url( '/work/' ) . '): Portfolio of SEO + web projects';
     $lines[] = '- [Contact](' . home_url( '/#contact' ) . '): Free SEO audit + project enquiry';
+    $lines[] = '- [Blog](' . home_url( '/blog/' ) . '): บทความ SEO, web performance, CRO และ AI automation พร้อมแนวทางลงมือทำจริงสำหรับธุรกิจไทย';
     $lines[] = '';
     $case_lines = hashbox_case_study_llms_lines();
     if ( $case_lines ) {
@@ -3262,7 +3270,31 @@ function hashbox_llms_txt_content() {
         $price = $svc['price'] ? ' · ' . $svc['price'] : '';
         $lines[] = '- [' . $svc['name'] . '](' . hashbox_service_url( $svc ) . '): ' . $svc['desc'] . $price;
     }
+    // Sub-service pages and the hub — keyword owners per REFERENCE.md §6.2 that the
+    // catalogue loop does not cover (AI-visibility audit 2026-10-21: missing from llms.txt).
+    $lines = array_merge( $lines, array_filter( array(
+        hashbox_llms_page_line( '/services/', 'บริการทั้งหมด (Services hub)', '5 บริการในทีมเดียว — รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI, รับทำ SEO, รับทำ AI Search และ n8n Automation ราคาโปร่งใส' ),
+        hashbox_llms_page_line( '/services/website-development/wordpress/', 'รับทำเว็บไซต์ WordPress', 'Custom Theme และ Headless (WP + Next.js) การันตี Lighthouse 95+ เมื่อไม่มี heavy plugin · เริ่ม 35,900 บาท' ),
+        hashbox_llms_page_line( '/services/website-development/clinic/', 'รับทำเว็บไซต์ คลินิก', 'หน้าหัตถการ โปรไฟล์แพทย์ จองผ่าน LINE OA, PDPA และ Schema · Lighthouse 95+ เริ่ม 35,900 บาท' ),
+        hashbox_llms_page_line( '/services/seo/white-hat/', 'รับทำ SEO สายขาว', 'SEO ตามแนวทาง Google — ไม่ซื้อลิงก์ ไม่ปั่นบทความ แก้ technical ก่อน ตรวจย้อนได้ด้วยข้อมูลอันดับรายวัน · เริ่ม 29,900 บาท/เดือน' ),
+        hashbox_llms_page_line( '/services/seo/guarantee-terms/', 'เงื่อนไขการันตี "ไม่โต ไม่จ่าย"', 'งานเทคนิคผ่านใน 30 วัน · impressions +50% หรือ Top-20 +5 คำใน 90 วัน ไม่ถึงทำต่อฟรีสูงสุด 3 เดือน วัดจาก Search Console ของลูกค้า' ),
+    ) ) );
     $lines[] = '';
+    $tool_lines = array_filter( array(
+        hashbox_llms_page_line( '/geo-checker/', 'GEO Readiness Checker (ฟรี)', 'ใส่ URL แล้วรู้คะแนน 0-100 ว่าหน้าเว็บพร้อมถูก ChatGPT, Perplexity และ Google AI Overviews อ้างอิงแค่ไหน' ),
+        hashbox_llms_page_line( '/website-audit/', 'Website Audit ฟรี', 'ขอ scope และราคาเบื้องต้นสำหรับ Landing Page หรือเว็บไซต์ใหม่ พร้อม UX/UI, SEO, Performance และ Conversion Tracking' ),
+        hashbox_llms_audit_line( '/seo-audit/', 'SEO Audit ฟรี (เว็บใหม่)', 'Technical SEO, Core Web Vitals, Schema, GA4, GSC — รายงาน 15–20 หน้าใน 3 วันทำการ' ),
+        hashbox_llms_audit_line( '/seo-recovery-audit/', 'SEO Recovery Audit ฟรี (traffic ตก)', 'ตรวจ Core Web Vitals, indexation, schema, backlinks, competitor gap พร้อม roadmap ว่าแก้อะไรก่อน' ),
+        hashbox_llms_audit_line( '/ai-workflow-audit/', 'AI Opportunity Screening ฟรี 30 นาที', 'ประเมินงานเอกสาร คำขอราคา CRM และทีมคอนเทนต์ เลือก workflow ที่ควรเริ่มและประเมินข้อมูลกับระบบเดิม' ),
+        hashbox_llms_audit_line( '/cro-funnel-audit/', 'CRO Funnel Audit ฟรี', 'มี traffic แต่ lead ไม่มา — ตรวจ funnel ด้วย GA4, GSC, heatmap และ A/B test plan' ),
+        hashbox_llms_audit_line( '/growth-audit/', 'Growth Audit ฟรี', 'ทีมเดียวดู Web, Ads, SEO และ AI ครบ พร้อม audit funnel ทั้ง customer journey' ),
+    ) );
+    if ( $tool_lines ) {
+        $lines[] = '## Free tools and audits';
+        $lines[] = '';
+        $lines   = array_merge( $lines, $tool_lines );
+        $lines[] = '';
+    }
     $lines[] = '## Comparisons and pricing';
     $lines[] = '';
     // The pages AI answers cite most for "who / how much" questions (hashbox-seo-stack
@@ -3299,6 +3331,18 @@ function hashbox_llms_txt_content() {
     $lines[] = '- [AI Workforce Guide for Thai SMEs](' . home_url( '/ai-workforce-sme-thailand-2026/' ) . '): AI adoption playbook for Thai businesses';
     $lines[] = '- [LINE Chatbot AI Guide 2026](' . home_url( '/line-chatbot-ai-guide-2026/' ) . '): Conversational AI for LINE platform';
     $lines[] = '- [CRO Guide for Thai Websites](' . home_url( '/cro-conversion-rate-optimization-thai-2026/' ) . '): Conversion rate optimization for Thai market';
+    // Keyword owners (REFERENCE.md §6.2) and the AI-search guides that were not listed
+    // (AI-visibility audit 2026-10-21). Thai slugs cannot be existence-checked offline
+    // the way ASCII pages are — all were live (200) on the audit date.
+    $lines[] = '- [AI Transformation คืออะไร](' . home_url( '/ai-transformation-คือ-2026/' ) . '): 4 ระดับ maturity วิธีเริ่มในองค์กรไทย อุปสรรคที่เจอบ่อย และการวัด ROI';
+    $lines[] = '- [รับทำ AI Tool / AI Prototype ต้องเตรียมอะไรบ้าง](' . home_url( '/รับทำ-ai-tool-prototype-2026/' ) . '): POC vs prototype vs MVP, 4 สิ่งที่ต้องเตรียม, build 2–6 สัปดาห์, ราคาเริ่ม 60,000 บาท';
+    $lines[] = '- [Google AI Mode คืออะไร](' . home_url( '/google-ai-mode-คืออะไร-2026/' ) . '): ต่างจาก AI Overview ตรงไหน ภาษาไทยเปิดตั้งแต่ ต.ค. 2025 และ 6 สิ่งที่เว็บต้องทำ';
+    $lines[] = '- [llms.txt คืออะไร](' . home_url( '/llms-txt-คืออะไร-2026/' ) . '): ต่างจาก robots.txt ตรงไหน วิธีทำ 5 ขั้น พร้อมไฟล์จริงของ hashbox.co.th';
+    $lines[] = '- [เว็บไซต์รองรับ AI Search คืออะไร](' . home_url( '/เว็บไซต์รองรับ-ai-search-2026/' ) . '): Checklist 12 ข้อ 3 ชั้นที่เว็บต้องผ่านก่อน AI จะอ้างอิง และวิธีเช็คเว็บตัวเองฟรี';
+    $lines[] = '- [SEO คืออะไร? คู่มือฉบับ 2026](' . home_url( '/seo-thai-guide-2026/' ) . '): 4 เสาหลัก (รวม AI Overview) ยากแค่ไหน ใช้เวลาเท่าไร ราคา ทำเองได้ไหม พร้อมตัวเลขจริง';
+    $lines[] = '- [Schema Markup คืออะไร](' . home_url( '/schema-markup-thai-guide-2026/' ) . '): ประเภท schema ที่ใช้บ่อย วิธีติดตั้งบน WordPress และตรวจด้วย Rich Results Test';
+    $lines[] = '- [Core Web Vitals คืออะไร](' . home_url( '/core-web-vitals-thai-guide-2026/' ) . '): LCP, INP, CLS ค่ามาตรฐานที่ควรผ่าน วิธีวัดผล และเทคนิคปรับปรุง';
+    $lines[] = '- [Local SEO Bangkok สำหรับ B2B](' . home_url( '/local-seo-bangkok-b2b-2026/' ) . '): Google Business Profile, LocalBusiness schema, NAP, citations และรีวิว';
     $lines[] = '';
     $lines[] = '## English pages';
     $lines[] = '';
@@ -3315,6 +3359,8 @@ function hashbox_llms_txt_content() {
     $lines[] = '- SEO-Ready Enterprise: from 500,000 THB / 8-14 weeks';
     // One-off build fees above; this one is a monthly retainer, hence the unit.
     $lines[] = '- SEO retainer (technical-first, incl. GEO): from 29,900 THB / month — guarantee: technical pass in 30 days; if impressions do not grow 50% in 90 days we keep working free (max 3 months)';
+    // Same figure as the Services line and the service page (catalogue price_llms).
+    $lines[] = '- AI consulting (LINE Chatbot, RAG, Sales GPT, AI Agent — scoped project): from 60,000 THB / project';
     // The catalogue refactor dropped this assignment; undefined = the price line never rendered.
     $hb_has_n8n_page = (bool) get_page_by_path( 'services/n8n-automation', OBJECT, 'page' );
     if ( $hb_has_n8n_page ) {
@@ -3356,6 +3402,11 @@ function hashbox_llms_full_txt_content() {
         'nextjs-vs-wordpress-2026',
     );
 
+    $catalog_by_slug = array();
+    foreach ( hashbox_service_catalog_live() as $svc ) {
+        $catalog_by_slug[ trim( $svc['path'], '/' ) ] = $svc;
+    }
+
     foreach ( $pillar_slugs as $slug ) {
         $page = get_page_by_path( $slug );
         if ( ! $page ) {
@@ -3364,16 +3415,66 @@ function hashbox_llms_full_txt_content() {
         if ( ! $page ) {
             continue;
         }
-        $out .= "\n---\n\n";
-        $out .= '# ' . $page->post_title . "\n\n";
-        $out .= 'URL: ' . get_permalink( $page ) . "\n\n";
+        $svc     = isset( $catalog_by_slug[ $slug ] ) ? $catalog_by_slug[ $slug ] : null;
+        $title   = $svc ? $svc['name'] : $page->post_title;
         $content = apply_filters( 'the_content', $page->post_content );
-        $content = wp_strip_all_tags( $content );
+        $content = trim( (string) wp_strip_all_tags( $content ) );
+        // Service pages are template-rendered (page-*.php), so post_content is empty
+        // and llms-full.txt shipped four pillars as a stale title with no body
+        // (AI-visibility audit 2026-10-21). Build the body from the catalogue — the
+        // same source as llms.txt, the nav and the Offer schema.
+        if ( '' === $content && $svc ) {
+            $content = hashbox_llms_service_body( $svc );
+        }
         $content = preg_replace( '/\n{3,}/', "\n\n", $content );
+        $out .= "\n---\n\n";
+        $out .= '# ' . $title . "\n\n";
+        $out .= 'URL: ' . get_permalink( $page ) . "\n\n";
         $out .= trim( (string) $content ) . "\n";
     }
 
     return $out;
+}
+
+/** llms-full.txt body for a service pillar whose page has no post_content. */
+function hashbox_llms_service_body( array $svc ) {
+    $lines   = array();
+    $lines[] = $svc['desc'];
+    if ( ! empty( $svc['en_desc'] ) ) {
+        $lines[] = $svc['en_desc'];
+    }
+    $lines[] = '';
+    if ( ! empty( $svc['price_llms'] ) ) {
+        $lines[] = 'ราคา / Price: ' . $svc['price'] . ' (' . $svc['price_llms'] . ', excl. VAT)';
+    }
+    if ( ! empty( $svc['stack'] ) ) {
+        $lines[] = 'Stack: ' . $svc['stack'];
+    }
+    if ( ! empty( $svc['bullets'] ) ) {
+        $lines[] = '';
+        $lines[] = 'ครอบคลุม / Includes:';
+        foreach ( $svc['bullets'] as $bullet ) {
+            $lines[] = '- ' . $bullet['label'] . ( empty( $bullet['path'] ) ? '' : ' — ' . home_url( $bullet['path'] ) );
+        }
+    }
+    return implode( "\n", $lines );
+}
+
+/** One llms.txt line for a WP Page, or '' when the page does not exist — never list a 404. */
+function hashbox_llms_page_line( $path, $label, $summary ) {
+    $slug = trim( $path, '/' );
+    if ( '' !== $slug && ! get_page_by_path( $slug, OBJECT, 'page' ) ) {
+        return '';
+    }
+    return '- [' . $label . '](' . home_url( $path ) . '): ' . $summary;
+}
+
+/** Same for an audit landing, which is served by template fallback and may have no WP Page. */
+function hashbox_llms_audit_line( $path, $label, $summary ) {
+    if ( ! function_exists( 'hashbox_get_audit_landing_for_path' ) || ! hashbox_get_audit_landing_for_path( $path ) ) {
+        return '';
+    }
+    return '- [' . $label . '](' . home_url( $path ) . '): ' . $summary;
 }
 
 /**

@@ -74,3 +74,33 @@ foreach ( array( "'rank_math/sitemap/entry', 'hashbox_sitemap_entry_uppercase_en
     plumbing_expect( false !== strpos( $fn, "add_filter( $hook" ), "Missing late filter: $hook" );
 }
 echo "Sitemap/llms/meta: sitemap cache off, n8n llms line defined, no spliced descriptions, audit landing FAQ schema + titles, TH listicle linked + hreflang.\n";
+
+// AI-visibility audit (2026-10-21).
+// 1. robots.txt: a crawler that matches its own User-agent group ignores the * group
+//    (RFC 9309), so every named bot group must repeat the * Disallow rules — "Allow: /"
+//    alone re-opened /feed/, /search/ and /wp-admin/ to GPTBot, ClaudeBot, PerplexityBot…
+$start  = strpos( $fn, 'function hashbox_robots_txt' );
+$robots = substr( $fn, $start, strpos( $fn, 'function hashbox_serve_llms_txt' ) - $start );
+$loop   = strpos( $robots, "foreach ( array( 'GPTBot'" );
+plumbing_expect( false !== $loop && false !== strpos( substr( $robots, $loop ), '$output .= $disallow' ), 'Named bot groups in robots.txt must repeat the * Disallow rules' );
+plumbing_expect( false !== strpos( $robots, "'Claude-User'" ) && false !== strpos( $robots, "'Claude-SearchBot'" ) && false !== strpos( $robots, "'OAI-SearchBot'" ), 'Search/retrieval bots are named explicitly' );
+// 2. llms-full.txt: the four service pillars are template-rendered (empty post_content)
+//    and shipped as a stale title with no body — the generator must fall back to the catalogue.
+$start = strpos( $fn, 'function hashbox_llms_full_txt_content' );
+$full  = substr( $fn, $start, strpos( $fn, 'function hashbox_llms_service_body' ) - $start );
+plumbing_expect( false !== strpos( $full, 'hashbox_llms_service_body( $svc )' ) && false !== strpos( $full, "\$svc ? \$svc['name'] : \$page->post_title" ), 'llms-full.txt must build service pillars from the catalogue (title + body)' );
+// 3. llms.txt lists the keyword owners from REFERENCE.md §6.2 that were missing.
+foreach ( array( '/services/website-development/wordpress/', '/รับทำ-ai-tool-prototype-2026/', '/ai-transformation-คือ-2026/', '/geo-checker/', "'/services/'" ) as $needle ) {
+    plumbing_expect( false !== strpos( $body, $needle ), 'llms.txt must list ' . $needle );
+}
+// 4. One founder entity: every Person node goes through hashbox_founder_person_schema()
+//    (inc/founder.php) with one @id — no page builds its own Person array any more.
+plumbing_expect( false !== strpos( $fn, "'founder' => hashbox_founder_person_schema()" ), 'Organization.founder must be the shared founder node' );
+foreach ( array_merge( glob( __DIR__ . '/../page-*.php' ), glob( __DIR__ . '/../inc/*.php' ), array( __DIR__ . '/../functions.php', __DIR__ . '/../author.php' ) ) as $file ) {
+    $src = file_get_contents( $file );
+    plumbing_expect( false === strpos( $src, '#tum-thaweewat' ), basename( $file ) . ' still references the old founder @id' );
+    if ( 'functions.php' !== basename( $file ) && 'founder.php' !== basename( $file ) ) {
+        plumbing_expect( 0 === preg_match( "/'@type'\s*=>\s*'Person'/", $src ), basename( $file ) . ' builds its own Person node — use hashbox_founder_person_schema()' );
+    }
+}
+echo "AI visibility: robots named groups inherit Disallow, llms-full service fallback, owner pages listed, one founder node.\n";

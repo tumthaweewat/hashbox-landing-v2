@@ -25,7 +25,7 @@ $checker_url  = $has_checker ? home_url( '/geo-checker/' ) : home_url( '/?servic
 $desc         = 'รับทำ AI Search (GEO/AEO): ปรับเว็บให้ ChatGPT, Gemini และ Google AI Overview อ้างถึง วัดผลแยกรายแพลตฟอร์ม · รวมในค่า SEO รายเดือนเริ่ม 29,900 บาท';
 
 $author_name     = hashbox_founder_name();
-$author_role     = 'Head of Tech';
+$author_role     = hashbox_founder_job_title();
 $author_linkedin = hashbox_founder_linkedin();
 $author_bio      = '17 ปี Technical SEO + Performance Engineering · ดูแลงานวิเคราะห์และพัฒนาเว็บไซต์ พร้อมระบบติดตาม AI Overview / AI citation ของ Hashbox';
 
