@@ -50,7 +50,7 @@ get_header();
             <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/website-development/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">Service</span>
                 <h3 class="hb-card__title">รับทำเว็บไซต์ SEO-Ready</h3>
-                <p class="hb-card__body">เว็บที่ผ่าน Lighthouse 100, Core Web Vitals เขียว และ schema ครบตั้งแต่วันเปิดตัว</p>
+                <p class="hb-card__body">เว็บที่ผ่าน Lighthouse 95+ Mobile / 100 Desktop, Core Web Vitals เขียว และ schema ครบตั้งแต่วันเปิดตัว</p>
             </a>
             <a class="hb-card hb-bento__cell hb-bento__cell--c2" href="<?php echo esc_url( home_url( '/services/seo/' ) ); ?>" style="text-decoration:none;">
                 <span class="hb-eyebrow">Service</span>

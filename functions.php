@@ -954,7 +954,7 @@ function hashbox_get_seo_metadata() {
     if ( is_front_page() ) {
         return array(
             'title'       => 'รับทำเว็บไซต์ SEO-Ready · ที่ปรึกษา AI · รับทำ SEO | Hashbox Studio',
-            'description' => 'Hashbox Studio รับทำเว็บไซต์ SEO-Ready, รับทำ SEO, AI Search, ที่ปรึกษา AI และ n8n สำหรับธุรกิจไทย — ราคาเปิดเผย Lighthouse 100 วัดผลจากข้อมูลจริงรายวัน',
+            'description' => 'Hashbox Studio รับทำเว็บไซต์ SEO-Ready, รับทำ SEO, AI Search, ที่ปรึกษา AI และ n8n สำหรับธุรกิจไทย — ราคาเปิดเผย การันตี Lighthouse 95+ Mobile / 100 Desktop วัดผลจากข้อมูลจริงรายวัน',
         );
     }
 
@@ -1037,11 +1037,11 @@ function hashbox_get_seo_metadata() {
             ),
             'seo-ready-website' => array(
                 'title'       => 'รับทำเว็บไซต์ SEO-Ready ติด Google และ AI Search | Hashbox',
-                'description' => 'รับทำเว็บไซต์บริษัท E-commerce และ Landing Page แบบ SEO-Ready — Lighthouse 100, Core Web Vitals เขียว, Schema ครบ ส่งมอบ source code เริ่ม 35,900 บาท',
+                'description' => 'รับทำเว็บไซต์บริษัท E-commerce และ Landing Page แบบ SEO-Ready — การันตี Lighthouse 95+ Mobile / 100 Desktop, Core Web Vitals เขียว, Schema ครบ ส่งมอบ source code เริ่ม 35,900 บาท',
             ),
             'website-development' => array(
                 'title'       => 'รับทำเว็บไซต์ SEO-Ready ติด Google และ AI Search | Hashbox',
-                'description' => 'รับทำเว็บไซต์บริษัท E-commerce และ Landing Page แบบ SEO-Ready — Lighthouse 100, Core Web Vitals เขียว, Schema ครบ ส่งมอบ source code เริ่ม 35,900 บาท',
+                'description' => 'รับทำเว็บไซต์บริษัท E-commerce และ Landing Page แบบ SEO-Ready — การันตี Lighthouse 95+ Mobile / 100 Desktop, Core Web Vitals เขียว, Schema ครบ ส่งมอบ source code เริ่ม 35,900 บาท',
             ),
             // Commercial intent only. This page used to lead with "ปรึกษาทำระบบ
             // AI Solution" — the exact phrase /ai-solution-consulting-guide-2026/
@@ -2088,8 +2088,8 @@ function hashbox_audit_landing_pages() {
                 array( 'title' => 'Launch Tracking Plan', 'body' => 'กำหนด GA4, GSC, conversion events และ dashboard ที่ต้องติดก่อนเปิดเว็บ' ),
             ),
             'proof'            => array(
-                'metric' => '100',
-                'title'  => 'Lighthouse 100 เป็น build gate ไม่ใช่คำสัญญาหลังบ้าน',
+                'metric' => '95+',
+                'title'  => 'Lighthouse 95+ Mobile / 100 Desktop เป็น build gate ไม่ใช่คำสัญญาหลังบ้าน',
                 'body'   => 'เว็บที่ทีม Hashbox ส่งมอบต้องผ่าน performance, accessibility, best practices และ SEO gate ก่อน deploy พร้อมตรวจ CWV และ schema validator ทุก URL สำคัญ',
                 'href'   => '/services/website-development/',
             ),
@@ -2835,7 +2835,6 @@ function hashbox_rankmath_schema_organization() {
         '@id'   => $home . '#organization',
         'name'  => 'Hashbox Studio',
         'alternateName' => array( 'Hashbox', 'แฮชบ็อกซ์ สตูดิโอ', 'Hashbox Studio Bangkok' ),
-        'legalName' => 'Hashbox Studio',
         'url'   => $home,
         'logo'  => hashbox_brand_logo_object(),
         'image' => hashbox_brand_images(),
@@ -3241,9 +3240,9 @@ function hashbox_llms_txt_content() {
     $lines = array();
     $lines[] = '# Hashbox Studio';
     $lines[] = '';
-    $lines[] = '> Hashbox Studio (แฮชบ็อกซ์ สตูดิโอ) คือสตูดิโอในกรุงเทพฯ ก่อตั้งปี 2024 โดย ธณวรรธณ์ ศรีอรุณทิพย์ (Thanawat Sriaroonthip · Tum) ให้บริการ รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, รับทำ AI Search (GEO) และ Workflow Automation ด้วย n8n สำหรับธุรกิจไทย ทุกเว็บไซต์ส่งมอบพร้อม Lighthouse 100, Core Web Vitals เขียว, Schema.org ครบ และ optimise สำหรับ AI Search ตั้งแต่วันเปิดตัว';
+    $lines[] = '> Hashbox Studio (แฮชบ็อกซ์ สตูดิโอ) คือสตูดิโอในกรุงเทพฯ ก่อตั้งปี 2024 โดย ธณวรรธณ์ ศรีอรุณทิพย์ (Thanawat Sriaroonthip · Tum) ให้บริการ รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI สำหรับธุรกิจ, รับทำ SEO สายเทคนิค, รับทำ AI Search (GEO) และ Workflow Automation ด้วย n8n สำหรับธุรกิจไทย ทุกเว็บไซต์ส่งมอบพร้อมการันตี Lighthouse 95+ Mobile / 100 Desktop, Core Web Vitals เขียว, Schema.org ครบ และ optimise สำหรับ AI Search ตั้งแต่วันเปิดตัว';
     $lines[] = '';
-    $lines[] = '> Hashbox Studio is a Bangkok-based studio founded in 2024 by Thanawat Sriaroonthip (Tum). Services: SEO-Ready website development, AI consulting for Thai businesses, technical-first SEO, AI Search (GEO) optimisation and n8n workflow automation. Every website ships with Lighthouse 100, green Core Web Vitals, complete Schema.org markup and AI-search optimisation from launch. Prices are public (THB, excl. VAT).';
+    $lines[] = '> Hashbox Studio is a Bangkok-based studio founded in 2024 by Thanawat Sriaroonthip (Tum). Services: SEO-Ready website development, AI consulting for Thai businesses, technical-first SEO, AI Search (GEO) optimisation and n8n workflow automation. Every website ships with a guaranteed Lighthouse 95+ on mobile / 100 on desktop, green Core Web Vitals, complete Schema.org markup and AI-search optimisation from launch. Prices are public (THB, excl. VAT).';
     $lines[] = '';
     $lines[] = '## About';
     $lines[] = '';
@@ -3361,6 +3360,8 @@ function hashbox_llms_txt_content() {
     $lines[] = '- SEO retainer (technical-first, incl. GEO): from 29,900 THB / month — guarantee: technical pass in 30 days; if impressions do not grow 50% in 90 days we keep working free (max 3 months)';
     // Same figure as the Services line and the service page (catalogue price_llms).
     $lines[] = '- AI consulting (LINE Chatbot, RAG, Sales GPT, AI Agent — scoped project): from 60,000 THB / project';
+    // Same figures as the /services/ai-consulting/ FAQ.
+    $lines[] = '- AI consulting retainer (monthly advisory): 30,000–150,000 THB / month';
     // The catalogue refactor dropped this assignment; undefined = the price line never rendered.
     $hb_has_n8n_page = (bool) get_page_by_path( 'services/n8n-automation', OBJECT, 'page' );
     if ( $hb_has_n8n_page ) {
@@ -3486,7 +3487,7 @@ if ( ! function_exists( 'hashbox_get_home_faqs' ) ) {
         return array(
             array(
                 'q' => 'เว็บที่คุณทำพร้อม SEO จริงไหม ใช้เวลานานแค่ไหนถึงเห็นผล?',
-                'a' => 'ใช่ครับ ทุกเว็บที่ออกจากทีมเราต้องผ่าน Build Gate ซึ่งบังคับให้ Lighthouse 100, Core Web Vitals เขียว และ Schema Validator ผ่านทุกหน้า ก่อนจะ Deploy ขึ้น Production ลูกค้าส่วนใหญ่จะเริ่มเห็น Impressions เพิ่มภายใน 30-60 วัน และ Ranking ขยับใน 60-90 วัน ทั้งนี้ก็ขึ้นกับ Niche และ Domain Authority เดิมของแต่ละเว็บด้วย',
+                'a' => 'ใช่ครับ ทุกเว็บที่ออกจากทีมเราต้องผ่าน Build Gate ซึ่งบังคับให้ Lighthouse 95+ Mobile / 100 Desktop (การันตีตามเงื่อนไข), Core Web Vitals เขียว และ Schema Validator ผ่านทุกหน้า ก่อนจะ Deploy ขึ้น Production ลูกค้าส่วนใหญ่จะเริ่มเห็น Impressions เพิ่มภายใน 30-60 วัน และ Ranking ขยับใน 60-90 วัน ทั้งนี้ก็ขึ้นกับ Niche และ Domain Authority เดิมของแต่ละเว็บด้วย',
             ),
             array(
                 'q' => 'Tech Stack ที่ใช้คืออะไร?',
@@ -3506,7 +3507,7 @@ if ( ! function_exists( 'hashbox_get_home_faqs' ) ) {
             ),
             array(
                 'q' => 'ราคาเริ่มต้นเท่าไหร่?',
-                'a' => 'Landing Page เริ่มที่ 35,900 บาท Corporate Site เริ่มที่ 80,000 บาท E-commerce เริ่มที่ 350,000 บาท ส่วน AI Consulting Retainer เริ่มที่ 50,000 บาทต่อเดือน ทุกใบเสนอราคาจะออกหลังการประเมิน Scope ฟรี เพื่อให้ลูกค้าเห็นภาพชัดก่อนตัดสินใจครับ',
+                'a' => 'Landing Page เริ่มที่ 35,900 บาท Corporate Site เริ่มที่ 80,000 บาท E-commerce เริ่มที่ 350,000 บาท ส่วน AI Consulting เริ่มที่ 60,000 บาท (ROI Assessment) และที่ปรึกษารายเดือน 30,000-150,000 บาทต่อเดือน ทุกใบเสนอราคาจะออกหลังการประเมิน Scope ฟรี เพื่อให้ลูกค้าเห็นภาพชัดก่อนตัดสินใจครับ',
             ),
             array(
                 'q' => 'มี Support หลังส่งมอบไหม?',

@@ -62,8 +62,8 @@
                     </a>
                     <p class="hb-footer__desc">
                         <?php echo $hb_en
-                            ? 'One studio for SEO-ready websites, SEO / AI Search and AI consulting — we ship sites that pass Lighthouse 100 and AI systems that run in production.'
-                            : 'สตูดิโอที่รวม รับทำเว็บไซต์ SEO-Ready, รับทำ SEO / AI Search และที่ปรึกษา AI ไว้ในทีมเดียว ส่งมอบเว็บที่ผ่าน Lighthouse 100 และระบบ AI ที่ใช้งานจริงใน production'; ?>
+                            ? 'One studio for SEO-ready websites, SEO / AI Search and AI consulting — we ship sites that pass Lighthouse 95+ mobile / 100 desktop and AI systems that run in production.'
+                            : 'สตูดิโอที่รวม รับทำเว็บไซต์ SEO-Ready, รับทำ SEO / AI Search และที่ปรึกษา AI ไว้ในทีมเดียว ส่งมอบเว็บที่ผ่าน Lighthouse 95+ Mobile / 100 Desktop และระบบ AI ที่ใช้งานจริงใน production'; ?>
                     </p>
                     <div class="hb-footer__socials">
                         <a href="<?php echo esc_url( hashbox_founder_linkedin() ); ?>" class="hb-footer__social" aria-label="LinkedIn LI" target="_blank" rel="me noopener noreferrer">LI</a>
