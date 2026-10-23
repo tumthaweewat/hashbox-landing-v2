@@ -430,7 +430,7 @@ get_header();
                 <div class="hb-tier__price">35,900<span class="hb-tier__price-unit">บาท+</span></div>
                 <p class="hb-caption">2-3 สัปดาห์</p>
                 <ul class="hb-tier__features">
-                    <li>Next.js + Lighthouse 100</li>
+                    <li>Next.js + Lighthouse 95+/100</li>
                     <li>Schema markup ครบ</li>
                     <li>GA4 + GSC setup</li>
                     <li>30 วัน support</li>
