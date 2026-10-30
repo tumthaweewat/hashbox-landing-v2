@@ -9,6 +9,7 @@
 - Add contextual links to Growth Audit, CRO Funnel Audit and clinic website development from the services hub and related service pages.
 - Add sitewide LINE OA click instrumentation. Each `line_oa_click` dataLayer event includes `hb_schema_version`, a unique `hb_transaction_id`, the target URL, page path and CTA location.
 - Keep partial SEO path overrides field-specific: a page with a title override retains its Rank Math/WordPress description, and a page with a description override retains its Rank Math/WordPress title. Regression checks cover the Bangkok SEO agencies and Thai AI consulting listicles.
+- Resolve generated descriptions in order: explicit path override, Rank Math description, then WordPress excerpt/content. This keeps WebPage JSON-LD aligned with meta and Open Graph on title-only override pages.
 
 ## GTM follow-up for owner
 

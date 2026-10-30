@@ -48,3 +48,12 @@ function hashbox_seo_override_has_field( $path, $field ) {
     $overrides = hashbox_seo_path_overrides();
     return isset( $overrides[ $path ] ) && array_key_exists( $field, $overrides[ $path ] );
 }
+
+function hashbox_resolve_meta_description( $override_description, $rank_math_description, $wordpress_description ) {
+    foreach ( array( $override_description, $rank_math_description, $wordpress_description ) as $description ) {
+        if ( is_string( $description ) && '' !== trim( $description ) ) {
+            return $description;
+        }
+    }
+    return '';
+}

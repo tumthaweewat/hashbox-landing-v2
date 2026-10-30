@@ -1255,22 +1255,28 @@ function hashbox_get_seo_title( $fallback = '' ) {
  */
 function hashbox_get_meta_description() {
     $meta = hashbox_get_seo_metadata();
-    if ( ! empty( $meta['description'] ) ) {
-        return $meta['description'];
-    }
-
-    // A partial path override is not permission to borrow homepage copy.
-    // Use the queried WordPress content when Rank Math has no description.
+    $rank_math_description = '';
+    $wordpress_description = '';
     if ( is_singular() ) {
         $post = get_queried_object();
-        if ( $post instanceof WP_Post && ! empty( $post->post_excerpt ) ) {
-            return hashbox_meta_excerpt( $post->post_excerpt );
-        }
-        if ( $post instanceof WP_Post && ! empty( $post->post_content ) ) {
-            return hashbox_meta_excerpt( strip_shortcodes( $post->post_content ) );
+        if ( $post instanceof WP_Post ) {
+            $rank_math_description = (string) get_post_meta( $post->ID, 'rank_math_description', true );
+            if ( ! empty( $post->post_excerpt ) ) {
+                $wordpress_description = hashbox_meta_excerpt( $post->post_excerpt );
+            } elseif ( ! empty( $post->post_content ) ) {
+                $wordpress_description = hashbox_meta_excerpt( strip_shortcodes( $post->post_content ) );
+            }
         }
     }
-    return '';
+
+    // A partial path override is not permission to borrow homepage copy. The
+    // Rank Math value must precede the excerpt so WebPage schema matches the
+    // meta/OG description on title-only override URLs.
+    return hashbox_resolve_meta_description(
+        isset( $meta['description'] ) ? $meta['description'] : '',
+        $rank_math_description,
+        $wordpress_description
+    );
 }
 
 function hashbox_sync_website_development_rankmath_meta() {
