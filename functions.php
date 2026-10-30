@@ -19,6 +19,7 @@ require_once get_template_directory() . '/inc/en-seo-page.php';
 require_once get_template_directory() . '/inc/en-seo-contact.php';
 require_once get_template_directory() . '/inc/post-service-hub.php';
 require_once get_template_directory() . '/inc/url-encoding.php';
+require_once get_template_directory() . '/inc/seo-path-overrides.php';
 
 require_once get_template_directory() . '/inc/founder.php';
 add_filter( 'pre_get_avatar_data', 'hashbox_founder_avatar_data', 10, 2 );
@@ -94,7 +95,7 @@ add_action( 'after_setup_theme', 'hashbox_theme_setup' );
  */
 function hashbox_has_custom_rankmath_title() {
     $obj_id = get_queried_object_id();
-    return $obj_id && ! hashbox_has_forced_seo_override() && '' !== (string) get_post_meta( $obj_id, 'rank_math_title', true );
+    return $obj_id && ! hashbox_has_forced_seo_override( 'title' ) && '' !== (string) get_post_meta( $obj_id, 'rank_math_title', true );
 }
 
 function hashbox_document_title( $title ) {
@@ -975,45 +976,12 @@ function hashbox_get_seo_metadata() {
         );
     }
 
-    // These editorial URLs have live Rank Math values in WordPress. Keep the
-    // desired values in code so title, description, OG and schema agree even
-    // when an older editor value exists in post meta.
-    $seo_path_overrides = array(
-        'google-ai-overview-thailand-2026' => array(
-            'title'       => 'AI Overview ในไทย: ข้อมูลจริง 95 คำค้น ปี 2026',
-            'description' => 'ผลติดตาม AI Overview ไทย 30 วัน จาก 95 คำค้น: พบ AI Overview 88 จาก 93 คำที่มีข้อมูลครบ พร้อมรายชื่อเว็บที่ถูกอ้างอิง',
-        ),
-        'best-seo-agencies-bangkok-2026' => array(
-            'title'       => 'Best SEO Agencies in Bangkok 2026: 13 Compared | Hashbox',
-        ),
-        'en/ai-consulting-companies-thailand-2026' => array(
-            'title'       => 'AI Consulting Companies in Thailand 2026 | Hashbox',
-            'description' => 'Compare 9 AI consulting companies in Thailand on pricing, ROI assessment, production delivery and source-code handover.',
-        ),
-        'บริษัทที่ปรึกษา-ai-ไทย-2026' => array(
-            'description' => 'เปรียบเทียบบริษัทที่ปรึกษา AI ในไทย 9 แห่ง ด้วย 7 เกณฑ์ตรวจสอบได้ ทั้งราคา ROI การส่งมอบ production และ source code',
-        ),
-        'website-audit' => array(
-            'title'       => 'ขอประเมินเว็บไซต์และใบเสนอราคาเบื้องต้น | Hashbox',
-            'description' => 'ส่งโจทย์เว็บไซต์ให้ทีมประเมิน scope และงบเบื้องต้นฟรี ครอบคลุม UX/UI, SEO, Performance และ Conversion Tracking',
-        ),
-        'เว็บไซต์รองรับ-ai-search-2026' => array(
-            'title'       => 'เว็บไซต์รองรับ AI Search: Checklist 12 ข้อ | Hashbox',
-        ),
-        'services' => array(
-            'title'       => 'บริการเว็บไซต์ SEO และ AI Search | Hashbox Studio',
-            'description' => 'รวมบริการเว็บไซต์ SEO, AI Search และ AI Consulting พร้อมราคาโปร่งใส ขอบเขตงานชัดเจน และผลลัพธ์ที่วัดจากข้อมูลจริง',
-        ),
-        'seo-thai-guide-2026' => array(
-            'title'       => 'SEO คืออะไร? คู่มือฉบับ 2026 | Hashbox',
-        ),
-        'aeo-คืออะไร-2026' => array(
-            'title'       => 'AEO คืออะไร? ต่างจาก SEO และ GEO อย่างไร (2026)',
-        ),
-    );
+    // These overrides are intentionally partial: missing fields fall through
+    // to the queried post's Rank Math / WordPress value, never site-wide copy.
+    $seo_path_overrides = hashbox_seo_path_overrides();
     $seo_path = rawurldecode( hashbox_current_request_path() );
     if ( isset( $seo_path_overrides[ $seo_path ] ) ) {
-        return array_merge( $fallback, $seo_path_overrides[ $seo_path ] );
+        return $seo_path_overrides[ $seo_path ];
     }
 
     $case_slug = hashbox_current_case_study_slug();
@@ -1287,7 +1255,22 @@ function hashbox_get_seo_title( $fallback = '' ) {
  */
 function hashbox_get_meta_description() {
     $meta = hashbox_get_seo_metadata();
-    return ! empty( $meta['description'] ) ? $meta['description'] : '';
+    if ( ! empty( $meta['description'] ) ) {
+        return $meta['description'];
+    }
+
+    // A partial path override is not permission to borrow homepage copy.
+    // Use the queried WordPress content when Rank Math has no description.
+    if ( is_singular() ) {
+        $post = get_queried_object();
+        if ( $post instanceof WP_Post && ! empty( $post->post_excerpt ) ) {
+            return hashbox_meta_excerpt( $post->post_excerpt );
+        }
+        if ( $post instanceof WP_Post && ! empty( $post->post_content ) ) {
+            return hashbox_meta_excerpt( strip_shortcodes( $post->post_content ) );
+        }
+    }
+    return '';
 }
 
 function hashbox_sync_website_development_rankmath_meta() {
@@ -1870,7 +1853,7 @@ function hashbox_rankmath_title( $title ) {
     // (services, about, EN pages); they must not clobber a title an
     // editor deliberately set on an individual post/page.
     $obj_id = get_queried_object_id();
-    if ( $obj_id && ! hashbox_has_forced_seo_override() && '' !== (string) get_post_meta( $obj_id, 'rank_math_title', true ) ) {
+    if ( $obj_id && ! hashbox_has_forced_seo_override( 'title' ) && '' !== (string) get_post_meta( $obj_id, 'rank_math_title', true ) ) {
         return $title;
     }
     return hashbox_get_seo_title( $title );
@@ -1881,7 +1864,7 @@ function hashbox_rankmath_description( $description ) {
     // Same precedence rule as the title: a custom per-post Rank Math
     // description wins over the theme's generated fallback.
     $obj_id = get_queried_object_id();
-    if ( $obj_id && ! hashbox_has_forced_seo_override() && '' !== (string) get_post_meta( $obj_id, 'rank_math_description', true ) ) {
+    if ( $obj_id && ! hashbox_has_forced_seo_override( 'description' ) && '' !== (string) get_post_meta( $obj_id, 'rank_math_description', true ) ) {
         return $description;
     }
     $seo_description = hashbox_get_meta_description();
@@ -1889,19 +1872,16 @@ function hashbox_rankmath_description( $description ) {
 }
 
 /** True when theme-owned SEO metadata should supersede old Rank Math rows. */
-function hashbox_has_forced_seo_override() {
+function hashbox_has_forced_seo_override( $field = '' ) {
     $path = rawurldecode( hashbox_current_request_path() );
-    return is_front_page() || in_array( $path, array(
-        'google-ai-overview-thailand-2026',
-        'best-seo-agencies-bangkok-2026',
-        'en/ai-consulting-companies-thailand-2026',
-        'บริษัทที่ปรึกษา-ai-ไทย-2026',
-        'website-audit',
-        'เว็บไซต์รองรับ-ai-search-2026',
-        'services',
-        'seo-thai-guide-2026',
-        'aeo-คืออะไร-2026',
-    ), true );
+    if ( is_front_page() ) {
+        return true;
+    }
+    if ( '' === $field ) {
+        $overrides = hashbox_seo_path_overrides();
+        return isset( $overrides[ $path ] );
+    }
+    return hashbox_seo_override_has_field( $path, $field );
 }
 add_filter( 'rank_math/frontend/description', 'hashbox_rankmath_description', 999 );
 
@@ -1917,7 +1897,11 @@ add_filter( 'rank_math/opengraph/facebook/og_title', 'hashbox_rankmath_social_ti
 add_filter( 'rank_math/opengraph/twitter/twitter_title', 'hashbox_rankmath_social_title', 999 );
 
 function hashbox_rankmath_social_description( $content ) {
-    if ( hashbox_has_forced_seo_override() ) {
+    $obj_id = get_queried_object_id();
+    if ( $obj_id && ! hashbox_has_forced_seo_override( 'description' ) && '' !== (string) get_post_meta( $obj_id, 'rank_math_description', true ) ) {
+        return $content;
+    }
+    if ( hashbox_has_forced_seo_override( 'description' ) ) {
         $forced_description = hashbox_get_meta_description();
         return ! empty( $forced_description ) ? $forced_description : $content;
     }
