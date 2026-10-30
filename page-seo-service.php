@@ -184,6 +184,7 @@ $compare = array(
                 <span class="hb-bento__label">08</span>
                 <h3 class="hb-h3">SEO Recovery — traffic ตกแล้วกู้กลับ</h3>
                 <p class="hb-body">Traffic หายหลัง core update, ย้ายเว็บ หรือ redesign — ตรวจ indexation, redirect, CWV, backlink และ competitor gap แล้ววาง roadmap ว่าต้องแก้ technical หรือ content ก่อน เริ่มจาก <a href="<?php echo esc_url( home_url( '/seo-recovery-audit/' ) ); ?>">Technical SEO Audit ฟรี</a></p>
+                <p class="hb-body">ถ้าอันดับยังมีแต่ conversion ต่ำ ให้ทีมตรวจ journey และ event tracking ด้วย <a href="<?php echo esc_url( home_url( '/cro-funnel-audit/' ) ); ?>">CRO Funnel Audit ฟรี</a></p>
             </div>
         </div>
     </div>

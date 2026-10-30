@@ -94,7 +94,7 @@ add_action( 'after_setup_theme', 'hashbox_theme_setup' );
  */
 function hashbox_has_custom_rankmath_title() {
     $obj_id = get_queried_object_id();
-    return $obj_id && '' !== (string) get_post_meta( $obj_id, 'rank_math_title', true );
+    return $obj_id && ! hashbox_has_forced_seo_override() && '' !== (string) get_post_meta( $obj_id, 'rank_math_title', true );
 }
 
 function hashbox_document_title( $title ) {
@@ -283,6 +283,15 @@ function hashbox_enqueue_assets() {
     }
 }
 add_action( 'wp_enqueue_scripts', 'hashbox_enqueue_assets' );
+
+/** Track every public LINE OA link, including links in editor-managed content. */
+function hashbox_enqueue_line_oa_tracking() {
+    $script = get_template_directory() . '/js/line-oa-tracking.js';
+    if ( file_exists( $script ) ) {
+        wp_enqueue_script( 'hashbox-line-oa-tracking', get_template_directory_uri() . '/js/line-oa-tracking.js', array(), filemtime( $script ), true );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'hashbox_enqueue_line_oa_tracking', 30 );
 
 // All public page families share the Signal V3 display font. Load after their
 // styles so legacy page rules cannot substitute another heading face.
@@ -717,7 +726,8 @@ function hashbox_page_is_english() {
     // the /en/ index itself) — a prefix check keeps future EN pages from
     // silently rendering with Thai nav + lang="th-TH" the way exact-match
     // against hashbox_hreflang_pairs() did.
-    return 'en' === $path || 0 === strpos( $path, 'en/' );
+    return 'en' === $path || 0 === strpos( $path, 'en/' )
+        || 'best-seo-agencies-bangkok-2026' === $path;
 }
 
 /**
@@ -954,7 +964,7 @@ function hashbox_get_seo_metadata() {
     if ( is_front_page() ) {
         return array(
             'title'       => 'รับทำเว็บไซต์ SEO-Ready · ที่ปรึกษา AI · รับทำ SEO | Hashbox Studio',
-            'description' => 'Hashbox Studio รับทำเว็บไซต์ SEO-Ready, รับทำ SEO, AI Search, ที่ปรึกษา AI และ n8n สำหรับธุรกิจไทย — ราคาเปิดเผย การันตี Lighthouse 95+ Mobile / 100 Desktop วัดผลจากข้อมูลจริงรายวัน',
+            'description' => 'Hashbox Studio ทำเว็บไซต์ SEO-Ready, SEO, AI Search และระบบ AI สำหรับธุรกิจไทย พร้อมราคาโปร่งใสและผลลัพธ์ที่วัดได้',
         );
     }
 
@@ -963,6 +973,47 @@ function hashbox_get_seo_metadata() {
             'title'       => 'Blog SEO, Web Performance และ AI | Hashbox Studio',
             'description' => 'บทความ SEO, web performance, digital marketing, CRO และ AI automation จากทีม Hashbox Studio พร้อมแนวทางลงมือทำจริงสำหรับธุรกิจไทย',
         );
+    }
+
+    // These editorial URLs have live Rank Math values in WordPress. Keep the
+    // desired values in code so title, description, OG and schema agree even
+    // when an older editor value exists in post meta.
+    $seo_path_overrides = array(
+        'google-ai-overview-thailand-2026' => array(
+            'title'       => 'AI Overview ในไทย: ข้อมูลจริง 95 คำค้น ปี 2026',
+            'description' => 'ผลติดตาม AI Overview ไทย 30 วัน จาก 95 คำค้น: พบ AI Overview 88 จาก 93 คำที่มีข้อมูลครบ พร้อมรายชื่อเว็บที่ถูกอ้างอิง',
+        ),
+        'best-seo-agencies-bangkok-2026' => array(
+            'title'       => 'Best SEO Agencies in Bangkok 2026: 13 Compared | Hashbox',
+        ),
+        'en/ai-consulting-companies-thailand-2026' => array(
+            'title'       => 'AI Consulting Companies in Thailand 2026 | Hashbox',
+            'description' => 'Compare 9 AI consulting companies in Thailand on pricing, ROI assessment, production delivery and source-code handover.',
+        ),
+        'บริษัทที่ปรึกษา-ai-ไทย-2026' => array(
+            'description' => 'เปรียบเทียบบริษัทที่ปรึกษา AI ในไทย 9 แห่ง ด้วย 7 เกณฑ์ตรวจสอบได้ ทั้งราคา ROI การส่งมอบ production และ source code',
+        ),
+        'website-audit' => array(
+            'title'       => 'ขอประเมินเว็บไซต์และใบเสนอราคาเบื้องต้น | Hashbox',
+            'description' => 'ส่งโจทย์เว็บไซต์ให้ทีมประเมิน scope และงบเบื้องต้นฟรี ครอบคลุม UX/UI, SEO, Performance และ Conversion Tracking',
+        ),
+        'เว็บไซต์รองรับ-ai-search-2026' => array(
+            'title'       => 'เว็บไซต์รองรับ AI Search: Checklist 12 ข้อ | Hashbox',
+        ),
+        'services' => array(
+            'title'       => 'บริการเว็บไซต์ SEO และ AI Search | Hashbox Studio',
+            'description' => 'รวมบริการเว็บไซต์ SEO, AI Search และ AI Consulting พร้อมราคาโปร่งใส ขอบเขตงานชัดเจน และผลลัพธ์ที่วัดจากข้อมูลจริง',
+        ),
+        'seo-thai-guide-2026' => array(
+            'title'       => 'SEO คืออะไร? คู่มือฉบับ 2026 | Hashbox',
+        ),
+        'aeo-คืออะไร-2026' => array(
+            'title'       => 'AEO คืออะไร? ต่างจาก SEO และ GEO อย่างไร (2026)',
+        ),
+    );
+    $seo_path = rawurldecode( hashbox_current_request_path() );
+    if ( isset( $seo_path_overrides[ $seo_path ] ) ) {
+        return array_merge( $fallback, $seo_path_overrides[ $seo_path ] );
     }
 
     $case_slug = hashbox_current_case_study_slug();
@@ -1016,7 +1067,7 @@ function hashbox_get_seo_metadata() {
         ),
         'en/ai-consulting-companies-thailand-2026' => array(
             'title'       => 'AI Consulting Companies in Thailand 2026: 9 Firms Compared | Hashbox',
-            'description' => '9 AI consulting companies in Thailand compared on 7 criteria you can verify: public pricing, ROI assessment, production delivery and code handover.',
+            'description' => 'Compare 9 AI consulting companies in Thailand on pricing, ROI assessment, production delivery and source-code handover.',
         ),
         'en/ai-consulting' => array(
             'title'       => 'AI Consulting Company in Bangkok, Thailand | Hashbox',
@@ -1032,8 +1083,8 @@ function hashbox_get_seo_metadata() {
         $slug = $post instanceof WP_Post ? $post->post_name : '';
         $page_meta = array(
             'services' => array(
-                'title'       => 'บริการรับทำเว็บไซต์ SEO-Ready, รับทำ SEO, AI Search และที่ปรึกษา AI | Hashbox Studio',
-                'description' => '5 บริการในทีมเดียว: รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI, รับทำ SEO, รับทำ AI Search และ n8n Automation — ราคาโปร่งใส วัดผลจากข้อมูลจริงรายวัน',
+                'title'       => 'บริการเว็บไซต์ SEO และ AI Search | Hashbox Studio',
+                'description' => 'รวมบริการเว็บไซต์ SEO, AI Search และ AI Consulting พร้อมราคาโปร่งใส ขอบเขตงานชัดเจน และผลลัพธ์ที่วัดจากข้อมูลจริง',
             ),
             'seo-ready-website' => array(
                 'title'       => 'รับทำเว็บไซต์ SEO-Ready ติด Google และ AI Search | Hashbox',
@@ -1077,6 +1128,25 @@ function hashbox_get_seo_metadata() {
             'geo-checker' => array(
                 'title'       => 'GEO Readiness Checker — เว็บพร้อมถูก AI อ้างอิงไหม | Hashbox',
                 'description' => 'เครื่องมือฟรี ใส่ URL แล้วรู้คะแนน 0-100 ว่าหน้าเว็บพร้อมถูก ChatGPT, Perplexity และ Google AI Overviews อ้างอิงแค่ไหน พร้อมคำแนะนำที่ลงมือทำได้ทันที',
+            ),
+            'เว็บไซต์รองรับ-ai-search-2026' => array(
+                'title'       => 'เว็บไซต์รองรับ AI Search: Checklist 12 ข้อ | Hashbox',
+            ),
+            'seo-thai-guide-2026' => array(
+                'title'       => 'SEO คืออะไร? คู่มือฉบับ 2026 | Hashbox',
+            ),
+            'aeo-คืออะไร-2026' => array(
+                'title'       => 'AEO คืออะไร? ต่างจาก SEO และ GEO อย่างไร (2026)',
+            ),
+            'best-seo-agencies-bangkok-2026' => array(
+                'title'       => 'Best SEO Agencies in Bangkok (2026): 13 Compared | Hashbox',
+            ),
+            'website-audit' => array(
+                'title'       => 'ขอประเมินเว็บไซต์และใบเสนอราคาเบื้องต้น | Hashbox',
+                'description' => 'ส่งโจทย์เว็บไซต์ให้ทีมประเมิน scope และงบเบื้องต้นฟรี ครอบคลุม UX/UI, SEO, Performance และ Conversion Tracking',
+            ),
+            'บริษัทที่ปรึกษา-ai-ไทย-2026' => array(
+                'description' => 'เปรียบเทียบบริษัทที่ปรึกษา AI ในไทย 9 แห่ง ด้วย 7 เกณฑ์ตรวจสอบได้ ทั้งราคา การประเมิน ROI การส่งมอบ production และ source code',
             ),
         );
 
@@ -1800,7 +1870,7 @@ function hashbox_rankmath_title( $title ) {
     // (services, about, EN pages); they must not clobber a title an
     // editor deliberately set on an individual post/page.
     $obj_id = get_queried_object_id();
-    if ( $obj_id && '' !== (string) get_post_meta( $obj_id, 'rank_math_title', true ) ) {
+    if ( $obj_id && ! hashbox_has_forced_seo_override() && '' !== (string) get_post_meta( $obj_id, 'rank_math_title', true ) ) {
         return $title;
     }
     return hashbox_get_seo_title( $title );
@@ -1811,11 +1881,27 @@ function hashbox_rankmath_description( $description ) {
     // Same precedence rule as the title: a custom per-post Rank Math
     // description wins over the theme's generated fallback.
     $obj_id = get_queried_object_id();
-    if ( $obj_id && '' !== (string) get_post_meta( $obj_id, 'rank_math_description', true ) ) {
+    if ( $obj_id && ! hashbox_has_forced_seo_override() && '' !== (string) get_post_meta( $obj_id, 'rank_math_description', true ) ) {
         return $description;
     }
     $seo_description = hashbox_get_meta_description();
     return ! empty( $seo_description ) ? $seo_description : $description;
+}
+
+/** True when theme-owned SEO metadata should supersede old Rank Math rows. */
+function hashbox_has_forced_seo_override() {
+    $path = rawurldecode( hashbox_current_request_path() );
+    return is_front_page() || in_array( $path, array(
+        'google-ai-overview-thailand-2026',
+        'best-seo-agencies-bangkok-2026',
+        'en/ai-consulting-companies-thailand-2026',
+        'บริษัทที่ปรึกษา-ai-ไทย-2026',
+        'website-audit',
+        'เว็บไซต์รองรับ-ai-search-2026',
+        'services',
+        'seo-thai-guide-2026',
+        'aeo-คืออะไร-2026',
+    ), true );
 }
 add_filter( 'rank_math/frontend/description', 'hashbox_rankmath_description', 999 );
 
@@ -1831,11 +1917,27 @@ add_filter( 'rank_math/opengraph/facebook/og_title', 'hashbox_rankmath_social_ti
 add_filter( 'rank_math/opengraph/twitter/twitter_title', 'hashbox_rankmath_social_title', 999 );
 
 function hashbox_rankmath_social_description( $content ) {
+    if ( hashbox_has_forced_seo_override() ) {
+        $forced_description = hashbox_get_meta_description();
+        return ! empty( $forced_description ) ? $forced_description : $content;
+    }
     $seo_description = hashbox_get_meta_description();
     return ! empty( $seo_description ) ? $seo_description : $content;
 }
 add_filter( 'rank_math/opengraph/facebook/og_description', 'hashbox_rankmath_social_description', 999 );
 add_filter( 'rank_math/opengraph/twitter/twitter_description', 'hashbox_rankmath_social_description', 999 );
+
+/** Keep the visible H1 of the AI Overview report aligned with its dataset. */
+function hashbox_ai_overview_report_title( $title, $post_id = 0 ) {
+    if ( 'google-ai-overview-thailand-2026' !== rawurldecode( hashbox_current_request_path() ) ) {
+        return $title;
+    }
+    if ( ! $post_id || (int) $post_id !== (int) get_queried_object_id() ) {
+        return $title;
+    }
+    return 'Google AI Overview ในไทย: ข้อมูลจริง 95 คำค้น ปี 2026';
+}
+add_filter( 'the_title', 'hashbox_ai_overview_report_title', 20, 2 );
 
 /**
  * Rank Math sitemap pretty URLs can 404 on hosts where the root .htaccess is
@@ -3316,7 +3418,7 @@ function hashbox_llms_txt_content() {
     $lines[] = '- [ปรึกษาทำระบบ AI Solution สำหรับธุรกิจ](' . home_url( '/ai-solution-consulting-guide-2026/' ) . '): AI consulting budgets, timelines and vendor checklist';
     $lines[] = '- [AI Search Metrics มีอะไรบ้าง](' . home_url( '/ai-search-metrics-thailand-2026/' ) . '): 7 metrics with formulas and real data from Thai AI answers';
     $lines[] = '- [Rank Tracker เชื่อได้ไหม](' . home_url( '/rank-tracker-เชื่อได้ไหม-2026/' ) . '): 4,068 keyword-days showing scraped SERPs diverging from Google (original data)';
-    $lines[] = '- [Google AI Overview ในไทย](' . home_url( '/google-ai-overview-thailand-2026/' ) . '): 48 Thai keywords measured for 10 days — coverage and who gets cited (original data)';
+    $lines[] = '- [Google AI Overview ในไทย](' . home_url( '/google-ai-overview-thailand-2026/' ) . '): 95 Thai service keywords tracked daily for 30 days; AI Overview appeared for 88 of 93 valid observations (original data; snapshot 7 Oct 2026)';
     $lines[] = '- [GEO คืออะไร? Generative Engine Optimization](' . home_url( '/geo-ai-search-optimization-2026/' ) . '): GEO definition + optimization for ChatGPT, Perplexity, Google AI Overviews';
     $lines[] = '- [AEO คืออะไร](' . home_url( '/aeo-คืออะไร-2026/' ) . '): Answer Engine Optimization vs SEO vs GEO';
     $lines[] = '- [Technical SEO คือ? คู่มือ 2026](' . home_url( '/technical-seo-guide/' ) . '): Technical SEO definition, audit checklist, common fixes';
