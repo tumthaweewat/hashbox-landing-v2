@@ -135,6 +135,7 @@ $hb_services = hashbox_service_catalog_live();
                     <span class="hb-services-fit__arrow" aria-hidden="true">&rarr;</span>
                 </a>
             </div>
+            <p class="hb-services-fit__related">มี traffic แต่ lead ไม่มา? เริ่มที่ <a href="<?php echo esc_url( home_url( '/cro-funnel-audit/' ) ); ?>">CRO Funnel Audit</a> · ต้องการวางแผน Web, Ads, SEO และ AI ตลอด customer journey? ดู <a href="<?php echo esc_url( home_url( '/growth-audit/' ) ); ?>">Growth Audit</a> · ทำเว็บคลินิก? อ่าน <a href="<?php echo esc_url( home_url( '/services/website-development/clinic/' ) ); ?>">บริการเว็บไซต์คลินิก</a></p>
         </div>
     </section>
 

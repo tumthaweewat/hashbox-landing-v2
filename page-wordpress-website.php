@@ -232,7 +232,7 @@ $table_cell = 'padding:var(--hb-space-3) var(--hb-space-4);border-bottom:1px sol
             </div>
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">อ่านต่อ</span>
-                <p class="hb-body">เราเขียนเทียบสองฝั่งไว้ละเอียดพร้อมเกณฑ์ตัดสินใจใน<a href="<?php echo esc_url( home_url( '/nextjs-vs-wordpress-2026/' ) ); ?>">บทความ Next.js vs WordPress</a> ถ้าอ่านแล้วยังไม่ชัวร์ <a href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>">นัดคุยกันก่อนได้ ไม่มีค่าใช้จ่าย</a></p>
+                <p class="hb-body">เราเขียนเทียบสองฝั่งไว้ละเอียดพร้อมเกณฑ์ตัดสินใจใน<a href="<?php echo esc_url( home_url( '/nextjs-vs-wordpress-2026/' ) ); ?>">บทความ Next.js vs WordPress</a> ถ้าอ่านแล้วยังไม่ชัวร์ <a href="<?php echo esc_url( home_url( '/website-audit/' ) ); ?>">นัดคุยกันก่อนได้ ไม่มีค่าใช้จ่าย</a> · ทำเว็บสถานพยาบาลโดยเฉพาะ ดู<a href="<?php echo esc_url( home_url( '/services/website-development/clinic/' ) ); ?>">บริการเว็บไซต์คลินิก</a></p>
             </div>
         </div>
     </div>
