@@ -21,8 +21,8 @@ $contact  = home_url( '/en/seo/?service=ai-search#seo-contact' ); // shared Engl
 
 $faqs = array(
     array( 'q' => 'What is AI Search optimization (GEO) and how is it different from SEO?', 'a' => 'Generative Engine Optimization is the work of getting AI answer engines — Google AI Overviews and AI Mode, ChatGPT, Perplexity, Gemini — to cite your brand when they answer a buyer\'s question. SEO gets you into the ten blue links; GEO gets you into the answer above them. Both need the same foundation (fast site, clean structure, schema), but GEO adds three things: a definition sentence an AI can quote, an unambiguous entity (who you are, where, what you sell, at what price) and mentions from third-party sources the models trust.' ),
-    array( 'q' => 'How do you measure AI Search results?', 'a' => 'Six metrics from our own tracker: AI Visibility (share of a fixed monthly prompt set where your brand appears, per engine), Brand Mentions, AI Overview Citations for your target keywords (daily), AI Share of Voice against named competitors, the sources AI cites instead of you, and LLM referral traffic in GA4 (chatgpt.com, perplexity.ai). You see the same dashboard we do.' ),
-    array( 'q' => 'How long until AI engines cite us?', 'a' => 'Google AI Overviews can change their sources within days of a re-crawl — we watch it daily. ChatGPT and Perplexity lean on search indexes and third-party mentions, so 4–8 weeks after content and citations are in place is typical. Competitive head terms take longer because they need external mentions to accumulate; we say so in the audit.' ),
+    array( 'q' => 'How do you measure AI Search results?', 'a' => 'Six metrics from our own tracker: AI Visibility (share of a fixed prompt set where your brand appears, per engine), Brand Mentions, AI Overview Citations for your target keywords, AI Share of Voice against named competitors, the sources AI cites instead of you, and LLM referral traffic in GA4 (chatgpt.com, perplexity.ai). After the audit, we agree with you on how often to track citations. You see the same dashboard we do.' ),
+    array( 'q' => 'How long until AI engines cite us?', 'a' => 'Google AI Overviews can change their sources within days of a re-crawl. ChatGPT and Perplexity lean on search indexes and third-party mentions, so 4–8 weeks after content and citations are in place is typical. Competitive head terms take longer because they need external mentions to accumulate; we say so in the audit.' ),
     array( 'q' => 'How much does AI Search optimization cost in Thailand?', 'a' => 'GEO is included in our SEO retainer from THB 29,900 per month. For a standalone AI Search engagement — sites that already have SEO covered — we quote after a free GEO audit, based on how many keywords and prompts to track, how many pages need answer-first rewrites and how many external citations must be built. Excludes 7% VAT.' ),
     array( 'q' => 'Where do ChatGPT and Perplexity get information about Thai businesses?', 'a' => 'From what we see in our tracker in 2026: your own site if it states facts plainly (definition, prices, FAQ), directories such as Clutch, marketplaces, Facebook pages, YouTube videos and comparison articles. For Thai service queries the engines often cite Facebook and YouTube over company websites — which is why this service builds external citations alongside the site.' ),
     array( 'q' => 'What is llms.txt and do we need it?', 'a' => 'A plain-text file at your domain root that summarises who you are, what you sell, prices and key pages in a format AI crawlers read easily. It is not yet an official standard for the major engines, but it costs nothing, has no downside and forces the brand facts into one verifiable place. We ship llms.txt and llms-full.txt on every site we manage — ours is at hashbox.co.th/llms.txt.' ),
@@ -35,7 +35,7 @@ $process = array(
     array( 'Entity + technical', 'Organization / Service / Person schema stating who, what, where and at what price · sameAs linking every profile into one entity · llms.txt + llms-full.txt · robots opening GPTBot, ClaudeBot, PerplexityBot, Google-Extended.' ),
     array( 'Answer-first content', 'Every money page and pillar article opens with a definition sentence, then comparison tables, numbered steps, numbers and FAQ — written from real delivery, not generic copy the models already have.' ),
     array( 'External citations', 'AI engines trust what others say about you: Google Business Profile, directories (Clutch, GoodFirms), Facebook, YouTube with transcripts, comparison articles — with identical facts everywhere.' ),
-    array( 'Track + report', 'AI Overview citations daily, the same prompt set against four engines monthly, the sources cited instead of you, and LLM referrals in GA4 — with a plain report of what moved, what did not, and what is next.' ),
+    array( 'Track + report', 'AI Overview citations for target keywords, results for the same prompts across four engines, the sources cited instead of you, and LLM referrals in GA4 — with a plain report of what moved, what did not, and what is next.' ),
 );
 
 $platforms = array(
@@ -47,9 +47,9 @@ $platforms = array(
 );
 
 $kpis = array(
-    array( 'AI Visibility', 'Share of the monthly prompt set where your brand appears, per engine.' ),
+    array( 'AI Visibility', 'Share of the tracked prompts where your brand appears, per engine.' ),
     array( 'Brand Mentions', 'How often engines name you — mentioned vs. linked.' ),
-    array( 'AI Overview Citations', 'Target keywords where your page is a cited source, daily.' ),
+    array( 'AI Overview Citations', 'Target keywords where your page is a cited source.' ),
     array( 'AI Share of Voice', 'Your citations versus named competitors on the same queries.' ),
     array( 'Sources cited instead of you', 'Which domains the engines use — tells you where to be present.' ),
     array( 'LLM traffic', 'Sessions from chatgpt.com, perplexity.ai and Gemini in GA4, and the leads behind them.' ),
@@ -85,7 +85,7 @@ $kpis = array(
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-surface-2,#1E1E2A);border-radius:var(--hb-radius-md,8px);">
             <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">In short</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
-                <strong>AI SEO — also called AI Search optimization or Generative Engine Optimization (GEO) — is the work of getting Google AI Overviews, ChatGPT, Perplexity and Gemini to cite your brand when they answer a buyer.</strong> Hashbox does it in five steps — AI-specific audit → entity, schema and llms.txt → answer-first content → external citations → daily tracking — with a tracker we built and run on our own site. Included in the SEO retainer from THB 29,900/month, or quoted standalone after a free GEO audit.
+                <strong>AI SEO — also called AI Search optimization or Generative Engine Optimization (GEO) — is the work of getting Google AI Overviews, ChatGPT, Perplexity and Gemini to cite your brand when they answer a buyer.</strong> Hashbox does it in five steps — AI-specific audit → entity, schema and llms.txt → answer-first content → external citations → citation tracking — with a tracker we built and run on our own site. Included in the SEO retainer from THB 29,900/month, or quoted standalone after a free GEO audit.
             </p>
         </div>
     </div>
@@ -149,7 +149,7 @@ $kpis = array(
         <div class="hb-section__head">
             <span class="hb-eyebrow">Measurement</span>
             <h2 class="hb-h2">How we measure AI Search — six metrics</h2>
-            <p class="hb-section__sub">Most agencies sell AI Search and cannot measure it. We built the tracker first and run it on our own site every day.</p>
+            <p class="hb-section__sub">Most agencies sell AI Search and cannot measure it. We built the tracker first and use it on our own site.</p>
         </div>
         <div class="hb-bento">
             <?php foreach ( $kpis as $i => $k ) : ?>
@@ -175,7 +175,7 @@ $kpis = array(
                     <li>Technical SEO + Core Web Vitals + schema (the foundation AI needs)</li>
                     <li>llms.txt + llms-full.txt + robots open to AI crawlers</li>
                     <li>Answer-first content and FAQ on money pages</li>
-                    <li>Daily AI Overview tracking on target keywords</li>
+                    <li>AI Overview citation tracking for target keywords</li>
                     <li>One report for rank and AI citations</li>
                 </ul>
                 <a href="<?php echo esc_url( $contact ); ?>" class="hb-btn hb-btn--gradient" style="margin-top:auto;">Get the free audit</a>

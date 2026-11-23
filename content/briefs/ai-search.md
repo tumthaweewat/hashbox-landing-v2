@@ -19,7 +19,7 @@
 - บทความ "ปรึกษาทำระบบ AI Solution" ของเรา ติดอันดับ 3 และถูก Google AI Overview อ้างอิง (post 170)
 - ข้อมูลตลาด: คำ `ai consulting companies thailand` AI Overview อ้างอิง 25 แหล่ง; AI ดึงจาก fastwork / facebook / youtube / directory มากกว่าเว็บบริษัท (Signal 2026-08)
 - ธีมทำ llms.txt, llms-full.txt, robots AI bots, Organization entity, FAQPage/Speakable ให้ทุกหน้าอยู่แล้ว
-- [NEEDS EVIDENCE — T4] ราคา AI Search แยกเดี่ยว → ใช้ข้อเท็จจริง: GEO/AI Overview รวมใน SEO retainer 29,900/เดือน; แยกเดี่ยว quote หลัง audit
+- T4 ยืนยันแล้ว — พี่ตั้มตอบ “ถูกต้องทั้งหมด” ผ่านการ์ดคำถามใน OpenBot วันที่ 23 พ.ย. 2569 ตามบันทึกของ Project Director: SEO รายเดือนเริ่ม 29,900 บาท/เดือน ก่อน VAT 7% รวม GEO ตรวจ Technical ฟรีก่อนเสนอขอบเขต ส่วนงาน AI Search แบบโปรเจกต์ประเมินเว็บไซต์ก่อนเสนอราคา
 
 ## 3. Internal links
 - ขึ้น hub: /services/seo/ (GEO อยู่ใน scope) · /services/website-development/ (AI Search Ready)

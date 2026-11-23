@@ -980,7 +980,8 @@ function hashbox_get_seo_metadata() {
     // to the queried post's Rank Math / WordPress value, never site-wide copy.
     $seo_path_overrides = hashbox_seo_path_overrides();
     $seo_path = rawurldecode( hashbox_current_request_path() );
-    if ( isset( $seo_path_overrides[ $seo_path ] ) ) {
+    // Keep the Thai AI Search page's existing fallback title in the page map below.
+    if ( isset( $seo_path_overrides[ $seo_path ] ) && ! ( 'services/ai-search' === $seo_path && is_page( 'ai-search' ) ) ) {
         return $seo_path_overrides[ $seo_path ];
     }
 
@@ -1071,7 +1072,7 @@ function hashbox_get_seo_metadata() {
             // to say so. Keep ที่ปรึกษา AI — that is the term buyers search.
             'ai-search' => array(
                 'title'       => 'รับทำ AEO / GEO พร้อมปรับเว็บไซต์เพื่อ AI Search | Hashbox',
-                'description' => 'รับทำ AI Search (GEO/AEO): ปรับเว็บให้ ChatGPT, Gemini และ Google AI Overview อ้างถึง วัดผลแยกรายแพลตฟอร์ม · รวมในค่า SEO รายเดือนเริ่ม 29,900 บาท',
+                'description' => $seo_path_overrides['services/ai-search']['description'],
             ),
             'guarantee-terms' => array(
                 'title'       => 'เงื่อนไขการันตี "ไม่โต ไม่จ่าย" บริการรับทำ SEO | Hashbox',
@@ -1145,7 +1146,7 @@ function hashbox_get_seo_metadata() {
     if ( 'services/seo' === hashbox_current_request_path() ) {
         return array(
             'title'       => 'รับทำ SEO สายเทคนิค ติดหน้าแรก Google วัดผลรายวัน | Hashbox',
-            'description' => 'รับทำ SEO สายเทคนิค เริ่ม 29,900 บาท/เดือน ตรวจ Technical SEO ฟรีก่อนเซ็นสัญญา · Core Web Vitals, Schema, Local SEO · การันตี "ไม่โต ไม่จ่าย" วัดผลรายวัน',
+            'description' => 'รับทำ SEO สายเทคนิค เริ่ม 29,900 บาท/เดือน ตรวจ Technical SEO ฟรีก่อนเซ็นสัญญา · Core Web Vitals, Schema, Local SEO · การันตี "ไม่โต ไม่จ่าย" เก็บข้อมูลอันดับรายวัน',
         );
     }
 
@@ -1327,7 +1328,7 @@ function hashbox_sync_new_service_pages_rankmath_meta() {
             'path'  => 'services/seo',
             'title' => 'รับทำ SEO สายเทคนิค วัดผลด้วยข้อมูลรายวัน | Hashbox',
             // Keep in sync with $desc in page-seo-service.php.
-            'desc'  => 'รับทำ SEO สายเทคนิค เริ่ม 29,900 บาท/เดือน ตรวจ Technical SEO ฟรีก่อนเซ็นสัญญา · Core Web Vitals, Schema, Local SEO · การันตี "ไม่โต ไม่จ่าย" วัดผลรายวัน',
+            'desc'  => 'รับทำ SEO สายเทคนิค เริ่ม 29,900 บาท/เดือน ตรวจ Technical SEO ฟรีก่อนเซ็นสัญญา · Core Web Vitals, Schema, Local SEO · การันตี "ไม่โต ไม่จ่าย" เก็บข้อมูลอันดับรายวัน',
         ),
         array(
             'path'  => 'services/website-development/wordpress',
@@ -1867,6 +1868,10 @@ function hashbox_rankmath_title( $title ) {
 add_filter( 'rank_math/frontend/title', 'hashbox_rankmath_title', 999 );
 
 function hashbox_rankmath_description( $description ) {
+    // Sites that ran the original SEO meta sync still have its published default.
+    if ( 'services/seo' === hashbox_current_request_path() && 'รับทำ SEO สายเทคนิค เริ่ม 29,900 บาท/เดือน ตรวจ Technical SEO ฟรีก่อนเซ็นสัญญา · Core Web Vitals, Schema, Local SEO · การันตี "ไม่โต ไม่จ่าย" วัดผลรายวัน' === $description ) {
+        return hashbox_get_meta_description();
+    }
     // Same precedence rule as the title: a custom per-post Rank Math
     // description wins over the theme's generated fallback.
     $obj_id = get_queried_object_id();
@@ -3119,6 +3124,14 @@ function hashbox_rankmath_json_ld( $data, $jsonld = null ) {
             $data[ $key ]['description'] = $description;
             $data[ $key ]['isPartOf']    = array( '@id' => $home . '#website' );
             $data[ $key ]['publisher']   = array( '@id' => $home . '#organization' );
+
+            if ( is_page( 'ai-search' ) && hashbox_schema_entity_has_type( $entity, 'WebPage' )
+                && ( $entity['@id'] ?? '' ) === home_url( '/services/ai-search/#webpage' ) ) {
+                $data[ $key ]['speakable'] = array(
+                    '@type'       => 'SpeakableSpecification',
+                    'cssSelector' => array( '#answer p.hb-lead' ),
+                );
+            }
         }
 
         // KNOWN GAP, verified on production 2026-08-17: this branch does not
@@ -3449,7 +3462,7 @@ function hashbox_llms_txt_content() {
     $lines[] = '- SEO-Ready E-commerce: from 350,000 THB / 6-10 weeks';
     $lines[] = '- SEO-Ready Enterprise: from 500,000 THB / 8-14 weeks';
     // One-off build fees above; this one is a monthly retainer, hence the unit.
-    $lines[] = '- SEO retainer (technical-first, incl. GEO): from 29,900 THB / month — guarantee: technical pass in 30 days; if impressions do not grow 50% in 90 days we keep working free (max 3 months)';
+    $lines[] = '- SEO retainer (technical-first, incl. GEO): from 29,900 THB / month — written "no growth, no pay" guarantee, subject to the SEO guarantee terms';
     // Same figure as the Services line and the service page (catalogue price_llms).
     $lines[] = '- AI consulting (LINE Chatbot, RAG, Sales GPT, AI Agent — scoped project): from 60,000 THB / project';
     // Same figures as the /services/ai-consulting/ FAQ.
@@ -3587,7 +3600,7 @@ if ( ! function_exists( 'hashbox_get_home_faqs' ) ) {
             ),
             array(
                 'q' => 'บริการรับทำ SEO และ AI Search (GEO) ของ Hashbox ทำอะไรบ้าง?',
-                'a' => 'รับทำ SEO สายเทคนิค: แก้โครงสร้างเว็บ Core Web Vitals และ Schema ก่อน แล้วต่อยอดด้วย content, Local SEO และ CRO + tracking ให้ traffic กลายเป็น lead ส่วน AI Search (GEO) คือการทำให้แบรนด์ถูกอ้างอิงใน Google AI Overview, ChatGPT, Perplexity และ Gemini — ทั้งสองวัดผลจากระบบ track อันดับและ AI citation ของเราเอง อัปเดตรายวัน เริ่มต้น 29,900 บาทต่อเดือน พร้อมการันตี "ไม่โต ไม่จ่าย" — impressions ไม่โต 50% ใน 90 วัน เราทำต่อฟรี เริ่มจาก SEO Audit ฟรีครับ',
+                'a' => 'รับทำ SEO สายเทคนิค: แก้โครงสร้างเว็บ Core Web Vitals และ Schema ก่อน แล้วต่อยอดด้วย content, Local SEO และ CRO + tracking ให้ traffic กลายเป็น lead ส่วน AI Search (GEO) ช่วยเพิ่มโอกาสที่ Google AI Overview, ChatGPT, Perplexity และ Gemini จะอ้างอิงแบรนด์ เราเก็บอันดับคีย์เวิร์ดรายวัน ติดตามการอ้างอิงแยกตามแพลตฟอร์ม และรายงานผลเป็นรอบ เริ่มต้น 29,900 บาทต่อเดือน การันตี SEO "ไม่โต ไม่จ่าย" กำหนดให้งานเทคนิคผ่านใน 30 วัน หากไม่ผ่านเราแก้ให้ฟรี เมื่อผ่านแล้วจึงเริ่มนับ 90 วัน โดยเทียบคีย์เวิร์ดที่ตกลงกันกับข้อมูลก่อนเริ่มงานใน Search Console หาก impressions เพิ่มอย่างน้อย 50% หรือจำนวนคีย์เวิร์ดใน Top-20 เพิ่มอย่างน้อย 5 คำ ถือว่าถึงเป้า หากพลาดทั้งสองเกณฑ์ จะยกเว้นค่าบริการเดือนถัดไปตามเงื่อนไขจนถึงเป้า สูงสุด 3 เดือน เริ่มจาก SEO Audit ฟรีครับ',
             ),
             array(
                 'q' => 'AI Consulting ครอบคลุมอะไรบ้าง?',

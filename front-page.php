@@ -29,7 +29,7 @@ get_header();
                     <em>วัดผลจาก <span class="hb-nowrap">Search Console ของคุณ</span></em>
                 </h1>
                 <p class="hb-hero__sub">
-                    Hashbox Studio รับทำเว็บไซต์ SEO-Ready สำหรับธุรกิจไทยที่ต้องการมากกว่าเว็บสวย เราวางโครงสร้าง Technical SEO, Core Web Vitals, Schema, รับทำ SEO / AI Search และระบบ AI สำหรับธุรกิจไว้ในทีมเดียว ราคาเปิดเผยทุกบริการ และการันตี <strong>"ไม่โต ไม่จ่าย"</strong> — impressions ไม่โต 50% ใน 90 วัน เราทำต่อฟรี
+                    Hashbox Studio รับทำเว็บไซต์ SEO-Ready สำหรับธุรกิจไทยที่ต้องการมากกว่าเว็บสวย เราวางโครงสร้าง Technical SEO, Core Web Vitals, Schema, รับทำ SEO / AI Search และระบบ AI สำหรับธุรกิจไว้ในทีมเดียว ราคาเปิดเผยทุกบริการ งาน SEO มีการันตี <strong>"ไม่โต ไม่จ่าย"</strong> ตาม<a href="<?php echo esc_url( home_url( '/services/seo/guarantee-terms/' ) ); ?>" style="color: var(--hb-accent-blue-soft); text-decoration: underline;">เงื่อนไขการันตี SEO</a>
                 </p>
                 <div class="hb-hero__actions">
                     <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี
@@ -41,7 +41,7 @@ get_header();
                     <div class="hb-hero__trust-item"><span class="hb-hero__trust-value" data-target="17">17</span><span>ปี ประสบการณ์ทีม</span></div>
                     <div class="hb-hero__trust-item"><span class="hb-hero__trust-value">300+</span><span>แบรนด์ที่ผ่านมือ</span></div>
                     <div class="hb-hero__trust-item"><span class="hb-hero__trust-value">100</span><span>Lighthouse Score</span></div>
-                    <div class="hb-hero__trust-item"><span class="hb-hero__trust-value">90</span><span>วัน เห็นผล</span></div>
+                    <div class="hb-hero__trust-item"><span class="hb-hero__trust-value">90</span><span>วัน รอบวัดผล</span></div>
                 </div>
             </div>
 
@@ -137,7 +137,7 @@ get_header();
         <div class="hb-section__head">
             <span class="hb-eyebrow">บริการของเรา</span>
             <h2 class="hb-h2">รับทำเว็บไซต์ SEO-Ready, ที่ปรึกษา AI, รับทำ SEO และ AI Search สำหรับธุรกิจไทย</h2>
-            <p class="hb-section__sub">ทุกบริการจ้างแยกได้ ราคาเปิดเผย และวัดผลจากข้อมูลจริงรายวัน — เริ่มจากเว็บไซต์หรือระบบ AI ก็ได้ แล้วขยายเป็นระบบเดียวกันเมื่อพร้อม</p>
+            <p class="hb-section__sub">ทุกบริการจ้างแยกได้ ราคาเปิดเผย และวัดผลจากข้อมูลจริง — เริ่มจากเว็บไซต์หรือระบบ AI ก็ได้ แล้วขยายเป็นระบบเดียวกันเมื่อพร้อม</p>
         </div>
 
         <ol class="hb-svc-list">
