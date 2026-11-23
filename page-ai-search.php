@@ -22,7 +22,7 @@ $page_url     = get_permalink();
 $services_url = home_url( '/services/' );
 $has_checker  = (bool) get_page_by_path( 'geo-checker', OBJECT, 'page' );
 $checker_url  = $has_checker ? home_url( '/geo-checker/' ) : home_url( '/?service=ai-search#contact' );
-$desc         = 'รับทำ AI Search (GEO/AEO): ปรับเว็บให้ ChatGPT, Gemini และ Google AI Overview อ้างถึง วัดผลแยกรายแพลตฟอร์ม · รวมในค่า SEO รายเดือนเริ่ม 29,900 บาท';
+$desc         = hashbox_seo_path_overrides()['services/ai-search']['description'];
 
 $author_name     = hashbox_founder_name();
 $author_role     = hashbox_founder_job_title();
@@ -60,7 +60,7 @@ $platforms = array(
 $kpis = array(
     array( 'AI Visibility', 'แบรนด์ปรากฏในคำตอบกี่ % ของ prompt ชุดเดียวกัน แยกตาม AI' ),
     array( 'Brand Mentions', 'จำนวนครั้งที่ AI เอ่ยชื่อแบรนด์ — เอ่ยถึง / อ้างอิงลิงก์' ),
-    array( 'AI Overview Citations', 'คีย์เวิร์ดเป้าหมายที่หน้าเว็บคุณถูก AI Overview อ้างอิง อัปเดตรายวัน' ),
+    array( 'AI Overview Citations', 'คีย์เวิร์ดเป้าหมายที่ AI Overview อ้างอิงหน้าเว็บของคุณ' ),
     array( 'AI Share of Voice', 'สัดส่วนการถูกอ้างอิงของคุณเทียบคู่แข่งในคำเดียวกัน' ),
     array( 'แหล่งที่ AI อ้างอิง', 'โดเมนไหนถูก AI ใช้แทนคุณ — บอกว่าต้องไปอยู่ที่ไหน' ),
     array( 'Traffic → Lead', 'แยก Referral กับโฆษณา ตัดข้อมูลทดสอบ และติดตามฟอร์มสำเร็จ นัดหมาย และโอกาสขายใน CRM' ),
@@ -238,6 +238,7 @@ $kpis = array(
             <span class="hb-eyebrow">ราคา</span>
             <h2 class="hb-h2">เลือกดูแลต่อเนื่อง หรือแก้เว็บเป็นโปรเจกต์</h2>
             <p class="hb-section__sub">ประเมินเว็บไซต์ก่อนเสนอราคา เพื่อกำหนดจำนวนหน้า งานเนื้อหา และงานพัฒนาที่เหมาะกับธุรกิจ</p>
+            <p>หากกำลังเทียบใบเสนอราคา ดู<a href="<?php echo esc_url( home_url( '/จ้างทำ-ai-search-ราคา-2026/' ) ); ?>">คู่มือจ้างทำ AI Search ว่าราคาครอบคลุมงานอะไรบ้าง</a></p>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:var(--hb-space-4);">
             <div class="hb-tier hb-tier--featured">
@@ -249,7 +250,7 @@ $kpis = array(
                     <li>Technical SEO และงานแก้เว็บไซต์ตามขอบเขตที่ตกลง</li>
                     <li>ตรวจการเข้าถึงของ crawler ตามการใช้งาน · llms.txt เป็นส่วนเสริม</li>
                     <li>Answer-first content และ FAQ บนหน้าเงิน</li>
-                    <li>Track AI Overview ของคีย์เวิร์ดเป้าหมายรายวัน</li>
+                    <li>ติดตามการอ้างอิงใน AI Overview สำหรับคีย์เวิร์ดเป้าหมาย</li>
                     <li>รายงานอันดับ + AI citation ชุดเดียวกัน</li>
                 </ul>
                 <a href="<?php echo esc_url( home_url( '/?service=ai-search#contact' ) ); ?>" class="hb-btn hb-btn--gradient" style="margin-top:auto;">นัดประเมิน SEO + AI Search</a>
@@ -306,7 +307,6 @@ $kpis = array(
             <li><a href="<?php echo esc_url( home_url( '/google-ai-mode-คืออะไร-2026/' ) ); ?>">Google AI Mode คืออะไร ต่างจาก AI Overview ยังไง</a> — timeline ภาษาไทย, query fan-out, วัดผล</li>
             <li><a href="<?php echo esc_url( home_url( '/aeo-คืออะไร-2026/' ) ); ?>">AEO คืออะไร? ต่างจาก SEO และ GEO ตรงไหน</a> — ตารางเทียบ 3 แนวทาง + 7 รูปแบบที่ AI ยกไปตอบ</li>
             <li><a href="<?php echo esc_url( home_url( '/ai-search-metrics-thailand-2026/' ) ); ?>">AI Search Metrics มีอะไรบ้าง? 7 ตัวชี้วัด</a> — สูตรและตัวหารที่ถูก จากคำตอบ AI ภาษาไทยจริง</li>
-            <li><a href="<?php echo esc_url( home_url( '/จ้างทำ-ai-search-ราคา-2026/' ) ); ?>">จ้างทำ AI Search ราคาเท่าไหร่? ขอบเขตงาน + วิธีวัดผล</a> — สิ่งที่ควรได้และคำถามก่อนเซ็นสัญญา</li>
         </ul>
     </div>
 </section>

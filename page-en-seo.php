@@ -19,14 +19,14 @@ $th_url   = home_url( '/services/seo/' );
 $desc     = 'Technical-first SEO agency in Bangkok: Core Web Vitals, schema, local SEO, AI Search (GEO). From THB 29,900/month with a "no growth, no pay" guarantee.';
 
 $faqs = array(
-    array( 'q' => 'How much does SEO cost in Thailand?', 'a' => 'Among agencies that publish a price in 2026, starting retainers run from THB 29,900 to 39,000 per month; one agency publishes a wider THB 20,000–150,000+ range, and most agencies still do not publish a price at all. Hashbox starts at THB 29,900 per month (about USD 890), excluding 7% VAT, with the final scope quoted after a free technical audit. Multi-month AI-SEO packages elsewhere are priced from THB 165,000 for 6 months to THB 320,000 for 12 months.' ),
+    array( 'q' => 'How much does SEO cost in Thailand?', 'a' => 'Hashbox SEO retainers start at THB 29,900 per month, excluding 7% VAT. After a free technical audit, we quote the scope for your site.' ),
     array( 'q' => 'What does "no growth, no pay" mean?', 'a' => 'Two layers, both measured in your Search Console. First, the technical pass within 30 days: green Core Web Vitals on every in-scope URL, Lighthouse mobile 90+, schema passing Rich Results Test, money pages indexed — if not, we fix it free. Then a 90-day window starts after the technical pass. We compare the latest 28 days in your Search Console with the 28-day pre-start baseline for the agreed 20–50 non-brand keywords. If neither impressions grow by at least 50% nor the number of top-20 keywords grows by at least 5, we continue month by month without a service fee, up to 3 months. The initial retainer remains payable; this is not a refund. Conditions: 3-month minimum, Search Console access, no manual penalty, no domain change mid-term.' ),
-    array( 'q' => 'Do you guarantee first-page rankings?', 'a' => 'No — nobody controls Google, and we recommend you treat any agency that guarantees rankings as a red flag. We guarantee the work and a KPI Google itself reports (impressions), not a position.' ),
+    array( 'q' => 'Do you guarantee first-page rankings?', 'a' => 'No — nobody controls Google, and we recommend you treat any agency that guarantees rankings as a red flag. Our written guarantee covers technical delivery and growth measured by impressions or the number of agreed keywords in the top 20. The SEO guarantee terms apply.' ),
     array( 'q' => 'Is technical SEO different from what most Bangkok SEO agencies sell?', 'a' => 'Most retainers are article quotas — 6 to 18 blog posts a month — with technical fixes handed to "your dev team". We start with the technical audit and fix crawlability, Core Web Vitals, schema and internal linking first, because content cannot rank on a site Google reads badly. Content and local SEO come after the foundation passes.' ),
     array( 'q' => 'Do you do local SEO for Bangkok?', 'a' => 'Yes. Google Business Profile completion and posting, LocalBusiness schema, NAP consistency across directories, review strategy and location-intent service pages are part of the retainer scope — most useful for B2B firms whose buyers search "… Bangkok" or "… near me".' ),
-    array( 'q' => 'Does the retainer include AI Search / GEO?', 'a' => 'Yes. Optimising pages to be cited by Google AI Overviews, ChatGPT, Perplexity and Gemini — entity schema, llms.txt, answer-first content — is inside the SEO retainer. We track AI Overview citations for your keywords daily. If you only want AI Search without SEO, see our standalone AI SEO and GEO service.', 'link' => array( 'url' => '/en/ai-search/', 'text' => 'AI SEO & GEO agency in Bangkok' ) ),
-    array( 'q' => 'What do I see in reporting?', 'a' => 'Eight numbers, daily, from our own tracking plus Google\'s data: keywords in the top 3/10/30, impressions, clicks and CTR, AI Overview citations, AI mentions across ChatGPT, Claude, Gemini and Perplexity, Core Web Vitals pass rate, indexed pages, organic leads and referring domains. The historical data is yours if we part ways.' ),
-    array( 'q' => 'Which SEO agency in Thailand is the best?', 'a' => 'There is no single best — pick by verifiable criteria, not size: does the agency publish prices, refuse to guarantee rankings, start from a technical audit, offer AI Search, run its own measurement, publish named cases with numbers, and leave the data with you when you part ways? We scored 10 Thai agencies (including ourselves, honestly) against those 7 criteria in a comparison published in Thai; published starting retainers run THB 29,900-39,000 per month.', 'link' => array( 'url' => '/บริษัทรับทำ-seo-ไทย-2026/', 'text' => 'Read the 10-agency comparison (Thai)' ) ),
+    array( 'q' => 'Does the retainer include AI Search / GEO?', 'a' => 'Yes. The SEO retainer includes GEO. We optimise pages to improve their chances of being cited and check Google AI Overview citations for the keywords we track.', 'link' => array( 'url' => '/en/ai-search/', 'text' => 'AI SEO & GEO agency in Bangkok' ) ),
+    array( 'q' => 'What do I see in reporting?', 'a' => 'The report combines our tracking with Google’s data. It covers keywords in the top 3, 10 and 30, impressions, clicks, click-through rate, Google AI Overview citations, brand mentions across ChatGPT, Claude, Gemini and Perplexity, Core Web Vitals pass rate, indexed pages, organic leads and referring domains. Your reporting history stays yours if we part ways.' ),
+    array( 'q' => 'Which SEO agency in Thailand is the best?', 'a' => 'Ask how the agency audits your site, which client results you can verify, how it measures progress and who owns the data if you leave.', 'link' => array( 'url' => '/best-seo-agencies-bangkok-2026/', 'text' => 'Compare 13 SEO agencies in Bangkok' ) ),
     array( 'q' => 'Do you work in English with teams outside Thailand?', 'a' => 'Yes. Reporting, meetings and documentation are in English on request; the content itself is written in Thai, English or both depending on who your customers are. Remote work is the default; on-site in Bangkok when useful.' ),
 );
 
@@ -36,9 +36,9 @@ $scope = array(
     array( 'Schema markup', 'Organization, Service, FAQPage, BreadcrumbList, Article and the types your business needs — from a single source so what is shown equals what is marked up.' ),
     array( 'Content & on-page', 'Pages built from real search intent: one keyword per page, answer-first paragraphs, FAQ, internal links that route authority to money pages.' ),
     array( 'Local SEO Bangkok', 'Google Business Profile, NAP consistency, reviews, LocalBusiness schema and location-intent pages for B2B buyers who search with "Bangkok".' ),
-    array( 'AI Search (GEO)', 'Entity schema, llms.txt, citation-ready passages and external mentions so Google AI Overviews, ChatGPT and Perplexity cite you — tracked daily.' ),
+    array( 'AI Search (GEO)', 'We review structured data, page content and external mentions to improve the chances that AI answers cite your site.' ),
     array( 'CRO + tracking', 'GA4, Search Console and lead events wired correctly, heatmaps on money pages, A/B tests once traffic allows — traffic that does not convert is not a result.' ),
-    array( 'Daily reporting', 'Rank, citation and traffic data from our own pipeline, updated every day, kept forever, owned by you.' ),
+    array( 'SEO reporting', 'We track rankings, citations and traffic. You retain your reporting history.' ),
 );
 
 $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search Console)', 'AI Overview citations', 'AI mentions — ChatGPT, Claude, Gemini, Perplexity', 'Core Web Vitals pass rate', 'Indexed money pages', 'Organic leads (form, LINE, phone)', 'Referring domains' );
@@ -55,7 +55,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
                 <p class="en-seo-eyebrow">SEO · Bangkok, Thailand</p>
                 <h1 id="seo-title">Technical-first SEO agency in Bangkok</h1>
                 <p class="en-seo-lead">Fix the foundation. Grow your visibility. Measure the results in your own Search Console.</p>
-                <p>Core Web Vitals, content, local SEO and AI Search — with daily reporting and a written “no growth, no pay” guarantee.</p>
+                <p>Core Web Vitals, content, local SEO and AI Search — with SEO reporting and a written “no growth, no pay” guarantee.</p>
                 <div class="en-seo-actions">
                     <a href="#seo-contact" class="en-seo-button">Get a free SEO audit <?php echo hashbox_en_seo_icon( 'arrow-right' ); ?></a>
                     <a href="#results" class="en-seo-text-link">See the evidence <?php echo hashbox_en_seo_icon( 'arrow-right' ); ?></a>
@@ -114,7 +114,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
             <div class="en-seo-section__head">
                 <p class="en-seo-eyebrow">Scope of work</p>
                 <h2 id="seo-scope-title">SEO services in Bangkok — one connected programme</h2>
-                <p>Technical foundation first, then content, local and AI search — every item measured by the same daily data.</p>
+                <p>We measure progress across technical SEO, content, local search and AI search.</p>
             </div>
             <div class="en-seo-scope">
                 <?php $scope_icons = array( 'search-check', 'gauge', 'code-xml', 'file-text', 'map-pin', 'bot', 'mouse-pointer-click', 'chart-no-axes-combined' ); ?>
@@ -143,7 +143,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
                 <ol class="en-seo-steps">
                     <li><h3>Audit the foundation</h3><p>Check crawlability, speed, schema and content gaps before agreeing a scope.</p></li>
                     <li><h3>Agree the priorities</h3><p>Set the keyword group and baseline in your Search Console. Quote the work your site needs.</p></li>
-                    <li><h3>Implement and measure</h3><p>Fix the technical blockers, build visibility and review the daily data. The history stays yours.</p></li>
+                    <li><h3>Implement and measure</h3><p>Fix the technical blockers, build visibility and review the tracking data. The history stays yours.</p></li>
                 </ol>
                 <p class="en-seo-caption">English reporting, meetings and documentation on request. Remote by default; on-site in Bangkok when useful.</p>
             </div>
@@ -190,7 +190,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
         <div class="en-seo-section__head">
             <p class="en-seo-eyebrow">Measurement</p>
             <h2 id="seo-measure-title">Eight numbers. A clearer view of progress.</h2>
-            <p>Daily rank and AI-citation tracking alongside Google’s data. Reporting history belongs to you, including if we part ways.</p>
+            <p>We report on keyword rankings and AI citations alongside Google’s data. Your reporting history stays yours.</p>
         </div>
         <ol class="en-seo-measures">
             <?php foreach ( $kpis as $k ) : ?><li><?php echo esc_html( $k ); ?></li><?php endforeach; ?>
@@ -208,7 +208,7 @@ $kpis = array( 'Keywords in top 3 / 10 / 30', 'Impressions, clicks, CTR (Search 
                     <li><?php echo hashbox_en_seo_icon( 'check' ); ?> Technical audit and fixes first</li>
                     <li><?php echo hashbox_en_seo_icon( 'check' ); ?> Core Web Vitals, schema, local SEO, CRO tracking</li>
                     <li><?php echo hashbox_en_seo_icon( 'check' ); ?> AI Search / GEO included</li>
-                    <li><?php echo hashbox_en_seo_icon( 'check' ); ?> Daily rank + AI-citation data, yours to keep</li>
+                    <li><?php echo hashbox_en_seo_icon( 'check' ); ?> Rank and AI citation data, yours to keep</li>
                     <li><?php echo hashbox_en_seo_icon( 'check' ); ?> Written “no growth, no pay” guarantee</li>
                 </ul>
                 <a href="#seo-contact" class="en-seo-button">Get a free SEO audit <?php echo hashbox_en_seo_icon( 'arrow-right' ); ?></a>

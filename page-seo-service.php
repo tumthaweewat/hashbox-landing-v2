@@ -9,7 +9,7 @@
  * accordion and the FAQPage JSON-LD.
  *
  * Rank Math: Title=รับทำ SEO สายเทคนิค วัดผลด้วยข้อมูลรายวัน | Hashbox,
- * Description=รับทำ SEO สายเทคนิค เริ่ม 29,900 บาท/เดือน ตรวจ Technical SEO ฟรีก่อนเซ็นสัญญา · Core Web Vitals, Schema, Local SEO · การันตี "ไม่โต ไม่จ่าย" วัดผลรายวัน
+ * Description=รับทำ SEO สายเทคนิค เริ่ม 29,900 บาท/เดือน ตรวจ Technical SEO ฟรีก่อนเซ็นสัญญา · Core Web Vitals, Schema, Local SEO · การันตี "ไม่โต ไม่จ่าย" เก็บข้อมูลอันดับรายวัน
  * (Title/description ตัวจริงเขียนลง rank_math_* post meta โดย
  * hashbox_sync_new_service_pages_rankmath_meta() ใน functions.php —
  * บล็อกนี้เป็น reference ต้องแก้ให้ตรงกันทั้งสองที่)
@@ -25,7 +25,7 @@ get_header();
 
 $page_url     = get_permalink();
 $services_url = home_url( '/services/' );
-$desc         = 'รับทำ SEO สายเทคนิค เริ่ม 29,900 บาท/เดือน ตรวจ Technical SEO ฟรีก่อนเซ็นสัญญา · Core Web Vitals, Schema, Local SEO · การันตี "ไม่โต ไม่จ่าย" วัดผลรายวัน';
+$desc         = 'รับทำ SEO สายเทคนิค เริ่ม 29,900 บาท/เดือน ตรวจ Technical SEO ฟรีก่อนเซ็นสัญญา · Core Web Vitals, Schema, Local SEO · การันตี "ไม่โต ไม่จ่าย" เก็บข้อมูลอันดับรายวัน';
 
 // จุดเริ่มต้นราคาที่เผยแพร่ (retainer รายเดือน) — ใช้ร่วมกันระหว่างข้อความบนหน้าและ Offer schema.
 $price_from     = 29900;
@@ -37,18 +37,18 @@ $author_linkedin = hashbox_founder_linkedin();
 $author_bio      = '17 ปีประสบการณ์ Technical SEO + Performance Engineering · ผ่านโปรเจกต์ SEO migration 50+ เคส · Cert: Google Analytics, Search Console, Cloudflare Performance Engineer';
 
 $faqs = array(
-    array( 'q' => 'รับทำ SEO ราคาเท่าไหร่?', 'a' => 'บริการรับทำ SEO ของ Hashbox เริ่มต้นที่ 29,900 บาทต่อเดือน สำหรับงาน SEO ต่อเนื่อง ครอบคลุมงานด้าน Technical SEO, Core Web Vitals, Schema Markup, Content/On-page และ GEO/AI Overview ตาม scope ที่ตกลงกันหลัง audit พร้อมข้อมูลอันดับและการถูกอ้างอิงใน AI Overview อัปเดตรายวัน ราคาไม่รวม VAT 7% · ราคาจริงขึ้นกับ scope ของแต่ละเว็บ — จำนวนหน้า สภาพ technical ปัจจุบัน ความยากของคีย์เวิร์ด และคู่แข่งในตลาด เราไม่ขายแพ็กเกจตายตัวเพราะเว็บแต่ละแบบต้องการงานไม่เท่ากัน วิธีที่แฟร์ที่สุดคือเริ่มจาก SEO Audit ฟรี แล้วเราเสนอราคาตามงานที่จำเป็นจริงๆ' ),
+    array( 'q' => 'รับทำ SEO ราคาเท่าไหร่?', 'a' => 'บริการรับทำ SEO ของ Hashbox เริ่มต้นที่ 29,900 บาทต่อเดือน สำหรับงาน SEO ต่อเนื่อง ครอบคลุมงานด้าน Technical SEO, Core Web Vitals, Schema Markup, Content/On-page และ GEO/AI Overview ตาม scope ที่ตกลงกันหลัง audit เราเก็บอันดับคีย์เวิร์ดรายวันและติดตามการอ้างอิงใน AI Overview ราคาไม่รวม VAT 7% · ราคาจริงขึ้นกับ scope ของแต่ละเว็บ — จำนวนหน้า สภาพ technical ปัจจุบัน ความยากของคีย์เวิร์ด และคู่แข่งในตลาด เราไม่ขายแพ็กเกจตายตัวเพราะเว็บแต่ละแบบต้องการงานไม่เท่ากัน วิธีที่แฟร์ที่สุดคือเริ่มจาก SEO Audit ฟรี แล้วเราเสนอราคาตามงานที่จำเป็นจริงๆ' ),
     array( 'q' => 'ทำ SEO ให้ติดหน้าแรก Google ใช้เวลากี่เดือน?', 'a' => 'โดยทั่วไปวงการนี้บอก 6 เดือนขึ้นไป แต่สำหรับเว็บที่โครงสร้าง technical ถูกต้อง — เร็ว, Schema ครบ, โครงสร้างเนื้อหาชัด — เราเห็น time-to-rank ลดเหลือ 1-2 เดือนในหลายอุตสาหกรรม นี่คือเหตุผลที่เราแก้ technical ก่อนเสมอ ส่วนคีย์เวิร์ดที่แข่งสูงมากยังต้องใช้เวลาสะสม authority ซึ่งเราจะบอกตรงๆ ตั้งแต่ audit' ),
     array( 'q' => 'การันตี "ไม่โต ไม่จ่าย" หมายความว่าอะไร?', 'a' => 'เราไม่การันตีอันดับ 1 เพราะไม่มีใครควบคุม Google ได้ (และแนะนำให้ระวังใครที่การันตี) แต่การันตี 2 อย่างที่คุณเปิดดูเองได้ใน Search Console: (1) งานเทคนิคผ่านใน 30 วัน — Core Web Vitals เขียว, Lighthouse mobile 90+, Schema ผ่าน Rich Results Test, หน้าเงิน index ครบ ไม่ผ่านแก้ฟรีจนผ่าน (2) หลังจากนั้นนับ 90 วัน ถ้า impressions ของคีย์เวิร์ดที่ตกลงกัน (20–50 คำ ไม่นับชื่อแบรนด์) ไม่เพิ่ม 50% เทียบ 28 วันก่อนเริ่ม และคำใน Top-20 ไม่เพิ่ม 5 คำ เราทำต่อให้ฟรีเดือนต่อเดือนจนถึง สูงสุด 3 เดือน เงื่อนไข: retainer ขั้นต่ำ 3 เดือน, ให้สิทธิ์ GSC และแก้เว็บ, ไม่มี manual penalty, ไม่เปลี่ยนโดเมนหรือลบหน้าใน scope, เว็บอายุต่ำกว่า 6 เดือนหรือ baseline เกิน 100,000 impressions/เดือน ตกลง KPI รายเคส ตัวตัดสินคือข้อมูล GSC ของคุณ ณ วันครบกำหนด' ),
-    array( 'q' => 'GEO / AI Overview optimization คืออะไร ทำไมต้องสนใจ?', 'a' => 'GEO (Generative Engine Optimization) คือการทำให้ content ของคุณถูก AI อ้างอิงเวลา AI ตอบคำถาม เช่นใน Google AI Overview ตอนนี้หลาย query ผู้ใช้ได้คำตอบจาก AI ก่อนเห็นเว็บ 10 อันดับ ถ้าแบรนด์คุณไม่ถูกอ้างอิง ก็หายไปจากคำตอบนั้นเลย เราทั้ง optimize ระดับ passage และมีระบบ track การถูกอ้างอิงรายวันเพื่อวัดผลจริง' ),
+    array( 'q' => 'GEO / AI Overview optimization คืออะไร ทำไมต้องสนใจ?', 'a' => 'GEO (Generative Engine Optimization) คือการทำให้ content ของคุณถูก AI อ้างอิงเวลา AI ตอบคำถาม เช่นใน Google AI Overview ตอนนี้หลาย query ผู้ใช้ได้คำตอบจาก AI ก่อนเห็นเว็บ 10 อันดับ ถ้าแบรนด์คุณไม่ถูกอ้างอิง ก็หายไปจากคำตอบนั้นเลย เราปรับเนื้อหาเป็นรายย่อหน้าและตรวจว่าหน้าใดถูกอ้างอิงสำหรับคีย์เวิร์ดที่ติดตาม' ),
     array( 'q' => 'ต้องทำเว็บใหม่ไหมถึงจะทำ SEO ได้?', 'a' => 'ไม่จำเป็น ส่วนใหญ่เราแก้บนเว็บเดิมได้ — WordPress, Next.js หรือ stack อื่น ถ้า audit แล้วพบว่าโครงสร้างเดิมเป็นคอขวดจริงๆ (เช่นแก้ความเร็วยังไงก็ไม่ผ่านเกณฑ์) เราจะเสนอทางเลือกพร้อมเหตุผล ซึ่งทีมเรารับพัฒนาเว็บ SEO-Ready เองอยู่แล้ว ตัดสินใจจากข้อมูล ไม่ใช่จากการอยากขายงานเพิ่ม' ),
-    array( 'q' => 'รายงานที่ได้เป็นแบบไหน?', 'a' => 'ข้อมูลอันดับคีย์เวิร์ดและการถูกอ้างอิงใน AI Overview อัปเดตรายวันจากระบบของเราเอง พร้อมสรุปสิ่งที่ทำและสิ่งที่จะทำต่อ คุณเห็นความเคลื่อนไหวได้ตลอด ไม่ต้องรอสรุปสิ้นเดือน และข้อมูลย้อนหลังเก็บไว้ทั้งหมดตั้งแต่วันแรกที่เริ่มงาน' ),
+    array( 'q' => 'รายงานที่ได้เป็นแบบไหน?', 'a' => 'เราเก็บอันดับคีย์เวิร์ดรายวันและรายงานผลเป็นรอบ รายงานสรุปอันดับ การอ้างอิงใน AI Overview งานที่ทำไปแล้ว และสิ่งที่จะทำต่อ โดยมีข้อมูลย้อนหลังตั้งแต่เริ่มงาน' ),
     array( 'q' => 'เว็บอยู่บน WordPress / Next.js / แพลตฟอร์มสำเร็จรูป ทำได้ไหม?', 'a' => 'ได้ เราทำงานกับ WordPress, Headless WordPress, Next.js และ Astro เป็นประจำ แพลตฟอร์มสำเร็จรูปบางตัวมีข้อจำกัดด้าน technical ที่แก้ไม่ได้ ซึ่งจะบอกตรงๆ ใน audit ว่าอะไรทำได้แค่ไหน' ),
     array( 'q' => 'เริ่มยังไง?', 'a' => 'เริ่มจากรับ SEO Audit ฟรี — ส่ง URL เว็บมาผ่านหน้า Contact เราตรวจ technical, content และโอกาสใน AI Overview แล้วนัดคุยผลแบบไม่มีข้อผูกมัด มีคำถามก่อนเริ่มก็ทักมาคุยได้เลย' ),
-    array( 'q' => 'Hashbox ทำ SEO แบบสายขาวเท่านั้นใช่ไหม ต่างจากสายดำอย่างไร?', 'a' => 'ใช่ — เราทำตามแนวทางที่ Google เผยแพร่เท่านั้น: แก้โครงสร้างเว็บ ความเร็ว Schema และเนื้อหาที่ตอบคำถามจริง ส่วนสายดำใช้ backlink ซื้อ เนื้อหาปั่น หรือซ่อนข้อความ ซึ่งได้ผลระยะสั้นแล้วโดนลงโทษ ทุกงานของเรามีเกณฑ์ผ่านชัดเจน ตรวจย้อนได้ และคุณเห็นข้อมูลอันดับรายวันเอง รายละเอียด 6 สิ่งที่เราไม่ทำต่อให้ลูกค้าขอ อยู่ที่หน้า รับทำ SEO สายขาว (/services/seo/white-hat/)' ),
+    array( 'q' => 'Hashbox ทำ SEO แบบสายขาวเท่านั้นใช่ไหม ต่างจากสายดำอย่างไร?', 'a' => 'ใช่ — เราทำตามแนวทางที่ Google เผยแพร่เท่านั้น: แก้โครงสร้างเว็บ ความเร็ว Schema และเนื้อหาที่ตอบคำถามจริง ส่วนสายดำใช้ backlink ซื้อ เนื้อหาปั่น หรือซ่อนข้อความ ซึ่งได้ผลระยะสั้นแล้วโดนลงโทษ ทุกงานของเรามีเกณฑ์ผ่านชัดเจน ตรวจย้อนได้ และทีมเก็บข้อมูลอันดับรายวันให้ตรวจย้อนหลังได้ รายละเอียด 6 สิ่งที่เราไม่ทำต่อให้ลูกค้าขอ อยู่ที่หน้า รับทำ SEO สายขาว (/services/seo/white-hat/)' ),
     array( 'q' => 'รับทำ Local SEO ในกรุงเทพให้ไหม?', 'a' => 'รับ — Local SEO Bangkok รวมอยู่ใน scope ได้: Google Business Profile ให้ครบทุก field, LocalBusiness schema, NAP ตรงกันทุกแพลตฟอร์ม, รีวิว และหน้าบริการที่ตอบ intent เฉพาะพื้นที่ เหมาะกับธุรกิจ B2B และบริการที่ลูกค้าค้นหาแบบระบุพื้นที่' ),
     array( 'q' => 'CRO และ tracking รวมอยู่ในบริการรับทำ SEO ไหม?', 'a' => 'รวม — บริการ Digital Marketing + CRO เดิมถูกรวมเข้ามาในงาน SEO แล้ว เพราะ traffic ที่ไม่กลายเป็น lead ไม่มีความหมาย เราตั้งค่า GA4 + Search Console + lead event ให้ครบ ดู heatmap บนหน้าเงิน และรัน CRO sprint รายเดือนเมื่อ traffic มากพอ' ),
-    array( 'q' => 'Hashbox วัดผล SEO อย่างไร?', 'a' => 'ด้วย 8 ตัวชี้วัดที่คุณเห็นรายวัน: อันดับคีย์เวิร์ด Top 3/10/30, impressions + clicks + CTR จาก Search Console, AI Overview citations, AI mentions ใน ChatGPT/Claude/Gemini/Perplexity, Core Web Vitals pass rate, หน้าที่ index แล้ว, lead จาก organic และ referring domains — ทั้งหมดจากระบบ track ของเราเองและข้อมูล Google โดยตรง' ),
+    array( 'q' => 'Hashbox วัดผล SEO อย่างไร?', 'a' => 'รายงานแต่ละรอบสรุป 8 ตัวชี้วัด: อันดับคีย์เวิร์ด Top 3/10/30, impressions + clicks + CTR จาก Search Console, AI Overview citations, AI mentions ใน ChatGPT/Claude/Gemini/Perplexity, Core Web Vitals pass rate, หน้าที่ index แล้ว, lead จาก organic และ referring domains — ทั้งหมดจากระบบ track ของเราเองและข้อมูล Google โดยตรง' ),
 
 );
 
@@ -71,10 +71,10 @@ $compare = array(
     array( 'จุดเริ่มต้น', 'รับ brief แล้วเริ่มเขียนบทความ', 'Technical audit — แก้โครงสร้างก่อน' ),
     array( 'Technical depth', 'ส่งต่อให้ "ทีม dev ของลูกค้า"', 'ทำเอง — การันตี Lighthouse 95+ สำหรับเว็บที่เราพัฒนาเอง' ),
     array( 'Schema', 'Organization + LocalBusiness แล้วจบ', 'ครบ 8+ types ตาม content แต่ละประเภท' ),
-    array( 'AI Overview / GEO', 'ไม่ทำ หรือยังไม่มีวิธีวัด', 'Optimize ระดับ passage + track การถูกอ้างอิงรายวัน' ),
+    array( 'AI Overview / GEO', 'ไม่ทำ หรือยังไม่มีวิธีวัด', 'ปรับเนื้อหาเป็นรายย่อหน้าและติดตามการอ้างอิงใน AI Overview' ),
     array( 'เครื่องมือวัดผล', 'เช่า SaaS รายเดือน', 'ระบบ rank tracking + AI-citation ของเราเอง' ),
-    array( 'รายงาน', 'PDF เดือนละครั้ง', 'ข้อมูลจริงรายวัน เก็บย้อนหลังทั้งหมด' ),
-    array( 'การันตี', '"ติดหน้าแรก" (นิยามหลวม ไม่มีเงื่อนไข)', '"ไม่โต ไม่จ่าย" — KPI จาก Search Console ของคุณ ไม่ถึงใน 90 วัน ทำต่อฟรี' ),
+    array( 'รายงาน', 'PDF เดือนละครั้ง', 'สรุปผลเป็นรอบ พร้อมข้อมูลอันดับย้อนหลัง' ),
+    array( 'การันตี', '"ติดหน้าแรก" (นิยามหลวม ไม่มีเงื่อนไข)', '"ไม่โต ไม่จ่าย" — วัดจาก Search Console ตามเงื่อนไขการันตี SEO' ),
     array( 'ราคา', 'แพ็กเกจตายตัว', 'เริ่มต้น 29,900 บาทต่อเดือน · quote จริงหลัง audit ฟรี' ),
 );
 ?>
@@ -100,7 +100,7 @@ $compare = array(
                 <a href="<?php echo esc_url( home_url( '/?service=seo#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี</a>
                 <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูผลงาน</a>
             </div>
-            <p class="hb-body" style="margin-top:var(--hb-space-5);color:var(--hb-text-muted);"><a href="#guarantee" style="color:var(--hb-accent-emerald,#10B981);font-weight:600;text-decoration:none;">&#10003; การันตี "ไม่โต ไม่จ่าย"</a> — impressions ไม่โต 50% ใน 90 วัน เราทำต่อฟรี · วัดจาก Search Console ของคุณ</p>
+            <p class="hb-body" style="margin-top:var(--hb-space-5);color:var(--hb-text-muted);"><a href="#guarantee" style="color:var(--hb-accent-emerald,#10B981);font-weight:600;text-decoration:none;">&#10003; การันตี "ไม่โต ไม่จ่าย"</a> — ดูวิธีนับระยะเวลา เกณฑ์วัดผลจาก Search Console ของคุณ และเงื่อนไขยกเว้นค่าบริการในส่วนการันตี SEO</p>
             <p class="hb-hero__sub" lang="en" style="margin-top:var(--hb-space-5);font-size:var(--hb-text-sm);">Read this page in English: <a href="<?php echo esc_url( home_url( '/en/seo/' ) ); ?>">Technical-first SEO agency in Bangkok</a></p>
         </div>
     </div>
@@ -111,7 +111,7 @@ $compare = array(
         <div class="hb-answer-box" style="padding:var(--hb-space-6);border-left:4px solid var(--hb-accent-blue,#2563EB);background:var(--hb-surface-2,#1E1E2A);border-radius:var(--hb-radius-md,8px);">
             <span class="hb-eyebrow" style="color:var(--hb-accent-blue-soft,#818CF8);">สรุปสั้นๆ</span>
             <p class="hb-lead" style="margin-top:var(--hb-space-3);font-weight:500;">
-                <strong>บริการรับทำ SEO ของ Hashbox คือ การปรับโครงสร้างเว็บ ความเร็ว Schema และเนื้อหา ให้ติดหน้าแรก Google และถูกอ้างอิงใน AI Search แบบสายขาว ตรวจย้อนได้ทุกขั้นตอน เริ่มต้น <?php echo esc_html( $price_from_txt ); ?></strong> — แก้โครงสร้างเว็บ ความเร็ว และ Schema ให้ Google อ่านได้ถูกต้องก่อน แล้วค่อยต่อยอดด้วย content เรา optimize 2 สนามพร้อมกัน: อันดับบน Google และการถูกอ้างอิงใน AI Overview (GEO) ลูกค้าเห็นข้อมูลอันดับและ AI citation อัปเดตรายวันจากระบบ track ของเราเอง ไม่ใช่ PDF เดือนละครั้ง quote สุดท้ายออกตาม scope จริงหลัง SEO Audit ฟรี ไม่มีข้อผูกมัด
+                <strong>บริการรับทำ SEO ของ Hashbox คือ การปรับโครงสร้างเว็บ ความเร็ว Schema และเนื้อหา ให้ติดหน้าแรก Google และถูกอ้างอิงใน AI Search แบบสายขาว ตรวจย้อนได้ทุกขั้นตอน เริ่มต้น <?php echo esc_html( $price_from_txt ); ?></strong> — แก้โครงสร้างเว็บ ความเร็ว และ Schema ให้ Google อ่านได้ถูกต้องก่อน แล้วค่อยต่อยอดด้วย content เรา optimize 2 สนามพร้อมกัน: อันดับบน Google และการถูกอ้างอิงใน AI Overview (GEO) ทีมเก็บอันดับคีย์เวิร์ดรายวัน ติดตามการอ้างอิงใน AI Overview และสรุปผลให้ลูกค้าเป็นรอบ quote สุดท้ายออกตาม scope จริงหลัง SEO Audit ฟรี ไม่มีข้อผูกมัด
             </p>
         </div>
     </div>
@@ -142,7 +142,7 @@ $compare = array(
         <div class="hb-section__head">
             <span class="hb-eyebrow">ขอบเขตบริการ</span>
             <h2 class="hb-h2">บริการรับทำ SEO ของเราครอบคลุมอะไรบ้าง</h2>
-            <p class="hb-section__sub">ตั้งแต่ Technical SEO audit, Core Web Vitals, Schema markup, Content/On-page ไปจนถึง GEO/AI Overview optimization — ทั้งหมดวัดผลผ่านระบบข้อมูลรายวันของเราเอง เห็นความเคลื่อนไหวของทุกคีย์เวิร์ดทุกวัน</p>
+            <p class="hb-section__sub">ตั้งแต่ Technical SEO audit, Core Web Vitals, Schema markup, Content/On-page ไปจนถึง GEO/AI Overview optimization — เราเก็บอันดับคีย์เวิร์ดเป้าหมายรายวัน และตรวจว่าหน้าใดถูกอ้างอิงใน AI Overview</p>
         </div>
         <div class="hb-bento">
             <div class="hb-bento__cell hb-bento__cell--c2 hb-bento__cell--feature">
@@ -168,12 +168,12 @@ $compare = array(
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">05</span>
                 <h3 class="hb-h3">GEO / AI Overview Optimization</h3>
-                <p class="hb-body">จุดที่เราต่างจากบริษัทรับทำ SEO ทั่วไปมากที่สุด: เรา optimize ระดับ passage ให้ content ถูก AI Overview หยิบไปอ้างอิง และมีระบบ track ว่าโดเมนไหนถูกอ้างอิงในคีย์เวิร์ดเป้าหมาย อัปเดตรายวัน อ่านแนวคิดเต็มๆ ที่ <a href="<?php echo esc_url( home_url( '/geo-ai-search-optimization-2026/' ) ); ?>">GEO: AI Search Optimization 2026</a> · ขอบเขตงานเต็มดูที่บริการ<a href="<?php echo esc_url( home_url( '/services/ai-search/' ) ); ?>">รับทำ AI Search</a></p>
+                <p class="hb-body">จุดที่เราต่างจากบริษัทรับทำ SEO ทั่วไปมากที่สุด: เรา optimize ระดับ passage เพื่อเพิ่มโอกาสที่ AI Overview จะอ้างอิงเนื้อหา และตรวจว่าโดเมนใดถูกอ้างอิงในคีย์เวิร์ดเป้าหมาย อ่านแนวคิดเต็มๆ ที่ <a href="<?php echo esc_url( home_url( '/geo-ai-search-optimization-2026/' ) ); ?>">GEO: AI Search Optimization 2026</a> · ขอบเขตงานเต็มดูที่บริการ<a href="<?php echo esc_url( home_url( '/services/ai-search/' ) ); ?>">รับทำ AI Search</a></p>
             </div>
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">06</span>
-                <h3 class="hb-h3">รายงานจากข้อมูลจริง รายวัน</h3>
-                <p class="hb-body">ข้อมูลอันดับ + การถูกอ้างอิงใน AI Overview จากระบบ data pipeline ของเราเอง เก็บทุกวัน เก็บย้อนหลังทั้งหมด และเป็นของโปรเจกต์คุณ พออันดับตกหรือ AI เปลี่ยนแหล่งอ้างอิง เราเห็นภายในวันนั้น ไม่ใช่ปลายเดือน</p>
+                <h3 class="hb-h3">รายงานผล SEO แต่ละรอบ</h3>
+                <p class="hb-body">ทีมเก็บอันดับคีย์เวิร์ดรายวัน รายงานแต่ละรอบสรุปอันดับและการอ้างอิงใน AI Overview ข้อมูลย้อนหลังเป็นของโปรเจกต์คุณ</p>
             </div>
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">07</span>
@@ -215,8 +215,8 @@ $compare = array(
             </div>
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">04</span>
-                <h3 class="hb-h3">Dashboard รายวันจากระบบของเราเอง</h3>
-                <p class="hb-body">อันดับ, AI Overview citation, traffic, lead อยู่ใน dashboard เดียว อัปเดตรายวัน — คุณเห็นสิ่งเดียวกับที่เราเห็น</p>
+                <h3 class="hb-h3">แดชบอร์ดวัดผล SEO</h3>
+                <p class="hb-body">แดชบอร์ดรวมอันดับคีย์เวิร์ด การอ้างอิงใน AI Overview จำนวนผู้เข้าเว็บ และจำนวนผู้ติดต่อ</p>
             </div>
         </div>
     </div>
@@ -247,7 +247,7 @@ $compare = array(
         <div class="hb-section__head">
             <span class="hb-eyebrow">ความต่าง</span>
             <h2 class="hb-h2">ทำไม Hashbox ต่างจาก SEO agency ทั่วไป</h2>
-            <p class="hb-section__sub">สรุปได้ 3 ข้อ: เราเป็นสาย technical ที่สร้างเว็บ Lighthouse 95+ เองได้จริง · เราทำ GEO/AI Overview ควบคู่กับ SEO ปกติ · และเราวัดผลด้วยระบบข้อมูลของเราเองที่อัปเดตรายวัน — เทียบกับบริษัทรับทำ SEO รายอื่นด้วยเกณฑ์เดียวกันได้ใน <a href="<?php echo esc_url( home_url( '/บริษัทรับทำ-seo-ไทย-2026/' ) ); ?>">10 บริษัทรับทำ SEO ในไทย 2026 — จัดอันดับจาก 7 เกณฑ์ที่ตรวจได้</a></p>
+            <p class="hb-section__sub">สรุปได้ 3 ข้อ: เราเป็นสาย technical ที่สร้างเว็บ Lighthouse 95+ เองได้จริง · เราทำ GEO/AI Overview ควบคู่กับ SEO ปกติ · และเราเก็บอันดับคีย์เวิร์ดรายวันด้วยระบบของเราเอง — เทียบกับบริษัทรับทำ SEO รายอื่นด้วยเกณฑ์เดียวกันได้ใน <a href="<?php echo esc_url( home_url( '/บริษัทรับทำ-seo-ไทย-2026/' ) ); ?>">10 บริษัทรับทำ SEO ในไทย 2026 — จัดอันดับจาก 7 เกณฑ์ที่ตรวจได้</a></p>
         </div>
         <div style="overflow-x:auto;">
             <table style="width:100%;border-collapse:collapse;font-size:var(--hb-text-sm);min-width:560px;">
@@ -269,7 +269,7 @@ $compare = array(
                 </tbody>
             </table>
         </div>
-        <p class="hb-body" style="margin-top:var(--hb-space-5);color:var(--hb-text-muted);">จุดที่อยากขยายความคือเรื่องระบบวัดผล: agency ส่วนใหญ่เช่าเครื่องมือ SaaS แล้ว export รายงานให้ลูกค้า แต่ Hashbox สร้าง data pipeline ของตัวเอง เก็บอันดับคีย์เวิร์ดและการถูกอ้างอิงใน AI Overview ทุกวัน ข้อมูลดิบเก็บถาวร — เราจึงตอบได้เสมอว่า "อันดับขยับเพราะอะไร ตั้งแต่วันไหน" ด้วยหลักฐาน ไม่ใช่ความรู้สึก และทั้งหมดนี้ทำแบบสายขาวเท่านั้น — ลิสต์ 6 สิ่งที่เราไม่ทำต่อให้ลูกค้าขอ อยู่ที่หน้า<a href="<?php echo esc_url( home_url( '/services/seo/white-hat/' ) ); ?>" style="color:var(--hb-accent-blue-soft,#818CF8);">รับทำ SEO สายขาว</a></p>
+        <p class="hb-body" style="margin-top:var(--hb-space-5);color:var(--hb-text-muted);">จุดที่อยากขยายความคือเรื่องระบบวัดผล: agency ส่วนใหญ่เช่าเครื่องมือ SaaS แล้ว export รายงานให้ลูกค้า แต่ Hashbox สร้าง data pipeline ของตัวเอง เก็บอันดับคีย์เวิร์ดทุกวัน และติดตามการอ้างอิงใน AI Overview ข้อมูลดิบเก็บถาวร — เราจึงตอบได้เสมอว่า "อันดับขยับเพราะอะไร ตั้งแต่วันไหน" ด้วยหลักฐาน ไม่ใช่ความรู้สึก และทั้งหมดนี้ทำแบบสายขาวเท่านั้น — ลิสต์ 6 สิ่งที่เราไม่ทำต่อให้ลูกค้าขอ อยู่ที่หน้า<a href="<?php echo esc_url( home_url( '/services/seo/white-hat/' ) ); ?>" style="color:var(--hb-accent-blue-soft,#818CF8);">รับทำ SEO สายขาว</a></p>
     </div>
 </section>
 
@@ -277,7 +277,7 @@ $compare = array(
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">วิธีวัดผล</span>
-            <h2 class="hb-h2">Hashbox วัดผลการรับทำ SEO อย่างไร — 8 ตัวชี้วัดที่คุณเห็นรายวัน</h2>
+            <h2 class="hb-h2">Hashbox วัดผลการรับทำ SEO อย่างไร — 8 ตัวชี้วัดในรายงาน</h2>
             <p class="hb-section__sub">รับทำ SEO สายขาว หมายถึงทุกขั้นตอนตรวจย้อนได้และวัดด้วยตัวเลขเดียวกับที่ Google ให้ — ไม่มี backlink ซื้อ ไม่มี content ปั่น ไม่มีตัวเลขที่อธิบายที่มาไม่ได้</p>
         </div>
         <div class="hb-bento">
@@ -286,7 +286,7 @@ $compare = array(
                 array( 'อันดับคีย์เวิร์ด', 'จำนวนคำใน Top 3 / Top 10 / Top 30 เทียบรายวัน ไม่ใช่ค่าเฉลี่ยรายเดือน' ),
                 array( 'Impressions + Clicks + CTR', 'จาก Google Search Console — เห็นว่าอันดับที่ขึ้นกลายเป็นคนเข้าจริงหรือไม่' ),
                 array( 'AI Overview citations', 'คีย์เวิร์ดไหน Google แสดง AI Overview และหน้าไหนของคุณถูกอ้างอิง' ),
-                array( 'AI mentions', 'ChatGPT · Claude · Gemini · Perplexity เอ่ยถึงแบรนด์คุณกี่ครั้งจาก prompt ชุดเดียวกันทุกเดือน' ),
+                array( 'AI mentions', 'ChatGPT · Claude · Gemini · Perplexity เอ่ยถึงแบรนด์คุณกี่ครั้งจากชุดคำถามเดียวกัน' ),
                 array( 'Core Web Vitals pass rate', 'สัดส่วน URL ที่ LCP / INP / CLS เขียว จาก field data จริง' ),
                 array( 'หน้าที่ index แล้ว', 'Indexed vs discovered — หน้าเงินทุกหน้าต้องอยู่ใน index' ),
                 array( 'Lead จาก organic', 'form · LINE · โทร ที่มาจาก search และ AI search แยกจากช่องทางอื่น' ),
@@ -323,7 +323,7 @@ $compare = array(
                     <li>Schema Markup ครบ 8+ types ตามประเภทธุรกิจ</li>
                     <li>Content &amp; On-page วางจาก search intent จริง</li>
                     <li>GEO / AI Overview optimization ระดับ passage</li>
-                    <li>ข้อมูลอันดับ + การถูกอ้างอิงใน AI Overview อัปเดตรายวัน จากระบบของเราเอง</li>
+                    <li>เก็บอันดับคีย์เวิร์ดรายวันและติดตามการอ้างอิงใน AI Overview</li>
                 </ul>
                 <a href="<?php echo esc_url( home_url( '/?service=seo#contact' ) ); ?>" class="hb-btn hb-btn--gradient" style="margin-top:auto;">ขอใบเสนอราคา SEO</a>
             </div>
@@ -379,8 +379,8 @@ $compare = array(
     <div class="hb-container">
         <div class="hb-section__head">
             <span class="hb-eyebrow">การันตี</span>
-            <h2 class="hb-h2">การันตี "ไม่โต ไม่จ่าย" — impressions ไม่โต 50% ใน 90 วัน เราทำต่อฟรี</h2>
-            <p class="hb-section__sub">เคสที่ทำตามเกณฑ์นี้: <a href="<?php echo esc_url( home_url( '/work/rank-project/#proof' ) ); ?>">Rank Project</a> (20+ keyword หน้าแรกใน 90 วัน) · <a href="<?php echo esc_url( home_url( '/work/nexus-corp/#proof' ) ); ?>">Nexus Corp</a> (Lighthouse 90+ ทุก URL) — เราไม่การันตีอันดับ 1 เพราะไม่มีใครควบคุม Google ได้ — แต่การันตีสิ่งที่คุณเปิดดูเองได้ใน Search Console: งานเทคนิคผ่านใน 30 วัน และ impressions โต 50% ใน 90 วัน ไม่ถึง ทำต่อฟรีจนถึง</p>
+            <h2 class="hb-h2">การันตี "ไม่โต ไม่จ่าย" วัดผลอย่างไร</h2>
+            <p class="hb-section__sub">ตัวอย่างผลงานด้านอันดับและประสิทธิภาพเว็บ: <a href="<?php echo esc_url( home_url( '/work/rank-project/#proof' ) ); ?>">Rank Project</a> (20+ keyword หน้าแรกใน 90 วัน) · <a href="<?php echo esc_url( home_url( '/work/nexus-corp/#proof' ) ); ?>">Nexus Corp</a> (Lighthouse 90+ ทุก URL) — เราไม่การันตีอันดับ 1 เพราะไม่มีใครควบคุม Google ได้ — เกณฑ์การันตีแบ่งเป็นงานเทคนิคภายใน 30 วัน และการเติบโตที่วัดจาก Search Console เมื่อครบ 90 วันหลังงานเทคนิคผ่าน</p>
         </div>
         <div class="hb-bento">
             <div class="hb-bento__cell hb-bento__cell--c2 hb-bento__cell--feature">
@@ -390,12 +390,12 @@ $compare = array(
             </div>
             <div class="hb-bento__cell hb-bento__cell--c2 hb-bento__cell--feature">
                 <span class="hb-bento__label">ชั้นที่ 2 · 90 วัน</span>
-                <h3 class="hb-h3">Impressions โต 50% — ไม่ถึง ทำต่อฟรี</h3>
+                <h3 class="hb-h3">Impressions เพิ่ม 50% หรือคำใน Top-20 เพิ่ม 5 คำ</h3>
                 <p class="hb-body">นับ 90 วันหลังชั้นที่ 1 ผ่าน: impressions ของคีย์เวิร์ดที่ตกลงกัน (20–50 คำ ไม่นับชื่อแบรนด์) เพิ่ม ≥ 50% เทียบ 28 วันก่อนเริ่ม <strong>หรือ</strong> คำใน Top-20 เพิ่ม ≥ 5 คำ — ถึงอย่างใดอย่างหนึ่ง ถ้าไม่ถึง เราทำเดือนต่อไปให้ฟรีจนถึง สูงสุด 3 เดือน</p>
             </div>
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">ทำไมเชื่อได้</span>
-                <p class="hb-body">&#10003; วัดจากตัวเลขของ Google ในบัญชีของคุณ — ไม่ใช่รายงานที่เราทำเอง<br>&#10003; เห็นความคืบหน้ารายวันในระบบ track ของเรา ไม่ต้องรอสิ้นเดือน<br>&#10003; ไม่ถึงเป้า = เราทำงานเดือนต่อไปฟรี ไม่ใช่แค่ "ขออภัย"</p>
+                <p class="hb-body">&#10003; วัดจากตัวเลขของ Google ในบัญชีของคุณ — ไม่ใช่รายงานที่เราทำเอง<br>&#10003; ตรวจอันดับคีย์เวิร์ดย้อนหลังจากข้อมูลที่ทีมเก็บรายวัน<br>&#10003; หากพลาดทั้งสองเกณฑ์ ยกเว้นค่าบริการเดือนถัดไปจนถึงเป้า สูงสุด 3 เดือน</p>
             </div>
             <div class="hb-bento__cell hb-bento__cell--c2">
                 <span class="hb-bento__label">เงื่อนไข</span>
@@ -491,7 +491,7 @@ $seo_offer = array(
         'unitCode'      => 'MON',
         'unitText'      => 'เดือน',
     ),
-    'description'        => 'ราคาเริ่มต้นต่อเดือนสำหรับงาน SEO ต่อเนื่อง ครอบคลุมงานด้าน Technical SEO, Core Web Vitals, Schema Markup, Content/On-page และ GEO/AI Overview optimization พร้อมข้อมูลอันดับและการถูกอ้างอิงใน AI Overview รายวัน ขอบเขตงานจริงและราคาสุดท้ายกำหนดตาม scope หลัง SEO Audit ฟรี',
+    'description'        => 'ราคาเริ่มต้นต่อเดือนสำหรับงาน SEO ต่อเนื่อง ครอบคลุมงานด้าน Technical SEO, Core Web Vitals, Schema Markup, Content/On-page และ GEO/AI Overview optimization พร้อมข้อมูลอันดับที่เก็บรายวันและผลติดตามการอ้างอิงใน AI Overview ขอบเขตงานจริงและราคาสุดท้ายกำหนดตาม scope หลัง SEO Audit ฟรี',
     // ไม่รวม VAT เหมือนทุกหน้าบริการ (page-ai-consulting.php:428, page-wordpress-website.php)
     'valueAddedTaxIncluded' => false,
     'availability'       => 'https://schema.org/InStock',
