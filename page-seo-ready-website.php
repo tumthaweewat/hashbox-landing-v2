@@ -1278,7 +1278,7 @@ $checks = array(
                             array( '301 Redirect Map (migration)', '✓', 'เพิ่ม fee', '✗', '✗' ),
                             array( 'Care plan + monitoring', '✓ (optional)', '✓ (mandatory)', '✗', '✗' ),
                             array( 'ราคาเริ่มต้น', '35.9k บาท', '150k-500k', '30k-100k', '5k-20k' ),
-                            array( 'Time-to-rank (เฉลี่ย)', '4-8 สัปดาห์', '4-6 เดือน', '6-12 เดือน', 'ไม่การันตี' ),
+                            array( 'Time-to-rank (จากประสบการณ์ทีม)', '4-8 สัปดาห์', '4-6 เดือน', '6-12 เดือน', 'ไม่การันตี' ),
                         );
                         foreach ( $rows as $r ) :
                         ?>
