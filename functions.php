@@ -314,8 +314,19 @@ add_action( 'wp_enqueue_scripts', 'hashbox_enqueue_heading_ci', 100 );
  * the onload swap.
  */
 function hashbox_defer_legacy_stylesheet( $html, $handle, $href, $media ) {
-    if ( 'hashbox-style' !== $handle ) {
+    $home_blog = 'hashbox-blog' === $handle && is_front_page();
+    if ( 'hashbox-style' !== $handle && ! $home_blog ) {
         return $html;
+    }
+    $base_style = '';
+    if ( is_front_page() ) {
+        // The posts-index setting can enqueue the blog sheet on the front-page template.
+        $file = $home_blog ? 'home-blog-cards.min.css' : 'home-base.min.css';
+        $base_file = get_template_directory() . '/css/' . $file;
+        if ( is_child_theme() || ! is_readable( $base_file ) ) {
+            return $html;
+        }
+        $base_style = '<style id="' . esc_attr( $handle ) . '-home-critical">' . file_get_contents( $base_file ) . '</style>' . "\n";
     }
     $async    = sprintf(
         '<link rel="stylesheet" id="%s-css" href="%s" media="print" onload="this.media=\'%s\';this.onload=null">' . "\n",
@@ -328,7 +339,7 @@ function hashbox_defer_legacy_stylesheet( $html, $handle, $href, $media ) {
         esc_url( $href ),
         esc_attr( $media )
     );
-    return $async . $noscript;
+    return $base_style . $async . $noscript;
 }
 add_filter( 'style_loader_tag', 'hashbox_defer_legacy_stylesheet', 10, 4 );
 
@@ -360,6 +371,14 @@ function hashbox_preload_critical_fonts() {
             'ibm-plex-sans-thai-thai-400.woff2',
             'ibm-plex-sans-thai-thai-700.woff2',
             'ibm-plex-sans-thai-latin-400.woff2',
+        );
+    } elseif ( is_front_page() ) {
+        // The hero and form mix Thai and Latin. Other weights are discovered by CSS.
+        $fonts = array(
+            'noto-sans-thai-thai-400.woff2',
+            'noto-sans-thai-latin-400.woff2',
+            'ibm-plex-sans-thai-thai-700.woff2',
+            'ibm-plex-sans-thai-latin-700.woff2',
         );
     } elseif ( $is_services ) {
         $fonts = array(

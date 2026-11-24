@@ -62,9 +62,12 @@ add_action( 'wp_enqueue_scripts', 'hashbox_enqueue_en_seo_assets', 110 );
  * This helper deliberately does not filter WordPress URL generation globally.
  *
  * @param string $path Site-relative destination.
- * @return string Absolute destination URL, escaped by the rendering template.
+ * @return string Destination URL or same-page contact fragment, escaped by the template.
  */
 function hashbox_en_seo_nav_url( $path ) {
+    if ( '/#contact' === $path && is_front_page() ) {
+        return '#contact'; // Preserve the service already selected on the homepage.
+    }
     if ( ! is_page_template( 'page-en-seo.php' ) ) {
         return home_url( $path );
     }

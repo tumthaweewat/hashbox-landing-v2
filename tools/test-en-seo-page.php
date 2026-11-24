@@ -12,6 +12,7 @@ function esc_attr( $value ) { return esc_html( $value ); }
 function esc_url( $value ) { return esc_html( $value ); }
 function get_template_directory() { return dirname( __DIR__ ); }
 function get_template_directory_uri() { return '/wp-content/themes/hashbox-studio-v2'; }
+function is_front_page() { return ! empty( $GLOBALS['seo_test_front_page'] ); }
 function is_page_template( $template ) { return $GLOBALS['seo_template'] && 'page-en-seo.php' === $template; }
 function add_action( ...$args ) {}
 function wp_enqueue_style( ...$args ) { $GLOBALS['seo_enqueues'][] = $args; }
@@ -107,6 +108,9 @@ $seo_enqueues = array();
 hashbox_enqueue_en_seo_assets();
 seo_expect( array() === $seo_enqueues, 'No assets loaded on unrelated pages.' );
 seo_expect( home_url( '/#contact' ) === hashbox_en_seo_nav_url( '/#contact' ), 'Other page navigation unchanged.' );
+$seo_test_front_page = true;
+seo_expect( '#contact' === hashbox_en_seo_nav_url( '/#contact' ), 'Homepage contact preserves the current query and history entry.' );
+$seo_test_front_page = false;
 seo_expect( 1 === $xpath->query( '//form[@id="en-seo-contact-form"]//input[@name="service"][@value="seo"]' )->length, 'Default English form is classified as SEO.' );
 
 // /en/ai-search/ links to ?service=ai-search; unknown values fall back to SEO.

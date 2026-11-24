@@ -41,4 +41,26 @@ const layers = ['fonts','tokens','primitives','surface','navigation','interactiv
 const minify = css => css.replace(/\/\*[\s\S]*?\*\//g,'').replace(/\s+/g,' ').replace(/\s*([{}:;,>])\s*/g,'$1').replace(/;}/g,'}').trim();
 const expected = (await Promise.all(layers.map(name=>read(`design-system/${name}.css`)))).map(minify).join('\n');
 assert.equal(await read('design-system/bundle.min.css'), expected, 'CSS bundle is stale: run node tools/build-css-bundle.mjs');
+const legacy = await read('style.css');
+const boundary = legacy.indexOf('/* End of homepage base rules. */');
+assert.ok(boundary > 0, 'Homepage base CSS must have a build boundary');
+assert.equal(await read('css/home-base.min.css'), minify(legacy.slice(0, boundary)) + '\n', 'Homepage base CSS is stale');
+const blogLayer = await read('design-system/blog.css');
+const homeCards = ['body', 'title'].map(part => {
+  const rule = blogLayer.match(new RegExp('^\\.hb-card__' + part + '\\s*\\{[^}]+\\}', 'm'));
+  assert.ok(rule, 'Missing shared blog card rule');
+  return minify(rule[0]);
+});
+assert.equal(await read('css/home-blog-cards.min.css'), homeCards.join('\n') + '\n', 'Homepage card CSS is stale');
+const homepage = await read('css/contact-v3.css');
+for (const subset of ['thai', 'latin']) {
+  const regular = await readFile(resolve(root, 'assets/fonts', `noto-sans-thai-${subset}-400.woff2`));
+  for (const weight of [500, 700]) {
+    const mapped = await readFile(resolve(root, 'assets/fonts', `noto-sans-thai-${subset}-${weight}.woff2`));
+    assert.ok(regular.equals(mapped), 'Recheck homepage font mappings if the underlying weights diverge');
+    const face = [...homepage.matchAll(/@font-face\s*\{([^}]+)\}/g)].find(([, css]) =>
+      css.includes(`font-weight: ${weight};`) && css.includes(`noto-sans-thai-${subset}-400.woff2`));
+    assert.ok(face, `Missing homepage ${subset} mapping for weight ${weight}`);
+  }
+}
 console.log(`Typography contract passed: canonical roles, ${files.length} stylesheets, font assets, global enqueue, CSS bundle.`);
