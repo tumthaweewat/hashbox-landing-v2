@@ -75,4 +75,29 @@ for (const path of ['page-ai-search.php', 'page-geo-checker.php']) {
 const seoTemplate = await readFile(new URL('../page-seo-service.php', import.meta.url), 'utf8');
 assert.ok(!seoTemplate.includes("home_url( '/#contact' )"), 'SEO CTAs must carry service context');
 assert.ok(seoTemplate.includes('/?service=seo#contact'));
+// Activate the actual delegated anchor handler. Homepage contact belongs to the
+// browser, while other valid in-page anchors keep the existing navigation offset.
+const anchorStart = source.indexOf("  document.addEventListener('click'", source.indexOf('7. Smooth scroll'));
+const anchorEnd = source.indexOf('  /* ----------------------------------------------------------------------', anchorStart);
+assert.ok(anchorStart > 0 && anchorEnd > anchorStart);
+for (const [homepage, hash, handled] of [[true, '#contact', false], [true, '#services', true], [false, '#contact', true]]) {
+  let listener;
+  let prevented = false;
+  let calls = 0;
+  vm.runInNewContext(source.slice(anchorStart, anchorEnd), {
+    contact: homepage ? {} : null,
+    nav: null,
+    document: {
+      addEventListener: (_event, fn) => { listener = fn; },
+      querySelector: () => ({ getBoundingClientRect: () => ({ top: 400 }) })
+    },
+    window: { scrollY: 0, scrollTo: () => { calls++; } }
+  });
+  listener({
+    target: { closest: () => ({ getAttribute: () => hash }) },
+    preventDefault: () => { prevented = true; }
+  });
+  assert.equal(prevented, handled, hash);
+  assert.equal(calls, Number(handled), hash);
+}
 console.log('AI Search routing tests passed: prefill, editable service, audit/project validation, unknown values and CRM fallback.');

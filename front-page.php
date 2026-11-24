@@ -32,7 +32,7 @@ get_header();
                     Hashbox Studio รับทำเว็บไซต์ SEO-Ready สำหรับธุรกิจไทยที่ต้องการมากกว่าเว็บสวย เราวางโครงสร้าง Technical SEO, Core Web Vitals, Schema, รับทำ SEO / AI Search และระบบ AI สำหรับธุรกิจไว้ในทีมเดียว ราคาเปิดเผยทุกบริการ งาน SEO มีการันตี <strong>"ไม่โต ไม่จ่าย"</strong> ตาม<a href="<?php echo esc_url( home_url( '/services/seo/guarantee-terms/' ) ); ?>" style="color: var(--hb-accent-blue-soft); text-decoration: underline;">เงื่อนไขการันตี SEO</a>
                 </p>
                 <div class="hb-hero__actions">
-                    <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี
+                    <a href="#contact" class="hb-btn hb-btn--gradient hb-btn--lg">รับ SEO Audit ฟรี
                         <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </a>
                     <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>" class="hb-btn hb-btn--outline hb-btn--lg">ดูเคสที่เราทำให้ลูกค้า</a>
@@ -263,7 +263,7 @@ get_header();
         </ol>
 
         <div style="text-align:center;margin-top:var(--hb-space-12);">
-            <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--gradient hb-btn--lg">เริ่มต้นด้วย Audit ฟรี &rarr;</a>
+            <a href="#contact" class="hb-btn hb-btn--gradient hb-btn--lg">เริ่มต้นด้วย Audit ฟรี &rarr;</a>
         </div>
     </div>
 </section>
@@ -462,17 +462,17 @@ get_header();
                     <li>CRO Sprint รายเดือน</li>
                     <li>90 วัน support</li>
                 </ul>
-                <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="hb-btn hb-btn--outline" style="margin-top:auto;">ขอราคา E-commerce</a>
+                <a href="#contact" class="hb-btn hb-btn--outline" style="margin-top:auto;">ขอราคา E-commerce</a>
             </div>
         </div>
     </div>
 </section>
 
 <!-- ============ CONTACT ============ -->
-<section id="contact" class="hb-section hb-section--surface hb-contact-v3">
+<section id="contact" tabindex="-1" aria-labelledby="homepage-contact-title" class="hb-section hb-section--surface hb-contact-v3">
     <div class="hb-container">
         <div class="hb-section__head hb-section__head--center">
-            <h2 class="hb-h2">ให้ธุรกิจคุณไปต่อ ด้วยเว็บไซต์ SEO และ AI</h2>
+            <h2 id="homepage-contact-title" class="hb-h2">ให้ธุรกิจคุณไปต่อ ด้วยเว็บไซต์ SEO และ AI</h2>
             <p class="hb-section__sub">บอกเป้าหมายหรือปัญหาที่คุณอยากแก้ ทีม Hashbox พร้อมช่วยประเมินแนวทางที่เหมาะกับธุรกิจคุณ</p>
         </div>
 

@@ -1355,6 +1355,15 @@ main > .hb-section {
   contain-intrinsic-size: auto 900px;
 }
 
+/* Homepage anchor positions depend on the real heights of its service and content sections. */
+body.home main > .hb-section {
+  content-visibility: visible;
+}
+
+html:has(body.home #contact.hb-contact-v3:target) {
+  scroll-behavior: auto;
+}
+
 /* -------------------------------------------------------------------------
  * PROOF STRIP — real PageSpeed Insights report screenshot
  * ---------------------------------------------------------------------- */

@@ -1,0 +1,2 @@
+.hb-card__body{display:flex;flex-direction:column;gap:var(--hb-space-3);padding:0}
+.hb-card__title{font-family:var(--hb-font-display);font-size:var(--hb-text-xl);font-weight:var(--hb-weight-semibold,600);line-height:var(--hb-leading-snug);letter-spacing:var(--hb-tracking-tight);color:var(--hb-text-strong);margin:0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
