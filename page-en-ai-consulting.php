@@ -42,7 +42,7 @@ $faqs = array(
         <div class="hb-hero__inner">
             <nav class="hb-breadcrumb" aria-label="Breadcrumb">
                 <ol class="hb-breadcrumb__list">
-                    <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
+                    <li><a href="<?php echo esc_url( home_url( '/en/' ) ); ?>">English services</a></li>
                     <li><span class="hb-breadcrumb__sep">/</span></li>
                     <li aria-current="page">AI Consulting Bangkok</li>
                 </ol>
@@ -405,7 +405,7 @@ hashbox_jsonld( array(
     '@context'        => 'https://schema.org',
     '@type'           => 'BreadcrumbList',
     'itemListElement' => array(
-        array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
+        array( '@type' => 'ListItem', 'position' => 1, 'name' => 'English services', 'item' => home_url( '/en/' ) ),
         array( '@type' => 'ListItem', 'position' => 2, 'name' => 'AI Consulting Bangkok', 'item' => $page_url ),
     ),
 ) );

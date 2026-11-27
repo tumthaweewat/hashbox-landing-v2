@@ -31,8 +31,15 @@ function hashbox_seo_path_overrides() {
         'เว็บไซต์รองรับ-ai-search-2026' => array(
             'title' => 'เว็บไซต์รองรับ AI Search: Checklist 12 ข้อ | Hashbox',
         ),
+        'en/ai-search' => array(
+            'title' => 'AI Search Optimization & GEO Agency in Bangkok | Hashbox',
+        ),
         'services/ai-search' => array(
             'description' => 'Hashbox รับทำ AI Search (GEO/AEO) เพื่อเพิ่มโอกาสให้ AI อ้างอิงเว็บไซต์ วัดผลแยกรายแพลตฟอร์ม งาน GEO รวมใน SEO รายเดือน เริ่ม 29,900 บาท/เดือน ก่อน VAT 7%',
+        ),
+        'en' => array(
+            'title'       => 'Hashbox Studio Services | English Directory',
+            'description' => 'Explore Hashbox Studio services in English. Find the right page for website development, SEO, AI search or AI consulting, and see how to contact the team.',
         ),
         'services' => array(
             'title'       => 'บริการเว็บไซต์ SEO และ AI Search | Hashbox Studio',

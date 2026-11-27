@@ -19,6 +19,7 @@ seo_override_expect( hashbox_seo_override_has_field( $thai_ai_listicle, 'descrip
 seo_override_expect( ! hashbox_seo_override_has_field( $thai_ai_listicle, 'title' ), 'Thai AI consulting listicle must keep its WordPress/Rank Math title.' );
 
 $title_only_pages = array(
+    'en/ai-search',
     $best_seo,
     'เว็บไซต์รองรับ-ai-search-2026',
     'seo-thai-guide-2026',

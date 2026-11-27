@@ -57,6 +57,7 @@ body.page-template-page-en-seo { background: var(--color-paper); color: var(--co
 .en-seo-button:focus-visible, .en-seo-contact__submit:focus-visible { outline-color: var(--color-ink); box-shadow: 0 0 0 2px var(--color-paper); }
 .en-seo-contact__submit:disabled { opacity: .6; cursor: wait; }
 .en-seo-text-link { display: inline-flex; align-items: center; gap: var(--space-xs); min-height: 44px; font-weight: var(--weight-medium); text-decoration: none; white-space: nowrap; }
+.en-directory .en-seo-text-link { white-space: normal; }
 .en-seo-text-link .en-seo-icon { width: 20px; height: 20px; flex-basis: 20px; }
 .en-seo-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-md); padding-block: var(--space-2xs); }
 .en-seo-small-link { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--text-sm); }
