@@ -1674,6 +1674,54 @@ function hashbox_directory_index_held( $page ) {
         && '1' !== get_post_meta( $page->ID, '_hashbox_directory_index_approved', true );
 }
 
+add_action( 'add_meta_boxes_page', static function ( $page ) {
+    if ( hashbox_is_english_directory( $page ) && current_user_can( 'edit_page', $page->ID ) ) {
+        add_meta_box( 'hashbox-directory-index', 'Hashbox · การเปิดดัชนี /en/', 'hashbox_directory_index_box', 'page', 'side' );
+    }
+} );
+
+add_action( 'enqueue_block_editor_assets', static function () {
+    $page = get_post();
+    if ( hashbox_is_english_directory( $page ) && current_user_can( 'edit_page', $page->ID ) && 'post' === get_current_screen()->base ) {
+        $script = '/js/en-directory-index.js';
+        wp_enqueue_script( 'hashbox-en-directory-index', get_template_directory_uri() . $script, array( 'wp-api-fetch' ), filemtime( get_template_directory() . $script ), true );
+    }
+} );
+
+function hashbox_directory_index_box( $page ) {
+    wp_nonce_field( 'hashbox_directory_index_' . $page->ID, 'hashbox_directory_index_nonce', false );
+    ?>
+    <p>สถานะการอนุมัติของ Hashbox: <strong id="hashbox-directory-index-status" aria-live="polite"><?php echo hashbox_directory_index_held( $page ) ? 'ยังไม่อนุมัติ' : 'อนุมัติแล้ว'; ?></strong></p>
+    <p>หลัง QA ผ่าน ให้บันทึก Index ใน Rank Math ก่อน แล้วจึงเลือกอนุมัติและบันทึกหน้านี้อีกครั้ง</p>
+    <label for="hashbox-directory-index-action">การเปลี่ยนสถานะเมื่อบันทึก</label>
+    <select id="hashbox-directory-index-action" name="hashbox_directory_index_action">
+        <option value="">คงสถานะเดิม</option>
+        <option value="approve">อนุมัติให้เปิดดัชนี</option>
+        <option value="hold">ระงับการเปิดดัชนี</option>
+    </select>
+    <?php
+}
+
+add_action( 'save_post_page', static function ( $post_id, $page ) {
+    if ( ! hashbox_is_english_directory( $page ) || ! current_user_can( 'edit_page', $post_id )
+        || ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) ) {
+        return;
+    }
+
+    $nonce  = $_POST['hashbox_directory_index_nonce'] ?? '';
+    $action = $_POST['hashbox_directory_index_action'] ?? '';
+    if ( ! in_array( $action, array( 'approve', 'hold' ), true ) || ! is_string( $nonce )
+        || ! wp_verify_nonce( wp_unslash( $nonce ), 'hashbox_directory_index_' . $post_id ) ) {
+        return;
+    }
+
+    if ( 'approve' === $action ) {
+        update_post_meta( $post_id, '_hashbox_directory_index_approved', '1' );
+    } else {
+        delete_post_meta( $post_id, '_hashbox_directory_index_approved' );
+    }
+}, 10, 2 );
+
 /**
  * Emit <meta name="robots" content="noindex,follow"> on pages that
  * shouldn't enter Google's index: internal search results, the 404
