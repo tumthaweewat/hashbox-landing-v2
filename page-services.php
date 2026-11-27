@@ -87,13 +87,13 @@ $hb_services = hashbox_service_catalog_live();
                 <article class="hb-services-ledger__item hb-services-ledger__item--english" lang="en">
                     <span class="hb-services-ledger__num">EN</span>
                     <div class="hb-services-ledger__body">
-                        <h3><a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>" hreflang="en">English: AI Consulting · SEO · AI Search</a></h3>
+                        <h3><a href="<?php echo esc_url( home_url( '/en/' ) ); ?>" hreflang="en">English: AI Consulting · SEO · AI Search</a></h3>
                         <p>For English-speaking teams in Thailand — <a href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>">AI consulting in Bangkok</a>, <a href="<?php echo esc_url( home_url( '/en/seo/' ) ); ?>">technical-first SEO agency</a> and <a href="<?php echo esc_url( home_url( '/en/ai-search/' ) ); ?>">AI Search (GEO)</a> and <a href="<?php echo esc_url( home_url( '/en/website-development/' ) ); ?>">website development</a> — same prices, PDPA, LINE and Thai-language context.</p>
                     </div>
                     <div class="hb-services-ledger__detail">
                         <p class="hb-services-ledger__delivery">English delivery · Public THB pricing · 100% source code</p>
                         <div class="hb-services-ledger__actions">
-                            <a class="hb-services-ledger__cta" href="<?php echo esc_url( home_url( '/en/ai-consulting/' ) ); ?>" hreflang="en">Read in English <span aria-hidden="true">&rarr;</span></a>
+                            <a class="hb-services-ledger__cta" href="<?php echo esc_url( home_url( '/en/' ) ); ?>" hreflang="en">Read in English <span aria-hidden="true">&rarr;</span></a>
                         </div>
                     </div>
                 </article>

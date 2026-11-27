@@ -61,9 +61,7 @@ $faqs = array(
         <div class="hb-hero__inner">
             <nav class="hb-breadcrumb" aria-label="Breadcrumb">
                 <ol class="hb-breadcrumb__list">
-                    <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
-                    <li><span class="hb-breadcrumb__sep">/</span></li>
-                    <li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Services</a></li>
+                    <li><a href="<?php echo esc_url( home_url( '/en/' ) ); ?>">English services</a></li>
                     <li><span class="hb-breadcrumb__sep">/</span></li>
                     <li aria-current="page">Website Development Bangkok</li>
                 </ol>
@@ -208,9 +206,8 @@ hashbox_jsonld( array(
     '@context'        => 'https://schema.org',
     '@type'           => 'BreadcrumbList',
     'itemListElement' => array(
-        array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
-        array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => home_url( '/services/' ) ),
-        array( '@type' => 'ListItem', 'position' => 3, 'name' => 'Website Development Bangkok', 'item' => $page_url ),
+        array( '@type' => 'ListItem', 'position' => 1, 'name' => 'English services', 'item' => home_url( '/en/' ) ),
+        array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Website Development Bangkok', 'item' => $page_url ),
     ),
 ) );
 $faq_entities = array();

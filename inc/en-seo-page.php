@@ -1,6 +1,6 @@
 <?php
 /**
- * Page-scoped Signal V3 assets and English navigation for /en/seo/.
+ * Shared Signal V3 assets and English navigation for /en/seo/ and the /en/ directory.
  *
  * This service-page migration leaves all other templates on their current
  * assets and navigation. Font faces already ship in design-system/fonts.css
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Load the page's styles after the shared typography corrections.
  */
 function hashbox_enqueue_en_seo_assets() {
-    if ( ! is_page_template( 'page-en-seo.php' ) ) {
+    if ( ! is_page_template( 'page-en-seo.php' ) && 'en' !== hashbox_current_request_path() ) {
         return;
     }
 
@@ -42,7 +42,7 @@ function hashbox_enqueue_en_seo_assets() {
         );
     }
 
-    if ( file_exists( $script ) ) {
+    if ( is_page_template( 'page-en-seo.php' ) && file_exists( $script ) ) {
         wp_enqueue_script(
             'hashbox-en-seo-contact',
             $theme_uri . '/js/en-seo-contact.js',
@@ -68,7 +68,7 @@ function hashbox_en_seo_nav_url( $path ) {
     if ( '/#contact' === $path && is_front_page() ) {
         return '#contact'; // Preserve the service already selected on the homepage.
     }
-    if ( ! is_page_template( 'page-en-seo.php' ) ) {
+    if ( ! is_page_template( 'page-en-seo.php' ) && 'en' !== hashbox_current_request_path() ) {
         return home_url( $path );
     }
 

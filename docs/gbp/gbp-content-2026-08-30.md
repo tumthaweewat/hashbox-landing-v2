@@ -18,7 +18,7 @@
 | ชื่อบริการ | ราคา | คำอธิบาย (≤ 300 ตัวอักษร) |
 |---|---|---|
 | รับทำเว็บไซต์ SEO-Ready | เริ่มต้น ฿35,900 | เว็บไซต์ที่พร้อมติด Google และ AI Search ตั้งแต่วันเปิดตัว — Lighthouse 95+ การันตี, Core Web Vitals เขียว, Schema ครบ, รองรับไทย/อังกฤษ, LINE + PDPA ส่งมอบพร้อม source code · Landing 35,900 / Corporate 80,000 / E-commerce 350,000 |
-| รับทำ SEO | เริ่มต้น ฿29,900/เดือน | SEO สายเทคนิค: แก้โครงสร้าง ความเร็ว Schema ก่อน แล้วต่อยอด content, Local SEO, CRO — เห็นอันดับและ AI citation รายวันจากระบบ track ของเราเอง · การันตี "ไม่โต ไม่จ่าย": impressions ไม่โต 50% ใน 90 วัน ทำต่อฟรี |
+| รับทำ SEO | เริ่มต้น ฿29,900/เดือน | แก้โครงสร้าง ความเร็ว และ Schema ก่อนต่อยอด content, Local SEO และ CRO · ทีม Hashbox เก็บอันดับ Google ทุกวัน เก็บข้อมูลการอ้างอิงจาก AI ตามรอบที่ตกลงในสัญญา และสรุปผลให้ลูกค้าเป็นรอบ · การันตี "ไม่โต ไม่จ่าย" ตามเงื่อนไขการันตี SEO ของ Hashbox https://hashbox.co.th/services/seo/guarantee-terms/ |
 | ที่ปรึกษา AI สำหรับธุรกิจ | เริ่มต้น ฿60,000 | บริการให้คำปรึกษา AI Solution ถึง production: LINE Chatbot, RAG Knowledge Base, AI Agent, Workflow Automation — ประเมิน ROI ก่อนลงมือ PDPA-ready ส่งมอบ source code + knowledge transfer · คุยประเมินโอกาสฟรี 30 นาที |
 | รับทำ AI Search (GEO) | รวมใน SEO retainer / quote | ทำให้แบรนด์ถูก Google AI Overview, ChatGPT, Perplexity, Gemini อ้างอิง: AI audit → entity + Schema + llms.txt → เนื้อหาตอบก่อน → citation ภายนอก → track AI Overview รายวัน · เช็คเว็บฟรีที่ hashbox.co.th/geo-checker/ |
 | รับทำ Workflow Automation n8n | quote หลังคุยโจทย์ | วาง workflow อัตโนมัติด้วย n8n เชื่อม LINE, Google Sheets, CRM, อีเมล และ AI — ลดงานซ้ำของทีม ส่งมอบพร้อมเอกสารและสอนทีมดูแลต่อเอง |
@@ -86,4 +86,4 @@ GEO Readiness Checker — ใส่ URL แล้วได้คะแนน 0�
 - ทีม/โต๊ะทำงาน 1–2 รูป ถ้ามี
 
 ## 6. Description ธุรกิจ (ถ้าช่อง "จากธุรกิจ" ยังว่าง — ≤ 750 ตัวอักษร)
-Hashbox Studio — ทีม Web + SEO + AI สำหรับธุรกิจไทย ที่สีลม กรุงเทพฯ รับทำเว็บไซต์ SEO-Ready (Lighthouse 95+ การันตี เริ่ม 35,900 บาท), รับทำ SEO สายเทคนิคพร้อมการันตี "ไม่โต ไม่จ่าย" (เริ่ม 29,900 บาท/เดือน), ที่ปรึกษา AI Solution ถึง production (LINE Chatbot, RAG, AI Agent เริ่ม 60,000 บาท), AI Search (GEO) และ Workflow Automation n8n ทุกบริการวัดผลด้วยระบบ track อันดับและ AI citation ของเราเองรายวัน ราคาเปิดเผยบนเว็บ ส่งมอบ source code ทั้งหมด เริ่มจาก audit ฟรี
+Hashbox Studio — ทีม Web + SEO + AI สำหรับธุรกิจไทย ที่สีลม กรุงเทพฯ รับทำเว็บไซต์ SEO-Ready (Lighthouse 95+ การันตี เริ่ม 35,900 บาท), รับทำ SEO สายเทคนิคพร้อมการันตี "ไม่โต ไม่จ่าย" ตามเงื่อนไขการันตี SEO ของ Hashbox (เริ่ม 29,900 บาท/เดือน), ที่ปรึกษา AI Solution ถึง production (LINE Chatbot, RAG, AI Agent เริ่ม 60,000 บาท), AI Search (GEO) และ Workflow Automation n8n ทีม Hashbox เก็บอันดับ Google ทุกวัน เก็บข้อมูลการอ้างอิงจาก AI ตามรอบที่ตกลงในสัญญา และสรุปผลให้ลูกค้าเป็นรอบ ราคาเปิดเผยบนเว็บ ส่งมอบ source code ทั้งหมด เริ่มจาก audit ฟรี

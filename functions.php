@@ -999,8 +999,8 @@ function hashbox_get_seo_metadata() {
     // to the queried post's Rank Math / WordPress value, never site-wide copy.
     $seo_path_overrides = hashbox_seo_path_overrides();
     $seo_path = rawurldecode( hashbox_current_request_path() );
-    // Keep the Thai AI Search page's existing fallback title in the page map below.
-    if ( isset( $seo_path_overrides[ $seo_path ] ) && ! ( 'services/ai-search' === $seo_path && is_page( 'ai-search' ) ) ) {
+    // The AI Search maps below retain the other metadata field for each language.
+    if ( isset( $seo_path_overrides[ $seo_path ] ) && 'en/ai-search' !== $seo_path && ! ( 'services/ai-search' === $seo_path && is_page( 'ai-search' ) ) ) {
         return $seo_path_overrides[ $seo_path ];
     }
 
@@ -1050,7 +1050,7 @@ function hashbox_get_seo_metadata() {
             'description' => 'Technical-first SEO agency in Bangkok: Core Web Vitals, schema, local SEO, AI Search (GEO). From THB 29,900/month with a "no growth, no pay" guarantee.',
         ),
         'en/ai-search' => array(
-            'title'       => 'AI SEO & GEO Agency Bangkok — AI Search Optimization | Hashbox',
+            'title'       => $seo_path_overrides['en/ai-search']['title'],
             'description' => 'AI SEO and GEO agency in Bangkok: get cited by Google AI Overviews, ChatGPT, Perplexity and Gemini. Inside the SEO retainer from THB 29,900/month.',
         ),
         'en/ai-consulting-companies-thailand-2026' => array(
@@ -1473,7 +1473,7 @@ function hashbox_sync_en_ai_search_rankmath_meta() {
     }
 
     // Keep byte-identical to $desc in page-en-ai-search.php and the 'en/ai-search' meta map entry.
-    update_post_meta( $page->ID, 'rank_math_title', 'AI SEO & GEO Agency Bangkok — AI Search Optimization | Hashbox' );
+    update_post_meta( $page->ID, 'rank_math_title', hashbox_seo_path_overrides()['en/ai-search']['title'] );
     update_post_meta( $page->ID, 'rank_math_description', 'AI SEO and GEO agency in Bangkok: get cited by Google AI Overviews, ChatGPT, Perplexity and Gemini. Inside the SEO retainer from THB 29,900/month.' );
     clean_post_cache( $page->ID );
 
@@ -1637,6 +1637,9 @@ function hashbox_homepage_meta_description() {
         : ( is_singular() ? hashbox_og_image_url( get_queried_object_id() ) : hashbox_default_og_image_url() );
     $type  = hashbox_is_article_view() ? 'article' : 'website';
 
+    if ( hashbox_is_english_directory( get_queried_object() ) ) {
+        remove_action( 'wp_head', 'rel_canonical' );
+    }
     echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
     echo '<link rel="canonical" href="' . esc_url( $url ) . '">' . "\n";
     echo '<meta property="og:locale" content="' . esc_attr( hashbox_page_og_locale() ) . '">' . "\n";
@@ -1658,6 +1661,18 @@ function hashbox_homepage_meta_description() {
     echo '<meta name="twitter:image" content="' . esc_url( $image ) . '">' . "\n";
 }
 add_action( 'wp_head', 'hashbox_homepage_meta_description', 1 );
+
+/** Explicit per-page release, independent of Rank Math defaults and inherited robots. */
+function hashbox_is_english_directory( $page ) {
+    return isset( $page->ID, $page->post_type, $page->post_name, $page->post_parent )
+        && 'page' === $page->post_type
+        && 'en' === $page->post_name && 0 === (int) $page->post_parent;
+}
+
+function hashbox_directory_index_held( $page ) {
+    return hashbox_is_english_directory( $page )
+        && '1' !== get_post_meta( $page->ID, '_hashbox_directory_index_approved', true );
+}
 
 /**
  * Emit <meta name="robots" content="noindex,follow"> on pages that
@@ -1681,6 +1696,14 @@ function hashbox_seo_noindex_meta() {
 }
 add_action( 'wp_head', 'hashbox_seo_noindex_meta', 1 );
 
+add_filter( 'wp_robots', static function ( $robots ) {
+    if ( hashbox_directory_index_held( get_queried_object() ) ) {
+        unset( $robots['index'] );
+        $robots['noindex'] = true;
+    }
+    return $robots;
+} );
+
 /**
  * Rank Math delegates noindex to per-page settings, which are easy to forget.
  * Force noindex on the password-gated portfolio template (and, defensively, on
@@ -1690,7 +1713,8 @@ add_action( 'wp_head', 'hashbox_seo_noindex_meta', 1 );
  * so exactly one robots directive is emitted, never a duplicate.
  */
 function hashbox_rankmath_force_noindex( $robots ) {
-    $should_noindex = is_search()
+    $should_noindex = hashbox_directory_index_held( get_queried_object() )
+        || is_search()
         || is_page_template( 'page-portfolio.php' )
         || ( is_paged() && ( is_category() || is_tag() || is_author() || is_date() ) );
 
@@ -1744,6 +1768,7 @@ add_action( 'wp_head', 'hashbox_preload_critical_assets', 2 );
  */
 function hashbox_hreflang_pairs() {
     return array(
+        array( 'th' => 'services', 'en' => 'en' ),
         array(
             'th' => 'services/ai-consulting',
             'en' => 'en/ai-consulting',
@@ -2724,6 +2749,20 @@ function hashbox_rankmath_sitemap_exclude_legacy( $url, $type, $object ) {
 }
 add_filter( 'rank_math/sitemap/entry', 'hashbox_rankmath_sitemap_exclude_legacy', 10, 3 );
 
+add_filter( 'rank_math/sitemap/entry', static function ( $url, $type, $object ) {
+    return hashbox_directory_index_held( $object ) ? false : $url;
+}, 100, 3 );
+
+add_filter( 'wp_sitemaps_posts_query_args', static function ( $args, $type ) {
+    if ( 'page' === $type ) {
+        $hub = get_page_by_path( 'en' );
+        if ( hashbox_directory_index_held( $hub ) ) {
+            $args['post__not_in'][] = $hub->ID;
+        }
+    }
+    return $args;
+}, 10, 2 );
+
 /**
  * The audit landings (/seo-audit/, /seo-recovery-audit/, …) are virtual
  * routes, not WP Pages, so Rank Math never lists them. Add a small
@@ -3181,6 +3220,9 @@ function hashbox_rankmath_json_ld( $data, $jsonld = null ) {
 add_filter( 'rank_math/json_ld', 'hashbox_rankmath_json_ld', 99, 2 );
 
 function hashbox_rankmath_canonical( $canonical ) {
+    if ( hashbox_is_english_directory( get_queried_object() ) ) {
+        return home_url( '/en/' );
+    }
     $case_slug = hashbox_current_case_study_slug();
     if ( $case_slug ) {
         return hashbox_case_study_canonical_url( $case_slug );
@@ -3195,6 +3237,16 @@ function hashbox_rankmath_canonical( $canonical ) {
     return $canonical;
 }
 add_filter( 'rank_math/frontend/canonical', 'hashbox_rankmath_canonical' );
+
+// Rank Math skips its canonical action on noindex pages, even with a filtered URL.
+add_action( 'rank_math/head', static function () {
+    if ( hashbox_is_english_directory( get_queried_object() ) ) {
+        $paper = \RankMath\Paper\Paper::get();
+        if ( 'noindex' === ( $paper->get_robots()['index'] ?? '' ) ) {
+            printf( '<link rel="canonical" href="%s" />' . "\n", esc_url( $paper->get_canonical() ) );
+        }
+    }
+}, 21 );
 
 function hashbox_rankmath_og_type( $type ) {
     return hashbox_is_article_view() ? 'article' : 'website';

@@ -14,6 +14,7 @@ function get_template_directory() { return dirname( __DIR__ ); }
 function get_template_directory_uri() { return '/wp-content/themes/hashbox-studio-v2'; }
 function is_front_page() { return ! empty( $GLOBALS['seo_test_front_page'] ); }
 function is_page_template( $template ) { return $GLOBALS['seo_template'] && 'page-en-seo.php' === $template; }
+function hashbox_current_request_path() { return $GLOBALS['test_request_path'] ?? ''; }
 function add_action( ...$args ) {}
 function wp_enqueue_style( ...$args ) { $GLOBALS['seo_enqueues'][] = $args; }
 function wp_enqueue_script( ...$args ) { $GLOBALS['seo_enqueues'][] = $args; }
@@ -126,3 +127,27 @@ foreach ( array( 'ai-search' => array( 'ai-search', 'Get a free AI Search (GEO) 
 }
 $_GET = array();
 echo "EN SEO page: rendered content, anchors, labels, images, schema and page isolation passed.\n";
+
+$test_request_path = 'en';
+$seo_enqueues = array();
+hashbox_enqueue_en_seo_assets();
+seo_expect( array( 'hashbox-en-seo-tokens', 'hashbox-en-seo' ) === array_column( $seo_enqueues, 0 ), 'Directory loads shared styles only.' );
+seo_expect( home_url( '/en/' ) === hashbox_en_seo_nav_url( '/services/' ), 'Directory navigation stays in English.' );
+ob_start();
+require get_template_directory() . '/page-en.php';
+$directory = new DOMDocument();
+$directory->loadHTML( '<?xml encoding="utf-8"?>' . ob_get_clean() );
+$hub = new DOMXPath( $directory );
+seo_expect( 1 === $hub->query( '//h1' )->length && 'Hashbox Studio services' === $hub->evaluate( 'string(//h1)' ), 'Brand directory H1.' );
+seo_expect( 0 === $hub->query( '//form|//script|//*[@onclick]' )->length, 'No embedded form or scripted CTA.' );
+$cards = $hub->query( '//article' );
+seo_expect( 4 === $cards->length, 'Four service cards.' );
+foreach ( array( 'website-development', 'ai-consulting', 'seo', 'ai-search' ) as $i => $slug ) {
+    $links = $hub->query( './/a', $cards->item( $i ) );
+    seo_expect( 1 === $links->length && home_url( '/en/' . $slug . '/' ) === $links->item( 0 )->getAttribute( 'href' ), 'Single link to service owner: ' . $slug );
+}
+foreach ( array( '/en/ai-consulting-companies-thailand-2026/', '/best-seo-agencies-bangkok-2026/', '/en/seo/#seo-contact', '/en/seo/?service=ai-search#seo-contact', '/services/n8n-automation/' ) as $path ) {
+    seo_expect( 1 === $hub->query( '//a[@href="' . home_url( $path ) . '"]' )->length, 'Directory route: ' . $path );
+}
+seo_expect( 1 === $hub->query( '//a[@href="mailto:business@hashbox.co.th" and text()="Email the team" and not(@data-track-event)]' )->length, 'Plain email CTA.' );
+echo "English directory: links, headings, styles and contact routes passed.\n";
